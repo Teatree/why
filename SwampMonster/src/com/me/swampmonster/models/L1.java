@@ -1,5 +1,6 @@
 package com.me.swampmonster.models;
 
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 
 

@@ -2,7 +2,9 @@ package com.me.swampmonster.models;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.me.swampmonster.game.TheController;
 import com.me.swampmonster.game.collision.Collidable;
@@ -13,27 +15,56 @@ import com.me.swampmonster.game.collision.CollisionHelper;
 
 public class Enemy extends AbstractGameObject{
 	
+	private static final int col = 8;
+	private static final int row = 4;
+	
+	private float stateTime = 0;
+	
 	public Enemy(Vector2 position){
 		this.position = position;
 		oldPos = position;
-		playerMovementSpeedX = 0.5f;
-		playerMovementSpeedY = 0.5f;
-		sprite = new Sprite(new Texture(Gdx.files.internal("data/EvilNastya.png")));
+		playerMovementSpeedX = 0.3f;
+		playerMovementSpeedY = 0.3f;
+		
+		playerTexture = new Texture(Gdx.files.internal("data/Skelenten.png"));
+		TextureRegion[][] tmp = TextureRegion
+				.split(playerTexture, playerTexture.getWidth() / col,
+						playerTexture.getHeight() / row);
+		frames = new TextureRegion[col * row];
+
+		int index = 0;
+		for (int i = 0; i < row; i++) {
+			for (int j = 0; j < col; j++) {
+				frames[index++] = tmp[i][j];
+			}
+		}
+
+		animation = new Animation(1, frames);
+		stateTime = 0f;
+		currentFrame = animation.getKeyFrame(0);
+		sprite = new Sprite(currentFrame);
 	}
 	
 	public void update(){
 		oldPos.x = position.x;
 		oldPos.y = position.y;
+		sprite.setRegion(currentFrame);
+		
+		if (stateTime < 1) {
+			stateTime += Gdx.graphics.getDeltaTime();
+		} else {
+			stateTime = 0;
+		}
 		
 		// X AXIS MOVEMENT + COLLISION PROCESSING AND DETECTION
 		//movement
 
-	        if (position.x > theController.level1.getPlayer().getPosition().x) {
+	        if (position.x > theController.level1.getPlayer().getPosition().x-16/2) {
 	        	position.x -= playerMovementSpeedX;
 	        	playerMovementDirection = "left";
-	        	sprite.translateX(-playerMovementSpeedX);
+	        	currentFrame = animation.getKeyFrame(8 + stateTime*4);
 	        }
-	        //Find a better way of doing this, like, for instance, getting for look to work.
+	        //Find a better way of doing this, like, for instance, getting for loop to work.
 	        Collidable collidable = CollisionHelper.isCollidable(position.x, position.y + sprite.getHeight(), theController.collisionLayer);
 	        if(collidable == null)collidable = CollisionHelper.isCollidable(position.x, position.y, theController.collisionLayer);
 	        if(collidable == null)collidable = CollisionHelper.isCollidable(position.x, position.y + (sprite.getHeight()/2), theController.collisionLayer);
@@ -41,12 +72,14 @@ public class Enemy extends AbstractGameObject{
 			if(collidable != null){
 				contact(collidable);
 			}
-			if (position.x < theController.level1.getPlayer().getPosition().x) {
+			if (position.x < theController.level1.getPlayer().getPosition().x-19/2) {
 	        	position.x += playerMovementSpeedX;
 	        	sprite.translateX(playerMovementSpeedX);
 	        	playerMovementDirection = "right";
+	        	System.out.println("Enemy is moving to the right");
+	        	currentFrame = animation.getKeyFrame(24 + stateTime*4);
 		    }
-			//Find a better way of doing this, like, for instance, getting for look to work.
+			//Find a better way of doing this, like, for instance, getting for loop to work.
 			collidable = CollisionHelper.isCollidable(position.x+sprite.getWidth(), position.y + sprite.getHeight(), theController.collisionLayer);
 			if(collidable == null)collidable = CollisionHelper.isCollidable(position.x+sprite.getWidth(), position.y, theController.collisionLayer);
 	        if(collidable == null)collidable = CollisionHelper.isCollidable(position.x+sprite.getWidth(), position.y +(sprite.getHeight()/2), theController.collisionLayer);
@@ -54,12 +87,13 @@ public class Enemy extends AbstractGameObject{
 			if(collidable != null){
 				contact(collidable);
 			}
-	        if (position.y > theController.level1.getPlayer().getPosition().y) {
+			if (position.y > theController.level1.getPlayer().getPosition().y-1) {
 		    	position.y -= playerMovementSpeedY;
 		    	sprite.translateY(-playerMovementSpeedY);
 		    	playerMovementDirection = "down";
+		    	currentFrame = animation.getKeyFrame(0 + stateTime*4);
 	        }
-	      //Find a better way of doing this, like, for instance, getting for look to work.
+	      //Find a better way of doing this, like, for instance, getting for loop to work.
 	        collidable = CollisionHelper.isCollidable(position.x+sprite.getWidth(), position.y, theController.collisionLayer);
 	        if(collidable == null)collidable = CollisionHelper.isCollidable(position.x, position.y, theController.collisionLayer);
 	        if(collidable == null)collidable = CollisionHelper.isCollidable(position.x+(sprite.getWidth()/2), position.y, theController.collisionLayer);
@@ -67,12 +101,13 @@ public class Enemy extends AbstractGameObject{
 	        if(collidable != null){
 	        	contact(collidable);
 	        }
-	        if (position.y < theController.level1.getPlayer().getPosition().y) {
+	        if (position.y < theController.level1.getPlayer().getPosition().y-5) {
 	        	position.y += playerMovementSpeedY;
 	        	sprite.translateY(playerMovementSpeedY);
 	        	playerMovementDirection = "up";
+	        	currentFrame = animation.getKeyFrame(16 + stateTime*4);
 			}
-	      //Find a better way of doing this, like, for instance, getting for look to work.
+	      //Find a better way of doing this, like, for instance, getting for loop to work.
 	        collidable = CollisionHelper.isCollidable(position.x+sprite.getWidth(), position.y+sprite.getHeight(), theController.collisionLayer);
 	        if(collidable == null)collidable = CollisionHelper.isCollidable(position.x, position.y+sprite.getHeight(), theController.collisionLayer);
 	        if(collidable == null)collidable = CollisionHelper.isCollidable(position.x+(sprite.getWidth()/2), position.y+sprite.getHeight(), theController.collisionLayer);

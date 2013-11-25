@@ -1,6 +1,9 @@
 package com.me.swampmonster.models;
 
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Vector2;
 import com.me.swampmonster.game.TheController;
@@ -17,6 +20,11 @@ public abstract class AbstractGameObject {
 	protected float playerMovementSpeedX = 1f; 
 	protected float playerMovementSpeedY = 1f;
 
+	protected Animation animation;
+	protected Texture playerTexture;
+	protected TextureRegion[] frames;
+	protected TextureRegion currentFrame;
+	
 	public Vector2 getPosition() {
 		return position;
 	}

@@ -43,11 +43,11 @@ public class L1Renderer {
 		mapRenderer.render();
 		
 		batch.begin();
-		batch.draw(level1.getPlayer().getSprite(), theController.level1.getPlayer().getPosition().x, 
+		batch.draw(theController.level1.getPlayer().getSprite(), theController.level1.getPlayer().getPosition().x, 
 				theController.level1.getPlayer().getPosition().y, 
 				theController.level1.getPlayer().getSprite().getWidth(), 
 				theController.level1.getPlayer().getSprite().getHeight());
-		batch.draw(level1.getEnemy().getSprite(), theController.level1.getEnemy().getPosition().x, 
+		batch.draw(theController.level1.getEnemy().getSprite(), theController.level1.getEnemy().getPosition().x, 
 				theController.level1.getEnemy().getPosition().y, 
 				theController.level1.getEnemy().getSprite().getWidth(), 
 				theController.level1.getEnemy().getSprite().getHeight());

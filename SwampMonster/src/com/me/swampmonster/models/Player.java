@@ -2,7 +2,9 @@ package com.me.swampmonster.models;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.me.swampmonster.game.TheController;
 import com.me.swampmonster.game.collision.Collidable;
@@ -10,22 +12,37 @@ import com.me.swampmonster.game.collision.CollisionHelper;
 
 public class Player extends AbstractGameObject{
 	
+	private static final int col = 8;
+	private static final int row = 8;
+	
+	private float stateTime = 0;
+	
 	public Player(Vector2 position){
 		this.position = position;
 		oldPos = position;
-		sprite = new Sprite(new Texture(Gdx.files.internal("data/Nastya.png")));
+		playerTexture = new Texture(Gdx.files.internal("data/NastyaSheet2.png"));
+		TextureRegion[][] tmp = TextureRegion
+				.split(playerTexture, playerTexture.getWidth() / col,
+						playerTexture.getHeight() / row);
+		frames = new TextureRegion[col * row];
+
+		int index = 0;
+		for (int i = 0; i < row; i++) {
+			for (int j = 0; j < col; j++) {
+				frames[index++] = tmp[i][j];
+			}
+		}
+
+		animation = new Animation(1, frames);
+		stateTime = 0f;
+		currentFrame = animation.getKeyFrame(0);
+		sprite = new Sprite(currentFrame);
 	}
 	public Vector2 getPosition() {
 		return position;
 	}
 	public void setPosition(Vector2 position) {
 		this.position = position;
-	}
-	public Sprite getSprite() {
-		return sprite;
-	}
-	public void setSprite(Sprite sprite) {
-		this.sprite = sprite;
 	}
 	public Vector2 getOldPos() {
 		return oldPos;
@@ -36,6 +53,13 @@ public class Player extends AbstractGameObject{
 	public void update() {
 		oldPos.x = position.x;
 		oldPos.y = position.y;
+		sprite.setRegion(currentFrame);
+		
+		if (stateTime < 1) {
+			stateTime += Gdx.graphics.getDeltaTime();
+		} else {
+			stateTime = 0;
+		}
 		
 		if (Gdx.input.justTouched()) {
 
@@ -50,6 +74,7 @@ public class Player extends AbstractGameObject{
 	        	position.x -= playerMovementSpeedX;
 	        	playerMovementDirection = "left";
 	        	sprite.translateX(-playerMovementSpeedX);
+	        	currentFrame = animation.getKeyFrame(24 + stateTime*8);
 	        }
 	        //Find a better way of doing this, like, for instance, getting for look to work.
 	        Collidable collidable = CollisionHelper.isCollidable(position.x, position.y + sprite.getHeight(), theController.collisionLayer);
@@ -63,6 +88,7 @@ public class Player extends AbstractGameObject{
 	        	position.x += playerMovementSpeedX;
 	        	sprite.translateX(playerMovementSpeedX);
 	        	playerMovementDirection = "right";
+	        	currentFrame = animation.getKeyFrame(16 + stateTime*8);
 		    }
 			//Find a better way of doing this, like, for instance, getting for look to work.
 			collidable = CollisionHelper.isCollidable(position.x+sprite.getWidth(), position.y + sprite.getHeight(), theController.collisionLayer);
@@ -76,6 +102,7 @@ public class Player extends AbstractGameObject{
 		    	position.y -= playerMovementSpeedY;
 		    	sprite.translateY(-playerMovementSpeedY);
 		    	playerMovementDirection = "down";
+		    	currentFrame = animation.getKeyFrame(0 + stateTime*8);
 	        }
 	      //Find a better way of doing this, like, for instance, getting for look to work.
 	        collidable = CollisionHelper.isCollidable(position.x+sprite.getWidth(), position.y, theController.collisionLayer);
@@ -89,6 +116,7 @@ public class Player extends AbstractGameObject{
 	        	position.y += playerMovementSpeedY;
 	        	sprite.translateY(playerMovementSpeedY);
 	        	playerMovementDirection = "up";
+	        	currentFrame = animation.getKeyFrame(8 + stateTime*8);
 			}
 	      //Find a better way of doing this, like, for instance, getting for look to work.
 	        collidable = CollisionHelper.isCollidable(position.x+sprite.getWidth(), position.y+sprite.getHeight(), theController.collisionLayer);
@@ -98,40 +126,7 @@ public class Player extends AbstractGameObject{
 		if(collidable != null){
 			contact(collidable);
 		}
-//        //collision detection
-//        if(playerMovementDirection == "left"){
-//        	//left side
-//        	collisionX = (theController.collisionHandler.collidesLeft(theController.collisionLayer, this)) != null;
-//	    }
-//	    else if(playerMovementDirection == "right"){
-//	    	//right side
-//	    	collisionX = theController.collisionHandler.collidesRight(theController.collisionLayer, this);
-//	    }
-//        //collision result
-//	    if(collisionX){
-//	    	System.out.println("shit");
-//	    	setPosition(new Vector2(OldX, position.y));
-//	    	playerMovementSpeedX = 0;
-//	    }
-
-	    // Y AXIS MOVEMENT + COLLISION PROCESSING AND DETECTION
-	    //movement
 		
-       
-//        //collision detection
-//	    if(playerMovementDirection == "up"){
-//	    	//top side
-//	    	collisionY = theController.collisionHandler.collidesTop(theController.collisionLayer, this);
-//	    }else if(playerMovementDirection == "down"){
-//	    	//bottom side
-//	    	collisionY = theController.collisionHandler.coolidesBottom(theController.collisionLayer, this);
-//	    }
-//	    //collision result
-//	    if(collisionY){
-//	    	System.out.println("shit + 100000");
-//	    	setPosition(new Vector2(position.x, OldY));
-//	    	playerMovementSpeedY = 0;
-//	    }
 	}
 	public TheController getTheController() {
 		return theController;
@@ -161,5 +156,17 @@ public class Player extends AbstractGameObject{
 	}
 	public void setPlayerMovementSpeedY(float playerMovementSpeedY) {
 		this.playerMovementSpeedY = playerMovementSpeedY;
+	}
+	public TextureRegion getCurrentFrame() {
+		return currentFrame;
+	}
+	public void setCurrentFrame(TextureRegion currentFrame) {
+		this.currentFrame = currentFrame;
+	}
+	public Sprite getSprite() {
+		return sprite;
+	}
+	public void setSprite(Sprite sprite) {
+		this.sprite = sprite;
 	}
 }
