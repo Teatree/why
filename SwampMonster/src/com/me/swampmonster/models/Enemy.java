@@ -1,5 +1,7 @@
 package com.me.swampmonster.models;
 
+import java.util.Random;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -76,7 +78,6 @@ public class Enemy extends AbstractGameObject{
 	        	position.x += playerMovementSpeedX;
 	        	sprite.translateX(playerMovementSpeedX);
 	        	playerMovementDirection = "right";
-	        	System.out.println("Enemy is moving to the right");
 	        	currentFrame = animation.getKeyFrame(24 + stateTime*4);
 		    }
 			//Find a better way of doing this, like, for instance, getting for loop to work.
@@ -114,6 +115,22 @@ public class Enemy extends AbstractGameObject{
 
 		if(collidable != null){
 			contact(collidable);
+		}
+		
+		
+		if(oldPos.x == position.x && oldPos.y == position.y){
+			if(playerMovementDirection == "right"){
+				currentFrame = animation.getKeyFrame(24);
+			}
+			if(playerMovementDirection == "left"){
+				currentFrame = animation.getKeyFrame(8);
+			}
+			if(playerMovementDirection == "up"){
+				currentFrame = animation.getKeyFrame(16);
+			}
+			if(playerMovementDirection == "down"){
+				currentFrame = animation.getKeyFrame(0);
+			}
 		}
 	}
 	

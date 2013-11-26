@@ -17,14 +17,14 @@
     <property name="blocked" value=""/>
    </properties>
   </tile>
+  <tile id="8">
+   <properties>
+    <property name="blocked" value="blocked"/>
+   </properties>
+  </tile>
   <tile id="16">
    <properties>
     <property name="blocked" value=""/>
-   </properties>
-  </tile>
-  <tile id="17">
-   <properties>
-    <property name="blocked" value="blocked"/>
    </properties>
   </tile>
   <tile id="24">
@@ -82,10 +82,85 @@
     <property name="blocked" value=""/>
    </properties>
   </tile>
+  <tile id="320">
+   <properties>
+    <property name="blocked" value="blocked"/>
+   </properties>
+  </tile>
+  <tile id="321">
+   <properties>
+    <property name="blocked" value="blocked"/>
+   </properties>
+  </tile>
+  <tile id="322">
+   <properties>
+    <property name="blocked" value="blocked"/>
+   </properties>
+  </tile>
+  <tile id="323">
+   <properties>
+    <property name="blocked" value="blocked"/>
+   </properties>
+  </tile>
+  <tile id="324">
+   <properties>
+    <property name="blocked" value="blocked"/>
+   </properties>
+  </tile>
+  <tile id="328">
+   <properties>
+    <property name="blocked" value="blocked"/>
+   </properties>
+  </tile>
+  <tile id="329">
+   <properties>
+    <property name="blocked" value="blocked"/>
+   </properties>
+  </tile>
+  <tile id="330">
+   <properties>
+    <property name="blocked" value="blocked"/>
+   </properties>
+  </tile>
+  <tile id="384">
+   <properties>
+    <property name="blocked" value="blocked"/>
+   </properties>
+  </tile>
+  <tile id="386">
+   <properties>
+    <property name="blocked" value="blocked"/>
+   </properties>
+  </tile>
+  <tile id="448">
+   <properties>
+    <property name="blocked" value="blocked"/>
+   </properties>
+  </tile>
+  <tile id="449">
+   <properties>
+    <property name="blocked" value="blocked"/>
+   </properties>
+  </tile>
+  <tile id="450">
+   <properties>
+    <property name="blocked" value="blocked"/>
+   </properties>
+  </tile>
+  <tile id="453">
+   <properties>
+    <property name="blocked" value="blocked"/>
+   </properties>
+  </tile>
+  <tile id="454">
+   <properties>
+    <property name="blocked" value="blocked"/>
+   </properties>
+  </tile>
  </tileset>
  <layer name="Слой тайлов 1" width="60" height="30">
   <data encoding="base64" compression="zlib">
-   eJzt1TEKACEMBdGAN8j9D2srgmBEiUmmmGar/xZRFZFWKP1gA168ePHixYs3d3hzV9mrU/N376148eK1ezN14o38P052V/VGPP94973e2/G+8UYOb+4s3mh3Md71W3ozb+NYB0KQG6k=
+   eJzlmMty00AQRSVvwFvF+iAIxAF2Aj4IXJXw2Cn4h6gCu2DH438YVXSL65vu1kgllAWLW7Lm1X2me1qWqqIozpKqXt3vTVK9gF4bmjJP/cZ1n/Spv2IuxjbGPMufObU3NGWe+ozfHdPLpFe0l2BsKcZoq4w23rs51Nm9oThMmaN+4beOY95Nvx+Ic0X33GaxPyqL4vECOi9vfRniRe62RozZ95bGNHSPNuXEGm+SHxcLaFf+9SfiRe6Clccqg3JiLOe4rt/xXgV6Ziga76njrcivnLw6L20Oznn0c5+eaZ7T8W4DvTcUjfe0k3ze9XF/nvQiyAmLwzrj1jgrr4d45xLyGf7t+rh/SPoY5ASfYWXCesyjZ/y+eL9Krh769m9J3zP3SOsz+qKapv9JHqyW4X2X9JZ0HJETiLGyYB+8mqa83X5cLcWb7BxJ1xl2tcZ5vJqz0fN3CdapAm8UX7Tp86d1YuzZup7g35Q5Q7yNwWbxWvuBK5/vLwvF6kl5Wq+eZvIOnV+0RWeY+3YL5ibXqxy73Zi9wWbxWs+f6p55t6lGXa5ur/8DL9vunsefB3ToeXPyOZc3x+4cOgivPo8tHf9BfHPszqGj8F70eY0cv3TumXc9krcxeNnuNvAh6rd8VT1c3bWNbx5WvtY0lnmr/rqme49X3xNRu4f+n+h/lag/ktqGake6N+t+byJetG/EdlOcfv/Q92hL1tyxsrgR57o4/dal49bCNMTLdluS8nK7SueOFdvXWIPZ+9Zl8XIcuO9H0s+kX0m/ZS3NU/RZ8bHOxJhvwMztMWNNj7el+LfF3bMYvQ/zedW992LEPvC3sFzx9ziLWfcH/Vqf0afvv9H7MOqj5qkyWX4hHmO+x/J59ZixJxYvhPOm8UV/FGOPU+MSMVTGGkPntRqwHcWX6yrHE7xRjHPj4tU3KxacFx4Pas1Q/aqJlzmsdcEbvS9ZdUnjUmXIyw/eM+bhfLZ85zU0n6fIq0eWoj2JcnZf2PXBO0feGt39H70SWv4=
   </data>
  </layer>
 </map>

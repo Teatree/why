@@ -20,6 +20,7 @@ public class Player extends AbstractGameObject{
 	public Player(Vector2 position){
 		this.position = position;
 		oldPos = position;
+		
 		playerTexture = new Texture(Gdx.files.internal("data/NastyaSheet2.png"));
 		TextureRegion[][] tmp = TextureRegion
 				.split(playerTexture, playerTexture.getWidth() / col,
@@ -67,7 +68,8 @@ public class Player extends AbstractGameObject{
 	        theController.touchPos.x = Gdx.input.getX();
 	        theController.l1Renderer.getCam().unproject(theController.touchPos);
 	        theController.touchPos.z = 0;
-	    }		// X AXIS MOVEMENT + COLLISION PROCESSING AND DETECTION
+	    }		
+		// X AXIS MOVEMENT + COLLISION PROCESSING AND DETECTION
 		//movement
 
 	        if (position.x >  theController.touchPos.x -16/2) {
@@ -125,6 +127,20 @@ public class Player extends AbstractGameObject{
 
 		if(collidable != null){
 			contact(collidable);
+		}
+		if(oldPos.x == position.x && oldPos.y == position.y){
+			if(playerMovementDirection == "right"){
+				currentFrame = animation.getKeyFrame(16);
+			}
+			if(playerMovementDirection == "left"){
+				currentFrame = animation.getKeyFrame(24);
+			}
+			if(playerMovementDirection == "up"){
+				currentFrame = animation.getKeyFrame(8);
+			}
+			if(playerMovementDirection == "down"){
+				currentFrame = animation.getKeyFrame(0);
+			}
 		}
 		
 	}

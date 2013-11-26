@@ -58,7 +58,6 @@ public class Solid implements Collidable{
 			String collides = null;
 			for(float step = 0; step < mob.getSprite().getWidth(); step+=collisionLayer.getTileWidth() /2){
 				collides = CollisionHelper.isCellBlocked(mob.getPosition().x + step, mob.getPosition().y + mob.getSprite().getHeight(), collisionLayer);
-				System.out.println("PUK " + step);
 				if(collides!=null && collides.equals("blocked")){
 					return true;
 				}
