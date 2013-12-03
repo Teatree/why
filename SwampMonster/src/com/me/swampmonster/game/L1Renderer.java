@@ -35,23 +35,27 @@ public class L1Renderer {
 		
 //		cam.unproject(theController.touchPos);
 //		System.out.println("MY X IS: " + theController.touchPos.x + " MY Y IS: " + theController.touchPos.y + " AND MY Z IS: " + theController.touchPos.z); 
-		theController.cameraHelper.applyTo(cam);
 		
 		batch.setProjectionMatrix(cam.combined);
 		
 		mapRenderer.setView(cam);
 		mapRenderer.render();
 		
+		
 		batch.begin();
-		batch.draw(theController.level1.getPlayer().getSprite(), theController.level1.getPlayer().getPosition().x, 
-				theController.level1.getPlayer().getPosition().y, 
-				theController.level1.getPlayer().getSprite().getWidth(), 
-				theController.level1.getPlayer().getSprite().getHeight());
 		batch.draw(theController.level1.getEnemy().getSprite(), theController.level1.getEnemy().getPosition().x, 
 				theController.level1.getEnemy().getPosition().y, 
 				theController.level1.getEnemy().getSprite().getWidth(), 
 				theController.level1.getEnemy().getSprite().getHeight());
+		batch.draw(theController.level1.getPlayer().getSprite(), theController.level1.getPlayer().getPosition().x, 
+				theController.level1.getPlayer().getPosition().y, 
+				theController.level1.getPlayer().getSprite().getWidth(), 
+				theController.level1.getPlayer().getSprite().getHeight());
 		batch.end();
+
+		
+		
+		theController.cameraHelper.applyTo(cam);
 	}
 	
 	public void setSize(int width, int height){

@@ -1,6 +1,5 @@
 package com.me.swampmonster.models;
 
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 
 
@@ -21,6 +20,7 @@ public class L1{
 	public void update(){
 		player.update();
 		enemy.update();
+		bunker.update();
 	}
 	public Bunker getBunker() {
 		return bunker;

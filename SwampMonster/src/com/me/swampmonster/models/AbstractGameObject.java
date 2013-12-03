@@ -1,14 +1,19 @@
 package com.me.swampmonster.models;
 
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Animation;
+import java.util.HashMap;
+import java.util.Map;
+
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Vector2;
+import com.me.swampmonster.animations.AnimationControl;
 import com.me.swampmonster.game.TheController;
 
 public abstract class AbstractGameObject {
+	protected TextureRegion currentFrame;
+	protected Map<String, AnimationControl> animations = new HashMap<String, AnimationControl>();   
+	
 	protected Vector2 position;
 	protected Sprite sprite;
 	protected TiledMap map;
@@ -19,11 +24,6 @@ public abstract class AbstractGameObject {
 	protected String playerMovementDirection; 
 	protected float playerMovementSpeedX = 1f; 
 	protected float playerMovementSpeedY = 1f;
-
-	protected Animation animation;
-	protected Texture playerTexture;
-	protected TextureRegion[] frames;
-	protected TextureRegion currentFrame;
 	
 	public Vector2 getPosition() {
 		return position;

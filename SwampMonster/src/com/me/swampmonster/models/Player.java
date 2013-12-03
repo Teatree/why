@@ -1,43 +1,23 @@
 package com.me.swampmonster.models;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
+import com.me.swampmonster.animations.AnimationControl;
 import com.me.swampmonster.game.TheController;
 import com.me.swampmonster.game.collision.Collidable;
 import com.me.swampmonster.game.collision.CollisionHelper;
 
 public class Player extends AbstractGameObject{
-	
-	private static final int col = 8;
-	private static final int row = 8;
-	
-	private float stateTime = 0;
+	String state;
 	
 	public Player(Vector2 position){
 		this.position = position;
+		state = "STANDARD";
+		animations.put("STANDARD", new AnimationControl("data/NastyaSheet2.png", 8, 8, 8)); 
 		oldPos = position;
 		
-		playerTexture = new Texture(Gdx.files.internal("data/NastyaSheet2.png"));
-		TextureRegion[][] tmp = TextureRegion
-				.split(playerTexture, playerTexture.getWidth() / col,
-						playerTexture.getHeight() / row);
-		frames = new TextureRegion[col * row];
-
-		int index = 0;
-		for (int i = 0; i < row; i++) {
-			for (int j = 0; j < col; j++) {
-				frames[index++] = tmp[i][j];
-			}
-		}
-
-		animation = new Animation(1, frames);
-		stateTime = 0f;
-		currentFrame = animation.getKeyFrame(0);
-		sprite = new Sprite(currentFrame);
+		sprite = new Sprite(animations.get(state).getCurrentFrame());
 	}
 	public Vector2 getPosition() {
 		return position;
@@ -54,13 +34,7 @@ public class Player extends AbstractGameObject{
 	public void update() {
 		oldPos.x = position.x;
 		oldPos.y = position.y;
-		sprite.setRegion(currentFrame);
-		
-		if (stateTime < 1) {
-			stateTime += Gdx.graphics.getDeltaTime();
-		} else {
-			stateTime = 0;
-		}
+		sprite.setRegion(animations.get(state).getCurrentFrame());
 		
 		if (Gdx.input.justTouched()) {
 
@@ -72,11 +46,11 @@ public class Player extends AbstractGameObject{
 		// X AXIS MOVEMENT + COLLISION PROCESSING AND DETECTION
 		//movement
 
-	        if (position.x >  theController.touchPos.x -16/2) {
+	        if (position.x > theController.touchPos.x -16/2) {
 	        	position.x -= playerMovementSpeedX;
 	        	playerMovementDirection = "left";
 	        	sprite.translateX(-playerMovementSpeedX);
-	        	currentFrame = animation.getKeyFrame(24 + stateTime*8);
+	        	currentFrame = animations.get(state).animate(24);
 	        }
 	        //Find a better way of doing this, like, for instance, getting for look to work.
 	        Collidable collidable = CollisionHelper.isCollidable(position.x, position.y + sprite.getHeight(), theController.collisionLayer);
@@ -90,7 +64,7 @@ public class Player extends AbstractGameObject{
 	        	position.x += playerMovementSpeedX;
 	        	sprite.translateX(playerMovementSpeedX);
 	        	playerMovementDirection = "right";
-	        	currentFrame = animation.getKeyFrame(16 + stateTime*8);
+	        	currentFrame = animations.get(state).animate(16);
 		    }
 			//Find a better way of doing this, like, for instance, getting for look to work.
 			collidable = CollisionHelper.isCollidable(position.x+sprite.getWidth(), position.y + sprite.getHeight(), theController.collisionLayer);
@@ -104,7 +78,7 @@ public class Player extends AbstractGameObject{
 		    	position.y -= playerMovementSpeedY;
 		    	sprite.translateY(-playerMovementSpeedY);
 		    	playerMovementDirection = "down";
-		    	currentFrame = animation.getKeyFrame(0 + stateTime*8);
+		    	currentFrame = animations.get(state).animate(0);
 	        }
 	      //Find a better way of doing this, like, for instance, getting for look to work.
 	        collidable = CollisionHelper.isCollidable(position.x+sprite.getWidth(), position.y, theController.collisionLayer);
@@ -118,7 +92,7 @@ public class Player extends AbstractGameObject{
 	        	position.y += playerMovementSpeedY;
 	        	sprite.translateY(playerMovementSpeedY);
 	        	playerMovementDirection = "up";
-	        	currentFrame = animation.getKeyFrame(8 + stateTime*8);
+	        	currentFrame = animations.get(state).animate(8);
 			}
 	      //Find a better way of doing this, like, for instance, getting for look to work.
 	        collidable = CollisionHelper.isCollidable(position.x+sprite.getWidth(), position.y+sprite.getHeight(), theController.collisionLayer);
@@ -130,16 +104,16 @@ public class Player extends AbstractGameObject{
 		}
 		if(oldPos.x == position.x && oldPos.y == position.y){
 			if(playerMovementDirection == "right"){
-				currentFrame = animation.getKeyFrame(16);
+				currentFrame = animations.get(state).animate(16);
 			}
 			if(playerMovementDirection == "left"){
-				currentFrame = animation.getKeyFrame(24);
+				currentFrame = animations.get(state).animate(24);
 			}
 			if(playerMovementDirection == "up"){
-				currentFrame = animation.getKeyFrame(8);
+				currentFrame = animations.get(state).animate(8);
 			}
 			if(playerMovementDirection == "down"){
-				currentFrame = animation.getKeyFrame(0);
+				currentFrame = animations.get(state).animate(0);
 			}
 		}
 		
@@ -172,12 +146,6 @@ public class Player extends AbstractGameObject{
 	}
 	public void setPlayerMovementSpeedY(float playerMovementSpeedY) {
 		this.playerMovementSpeedY = playerMovementSpeedY;
-	}
-	public TextureRegion getCurrentFrame() {
-		return currentFrame;
-	}
-	public void setCurrentFrame(TextureRegion currentFrame) {
-		this.currentFrame = currentFrame;
 	}
 	public Sprite getSprite() {
 		return sprite;
