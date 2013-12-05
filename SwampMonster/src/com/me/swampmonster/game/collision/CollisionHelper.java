@@ -10,13 +10,6 @@ public class CollisionHelper {
 		return (String) (cell != null && cell.getTile() != null ? cell.getTile().getProperties().get("blocked") : null);
 	}
 	
-	public static boolean isCellBlocked(Cell c, TiledMapTileLayer collisionLayer){
-		if(c != null && c.getTile() != null && c.getTile().getProperties().get("blocked") != null){
-		return true;
-		}else{
-			return false;
-		}
-	}
 	public static Collidable isCollidable(float x, float y, TiledMapTileLayer collisionLayer){
 		Solid solid = null;
 		if(isCellBlocked(x, y, collisionLayer)!=null){
