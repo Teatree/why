@@ -9,15 +9,17 @@ import com.me.swampmonster.game.collision.Collidable;
 import com.me.swampmonster.game.collision.CollisionHelper;
 
 public class Player extends AbstractGameObject{
-	String state;
+	
+	State state = State.STANDARD;
+	int time = 0;
 	
 	public Player(Vector2 position){
 		this.position = position;
-		state = "STANDARD";
-		animations.put("STANDARD", new AnimationControl("data/NastyaSheet2.png", 8, 8, 8)); 
+		animations.put(state.STANDARD, new AnimationControl("data/NastyaSheet2.png", 8, 16, 7)); 
+		animations.put(state.ANIMATING, new AnimationControl("data/NastyaSheet2.png", 8, 16, 8)); 
 		oldPos = position;
 		
-		sprite = new Sprite(animations.get(state).getCurrentFrame());
+		sprite = new Sprite(animations.get(state.STANDARD).getCurrentFrame());
 	}
 	public Vector2 getPosition() {
 		return position;
@@ -34,6 +36,23 @@ public class Player extends AbstractGameObject{
 	public void update() {
 		oldPos.x = position.x;
 		oldPos.y = position.y;
+		
+		if(state.equals(State.ANIMATING)){
+			if(time < 200){
+				currentFrame = animations.get(state).doComplexAnimation(64, 2, 8, 0.01f);
+				
+				sprite.setRegion(animations.get(state).getCurrentFrame());
+				System.out.println(time);
+				time++;
+			}
+			else{
+				currentFrame = animations.get(state.ANIMATING).animate(64);
+				state = State.STANDARD;
+				time = 0;
+			}
+		}
+			
+		if(state.equals(State.STANDARD)){
 		sprite.setRegion(animations.get(state).getCurrentFrame());
 		
 		if (Gdx.input.justTouched()) {
@@ -42,7 +61,7 @@ public class Player extends AbstractGameObject{
 	        theController.touchPos.x = Gdx.input.getX();
 	        theController.l1Renderer.getCam().unproject(theController.touchPos);
 	        theController.touchPos.z = 0;
-	    }		
+	    }	
 		// X AXIS MOVEMENT + COLLISION PROCESSING AND DETECTION
 		//movement
 			
@@ -133,10 +152,10 @@ public class Player extends AbstractGameObject{
 			
 			if(oldPos.x == position.x && oldPos.y == position.y){
 				if(playerMovementDirection == "right"){
-					currentFrame = animations.get(state).animate(16);
+					currentFrame = animations.get(state).animate(48);
 				}
 				if(playerMovementDirection == "left"){
-					currentFrame = animations.get(state).animate(24);
+					currentFrame = animations.get(state).animate(56);
 				}
 				if(playerMovementDirection == "up"){
 					currentFrame = animations.get(state).animate(40);
@@ -145,8 +164,8 @@ public class Player extends AbstractGameObject{
 					currentFrame = animations.get(state).animate(32);
 				}
 			}
-		
 		}
+	}
 	public TheController getTheController() {
 		return theController;
 	}
@@ -182,4 +201,11 @@ public class Player extends AbstractGameObject{
 	public void setSprite(Sprite sprite) {
 		this.sprite = sprite;
 	}
+	public State getState() {
+		return state;
+	}
+	public void setState(State state) {
+		this.state = state;
+	}
+	
 }

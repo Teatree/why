@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.me.swampmonster.game.collision.CollisionHelper;
 import com.me.swampmonster.models.L1;
+import com.me.swampmonster.models.AbstractGameObject.State;
 import com.me.swampmonster.utils.CameraHelper;
 
 public class TheController extends InputAdapter{
@@ -54,6 +55,8 @@ public class TheController extends InputAdapter{
 		if (Gdx.input.isKeyPressed(Keys.D)) moveCamera(camMoveSpeed,0);
 		if (Gdx.input.isKeyPressed(Keys.W)) moveCamera(0, camMoveSpeed);
 		if (Gdx.input.isKeyPressed(Keys.S)) moveCamera(0,-camMoveSpeed);
+		if (Gdx.input.isKeyPressed(Keys.O)) level1.getPlayer().setState(State.ANIMATING);
+		if (Gdx.input.isKeyPressed(Keys.I)) level1.getPlayer().setState(State.STANDARD);
 		if (Gdx.input.isKeyPressed(Keys.BACKSPACE))
 		cameraHelper.setPosition(0, 0);
 		// Camera Controls (zoom)

@@ -9,13 +9,13 @@ import com.me.swampmonster.game.collision.CollisionHelper;
 
 
 public class Enemy extends AbstractGameObject{
-	String state;
 	
+	State state;
 	
 	public Enemy(Vector2 position){
 		this.position = position;
-		state = "STANDARD";
-		animations.put("STANDARD", new AnimationControl("data/Skelenten.png", 8, 16, 4)); 
+		this.state = State.STANDARD;
+		animations.put(State.STANDARD, new AnimationControl("data/Skelenten.png", 8, 16, 4)); 
 		oldPos = position;
 		playerMovementSpeedX = 0.3f;
 		playerMovementSpeedY = 0.3f;

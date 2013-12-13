@@ -43,6 +43,20 @@ public class AnimationControl {
 		currentFrame = animation.getKeyFrame(i + stateTime*multiplier);
 		return currentFrame;
 	}
+	
+	//Does a complex animation...
+	//parameters are self explanatory: i is start frame; timeAdjust is comparison; personalMultiplier is a multiplier; and deltaTime is our time.
+	//optimal set, so far are: 64, 2, 8, 0.01f for two rows, and 64, 1, 8, 0.005f for one
+	public TextureRegion doComplexAnimation(int i, int timeAdjust, int personalMultiplier, float deltaTime){
+		if (stateTime < timeAdjust) {
+			stateTime += deltaTime;
+		} else {
+			stateTime = 0;
+		}
+		
+		currentFrame = animation.getKeyFrame(i + stateTime*personalMultiplier);
+		return currentFrame;
+	}
 
 	public TextureRegion getCurrentFrame() {
 		return currentFrame;

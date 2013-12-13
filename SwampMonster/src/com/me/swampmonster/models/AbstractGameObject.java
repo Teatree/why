@@ -11,8 +11,13 @@ import com.me.swampmonster.animations.AnimationControl;
 import com.me.swampmonster.game.TheController;
 
 public abstract class AbstractGameObject {
+
+	public enum State{
+		STANDARD, HURT, DEAD, ANIMATING;
+	}
+	
 	protected TextureRegion currentFrame;
-	protected Map<String, AnimationControl> animations = new HashMap<String, AnimationControl>();   
+	protected Map<State, AnimationControl> animations = new HashMap<State, AnimationControl>();   
 	
 	protected Vector2 position;
 	protected Sprite sprite;
