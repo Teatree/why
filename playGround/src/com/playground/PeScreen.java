@@ -1,5 +1,9 @@
 package com.playground;
 
+import java.util.HashSet;
+import java.util.PriorityQueue;
+import java.util.Set;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
@@ -14,12 +18,44 @@ import com.badlogic.gdx.math.Vector2;
 
 public class PeScreen implements Screen {
 
-	private TiledMap tiledMap;
 	private OrthogonalTiledMapRenderer mapRenderer;
 	private OrthographicCamera camera;
 	private ShapeRenderer shapeRenderer;
 	
+	private TiledMap tiledMap;
+	
+	private Vector2 s;
+	private Vector2 t;
+	
 	public Actor actor;
+	public PePathfinder pathfinder;
+	
+	public void show() {
+		shapeRenderer = new ShapeRenderer();
+		
+		s = new Vector2();
+		t = new Vector2();
+		
+		tiledMap = new TmxMapLoader().load("data/playMap.tmx");
+		
+		mapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
+		
+		camera = new OrthographicCamera();
+		camera.position.x = 80;
+		camera.position.y = 80;
+		camera.zoom = 0.5f;
+		
+		actor = new Actor(new Vector2(30, 30));
+		actor.position.x = 20;
+		actor.position.y = 20;
+		
+		pathfinder = new PePathfinder(tiledMap);
+		
+		s.x = 4;
+		s.y = 4;
+		t.x = 8;
+		t.x = 8;
+	}
 	
 	public void render(float delta) {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
@@ -28,34 +64,21 @@ public class PeScreen implements Screen {
 		mapRenderer.render();
 		mapRenderer.setView(camera);
 		
-		shapeRenderer.setTransformMatrix(camera.combined);
+		shapeRenderer.setProjectionMatrix(camera.combined);
 		shapeRenderer.begin(ShapeType.Filled);
 		shapeRenderer.setColor(Color.RED);
-		shapeRenderer.rect(actor.getPosition().x, actor.getPosition().y, 16, 16);
+		shapeRenderer.rect(s.x, s.y, 1, 1);
+		shapeRenderer.setColor(Color.BLUE);
+		shapeRenderer.rect(t.x, t.y, 1, 1);
 		shapeRenderer.end();
+		
+		pathfinder.findPath(s, t);
 	}
 
 	public void resize(int width, int height) {
 		camera.viewportHeight = height;
 		camera.viewportWidth = width;
 		camera.update();
-	}
-	public void show() {
-		camera = new OrthographicCamera();
-		camera.position.x = 80;
-		camera.position.y = 80;
-		camera.zoom = 0.5f;
-		
-		shapeRenderer = new ShapeRenderer();
-		
-		actor = new Actor(new Vector2(30, 30));
-		actor.position.x = 20;
-		actor.position.y = 20;
-		
-		tiledMap = new TmxMapLoader().load("data/playMap.tmx");
-		
-		mapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
-		
 	}
 	public void hide() {
 
@@ -72,6 +95,6 @@ public class PeScreen implements Screen {
 	public void dispose() {
 		tiledMap.dispose();
 		mapRenderer.dispose();
+		shapeRenderer.dispose();
 	}
-
 }
