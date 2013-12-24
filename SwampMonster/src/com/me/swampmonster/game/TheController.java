@@ -6,6 +6,7 @@ import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import com.me.swampmonster.AI.Pathfinder;
 import com.me.swampmonster.game.collision.CollisionHelper;
 import com.me.swampmonster.models.L1;
 import com.me.swampmonster.models.AbstractGameObject.State;
@@ -18,7 +19,12 @@ public class TheController extends InputAdapter{
 	public L1 level1;
 	public Vector3 touchPos;
 	
+	public Pathfinder pathfinder;
 	public TiledMapTileLayer collisionLayer;
+	
+	// Temporary debug feature
+	public Vector2 tempTargetPos;
+	// Temporary debug feature
 	
 	public TheController(){
 		init();
@@ -28,22 +34,30 @@ public class TheController extends InputAdapter{
 		cameraHelper.upadate(deltaTime);
 		level1.update();
 		handleDebugInput(deltaTime);
+		
 	}
 	
 	public void init(){
 		Gdx.input.setInputProcessor(this);
 		cameraHelper = new CameraHelper();
 		level1 = new L1();
+		pathfinder = new Pathfinder(level1.getBunker().getMap());
 		level1.getPlayer().setTheController(this);
 		level1.getPlayer().setPosition(new Vector2 (30f,100f));
 		level1.getPlayer().getSprite().setSize(level1.getPlayer().getSprite().getWidth()/2, level1.getPlayer().getSprite().getHeight()/2);
 		level1.getEnemy().setTheController(this);
-		level1.getEnemy().setPosition(new Vector2 (130f,100f));
+		level1.getEnemy().setPosition(new Vector2 (110f,100f));
 		level1.getEnemy().getSprite().setSize(level1.getEnemy().getSprite().getWidth()/2, level1.getEnemy().getSprite().getHeight()/2);
 		
 		collisionHandler = new CollisionHelper();
 		touchPos = new Vector3(100f, 100f, 0);
 		collisionLayer = (TiledMapTileLayer) level1.getBunker().getMap().getLayers().get(0);
+		
+		tempTargetPos = new Vector2();
+		tempTargetPos.x = 480f;
+		tempTargetPos.y = 320f;
+		
+		pathfinder.findPath(level1.getEnemy().getPosition(), tempTargetPos);
 	}
 
 	private void handleDebugInput(float deltaTime) {
@@ -74,8 +88,7 @@ public class TheController extends InputAdapter{
 		y += cameraHelper.getPosition().y;
 		cameraHelper.setPosition(x, y);
 	}
-		
-		
+	
 	public boolean keyUp (int keycode) {
 		if (keycode == Keys.R) {
 			init();
