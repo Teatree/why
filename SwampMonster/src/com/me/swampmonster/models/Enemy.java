@@ -26,12 +26,12 @@ public class Enemy extends AbstractGameObject{
 	
 	public void update(){
 		oldPos.x = position.x;
-		oldPos.y = position.y;
+		oldPos.y = position.y; 
 		sprite.setRegion(animations.get(state).getCurrentFrame());
 		
 		// X AXIS MOVEMENT + COLLISION PROCESSING AND DETECTION
 		//movement
-			if(cunter == 0){
+			if(cunter == 0){ 
 				cunter = findLastNotNullInArray();
 			}
 			
