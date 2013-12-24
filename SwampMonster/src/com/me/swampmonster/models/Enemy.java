@@ -33,6 +33,7 @@ public class Enemy extends AbstractGameObject{
 		//movement
 			if(cunter == 0){ 
 				cunter = findLastNotNullInArray();
+				
 			}
 			
 	        if (theController.pathfinder.getPath()[cunter] != null && position.x > (theController.pathfinder.getPath()[cunter].x*16)) {
