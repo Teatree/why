@@ -1,7 +1,5 @@
 package com.me.swampmonster.game;
 
-import sun.misc.Cleaner;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputAdapter;
@@ -45,7 +43,7 @@ public class TheController extends InputAdapter{
 		level1 = new L1();
 		pathfinder = new Pathfinder(level1.getBunker().getMap());
 		level1.getPlayer().setTheController(this);
-		level1.getPlayer().setPosition(new Vector2 (30f,100f));
+		level1.getPlayer().setPosition(new Vector2 (330f,100f));
 		level1.getPlayer().getSprite().setSize(level1.getPlayer().getSprite().getWidth()/2, level1.getPlayer().getSprite().getHeight()/2);
 		level1.getEnemy().setTheController(this);
 		level1.getEnemy().setPosition(new Vector2 (110f,100f));
@@ -85,6 +83,10 @@ public class TheController extends InputAdapter{
 		if (Gdx.input.isKeyPressed(Keys.E)) cameraHelper.addZoom(-camZoomSpeed);
 		if (Gdx.input.isKeyPressed(Keys.F)) cameraHelper.setZoom(1);
 		if (Gdx.input.isKeyPressed(Keys.K)){ 
+			level1.getEnemy().setCunter(0);
+			pathfinder.findPath(level1.getEnemy().getPosition(), level1.getPlayer().getPosition());
+		}
+		if(level1.getPlayer().tempCircle.overlaps(level1.getEnemy().getgReenAura())){
 			level1.getEnemy().setCunter(0);
 			pathfinder.findPath(level1.getEnemy().getPosition(), level1.getPlayer().getPosition());
 		}

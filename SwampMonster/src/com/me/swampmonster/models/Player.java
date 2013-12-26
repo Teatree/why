@@ -2,6 +2,7 @@ package com.me.swampmonster.models;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector2;
 import com.me.swampmonster.animations.AnimationControl;
 import com.me.swampmonster.game.TheController;
@@ -12,9 +13,17 @@ public class Player extends AbstractGameObject{
 	
 	State state = State.STANDARD;
 	int time = 0;
+	// temporary
+	public Circle tempCircle;
+	// temporary
 	
 	public Player(Vector2 position){
 		this.position = position;
+		
+		// Temporary circle 
+		tempCircle = new Circle(position.x, position.y, 16);
+		// Temporary circle
+		
 		animations.put(state.STANDARD, new AnimationControl("data/NastyaSheet2.png", 8, 16, 7)); 
 		animations.put(state.ANIMATING, new AnimationControl("data/NastyaSheet2.png", 8, 16, 8)); 
 		oldPos = position;

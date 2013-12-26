@@ -13,7 +13,6 @@ import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import com.badlogic.gdx.math.Vector2;
-import com.me.swampmonster.game.TheController;
  
 public class Pathfinder {
  
@@ -64,6 +63,7 @@ public class Pathfinder {
 	public boolean findPath(Vector2 startingPosition, Vector2 targetPosition) {
 		loadNodes();
 		System.out.println("(findPath): working!");
+		
 		
 		openList = new PriorityQueue<Node>();
 		closedList = new HashSet<Node>();
