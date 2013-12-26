@@ -14,14 +14,15 @@ public class Player extends AbstractGameObject{
 	State state = State.STANDARD;
 	int time = 0;
 	// temporary
-	public Circle tempCircle;
+	private Circle tempCircle;
 	// temporary
 	
 	public Player(Vector2 position){
 		this.position = position;
 		
 		// Temporary circle 
-		tempCircle = new Circle(position.x, position.y, 16);
+		tempCircle = new Circle();
+		tempCircle.radius = 16;
 		// Temporary circle
 		
 		animations.put(state.STANDARD, new AnimationControl("data/NastyaSheet2.png", 8, 16, 7)); 
@@ -45,6 +46,9 @@ public class Player extends AbstractGameObject{
 	public void update() {
 		oldPos.x = position.x;
 		oldPos.y = position.y;
+		
+		tempCircle.x = position.x;
+		tempCircle.y = position.y;
 		
 		if(state.equals(State.ANIMATING)){
 			if(time < 200){
@@ -216,5 +220,12 @@ public class Player extends AbstractGameObject{
 	public void setState(State state) {
 		this.state = state;
 	}
+	public Circle getTempCircle() {
+		return tempCircle;
+	}
+	public void setTempCircle(Circle tempCircle) {
+		this.tempCircle = tempCircle;
+	}
+	
 	
 }

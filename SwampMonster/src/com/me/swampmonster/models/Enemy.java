@@ -22,8 +22,8 @@ public class Enemy extends AbstractGameObject{
 		gReenAura.radius = 128;
 		animations.put(State.STANDARD, new AnimationControl("data/Skelenten.png", 8, 16, 4)); 
 		oldPos = position;
-		playerMovementSpeedX = 0.3f;
-		playerMovementSpeedY = 0.3f;
+		playerMovementSpeedX = 0.7f;
+		playerMovementSpeedY = 0.7f;
 		
 		sprite = new Sprite(animations.get(state).getCurrentFrame());
 	}
@@ -31,6 +31,10 @@ public class Enemy extends AbstractGameObject{
 	public void update(){
 		oldPos.x = position.x;
 		oldPos.y = position.y; 
+		
+		gReenAura.x = position.x;
+		gReenAura.y = position.y;
+		
 		sprite.setRegion(animations.get(state).getCurrentFrame());
 		
 		// X AXIS MOVEMENT + COLLISION PROCESSING AND DETECTION
@@ -101,14 +105,14 @@ public class Enemy extends AbstractGameObject{
 		if(collidable != null){
 			contact(collidable);
 		}
-		// MOVING ON A PATH
+		// MOVING ON A PATH ( BEST MOVE THIS TO THE PATHFINDER PROPERLY )
 		if(theController.pathfinder.getPath()[cunter] != null && position.x >= (theController.pathfinder.getPath()[cunter].x*16)-1 && position.x <= (theController.pathfinder.getPath()[cunter].x*16)+1
 				&& position.y <= (theController.pathfinder.getPath()[cunter].y*16)+1 && position.y >= (theController.pathfinder.getPath()[cunter].y*16)-1){
 			System.out.println("Passing array index numb: " + cunter);
 			theController.pathfinder.getPath()[cunter] = null;
 			cunter--;
 		}
-		// MOVING ON A PATH
+		// MOVING ON A PATH ( BEST MOVE THIS TO THE PATHFINDER PROPERLY )
 		
 		if(oldPos.x == position.x && oldPos.y == position.y){
 			if(playerMovementDirection == "right"){

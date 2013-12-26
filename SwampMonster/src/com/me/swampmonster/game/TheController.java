@@ -22,10 +22,6 @@ public class TheController extends InputAdapter{
 	public Pathfinder pathfinder;
 	public TiledMapTileLayer collisionLayer;
 	
-	// Temporary debug feature
-	public Vector2 tempTargetPos;
-	// Temporary debug feature
-	
 	public TheController(){
 		init();
 	}
@@ -53,11 +49,6 @@ public class TheController extends InputAdapter{
 		touchPos = new Vector3(100f, 100f, 0);
 		collisionLayer = (TiledMapTileLayer) level1.getBunker().getMap().getLayers().get(0);
 		
-		tempTargetPos = new Vector2();
-		tempTargetPos.x = 160f;
-		tempTargetPos.y = 240f;
-		
-//		pathfinder.findPath(levelvel1.getEnemy().getPosition(), tempTargetPos);
 		pathfinder.findPath(level1.getEnemy().getPosition(), level1.getPlayer().getPosition());
 	}
 
@@ -86,9 +77,10 @@ public class TheController extends InputAdapter{
 			level1.getEnemy().setCunter(0);
 			pathfinder.findPath(level1.getEnemy().getPosition(), level1.getPlayer().getPosition());
 		}
-		if(level1.getPlayer().tempCircle.overlaps(level1.getEnemy().getgReenAura())){
+		if(level1.getEnemy().getgReenAura().overlaps(level1.getPlayer().getTempCircle())){
 			level1.getEnemy().setCunter(0);
 			pathfinder.findPath(level1.getEnemy().getPosition(), level1.getPlayer().getPosition());
+			System.out.println("overlap");
 		}
 		}
 	

@@ -73,11 +73,9 @@ public class L1Renderer {
 		sr.setColor(Color.GREEN);
 		sr.circle(theController.level1.getEnemy().getPosition().x+8, theController.level1.getEnemy().getPosition().y+16, theController.level1.getEnemy().getgReenAura().radius);
 		sr.setColor(Color.RED);
-		sr.circle(theController.level1.getPlayer().getPosition().x+8, theController.level1.getPlayer().getPosition().y+16, theController.level1.getPlayer().tempCircle.radius);
+		sr.circle(theController.level1.getPlayer().getPosition().x+8, theController.level1.getPlayer().getPosition().y+16, theController.level1.getPlayer().getTempCircle().radius);
 		sr.end();
 		sr.begin(ShapeType.Filled);
-		sr.setColor(Color.BLUE);
-		sr.rect(theController.tempTargetPos.x, theController.tempTargetPos.y, 10, 10);
 		sr.setColor(Color.YELLOW);
 		sr.rect(theController.level1.getEnemy().getPosition().x, theController.level1.getEnemy().getPosition().y, 10, 10);
 		sr.setColor(Color.RED);
