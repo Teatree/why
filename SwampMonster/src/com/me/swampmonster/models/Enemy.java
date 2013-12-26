@@ -1,21 +1,25 @@
 package com.me.swampmonster.models;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector2;
+import com.me.swampmonster.AI.Node;
 import com.me.swampmonster.animations.AnimationControl;
 import com.me.swampmonster.game.TheController;
 import com.me.swampmonster.game.collision.Collidable;
 import com.me.swampmonster.game.collision.CollisionHelper;
 
-
 public class Enemy extends AbstractGameObject{
 	
 	State state;
 	int cunter;
+	public Circle gReenAura;
 	
 	public Enemy(Vector2 position){
 		this.position = position;
 		this.state = State.STANDARD;
+		gReenAura = new Circle();
+		gReenAura.radius = 128;
 		animations.put(State.STANDARD, new AnimationControl("data/Skelenten.png", 8, 16, 4)); 
 		oldPos = position;
 		playerMovementSpeedX = 0.3f;
@@ -32,45 +36,48 @@ public class Enemy extends AbstractGameObject{
 		// X AXIS MOVEMENT + COLLISION PROCESSING AND DETECTION
 		//movement
 			if(cunter == 0){ 
-				cunter = findLastNotNullInArray();
-				
+				cunter = theController.pathfinder.findLastNotNullInArray();
 			}
 			
-	        if (theController.pathfinder.getPath()[cunter] != null && position.x > (theController.pathfinder.getPath()[cunter].x*16)) {
-	        	System.out.println("yes you are moving to the left");
+	        if (theController.pathfinder.getPath()[cunter] != null && (int)position.x > (int)(theController.pathfinder.getPath()[cunter].x*16)) {
 	        	position.x -= playerMovementSpeedX;
+	        	sprite.translateX(playerMovementSpeedX);
 	        	playerMovementDirection = "left";
-	        	currentFrame = animations.get(state).animate(8);
+	        	if(playerMovementDirection != "down" && playerMovementDirection != "up"){
+	        		currentFrame = animations.get(state).animate(8);
+	        	}
 	        }
 	        //Find a better way of doing this, like, for instance, getting for loop to work.
-	        Collidable collidable = CollisionHelper.isCollidable(position.x, position.y + sprite.getHeight(), theController.collisionLayer);
+	        Collidable collidable = CollisionHelper.isCollidable(position.x, position.y + (sprite.getHeight()/2)-1, theController.collisionLayer);
 	        if(collidable == null)collidable = CollisionHelper.isCollidable(position.x, position.y, theController.collisionLayer);
-	        if(collidable == null)collidable = CollisionHelper.isCollidable(position.x, position.y + (sprite.getHeight()/2), theController.collisionLayer);
+	        if(collidable == null)collidable = CollisionHelper.isCollidable(position.x, position.y + (sprite.getHeight()/4), theController.collisionLayer);
 
 			if(collidable != null){
 				contact(collidable);
 			}
-			if (theController.pathfinder.getPath()[cunter] != null && position.x < (theController.pathfinder.getPath()[cunter].x*16)) {
+			if (theController.pathfinder.getPath()[cunter] != null && (int)position.x < (int)(theController.pathfinder.getPath()[cunter].x*16)) {
 	        	position.x += playerMovementSpeedX;
 	        	sprite.translateX(playerMovementSpeedX);
 	        	playerMovementDirection = "right";
-	        	currentFrame = animations.get(state).animate(24);
+	        	if(playerMovementDirection != "down" && playerMovementDirection != "up"){
+	        		currentFrame = animations.get(state).animate(24);
+	        	}
 		    }
 			//Find a better way of doing this, like, for instance, getting for loop to work.
-			collidable = CollisionHelper.isCollidable(position.x+sprite.getWidth(), position.y + sprite.getHeight(), theController.collisionLayer);
+			collidable = CollisionHelper.isCollidable(position.x+sprite.getWidth(), position.y + (sprite.getHeight()/2)-1, theController.collisionLayer);
 			if(collidable == null)collidable = CollisionHelper.isCollidable(position.x+sprite.getWidth(), position.y, theController.collisionLayer);
-	        if(collidable == null)collidable = CollisionHelper.isCollidable(position.x+sprite.getWidth(), position.y +(sprite.getHeight()/2), theController.collisionLayer);
+	        if(collidable == null)collidable = CollisionHelper.isCollidable(position.x+sprite.getWidth(), position.y +(sprite.getHeight()/4), theController.collisionLayer);
 
 			if(collidable != null){
 				contact(collidable);
 			}
 			
 			// Y AXIS MOVEMENT + COLLISION PROCESSING AND DETECTION
-			if (theController.pathfinder.getPath()[cunter] != null && position.y > (theController.pathfinder.getPath()[cunter].y*16)) {
+			if (theController.pathfinder.getPath()[cunter] != null && (int)position.y > (int)(theController.pathfinder.getPath()[cunter].y*16)) {
 		    	position.y -= playerMovementSpeedY;
 		    	sprite.translateY(-playerMovementSpeedY);
 		    	playerMovementDirection = "down";
-		    	currentFrame = animations.get(state).animate(0);
+			   	currentFrame = animations.get(state).animate(0);
 	        }
 	      //Find a better way of doing this, like, for instance, getting for loop to work.
 	        collidable = CollisionHelper.isCollidable(position.x+sprite.getWidth(), position.y, theController.collisionLayer);
@@ -80,25 +87,28 @@ public class Enemy extends AbstractGameObject{
 	        if(collidable != null){
 	        	contact(collidable);
 	        }
-	        if (theController.pathfinder.getPath()[cunter] != null && position.y < (theController.pathfinder.getPath()[cunter].y*16)) {
+	        if (theController.pathfinder.getPath()[cunter] != null && (int)position.y < (int)(theController.pathfinder.getPath()[cunter].y*16)) {
 	        	position.y += playerMovementSpeedY;
 	        	sprite.translateY(playerMovementSpeedY);
 	        	playerMovementDirection = "up";
 	        	currentFrame = animations.get(state).animate(16);
 			}
 	      //Find a better way of doing this, like, for instance, getting for loop to work.
-	        collidable = CollisionHelper.isCollidable(position.x+sprite.getWidth(), position.y+sprite.getHeight(), theController.collisionLayer);
-	        if(collidable == null)collidable = CollisionHelper.isCollidable(position.x, position.y+sprite.getHeight(), theController.collisionLayer);
-	        if(collidable == null)collidable = CollisionHelper.isCollidable(position.x+(sprite.getWidth()/2), position.y+sprite.getHeight(), theController.collisionLayer);
+	        collidable = CollisionHelper.isCollidable(position.x+sprite.getWidth(), (position.y+sprite.getHeight()/2)-1, theController.collisionLayer);
+	        if(collidable == null)collidable = CollisionHelper.isCollidable(position.x, (position.y+sprite.getHeight()/2)-1, theController.collisionLayer);
+	        if(collidable == null)collidable = CollisionHelper.isCollidable(position.x+(sprite.getWidth()/2), (position.y+sprite.getHeight()/2)-1, theController.collisionLayer);
 
 		if(collidable != null){
 			contact(collidable);
 		}
+		// MOVING ON A PATH
 		if(theController.pathfinder.getPath()[cunter] != null && position.x >= (theController.pathfinder.getPath()[cunter].x*16)-1 && position.x <= (theController.pathfinder.getPath()[cunter].x*16)+1
 				&& position.y <= (theController.pathfinder.getPath()[cunter].y*16)+1 && position.y >= (theController.pathfinder.getPath()[cunter].y*16)-1){
+			Node[] arr = theController.pathfinder.getPath();
+			arr = null;
 			cunter--;
-			System.out.println("(enemyMovement): You have reached a point, off to the next one now! cunter is:" + cunter);
 		}
+		// MOVING ON A PATH
 		
 		if(oldPos.x == position.x && oldPos.y == position.y){
 			if(playerMovementDirection == "right"){
@@ -116,13 +126,7 @@ public class Enemy extends AbstractGameObject{
 		}
 	}
 	
-	public int findLastNotNullInArray(){
-		int i = 0;
-		while(theController.pathfinder.path[i] != null){
-			i++;
-		}
-		return i - 1;
-	}
+	
 	
 	private void contact(Collidable collidable) {
 		collidable.doCollide(this);
@@ -180,4 +184,21 @@ public class Enemy extends AbstractGameObject{
 		
 	}
 
+	public int getCunter() {
+		return cunter;
+	}
+
+	public void setCunter(int cunter) {
+		this.cunter = cunter;
+	}
+
+	public Circle getgReenAura() {
+		return gReenAura;
+	}
+
+	public void setgReenAura(Circle gReenAura) {
+		this.gReenAura = gReenAura;
+	}
+	
+	
 }

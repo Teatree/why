@@ -1,5 +1,7 @@
 package com.me.swampmonster.game;
 
+import sun.misc.Cleaner;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputAdapter;
@@ -54,10 +56,11 @@ public class TheController extends InputAdapter{
 		collisionLayer = (TiledMapTileLayer) level1.getBunker().getMap().getLayers().get(0);
 		
 		tempTargetPos = new Vector2();
-		tempTargetPos.x = 480f;
-		tempTargetPos.y = 320f;
+		tempTargetPos.x = 160f;
+		tempTargetPos.y = 240f;
 		
-		pathfinder.findPath(level1.getEnemy().getPosition(), tempTargetPos);
+//		pathfinder.findPath(levelvel1.getEnemy().getPosition(), tempTargetPos);
+		pathfinder.findPath(level1.getEnemy().getPosition(), level1.getPlayer().getPosition());
 	}
 
 	private void handleDebugInput(float deltaTime) {
@@ -81,6 +84,10 @@ public class TheController extends InputAdapter{
 		cameraHelper.addZoom(camZoomSpeed);
 		if (Gdx.input.isKeyPressed(Keys.E)) cameraHelper.addZoom(-camZoomSpeed);
 		if (Gdx.input.isKeyPressed(Keys.F)) cameraHelper.setZoom(1);
+		if (Gdx.input.isKeyPressed(Keys.K)){ 
+			level1.getEnemy().setCunter(0);
+			pathfinder.findPath(level1.getEnemy().getPosition(), level1.getPlayer().getPosition());
+		}
 		}
 	
 	private void moveCamera (float x, float y) {

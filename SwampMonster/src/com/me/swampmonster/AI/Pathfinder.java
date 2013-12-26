@@ -13,6 +13,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import com.badlogic.gdx.math.Vector2;
+import com.me.swampmonster.game.TheController;
  
 public class Pathfinder {
  
@@ -195,6 +196,14 @@ public class Pathfinder {
 		
 		Cell cell = getCellAt(x, y);
 		return cell != null? cell.getTile() : null;
+	}
+	
+	public int findLastNotNullInArray(){
+		int i = 0;
+		while(path[i] != null){
+			i++;
+		}
+		return i - 1;
 	}
 	
 	public Node[] getPath() {

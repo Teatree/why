@@ -69,6 +69,10 @@ public class L1Renderer {
 		
 		
 		// Temporary deBug feature
+		sr.begin(ShapeType.Line);
+		sr.setColor(Color.GREEN);
+		sr.circle(theController.level1.getEnemy().getPosition().x+8, theController.level1.getEnemy().getPosition().y+16, theController.level1.getEnemy().getgReenAura().radius);
+		sr.end();
 		sr.begin(ShapeType.Filled);
 		sr.setColor(Color.BLUE);
 		sr.rect(theController.tempTargetPos.x, theController.tempTargetPos.y, 10, 10);
@@ -77,7 +81,7 @@ public class L1Renderer {
 		sr.setColor(Color.RED);
 		for(Node n : theController.pathfinder.getPath()){
 			if(n != null){
-				sr.rect((n.x*16)+8, (n.y*16)+8, 4, 4);
+				sr.rect((n.x*16)+6, (n.y*16)+6, 4, 4);
 			}
 		}
 		sr.end();
