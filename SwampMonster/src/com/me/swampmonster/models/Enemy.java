@@ -110,7 +110,9 @@ public class Enemy extends AbstractGameObject{
 				&& position.y <= (theController.pathfinder.getPath()[cunter].y*16)+1 && position.y >= (theController.pathfinder.getPath()[cunter].y*16)-1){
 			System.out.println("Passing array index numb: " + cunter);
 			theController.pathfinder.getPath()[cunter] = null;
-			cunter--;
+			if(cunter>1){
+				cunter--;
+			}
 		}
 		// MOVING ON A PATH ( BEST MOVE THIS TO THE PATHFINDER PROPERLY )
 		
