@@ -205,7 +205,6 @@ public class Pathfinder {
 		}
 		return i - 1;
 	}
-	
 	public Node[] getPath() {
 		return path;
 	}

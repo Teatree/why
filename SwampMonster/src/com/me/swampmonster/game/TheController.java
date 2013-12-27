@@ -77,12 +77,17 @@ public class TheController extends InputAdapter{
 			level1.getEnemy().setCunter(0);
 			pathfinder.findPath(level1.getEnemy().getPosition(), level1.getPlayer().getPosition());
 		}
-		if(level1.getEnemy().getgReenAura().overlaps(level1.getPlayer().getTempCircle())){
+		if(level1.getEnemy().getgReenAura().overlaps(level1.getPlayer().getTempCircle()) && level1.getEnemy().getState() == State.STANDARD){
 			level1.getEnemy().setCunter(0);
 			pathfinder.findPath(level1.getEnemy().getPosition(), level1.getPlayer().getPosition());
-			System.out.println("overlap");
 		}
+		if(level1.getEnemy().getoRangeAura().overlaps(level1.getPlayer().getTempCircle())){
+			level1.getEnemy().setState(State.ATTACKING);
+			System.out.println("overlap Orange");
+		}else{
+			level1.getEnemy().setState(State.STANDARD);
 		}
+	}
 	
 	private void moveCamera (float x, float y) {
 		x += cameraHelper.getPosition().x;

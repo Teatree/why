@@ -72,12 +72,12 @@ public class L1Renderer {
 		sr.begin(ShapeType.Line);
 		sr.setColor(Color.GREEN);
 		sr.circle(theController.level1.getEnemy().getPosition().x+8, theController.level1.getEnemy().getPosition().y+16, theController.level1.getEnemy().getgReenAura().radius);
+		sr.setColor(Color.BLUE);
+		sr.circle(theController.level1.getEnemy().getoRangeAura().x+8, theController.level1.getEnemy().getoRangeAura().y+16, theController.level1.getEnemy().getoRangeAura().radius);
 		sr.setColor(Color.RED);
 		sr.circle(theController.level1.getPlayer().getPosition().x+8, theController.level1.getPlayer().getPosition().y+16, theController.level1.getPlayer().getTempCircle().radius);
 		sr.end();
 		sr.begin(ShapeType.Filled);
-		sr.setColor(Color.YELLOW);
-		sr.rect(theController.level1.getEnemy().getPosition().x, theController.level1.getEnemy().getPosition().y, 10, 10);
 		sr.setColor(Color.RED);
 		for(Node n : theController.pathfinder.getPath()){
 			if(n != null){

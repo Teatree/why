@@ -8,24 +8,29 @@ import com.me.swampmonster.animations.AnimationControl;
 import com.me.swampmonster.game.TheController;
 import com.me.swampmonster.game.collision.Collidable;
 import com.me.swampmonster.game.collision.CollisionHelper;
+import com.me.swampmonster.models.AbstractGameObject.State;
 
 public class Enemy extends AbstractGameObject{
 	
-	State state;
+	State state = State.STANDARD;
 	int cunter;
 	public Circle gReenAura;
+	public Circle oRangeAura;
 	
 	public Enemy(Vector2 position){
 		this.position = position;
-		this.state = State.STANDARD;
 		gReenAura = new Circle();
-		gReenAura.radius = 128;
+		gReenAura.radius = 164;
+		oRangeAura = new Circle();
+		oRangeAura.radius = 32;
 		animations.put(State.STANDARD, new AnimationControl("data/Skelenten.png", 8, 16, 4)); 
+		animations.put(State.ATTACKING, new AnimationControl("data/Skelenten.png", 8, 16, 4)); 
 		oldPos = position;
-		playerMovementSpeedX = 0.7f;
-		playerMovementSpeedY = 0.7f;
+		playerMovementSpeedX = 0.3f;
+		playerMovementSpeedY = 0.3f;
 		
-		sprite = new Sprite(animations.get(state).getCurrentFrame());
+		sprite = new Sprite(animations.get(state.STANDARD).getCurrentFrame());
+		sprite = new Sprite(animations.get(state.ATTACKING).getCurrentFrame());
 	}
 	
 	public void update(){
@@ -34,7 +39,97 @@ public class Enemy extends AbstractGameObject{
 		
 		gReenAura.x = position.x;
 		gReenAura.y = position.y;
+		oRangeAura.x = position.x;
+		oRangeAura.y = position.y;
 		
+		
+		// ATTACKING!
+		if(state.equals(State.ATTACKING)){
+			sprite.setRegion(animations.get(state).getCurrentFrame());
+			
+			// X AXIS MOVEMENT + COLLISION PROCESSING AND DETECTION
+            //movement
+
+            if (position.x > theController.level1.getPlayer().getPosition().x+2) {
+                    position.x -= playerMovementSpeedX;
+                    playerMovementDirection = "left";
+                    if(position.x > theController.level1.getPlayer().getPosition().x+2 && position.y < theController.level1.getPlayer().getPosition().y-1 && position.y > theController.level1.getPlayer().getPosition().y-5){
+                            currentFrame = animations.get(state).animate(8);
+                    }
+            }
+            //Find a better way of doing this, like, for instance, getting for loop to work.
+            Collidable collidable = CollisionHelper.isCollidable(position.x, position.y + sprite.getHeight(), theController.collisionLayer);
+            if(collidable == null)collidable = CollisionHelper.isCollidable(position.x, position.y, theController.collisionLayer);
+            if(collidable == null)collidable = CollisionHelper.isCollidable(position.x, position.y + (sprite.getHeight()/2), theController.collisionLayer);
+
+                    if(collidable != null){
+                            contact(collidable);
+                    }
+                    if (position.x < theController.level1.getPlayer().getPosition().x+5) {
+                    position.x += playerMovementSpeedX;
+                    sprite.translateX(playerMovementSpeedX);
+                    playerMovementDirection = "right";
+                    if(position.x < theController.level1.getPlayer().getPosition().x+5 && position.y < theController.level1.getPlayer().getPosition().y-1 && position.y > theController.level1.getPlayer().getPosition().y-5){
+                            currentFrame = animations.get(state).animate(24);
+                    }        
+                }
+                    //Find a better way of doing this, like, for instance, getting for loop to work.
+                    collidable = CollisionHelper.isCollidable(position.x+sprite.getWidth(), position.y + sprite.getHeight(), theController.collisionLayer);
+                    if(collidable == null)collidable = CollisionHelper.isCollidable(position.x+sprite.getWidth(), position.y, theController.collisionLayer);
+            if(collidable == null)collidable = CollisionHelper.isCollidable(position.x+sprite.getWidth(), position.y +(sprite.getHeight()/2), theController.collisionLayer);
+
+                    if(collidable != null){
+                            contact(collidable);
+                    }
+                    if (position.y > theController.level1.getPlayer().getPosition().y-1) {
+                        position.y -= playerMovementSpeedY;
+                        sprite.translateY(-playerMovementSpeedY);
+                        playerMovementDirection = "down";
+                        currentFrame = animations.get(state).animate(0);
+            }
+          //Find a better way of doing this, like, for instance, getting for loop to work.
+            collidable = CollisionHelper.isCollidable(position.x+sprite.getWidth(), position.y, theController.collisionLayer);
+            if(collidable == null)collidable = CollisionHelper.isCollidable(position.x, position.y, theController.collisionLayer);
+            if(collidable == null)collidable = CollisionHelper.isCollidable(position.x+(sprite.getWidth()/2), position.y, theController.collisionLayer);
+            
+            if(collidable != null){
+                    contact(collidable);
+            }
+            if (position.y < theController.level1.getPlayer().getPosition().y-5) {
+                    position.y += playerMovementSpeedY;
+                    sprite.translateY(playerMovementSpeedY);
+                    playerMovementDirection = "up";
+                    currentFrame = animations.get(state).animate(16);
+                    }
+          //Find a better way of doing this, like, for instance, getting for loop to work.
+            collidable = CollisionHelper.isCollidable(position.x+sprite.getWidth(), position.y+sprite.getHeight(), theController.collisionLayer);
+            if(collidable == null)collidable = CollisionHelper.isCollidable(position.x, position.y+sprite.getHeight(), theController.collisionLayer);
+            if(collidable == null)collidable = CollisionHelper.isCollidable(position.x+(sprite.getWidth()/2), position.y+sprite.getHeight(), theController.collisionLayer);
+
+            if(collidable != null){
+                    contact(collidable);
+            }
+            
+            
+            if(oldPos.x == position.x && oldPos.y == position.y){
+                    if(playerMovementDirection == "right"){
+                            currentFrame = animations.get(state).animate(56);
+                    }
+                    if(playerMovementDirection == "left"){
+                            currentFrame = animations.get(state).animate(40);
+                    }
+                    if(playerMovementDirection == "up"){
+                            currentFrame = animations.get(state).animate(48);
+                    }
+                    if(playerMovementDirection == "down"){
+                            currentFrame = animations.get(state).animate(32);
+                    }
+            }
+		}
+		
+		
+		// STANDARD!
+		if(state.equals(State.STANDARD)){
 		sprite.setRegion(animations.get(state).getCurrentFrame());
 		
 		// X AXIS MOVEMENT + COLLISION PROCESSING AND DETECTION
@@ -131,6 +226,7 @@ public class Enemy extends AbstractGameObject{
 			}
 		}
 	}
+	}
 	
 	
 	
@@ -204,6 +300,22 @@ public class Enemy extends AbstractGameObject{
 
 	public void setgReenAura(Circle gReenAura) {
 		this.gReenAura = gReenAura;
+	}
+
+	public Circle getoRangeAura() {
+		return oRangeAura;
+	}
+
+	public void setoRangeAura(Circle oRangeAura) {
+		this.oRangeAura = oRangeAura;
+	}
+
+	public State getState() {
+		return state;
+	}
+
+	public void setState(State state) {
+		this.state = state;
 	}
 	
 	

@@ -13,7 +13,7 @@ import com.me.swampmonster.game.TheController;
 public abstract class AbstractGameObject {
 
 	public enum State{
-		STANDARD, HURT, DEAD, ANIMATING;
+		STANDARD, HURT, DEAD, ANIMATING, ATTACKING;
 	}
 	
 	protected TextureRegion currentFrame;
@@ -27,8 +27,8 @@ public abstract class AbstractGameObject {
 	protected TheController theController;
 	
 	protected String playerMovementDirection; 
-	protected float playerMovementSpeedX = 1f; 
-	protected float playerMovementSpeedY = 1f;
+	protected float playerMovementSpeedX = 0.5f; 
+	protected float playerMovementSpeedY = 0.5f;
 	
 	public Vector2 getPosition() {
 		return position;
