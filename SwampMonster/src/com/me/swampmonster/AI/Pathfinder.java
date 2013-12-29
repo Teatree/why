@@ -62,7 +62,7 @@ public class Pathfinder {
 	
 	public boolean findPath(Vector2 startingPosition, Vector2 targetPosition) {
 		loadNodes();
-		System.out.println("(findPath): working!");
+//		System.out.println("(findPath): working!");
 		
 		
 		openList = new PriorityQueue<Node>();
@@ -96,7 +96,7 @@ public class Pathfinder {
 					node = node.getParentNode();
 					cuntar++;
 				}
-				System.out.println("(findPath): Found the path!");
+//				System.out.println("(findPath): Found the path!");
 				return true;
 			}
 			

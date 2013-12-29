@@ -13,7 +13,7 @@ import com.me.swampmonster.game.TheController;
 public abstract class AbstractGameObject {
 
 	public enum State{
-		STANDARD, HURT, DEAD, ANIMATING, ATTACKING;
+		STANDARD, HURT, DEAD, ANIMATING, ATTACKING, PURSUIT;
 	}
 	
 	protected TextureRegion currentFrame;

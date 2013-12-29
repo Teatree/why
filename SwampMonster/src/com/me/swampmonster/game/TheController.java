@@ -77,15 +77,17 @@ public class TheController extends InputAdapter{
 			level1.getEnemy().setCunter(0);
 			pathfinder.findPath(level1.getEnemy().getPosition(), level1.getPlayer().getPosition());
 		}
-		if(level1.getEnemy().getgReenAura().overlaps(level1.getPlayer().getTempCircle()) && level1.getEnemy().getState() == State.STANDARD){
-			level1.getEnemy().setCunter(0);
-			pathfinder.findPath(level1.getEnemy().getPosition(), level1.getPlayer().getPosition());
-		}
 		if(level1.getEnemy().getoRangeAura().overlaps(level1.getPlayer().getTempCircle())){
 			level1.getEnemy().setState(State.ATTACKING);
-			System.out.println("overlap Orange");
+			System.out.println("overlap Orange and the state is:" + level1.getEnemy().getState());
+		}else if(level1.getEnemy().getgReenAura().overlaps(level1.getPlayer().getTempCircle())){
+			level1.getEnemy().setCunter(0);
+			level1.getEnemy().setState(State.PURSUIT);
+			pathfinder.findPath(level1.getEnemy().getPosition(), level1.getPlayer().getPosition());
+			System.out.println("overlap Green and the State is:" + level1.getEnemy().getState());
 		}else{
 			level1.getEnemy().setState(State.STANDARD);
+			System.out.println("else xD, and the state is: " + level1.getEnemy().getState());
 		}
 	}
 	
