@@ -27,7 +27,7 @@ public class Player extends AbstractGameObject{
 		// Temporary circle
 		
 		animations.put(state.STANDARD, new AnimationControl("data/NastyaSheet2.png", 8, 32, 7)); 
-		animations.put(state.ANIMATING, new AnimationControl("data/NastyaSheet2.png", 4, 32, 8)); 
+		animations.put(state.ANIMATING, new AnimationControl("data/NastyaSheet2.png", 8, 32, 8)); 
 		oldPos = position;
 		
 		health = 6;
@@ -58,10 +58,10 @@ public class Player extends AbstractGameObject{
 			if(time < 150){
 				sprite = new Sprite(animations.get(state.ANIMATING).getCurrentFrame());
 				sprite.rotate(32);
-				currentFrame = animations.get(state).doComplexAnimation(40, 2, 8, 0.01f);
+				currentFrame = animations.get(state).doComplexAnimation(112, 4, 10, 0.01f);
 				
 				sprite.setRegion(animations.get(state).getCurrentFrame());
-				sprite.setBounds(sprite.getX(), sprite.getY(), 32, 32);
+				sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
 				time++;
 			}
 			else{
