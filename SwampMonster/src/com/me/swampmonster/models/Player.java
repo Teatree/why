@@ -53,6 +53,7 @@ public class Player extends AbstractGameObject{
 		tempCircle.x = position.x;
 		tempCircle.y = position.y;
 		
+	//ANIMATING
 		if(state.equals(State.ANIMATING)){
 			if(time < 150){
 				sprite = new Sprite(animations.get(state.ANIMATING).getCurrentFrame());
@@ -70,6 +71,7 @@ public class Player extends AbstractGameObject{
 			}
 		}
 			
+	//STANDARD
 		if(state.equals(State.STANDARD)){
 		sprite = new Sprite(animations.get(state.STANDARD).getCurrentFrame());
 		sprite.setRegion(animations.get(state).getCurrentFrame());
@@ -82,107 +84,127 @@ public class Player extends AbstractGameObject{
 	        theController.l1Renderer.getCam().unproject(theController.touchPos);
 	        theController.touchPos.z = 0;
 	    }	
-		// X AXIS MOVEMENT + COLLISION PROCESSING AND DETECTION
 		//movement
-			
+		 	movementCollisionAndAnimation();
+		}
+	}
+	private void movementCollisionAndAnimation() {
+		// ---------------------left------------------------ //
+		Collidable collidableLeft = null;
 		
-		 	// ---------------------left------------------------ //
-			Collidable collidableLeft = null;
-	        if (position.x > theController.touchPos.x -16/2 && collidableLeft == null) {
-	        	position.x -= playerMovementSpeedX;
-	        	playerMovementDirection = "left";
-	        	sprite.translateX(-playerMovementSpeedX);
-	        }
-	        if(position.x > theController.touchPos.x -16/2 && position.y < theController.touchPos.y -1 && position.y > theController.touchPos.y -5 && oldPos.x != position.x && collidableLeft == null){
-	        	currentFrame = animations.get(state).animate(24);
-	        }
-	        //Find a better way of doing this, like, for instance, getting for loop to work.
-	        collidableLeft = CollisionHelper.isCollidable(position.x, position.y + sprite.getHeight(), theController.collisionLayer);
-	        if(collidableLeft == null)collidableLeft = CollisionHelper.isCollidable(position.x, position.y, theController.collisionLayer);
-	        if(collidableLeft == null)collidableLeft = CollisionHelper.isCollidable(position.x, position.y + (sprite.getHeight()/2), theController.collisionLayer);
-
-			if(collidableLeft != null){
-				contact(collidableLeft);
+		moveLeft(collidableLeft);
+		collidableLeft = collisionCheckerLeft();
+		collisionCheck(collidableLeft);
+		
+		// ---------------------right------------------------ //
+		Collidable collidableRight = null;
+		
+		moveRight(collidableRight);
+		collidableRight = collisionCheckerRight();
+		collisionCheck(collidableRight);
+		
+		// ---------------------down------------------------ //
+		Collidable collidableDown = null;
+		
+		moveDown(collidableDown);
+		collidableDown = collisionCheckerDown();
+		collisionCheck(collidableDown);
+		
+		// ---------------------up------------------------ //
+		Collidable collidableUp = null;
+		
+		moveUp(collidableUp);
+		collidableUp = collisionCheckerUp();
+		collisionCheck(collidableUp);
+		
+		standingAnimation();
+	}
+	private Collidable collisionCheckerUp() {
+		Collidable collidableUp;
+		collidableUp = CollisionHelper.isCollidable(position.x+sprite.getWidth(), position.y+sprite.getHeight(), theController.collisionLayer);
+		if(collidableUp == null)collidableUp = CollisionHelper.isCollidable(position.x, position.y+sprite.getHeight(), theController.collisionLayer);
+		if(collidableUp == null)collidableUp = CollisionHelper.isCollidable(position.x+(sprite.getWidth()/2), position.y+sprite.getHeight(), theController.collisionLayer);
+		return collidableUp;
+	}
+	private void moveUp(Collidable collidableUp) {
+		if (position.y < theController.touchPos.y -5 && collidableUp == null) {
+			position.y += playerMovementSpeedY;
+			sprite.translateY(playerMovementSpeedY);
+			playerMovementDirection = "up";
+			if(oldPos.y != position.y){
+				currentFrame = animations.get(state).animate(8);
 			}
-			// ---------------------left-end----------------------- //
-			
-			
-			// ---------------------right------------------------ //
-			Collidable collidableRight = null;
-			if (position.x <  theController.touchPos.x -19/2 && collidableRight == null) {
-	        	position.x += playerMovementSpeedX; 
-	        	sprite.translateX(playerMovementSpeedX);
-	        	playerMovementDirection = "right";
-		    }
-			if(position.x <  theController.touchPos.x -19/2 && position.y < theController.touchPos.y -1 && position.y > theController.touchPos.y -5 && oldPos.x != position.x && collidableRight == null){
-				currentFrame = animations.get(state).animate(16);
+		}
+	}
+	private Collidable collisionCheckerDown() {
+		Collidable collidableDown;
+		collidableDown = CollisionHelper.isCollidable(position.x+sprite.getWidth(), position.y, theController.collisionLayer);
+		if(collidableDown == null)collidableDown = CollisionHelper.isCollidable(position.x, position.y, theController.collisionLayer);
+		if(collidableDown == null)collidableDown = CollisionHelper.isCollidable(position.x+(sprite.getWidth()/2), position.y, theController.collisionLayer);
+		return collidableDown;
+	}
+	private void moveDown(Collidable collidableDown) {
+		if (position.y > theController.touchPos.y -1 && collidableDown == null) {
+			position.y -= playerMovementSpeedY;
+			sprite.translateY(-playerMovementSpeedY);
+			playerMovementDirection = "down";
+			if(oldPos.y != position.y){
+				currentFrame = animations.get(state).animate(0);
 			}
-			//Find a better way of doing this, like, for instance, getting for loop to work.
-			collidableRight = CollisionHelper.isCollidable(position.x+sprite.getWidth(), position.y + sprite.getHeight(), theController.collisionLayer);
-			if(collidableRight == null)collidableRight = CollisionHelper.isCollidable(position.x+sprite.getWidth(), position.y, theController.collisionLayer);
-	        if(collidableRight == null)collidableRight = CollisionHelper.isCollidable(position.x+sprite.getWidth(), position.y +(sprite.getHeight()/2), theController.collisionLayer);
-
-			if(collidableRight != null){
-				contact(collidableRight);
+		}
+	}
+	private Collidable collisionCheckerRight() {
+		Collidable collidableRight;
+		collidableRight = CollisionHelper.isCollidable(position.x+sprite.getWidth(), position.y + sprite.getHeight(), theController.collisionLayer);
+		if(collidableRight == null)collidableRight = CollisionHelper.isCollidable(position.x+sprite.getWidth(), position.y, theController.collisionLayer);
+		if(collidableRight == null)collidableRight = CollisionHelper.isCollidable(position.x+sprite.getWidth(), position.y +(sprite.getHeight()/2), theController.collisionLayer);
+		return collidableRight;
+	}
+	private void moveRight(Collidable collidableRight) {
+		if (position.x <  theController.touchPos.x -19/2 && collidableRight == null) {
+			position.x += playerMovementSpeedX; 
+			sprite.translateX(playerMovementSpeedX);
+			playerMovementDirection = "right";
+		}
+		if(position.x <  theController.touchPos.x -19/2 && position.y < theController.touchPos.y -1 && position.y > theController.touchPos.y -5 && oldPos.x != position.x && collidableRight == null){
+			currentFrame = animations.get(state).animate(16);
+		}
+	}
+	private void collisionCheck(Collidable collidableLeft) {
+		if(collidableLeft != null){
+			contact(collidableLeft);
+		}
+	}
+	private Collidable collisionCheckerLeft() {
+		Collidable collidableLeft;
+		collidableLeft = CollisionHelper.isCollidable(position.x, position.y + sprite.getHeight(), theController.collisionLayer);
+		if(collidableLeft == null)collidableLeft = CollisionHelper.isCollidable(position.x, position.y, theController.collisionLayer);
+		if(collidableLeft == null)collidableLeft = CollisionHelper.isCollidable(position.x, position.y + (sprite.getHeight()/2), theController.collisionLayer);
+		return collidableLeft;
+	}
+	private void moveLeft(Collidable collidableLeft) {
+		if (position.x > theController.touchPos.x -16/2 && collidableLeft == null) {
+			position.x -= playerMovementSpeedX;
+			playerMovementDirection = "left";
+			sprite.translateX(-playerMovementSpeedX);
+		}
+		if(position.x > theController.touchPos.x -16/2 && position.y < theController.touchPos.y -1 && position.y > theController.touchPos.y -5 && oldPos.x != position.x && collidableLeft == null){
+			currentFrame = animations.get(state).animate(24);
+		}
+	}
+	private void standingAnimation() {
+		if(oldPos.x == position.x && oldPos.y == position.y){
+			if(playerMovementDirection == "right"){
+				currentFrame = animations.get(state).animate(48);
 			}
-			// ---------------------right-end----------------------- //
-			
-			
-			// ---------------------down------------------------ //
-			Collidable collidableDown = null;
-	        if (position.y > theController.touchPos.y -1 && collidableDown == null) {
-		    	position.y -= playerMovementSpeedY;
-		    	sprite.translateY(-playerMovementSpeedY);
-		    	playerMovementDirection = "down";
-		    	if(oldPos.y != position.y){
-		    		currentFrame = animations.get(state).animate(0);
-		    	}
-	        }
-	        //Find a better way of doing this, like, for instance, getting for loop to work.
-	        collidableDown = CollisionHelper.isCollidable(position.x+sprite.getWidth(), position.y, theController.collisionLayer);
-	        if(collidableDown == null)collidableDown = CollisionHelper.isCollidable(position.x, position.y, theController.collisionLayer);
-	        if(collidableDown == null)collidableDown = CollisionHelper.isCollidable(position.x+(sprite.getWidth()/2), position.y, theController.collisionLayer);
-	        
-	        if(collidableDown != null){
-	        	contact(collidableDown);
-	        }
-	        // ---------------------down-end----------------------- //
-	        
-	        
-	        // ---------------------up------------------------ //
-	        Collidable collidableUp = null;
-	        if (position.y < theController.touchPos.y -5 && collidableUp == null) {
-	        	position.y += playerMovementSpeedY;
-	        	sprite.translateY(playerMovementSpeedY);
-	        	playerMovementDirection = "up";
-	        	if(oldPos.y != position.y){
-	        		currentFrame = animations.get(state).animate(8);
-	        	}
+			if(playerMovementDirection == "left"){
+				currentFrame = animations.get(state).animate(56);
 			}
-	      //Find a better way of doing this, like, for instance, getting for loop to work.
-	        collidableUp = CollisionHelper.isCollidable(position.x+sprite.getWidth(), position.y+sprite.getHeight(), theController.collisionLayer);
-	        if(collidableUp == null)collidableUp = CollisionHelper.isCollidable(position.x, position.y+sprite.getHeight(), theController.collisionLayer);
-	        if(collidableUp == null)collidableUp = CollisionHelper.isCollidable(position.x+(sprite.getWidth()/2), position.y+sprite.getHeight(), theController.collisionLayer);
-
-			if(collidableUp != null){
-				contact(collidableUp);
+			if(playerMovementDirection == "up"){
+				currentFrame = animations.get(state).animate(40);
 			}
-			// ---------------------up-end----------------------- //
-			
-			
-			if(oldPos.x == position.x && oldPos.y == position.y){
-				if(playerMovementDirection == "right"){
-					currentFrame = animations.get(state).animate(48);
-				}
-				if(playerMovementDirection == "left"){
-					currentFrame = animations.get(state).animate(56);
-				}
-				if(playerMovementDirection == "up"){
-					currentFrame = animations.get(state).animate(40);
-				}
-				if(playerMovementDirection == "down"){
-					currentFrame = animations.get(state).animate(32);
-				}
+			if(playerMovementDirection == "down"){
+				currentFrame = animations.get(state).animate(32);
 			}
 		}
 	}

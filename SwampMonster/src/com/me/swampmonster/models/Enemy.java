@@ -79,22 +79,9 @@ public class Enemy extends AbstractGameObject{
 						if(cunter == 0){ 
 							cunter = theController.pathfinder.findLastNotNullInArray();
 						}
-						
-				        moveLeftOnPath();
-				        Collidable collidable = collisionCheckerLeft();
-						collisionCheck(collidable);
-						
-						moveRightOnPath();
-						collidable = collisionCheckerRight();
-						collisionCheck(collidable);
-						
-						moveDownOnPath();
-				        collidable = collisionCheckerBottom();
-				        collisionCheck(collidable);
-				        
-				        moveUpOnPath();
-				        collidable = collisionCheckerTop();
-				        collisionCheck(collidable);
+						// boom!
+				        onPathMovingAndCollisionDetection();
+				        // boom!
 				        
 					orientOnPath();
 					standAnimation(88, 72, 80, 64);
@@ -110,25 +97,29 @@ public class Enemy extends AbstractGameObject{
 				cunter = theController.pathfinder.findLastNotNullInArray();
 			}
 			
-	        moveLeftOnPath();
-	        Collidable collidable = collisionCheckerLeft();
-			collisionCheck(collidable);
-			
-			moveRightOnPath();
-			collidable = collisionCheckerRight();
-			collisionCheck(collidable);
-			
-			moveDownOnPath();
-			collidable = collisionCheckerBottom();
-	        collisionCheck(collidable);
-	        
-	        moveUpOnPath();
-	        collidable = collisionCheckerTop();
-	        collisionCheck(collidable);
+	        onPathMovingAndCollisionDetection();
 		
 		orientOnPath();
 		standAnimation(88, 72, 80, 64);
 	}
+	}
+
+	private void onPathMovingAndCollisionDetection() {
+		moveLeftOnPath();
+		Collidable collidable = collisionCheckerLeft();
+		collisionCheck(collidable);
+		
+		moveRightOnPath();
+		collidable = collisionCheckerRight();
+		collisionCheck(collidable);
+		
+		moveDownOnPath();
+		collidable = collisionCheckerBottom();
+		collisionCheck(collidable);
+		
+		moveUpOnPath();
+		collidable = collisionCheckerTop();
+		collisionCheck(collidable);
 	}
 
 
