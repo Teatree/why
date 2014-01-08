@@ -91,10 +91,15 @@ public class TheController extends InputAdapter{
 		}
 		if (Gdx.input.isKeyPressed(Keys.N)){
 			hurt();
-			System.out.println(level1.getPlayer().getHealth());
+			System.out.println("Health: " + level1.getPlayer().getHealth());
+		}
+		if (Gdx.input.isKeyPressed(Keys.B)){
+			decreaseOxygen();
+			System.out.println("Oxygen: " + level1.getPlayer().getOxygen());
 		}
 	}
 	
+
 	private void pathfindingStuff(){
 		
 		if(level1.getEnemy().getoRangeAura().overlaps(level1.getPlayer().getTempCircle())){
@@ -152,7 +157,21 @@ public class TheController extends InputAdapter{
 	}
 	
 	public void hurt(){
-		level1.getPlayer().setHealth(level1.getPlayer().getHealth() - 1);
+		if(level1.getPlayer().getHealth()>=0){
+			level1.getPlayer().setHealth(level1.getPlayer().getHealth() - 1);
+		}
+	}
+	private void decreaseOxygen() {
+		if(level1.getPlayer().getOxygen()>=0){
+			level1.getPlayer().setOxygen(level1.getPlayer().getHealth() - 1);
+		}
+	}
+	public int findLastNotNullInArray(){
+		int i = 0;
+		while(gui.getHealthBar()[i] != null){
+			i++;
+		}
+		return i - 1;
 	}
 }
 

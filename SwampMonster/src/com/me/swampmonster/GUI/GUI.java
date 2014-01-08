@@ -35,10 +35,6 @@ public class GUI {
 		}
 	}
 	
-	public void decreaseBar(Rectangle[] r, int index){
-		r[index] = null;
-	}
-	
 	public Sprite getHealthBarSprite() {
 		return healthBarSprite;
 	}
