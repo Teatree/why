@@ -1,5 +1,7 @@
 package com.me.swampmonster.game;
 
+import java.util.Random;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputAdapter;
@@ -7,6 +9,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.me.swampmonster.AI.Pathfinder;
+import com.me.swampmonster.GUI.GUI;
 import com.me.swampmonster.game.collision.CollisionHelper;
 import com.me.swampmonster.models.L1;
 import com.me.swampmonster.models.AbstractGameObject.State;
@@ -17,7 +20,12 @@ public class TheController extends InputAdapter{
 	public L1Renderer l1Renderer; //I am bad, and shouldn't be here
 	public CollisionHelper collisionHandler;
 	public L1 level1;
+	public GUI gui;
 	public Vector3 touchPos;
+	int timer;
+	public Vector2 randVector2;
+	public Vector2 supportVector2; // maybe not needed here; it's for the enemies to no move large distance to the playre from the start
+	Random randomGenerator = new Random();
 	
 	public Pathfinder pathfinder;
 	public TiledMapTileLayer collisionLayer;
@@ -29,13 +37,16 @@ public class TheController extends InputAdapter{
 	public void update(float deltaTime){
 		cameraHelper.upadate(deltaTime);
 		level1.update();
+		gui.update(level1.getPlayer().getHealth(), level1.getPlayer().getOxygen());
 		handleDebugInput(deltaTime);
-		
+		pathfindingStuff();
 	}
 	
 	public void init(){
 		Gdx.input.setInputProcessor(this);
 		cameraHelper = new CameraHelper();
+		randVector2 = new Vector2();
+		gui = new GUI();
 		level1 = new L1();
 		pathfinder = new Pathfinder(level1.getBunker().getMap());
 		level1.getPlayer().setTheController(this);
@@ -46,10 +57,11 @@ public class TheController extends InputAdapter{
 		level1.getEnemy().getSprite().setSize(level1.getEnemy().getSprite().getWidth()/2, level1.getEnemy().getSprite().getHeight()/2);
 		
 		collisionHandler = new CollisionHelper();
-		touchPos = new Vector3(100f, 100f, 0);
+		touchPos = new Vector3(level1.getPlayer().getPosition().x+10, level1.getPlayer().getPosition().y, 0);
 		collisionLayer = (TiledMapTileLayer) level1.getBunker().getMap().getLayers().get(0);
 		
-		pathfinder.findPath(level1.getEnemy().getPosition(), level1.getPlayer().getPosition());
+		supportVector2 = new Vector2(level1.getEnemy().getPosition().x+17, level1.getEnemy().getPosition().y+17);
+		pathfinder.findPath(level1.getEnemy().getPosition(), supportVector2);
 	}
 
 	private void handleDebugInput(float deltaTime) {
@@ -77,17 +89,47 @@ public class TheController extends InputAdapter{
 			level1.getEnemy().setCunter(0);
 			pathfinder.findPath(level1.getEnemy().getPosition(), level1.getPlayer().getPosition());
 		}
+		if (Gdx.input.isKeyPressed(Keys.N)){
+			hurt();
+			System.out.println(level1.getPlayer().getHealth());
+		}
+	}
+	
+	private void pathfindingStuff(){
+		
 		if(level1.getEnemy().getoRangeAura().overlaps(level1.getPlayer().getTempCircle())){
 			level1.getEnemy().setState(State.ATTACKING);
-			System.out.println("overlap Orange and the state is:" + level1.getEnemy().getState());
 		}else if(level1.getEnemy().getgReenAura().overlaps(level1.getPlayer().getTempCircle())){
 			level1.getEnemy().setCunter(0);
 			level1.getEnemy().setState(State.PURSUIT);
 			pathfinder.findPath(level1.getEnemy().getPosition(), level1.getPlayer().getPosition());
-			System.out.println("overlap Green and the State is:" + level1.getEnemy().getState());
 		}else{
 			level1.getEnemy().setState(State.STANDARD);
-			System.out.println("else xD, and the state is: " + level1.getEnemy().getState());
+		}
+		
+		if(level1.getEnemy().getPosition().x == level1.getEnemy().getOldPos().x && level1.getEnemy().getPosition().y == level1.getEnemy().getOldPos().y){
+			timer++;
+			if(timer > 350){
+				int x = (int) (level1.getEnemy().getgReenAura().x - (level1.getEnemy().getgReenAura().radius/2));
+				int x1 = (int) (level1.getEnemy().getgReenAura().x + (level1.getEnemy().getgReenAura().radius/2));
+				int Rx = randomGenerator.nextInt(x1 - x) + x;
+				if(Rx > 0 && Rx < 800){
+					System.out.println("(pathfinderStuff()) getting the random number -X- ");
+					randVector2.x = Rx;
+				}
+				int y = (int) (level1.getEnemy().getgReenAura().y - (level1.getEnemy().getgReenAura().radius/2));
+				int y1 = (int) (level1.getEnemy().getgReenAura().y + (level1.getEnemy().getgReenAura().radius/2));
+				int Ry = randomGenerator.nextInt(y1 - y) + y;
+				if(Ry > 0 && Ry < 480){
+					System.out.println("(pathfinderStuff()) getting the random number -Y- ");
+					randVector2.y = Ry;
+				}
+				System.out.println("randVector2 is: " + randVector2.x + " : " + randVector2.y);
+			
+				pathfinder.findPath(level1.getEnemy().getPosition(), randVector2);
+				level1.getEnemy().setCunter(pathfinder.findLastNotNullInArray());
+				timer = 0;
+			}
 		}
 	}
 	
@@ -107,6 +149,10 @@ public class TheController extends InputAdapter{
 			System.out.println(cameraHelper.hasTarget() + " " + level1.getPlayer().getSprite().getOriginX());
 		}
 		return false;
+	}
+	
+	public void hurt(){
+		level1.getPlayer().setHealth(level1.getPlayer().getHealth() - 1);
 	}
 }
 

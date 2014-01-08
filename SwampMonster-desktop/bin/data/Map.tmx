@@ -2,7 +2,17 @@
 <map version="1.0" orientation="orthogonal" width="60" height="30" tilewidth="16" tileheight="16">
  <tileset firstgid="1" name="tiles" tilewidth="16" tileheight="16">
   <image source="Tiles.png" width="1024" height="1024"/>
+  <tile id="1">
+   <properties>
+    <property name="walkable" value="walkable"/>
+   </properties>
+  </tile>
   <tile id="2">
+   <properties>
+    <property name="walkable" value="walkable"/>
+   </properties>
+  </tile>
+  <tile id="3">
    <properties>
     <property name="walkable" value="walkable"/>
    </properties>
@@ -195,7 +205,7 @@
  </tileset>
  <layer name="background" width="60" height="30">
   <data encoding="base64" compression="zlib">
-   eJztmFsOgjAQRQt++NiVouBjVUric1cmCtFNWSKaOmmHobZFLB8nBqmZOcy1TYgYY1FHR8ebccDYxAFRYKf/oQLV+jXvI9ZgxJ5Q16dE354D3y3CQgK2XgX0peSqKhMqR8y78E0QDhKw9Sqgb1rOfclZaWbChq8pZL7F3I+cEzETKldKxkVfeM+G7xVkNSu/v3HuxGdE9cVm3w/dzHfP2QjkGpmgeFaxdeXL6+QCO0JdG74uXHWhnmEmfHca/en8xrXvJXCzX02Dz/1q1pBvCmrY8i3qiPsVrNuUr83/YsL3qHn4/DTti5254rVLX7G/4jw+V5BZ8KXUNQHsHZ7HMnJDeRZ9KXVNAHuPy1y/Mj5XXMO+4Szr+op1E6QH7L6sV8gg1J+PSd820fmq3eq8A/hVfPX1BR9925pNW/P9p+fho+83NN1/XR6kfPMe
+   eJztmOtuwjAMRtNs0sbeCjYosKcalbhsb4W0UY2XIhFFMlbiOldFpT+OEDTIPu1HHDERQkwejKcHYfT1Y1oJMcvAe5XG1zX3X6qPhQdv4gp3fVOQ75ZgZYBabwP7cnIFM2HysDlS3tq3JjgYoNbbwL5N99zXik9GJnL5xsLkq5/7t+KHkQkXJyrb2hdfT+H7h7J66j7/V5wZ98jFl8rEi8zzfPeKDaB1zESss8c2l6+q0wJ2jLopfHO4+tK3X3F4ZvruPPrz+U5MX8nw/63y7Fcf1f1+NQ/0NeVaAmy+DaqRylfXgfsVrhvTl5pLnLqxfGvVzFJeX1P4cuZwTl/Yi57Hxx5OTF+Xcwenbgxg7xo8j020CXw5dWMAe9csulzfMr60vA+dRxhYtyZ6oK6besW8yrA+x/83hg3li89Q3DV9s7ok39BztBS888lQfEuHM4+G5H7zkeh9iG/J9wr6xvq9jb7lYMvvkLkAq47xIw==
   </data>
  </layer>
 </map>

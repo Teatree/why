@@ -87,7 +87,7 @@ public class Pathfinder {
 //			System.out.println("CurrentNode! ==== " + currentNode);
 //			System.out.println("TargetNode! ==== " + targetNode);
 			
-			if (currentNode.equals(targetNode)) {
+			if (currentNode.equals(targetNode) && currentNode != null) {
 				Node node = currentNode.getParentNode();
 				reconstructPath(navigatedNodes, currentNode);
 				int cuntar = 0;

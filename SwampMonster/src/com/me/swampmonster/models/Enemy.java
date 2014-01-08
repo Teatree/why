@@ -12,6 +12,7 @@ public class Enemy extends AbstractGameObject{
 	
 	State state = State.STANDARD;
 	int cunter;
+	
 	public Circle gReenAura;
 	public Circle oRangeAura;
 	
@@ -110,26 +111,14 @@ public class Enemy extends AbstractGameObject{
                     contact(collidable);
             }
             
-            
-            if(oldPos.x == position.x && oldPos.y == position.y){
-                    if(playerMovementDirection == "right"){
-                            currentFrame = animations.get(state).animate(56);
-                    }
-                    if(playerMovementDirection == "left"){
-                            currentFrame = animations.get(state).animate(40);
-                    }
-                    if(playerMovementDirection == "up"){
-                            currentFrame = animations.get(state).animate(48);
-                    }
-                    if(playerMovementDirection == "down"){
-                            currentFrame = animations.get(state).animate(32);
-                    }
-            }
+            standAnimation(56, 40, 48, 32);
 		}
 		
 		// PURSUIT!
 				if(state.equals(State.PURSUIT)){
 				sprite.setRegion(animations.get(state).getCurrentFrame());
+				
+				theController.pathfinder.findPath(theController.level1.getEnemy().getPosition(), theController.level1.getPlayer().getPosition());
 				
 				// X AXIS MOVEMENT + COLLISION PROCESSING AND DETECTION
 				//movement
@@ -199,31 +188,9 @@ public class Enemy extends AbstractGameObject{
 				if(collidable != null){
 					contact(collidable);
 				}
-				// MOVING ON A PATH ( BEST MOVE THIS TO THE PATHFINDER PROPERLY )
-				if(theController.pathfinder.getPath()[cunter] != null && position.x >= (theController.pathfinder.getPath()[cunter].x*16)-1 && position.x <= (theController.pathfinder.getPath()[cunter].x*16)+1
-						&& position.y <= (theController.pathfinder.getPath()[cunter].y*16)+1 && position.y >= (theController.pathfinder.getPath()[cunter].y*16)-1){
-					System.out.println("Passing array index numb: " + cunter);
-					theController.pathfinder.getPath()[cunter] = null;
-					if(cunter>1){
-						cunter--;
-					}
-				}
-				// MOVING ON A PATH ( BEST MOVE THIS TO THE PATHFINDER PROPERLY )
-				int counter = 0;
-				if(oldPos.x == position.x && oldPos.y == position.y){
-					if(playerMovementDirection == "right"){
-						currentFrame = animations.get(state).animate(88);
-					}
-					if(playerMovementDirection == "left"){
-						currentFrame = animations.get(state).animate(72);
-					}
-					if(playerMovementDirection == "up"){
-						currentFrame = animations.get(state).animate(80);
-					}
-					if(playerMovementDirection == "down"){
-						currentFrame = animations.get(state).animate(64);
-					}
-				}
+				movingOnPath();
+				standAnimation(88, 72, 80, 64);
+				
 			}
 		// STANDARD!
 		if(state.equals(State.STANDARD)){
@@ -297,32 +264,37 @@ public class Enemy extends AbstractGameObject{
 		if(collidable != null){
 			contact(collidable);
 		}
-		// MOVING ON A PATH ( BEST MOVE THIS TO THE PATHFINDER PROPERLY )
-		if(theController.pathfinder.getPath()[cunter] != null && position.x >= (theController.pathfinder.getPath()[cunter].x*16)-1 && position.x <= (theController.pathfinder.getPath()[cunter].x*16)+1
-				&& position.y <= (theController.pathfinder.getPath()[cunter].y*16)+1 && position.y >= (theController.pathfinder.getPath()[cunter].y*16)-1){
-			System.out.println("Passing array index numb: " + cunter);
-			theController.pathfinder.getPath()[cunter] = null;
-			if(cunter>1){
-				cunter--;
-			}
-		}
-		// MOVING ON A PATH ( BEST MOVE THIS TO THE PATHFINDER PROPERLY )
-		int counter = 0;
+		
+		movingOnPath();
+		standAnimation(88, 72, 80, 64);
+	}
+	}
+
+	private void standAnimation(int r, int l, int u, int d) {
 		if(oldPos.x == position.x && oldPos.y == position.y){
 			if(playerMovementDirection == "right"){
-				currentFrame = animations.get(state).animate(88);
+				currentFrame = animations.get(state).animate(r);
 			}
 			if(playerMovementDirection == "left"){
-				currentFrame = animations.get(state).animate(72);
+				currentFrame = animations.get(state).animate(l);
 			}
 			if(playerMovementDirection == "up"){
-				currentFrame = animations.get(state).animate(80);
+				currentFrame = animations.get(state).animate(u);
 			}
 			if(playerMovementDirection == "down"){
-				currentFrame = animations.get(state).animate(64);
+				currentFrame = animations.get(state).animate(d);
 			}
 		}
 	}
+
+	private void movingOnPath() {
+		if(theController.pathfinder.getPath()[cunter] != null && position.x >= (theController.pathfinder.getPath()[cunter].x*16)-1 && position.x <= (theController.pathfinder.getPath()[cunter].x*16)+1
+				&& position.y <= (theController.pathfinder.getPath()[cunter].y*16)+1 && position.y >= (theController.pathfinder.getPath()[cunter].y*16)-1){
+			if(cunter>0){
+				theController.pathfinder.getPath()[cunter] = null;
+				cunter--;
+			}
+		}
 	}
 	
 	
@@ -334,8 +306,7 @@ public class Enemy extends AbstractGameObject{
 	public Vector2 getOldPos() {
 		return oldPos;
 	}
-
-
+	
 	public void setOldPos(Vector2 oldPos) {
 		this.oldPos = oldPos;
 	}

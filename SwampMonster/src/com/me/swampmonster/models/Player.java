@@ -17,6 +17,7 @@ public class Player extends AbstractGameObject{
 	private Circle tempCircle;
 	// temporary
 	
+	
 	public Player(Vector2 position){
 		this.position = position;
 		
@@ -25,10 +26,12 @@ public class Player extends AbstractGameObject{
 		tempCircle.radius = 16;
 		// Temporary circle
 		
-		animations.put(state.STANDARD, new AnimationControl("data/NastyaSheet2.png", 8, 16, 7)); 
-		animations.put(state.ANIMATING, new AnimationControl("data/NastyaSheet2.png", 8, 16, 8)); 
+		animations.put(state.STANDARD, new AnimationControl("data/NastyaSheet2.png", 8, 32, 7)); 
+		animations.put(state.ANIMATING, new AnimationControl("data/NastyaSheet2.png", 4, 32, 8)); 
 		oldPos = position;
 		
+		health = 6;
+		oxygen = 6;
 		sprite = new Sprite(animations.get(state.STANDARD).getCurrentFrame());
 	}
 	public Vector2 getPosition() {
@@ -51,11 +54,13 @@ public class Player extends AbstractGameObject{
 		tempCircle.y = position.y;
 		
 		if(state.equals(State.ANIMATING)){
-			if(time < 200){
-				currentFrame = animations.get(state).doComplexAnimation(64, 2, 8, 0.01f);
+			if(time < 150){
+				sprite = new Sprite(animations.get(state.ANIMATING).getCurrentFrame());
+				sprite.rotate(32);
+				currentFrame = animations.get(state).doComplexAnimation(40, 2, 8, 0.01f);
 				
 				sprite.setRegion(animations.get(state).getCurrentFrame());
-				System.out.println(time);
+				sprite.setBounds(sprite.getX(), sprite.getY(), 32, 32);
 				time++;
 			}
 			else{
@@ -66,7 +71,9 @@ public class Player extends AbstractGameObject{
 		}
 			
 		if(state.equals(State.STANDARD)){
+		sprite = new Sprite(animations.get(state.STANDARD).getCurrentFrame());
 		sprite.setRegion(animations.get(state).getCurrentFrame());
+		sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
 		
 		if (Gdx.input.justTouched()) {
 
@@ -208,12 +215,6 @@ public class Player extends AbstractGameObject{
 	public void setPlayerMovementSpeedY(float playerMovementSpeedY) {
 		this.playerMovementSpeedY = playerMovementSpeedY;
 	}
-	public Sprite getSprite() {
-		return sprite;
-	}
-	public void setSprite(Sprite sprite) {
-		this.sprite = sprite;
-	}
 	public State getState() {
 		return state;
 	}
@@ -226,6 +227,7 @@ public class Player extends AbstractGameObject{
 	public void setTempCircle(Circle tempCircle) {
 		this.tempCircle = tempCircle;
 	}
+	
 	
 	
 }

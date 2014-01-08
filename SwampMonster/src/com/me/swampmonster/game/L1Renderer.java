@@ -8,22 +8,27 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.math.Rectangle;
 import com.me.swampmonster.AI.Node;
 import com.me.swampmonster.AI.Pathfinder;
+import com.me.swampmonster.GUI.GUI;
 import com.me.swampmonster.models.L1;
 import com.me.swampmonster.utils.Constants;
 
 public class L1Renderer {
 	private L1 level1;
+	private GUI gui;
 	private OrthographicCamera cam;
 	private TheController theController;
 	
 	// Temporary debug feature
 	private Pathfinder pathfinder;
 	private ShapeRenderer sr;
+	private ShapeRenderer staticSr;
 	// Temporary debug feature
 	
 	private SpriteBatch batch;
+	private SpriteBatch staticBatch;
 	private OrthogonalTiledMapRenderer mapRenderer;
 	
 	private int width;
@@ -36,11 +41,14 @@ public class L1Renderer {
 		this.cam = new OrthographicCamera(Constants.VIEWPORT_WIDTH, Constants.VIEWPORT_HEIGHT);
 		this.cam.update();
 		
+		gui = new GUI();
 		// Temporary debug feature
 		pathfinder = new Pathfinder(level1.getBunker().getMap());
 		// temporary bedug feature
+		staticBatch = new SpriteBatch();
 		batch = new SpriteBatch();
 		sr = new ShapeRenderer();
+		staticSr = new ShapeRenderer();
 		mapRenderer = new OrthogonalTiledMapRenderer(level1.getBunker().getMap(), unitScale);
 	}	
 	public void render() {
@@ -86,6 +94,26 @@ public class L1Renderer {
 		}
 		sr.end();
 		// Temporary deBug feature
+		
+		staticSr.begin(ShapeType.Filled);
+		staticSr.setColor(Color.RED);
+		for(Rectangle r : theController.gui.getHealthBar()){
+			if(r != null){
+				staticSr.rect(r.x, r.y, r.width, r.height);
+			}
+		}
+		staticSr.setColor(Color.YELLOW);
+		for(Rectangle r : theController.gui.getOxygenBar()){
+			if(r != null){
+				staticSr.rect(r.x, r.y, r.width, r.height);
+			}
+		}
+		staticSr.end();
+		
+		staticBatch.begin();
+		staticBatch.draw(theController.gui.getHealthBarSprite(), 0, 448, theController.gui.getHealthBarSprite().getWidth(), theController.gui.getHealthBarSprite().getHeight());
+		staticBatch.draw(theController.gui.getOxygenBarSprite(), 0, 416, theController.gui.getHealthBarSprite().getWidth(), theController.gui.getHealthBarSprite().getHeight());
+		staticBatch.end();
 		
 		theController.cameraHelper.applyTo(cam);
 	}
