@@ -24,8 +24,11 @@ public class TheController extends InputAdapter{
 	public Vector3 touchPos;
 	int timer;
 	public Vector2 randVector2;
-	public Vector2 supportVector2; // maybe not needed here; it's for the enemies to no move large distance to the playre from the start
+	public Vector2 supportVector2; // maybe not needed here; it's for the enemies to no move large distance to the player from the start
 	Random randomGenerator = new Random();
+	
+	//temp
+	public boolean hurt;
 	
 	public Pathfinder pathfinder;
 	public TiledMapTileLayer collisionLayer;
@@ -37,7 +40,7 @@ public class TheController extends InputAdapter{
 	public void update(float deltaTime){
 		cameraHelper.upadate(deltaTime);
 		level1.update();
-		gui.update(level1.getPlayer().getHealth(), level1.getPlayer().getOxygen());
+		gui.update(level1.getPlayer().getHealth());
 		handleDebugInput(deltaTime);
 		pathfindingStuff();
 	}
@@ -46,7 +49,6 @@ public class TheController extends InputAdapter{
 		Gdx.input.setInputProcessor(this);
 		cameraHelper = new CameraHelper();
 		randVector2 = new Vector2();
-		gui = new GUI();
 		level1 = new L1();
 		pathfinder = new Pathfinder(level1.getBunker().getMap());
 		level1.getPlayer().setTheController(this);
@@ -62,10 +64,11 @@ public class TheController extends InputAdapter{
 		
 		supportVector2 = new Vector2(level1.getEnemy().getPosition().x+17, level1.getEnemy().getPosition().y+17);
 		pathfinder.findPath(level1.getEnemy().getPosition(), supportVector2);
+		gui = new GUI();
 	}
 
 	private void handleDebugInput(float deltaTime) {
-		
+		hurt = false;
 		float camMoveSpeed = 50 * deltaTime;
 		float camMoveSpeedAccelerationFactor = 10;
 		if (Gdx.input.isKeyPressed(Keys.SHIFT_LEFT)) camMoveSpeed *= camMoveSpeedAccelerationFactor;
@@ -90,6 +93,7 @@ public class TheController extends InputAdapter{
 			pathfinder.findPath(level1.getEnemy().getPosition(), level1.getPlayer().getPosition());
 		}
 		if (Gdx.input.isKeyPressed(Keys.N)){
+			hurt = true;
 			hurt();
 			System.out.println("Health: " + level1.getPlayer().getHealth());
 		}
@@ -163,12 +167,12 @@ public class TheController extends InputAdapter{
 	}
 	private void decreaseOxygen() {
 		if(level1.getPlayer().getOxygen()>=0){
-			level1.getPlayer().setOxygen(level1.getPlayer().getHealth() - 1);
+			level1.getPlayer().setOxygen(level1.getPlayer().getOxygen() - 1);
 		}
 	}
 	public int findLastNotNullInArray(){
 		int i = 0;
-		while(gui.getHealthBar()[i] != null){
+		while(gui.getHealthBar().getHealthBarRect()[i] != null){
 			i++;
 		}
 		return i - 1;

@@ -6,6 +6,7 @@ import java.util.Map;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.me.swampmonster.animations.AnimationControl;
 import com.me.swampmonster.game.TheController;
@@ -21,6 +22,7 @@ public abstract class AbstractGameObject {
 	
 	protected Vector2 position;
 	protected Sprite sprite;
+	protected Rectangle rectanlge;
 	protected TiledMap map;
 	
 	protected Vector2 oldPos;

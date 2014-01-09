@@ -35,6 +35,8 @@ public class L1Renderer {
 	private int height;
 	private float unitScale = 1f;
 	
+	float ass = 10f;
+	
 	public L1Renderer(L1 level1, TheController theController){
 		this.level1 = level1;
 		this.theController = theController;
@@ -95,24 +97,32 @@ public class L1Renderer {
 		sr.end();
 		// Temporary deBug feature
 		
+		Gdx.gl.glEnable(GL20.GL_BLEND);
+		Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
 		staticSr.begin(ShapeType.Filled);
 		staticSr.setColor(Color.RED);
-		for(Rectangle r : theController.gui.getHealthBar()){
+		for(Rectangle r : theController.gui.getHealthBar().getHealthBarRect()){
 			if(r != null){
 				staticSr.rect(r.x, r.y, r.width, r.height);
 			}
+		}
+		if(theController.hurt){
+			theController.hurt=true;
+			staticSr.setColor(new Color(200, 0, 0, ass));
+			staticSr.rect(78, 454, 16, 22);
+			ass = ass - 0.1f;
+			System.out.println(ass);
 		}
 		staticSr.setColor(Color.YELLOW);
-		for(Rectangle r : theController.gui.getOxygenBar()){
-			if(r != null){
-				staticSr.rect(r.x, r.y, r.width, r.height);
-			}
+		if(theController.level1.getPlayer().getOxygen()>0){
+			staticSr.rect(30, 422, theController.level1.getPlayer().getOxygen(), 22);
 		}
 		staticSr.end();
+		Gdx.gl.glDisable(GL20.GL_BLEND);
 		
 		staticBatch.begin();
-		staticBatch.draw(theController.gui.getHealthBarSprite(), 0, 448, theController.gui.getHealthBarSprite().getWidth(), theController.gui.getHealthBarSprite().getHeight());
-		staticBatch.draw(theController.gui.getOxygenBarSprite(), 0, 416, theController.gui.getHealthBarSprite().getWidth(), theController.gui.getHealthBarSprite().getHeight());
+		staticBatch.draw(theController.gui.getHealthBar().getSprite(), 0, 448, theController.gui.getHealthBar().getSprite().getWidth(), theController.gui.getHealthBar().getSprite().getHeight());
+		staticBatch.draw(theController.gui.getOxygenBar().getSprite(), 0, 416, theController.gui.getHealthBar().getSprite().getWidth(), theController.gui.getHealthBar().getSprite().getHeight());
 		staticBatch.end();
 		
 		theController.cameraHelper.applyTo(cam);

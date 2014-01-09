@@ -31,7 +31,7 @@ public class Player extends AbstractGameObject{
 		oldPos = position;
 		
 		health = 6;
-		oxygen = 6;
+		oxygen = 96;
 		sprite = new Sprite(animations.get(state.STANDARD).getCurrentFrame());
 	}
 	public Vector2 getPosition() {
@@ -79,14 +79,17 @@ public class Player extends AbstractGameObject{
 		
 		if (Gdx.input.justTouched()) {
 
-	        theController.touchPos.y = Gdx.input.getY();
-	        theController.touchPos.x = Gdx.input.getX();
-	        theController.l1Renderer.getCam().unproject(theController.touchPos);
-	        theController.touchPos.z = 0;
+	        inputNav();
 	    }	
 		//movement
 		 	movementCollisionAndAnimation();
 		}
+	}
+	private void inputNav() {
+		theController.touchPos.y = Gdx.input.getY();
+		theController.touchPos.x = Gdx.input.getX();
+		theController.l1Renderer.getCam().unproject(theController.touchPos);
+		theController.touchPos.z = 0;
 	}
 	private void movementCollisionAndAnimation() {
 		// ---------------------left------------------------ //
