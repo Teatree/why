@@ -35,7 +35,7 @@ public class L1Renderer {
 	private int height;
 	private float unitScale = 1f;
 	
-	float ass = 10f;
+	float ass = 1f;
 	
 	public L1Renderer(L1 level1, TheController theController){
 		this.level1 = level1;
@@ -107,11 +107,21 @@ public class L1Renderer {
 			}
 		}
 		if(theController.hurt){
-			theController.hurt=true;
+			System.out.println("Hurt is trye!");
+			int j = 0;
+			if(theController.level1.getPlayer().getHealth()>1){
+				j = theController.level1.getPlayer().getHealth()-1;
+			}
+			theController.hurt = true;
 			staticSr.setColor(new Color(200, 0, 0, ass));
-			staticSr.rect(78, 454, 16, 22);
-			ass = ass - 0.1f;
+			if(theController.gui.getHealthBar().getHealthBarRect()[j]!=null){
+				staticSr.rect(theController.gui.getHealthBar().getHealthBarRect()[j].x+16, theController.gui.getHealthBar().getHealthBarRect()[j].y, 
+						theController.gui.getHealthBar().getHealthBarRect()[j].width, theController.gui.getHealthBar().getHealthBarRect()[j].height);
+			}
+			ass = ass - 0.02f;
 			System.out.println(ass);
+		}else if(!theController.hurt){
+			ass = 1f;
 		}
 		staticSr.setColor(Color.YELLOW);
 		if(theController.level1.getPlayer().getOxygen()>0){

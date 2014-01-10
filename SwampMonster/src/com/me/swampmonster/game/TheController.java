@@ -23,12 +23,15 @@ public class TheController extends InputAdapter{
 	public GUI gui;
 	public Vector3 touchPos;
 	int timer;
+	int timer2;
 	public Vector2 randVector2;
 	public Vector2 supportVector2; // maybe not needed here; it's for the enemies to no move large distance to the player from the start
 	Random randomGenerator = new Random();
 	
 	//temp
 	public boolean hurt;
+	public boolean NalreadyPressed = false;
+	// temp
 	
 	public Pathfinder pathfinder;
 	public TiledMapTileLayer collisionLayer;
@@ -43,9 +46,23 @@ public class TheController extends InputAdapter{
 		gui.update(level1.getPlayer().getHealth());
 		handleDebugInput(deltaTime);
 		pathfindingStuff();
+		
+		// Temporary
+		if(timer2 > 0){
+			if(timer2 == 40){
+				hurt();
+			}
+			hurt = true;
+			timer2--;
+			System.out.println("Timer2: " + timer2);
+		}else if(timer2 == 0 && hurt){
+			hurt = false;
+		}
+		// temporary
 	}
 	
 	public void init(){
+		hurt = false;
 		Gdx.input.setInputProcessor(this);
 		cameraHelper = new CameraHelper();
 		randVector2 = new Vector2();
@@ -68,7 +85,6 @@ public class TheController extends InputAdapter{
 	}
 
 	private void handleDebugInput(float deltaTime) {
-		hurt = false;
 		float camMoveSpeed = 50 * deltaTime;
 		float camMoveSpeedAccelerationFactor = 10;
 		if (Gdx.input.isKeyPressed(Keys.SHIFT_LEFT)) camMoveSpeed *= camMoveSpeedAccelerationFactor;
@@ -77,7 +93,6 @@ public class TheController extends InputAdapter{
 		if (Gdx.input.isKeyPressed(Keys.W)) moveCamera(0, camMoveSpeed);
 		if (Gdx.input.isKeyPressed(Keys.S)) moveCamera(0,-camMoveSpeed);
 		if (Gdx.input.isKeyPressed(Keys.O)) level1.getPlayer().setState(State.ANIMATING);
-		if (Gdx.input.isKeyPressed(Keys.I)) level1.getPlayer().setState(State.STANDARD);
 		if (Gdx.input.isKeyPressed(Keys.BACKSPACE))
 		cameraHelper.setPosition(0, 0);
 		// Camera Controls (zoom)
@@ -92,10 +107,13 @@ public class TheController extends InputAdapter{
 			level1.getEnemy().setCunter(0);
 			pathfinder.findPath(level1.getEnemy().getPosition(), level1.getPlayer().getPosition());
 		}
-		if (Gdx.input.isKeyPressed(Keys.N)){
+		if (Gdx.input.isKeyPressed(Keys.N) && !NalreadyPressed){
 			hurt = true;
-			hurt();
+			timer2=40; // Remember that this one is supposed to be the same as the pending time of hurt state animation
 			System.out.println("Health: " + level1.getPlayer().getHealth());
+			NalreadyPressed = true;
+		}else if(!Gdx.input.isKeyPressed(Keys.N)){
+			NalreadyPressed = false;
 		}
 		if (Gdx.input.isKeyPressed(Keys.B)){
 			decreaseOxygen();
@@ -161,6 +179,7 @@ public class TheController extends InputAdapter{
 	}
 	
 	public void hurt(){
+		level1.getPlayer().setState(State.HURT);
 		if(level1.getPlayer().getHealth()>=0){
 			level1.getPlayer().setHealth(level1.getPlayer().getHealth() - 1);
 		}

@@ -28,6 +28,7 @@ public class Player extends AbstractGameObject{
 		
 		animations.put(state.STANDARD, new AnimationControl("data/NastyaSheet2.png", 8, 32, 7)); 
 		animations.put(state.ANIMATING, new AnimationControl("data/NastyaSheet2.png", 8, 32, 8)); 
+		animations.put(state.HURT, new AnimationControl("data/NastyaSheet2.png", 8, 32, 8)); 
 		oldPos = position;
 		
 		health = 6;
@@ -57,7 +58,6 @@ public class Player extends AbstractGameObject{
 		if(state.equals(State.ANIMATING)){
 			if(time < 150){
 				sprite = new Sprite(animations.get(state.ANIMATING).getCurrentFrame());
-				sprite.rotate(32);
 				currentFrame = animations.get(state).doComplexAnimation(112, 4, 10, 0.01f);
 				
 				sprite.setRegion(animations.get(state).getCurrentFrame());
@@ -71,6 +71,32 @@ public class Player extends AbstractGameObject{
 			}
 		}
 			
+	//HURT
+		if(state.equals(State.HURT)){
+			
+			if(time < 30){
+				sprite = new Sprite(animations.get(state.HURT).getCurrentFrame());
+				currentFrame = animations.get(state).doComplexAnimation(104, 1, 8, 0.0005f);
+				
+				sprite.setRegion(animations.get(state).getCurrentFrame());
+				sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
+				time++;
+				
+				Collidable collidableUp = null;
+				if(collidableUp == null){
+					position.y = position.y + 0.3f;
+					theController.touchPos.y = theController.touchPos.y +0.3f;
+				}
+				collidableUp = collisionCheckerUp();
+				collisionCheck(collidableUp);
+			}
+			else{
+				currentFrame = animations.get(state.HURT).animate(64);
+				state = State.STANDARD;
+				time = 0;
+			}
+		}
+		
 	//STANDARD
 		if(state.equals(State.STANDARD)){
 		sprite = new Sprite(animations.get(state.STANDARD).getCurrentFrame());
