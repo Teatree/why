@@ -46,29 +46,11 @@ public class TheController extends InputAdapter{
 		gui.update(level1.getPlayer().getHealth());
 		handleDebugInput(deltaTime);
 		pathfindingStuff();
+		//could probably be in the right class
 		painLogic();
+		//just saying
 	}
 
-	private void painLogic() {
-		if(timer2 > 0){
-			if(timer2 == 40){
-				hurt();
-			}
-			hurt = true;
-			timer2--;
-			System.out.println("Timer2: " + timer2);
-		}else if(timer2 == 0 && hurt){
-			hurt = false;
-		}
-		
-		if(level1.getPlayer().getOxygen() <= 0 && !hurt){
-			timer2 = 40;
-		}
-		
-		if(level1.getPlayer().getHealth() <= 0){
-			level1.getPlayer().setState(State.ANIMATING);
-		}
-	}
 	
 	public void init(){
 		hurt = false;
@@ -133,9 +115,9 @@ public class TheController extends InputAdapter{
 
 	private void pathfindingStuff(){
 		
-		if(level1.getEnemy().getoRangeAura().overlaps(level1.getPlayer().getTempCircle())){
+		if(level1.getEnemy().getoRangeAura().overlaps(level1.getPlayer().getCircle())){
 			level1.getEnemy().setState(State.ATTACKING);
-		}else if(level1.getEnemy().getgReenAura().overlaps(level1.getPlayer().getTempCircle())){
+		}else if(level1.getEnemy().getgReenAura().overlaps(level1.getPlayer().getCircle())){
 			level1.getEnemy().setCunter(0);
 			level1.getEnemy().setState(State.PURSUIT);
 			pathfinder.findPath(level1.getEnemy().getPosition(), level1.getPlayer().getPosition());
@@ -166,6 +148,27 @@ public class TheController extends InputAdapter{
 				level1.getEnemy().setCunter(pathfinder.findLastNotNullInArray());
 				timer = 0;
 			}
+		}
+	}
+	
+	private void painLogic() {
+		if(timer2 > 0){
+			if(timer2 == 40){
+				hurt();
+			}
+			hurt = true;
+			timer2--;
+			System.out.println("Timer2: " + timer2);
+		}else if(timer2 == 0 && hurt){
+			hurt = false;
+		}
+		
+		if(level1.getPlayer().getOxygen() <= 0 && !hurt){
+			timer2 = 40;
+		}
+		
+		if(level1.getPlayer().getHealth() <= 0){
+			level1.getPlayer().setState(State.ANIMATING);
 		}
 	}
 	

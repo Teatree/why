@@ -85,7 +85,7 @@ public class L1Renderer {
 		sr.setColor(Color.BLUE);
 		sr.circle(theController.level1.getEnemy().getoRangeAura().x+8, theController.level1.getEnemy().getoRangeAura().y+16, theController.level1.getEnemy().getoRangeAura().radius);
 		sr.setColor(Color.RED);
-		sr.circle(theController.level1.getPlayer().getPosition().x+8, theController.level1.getPlayer().getPosition().y+16, theController.level1.getPlayer().getTempCircle().radius);
+		sr.circle(theController.level1.getPlayer().getPosition().x+8, theController.level1.getPlayer().getPosition().y+16, theController.level1.getPlayer().getCircle().radius);
 		sr.end();
 		sr.begin(ShapeType.Filled);
 		sr.setColor(Color.RED);
@@ -127,12 +127,27 @@ public class L1Renderer {
 		if(theController.level1.getPlayer().getOxygen()>0){
 			staticSr.rect(30, 422, theController.level1.getPlayer().getOxygen(), 22);
 		}
+		if(theController.gui.getWeaponizer().isOn() == false){
+			staticSr.setColor(Color.LIGHT_GRAY);
+		}else if(theController.gui.getWeaponizer().isOn() == true){
+			staticSr.setColor(Color.WHITE);
+		}
+		staticSr.circle(theController.gui.getWeaponizer().getCircle().x, theController.gui.getWeaponizer().getCircle().y, theController.gui.getWeaponizer().getCircle().radius);
+		
+		if(theController.gui.getMaskizer().isOn() == false){
+			staticSr.setColor(Color.LIGHT_GRAY);
+		}else if(theController.gui.getMaskizer().isOn() == true){
+			staticSr.setColor(Color.WHITE);
+		}
+		staticSr.circle(theController.gui.getMaskizer().getCircle().x, theController.gui.getMaskizer().getCircle().y, theController.gui.getMaskizer().getCircle().radius);
 		staticSr.end();
 		Gdx.gl.glDisable(GL20.GL_BLEND);
 		
 		staticBatch.begin();
 		staticBatch.draw(theController.gui.getHealthBar().getSprite(), 0, 448, theController.gui.getHealthBar().getSprite().getWidth(), theController.gui.getHealthBar().getSprite().getHeight());
 		staticBatch.draw(theController.gui.getOxygenBar().getSprite(), 0, 416, theController.gui.getHealthBar().getSprite().getWidth(), theController.gui.getHealthBar().getSprite().getHeight());
+		staticBatch.draw(theController.gui.getWeaponizer().getSprite(), 0, 0);
+		staticBatch.draw(theController.gui.getMaskizer().getSprite(), 0, 128);
 		staticBatch.end();
 		
 		theController.cameraHelper.applyTo(cam);

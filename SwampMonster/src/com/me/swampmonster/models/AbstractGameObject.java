@@ -6,6 +6,7 @@ import java.util.Map;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.me.swampmonster.animations.AnimationControl;
@@ -23,6 +24,7 @@ public abstract class AbstractGameObject {
 	protected Vector2 position;
 	protected Sprite sprite;
 	protected Rectangle rectanlge;
+	protected Circle circle;
 	protected TiledMap map;
 	
 	protected Vector2 oldPos;
@@ -94,6 +96,18 @@ public abstract class AbstractGameObject {
 	}
 	public void setOxygen(int oxygen) {
 		this.oxygen = oxygen;
+	}
+	public Rectangle getRectanlge() {
+		return rectanlge;
+	}
+	public void setRectanlge(Rectangle rectanlge) {
+		this.rectanlge = rectanlge;
+	}
+	public Circle getCircle() {
+		return circle;
+	}
+	public void setCircle(Circle circle) {
+		this.circle = circle;
 	}
 	
 }

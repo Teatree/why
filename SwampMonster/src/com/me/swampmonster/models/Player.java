@@ -13,18 +13,12 @@ public class Player extends AbstractGameObject{
 	
 	State state = State.STANDARD;
 	int time = 0;
-	// temporary
-	private Circle tempCircle;
-	// temporary
-	
 	
 	public Player(Vector2 position){
 		this.position = position;
 		
-		// Temporary circle 
-		tempCircle = new Circle();
-		tempCircle.radius = 16;
-		// Temporary circle
+		circle = new Circle();
+		circle.radius = 16;
 		
 		animations.put(state.STANDARD, new AnimationControl("data/NastyaSheet2.png", 8, 32, 7)); 
 		animations.put(state.ANIMATING, new AnimationControl("data/NastyaSheet2.png", 8, 32, 8)); 
@@ -51,8 +45,8 @@ public class Player extends AbstractGameObject{
 		oldPos.x = position.x;
 		oldPos.y = position.y;
 		
-		tempCircle.x = position.x;
-		tempCircle.y = position.y;
+		circle.x = position.x;
+		circle.y = position.y;
 		
 	//ANIMATING
 		if(state.equals(State.ANIMATING)){
@@ -116,6 +110,8 @@ public class Player extends AbstractGameObject{
 	//DEAD
 	
 	private void inputNav() {
+		
+		//add intersector so that when you click on UI items the player's touchpos doesn't update
 		theController.touchPos.y = Gdx.input.getY();
 		theController.touchPos.x = Gdx.input.getX();
 		theController.l1Renderer.getCam().unproject(theController.touchPos);
@@ -276,13 +272,4 @@ public class Player extends AbstractGameObject{
 	public void setState(State state) {
 		this.state = state;
 	}
-	public Circle getTempCircle() {
-		return tempCircle;
-	}
-	public void setTempCircle(Circle tempCircle) {
-		this.tempCircle = tempCircle;
-	}
-	
-	
-	
 }
