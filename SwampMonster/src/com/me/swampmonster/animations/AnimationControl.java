@@ -45,16 +45,16 @@ public class AnimationControl {
 	}
 	
 	//Does a complex animation...
-	//parameters are self explanatory: i is start frame; timeAdjust is comparison; personalMultiplier is a multiplier; and deltaTime is our time.
-	//optimal set, so far are: 64, 2, 8, 0.01f for two rows, and 64, 1, 8, 0.005f for one
-	public TextureRegion doComplexAnimation(int i, int timeAdjust, int personalMultiplier, float deltaTime){
-		if (stateTime < timeAdjust) {
-			stateTime += deltaTime;
+	//Comparator is to adjust the time spent moving forward in the array, standard = 1f;
+	//Adjusts the speed at which the frames are changing, standard = approximately 0.016f;
+	public TextureRegion doComplexAnimation(int i, float Comparator, float speedAdjust){
+		if (stateTime < Comparator) {
+			stateTime += speedAdjust;
 		} else {
 			stateTime = 0;
 		}
 		
-		currentFrame = animation.getKeyFrame(i + stateTime*personalMultiplier);
+		currentFrame = new Animation(1, frames).getKeyFrame(i + stateTime*multiplier);
 		return currentFrame;
 	}
 

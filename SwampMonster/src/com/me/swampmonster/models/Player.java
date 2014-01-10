@@ -56,18 +56,16 @@ public class Player extends AbstractGameObject{
 		
 	//ANIMATING
 		if(state.equals(State.ANIMATING)){
-			if(time < 150){
+			if(time < 108){
 				sprite = new Sprite(animations.get(state.ANIMATING).getCurrentFrame());
-				currentFrame = animations.get(state).doComplexAnimation(112, 4, 10, 0.01f);
+				currentFrame = animations.get(state).doComplexAnimation(112, 1.8f, Gdx.graphics.getDeltaTime());
 				
 				sprite.setRegion(animations.get(state).getCurrentFrame());
 				sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
 				time++;
-			}
-			else{
-				currentFrame = animations.get(state.ANIMATING).animate(64);
-				state = State.STANDARD;
+			}else{
 				time = 0;
+				state = State.STANDARD;
 			}
 		}
 			
@@ -76,16 +74,19 @@ public class Player extends AbstractGameObject{
 			
 			if(time < 30){
 				sprite = new Sprite(animations.get(state.HURT).getCurrentFrame());
-				currentFrame = animations.get(state).doComplexAnimation(104, 1, 8, 0.0005f);
+				currentFrame = animations.get(state.HURT).doComplexAnimation(104, 0.2f, Gdx.graphics.getDeltaTime()/2);
 				
 				sprite.setRegion(animations.get(state).getCurrentFrame());
 				sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
 				time++;
 				
 				Collidable collidableUp = null;
-				if(collidableUp == null){
-					position.y = position.y + 0.3f;
-					theController.touchPos.y = theController.touchPos.y +0.3f;
+				
+				// For the moment he moves according to the direction he is moving in at the moment of the strike, should be change to being 
+				// From what direction he was hit.
+				if (position.y < theController.touchPos.y -5 && collidableUp == null) { 
+					position.y += playerMovementSpeedY/2;
+					sprite.translateY(playerMovementSpeedY/2);
 				}
 				collidableUp = collisionCheckerUp();
 				collisionCheck(collidableUp);
@@ -111,6 +112,9 @@ public class Player extends AbstractGameObject{
 		 	movementCollisionAndAnimation();
 		}
 	}
+	
+	//DEAD
+	
 	private void inputNav() {
 		theController.touchPos.y = Gdx.input.getY();
 		theController.touchPos.x = Gdx.input.getX();

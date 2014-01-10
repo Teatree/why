@@ -46,8 +46,10 @@ public class TheController extends InputAdapter{
 		gui.update(level1.getPlayer().getHealth());
 		handleDebugInput(deltaTime);
 		pathfindingStuff();
-		
-		// Temporary
+		painLogic();
+	}
+
+	private void painLogic() {
 		if(timer2 > 0){
 			if(timer2 == 40){
 				hurt();
@@ -58,7 +60,14 @@ public class TheController extends InputAdapter{
 		}else if(timer2 == 0 && hurt){
 			hurt = false;
 		}
-		// temporary
+		
+		if(level1.getPlayer().getOxygen() <= 0 && !hurt){
+			timer2 = 40;
+		}
+		
+		if(level1.getPlayer().getHealth() <= 0){
+			level1.getPlayer().setState(State.ANIMATING);
+		}
 	}
 	
 	public void init(){
