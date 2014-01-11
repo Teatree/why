@@ -6,6 +6,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.me.swampmonster.AI.Pathfinder;
@@ -24,6 +25,7 @@ public class TheController extends InputAdapter{
 	public Vector3 touchPos;
 	int timer;
 	int timer2;
+	public Vector2 point;
 	public Vector2 randVector2;
 	public Vector2 supportVector2; // maybe not needed here; it's for the enemies to no move large distance to the player from the start
 	Random randomGenerator = new Random();
@@ -49,6 +51,8 @@ public class TheController extends InputAdapter{
 		//could probably be in the right class
 		painLogic();
 		//just saying
+		point.x = Gdx.input.getX();
+		point.y = 480-Gdx.input.getY();
 	}
 
 	
@@ -73,6 +77,7 @@ public class TheController extends InputAdapter{
 		supportVector2 = new Vector2(level1.getEnemy().getPosition().x+17, level1.getEnemy().getPosition().y+17);
 		pathfinder.findPath(level1.getEnemy().getPosition(), supportVector2);
 		gui = new GUI();
+		point = new Vector2();
 	}
 
 	private void handleDebugInput(float deltaTime) {
@@ -208,5 +213,23 @@ public class TheController extends InputAdapter{
 		}
 		return i - 1;
 	}
+	public boolean doesIntersect(Vector2 v2, float radius){
+		boolean questionMark;
+		if(Intersector.intersectSegmentCircle(point, point, v2, radius*radius)){
+			questionMark = true;
+		}else{
+			questionMark = false;
+		}
+		return questionMark;
+	}
+
+	public Vector2 getPoint() {
+		return point;
+	}
+
+	public void setPoint(Vector2 point) {
+		this.point = point;
+	}
+	
 }
 

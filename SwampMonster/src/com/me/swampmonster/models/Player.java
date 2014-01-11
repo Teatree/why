@@ -3,6 +3,7 @@ package com.me.swampmonster.models;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Circle;
+import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector2;
 import com.me.swampmonster.animations.AnimationControl;
 import com.me.swampmonster.game.TheController;
@@ -13,6 +14,7 @@ public class Player extends AbstractGameObject{
 	
 	State state = State.STANDARD;
 	int time = 0;
+	
 	
 	public Player(Vector2 position){
 		this.position = position;
@@ -84,8 +86,7 @@ public class Player extends AbstractGameObject{
 				}
 				collidableUp = collisionCheckerUp();
 				collisionCheck(collidableUp);
-			}
-			else{
+			}else{
 				currentFrame = animations.get(state.HURT).animate(64);
 				state = State.STANDARD;
 				time = 0;
@@ -108,14 +109,18 @@ public class Player extends AbstractGameObject{
 	}
 	
 	//DEAD
+	//
+	//
 	
 	private void inputNav() {
-		
-		//add intersector so that when you click on UI items the player's touchpos doesn't update
-		theController.touchPos.y = Gdx.input.getY();
-		theController.touchPos.x = Gdx.input.getX();
-		theController.l1Renderer.getCam().unproject(theController.touchPos);
-		theController.touchPos.z = 0;
+		if(!theController.doesIntersect(theController.gui.getWeaponizer().getPosition(), theController.gui.getWeaponizer().getCircle().radius) && !theController.doesIntersect(theController.gui.getMaskizer().getPosition(), theController.gui.getMaskizer().getCircle().radius)){
+			theController.touchPos.y = Gdx.input.getY();
+			theController.touchPos.x = Gdx.input.getX();
+			theController.l1Renderer.getCam().unproject(theController.touchPos);
+			theController.touchPos.z = 0;
+		}else if(Intersector.intersectSegmentCircle(theController.point, theController.point, theController.gui.getWeaponizer().getPosition(), theController.gui.getWeaponizer().getCircle().radius*theController.gui.getWeaponizer().getCircle().radius) == true){
+//			System.out.println("yes it intersects");
+		}
 	}
 	private void movementCollisionAndAnimation() {
 		// ---------------------left------------------------ //

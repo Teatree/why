@@ -1,5 +1,6 @@
 package com.me.swampmonster.models;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector2;
@@ -7,11 +8,14 @@ import com.me.swampmonster.animations.AnimationControl;
 import com.me.swampmonster.game.TheController;
 import com.me.swampmonster.game.collision.Collidable;
 import com.me.swampmonster.game.collision.CollisionHelper;
+import com.me.swampmonster.models.AbstractGameObject.State;
 
 public class Enemy extends AbstractGameObject{
 	
 	State state = State.STANDARD;
 	int cunter;
+	int timer;
+	int timer2;
 	
 	public Circle gReenAura;
 	public Circle oRangeAura;
@@ -21,13 +25,15 @@ public class Enemy extends AbstractGameObject{
 		gReenAura = new Circle();
 		gReenAura.radius = 164;
 		oRangeAura = new Circle();
-		oRangeAura.radius = 30;
+		oRangeAura.radius = 16;
 		animations.put(State.PURSUIT, new AnimationControl("data/Skelenten.png", 8, 16, 4)); 
 		animations.put(State.STANDARD, new AnimationControl("data/Skelenten.png", 8, 16, 4)); 
 		animations.put(State.ATTACKING, new AnimationControl("data/Skelenten.png", 8, 16, 4)); 
 		oldPos = position;
 		playerMovementSpeedX = 0.3f;
 		playerMovementSpeedY = 0.3f;
+		timer = 0;
+		timer2 = 0;
 		
 		sprite = new Sprite(animations.get(state.PURSUIT).getCurrentFrame());
 		sprite = new Sprite(animations.get(state.STANDARD).getCurrentFrame());
@@ -45,32 +51,53 @@ public class Enemy extends AbstractGameObject{
 		
 		
 	// ATTACKING!
+		
+		// Standing animation between attacks doesn't work.
 		if(state.equals(State.ATTACKING)){
-			sprite.setRegion(animations.get(state).getCurrentFrame());
+			if(timer2 < 80){
+				timer2++;
+				System.out.println("timer2: " + timer2 );
+			    currentFrame = animations.get(state).animate(88);
+			}
+			if(timer2 >= 80 && timer < 40){
+					System.out.println("timer1: " + timer);
+					currentFrame = animations.get(state).doComplexAnimation(56, 1.8f, Gdx.graphics.getDeltaTime());
+							
+					sprite.setRegion(animations.get(state).getCurrentFrame());
+					sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
+					timer++;
+					if(timer == 40 && timer2 >= 80){
+						currentFrame = animations.get(state).animate(88);
+						theController.level1.getPlayer().setState(State.HURT);
+						theController.level1.getPlayer().setHealth(theController.level1.getPlayer().getHealth()-1);
+						timer = 0;
+						timer2 = 0;
+					}
+			}
 			
 			//MOVEMENT + COLLISION PROCESSING AND DETECTION
 
-            moveLeft();
-            Collidable collidable = collisionCheckerLeft();
-            collisionCheck(collidable);
-                    
-            moveRight();
-            collidable = collisionCheckerRight();
-            collisionCheck(collidable);
-                    
-            moveDown();
-            collidable = collisionCheckerBottom();
-            collisionCheck(collidable);
-            
-            moveUp();
-            collidable = collisionCheckerTop();
-            collisionCheck(collidable);
+//            moveLeft();
+//            Collidable collidable = collisionCheckerLeft();
+//            collisionCheck(collidable);
+//                    
+//            moveRight();
+//            collidable = collisionCheckerRight();
+//            collisionCheck(collidable);
+//                    
+//            moveDown();
+//            collidable = collisionCheckerBottom();
+//            collisionCheck(collidable);
+//            
+//            moveUp();
+//            collidable = collisionCheckerTop();
+//            collisionCheck(collidable);
             
             standAnimation(56, 40, 48, 32);
 		}
 		
 		// PURSUIT!
-					if(state.equals(State.PURSUIT)){
+				if(state.equals(State.PURSUIT)){
 					sprite.setRegion(animations.get(state).getCurrentFrame());
 					
 					theController.pathfinder.findPath(theController.level1.getEnemy().getPosition(), theController.level1.getPlayer().getPosition());

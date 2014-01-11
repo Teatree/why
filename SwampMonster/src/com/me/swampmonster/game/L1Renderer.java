@@ -8,7 +8,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 import com.me.swampmonster.AI.Node;
 import com.me.swampmonster.AI.Pathfinder;
 import com.me.swampmonster.GUI.GUI;
@@ -152,6 +154,7 @@ public class L1Renderer {
 		
 		theController.cameraHelper.applyTo(cam);
 	}
+	//there are two of those;
 	
 	public void setSize(int width, int height){
 		this.width = width;
