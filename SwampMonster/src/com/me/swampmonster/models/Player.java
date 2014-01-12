@@ -70,22 +70,31 @@ public class Player extends AbstractGameObject{
 			
 			if(time < 30){
 				sprite = new Sprite(animations.get(state.HURT).getCurrentFrame());
-				currentFrame = animations.get(state.HURT).doComplexAnimation(104, 0.2f, Gdx.graphics.getDeltaTime()/2);
 				
-				sprite.setRegion(animations.get(state).getCurrentFrame());
-				sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
 				time++;
 				
 				Collidable collidableUp = null;
-				
-				// For the moment he moves according to the direction he is moving in at the moment of the strike, should be change to being 
-				// From what direction he was hit.
-				if (position.y < theController.touchPos.y -5 && collidableUp == null) { 
-					position.y += playerMovementSpeedY/2;
-					sprite.translateY(playerMovementSpeedY/2);
-				}
+				damagedFromTop(collidableUp);
 				collidableUp = collisionCheckerUp();
 				collisionCheck(collidableUp);
+				
+				Collidable collidableDown = null;
+				
+				damageFromBottom(collidableDown);
+				collidableDown = collisionCheckerDown();
+				collisionCheck(collidableDown);
+				
+				Collidable collidableLeft = null;
+				
+				damageFromLeft(collidableLeft);
+				collidableLeft = collisionCheckerLeft();
+				collisionCheck(collidableLeft);
+				
+				Collidable collidableRight = null;
+				
+				damageFromRight(collidableRight);
+				collidableRight = collisionCheckerRight();
+				collisionCheck(collidableRight);
 			}else{
 				currentFrame = animations.get(state.HURT).animate(64);
 				state = State.STANDARD;
@@ -105,6 +114,51 @@ public class Player extends AbstractGameObject{
 	    }	
 		//movement
 		 	movementCollisionAndAnimation();
+		}
+	}
+	private void damageFromRight(Collidable collidableUp) {
+		if (theController.level1.getEnemy().playerMovementDirection == "right" && collidableUp == null) { 
+			currentFrame = animations.get(state.HURT).doComplexAnimation(108, 0.2f, Gdx.graphics.getDeltaTime()/2);
+			
+			sprite.setRegion(animations.get(state).getCurrentFrame());
+			sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
+			position.x += playerMovementSpeedX/2;
+			theController.touchPos.x += playerMovementSpeedX/2;
+			sprite.translateY(playerMovementSpeedX/2);
+		}
+	}
+	private void damageFromLeft(Collidable collidableUp) {
+		if (theController.level1.getEnemy().playerMovementDirection == "left" && collidableUp == null) { 
+			currentFrame = animations.get(state.HURT).doComplexAnimation(106, 0.2f, Gdx.graphics.getDeltaTime()/2);
+			
+			sprite.setRegion(animations.get(state).getCurrentFrame());
+			sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
+			position.x -= playerMovementSpeedX/2;
+			theController.touchPos.x -= playerMovementSpeedX/2;
+			sprite.translateY(playerMovementSpeedX/2);
+		}
+	}
+	private void damageFromBottom(Collidable collidableUp) {
+		if (theController.level1.getEnemy().playerMovementDirection == "down" && collidableUp == null) { 
+			currentFrame = animations.get(state.HURT).doComplexAnimation(110, 0.2f, Gdx.graphics.getDeltaTime()/2);
+			
+			sprite.setRegion(animations.get(state).getCurrentFrame());
+			sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
+			position.y -= playerMovementSpeedY/2;
+			theController.touchPos.y -= playerMovementSpeedY/2;
+			sprite.translateY(playerMovementSpeedY/2);
+		}
+	}
+	private void damagedFromTop(Collidable collidableUp) {
+		if (theController.level1.getEnemy().playerMovementDirection == "up" && collidableUp == null) { 
+			currentFrame = animations.get(state.HURT).doComplexAnimation(104, 0.2f, Gdx.graphics.getDeltaTime()/2);
+			
+			sprite.setRegion(animations.get(state).getCurrentFrame());
+			sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
+			
+			position.y += playerMovementSpeedY/2;
+			theController.touchPos.y += playerMovementSpeedY/2;
+			sprite.translateY(playerMovementSpeedY/2);
 		}
 	}
 	

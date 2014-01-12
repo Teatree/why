@@ -32,6 +32,8 @@ public class Enemy extends AbstractGameObject{
 		oldPos = position;
 		playerMovementSpeedX = 0.3f;
 		playerMovementSpeedY = 0.3f;
+		// Timer is for the length of the actual animation
+		// Timer2 is for the waiting period
 		timer = 0;
 		timer2 = 0;
 		
@@ -49,51 +51,56 @@ public class Enemy extends AbstractGameObject{
 		oRangeAura.x = position.x;
 		oRangeAura.y = position.y;
 		
+		if(!state.equals(State.ATTACKING)){
+			timer = 0;
+			timer2 = 0;
+		}
 		
 	// ATTACKING!
 		
 		// Standing animation between attacks doesn't work.
-		if(state.equals(State.ATTACKING)){
-			if(timer2 < 80){
-				timer2++;
-				System.out.println("timer2: " + timer2 );
-			    currentFrame = animations.get(state).animate(88);
-			}
-			if(timer2 >= 80 && timer < 40){
-					System.out.println("timer1: " + timer);
-					currentFrame = animations.get(state).doComplexAnimation(56, 1.8f, Gdx.graphics.getDeltaTime());
-							
-					sprite.setRegion(animations.get(state).getCurrentFrame());
-					sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
-					timer++;
-					if(timer == 40 && timer2 >= 80){
-						currentFrame = animations.get(state).animate(88);
-						theController.level1.getPlayer().setState(State.HURT);
-						theController.level1.getPlayer().setHealth(theController.level1.getPlayer().getHealth()-1);
-						timer = 0;
-						timer2 = 0;
-					}
-			}
 			
 			//MOVEMENT + COLLISION PROCESSING AND DETECTION
 
-//            moveLeft();
-//            Collidable collidable = collisionCheckerLeft();
-//            collisionCheck(collidable);
-//                    
-//            moveRight();
-//            collidable = collisionCheckerRight();
-//            collisionCheck(collidable);
-//                    
-//            moveDown();
-//            collidable = collisionCheckerBottom();
-//            collisionCheck(collidable);
-//            
-//            moveUp();
-//            collidable = collisionCheckerTop();
-//            collisionCheck(collidable);
-            
-            standAnimation(56, 40, 48, 32);
+            if(state.equals(State.ATTACKING)){
+            	
+            	sprite.setRegion(animations.get(state).getCurrentFrame());
+            	
+            	if(timer == 0 && timer2 == 0){
+	            	moveLeft();
+	            	Collidable collidable = collisionCheckerLeft();
+	            	collisionCheck(collidable);
+	            	
+	            	moveRight();
+	            	collidable = collisionCheckerRight();
+	            	collisionCheck(collidable);
+	            	
+	            	moveDown();
+	            	collidable = collisionCheckerBottom();
+	            	collisionCheck(collidable);
+	            	
+	            	moveUp();
+	            	collidable = collisionCheckerTop();
+	            	collisionCheck(collidable);
+//	            	System.out.println("playerDircetion = " + playerMovementDirection);
+            	}
+            	
+            	if(oldPos.x != position.x || oldPos.y != position.y && timer>0 && timer2>0){
+            		timer = 0;
+            		timer2 = 0;
+            	}
+            	if(playerMovementDirection == "right"){
+            		inflictOnThe(88, 56);
+            	}
+            	if(playerMovementDirection == "left"){
+            		inflictOnThe(72, 40);
+            	}
+            	if(playerMovementDirection == "up"){
+            		inflictOnThe(80, 48);
+            	}
+            	if(playerMovementDirection == "down"){
+            		inflictOnThe(64, 32);
+            	}
 		}
 		
 		// PURSUIT!
@@ -115,20 +122,48 @@ public class Enemy extends AbstractGameObject{
 					
 				}
 		// STANDARD!
-		if(state.equals(State.STANDARD)){
-		sprite.setRegion(animations.get(state).getCurrentFrame());
-		
-		// X AXIS MOVEMENT + COLLISION PROCESSING AND DETECTION
-		//movement
-			if(cunter == 0){ 
-				cunter = theController.pathfinder.findLastNotNullInArray();
-			}
+			if(state.equals(State.STANDARD)){
+			sprite.setRegion(animations.get(state).getCurrentFrame());
 			
-	        onPathMovingAndCollisionDetection();
-		
-		orientOnPath();
-		standAnimation(88, 72, 80, 64);
+			// X AXIS MOVEMENT + COLLISION PROCESSING AND DETECTION
+			//movement
+				if(cunter == 0){ 
+					cunter = theController.pathfinder.findLastNotNullInArray();
+				}
+				
+		    onPathMovingAndCollisionDetection();
+			
+			orientOnPath();
+			standAnimation(88, 72, 80, 64);
+		}
 	}
+
+	private void inflictOnThe(int standing, int animation) {
+		// Timer is for the length of the actual animation
+		// Timer2 is for the waiting period
+		if(oldPos.x == position.x && oldPos.y == position.y){
+			if(timer2 < 50){
+				timer2++;
+//            			System.out.println("timer2: " + timer2 );
+				currentFrame = animations.get(state).animate(standing);
+			}
+			if(timer2 >= 50 && timer < 40){
+//            			System.out.println("timer1: " + timer);
+				currentFrame = animations.get(state).doComplexAnimation(animation, 1.8f, Gdx.graphics.getDeltaTime());
+				
+				sprite.setRegion(animations.get(state).getCurrentFrame());
+				sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
+				timer++;
+				if(timer == 40 && timer2 >= 50){
+					currentFrame = animations.get(state).animate(standing);
+					// And may be inflict different hurts, direction/ kinds of hurts/ etc.
+					theController.level1.getPlayer().setState(State.HURT);
+//					theController.level1.getPlayer().setHealth(theController.level1.getPlayer().getHealth()-1);
+					timer = 0;
+					timer2 = 0;
+				}
+			}
+		}
 	}
 
 	private void onPathMovingAndCollisionDetection() {
@@ -182,27 +217,27 @@ public class Enemy extends AbstractGameObject{
 	}
 
 	private void moveLeft() {
-		if (position.x > theController.level1.getPlayer().getPosition().x+2) {
+		if (position.x > theController.level1.getPlayer().getPosition().x+16) {
 			position.x -= playerMovementSpeedX;
 			playerMovementDirection = "left";
-			if(position.x > theController.level1.getPlayer().getPosition().x+2 && position.y < theController.level1.getPlayer().getPosition().y-1 && position.y > theController.level1.getPlayer().getPosition().y-5){
+			if(position.x > theController.level1.getPlayer().getPosition().x+16 && position.y < theController.level1.getPlayer().getPosition().y-1 && position.y > theController.level1.getPlayer().getPosition().y-4){
 				currentFrame = animations.get(state).animate(8);
 			}
 		}
 	}
 	
 	private void moveRight() {
-		if (position.x < theController.level1.getPlayer().getPosition().x+5) {
+		if (position.x < theController.level1.getPlayer().getPosition().x-16) {
 			position.x += playerMovementSpeedX;
 			sprite.translateX(playerMovementSpeedX);
 			playerMovementDirection = "right";
-			if(position.x < theController.level1.getPlayer().getPosition().x+5 && position.y < theController.level1.getPlayer().getPosition().y-1 && position.y > theController.level1.getPlayer().getPosition().y-5){
+			if(position.x < theController.level1.getPlayer().getPosition().x+16 && position.y < theController.level1.getPlayer().getPosition().y-1 && position.y > theController.level1.getPlayer().getPosition().y-4){
 				currentFrame = animations.get(state).animate(24);
 			}        
 		}
 	}
 	private void moveDown() {
-		if (position.y > theController.level1.getPlayer().getPosition().y-1) {
+		if (position.y > theController.level1.getPlayer().getPosition().y+6) {
 		    position.y -= playerMovementSpeedY;
 		    sprite.translateY(-playerMovementSpeedY);
 		    playerMovementDirection = "down";
@@ -211,12 +246,12 @@ public class Enemy extends AbstractGameObject{
 	}
 
 	private void moveUp() {
-		if (position.y < theController.level1.getPlayer().getPosition().y-5) {
-		        position.y += playerMovementSpeedY;
-		        sprite.translateY(playerMovementSpeedY);
-		        playerMovementDirection = "up";
-		        currentFrame = animations.get(state).animate(16);
-		        }
+		if (position.y < theController.level1.getPlayer().getPosition().y-6) {
+		    position.y += playerMovementSpeedY;
+		    sprite.translateY(playerMovementSpeedY);
+		    playerMovementDirection = "up";
+		    currentFrame = animations.get(state).animate(16);
+		 }
 	}
 
 	private void collisionCheck(Collidable collidable) {
