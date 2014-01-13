@@ -7,12 +7,16 @@ public class GUI {
 	private HealthBar healthBar;
 	private Weaponizer weaponizer;
 	private Maskizer maskizer;
+	private Croshair croshair;
+	private GameOverGUI gameoverGUI;
 	
 	public GUI(){
+		gameoverGUI = new GameOverGUI();
 		oxygenBar = new OxygenBar();
 		healthBar = new HealthBar();
 		weaponizer = new Weaponizer();
 		maskizer = new Maskizer();
+		croshair = new Croshair();
 	}
 	
 	public void update(int qH){
@@ -51,6 +55,22 @@ public class GUI {
 
 	public void setMaskizer(Maskizer maskizer) {
 		this.maskizer = maskizer;
+	}
+
+	public Croshair getCroshair() {
+		return croshair;
+	}
+
+	public void setCroshair(Croshair croshair) {
+		this.croshair = croshair;
+	}
+
+	public GameOverGUI getGameoverGUI() {
+		return gameoverGUI;
+	}
+
+	public void setGameoverGUI(GameOverGUI gameoverGUI) {
+		this.gameoverGUI = gameoverGUI;
 	}
 	
 	

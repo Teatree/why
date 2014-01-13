@@ -88,6 +88,8 @@ public class L1Renderer {
 		sr.circle(theController.level1.getEnemy().getoRangeAura().x+8, theController.level1.getEnemy().getoRangeAura().y+16, theController.level1.getEnemy().getoRangeAura().radius);
 		sr.setColor(Color.RED);
 		sr.circle(theController.level1.getPlayer().getPosition().x+8, theController.level1.getPlayer().getPosition().y+16, theController.level1.getPlayer().getCircle().radius);
+		sr.setColor(Color.WHITE);
+		sr.circle(theController.gui.getCroshair().getCircle().x, theController.gui.getCroshair().getCircle().y, theController.gui.getCroshair().getCircle().radius);
 		sr.end();
 		sr.begin(ShapeType.Filled);
 		sr.setColor(Color.RED);
@@ -151,6 +153,12 @@ public class L1Renderer {
 		staticBatch.draw(theController.gui.getWeaponizer().getSprite(), 0, 0);
 		staticBatch.draw(theController.gui.getMaskizer().getSprite(), 0, 128);
 		staticBatch.end();
+		
+		staticSr.begin(ShapeType.Filled);
+		staticSr.setColor(Color.GRAY);
+		staticSr.rect(theController.gui.getGameoverGUI().getRectanlge().x, theController.gui.getGameoverGUI().getRectanlge().y,
+				theController.gui.getGameoverGUI().getRectanlge().width, theController.gui.getGameoverGUI().getRectanlge().height);
+		staticSr.end();
 		
 		theController.cameraHelper.applyTo(cam);
 	}
