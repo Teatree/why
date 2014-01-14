@@ -30,8 +30,7 @@ public class Enemy extends AbstractGameObject{
 		animations.put(State.STANDARD, new AnimationControl("data/Skelenten.png", 8, 16, 4)); 
 		animations.put(State.ATTACKING, new AnimationControl("data/Skelenten.png", 8, 16, 4)); 
 		oldPos = position;
-		playerMovementSpeedX = 0.3f;
-		playerMovementSpeedY = 0.3f;
+		playerMovementSpeed = 0.3f;
 		// Timer is for the length of the actual animation
 		// Timer2 is for the waiting period
 		timer = 0;
@@ -218,7 +217,7 @@ public class Enemy extends AbstractGameObject{
 
 	private void moveLeft() {
 		if (position.x > theController.level1.getPlayer().getPosition().x+16) {
-			position.x -= playerMovementSpeedX;
+			position.x -= playerMovementSpeed;
 			playerMovementDirection = "left";
 			if(position.x > theController.level1.getPlayer().getPosition().x+16 && position.y < theController.level1.getPlayer().getPosition().y-1 && position.y > theController.level1.getPlayer().getPosition().y-4){
 				currentFrame = animations.get(state).animate(8);
@@ -228,8 +227,8 @@ public class Enemy extends AbstractGameObject{
 	
 	private void moveRight() {
 		if (position.x < theController.level1.getPlayer().getPosition().x-16) {
-			position.x += playerMovementSpeedX;
-			sprite.translateX(playerMovementSpeedX);
+			position.x += playerMovementSpeed;
+			sprite.translateX(playerMovementSpeed);
 			playerMovementDirection = "right";
 			if(position.x < theController.level1.getPlayer().getPosition().x+16 && position.y < theController.level1.getPlayer().getPosition().y-1 && position.y > theController.level1.getPlayer().getPosition().y-4){
 				currentFrame = animations.get(state).animate(24);
@@ -238,8 +237,8 @@ public class Enemy extends AbstractGameObject{
 	}
 	private void moveDown() {
 		if (position.y > theController.level1.getPlayer().getPosition().y+6) {
-		    position.y -= playerMovementSpeedY;
-		    sprite.translateY(-playerMovementSpeedY);
+		    position.y -= playerMovementSpeed;
+		    sprite.translateY(-playerMovementSpeed);
 		    playerMovementDirection = "down";
 		    currentFrame = animations.get(state).animate(0);
          }
@@ -247,8 +246,8 @@ public class Enemy extends AbstractGameObject{
 
 	private void moveUp() {
 		if (position.y < theController.level1.getPlayer().getPosition().y-6) {
-		    position.y += playerMovementSpeedY;
-		    sprite.translateY(playerMovementSpeedY);
+		    position.y += playerMovementSpeed;
+		    sprite.translateY(playerMovementSpeed);
 		    playerMovementDirection = "up";
 		    currentFrame = animations.get(state).animate(16);
 		 }
@@ -262,8 +261,8 @@ public class Enemy extends AbstractGameObject{
 
 	private void moveUpOnPath() {
 		if (theController.pathfinder.getPath()[cunter] != null && (int)position.y < (int)(theController.pathfinder.getPath()[cunter].y*16)) {
-			position.y += playerMovementSpeedY;
-			sprite.translateY(playerMovementSpeedY);
+			position.y += playerMovementSpeed;
+			sprite.translateY(playerMovementSpeed);
 			playerMovementDirection = "up";
 			currentFrame = animations.get(state).animate(16);
 		}
@@ -271,8 +270,8 @@ public class Enemy extends AbstractGameObject{
 
 	private void moveDownOnPath() {
 		if (theController.pathfinder.getPath()[cunter] != null && (int)position.y > (int)(theController.pathfinder.getPath()[cunter].y*16)) {
-			position.y -= playerMovementSpeedY;
-			sprite.translateY(-playerMovementSpeedY);
+			position.y -= playerMovementSpeed;
+			sprite.translateY(-playerMovementSpeed);
 			playerMovementDirection = "down";
 		   	currentFrame = animations.get(state).animate(0);
 		}
@@ -280,8 +279,8 @@ public class Enemy extends AbstractGameObject{
 
 	private void moveRightOnPath() {
 		if (theController.pathfinder.getPath()[cunter] != null && (int)position.x < (int)(theController.pathfinder.getPath()[cunter].x*16)) {
-			position.x += playerMovementSpeedX;
-			sprite.translateX(playerMovementSpeedX);
+			position.x += playerMovementSpeed;
+			sprite.translateX(playerMovementSpeed);
 			playerMovementDirection = "right";
 			if(playerMovementDirection != "down" && playerMovementDirection != "up"){
 				currentFrame = animations.get(state).animate(24);
@@ -291,8 +290,8 @@ public class Enemy extends AbstractGameObject{
 
 	private void moveLeftOnPath() {
 		if (theController.pathfinder.getPath()[cunter] != null && (int)position.x > (int)(theController.pathfinder.getPath()[cunter].x*16)) {
-			position.x -= playerMovementSpeedX;
-			sprite.translateX(playerMovementSpeedX);
+			position.x -= playerMovementSpeed;
+			sprite.translateX(playerMovementSpeed);
 			playerMovementDirection = "left";
 			if(playerMovementDirection != "down" && playerMovementDirection != "up"){
 				currentFrame = animations.get(state).animate(8);
@@ -353,24 +352,13 @@ public class Enemy extends AbstractGameObject{
 
 
 	public float getPlayerMovementSpeedX() {
-		return playerMovementSpeedX;
+		return playerMovementSpeed;
 	}
 
 
 	public void setPlayerMovementSpeedX(float playerMovementSpeedX) {
-		this.playerMovementSpeedX = playerMovementSpeedX;
+		this.playerMovementSpeed = playerMovementSpeedX;
 	}
-
-
-	public float getPlayerMovementSpeedY() {
-		return playerMovementSpeedY;
-	}
-
-
-	public void setPlayerMovementSpeedY(float playerMovementSpeedY) {
-		this.playerMovementSpeedY = playerMovementSpeedY;
-	}
-
 	public TheController getTheController() {
 		return theController;
 	}

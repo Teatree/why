@@ -25,24 +25,14 @@ public class Player extends AbstractGameObject{
 		animations.put(state.STANDARD, new AnimationControl("data/NastyaSheet2.png", 8, 32, 7)); 
 		animations.put(state.ANIMATING, new AnimationControl("data/NastyaSheet2.png", 8, 32, 8)); 
 		animations.put(state.HURT, new AnimationControl("data/NastyaSheet2.png", 8, 32, 8)); 
+		animations.put(state.GUNMOVEMENT, new AnimationControl("data/NastyaSheet2.png", 8, 32, 8)); 
 		oldPos = position;
 		
 		health = 6;
 		oxygen = 96;
 		sprite = new Sprite(animations.get(state.STANDARD).getCurrentFrame());
 	}
-	public Vector2 getPosition() {
-		return position;
-	}
-	public void setPosition(Vector2 position) {
-		this.position = position;
-	}
-	public Vector2 getOldPos() {
-		return oldPos;
-	}
-	public void setOldPos(Vector2 oldPos) {
-		this.oldPos = oldPos;
-	}
+	
 	public void update() {
 		oldPos.x = position.x;
 		oldPos.y = position.y;
@@ -104,16 +94,30 @@ public class Player extends AbstractGameObject{
 		
 	//STANDARD
 		if(state.equals(State.STANDARD)){
-		sprite = new Sprite(animations.get(state.STANDARD).getCurrentFrame());
-		sprite.setRegion(animations.get(state).getCurrentFrame());
-		sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
+			sprite = new Sprite(animations.get(state.STANDARD).getCurrentFrame());
+			sprite.setRegion(animations.get(state).getCurrentFrame());
+			sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
+			
+			if (Gdx.input.justTouched()) {
+	
+		        inputNav();
+		    }	
+			//movement
+			 	movementCollisionAndAnimation(playerMovementSpeed);
+		}
 		
-		if (Gdx.input.justTouched()) {
+	//GUN MOVEMENT
+		if(state.equals(State.GUNMOVEMENT)){
+			sprite = new Sprite(animations.get(state.GUNMOVEMENT).getCurrentFrame());
+			sprite.setRegion(animations.get(state).getCurrentFrame());
+			sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
+			
+			if (Gdx.input.justTouched()) {
 
-	        inputNav();
-	    }	
-		//movement
-		 	movementCollisionAndAnimation();
+		        inputNav();
+		    }	
+			
+			movementCollisionAndAnimation(playerMovementSpeed/3);
 		}
 	}
 	private void damageFromRight(Collidable collidableUp) {
@@ -122,9 +126,9 @@ public class Player extends AbstractGameObject{
 			
 			sprite.setRegion(animations.get(state).getCurrentFrame());
 			sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
-			position.x += playerMovementSpeedX/2;
-			theController.touchPos.x += playerMovementSpeedX/2;
-			sprite.translateY(playerMovementSpeedX/2);
+			position.x += playerMovementSpeed/2;
+			theController.touchPos.x += playerMovementSpeed/2;
+			sprite.translateY(playerMovementSpeed/2);
 		}
 	}
 	private void damageFromLeft(Collidable collidableUp) {
@@ -133,9 +137,9 @@ public class Player extends AbstractGameObject{
 			
 			sprite.setRegion(animations.get(state).getCurrentFrame());
 			sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
-			position.x -= playerMovementSpeedX/2;
-			theController.touchPos.x -= playerMovementSpeedX/2;
-			sprite.translateY(playerMovementSpeedX/2);
+			position.x -= playerMovementSpeed/2;
+			theController.touchPos.x -= playerMovementSpeed/2;
+			sprite.translateY(playerMovementSpeed/2);
 		}
 	}
 	private void damageFromBottom(Collidable collidableUp) {
@@ -144,9 +148,9 @@ public class Player extends AbstractGameObject{
 			
 			sprite.setRegion(animations.get(state).getCurrentFrame());
 			sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
-			position.y -= playerMovementSpeedY/2;
-			theController.touchPos.y -= playerMovementSpeedY/2;
-			sprite.translateY(playerMovementSpeedY/2);
+			position.y -= playerMovementSpeed/2;
+			theController.touchPos.y -= playerMovementSpeed/2;
+			sprite.translateY(playerMovementSpeed/2);
 		}
 	}
 	private void damagedFromTop(Collidable collidableUp) {
@@ -156,9 +160,9 @@ public class Player extends AbstractGameObject{
 			sprite.setRegion(animations.get(state).getCurrentFrame());
 			sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
 			
-			position.y += playerMovementSpeedY/2;
-			theController.touchPos.y += playerMovementSpeedY/2;
-			sprite.translateY(playerMovementSpeedY/2);
+			position.y += playerMovementSpeed/2;
+			theController.touchPos.y += playerMovementSpeed/2;
+			sprite.translateY(playerMovementSpeed/2);
 		}
 	}
 	
@@ -176,32 +180,32 @@ public class Player extends AbstractGameObject{
 //			System.out.println("yes it intersects");
 		}
 	}
-	private void movementCollisionAndAnimation() {
+	private void movementCollisionAndAnimation(float speed) {
 		// ---------------------left------------------------ //
 		Collidable collidableLeft = null;
 		
-		moveLeft(collidableLeft);
+		moveLeft(collidableLeft, speed);
 		collidableLeft = collisionCheckerLeft();
 		collisionCheck(collidableLeft);
 		
 		// ---------------------right------------------------ //
 		Collidable collidableRight = null;
 		
-		moveRight(collidableRight);
+		moveRight(collidableRight, speed);
 		collidableRight = collisionCheckerRight();
 		collisionCheck(collidableRight);
 		
 		// ---------------------down------------------------ //
 		Collidable collidableDown = null;
 		
-		moveDown(collidableDown);
+		moveDown(collidableDown, speed);
 		collidableDown = collisionCheckerDown();
 		collisionCheck(collidableDown);
 		
 		// ---------------------up------------------------ //
 		Collidable collidableUp = null;
 		
-		moveUp(collidableUp);
+		moveUp(collidableUp, speed);
 		collidableUp = collisionCheckerUp();
 		collisionCheck(collidableUp);
 		
@@ -214,10 +218,10 @@ public class Player extends AbstractGameObject{
 		if(collidableUp == null)collidableUp = CollisionHelper.isCollidable(position.x+(sprite.getWidth()/2), position.y+sprite.getHeight(), theController.collisionLayer);
 		return collidableUp;
 	}
-	private void moveUp(Collidable collidableUp) {
+	private void moveUp(Collidable collidableUp, float speeds) {
 		if (position.y < theController.touchPos.y -5 && collidableUp == null) {
-			position.y += playerMovementSpeedY;
-			sprite.translateY(playerMovementSpeedY);
+			position.y += speeds;
+			sprite.translateY(speeds);
 			playerMovementDirection = "up";
 			if(oldPos.y != position.y){
 				currentFrame = animations.get(state).animate(8);
@@ -231,10 +235,10 @@ public class Player extends AbstractGameObject{
 		if(collidableDown == null)collidableDown = CollisionHelper.isCollidable(position.x+(sprite.getWidth()/2), position.y, theController.collisionLayer);
 		return collidableDown;
 	}
-	private void moveDown(Collidable collidableDown) {
+	private void moveDown(Collidable collidableDown, float speeds) {
 		if (position.y > theController.touchPos.y -1 && collidableDown == null) {
-			position.y -= playerMovementSpeedY;
-			sprite.translateY(-playerMovementSpeedY);
+			position.y -= speeds;
+			sprite.translateY(-speeds);
 			playerMovementDirection = "down";
 			if(oldPos.y != position.y){
 				currentFrame = animations.get(state).animate(0);
@@ -248,10 +252,10 @@ public class Player extends AbstractGameObject{
 		if(collidableRight == null)collidableRight = CollisionHelper.isCollidable(position.x+sprite.getWidth(), position.y +(sprite.getHeight()/2), theController.collisionLayer);
 		return collidableRight;
 	}
-	private void moveRight(Collidable collidableRight) {
+	private void moveRight(Collidable collidableRight, float speeds) {
 		if (position.x <  theController.touchPos.x -19/2 && collidableRight == null) {
-			position.x += playerMovementSpeedX; 
-			sprite.translateX(playerMovementSpeedX);
+			position.x += speeds; 
+			sprite.translateX(speeds);
 			playerMovementDirection = "right";
 		}
 		if(position.x <  theController.touchPos.x -19/2 && position.y < theController.touchPos.y -1 && position.y > theController.touchPos.y -5 && oldPos.x != position.x && collidableRight == null){
@@ -270,11 +274,11 @@ public class Player extends AbstractGameObject{
 		if(collidableLeft == null)collidableLeft = CollisionHelper.isCollidable(position.x, position.y + (sprite.getHeight()/2), theController.collisionLayer);
 		return collidableLeft;
 	}
-	private void moveLeft(Collidable collidableLeft) {
+	private void moveLeft(Collidable collidableLeft, float speeds) {
 		if (position.x > theController.touchPos.x -16/2 && collidableLeft == null) {
-			position.x -= playerMovementSpeedX;
+			position.x -= speeds;
 			playerMovementDirection = "left";
-			sprite.translateX(-playerMovementSpeedX);
+			sprite.translateX(-speeds);
 		}
 		if(position.x > theController.touchPos.x -16/2 && position.y < theController.touchPos.y -1 && position.y > theController.touchPos.y -5 && oldPos.x != position.x && collidableLeft == null){
 			currentFrame = animations.get(state).animate(24);
@@ -314,16 +318,10 @@ public class Player extends AbstractGameObject{
 		this.playerMovementDirection = playerMovementDirection;
 	}
 	public float getPlayerMovementSpeedX() {
-		return playerMovementSpeedX;
+		return playerMovementSpeed;
 	}
 	public void setPlayerMovementSpeedX(float playerMovementSpeedX) {
-		this.playerMovementSpeedX = playerMovementSpeedX;
-	}
-	public float getPlayerMovementSpeedY() {
-		return playerMovementSpeedY;
-	}
-	public void setPlayerMovementSpeedY(float playerMovementSpeedY) {
-		this.playerMovementSpeedY = playerMovementSpeedY;
+		this.playerMovementSpeed = playerMovementSpeedX;
 	}
 	public State getState() {
 		return state;

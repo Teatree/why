@@ -77,6 +77,8 @@ public class TheController extends InputAdapter{
 		supportVector2 = new Vector2(level1.getEnemy().getPosition().x+17, level1.getEnemy().getPosition().y+17);
 		pathfinder.findPath(level1.getEnemy().getPosition(), supportVector2);
 		gui = new GUI();
+		gui.getCroshair().setTheController(this);
+		gui.getCroshair().setPosition(new Vector2 (330f,100f));
 		point = new Vector2();
 	}
 
@@ -114,6 +116,12 @@ public class TheController extends InputAdapter{
 		if (Gdx.input.isKeyPressed(Keys.B)){
 			decreaseOxygen();
 			System.out.println("Oxygen: " + level1.getPlayer().getOxygen());
+		}
+		
+		if(gui.getWeaponizer().isOn()){
+			level1.getPlayer().setState(State.GUNMOVEMENT);
+		}else if(!gui.getWeaponizer().isOn()){
+			level1.getPlayer().setState(State.STANDARD);
 		}
 	}
 	

@@ -77,6 +77,10 @@ public class L1Renderer {
 				theController.level1.getEnemy().getPosition().y, 
 				theController.level1.getEnemy().getSprite().getWidth(), 
 				theController.level1.getEnemy().getSprite().getHeight());
+		batch.draw(theController.gui.getCroshair().getSprite(), (theController.gui.getCroshair().getPosition().x - theController.gui.getCroshair().getCircle().radius) + theController.gui.getCroshair().getSprite().getWidth()/2, 
+				(theController.gui.getCroshair().getPosition().y - theController.gui.getCroshair().getCircle().radius) + theController.gui.getCroshair().getSprite().getHeight()/2, 
+				theController.gui.getCroshair().getSprite().getWidth(), 
+				theController.gui.getCroshair().getSprite().getHeight());
 		batch.end();
 		
 		
@@ -89,7 +93,8 @@ public class L1Renderer {
 		sr.setColor(Color.RED);
 		sr.circle(theController.level1.getPlayer().getPosition().x+8, theController.level1.getPlayer().getPosition().y+16, theController.level1.getPlayer().getCircle().radius);
 		sr.setColor(Color.WHITE);
-		sr.circle(theController.gui.getCroshair().getCircle().x, theController.gui.getCroshair().getCircle().y, theController.gui.getCroshair().getCircle().radius);
+		sr.circle(theController.gui.getCroshair().getPosition().x + theController.level1.getPlayer().getSprite().getWidth()/2,
+				theController.gui.getCroshair().getPosition().y + theController.level1.getPlayer().getSprite().getHeight()/2, theController.gui.getCroshair().getCircle().radius);
 		sr.end();
 		sr.begin(ShapeType.Filled);
 		sr.setColor(Color.RED);

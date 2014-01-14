@@ -5,8 +5,6 @@ import com.me.swampmonster.models.AbstractGameObject;
 
 public class GameOverGUI extends AbstractGameObject{
 	
-	
-	
 	public GameOverGUI(){
 		rectanlge = new Rectangle();
 		rectanlge.height = 480;

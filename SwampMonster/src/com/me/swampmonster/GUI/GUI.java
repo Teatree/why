@@ -1,5 +1,7 @@
 package com.me.swampmonster.GUI;
 
+import com.badlogic.gdx.math.Vector2;
+
 
 public class GUI {
 	
@@ -16,13 +18,14 @@ public class GUI {
 		healthBar = new HealthBar();
 		weaponizer = new Weaponizer();
 		maskizer = new Maskizer();
-		croshair = new Croshair();
+		croshair = new Croshair(new Vector2());
 	}
 	
 	public void update(int qH){
 		healthBar.update(qH);
 		weaponizer.update();
 		maskizer.update();
+		croshair.update();
 	}
 
 	public OxygenBar getOxygenBar() {

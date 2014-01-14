@@ -15,7 +15,7 @@ import com.me.swampmonster.game.TheController;
 public abstract class AbstractGameObject {
 
 	public enum State{
-		STANDARD, HURT, DEAD, ANIMATING, ATTACKING, PURSUIT;
+		STANDARD, HURT, DEAD, ANIMATING, ATTACKING, PURSUIT, GUNMOVEMENT;
 	}
 	
 	protected TextureRegion currentFrame;
@@ -31,8 +31,7 @@ public abstract class AbstractGameObject {
 	protected TheController theController;
 	
 	protected String playerMovementDirection; 
-	protected float playerMovementSpeedX = 0.5f; 
-	protected float playerMovementSpeedY = 0.5f;
+	protected float playerMovementSpeed = 0.5f; 
 	
 	protected int health;
 	protected int oxygen;
@@ -74,16 +73,10 @@ public abstract class AbstractGameObject {
 		this.playerMovementDirection = playerMovementDirection;
 	}
 	public float getPlayerMovementSpeedX() {
-		return playerMovementSpeedX;
+		return playerMovementSpeed;
 	}
 	public void setPlayerMovementSpeedX(float playerMovementSpeedX) {
-		this.playerMovementSpeedX = playerMovementSpeedX;
-	}
-	public float getPlayerMovementSpeedY() {
-		return playerMovementSpeedY;
-	}
-	public void setPlayerMovementSpeedY(float playerMovementSpeedY) {
-		this.playerMovementSpeedY = playerMovementSpeedY;
+		this.playerMovementSpeed = playerMovementSpeedX;
 	}
 	public int getHealth() {
 		return health;
