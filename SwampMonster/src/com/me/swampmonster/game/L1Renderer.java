@@ -154,11 +154,11 @@ public class L1Renderer {
 		staticBatch.draw(theController.gui.getMaskizer().getSprite(), 0, 128);
 		staticBatch.end();
 		
-		staticSr.begin(ShapeType.Filled);
-		staticSr.setColor(Color.GRAY);
-		staticSr.rect(theController.gui.getGameoverGUI().getRectanlge().x, theController.gui.getGameoverGUI().getRectanlge().y,
-				theController.gui.getGameoverGUI().getRectanlge().width, theController.gui.getGameoverGUI().getRectanlge().height);
-		staticSr.end();
+//		staticSr.begin(ShapeType.Filled);
+//		staticSr.setColor(Color.GRAY);
+//		staticSr.rect(theController.gui.getGameoverGUI().getRectanlge().x, theController.gui.getGameoverGUI().getRectanlge().y,
+//				theController.gui.getGameoverGUI().getRectanlge().width, theController.gui.getGameoverGUI().getRectanlge().height);
+//		staticSr.end();
 		
 		theController.cameraHelper.applyTo(cam);
 	}
