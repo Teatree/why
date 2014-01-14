@@ -38,6 +38,7 @@ public class L1Renderer {
 	private float unitScale = 1f;
 	
 	float ass = 1f;
+	float assRevert = 0f;
 	
 	public L1Renderer(L1 level1, TheController theController){
 		this.level1 = level1;
@@ -160,9 +161,14 @@ public class L1Renderer {
 		staticBatch.end();
 		
 //		staticSr.begin(ShapeType.Filled);
-//		staticSr.setColor(Color.GRAY);
-//		staticSr.rect(theController.gui.getGameoverGUI().getRectanlge().x, theController.gui.getGameoverGUI().getRectanlge().y,
-//				theController.gui.getGameoverGUI().getRectanlge().width, theController.gui.getGameoverGUI().getRectanlge().height);
+//			if(theController.level1.getPlayer().isDead()){
+//				staticSr.setColor(new Color(200, 0, 0, assRevert));
+//				staticSr.rect(theController.gui.getGameoverGUI().getRectanlge().x, theController.gui.getGameoverGUI().getRectanlge().y,
+//						theController.gui.getGameoverGUI().getRectanlge().width, theController.gui.getGameoverGUI().getRectanlge().height);
+//				if(assRevert < 0.5f){
+//					assRevert = assRevert + 0.0005f;
+//				}
+//			}
 //		staticSr.end();
 		
 		theController.cameraHelper.applyTo(cam);

@@ -11,6 +11,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.me.swampmonster.animations.AnimationControl;
 import com.me.swampmonster.game.TheController;
+import com.sun.org.apache.xerces.internal.impl.dv.xs.BooleanDV;
 
 public abstract class AbstractGameObject {
 
@@ -23,6 +24,7 @@ public abstract class AbstractGameObject {
 	
 	protected Vector2 position;
 	protected Sprite sprite;
+	protected boolean dead;
 	protected Rectangle rectanlge;
 	protected Circle circle;
 	protected TiledMap map;
@@ -101,6 +103,12 @@ public abstract class AbstractGameObject {
 	}
 	public void setCircle(Circle circle) {
 		this.circle = circle;
+	}
+	public boolean isDead() {
+		return dead;
+	}
+	public void setDead(boolean dead) {
+		this.dead = dead;
 	}
 	
 }

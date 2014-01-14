@@ -157,7 +157,7 @@ public class Enemy extends AbstractGameObject{
 					currentFrame = animations.get(state).animate(standing);
 					// And may be inflict different hurts, direction/ kinds of hurts/ etc.
 					theController.level1.getPlayer().setState(State.HURT);
-//					theController.level1.getPlayer().setHealth(theController.level1.getPlayer().getHealth()-1);
+					theController.level1.getPlayer().setHealth(theController.level1.getPlayer().getHealth()-1);
 					timer = 0;
 					timer2 = 0;
 				}

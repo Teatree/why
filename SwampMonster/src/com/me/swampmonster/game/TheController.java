@@ -140,7 +140,6 @@ public class TheController extends InputAdapter{
 		
 		if(level1.getEnemy().getPosition().x == level1.getEnemy().getOldPos().x && level1.getEnemy().getPosition().y == level1.getEnemy().getOldPos().y 
 				&& level1.getEnemy().getState() == State.STANDARD){
-			System.out.println("state stanrard");
 			timer++;
 			if(timer > 350){
 				int x = (int) (level1.getEnemy().getgReenAura().x - (level1.getEnemy().getgReenAura().radius/2));
@@ -183,7 +182,7 @@ public class TheController extends InputAdapter{
 		}
 		
 		if(level1.getPlayer().getHealth() <= 0){
-			level1.getPlayer().setState(State.ANIMATING);
+			level1.getPlayer().setState(State.DEAD);
 		}
 	}
 	

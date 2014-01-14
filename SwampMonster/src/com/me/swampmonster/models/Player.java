@@ -26,8 +26,10 @@ public class Player extends AbstractGameObject{
 		animations.put(state.ANIMATING, new AnimationControl("data/NastyaSheet2.png", 8, 32, 8)); 
 		animations.put(state.HURT, new AnimationControl("data/NastyaSheet2.png", 8, 32, 8)); 
 		animations.put(state.GUNMOVEMENT, new AnimationControl("data/NastyaSheet2.png", 8, 32, 8)); 
+		animations.put(state.DEAD, new AnimationControl("data/NastyaSheet2.png", 8, 32, 8)); 
 		oldPos = position;
 		
+		dead = false;
 		health = 6;
 		oxygen = 96;
 		sprite = new Sprite(animations.get(state.STANDARD).getCurrentFrame());
@@ -42,6 +44,7 @@ public class Player extends AbstractGameObject{
 		
 	//ANIMATING
 		if(state.equals(State.ANIMATING)){
+			System.out.println(" (PLAYER): I'm currently in ANIMATING state");
 			if(time < 108){
 				sprite = new Sprite(animations.get(state.ANIMATING).getCurrentFrame());
 				currentFrame = animations.get(state).doComplexAnimation(112, 1.8f, Gdx.graphics.getDeltaTime());
@@ -49,7 +52,8 @@ public class Player extends AbstractGameObject{
 				sprite.setRegion(animations.get(state).getCurrentFrame());
 				sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
 				time++;
-			}else{
+			}
+			else{
 				time = 0;
 				state = State.STANDARD;
 			}
@@ -57,13 +61,14 @@ public class Player extends AbstractGameObject{
 			
 	//HURT
 		if(state.equals(State.HURT)){
-			
+			System.out.println(" (PLAYER): I'm currently in HURT state");
 			if(time < 30){
 				sprite = new Sprite(animations.get(state.HURT).getCurrentFrame());
 				
 				time++;
 				
 				Collidable collidableUp = null;
+				
 				damagedFromTop(collidableUp);
 				collidableUp = collisionCheckerUp();
 				collisionCheck(collidableUp);
@@ -94,6 +99,7 @@ public class Player extends AbstractGameObject{
 		
 	//STANDARD
 		if(state.equals(State.STANDARD)){
+			System.out.println(" (PLAYER): I'm currently in STANDARD state");
 			sprite = new Sprite(animations.get(state.STANDARD).getCurrentFrame());
 			sprite.setRegion(animations.get(state).getCurrentFrame());
 			sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
@@ -108,6 +114,7 @@ public class Player extends AbstractGameObject{
 		
 	//GUN MOVEMENT
 		if(state.equals(State.GUNMOVEMENT)){
+			System.out.println(" (PLAYER): I'm currently in GUNMOVEMENT state");
 			sprite = new Sprite(animations.get(state.GUNMOVEMENT).getCurrentFrame());
 			sprite.setRegion(animations.get(state).getCurrentFrame());
 			sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
@@ -119,6 +126,22 @@ public class Player extends AbstractGameObject{
 			
 			movementCollisionAndAnimation(playerMovementSpeed/3);
 		}
+		
+	//DEAD
+		if(state.equals(State.DEAD)){
+			System.out.println(" (PLAYER): I'm DEAD :(");
+			if(time < 108){
+				sprite = new Sprite(animations.get(state.ANIMATING).getCurrentFrame());
+				currentFrame = animations.get(state).doComplexAnimation(112, 1.8f, Gdx.graphics.getDeltaTime());
+				
+				sprite.setRegion(animations.get(state).getCurrentFrame());
+				sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
+				time++;
+			}
+			
+			dead = true;
+		}
+		
 	}
 	private void damageFromRight(Collidable collidableUp) {
 		if (theController.level1.getEnemy().playerMovementDirection == "right" && collidableUp == null) { 
@@ -166,9 +189,6 @@ public class Player extends AbstractGameObject{
 		}
 	}
 	
-	//DEAD
-	//
-	//
 	
 	private void inputNav() {
 		if(!theController.doesIntersect(theController.gui.getWeaponizer().getPosition(), theController.gui.getWeaponizer().getCircle().radius) && !theController.doesIntersect(theController.gui.getMaskizer().getPosition(), theController.gui.getMaskizer().getCircle().radius)){
