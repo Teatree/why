@@ -118,19 +118,20 @@ public class TheController extends InputAdapter{
 			System.out.println("Oxygen: " + level1.getPlayer().getOxygen());
 		}
 		
-		if(gui.getWeaponizer().isOn()){
+		if(gui.getWeaponizer().isOn()&& level1.getPlayer().getState() == State.STANDARD){
 			level1.getPlayer().setState(State.GUNMOVEMENT);
-		}else if(!gui.getWeaponizer().isOn()){
+		}else if(!gui.getWeaponizer().isOn() && level1.getPlayer().getState() == State.GUNMOVEMENT){
 			level1.getPlayer().setState(State.STANDARD);
 		}
+		
 	}
 	
 
 	private void pathfindingStuff(){
 		
-		if(level1.getEnemy().getoRangeAura().overlaps(level1.getPlayer().getCircle())){
+		if(level1.getEnemy().getoRangeAura().overlaps(level1.getPlayer().getCircle()) && level1.getPlayer().getState() != State.DEAD){
 			level1.getEnemy().setState(State.ATTACKING);
-		}else if(level1.getEnemy().getgReenAura().overlaps(level1.getPlayer().getCircle())){
+		}else if(level1.getEnemy().getgReenAura().overlaps(level1.getPlayer().getCircle()) && level1.getPlayer().getState() != State.DEAD){
 			level1.getEnemy().setCunter(0);
 			level1.getEnemy().setState(State.PURSUIT);
 			pathfinder.findPath(level1.getEnemy().getPosition(), level1.getPlayer().getPosition());
@@ -184,6 +185,10 @@ public class TheController extends InputAdapter{
 		if(level1.getPlayer().getHealth() <= 0){
 			level1.getPlayer().setState(State.DEAD);
 		}
+		if(level1.getPlayer().getState() == State.DEAD){
+			level1.getEnemy().setState(State.STANDARD);
+		}
+
 	}
 	
 	private void moveCamera (float x, float y) {

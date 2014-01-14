@@ -35,6 +35,18 @@ public class Player extends AbstractGameObject{
 		sprite = new Sprite(animations.get(state.STANDARD).getCurrentFrame());
 	}
 	
+	  public Vector2 getPosition() {
+		   return position;
+		  }
+	 public void setPosition(Vector2 position) {
+		  this.position = position;
+	}
+	 public Vector2 getOldPos() {
+		 return oldPos;
+		}
+		 public void setOldPos(Vector2 oldPos) {
+		   this.oldPos = oldPos;
+	 }
 	public void update() {
 		oldPos.x = position.x;
 		oldPos.y = position.y;

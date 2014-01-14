@@ -15,6 +15,7 @@ import com.me.swampmonster.AI.Node;
 import com.me.swampmonster.AI.Pathfinder;
 import com.me.swampmonster.GUI.GUI;
 import com.me.swampmonster.models.L1;
+import com.me.swampmonster.models.AbstractGameObject.State;
 import com.me.swampmonster.utils.Constants;
 
 public class L1Renderer {
@@ -137,11 +138,12 @@ public class L1Renderer {
 		if(theController.level1.getPlayer().getOxygen()>0){
 			staticSr.rect(30, 422, theController.level1.getPlayer().getOxygen(), 22);
 		}
-		if(theController.gui.getWeaponizer().isOn() == false){
-			staticSr.setColor(Color.LIGHT_GRAY);
-		}else if(theController.gui.getWeaponizer().isOn() == true){
-			staticSr.setColor(Color.WHITE);
-		}
+		if(theController.level1.getPlayer().getState() != State.DEAD){
+			if(theController.gui.getWeaponizer().isOn() == false){
+				staticSr.setColor(Color.LIGHT_GRAY);
+			}else if(theController.gui.getWeaponizer().isOn() == true){
+				staticSr.setColor(Color.WHITE);
+			}
 		staticSr.circle(theController.gui.getWeaponizer().getCircle().x, theController.gui.getWeaponizer().getCircle().y, theController.gui.getWeaponizer().getCircle().radius);
 		
 		if(theController.gui.getMaskizer().isOn() == false){
@@ -150,26 +152,32 @@ public class L1Renderer {
 			staticSr.setColor(Color.WHITE);
 		}
 		staticSr.circle(theController.gui.getMaskizer().getCircle().x, theController.gui.getMaskizer().getCircle().y, theController.gui.getMaskizer().getCircle().radius);
+		}
 		staticSr.end();
 		Gdx.gl.glDisable(GL20.GL_BLEND);
 		
 		staticBatch.begin();
 		staticBatch.draw(theController.gui.getHealthBar().getSprite(), 0, 448, theController.gui.getHealthBar().getSprite().getWidth(), theController.gui.getHealthBar().getSprite().getHeight());
 		staticBatch.draw(theController.gui.getOxygenBar().getSprite(), 0, 416, theController.gui.getHealthBar().getSprite().getWidth(), theController.gui.getHealthBar().getSprite().getHeight());
-		staticBatch.draw(theController.gui.getWeaponizer().getSprite(), 0, 0);
-		staticBatch.draw(theController.gui.getMaskizer().getSprite(), 0, 128);
+		if(theController.level1.getPlayer().getState() != State.DEAD){
+			staticBatch.draw(theController.gui.getWeaponizer().getSprite(), 0, 0);
+			staticBatch.draw(theController.gui.getMaskizer().getSprite(), 0, 128);
+		}
 		staticBatch.end();
 		
-//		staticSr.begin(ShapeType.Filled);
-//			if(theController.level1.getPlayer().isDead()){
-//				staticSr.setColor(new Color(200, 0, 0, assRevert));
-//				staticSr.rect(theController.gui.getGameoverGUI().getRectanlge().x, theController.gui.getGameoverGUI().getRectanlge().y,
-//						theController.gui.getGameoverGUI().getRectanlge().width, theController.gui.getGameoverGUI().getRectanlge().height);
-//				if(assRevert < 0.5f){
-//					assRevert = assRevert + 0.0005f;
-//				}
-//			}
-//		staticSr.end();
+		Gdx.gl.glEnable(GL20.GL_BLEND);
+		Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
+		staticSr.begin(ShapeType.Filled);
+			if(theController.level1.getPlayer().isDead()){
+				staticSr.setColor(new Color(200, 0, 0, assRevert));
+				staticSr.rect(theController.gui.getGameoverGUI().getRectanlge().x, theController.gui.getGameoverGUI().getRectanlge().y,
+						theController.gui.getGameoverGUI().getRectanlge().width, theController.gui.getGameoverGUI().getRectanlge().height);
+				if(assRevert < 0.5f){
+					assRevert = assRevert + 0.002f;
+				}
+			}
+		staticSr.end();
+		Gdx.gl.glDisable(GL20.GL_BLEND);
 		
 		theController.cameraHelper.applyTo(cam);
 	}
