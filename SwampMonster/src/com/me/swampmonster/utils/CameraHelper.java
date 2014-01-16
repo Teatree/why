@@ -14,16 +14,19 @@ public class CameraHelper {
 	private Sprite target;
 	
 	public CameraHelper(){
-		position = new Vector2();
+		position = new Vector2(400, 240);
 		zoom = 100.0f;
 	}
 	public void upadate(float deltaTime){
 		if(!hasTarget()) return;
 		
+		if(hasTarget()){
 			position.x = target.getX() + target.getOriginX(); //this is weird, find a better way to 
 			position.y = target.getY() + target.getOriginY(); //get player spawn point.
 			System.out.println("camera position= " + position.x + " : " + position.y);
+			System.out.println("tarteg position= " + target.getX() + " : " + target.getY());
 			zoom = 50f;
+		}
 	}
 	public void setPosition(float x, float y){
 		this.position.set(x, y);
@@ -54,8 +57,8 @@ public class CameraHelper {
 	}
 	
 	public void applyTo(OrthographicCamera camera){
-		camera.position.x = position.x+400;
-		camera.position.y = position.y+240;
+		camera.position.x = position.x;
+		camera.position.y = position.y;
 		camera.zoom = zoom;
 		camera.update();
 	}

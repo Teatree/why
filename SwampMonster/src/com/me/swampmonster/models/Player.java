@@ -57,6 +57,7 @@ public class Player extends AbstractGameObject{
 		sprite.setY(position.y);
 		
 //		System.out.println("player position = " + position.x + " : " + position.y);
+//		System.out.println("player position = " + sprite.getX() + " : " + sprite.getY());
 		
 	//ANIMATING
 		if(state.equals(State.ANIMATING)){

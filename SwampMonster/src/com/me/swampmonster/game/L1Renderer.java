@@ -45,7 +45,7 @@ public class L1Renderer {
 		this.level1 = level1;
 		this.theController = theController;
 		this.cam = new OrthographicCamera(Constants.VIEWPORT_WIDTH, Constants.VIEWPORT_HEIGHT);
-		this.cam.position.set(0,0,0);
+		this.cam.position.set(0, 0, 0);
 		this.cam.update();
 		
 		gui = new GUI();
@@ -57,6 +57,7 @@ public class L1Renderer {
 		sr = new ShapeRenderer();
 		staticSr = new ShapeRenderer();
 		mapRenderer = new OrthogonalTiledMapRenderer(level1.getBunker().getMap(), unitScale);
+		
 	}	
 	public void render() {
 		Gdx.gl.glClearColor(0,0,0,1);
@@ -179,13 +180,12 @@ public class L1Renderer {
 		staticSr.end();
 		Gdx.gl.glDisable(GL20.GL_BLEND);
 		
-		theController.cameraHelper.applyTo(cam);
 	}
 	//there are two of those;
 	
 	public void setSize(int width, int height){
-		this.width = width;
-		this.height = height;
+//		this.width = width;
+//		this.height = height;
 		cam.viewportWidth = (Constants.VIEWPORT_HEIGHT / height) *	width;
 		cam.update();
 	}

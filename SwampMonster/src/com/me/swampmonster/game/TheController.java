@@ -64,6 +64,9 @@ public class TheController extends InputAdapter{
 		V3playerPos.x = level1.getPlayer().getPosition().x + level1.getPlayer().getCircle().radius/2;
 		V3playerPos.y = level1.getPlayer().getPosition().y + level1.getPlayer().getCircle().radius/2;
 		V3playerPos.z = 0;
+		
+//		l1Renderer.getCam().position.x = level1.getPlayer().getPosition().x;
+//		l1Renderer.getCam().position.y = level1.getPlayer().getPosition().y;
 	}
 
 	
