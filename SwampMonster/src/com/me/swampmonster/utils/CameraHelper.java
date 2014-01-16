@@ -20,8 +20,10 @@ public class CameraHelper {
 	public void upadate(float deltaTime){
 		if(!hasTarget()) return;
 		
-		position.x = (target.getX()+100f) + target.getOriginX(); //this is weird, find a better way to 
-		position.y = (target.getY()+100f) + target.getOriginY(); //get player spawn point.
+			position.x = target.getX() + target.getOriginX(); //this is weird, find a better way to 
+			position.y = target.getY() + target.getOriginY(); //get player spawn point.
+			System.out.println("camera position= " + position.x + " : " + position.y);
+			zoom = 50f;
 	}
 	public void setPosition(float x, float y){
 		this.position.set(x, y);

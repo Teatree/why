@@ -1,5 +1,6 @@
 package com.me.swampmonster.models;
 
+import java.awt.geom.Line2D;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -27,6 +28,7 @@ public abstract class AbstractGameObject {
 	protected boolean dead;
 	protected Rectangle rectanlge;
 	protected Circle circle;
+	protected Line2D line;
 	protected TiledMap map;
 	
 	protected Vector2 oldPos;
@@ -109,6 +111,12 @@ public abstract class AbstractGameObject {
 	}
 	public void setDead(boolean dead) {
 		this.dead = dead;
+	}
+	public Line2D getLine() {
+		return line;
+	}
+	public void setLine(Line2D line) {
+		this.line = line;
 	}
 	
 }

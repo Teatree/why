@@ -15,7 +15,6 @@ public class Player extends AbstractGameObject{
 	State state = State.STANDARD;
 	int time = 0;
 	
-	
 	public Player(Vector2 position){
 		this.position = position;
 		
@@ -54,9 +53,14 @@ public class Player extends AbstractGameObject{
 		circle.x = position.x;
 		circle.y = position.y;
 		
+		sprite.setX(position.x);
+		sprite.setY(position.y);
+		
+//		System.out.println("player position = " + position.x + " : " + position.y);
+		
 	//ANIMATING
 		if(state.equals(State.ANIMATING)){
-			System.out.println(" (PLAYER): I'm currently in ANIMATING state");
+//			System.out.println(" (PLAYER): I'm currently in ANIMATING state");
 			if(time < 108){
 				sprite = new Sprite(animations.get(state.ANIMATING).getCurrentFrame());
 				currentFrame = animations.get(state).doComplexAnimation(112, 1.8f, Gdx.graphics.getDeltaTime());
@@ -73,7 +77,7 @@ public class Player extends AbstractGameObject{
 			
 	//HURT
 		if(state.equals(State.HURT)){
-			System.out.println(" (PLAYER): I'm currently in HURT state");
+//			System.out.println(" (PLAYER): I'm currently in HURT state");
 			if(time < 30){
 				sprite = new Sprite(animations.get(state.HURT).getCurrentFrame());
 				
@@ -111,7 +115,7 @@ public class Player extends AbstractGameObject{
 		
 	//STANDARD
 		if(state.equals(State.STANDARD)){
-			System.out.println(" (PLAYER): I'm currently in STANDARD state");
+//			System.out.println(" (PLAYER): I'm currently in STANDARD state");
 			sprite = new Sprite(animations.get(state.STANDARD).getCurrentFrame());
 			sprite.setRegion(animations.get(state).getCurrentFrame());
 			sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
@@ -126,7 +130,7 @@ public class Player extends AbstractGameObject{
 		
 	//GUN MOVEMENT
 		if(state.equals(State.GUNMOVEMENT)){
-			System.out.println(" (PLAYER): I'm currently in GUNMOVEMENT state");
+//			System.out.println(" (PLAYER): I'm currently in GUNMOVEMENT state");
 			sprite = new Sprite(animations.get(state.GUNMOVEMENT).getCurrentFrame());
 			sprite.setRegion(animations.get(state).getCurrentFrame());
 			sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
@@ -141,7 +145,7 @@ public class Player extends AbstractGameObject{
 		
 	//DEAD
 		if(state.equals(State.DEAD)){
-			System.out.println(" (PLAYER): I'm DEAD :(");
+//			System.out.println(" (PLAYER): I'm DEAD :(");
 			if(time < 108){
 				sprite = new Sprite(animations.get(state.ANIMATING).getCurrentFrame());
 				currentFrame = animations.get(state).doComplexAnimation(112, 1.8f, Gdx.graphics.getDeltaTime());
@@ -203,7 +207,8 @@ public class Player extends AbstractGameObject{
 	
 	
 	private void inputNav() {
-		if(!theController.doesIntersect(theController.gui.getWeaponizer().getPosition(), theController.gui.getWeaponizer().getCircle().radius) && !theController.doesIntersect(theController.gui.getMaskizer().getPosition(), theController.gui.getMaskizer().getCircle().radius)){
+		if(!theController.doesIntersect(theController.gui.getWeaponizer().getPosition(), theController.gui.getWeaponizer().getCircle().radius) &&
+				!theController.doesIntersect(theController.gui.getMaskizer().getPosition(), theController.gui.getMaskizer().getCircle().radius)){
 			theController.touchPos.y = Gdx.input.getY();
 			theController.touchPos.x = Gdx.input.getX();
 			theController.l1Renderer.getCam().unproject(theController.touchPos);

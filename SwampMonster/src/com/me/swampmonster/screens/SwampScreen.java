@@ -9,7 +9,7 @@ import com.me.swampmonster.models.L1;
 
 public class SwampScreen implements Screen {
 
-	private L1	level1;
+	private L1 level1;
 	private L1Renderer renderer;
 	private TheController theController;
 	
@@ -42,5 +42,6 @@ public class SwampScreen implements Screen {
 	}
 
 	public void dispose() {
+		
 	}
 }

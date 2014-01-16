@@ -26,6 +26,8 @@ public class TheController extends InputAdapter{
 	int timer;
 	int timer2;
 	public Vector2 point;
+	public Vector3 V3point;
+	public Vector3 V3playerPos;
 	public Vector2 randVector2;
 	public Vector2 supportVector2; // maybe not needed here; it's for the enemies to no move large distance to the player from the start
 	Random randomGenerator = new Random();
@@ -53,6 +55,15 @@ public class TheController extends InputAdapter{
 		//just saying
 		point.x = Gdx.input.getX();
 		point.y = 480-Gdx.input.getY();
+		
+		V3point.x = Gdx.input.getX();
+		V3point.y = Gdx.input.getY();
+		l1Renderer.getCam().unproject(V3point);
+		V3point.z = 0;
+		
+		V3playerPos.x = level1.getPlayer().getPosition().x + level1.getPlayer().getCircle().radius/2;
+		V3playerPos.y = level1.getPlayer().getPosition().y + level1.getPlayer().getCircle().radius/2;
+		V3playerPos.z = 0;
 	}
 
 	
@@ -80,6 +91,8 @@ public class TheController extends InputAdapter{
 		gui.getCroshair().setTheController(this);
 		gui.getCroshair().setPosition(new Vector2 (330f,100f));
 		point = new Vector2();
+		V3point = new Vector3();
+		V3playerPos = new Vector3();
 	}
 
 	private void handleDebugInput(float deltaTime) {
@@ -91,8 +104,6 @@ public class TheController extends InputAdapter{
 		if (Gdx.input.isKeyPressed(Keys.W)) moveCamera(0, camMoveSpeed);
 		if (Gdx.input.isKeyPressed(Keys.S)) moveCamera(0,-camMoveSpeed);
 		if (Gdx.input.isKeyPressed(Keys.O)) level1.getPlayer().setState(State.ANIMATING);
-		if (Gdx.input.isKeyPressed(Keys.BACKSPACE))
-		cameraHelper.setPosition(0, 0);
 		// Camera Controls (zoom)
 		float camZoomSpeed = 1 * deltaTime;
 		float camZoomSpeedAccelerationFactor = 50;
@@ -204,6 +215,7 @@ public class TheController extends InputAdapter{
 			}
 		if (keycode == Keys.ENTER && !cameraHelper.hasTarget()) {
 			cameraHelper.setTarget(level1.getPlayer().getSprite());
+//			cameraHelper.setPosition(level1.getPlayer().getPosition().x, level1.getPlayer().getPosition().y);
 			System.out.println(cameraHelper.hasTarget() + " " + level1.getPlayer().getSprite().getOriginX());
 		}
 		return false;
@@ -243,6 +255,22 @@ public class TheController extends InputAdapter{
 
 	public void setPoint(Vector2 point) {
 		this.point = point;
+	}
+
+	public Vector3 getV3point() {
+		return V3point;
+	}
+
+	public void setV3point(Vector3 v3point) {
+		V3point = v3point;
+	}
+
+	public Vector3 getV3playerPos() {
+		return V3playerPos;
+	}
+
+	public void setV3playerPos(Vector3 v3playerPos) {
+		V3playerPos = v3playerPos;
 	}
 	
 }

@@ -45,6 +45,7 @@ public class L1Renderer {
 		this.level1 = level1;
 		this.theController = theController;
 		this.cam = new OrthographicCamera(Constants.VIEWPORT_WIDTH, Constants.VIEWPORT_HEIGHT);
+		this.cam.position.set(0,0,0);
 		this.cam.update();
 		
 		gui = new GUI();
@@ -60,6 +61,8 @@ public class L1Renderer {
 	public void render() {
 		Gdx.gl.glClearColor(0,0,0,1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		
+		theController.cameraHelper.applyTo(cam);
 		
 //		cam.unproject(theController.touchPos);
 //		System.out.println("MY X IS: " + theController.touchPos.x + " MY Y IS: " + theController.touchPos.y + " AND MY Z IS: " + theController.touchPos.z); 
@@ -79,22 +82,11 @@ public class L1Renderer {
 				theController.level1.getEnemy().getPosition().y, 
 				theController.level1.getEnemy().getSprite().getWidth(), 
 				theController.level1.getEnemy().getSprite().getHeight());
-		batch.draw(theController.gui.getCroshair().getSprite(), (theController.gui.getCroshair().getPosition().x - theController.gui.getCroshair().getCircle().radius) + theController.gui.getCroshair().getSprite().getWidth()/2, 
-				(theController.gui.getCroshair().getPosition().y - theController.gui.getCroshair().getCircle().radius) + theController.gui.getCroshair().getSprite().getHeight()/2, 
+		batch.draw(theController.gui.getCroshair().getSprite(), theController.getV3point().x, theController.getV3point().y, 
 				theController.gui.getCroshair().getSprite().getWidth(), 
 				theController.gui.getCroshair().getSprite().getHeight());
 		batch.end();
 		
-		// Temporary deBug feature
-		// Temporary deBug feature
-		// Temporary deBug feature
-		// Temporary deBug feature
-		// Temporary deBug feature
-		// Temporary deBug feature
-		// Temporary deBug feature
-		// Temporary deBug feature
-		// Temporary deBug feature
-		// Temporary deBug feature
 		// Temporary deBug feature
 		sr.begin(ShapeType.Line);
 		sr.setColor(Color.GREEN);
@@ -104,8 +96,7 @@ public class L1Renderer {
 		sr.setColor(Color.RED);
 		sr.circle(theController.level1.getPlayer().getPosition().x+8, theController.level1.getPlayer().getPosition().y+16, theController.level1.getPlayer().getCircle().radius);
 		sr.setColor(Color.WHITE);
-		sr.circle(theController.gui.getCroshair().getPosition().x + theController.level1.getPlayer().getSprite().getWidth()/2,
-				theController.gui.getCroshair().getPosition().y + theController.level1.getPlayer().getSprite().getHeight()/2, theController.gui.getCroshair().getCircle().radius);
+		sr.line(theController.V3playerPos, theController.V3point);
 		sr.end();
 		sr.begin(ShapeType.Filled);
 		sr.setColor(Color.RED);
@@ -197,6 +188,12 @@ public class L1Renderer {
 		this.height = height;
 		cam.viewportWidth = (Constants.VIEWPORT_HEIGHT / height) *	width;
 		cam.update();
+	}
+	public void dispose(){
+		batch.dispose();
+		sr.dispose();
+		staticBatch.dispose();
+		staticSr.dispose();
 	}
 	public OrthographicCamera getCam() {
 		return cam;
