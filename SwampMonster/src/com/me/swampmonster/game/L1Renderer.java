@@ -85,7 +85,16 @@ public class L1Renderer {
 				theController.gui.getCroshair().getSprite().getHeight());
 		batch.end();
 		
-		
+		// Temporary deBug feature
+		// Temporary deBug feature
+		// Temporary deBug feature
+		// Temporary deBug feature
+		// Temporary deBug feature
+		// Temporary deBug feature
+		// Temporary deBug feature
+		// Temporary deBug feature
+		// Temporary deBug feature
+		// Temporary deBug feature
 		// Temporary deBug feature
 		sr.begin(ShapeType.Line);
 		sr.setColor(Color.GREEN);
