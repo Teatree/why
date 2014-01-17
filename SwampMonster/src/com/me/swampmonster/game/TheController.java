@@ -32,6 +32,7 @@ public class TheController extends InputAdapter{
 	public Vector2 supportVector2; // maybe not needed here; it's for the enemies to no move large distance to the player from the start
 	Random randomGenerator = new Random();
 	
+	
 	//temp
 	public boolean hurt;
 	public boolean NalreadyPressed = false;

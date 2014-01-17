@@ -24,7 +24,7 @@ public class Player extends AbstractGameObject{
 		animations.put(state.STANDARD, new AnimationControl("data/NastyaSheet2.png", 8, 32, 7)); 
 		animations.put(state.ANIMATING, new AnimationControl("data/NastyaSheet2.png", 8, 32, 8)); 
 		animations.put(state.HURT, new AnimationControl("data/NastyaSheet2.png", 8, 32, 8)); 
-		animations.put(state.GUNMOVEMENT, new AnimationControl("data/NastyaSheet2.png", 8, 32, 8)); 
+		animations.put(state.GUNMOVEMENT, new AnimationControl("data/NastyaSheet2.png", 8, 32, 7)); 
 		animations.put(state.DEAD, new AnimationControl("data/NastyaSheet2.png", 8, 32, 8)); 
 		oldPos = position;
 		

@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
@@ -33,6 +34,7 @@ public class L1Renderer {
 	private SpriteBatch batch;
 	private SpriteBatch staticBatch;
 	private OrthogonalTiledMapRenderer mapRenderer;
+	private BitmapFont font;
 	
 	private int width;
 	private int height;
@@ -47,6 +49,8 @@ public class L1Renderer {
 		this.cam = new OrthographicCamera(Constants.VIEWPORT_WIDTH, Constants.VIEWPORT_HEIGHT);
 		this.cam.position.set(0, 0, 0);
 		this.cam.update();
+		font = new BitmapFont(Gdx.files.internal("data/font.fnt"),
+		         Gdx.files.internal("data/font_0.tga"), false);
 		
 		gui = new GUI();
 		// Temporary debug feature
@@ -83,9 +87,11 @@ public class L1Renderer {
 				theController.level1.getEnemy().getPosition().y, 
 				theController.level1.getEnemy().getSprite().getWidth(), 
 				theController.level1.getEnemy().getSprite().getHeight());
-		batch.draw(theController.gui.getCroshair().getSprite(), theController.getV3point().x, theController.getV3point().y, 
-				theController.gui.getCroshair().getSprite().getWidth(), 
-				theController.gui.getCroshair().getSprite().getHeight());
+		if(Gdx.input.isTouched() && theController.level1.getPlayer().getState() == State.GUNMOVEMENT){
+			batch.draw(theController.gui.getCroshair().getSprite(), theController.getV3point().x, theController.getV3point().y, 
+					theController.gui.getCroshair().getSprite().getWidth(), 
+					theController.gui.getCroshair().getSprite().getHeight());
+		}
 		batch.end();
 		
 		// Temporary deBug feature
@@ -95,9 +101,14 @@ public class L1Renderer {
 		sr.setColor(Color.BLUE);
 		sr.circle(theController.level1.getEnemy().getoRangeAura().x+8, theController.level1.getEnemy().getoRangeAura().y+16, theController.level1.getEnemy().getoRangeAura().radius);
 		sr.setColor(Color.RED);
+		if(theController.doesIntersect(theController.level1.getPlayer().getPosition(), theController.level1.getPlayer().getCircle().radius*theController.level1.getPlayer().getCircle().radius/4)){
+			sr.setColor(Color.WHITE);
+		}
 		sr.circle(theController.level1.getPlayer().getPosition().x+8, theController.level1.getPlayer().getPosition().y+16, theController.level1.getPlayer().getCircle().radius);
 		sr.setColor(Color.WHITE);
-		sr.line(theController.V3playerPos, theController.V3point);
+		if(Gdx.input.isTouched() && theController.level1.getPlayer().getState() == State.GUNMOVEMENT){
+			sr.line(theController.V3playerPos, theController.V3point);
+		}
 		sr.end();
 		sr.begin(ShapeType.Filled);
 		sr.setColor(Color.RED);
@@ -164,6 +175,9 @@ public class L1Renderer {
 			staticBatch.draw(theController.gui.getWeaponizer().getSprite(), 0, 0);
 			staticBatch.draw(theController.gui.getMaskizer().getSprite(), 0, 128);
 		}
+		// debug Feature
+		font.setColor(0.0f, 0.0f, 1.0f, 1.0f);
+		font.draw(staticBatch, "Zoom: " + theController.cameraHelper.getZoom(), 700, 20);
 		staticBatch.end();
 		
 		Gdx.gl.glEnable(GL20.GL_BLEND);

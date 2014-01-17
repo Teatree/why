@@ -10,6 +10,7 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.me.swampmonster.animations.AnimationControl;
 import com.me.swampmonster.game.TheController;
 import com.sun.org.apache.xerces.internal.impl.dv.xs.BooleanDV;
@@ -24,6 +25,7 @@ public abstract class AbstractGameObject {
 	protected Map<State, AnimationControl> animations = new HashMap<State, AnimationControl>();   
 	
 	protected Vector2 position;
+	protected Vector3 V3Pos;
 	protected Sprite sprite;
 	protected boolean dead;
 	protected Rectangle rectanlge;
@@ -117,6 +119,12 @@ public abstract class AbstractGameObject {
 	}
 	public void setLine(Line2D line) {
 		this.line = line;
+	}
+	public Vector3 getV3Pos() {
+		return V3Pos;
+	}
+	public void setV3Pos(Vector3 v3Pos) {
+		V3Pos = v3Pos;
 	}
 	
 }
