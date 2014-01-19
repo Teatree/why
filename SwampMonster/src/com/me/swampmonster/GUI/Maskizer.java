@@ -38,10 +38,10 @@ public class Maskizer extends AbstractGameObject{
 		
 		if(Gdx.input.justTouched() && doesIntersect(position, circle.radius) && !on){
 			on = true;
-//			System.out.println(on);
+			System.out.println(on);
 		}else if(Gdx.input.justTouched() && doesIntersect(position, circle.radius) && on){
 			on = false;
-//			System.out.println(on);
+			System.out.println(on);
 		}
 	}
 	public boolean isOn() {

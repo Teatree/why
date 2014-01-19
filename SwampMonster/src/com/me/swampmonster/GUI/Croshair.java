@@ -14,6 +14,7 @@ public class Croshair extends AbstractGameObject{
 		this.position = position;
 		
 		sprite = new Sprite(new Texture("data/Croshair.png"));
+		aiming = true;
 	}
 	public void update(){
 		position.x = theController.level1.getPlayer().getPosition().x;

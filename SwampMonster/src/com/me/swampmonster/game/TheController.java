@@ -46,7 +46,7 @@ public class TheController extends InputAdapter{
 	}
 	
 	public void update(float deltaTime){
-		cameraHelper.upadate(deltaTime);
+		cameraHelper.upadate(V3playerPos.x, V3playerPos.y);
 		level1.update();
 		gui.update(level1.getPlayer().getHealth());
 		handleDebugInput(deltaTime);
@@ -107,7 +107,6 @@ public class TheController extends InputAdapter{
 		if (Gdx.input.isKeyPressed(Keys.D)) moveCamera(camMoveSpeed,0);
 		if (Gdx.input.isKeyPressed(Keys.W)) moveCamera(0, camMoveSpeed);
 		if (Gdx.input.isKeyPressed(Keys.S)) moveCamera(0,-camMoveSpeed);
-		if (Gdx.input.isKeyPressed(Keys.O)) level1.getPlayer().setState(State.ANIMATING);
 		// Camera Controls (zoom)
 		float camZoomSpeed = 1 * deltaTime;
 		float camZoomSpeedAccelerationFactor = 50;
@@ -139,6 +138,12 @@ public class TheController extends InputAdapter{
 			level1.getPlayer().setState(State.STANDARD);
 		}
 		
+		if(gui.getMaskizer().isOn() && !level1.getPlayer().isMaskOn()){
+			level1.getPlayer().setState(State.ANIMATING);
+		}else if(!gui.getMaskizer().isOn() && level1.getPlayer().isMaskOn()){
+			level1.getPlayer().setState(State.ANIMATING);
+		}
+		
 	}
 	
 
@@ -156,28 +161,32 @@ public class TheController extends InputAdapter{
 		
 		if(level1.getEnemy().getPosition().x == level1.getEnemy().getOldPos().x && level1.getEnemy().getPosition().y == level1.getEnemy().getOldPos().y 
 				&& level1.getEnemy().getState() == State.STANDARD){
-			timer++;
-			if(timer > 350){
-				int x = (int) (level1.getEnemy().getgReenAura().x - (level1.getEnemy().getgReenAura().radius/2));
-				int x1 = (int) (level1.getEnemy().getgReenAura().x + (level1.getEnemy().getgReenAura().radius/2));
-				int Rx = randomGenerator.nextInt(x1 - x) + x;
-				if(Rx > 0 && Rx < 800){
-					System.out.println("(pathfinderStuff()) getting the random number -X- ");
-					randVector2.x = Rx;
-				}
-				int y = (int) (level1.getEnemy().getgReenAura().y - (level1.getEnemy().getgReenAura().radius/2));
-				int y1 = (int) (level1.getEnemy().getgReenAura().y + (level1.getEnemy().getgReenAura().radius/2));
-				int Ry = randomGenerator.nextInt(y1 - y) + y;
-				if(Ry > 0 && Ry < 480){
-					System.out.println("(pathfinderStuff()) getting the random number -Y- ");
-					randVector2.y = Ry;
-				}
-				System.out.println("randVector2 is: " + randVector2.x + " : " + randVector2.y);
-			
-				pathfinder.findPath(level1.getEnemy().getPosition(), randVector2);
-				level1.getEnemy().setCunter(pathfinder.findLastNotNullInArray());
-				timer = 0;
+			findRandomPos();
+		}
+	}
+
+	private void findRandomPos() {
+		timer++;
+		if(timer > 50){
+			int x = (int) (level1.getEnemy().getgReenAura().x - (level1.getEnemy().getgReenAura().radius/2));
+			int x1 = (int) (level1.getEnemy().getgReenAura().x + (level1.getEnemy().getgReenAura().radius/2));
+			int Rx = randomGenerator.nextInt(x1 - x) + x;
+			if(Rx > 0 && Rx < 800){
+				System.out.println("(pathfinderStuff()) getting the random number -X- ");
+				randVector2.x = Rx;
 			}
+			int y = (int) (level1.getEnemy().getgReenAura().y - (level1.getEnemy().getgReenAura().radius/2));
+			int y1 = (int) (level1.getEnemy().getgReenAura().y + (level1.getEnemy().getgReenAura().radius/2));
+			int Ry = randomGenerator.nextInt(y1 - y) + y;
+			if(Ry > 0 && Ry < 480){
+				System.out.println("(pathfinderStuff()) getting the random number -Y- ");
+				randVector2.y = Ry;
+			}
+			System.out.println("randVector2 is: " + randVector2.x + " : " + randVector2.y);
+		
+			pathfinder.findPath(level1.getEnemy().getPosition(), randVector2);
+			level1.getEnemy().setCunter(pathfinder.findLastNotNullInArray());
+			timer = 0;
 		}
 	}
 	
@@ -217,10 +226,9 @@ public class TheController extends InputAdapter{
 			init();
 			System.out.println("Game world resetted");
 			}
-		if (keycode == Keys.ENTER && !cameraHelper.hasTarget()) {
-			cameraHelper.setTarget(level1.getPlayer().getSprite());
-//			cameraHelper.setPosition(level1.getPlayer().getPosition().x, level1.getPlayer().getPosition().y);
-			System.out.println(cameraHelper.hasTarget() + " " + level1.getPlayer().getSprite().getOriginX());
+		if (keycode == Keys.ENTER && !cameraHelper.hasTarget) {
+			cameraHelper.hasTarget = true;
+			System.out.println(cameraHelper.hasTarget + " " + level1.getPlayer().getSprite().getOriginX());
 		}
 		return false;
 	}

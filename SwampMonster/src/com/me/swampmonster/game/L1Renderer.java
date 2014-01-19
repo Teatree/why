@@ -47,8 +47,6 @@ public class L1Renderer {
 		this.level1 = level1;
 		this.theController = theController;
 		this.cam = new OrthographicCamera(Constants.VIEWPORT_WIDTH, Constants.VIEWPORT_HEIGHT);
-		this.cam.position.set(0, 0, 0);
-		this.cam.update();
 		font = new BitmapFont(Gdx.files.internal("data/font.fnt"),
 		         Gdx.files.internal("data/font_0.tga"), false);
 		
@@ -147,8 +145,10 @@ public class L1Renderer {
 			ass = 1f;
 		}
 		staticSr.setColor(Color.YELLOW);
-		if(theController.level1.getPlayer().getOxygen()>0){
-			staticSr.rect(30, 422, theController.level1.getPlayer().getOxygen(), 22);
+		if(theController.level1.getPlayer().isMaskOn()){
+			if(theController.level1.getPlayer().getOxygen()>0){
+				staticSr.rect(30, 422, theController.level1.getPlayer().getOxygen(), 22);
+			}
 		}
 		if(theController.level1.getPlayer().getState() != State.DEAD){
 			if(theController.gui.getWeaponizer().isOn() == false){
@@ -170,7 +170,9 @@ public class L1Renderer {
 		
 		staticBatch.begin();
 		staticBatch.draw(theController.gui.getHealthBar().getSprite(), 0, 448, theController.gui.getHealthBar().getSprite().getWidth(), theController.gui.getHealthBar().getSprite().getHeight());
-		staticBatch.draw(theController.gui.getOxygenBar().getSprite(), 0, 416, theController.gui.getHealthBar().getSprite().getWidth(), theController.gui.getHealthBar().getSprite().getHeight());
+		if(theController.level1.getPlayer().isMaskOn()){
+			staticBatch.draw(theController.gui.getOxygenBar().getSprite(), 0, 416, theController.gui.getHealthBar().getSprite().getWidth(), theController.gui.getHealthBar().getSprite().getHeight());
+		}
 		if(theController.level1.getPlayer().getState() != State.DEAD){
 			staticBatch.draw(theController.gui.getWeaponizer().getSprite(), 0, 0);
 			staticBatch.draw(theController.gui.getMaskizer().getSprite(), 0, 128);

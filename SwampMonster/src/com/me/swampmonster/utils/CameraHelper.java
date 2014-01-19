@@ -4,27 +4,31 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
+import com.me.swampmonster.game.TheController;
 
 public class CameraHelper {
+	public TheController theController;
+	
 	private final float MAX_ZOOM_IN = 0.25f;
 	private final float MAX_ZOOM_OUT = 100.0f;
+	
+	public boolean hasTarget;
 	
 	private Vector2 position;
 	private float zoom;
 	private Sprite target;
 	
 	public CameraHelper(){
-		position = new Vector2(400, 240);
+		position = new Vector2(400, 140);
 		zoom = 50.0f;
+		hasTarget = true;
 	}
-	public void upadate(float deltaTime){
-		if(!hasTarget()) return;
+	public void upadate(float x, float y){
+		if(!hasTarget) return;
 		
-		if(hasTarget()){
-			position.x = target.getX() + target.getOriginX(); //this is weird, find a better way to 
-			position.y = target.getY() + target.getOriginY(); //get player spawn point.
-			System.out.println("camera position= " + position.x + " : " + position.y);
-			System.out.println("tarteg position= " + target.getX() + " : " + target.getY());
+		if(hasTarget){
+			position.x = x;
+			position.y = y; 
 			zoom = 50f;
 		}
 	}
@@ -42,18 +46,6 @@ public class CameraHelper {
 	}
 	public void setZoom(float zoom) {
 		this.zoom = MathUtils.clamp(zoom, MAX_ZOOM_IN, MAX_ZOOM_OUT);
-	}
-	public Sprite getTarget() {
-		return target;
-	}
-	public void setTarget(Sprite target) {
-		this.target = target;
-	}
-	public boolean hasTarget(){
-		return target != null;
-	}
-	public boolean hasTarget(Sprite target){
-		return hasTarget() && this.target.equals(target);
 	}
 	
 	public void applyTo(OrthographicCamera camera){

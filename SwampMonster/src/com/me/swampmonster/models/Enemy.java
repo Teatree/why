@@ -1,5 +1,7 @@
 package com.me.swampmonster.models;
 
+import java.util.HashMap;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Circle;
@@ -26,9 +28,9 @@ public class Enemy extends AbstractGameObject{
 		gReenAura.radius = 164;
 		oRangeAura = new Circle();
 		oRangeAura.radius = 16;
-		animations.put(State.PURSUIT, new AnimationControl("data/Skelenten.png", 8, 16, 4)); 
-		animations.put(State.STANDARD, new AnimationControl("data/Skelenten.png", 8, 16, 4)); 
-		animations.put(State.ATTACKING, new AnimationControl("data/Skelenten.png", 8, 16, 4)); 
+		animationsStandard.put(State.PURSUIT, new AnimationControl("data/Skelenten.png", 8, 16, 4)); 
+		animationsStandard.put(State.STANDARD, new AnimationControl("data/Skelenten.png", 8, 16, 4)); 
+		animationsStandard.put(State.ATTACKING, new AnimationControl("data/Skelenten.png", 8, 16, 4)); 
 		oldPos = position;
 		playerMovementSpeed = 0.3f;
 		// Timer is for the length of the actual animation
@@ -36,9 +38,7 @@ public class Enemy extends AbstractGameObject{
 		timer = 0;
 		timer2 = 0;
 		
-		sprite = new Sprite(animations.get(state.PURSUIT).getCurrentFrame());
-		sprite = new Sprite(animations.get(state.STANDARD).getCurrentFrame());
-		sprite = new Sprite(animations.get(state.ATTACKING).getCurrentFrame());
+		sprite = new Sprite(animationsStandard.get(state.STANDARD).getCurrentFrame());
 	}
 	
 	public void update(){
@@ -49,6 +49,8 @@ public class Enemy extends AbstractGameObject{
 		gReenAura.y = position.y;
 		oRangeAura.x = position.x;
 		oRangeAura.y = position.y;
+		
+		HashMap<State, AnimationControl> animations = animationsStandard;
 		
 		if(!state.equals(State.ATTACKING)){
 			timer = 0;
@@ -141,20 +143,20 @@ public class Enemy extends AbstractGameObject{
 		// Timer is for the length of the actual animation
 		// Timer2 is for the waiting period
 		if(oldPos.x == position.x && oldPos.y == position.y){
-			if(timer2 < 50){
+			if(timer2 < 40){
 				timer2++;
 //            			System.out.println("timer2: " + timer2 );
-				currentFrame = animations.get(state).animate(standing);
+				currentFrame = animationsStandard.get(state).animate(standing);
 			}
-			if(timer2 >= 50 && timer < 40){
+			if(timer2 >= 40 && timer < 30){
 //            			System.out.println("timer1: " + timer);
-				currentFrame = animations.get(state).doComplexAnimation(animation, 1.8f, Gdx.graphics.getDeltaTime());
+				currentFrame = animationsStandard.get(state).doComplexAnimation(animation, 1.8f, Gdx.graphics.getDeltaTime());
 				
-				sprite.setRegion(animations.get(state).getCurrentFrame());
+				sprite.setRegion(animationsStandard.get(state).getCurrentFrame());
 				sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
 				timer++;
-				if(timer == 40 && timer2 >= 50){
-					currentFrame = animations.get(state).animate(standing);
+				if(timer == 30 && timer2 >= 40){
+					currentFrame = animationsStandard.get(state).animate(standing);
 					// And may be inflict different hurts, direction/ kinds of hurts/ etc.
 					theController.level1.getPlayer().setState(State.HURT);
 					theController.level1.getPlayer().setHealth(theController.level1.getPlayer().getHealth()-1);
@@ -220,7 +222,7 @@ public class Enemy extends AbstractGameObject{
 			position.x -= playerMovementSpeed;
 			playerMovementDirection = "left";
 			if(position.x > theController.level1.getPlayer().getPosition().x+16 && position.y < theController.level1.getPlayer().getPosition().y-1 && position.y > theController.level1.getPlayer().getPosition().y-4){
-				currentFrame = animations.get(state).animate(8);
+				currentFrame = animationsStandard.get(state).animate(8);
 			}
 		}
 	}
@@ -231,7 +233,7 @@ public class Enemy extends AbstractGameObject{
 			sprite.translateX(playerMovementSpeed);
 			playerMovementDirection = "right";
 			if(position.x < theController.level1.getPlayer().getPosition().x+16 && position.y < theController.level1.getPlayer().getPosition().y-1 && position.y > theController.level1.getPlayer().getPosition().y-4){
-				currentFrame = animations.get(state).animate(24);
+				currentFrame = animationsStandard.get(state).animate(24);
 			}        
 		}
 	}
@@ -240,7 +242,7 @@ public class Enemy extends AbstractGameObject{
 		    position.y -= playerMovementSpeed;
 		    sprite.translateY(-playerMovementSpeed);
 		    playerMovementDirection = "down";
-		    currentFrame = animations.get(state).animate(0);
+		    currentFrame = animationsStandard.get(state).animate(0);
          }
 	}
 
@@ -249,7 +251,7 @@ public class Enemy extends AbstractGameObject{
 		    position.y += playerMovementSpeed;
 		    sprite.translateY(playerMovementSpeed);
 		    playerMovementDirection = "up";
-		    currentFrame = animations.get(state).animate(16);
+		    currentFrame = animationsStandard.get(state).animate(16);
 		 }
 	}
 
@@ -264,7 +266,7 @@ public class Enemy extends AbstractGameObject{
 			position.y += playerMovementSpeed;
 			sprite.translateY(playerMovementSpeed);
 			playerMovementDirection = "up";
-			currentFrame = animations.get(state).animate(16);
+			currentFrame = animationsStandard.get(state).animate(16);
 		}
 	}
 
@@ -273,7 +275,7 @@ public class Enemy extends AbstractGameObject{
 			position.y -= playerMovementSpeed;
 			sprite.translateY(-playerMovementSpeed);
 			playerMovementDirection = "down";
-		   	currentFrame = animations.get(state).animate(0);
+		   	currentFrame = animationsStandard.get(state).animate(0);
 		}
 	}
 
@@ -283,7 +285,7 @@ public class Enemy extends AbstractGameObject{
 			sprite.translateX(playerMovementSpeed);
 			playerMovementDirection = "right";
 			if(playerMovementDirection != "down" && playerMovementDirection != "up"){
-				currentFrame = animations.get(state).animate(24);
+				currentFrame = animationsStandard.get(state).animate(24);
 			}
 		}
 	}
@@ -294,7 +296,7 @@ public class Enemy extends AbstractGameObject{
 			sprite.translateX(playerMovementSpeed);
 			playerMovementDirection = "left";
 			if(playerMovementDirection != "down" && playerMovementDirection != "up"){
-				currentFrame = animations.get(state).animate(8);
+				currentFrame = animationsStandard.get(state).animate(8);
 			}
 		}
 	}
@@ -302,16 +304,16 @@ public class Enemy extends AbstractGameObject{
 	private void standAnimation(int r, int l, int u, int d) {
 		if(oldPos.x == position.x && oldPos.y == position.y){
 			if(playerMovementDirection == "right"){
-				currentFrame = animations.get(state).animate(r);
+				currentFrame = animationsStandard.get(state).animate(r);
 			}
 			if(playerMovementDirection == "left"){
-				currentFrame = animations.get(state).animate(l);
+				currentFrame = animationsStandard.get(state).animate(l);
 			}
 			if(playerMovementDirection == "up"){
-				currentFrame = animations.get(state).animate(u);
+				currentFrame = animationsStandard.get(state).animate(u);
 			}
 			if(playerMovementDirection == "down"){
-				currentFrame = animations.get(state).animate(d);
+				currentFrame = animationsStandard.get(state).animate(d);
 			}
 		}
 	}

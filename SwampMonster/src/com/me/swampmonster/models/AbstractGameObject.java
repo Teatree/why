@@ -22,7 +22,8 @@ public abstract class AbstractGameObject {
 	}
 	
 	protected TextureRegion currentFrame;
-	protected Map<State, AnimationControl> animations = new HashMap<State, AnimationControl>();   
+	protected HashMap<State, AnimationControl> animationsStandard = new HashMap<State, AnimationControl>();   
+	protected HashMap<State, AnimationControl> animationsOxygen = new HashMap<State, AnimationControl>();   
 	
 	protected Vector2 position;
 	protected Vector3 V3Pos;

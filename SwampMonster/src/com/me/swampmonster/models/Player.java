@@ -1,7 +1,10 @@
 package com.me.swampmonster.models;
 
+import java.util.HashMap;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.maps.Map;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector2;
@@ -9,29 +12,42 @@ import com.me.swampmonster.animations.AnimationControl;
 import com.me.swampmonster.game.TheController;
 import com.me.swampmonster.game.collision.Collidable;
 import com.me.swampmonster.game.collision.CollisionHelper;
+import com.me.swampmonster.models.AbstractGameObject.State;
 
 public class Player extends AbstractGameObject{
 	
 	State state = State.STANDARD;
 	int time = 0;
+	String nastyaSpriteStandard;
+	String nastyaSpriteOxygen;
+	boolean maskOn;
 	
 	public Player(Vector2 position){
 		this.position = position;
+		nastyaSpriteStandard = "data/NastyaSheet2.png";
+		nastyaSpriteOxygen = "data/NastyaOxygenSheet.png";
 		
 		circle = new Circle();
 		circle.radius = 16;
 		
-		animations.put(state.STANDARD, new AnimationControl("data/NastyaSheet2.png", 8, 32, 7)); 
-		animations.put(state.ANIMATING, new AnimationControl("data/NastyaSheet2.png", 8, 32, 8)); 
-		animations.put(state.HURT, new AnimationControl("data/NastyaSheet2.png", 8, 32, 8)); 
-		animations.put(state.GUNMOVEMENT, new AnimationControl("data/NastyaSheet2.png", 8, 32, 7)); 
-		animations.put(state.DEAD, new AnimationControl("data/NastyaSheet2.png", 8, 32, 8)); 
+		animationsStandard.put(state.STANDARD, new AnimationControl(nastyaSpriteStandard, 8, 32, 7)); 
+		animationsStandard.put(state.ANIMATING, new AnimationControl(nastyaSpriteStandard, 8, 32, 8)); 
+		animationsStandard.put(state.HURT, new AnimationControl(nastyaSpriteStandard, 8, 32, 8)); 
+		animationsStandard.put(state.GUNMOVEMENT, new AnimationControl(nastyaSpriteStandard, 8, 32, 7)); 
+		animationsStandard.put(state.DEAD, new AnimationControl(nastyaSpriteStandard, 8, 32, 8)); 
+		animationsOxygen.put(state.STANDARD, new AnimationControl(nastyaSpriteOxygen, 8, 32, 7)); 
+		animationsOxygen.put(state.ANIMATING, new AnimationControl(nastyaSpriteOxygen, 8, 32, 8)); 
+		animationsOxygen.put(state.HURT, new AnimationControl(nastyaSpriteOxygen, 8, 32, 8)); 
+		animationsOxygen.put(state.GUNMOVEMENT, new AnimationControl(nastyaSpriteOxygen, 8, 32, 7)); 
+		animationsOxygen.put(state.DEAD, new AnimationControl(nastyaSpriteOxygen, 8, 32, 8)); 
+		
 		oldPos = position;
 		
 		dead = false;
+		maskOn = false;
 		health = 6;
 		oxygen = 96;
-		sprite = new Sprite(animations.get(state.STANDARD).getCurrentFrame());
+		sprite = new Sprite(animationsStandard.get(state.STANDARD).getCurrentFrame());
 	}
 	
 	  public Vector2 getPosition() {
@@ -56,15 +72,23 @@ public class Player extends AbstractGameObject{
 		sprite.setX(position.x);
 		sprite.setY(position.y);
 		
+		HashMap<State, AnimationControl> animations = new HashMap<AbstractGameObject.State, AnimationControl>();
+		
+		System.out.println("mask: " + maskOn);
+		if(maskOn){
+			animations = animationsOxygen;
+		}else if(!maskOn){
+			animations = animationsStandard;
+		}
 //		System.out.println("player position = " + position.x + " : " + position.y);
 //		System.out.println("player position = " + sprite.getX() + " : " + sprite.getY());
 		
 	//ANIMATING
 		if(state.equals(State.ANIMATING)){
 //			System.out.println(" (PLAYER): I'm currently in ANIMATING state");
-			if(time < 108){
+			if(time < 62){
 				sprite = new Sprite(animations.get(state.ANIMATING).getCurrentFrame());
-				currentFrame = animations.get(state).doComplexAnimation(112, 1.8f, Gdx.graphics.getDeltaTime());
+				currentFrame = animations.get(state).doComplexAnimation(128, 1f, Gdx.graphics.getDeltaTime());
 				
 				sprite.setRegion(animations.get(state).getCurrentFrame());
 				sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
@@ -72,6 +96,11 @@ public class Player extends AbstractGameObject{
 			}
 			else{
 				time = 0;
+				if(!maskOn){
+					setMaskOn(true);
+				}else if(maskOn){
+					setMaskOn(false);
+				}
 				state = State.STANDARD;
 			}
 		}
@@ -86,25 +115,25 @@ public class Player extends AbstractGameObject{
 				
 				Collidable collidableUp = null;
 				
-				damagedFromTop(collidableUp);
+				damagedFromTop(collidableUp, animations);
 				collidableUp = collisionCheckerUp();
 				collisionCheck(collidableUp);
 				
 				Collidable collidableDown = null;
 				
-				damageFromBottom(collidableDown);
+				damageFromBottom(collidableDown, animations);
 				collidableDown = collisionCheckerDown();
 				collisionCheck(collidableDown);
 				
 				Collidable collidableLeft = null;
 				
-				damageFromLeft(collidableLeft);
+				damageFromLeft(collidableLeft, animations);
 				collidableLeft = collisionCheckerLeft();
 				collisionCheck(collidableLeft);
 				
 				Collidable collidableRight = null;
 				
-				damageFromRight(collidableRight);
+				damageFromRight(collidableRight, animations);
 				collidableRight = collisionCheckerRight();
 				collisionCheck(collidableRight);
 			}else{
@@ -126,7 +155,7 @@ public class Player extends AbstractGameObject{
 		        inputNav();
 		    }	
 			//movement
-			 	movementCollisionAndAnimation(playerMovementSpeed);
+			 	movementCollisionAndAnimation(playerMovementSpeed, animations);
 		}
 		
 	//GUN MOVEMENT
@@ -141,7 +170,7 @@ public class Player extends AbstractGameObject{
 		        inputNav();
 		    }	
 			
-			movementCollisionAndAnimation(playerMovementSpeed/3);
+			movementCollisionAndAnimation(playerMovementSpeed/3, animations);
 		}
 		
 	//DEAD
@@ -160,7 +189,7 @@ public class Player extends AbstractGameObject{
 		}
 		
 	}
-	private void damageFromRight(Collidable collidableUp) {
+	private void damageFromRight(Collidable collidableUp, HashMap<State, AnimationControl> animations) {
 		if (theController.level1.getEnemy().playerMovementDirection == "right" && collidableUp == null) { 
 			currentFrame = animations.get(state.HURT).doComplexAnimation(108, 0.2f, Gdx.graphics.getDeltaTime()/2);
 			
@@ -171,7 +200,7 @@ public class Player extends AbstractGameObject{
 			sprite.translateY(playerMovementSpeed/2);
 		}
 	}
-	private void damageFromLeft(Collidable collidableUp) {
+	private void damageFromLeft(Collidable collidableUp, HashMap<State, AnimationControl> animations) {
 		if (theController.level1.getEnemy().playerMovementDirection == "left" && collidableUp == null) { 
 			currentFrame = animations.get(state.HURT).doComplexAnimation(106, 0.2f, Gdx.graphics.getDeltaTime()/2);
 			
@@ -182,7 +211,7 @@ public class Player extends AbstractGameObject{
 			sprite.translateY(playerMovementSpeed/2);
 		}
 	}
-	private void damageFromBottom(Collidable collidableUp) {
+	private void damageFromBottom(Collidable collidableUp, HashMap<State, AnimationControl> animations) {
 		if (theController.level1.getEnemy().playerMovementDirection == "down" && collidableUp == null) { 
 			currentFrame = animations.get(state.HURT).doComplexAnimation(110, 0.2f, Gdx.graphics.getDeltaTime()/2);
 			
@@ -193,7 +222,7 @@ public class Player extends AbstractGameObject{
 			sprite.translateY(playerMovementSpeed/2);
 		}
 	}
-	private void damagedFromTop(Collidable collidableUp) {
+	private void damagedFromTop(Collidable collidableUp, HashMap<State, AnimationControl> animations) {
 		if (theController.level1.getEnemy().playerMovementDirection == "up" && collidableUp == null) { 
 			currentFrame = animations.get(state.HURT).doComplexAnimation(104, 0.2f, Gdx.graphics.getDeltaTime()/2);
 			
@@ -218,45 +247,45 @@ public class Player extends AbstractGameObject{
 //			System.out.println("yes it intersects");
 		}
 	}
-	private void movementCollisionAndAnimation(float speed) {
+	private void movementCollisionAndAnimation(float speed, HashMap<State, AnimationControl> animations) {
 		// ---------------------left------------------------ //
 		Collidable collidableLeft = null;
 		
-		moveLeft(collidableLeft, speed);
+		moveLeft(collidableLeft, speed, animations);
 		collidableLeft = collisionCheckerLeft();
 		collisionCheck(collidableLeft);
 		
 		// ---------------------right------------------------ //
 		Collidable collidableRight = null;
 		
-		moveRight(collidableRight, speed);
+		moveRight(collidableRight, speed, animations);
 		collidableRight = collisionCheckerRight();
 		collisionCheck(collidableRight);
 		
 		// ---------------------down------------------------ //
 		Collidable collidableDown = null;
 		
-		moveDown(collidableDown, speed);
+		moveDown(collidableDown, speed, animations);
 		collidableDown = collisionCheckerDown();
 		collisionCheck(collidableDown);
 		
 		// ---------------------up------------------------ //
 		Collidable collidableUp = null;
 		
-		moveUp(collidableUp, speed);
+		moveUp(collidableUp, speed, animations);
 		collidableUp = collisionCheckerUp();
 		collisionCheck(collidableUp);
 		
-		standingAnimation();
+		standingAnimation(animations);
 	}
 	private Collidable collisionCheckerUp() {
 		Collidable collidableUp;
-		collidableUp = CollisionHelper.isCollidable(position.x+sprite.getWidth(), position.y+sprite.getHeight(), theController.collisionLayer);
+		collidableUp = CollisionHelper.isCollidable(position.x+(sprite.getWidth()/2), position.y+sprite.getHeight(), theController.collisionLayer);
 		if(collidableUp == null)collidableUp = CollisionHelper.isCollidable(position.x, position.y+sprite.getHeight(), theController.collisionLayer);
-		if(collidableUp == null)collidableUp = CollisionHelper.isCollidable(position.x+(sprite.getWidth()/2), position.y+sprite.getHeight(), theController.collisionLayer);
+		if(collidableUp == null)collidableUp = CollisionHelper.isCollidable(position.x+(sprite.getWidth()/4), position.y+sprite.getHeight(), theController.collisionLayer);
 		return collidableUp;
 	}
-	private void moveUp(Collidable collidableUp, float speeds) {
+	private void moveUp(Collidable collidableUp, float speeds, HashMap<State, AnimationControl> animations) {
 		if (position.y < theController.touchPos.y -5 && collidableUp == null) {
 			position.y += speeds;
 			sprite.translateY(speeds);
@@ -273,7 +302,7 @@ public class Player extends AbstractGameObject{
 		if(collidableDown == null)collidableDown = CollisionHelper.isCollidable(position.x+(sprite.getWidth()/2), position.y, theController.collisionLayer);
 		return collidableDown;
 	}
-	private void moveDown(Collidable collidableDown, float speeds) {
+	private void moveDown(Collidable collidableDown, float speeds, HashMap<State, AnimationControl> animations) {
 		if (position.y > theController.touchPos.y -1 && collidableDown == null) {
 			position.y -= speeds;
 			sprite.translateY(-speeds);
@@ -285,12 +314,12 @@ public class Player extends AbstractGameObject{
 	}
 	private Collidable collisionCheckerRight() {
 		Collidable collidableRight;
-		collidableRight = CollisionHelper.isCollidable(position.x+sprite.getWidth(), position.y + sprite.getHeight(), theController.collisionLayer);
+		collidableRight = CollisionHelper.isCollidable(position.x+sprite.getWidth(), position.y + (sprite.getHeight()/2), theController.collisionLayer);
 		if(collidableRight == null)collidableRight = CollisionHelper.isCollidable(position.x+sprite.getWidth(), position.y, theController.collisionLayer);
-		if(collidableRight == null)collidableRight = CollisionHelper.isCollidable(position.x+sprite.getWidth(), position.y +(sprite.getHeight()/2), theController.collisionLayer);
+		if(collidableRight == null)collidableRight = CollisionHelper.isCollidable(position.x+sprite.getWidth(), position.y +(sprite.getHeight()/4), theController.collisionLayer);
 		return collidableRight;
 	}
-	private void moveRight(Collidable collidableRight, float speeds) {
+	private void moveRight(Collidable collidableRight, float speeds, HashMap<State, AnimationControl> animations) {
 		if (position.x <  theController.touchPos.x -19/2 && collidableRight == null) {
 			position.x += speeds; 
 			sprite.translateX(speeds);
@@ -307,12 +336,12 @@ public class Player extends AbstractGameObject{
 	}
 	private Collidable collisionCheckerLeft() {
 		Collidable collidableLeft;
-		collidableLeft = CollisionHelper.isCollidable(position.x, position.y + sprite.getHeight(), theController.collisionLayer);
+		collidableLeft = CollisionHelper.isCollidable(position.x, position.y + (sprite.getHeight()/2), theController.collisionLayer);
 		if(collidableLeft == null)collidableLeft = CollisionHelper.isCollidable(position.x, position.y, theController.collisionLayer);
-		if(collidableLeft == null)collidableLeft = CollisionHelper.isCollidable(position.x, position.y + (sprite.getHeight()/2), theController.collisionLayer);
+		if(collidableLeft == null)collidableLeft = CollisionHelper.isCollidable(position.x, position.y + (sprite.getHeight()/4), theController.collisionLayer);
 		return collidableLeft;
 	}
-	private void moveLeft(Collidable collidableLeft, float speeds) {
+	private void moveLeft(Collidable collidableLeft, float speeds, HashMap<State, AnimationControl> animations) {
 		if (position.x > theController.touchPos.x -16/2 && collidableLeft == null) {
 			position.x -= speeds;
 			playerMovementDirection = "left";
@@ -322,7 +351,7 @@ public class Player extends AbstractGameObject{
 			currentFrame = animations.get(state).animate(24);
 		}
 	}
-	private void standingAnimation() {
+	private void standingAnimation(HashMap<State, AnimationControl> animations) {
 		if(oldPos.x == position.x && oldPos.y == position.y){
 			if(playerMovementDirection == "right"){
 				currentFrame = animations.get(state).animate(48);
@@ -367,4 +396,11 @@ public class Player extends AbstractGameObject{
 	public void setState(State state) {
 		this.state = state;
 	}
+	public boolean isMaskOn() {
+		return maskOn;
+	}
+	public void setMaskOn(boolean maskOn) {
+		this.maskOn = maskOn;
+	}
+	
 }
