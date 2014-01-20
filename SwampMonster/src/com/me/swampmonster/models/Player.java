@@ -32,11 +32,13 @@ public class Player extends AbstractGameObject{
 		
 		animationsStandard.put(state.STANDARD, new AnimationControl(nastyaSpriteStandard, 8, 32, 7)); 
 		animationsStandard.put(state.ANIMATING, new AnimationControl(nastyaSpriteStandard, 8, 32, 8)); 
+		animationsStandard.put(state.ANIMATING2, new AnimationControl(nastyaSpriteStandard, 8, 32, 8)); 
 		animationsStandard.put(state.HURT, new AnimationControl(nastyaSpriteStandard, 8, 32, 8)); 
 		animationsStandard.put(state.GUNMOVEMENT, new AnimationControl(nastyaSpriteStandard, 8, 32, 7)); 
 		animationsStandard.put(state.DEAD, new AnimationControl(nastyaSpriteStandard, 8, 32, 8)); 
 		animationsOxygen.put(state.STANDARD, new AnimationControl(nastyaSpriteOxygen, 8, 32, 7)); 
 		animationsOxygen.put(state.ANIMATING, new AnimationControl(nastyaSpriteOxygen, 8, 32, 8)); 
+		animationsOxygen.put(state.ANIMATING2, new AnimationControl(nastyaSpriteOxygen, 8, 32, 8)); 
 		animationsOxygen.put(state.HURT, new AnimationControl(nastyaSpriteOxygen, 8, 32, 8)); 
 		animationsOxygen.put(state.GUNMOVEMENT, new AnimationControl(nastyaSpriteOxygen, 8, 32, 7)); 
 		animationsOxygen.put(state.DEAD, new AnimationControl(nastyaSpriteOxygen, 8, 32, 8)); 
@@ -105,6 +107,23 @@ public class Player extends AbstractGameObject{
 				state = State.STANDARD;
 			}
 		}
+		
+		//ANIMATIN2
+			if(state.equals(State.ANIMATING2)){
+//				System.out.println(" (PLAYER): I'm currently in ANIMATING state");
+				if(time < 62){
+					sprite = new Sprite(animations.get(state.ANIMATING2).getCurrentFrame());
+					currentFrame = animations.get(state).doComplexAnimation(136, 1f, Gdx.graphics.getDeltaTime());
+						
+					sprite.setRegion(animations.get(state).getCurrentFrame());
+					sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
+					time++;
+				}
+				else{
+					time = 0;
+					state = State.STANDARD;
+				}
+			}
 			
 	//HURT
 		if(state.equals(State.HURT)){

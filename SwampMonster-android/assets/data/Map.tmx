@@ -208,4 +208,14 @@
    eJztmFtOwzAQRR2DBGVXvJoCq4JILY9dIdFGsClsNZGGkTO5fiYo/Tiq0riaOfWt7XSllFotjLOFcPIN47pS6qYAt1UeX9/cP5s+1gFcqSPo+GZGvluBBwfS+CG4L5IrmgmXx5Cj5G19a4E3B9L4Ibhv0837o+EJyEQp31S4fO28vxs+gEz4OEnZtr78fg7fPcvqoXv/2/ADfEc+vlImLnSZ+X01vBBaz0ykOntsS/maOi1hB9TN4VvCNZSx9QrhHPTdBfQX8pmUvhrw/6rKrFd31d/16j7S15VrTRjybViNXL62Dl2veN2UvtK+hNRN5VubZjb6+JrDF9mHS/rSXux+/DnCAfT1OXcgdVNAe7fw/dhFm8EXqZsC2rtl3eW6z/hm4Dp2P+LQurXQg3Tf1SvnUsf1OcX/G77PmjlqT+E7RQ9SLX6GQsf0+9fY738OvrH5omeTJfgi2Zmrb6w76luSvrZm1zG+U6y7Ib7Ic9DJ93/6LolfrjHx5A==
   </data>
  </layer>
+ <layer name="Слой тайлов 3" width="60" height="30">
+  <data encoding="base64" compression="zlib">
+   eJztz7ENACAMA8HAfIxGwWTMRMEOBCl3kvt3BADA30bLLnhrFvsLAABADbvfrZ5dAhzw8QMN
+  </data>
+ </layer>
+ <layer name="blackground" width="60" height="30">
+  <data encoding="base64" compression="zlib">
+   eJzt17sNgDAQBFGLawDREjnfkigAYUoihppYmsDW3TxpJYee8FICAAConzWlf/CvPljvFqz3CtZrVvoHAAAAQL0W3Qer8xvhOwkONT5a1s4AvbsaWz067Q7QO6tx1AZtct7rxQv9igen
+  </data>
+ </layer>
 </map>

@@ -107,6 +107,9 @@ public class TheController extends InputAdapter{
 		if (Gdx.input.isKeyPressed(Keys.D)) moveCamera(camMoveSpeed,0);
 		if (Gdx.input.isKeyPressed(Keys.W)) moveCamera(0, camMoveSpeed);
 		if (Gdx.input.isKeyPressed(Keys.S)) moveCamera(0,-camMoveSpeed);
+		if (Gdx.input.isKeyPressed(Keys.O)){
+			level1.getPlayer().setState(State.ANIMATING2);
+		}
 		// Camera Controls (zoom)
 		float camZoomSpeed = 1 * deltaTime;
 		float camZoomSpeedAccelerationFactor = 50;
