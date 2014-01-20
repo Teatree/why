@@ -77,6 +77,7 @@ public class Player extends AbstractGameObject{
 		System.out.println("mask: " + maskOn);
 		if(maskOn){
 			animations = animationsOxygen;
+			oxygen -= 0.01f;
 		}else if(!maskOn){
 			animations = animationsStandard;
 		}

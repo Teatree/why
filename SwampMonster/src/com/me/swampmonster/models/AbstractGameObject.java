@@ -41,7 +41,7 @@ public abstract class AbstractGameObject {
 	protected float playerMovementSpeed = 0.5f; 
 	
 	protected int health;
-	protected int oxygen;
+	protected float oxygen;
 	
 	public Vector2 getPosition() {
 		return position;
@@ -91,10 +91,10 @@ public abstract class AbstractGameObject {
 	public void setHealth(int health) {
 		this.health = health;
 	}
-	public int getOxygen() {
+	public float getOxygen() {
 		return oxygen;
 	}
-	public void setOxygen(int oxygen) {
+	public void setOxygen(float oxygen) {
 		this.oxygen = oxygen;
 	}
 	public Rectangle getRectanlge() {
