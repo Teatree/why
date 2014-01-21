@@ -18,7 +18,7 @@ import com.sun.org.apache.xerces.internal.impl.dv.xs.BooleanDV;
 public abstract class AbstractGameObject {
 
 	public enum State{
-		STANDARD, HURT, DEAD, ANIMATING, ANIMATING2, ATTACKING, PURSUIT, GUNMOVEMENT;
+		STANDARD, HURT, DEAD, ANIMATING, ACTIVATING, ATTACKING, PURSUIT, GUNMOVEMENT;
 	}
 	
 	protected TextureRegion currentFrame;
@@ -26,13 +26,13 @@ public abstract class AbstractGameObject {
 	protected HashMap<State, AnimationControl> animationsOxygen = new HashMap<State, AnimationControl>();   
 	
 	protected Vector2 position;
-	protected Vector3 V3Pos;
 	protected Sprite sprite;
 	protected boolean dead;
 	protected Rectangle rectanlge;
 	protected Circle circle;
 	protected Line2D line;
 	protected TiledMap map;
+	protected String damageType;
 	
 	protected Vector2 oldPos;
 	protected TheController theController;
@@ -121,11 +121,11 @@ public abstract class AbstractGameObject {
 	public void setLine(Line2D line) {
 		this.line = line;
 	}
-	public Vector3 getV3Pos() {
-		return V3Pos;
+	public String getDamageType() {
+		return damageType;
 	}
-	public void setV3Pos(Vector3 v3Pos) {
-		V3Pos = v3Pos;
+	public void setDamageType(String damageType) {
+		this.damageType = damageType;
 	}
 	
 }

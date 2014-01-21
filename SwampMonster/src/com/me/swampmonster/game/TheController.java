@@ -108,7 +108,7 @@ public class TheController extends InputAdapter{
 		if (Gdx.input.isKeyPressed(Keys.W)) moveCamera(0, camMoveSpeed);
 		if (Gdx.input.isKeyPressed(Keys.S)) moveCamera(0,-camMoveSpeed);
 		if (Gdx.input.isKeyPressed(Keys.O)){
-			level1.getPlayer().setState(State.ANIMATING2);
+			level1.getPlayer().setState(State.ACTIVATING);
 		}
 		// Camera Controls (zoom)
 		float camZoomSpeed = 1 * deltaTime;
@@ -147,6 +147,11 @@ public class TheController extends InputAdapter{
 			level1.getPlayer().setState(State.ANIMATING);
 		}
 		
+		//intersaction
+		if(level1.getPlayer().getState() == State.DEAD && Gdx.input.justTouched() && doesIntersect(new Vector2(gui.getGameoverGUI().getCircle().x, gui.getGameoverGUI().getCircle().y), 
+				gui.getGameoverGUI().getCircle().radius)){
+			init();
+		}
 	}
 	
 
@@ -196,11 +201,11 @@ public class TheController extends InputAdapter{
 	private void painLogic() {
 		if(timer2 > 0){
 			if(timer2 == 40){
+				level1.getPlayer().setDamageType("lackOfOxygen");
 				hurt();
 			}
 			hurt = true;
 			timer2--;
-			System.out.println("Timer2: " + timer2);
 		}else if(timer2 == 0 && hurt){
 			hurt = false;
 		}
@@ -229,8 +234,8 @@ public class TheController extends InputAdapter{
 			init();
 			System.out.println("Game world resetted");
 			}
-		if (keycode == Keys.ENTER && !cameraHelper.hasTarget) {
-			cameraHelper.hasTarget = true;
+		if (keycode == Keys.ENTER && cameraHelper.hasTarget) {
+			cameraHelper.hasTarget = false;
 			System.out.println(cameraHelper.hasTarget + " " + level1.getPlayer().getSprite().getOriginX());
 		}
 		return false;
@@ -254,6 +259,11 @@ public class TheController extends InputAdapter{
 		}
 		return i - 1;
 	}
+	
+	// User log:
+	// v2 is the position at which the circle is situated
+	// radius is the circles radius
+	// inside Mr. Point is where the mouse clicks.
 	public boolean doesIntersect(Vector2 v2, float radius){
 		boolean questionMark;
 		if(Intersector.intersectSegmentCircle(point, point, v2, radius*radius)){

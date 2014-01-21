@@ -158,6 +158,7 @@ public class Enemy extends AbstractGameObject{
 				if(timer == 30 && timer2 >= 40){
 					currentFrame = animationsStandard.get(state).animate(standing);
 					// And may be inflict different hurts, direction/ kinds of hurts/ etc.
+					theController.level1.getPlayer().setDamageType("enemy");
 					theController.level1.getPlayer().setState(State.HURT);
 					theController.level1.getPlayer().setHealth(theController.level1.getPlayer().getHealth()-1);
 					timer = 0;

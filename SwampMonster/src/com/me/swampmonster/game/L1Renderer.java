@@ -35,6 +35,7 @@ public class L1Renderer {
 	private SpriteBatch staticBatch;
 	private OrthogonalTiledMapRenderer mapRenderer;
 	private BitmapFont font;
+	private int timer;
 	
 	private int width;
 	private int height;
@@ -59,6 +60,8 @@ public class L1Renderer {
 		sr = new ShapeRenderer();
 		staticSr = new ShapeRenderer();
 		mapRenderer = new OrthogonalTiledMapRenderer(level1.getBunker().getMap(), unitScale);
+		
+		timer = 60;
 		
 	}	
 	public void render() {
@@ -85,7 +88,7 @@ public class L1Renderer {
 				theController.level1.getEnemy().getPosition().y, 
 				theController.level1.getEnemy().getSprite().getWidth(), 
 				theController.level1.getEnemy().getSprite().getHeight());
-		if(Gdx.input.isTouched() && theController.level1.getPlayer().getState() == State.GUNMOVEMENT){
+		if(Gdx.input.isTouched() && theController.level1.getPlayer().getState() == State.GUNMOVEMENT && theController.gui.getCroshair().isAiming()){
 			batch.draw(theController.gui.getCroshair().getSprite(), theController.getV3point().x, theController.getV3point().y, 
 					theController.gui.getCroshair().getSprite().getWidth(), 
 					theController.gui.getCroshair().getSprite().getHeight());
@@ -99,12 +102,8 @@ public class L1Renderer {
 		sr.setColor(Color.BLUE);
 		sr.circle(theController.level1.getEnemy().getoRangeAura().x+8, theController.level1.getEnemy().getoRangeAura().y+16, theController.level1.getEnemy().getoRangeAura().radius);
 		sr.setColor(Color.RED);
-		if(theController.doesIntersect(theController.level1.getPlayer().getPosition(), theController.level1.getPlayer().getCircle().radius*theController.level1.getPlayer().getCircle().radius/4)){
-			sr.setColor(Color.WHITE);
-		}
-		sr.circle(theController.level1.getPlayer().getPosition().x+8, theController.level1.getPlayer().getPosition().y+16, theController.level1.getPlayer().getCircle().radius);
 		sr.setColor(Color.WHITE);
-		if(Gdx.input.isTouched() && theController.level1.getPlayer().getState() == State.GUNMOVEMENT){
+		if(Gdx.input.isTouched() && theController.level1.getPlayer().getState() == State.GUNMOVEMENT && theController.gui.getCroshair().isAiming()){
 			sr.line(theController.V3playerPos, theController.V3point);
 		}
 		sr.end();
@@ -115,6 +114,8 @@ public class L1Renderer {
 				sr.rect((n.x*16)+6, (n.y*16)+6, 4, 4);
 			}
 		}
+		sr.setColor(Color.BLACK);
+		sr.rect(theController.touchPos.x, theController.touchPos.y, 10, 10);
 		sr.end();
 		// Temporary deBug feature
 		
@@ -128,7 +129,6 @@ public class L1Renderer {
 			}
 		}
 		if(theController.hurt){
-			System.out.println("Hurt is trye!");
 			int j = 0;
 			if(theController.level1.getPlayer().getHealth()>1){
 				j = theController.level1.getPlayer().getHealth()-1;
@@ -140,15 +140,23 @@ public class L1Renderer {
 						theController.gui.getHealthBar().getHealthBarRect()[j].width, theController.gui.getHealthBar().getHealthBarRect()[j].height);
 			}
 			ass = ass - 0.02f;
-			System.out.println(ass);
 		}else if(!theController.hurt){
 			ass = 1f;
 		}
-		staticSr.setColor(Color.YELLOW);
+		if(theController.level1.getPlayer().getOxygen()>0){
+			staticSr.setColor(Color.YELLOW);
+		}
+		if(theController.level1.getPlayer().getOxygen()>0 && theController.level1.getPlayer().getOxygen()<22){
+			warningFlicker(staticSr);
+		}
 		if(theController.level1.getPlayer().isMaskOn()){
 			if(theController.level1.getPlayer().getOxygen()>0){
 				staticSr.rect(30, 422, theController.level1.getPlayer().getOxygen(), 22);
 			}
+		}
+		staticSr.setColor(Color.BLUE);
+		if(theController.level1.getPlayer().isMaskOn() && theController.level1.getPlayer().getOxygen() == 0){
+			staticSr.rect(30, 422, 96, 22);
 		}
 		if(theController.level1.getPlayer().getState() != State.DEAD){
 			if(theController.gui.getWeaponizer().isOn() == false){
@@ -157,6 +165,7 @@ public class L1Renderer {
 				staticSr.setColor(Color.WHITE);
 			}
 		staticSr.circle(theController.gui.getWeaponizer().getCircle().x, theController.gui.getWeaponizer().getCircle().y, theController.gui.getWeaponizer().getCircle().radius);
+		
 		
 		if(theController.gui.getMaskizer().isOn() == false){
 			staticSr.setColor(Color.LIGHT_GRAY);
@@ -167,6 +176,14 @@ public class L1Renderer {
 		}
 		staticSr.end();
 		Gdx.gl.glDisable(GL20.GL_BLEND);
+		
+		staticSr.begin(ShapeType.Line);
+		staticSr.setColor(Color.MAGENTA);
+		if(theController.doesIntersect(new Vector2(400,255), theController.level1.getPlayer().getCircle().radius*2)){
+			staticSr.setColor(Color.WHITE);
+		}
+		staticSr.circle(400, 255, theController.level1.getPlayer().getCircle().radius*2);
+		staticSr.end();
 		
 		staticBatch.begin();
 		staticBatch.draw(theController.gui.getHealthBar().getSprite(), 0, 448, theController.gui.getHealthBar().getSprite().getWidth(), theController.gui.getHealthBar().getSprite().getHeight());
@@ -180,6 +197,10 @@ public class L1Renderer {
 		// debug Feature
 		font.setColor(0.0f, 0.0f, 1.0f, 1.0f);
 		font.draw(staticBatch, "Zoom: " + theController.cameraHelper.getZoom(), 700, 20);
+		font.setColor(Color.RED);
+		if(theController.level1.getPlayer().getOxygen()>0 && theController.level1.getPlayer().getOxygen()<20){
+			font.draw(staticBatch, "LOW!", 130, 438);
+		}
 		staticBatch.end();
 		
 		Gdx.gl.glEnable(GL20.GL_BLEND);
@@ -193,10 +214,51 @@ public class L1Renderer {
 					assRevert = assRevert + 0.002f;
 				}
 			}
+			if(assRevert >= 0.45f){
+				staticSr.setColor(Color.GREEN);
+				staticSr.circle(theController.gui.getGameoverGUI().getCircle().x, theController.gui.getGameoverGUI().getCircle().y, theController.gui.getGameoverGUI().getCircle().radius);
+			}
 		staticSr.end();
 		Gdx.gl.glDisable(GL20.GL_BLEND);
 		
+		staticSr.begin(ShapeType.Line);
+		if(assRevert >= 0.45f){
+			staticSr.setColor(Color.BLACK);
+			staticSr.circle(theController.gui.getGameoverGUI().getCircle().x, theController.gui.getGameoverGUI().getCircle().y , theController.gui.getGameoverGUI().getCircle().radius);
+		}
+		staticSr.end();
+		
+		staticBatch.begin();
+		font.setColor(Color.YELLOW);
+		font.setScale(2);
+		if(assRevert >= 0.4f){
+			font.draw(staticBatch, "GAME OVER", 310, 280);
+		}
+		if(assRevert >= 0.4f){
+			font.setScale(1);
+			font.draw(staticBatch, "<Insert a witty cause of death message here>", 210, 230);
+		}
+		if(assRevert >= 0.45f){
+			font.setScale(1);
+			font.draw(staticBatch, "RESTART", 361, 170);
+		}
+		staticBatch.end();
 	}
+	
+	public void warningFlicker(ShapeRenderer Sr){
+		if(timer >= 21){
+			System.out.println(timer);
+			Sr.setColor(Color.YELLOW);
+			timer--;
+		}else if(timer <= 21 && timer > 0){
+			Sr.setColor(Color.CYAN);
+			System.out.println("yes" + timer);
+			timer--;
+		}else if(timer == 0){
+			timer = 60;
+		}
+	}
+	
 	//there are two of those;
 	
 	public void setSize(int width, int height){

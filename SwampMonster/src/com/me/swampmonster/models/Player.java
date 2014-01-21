@@ -32,13 +32,13 @@ public class Player extends AbstractGameObject{
 		
 		animationsStandard.put(state.STANDARD, new AnimationControl(nastyaSpriteStandard, 8, 32, 7)); 
 		animationsStandard.put(state.ANIMATING, new AnimationControl(nastyaSpriteStandard, 8, 32, 8)); 
-		animationsStandard.put(state.ANIMATING2, new AnimationControl(nastyaSpriteStandard, 8, 32, 8)); 
+		animationsStandard.put(state.ACTIVATING, new AnimationControl(nastyaSpriteStandard, 8, 32, 8)); 
 		animationsStandard.put(state.HURT, new AnimationControl(nastyaSpriteStandard, 8, 32, 8)); 
 		animationsStandard.put(state.GUNMOVEMENT, new AnimationControl(nastyaSpriteStandard, 8, 32, 7)); 
 		animationsStandard.put(state.DEAD, new AnimationControl(nastyaSpriteStandard, 8, 32, 8)); 
 		animationsOxygen.put(state.STANDARD, new AnimationControl(nastyaSpriteOxygen, 8, 32, 7)); 
 		animationsOxygen.put(state.ANIMATING, new AnimationControl(nastyaSpriteOxygen, 8, 32, 8)); 
-		animationsOxygen.put(state.ANIMATING2, new AnimationControl(nastyaSpriteOxygen, 8, 32, 8)); 
+		animationsOxygen.put(state.ACTIVATING, new AnimationControl(nastyaSpriteOxygen, 8, 32, 8)); 
 		animationsOxygen.put(state.HURT, new AnimationControl(nastyaSpriteOxygen, 8, 32, 8)); 
 		animationsOxygen.put(state.GUNMOVEMENT, new AnimationControl(nastyaSpriteOxygen, 8, 32, 7)); 
 		animationsOxygen.put(state.DEAD, new AnimationControl(nastyaSpriteOxygen, 8, 32, 8)); 
@@ -76,10 +76,10 @@ public class Player extends AbstractGameObject{
 		
 		HashMap<State, AnimationControl> animations = new HashMap<AbstractGameObject.State, AnimationControl>();
 		
-		System.out.println("mask: " + maskOn);
+//		System.out.println("mask: " + maskOn);
 		if(maskOn){
 			animations = animationsOxygen;
-			oxygen -= 0.01f;
+			oxygen -= 0.05f;
 		}else if(!maskOn){
 			animations = animationsStandard;
 		}
@@ -108,11 +108,11 @@ public class Player extends AbstractGameObject{
 			}
 		}
 		
-		//ANIMATIN2
-			if(state.equals(State.ANIMATING2)){
+		//ACTIVATING
+			if(state.equals(State.ACTIVATING)){
 //				System.out.println(" (PLAYER): I'm currently in ANIMATING state");
 				if(time < 62){
-					sprite = new Sprite(animations.get(state.ANIMATING2).getCurrentFrame());
+					sprite = new Sprite(animations.get(state.ACTIVATING).getCurrentFrame());
 					currentFrame = animations.get(state).doComplexAnimation(136, 1f, Gdx.graphics.getDeltaTime());
 						
 					sprite.setRegion(animations.get(state).getCurrentFrame());
@@ -133,29 +133,16 @@ public class Player extends AbstractGameObject{
 				
 				time++;
 				
-				Collidable collidableUp = null;
-				
-				damagedFromTop(collidableUp, animations);
-				collidableUp = collisionCheckerUp();
-				collisionCheck(collidableUp);
-				
-				Collidable collidableDown = null;
-				
-				damageFromBottom(collidableDown, animations);
-				collidableDown = collisionCheckerDown();
-				collisionCheck(collidableDown);
-				
-				Collidable collidableLeft = null;
-				
-				damageFromLeft(collidableLeft, animations);
-				collidableLeft = collisionCheckerLeft();
-				collisionCheck(collidableLeft);
-				
-				Collidable collidableRight = null;
-				
-				damageFromRight(collidableRight, animations);
-				collidableRight = collisionCheckerRight();
-				collisionCheck(collidableRight);
+				if(damageType == "enemy"){
+					takingDamageFromEnemy(animations);
+				}
+				if(damageType == "lackOfOxygen"){
+					currentFrame = animations.get(state.HURT).doComplexAnimation(104, 0.2f, Gdx.graphics.getDeltaTime()/2);
+					
+					sprite.setRegion(animations.get(state).getCurrentFrame());
+					sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
+					
+				}
 			}else{
 				currentFrame = animations.get(state.HURT).animate(64);
 				state = State.STANDARD;
@@ -185,12 +172,18 @@ public class Player extends AbstractGameObject{
 			sprite.setRegion(animations.get(state).getCurrentFrame());
 			sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
 			
-			if (Gdx.input.justTouched()) {
+			
+			if (!theController.gui.getCroshair().isAiming() && Gdx.input.justTouched() && !theController.doesIntersect(new Vector2(400,255), circle.radius*2)) {
 
 		        inputNav();
 		    }	
 			
-			movementCollisionAndAnimation(playerMovementSpeed/3, animations);
+				movementCollisionAndAnimation(playerMovementSpeed/3, animations);
+				if(theController.gui.getCroshair().isAiming()){
+					theController.touchPos.x = position.x+9;
+					theController.touchPos.y = position.y+4;
+				}
+			
 		}
 		
 	//DEAD
@@ -209,6 +202,34 @@ public class Player extends AbstractGameObject{
 		}
 		
 	}
+
+	private void takingDamageFromEnemy(HashMap<State, AnimationControl> animations) {
+		
+		Collidable collidableUp = null;
+		
+		damagedFromTop(collidableUp, animations);
+		collidableUp = collisionCheckerUp();
+		collisionCheck(collidableUp);
+		
+		Collidable collidableDown = null;
+		
+		damageFromBottom(collidableDown, animations);
+		collidableDown = collisionCheckerDown();
+		collisionCheck(collidableDown);
+		
+		Collidable collidableLeft = null;
+		
+		damageFromLeft(collidableLeft, animations);
+		collidableLeft = collisionCheckerLeft();
+		collisionCheck(collidableLeft);
+		
+		Collidable collidableRight = null;
+		
+		damageFromRight(collidableRight, animations);
+		collidableRight = collisionCheckerRight();
+		collisionCheck(collidableRight);
+	}
+	
 	private void damageFromRight(Collidable collidableUp, HashMap<State, AnimationControl> animations) {
 		if (theController.level1.getEnemy().playerMovementDirection == "right" && collidableUp == null) { 
 			currentFrame = animations.get(state.HURT).doComplexAnimation(108, 0.2f, Gdx.graphics.getDeltaTime()/2);
