@@ -253,7 +253,7 @@ public class L1Renderer {
 		}else if(timer <= 42 && timer > 0){
 			Sr.setColor(Color.CYAN);
 			timer--;
-		}else if(timer == 0){
+		}else if(timer <= 1){
 			timer = 60;
 		}
 	}

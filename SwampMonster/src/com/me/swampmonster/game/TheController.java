@@ -96,6 +96,8 @@ public class TheController extends InputAdapter{
 		gui = new GUI();
 		gui.getCroshair().setTheController(this);
 		gui.getGameoverGUI().setTheController(this);
+		gui.getWeaponizer().setTheController(this);
+		gui.getMaskizer().setTheController(this);
 		gui.getCroshair().setPosition(new Vector2 (330f,100f));
 		point = new Vector2();
 		V3point = new Vector3();

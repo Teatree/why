@@ -7,13 +7,11 @@ import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector2;
 import com.me.swampmonster.models.AbstractGameObject;
+import com.sun.xml.internal.bind.v2.TODO;
 
 public class Weaponizer extends AbstractGameObject{
 	
 	private boolean on; 
-	// this is crap
-	private Vector2 point2;
-	// this is crap
 	
 	public Weaponizer(){
 		sprite = new Sprite(new Texture("data/Weaponizer.png"));
@@ -25,19 +23,8 @@ public class Weaponizer extends AbstractGameObject{
 		circle.x = position.x;
 		circle.y = position.y;
 		circle.radius = 56;
-		// this is crap
-		point2 = new Vector2();
-		point2.x = Gdx.input.getX();
-		point2.y = 480-Gdx.input.getY();
-		// this is crap
 	}
 	public void update(){
-		
-		// this is crap
-		point2.x = Gdx.input.getX();
-		point2.y = 480-Gdx.input.getY();
-		// this is crap
-		
 		if(Gdx.input.justTouched() && doesIntersect(position, circle.radius) && !on){
 			on = true;
 //			System.out.println(on);
@@ -56,7 +43,7 @@ public class Weaponizer extends AbstractGameObject{
 	public boolean doesIntersect(Vector2 center, float radius){
 		boolean questionMark;
 		// this is crap
-		if(Intersector.intersectSegmentCircle(point2, point2, center, radius*radius)){
+		if(Intersector.intersectSegmentCircle(theController.point, theController.point, center, radius*radius)){
 			// this is crap
 			questionMark = true;
 		}else{
