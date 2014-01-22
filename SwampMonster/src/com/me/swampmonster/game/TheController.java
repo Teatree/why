@@ -35,6 +35,7 @@ public class TheController extends InputAdapter{
 	
 	//temp
 	public boolean hurt;
+	public boolean restart;
 	public boolean NalreadyPressed = false;
 	// temp
 	
@@ -46,6 +47,7 @@ public class TheController extends InputAdapter{
 	}
 	
 	public void update(float deltaTime){
+		restarter();
 		cameraHelper.upadate(V3playerPos.x, V3playerPos.y);
 		level1.update();
 		gui.update(level1.getPlayer().getHealth());
@@ -146,12 +148,6 @@ public class TheController extends InputAdapter{
 		}else if(!gui.getMaskizer().isOn() && level1.getPlayer().isMaskOn()){
 			level1.getPlayer().setState(State.ANIMATING);
 		}
-		
-		//intersaction
-		if(level1.getPlayer().getState() == State.DEAD && Gdx.input.justTouched() && doesIntersect(new Vector2(gui.getGameoverGUI().getCircle().x, gui.getGameoverGUI().getCircle().y), 
-				gui.getGameoverGUI().getCircle().radius)){
-			init();
-		}
 	}
 	
 
@@ -221,6 +217,14 @@ public class TheController extends InputAdapter{
 			level1.getEnemy().setState(State.STANDARD);
 		}
 
+	}
+	
+	private void restarter(){
+		if(level1.getPlayer().getState() == State.DEAD && Gdx.input.justTouched() && doesIntersect(new Vector2(400, 140), 60)){
+			touchPos.x = 330f;
+			touchPos.y = 100f;
+			init();
+		}
 	}
 	
 	private void moveCamera (float x, float y) {

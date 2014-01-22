@@ -114,8 +114,8 @@ public class L1Renderer {
 				sr.rect((n.x*16)+6, (n.y*16)+6, 4, 4);
 			}
 		}
-		sr.setColor(Color.BLACK);
-		sr.rect(theController.touchPos.x, theController.touchPos.y, 10, 10);
+//		sr.setColor(Color.BLACK);
+//		sr.rect(theController.touchPos.x, theController.touchPos.y, 10, 10);
 		sr.end();
 		// Temporary deBug feature
 		
@@ -210,19 +210,22 @@ public class L1Renderer {
 				staticSr.setColor(new Color(200, 0, 0, assRevert));
 				staticSr.rect(theController.gui.getGameoverGUI().getRectanlge().x, theController.gui.getGameoverGUI().getRectanlge().y,
 						theController.gui.getGameoverGUI().getRectanlge().width, theController.gui.getGameoverGUI().getRectanlge().height);
-				if(assRevert < 0.5f){
+				if(assRevert < 0.5f && theController.level1.getPlayer().getState() == State.DEAD){
 					assRevert = assRevert + 0.002f;
 				}
 			}
-			if(assRevert >= 0.45f){
+			if(assRevert >= 0.45f && theController.level1.getPlayer().getState() == State.DEAD){
 				staticSr.setColor(Color.GREEN);
+				if(theController.doesIntersect(new Vector2(400, 140), 60)){
+					staticSr.setColor(new Color(0, 200, 0.5f, 100));
+				}
 				staticSr.circle(theController.gui.getGameoverGUI().getCircle().x, theController.gui.getGameoverGUI().getCircle().y, theController.gui.getGameoverGUI().getCircle().radius);
 			}
 		staticSr.end();
 		Gdx.gl.glDisable(GL20.GL_BLEND);
 		
 		staticSr.begin(ShapeType.Line);
-		if(assRevert >= 0.45f){
+		if(assRevert >= 0.45f && theController.level1.getPlayer().getState() == State.DEAD){
 			staticSr.setColor(Color.BLACK);
 			staticSr.circle(theController.gui.getGameoverGUI().getCircle().x, theController.gui.getGameoverGUI().getCircle().y , theController.gui.getGameoverGUI().getCircle().radius);
 		}
@@ -231,14 +234,14 @@ public class L1Renderer {
 		staticBatch.begin();
 		font.setColor(Color.YELLOW);
 		font.setScale(2);
-		if(assRevert >= 0.4f){
+		if(assRevert >= 0.4f && theController.level1.getPlayer().getState() == State.DEAD){
 			font.draw(staticBatch, "GAME OVER", 310, 280);
 		}
-		if(assRevert >= 0.4f){
+		if(assRevert >= 0.4f && theController.level1.getPlayer().getState() == State.DEAD){
 			font.setScale(1);
 			font.draw(staticBatch, "<Insert a witty cause of death message here>", 210, 230);
 		}
-		if(assRevert >= 0.45f){
+		if(assRevert >= 0.45f && theController.level1.getPlayer().getState() == State.DEAD){
 			font.setScale(1);
 			font.draw(staticBatch, "RESTART", 361, 170);
 		}

@@ -157,10 +157,9 @@ public class Player extends AbstractGameObject{
 			sprite.setRegion(animations.get(state).getCurrentFrame());
 			sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
 			
-			if (Gdx.input.justTouched()) {
-	
-		        inputNav();
-		    }	
+			if(Gdx.input.justTouched()){
+					inputNav();
+			}
 			//movement
 			 	movementCollisionAndAnimation(playerMovementSpeed, animations);
 		}
@@ -174,7 +173,6 @@ public class Player extends AbstractGameObject{
 			
 			
 			if (!theController.gui.getCroshair().isAiming() && Gdx.input.justTouched() && !theController.doesIntersect(new Vector2(400,255), circle.radius*2)) {
-
 		        inputNav();
 		    }	
 			
@@ -191,7 +189,7 @@ public class Player extends AbstractGameObject{
 //			System.out.println(" (PLAYER): I'm DEAD :(");
 			if(time < 108){
 				sprite = new Sprite(animations.get(state.ANIMATING).getCurrentFrame());
-				currentFrame = animations.get(state).doComplexAnimation(112, 1.8f, Gdx.graphics.getDeltaTime());
+				currentFrame = animations.get(state).doComplexAnimation(112, 1.8f, 0.0175f);
 				
 				sprite.setRegion(animations.get(state).getCurrentFrame());
 				sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
@@ -278,14 +276,16 @@ public class Player extends AbstractGameObject{
 	
 	
 	private void inputNav() {
-		if(!theController.doesIntersect(theController.gui.getWeaponizer().getPosition(), theController.gui.getWeaponizer().getCircle().radius) &&
-				!theController.doesIntersect(theController.gui.getMaskizer().getPosition(), theController.gui.getMaskizer().getCircle().radius)){
-			theController.touchPos.y = Gdx.input.getY();
-			theController.touchPos.x = Gdx.input.getX();
-			theController.l1Renderer.getCam().unproject(theController.touchPos);
-			theController.touchPos.z = 0;
-		}else if(Intersector.intersectSegmentCircle(theController.point, theController.point, theController.gui.getWeaponizer().getPosition(), theController.gui.getWeaponizer().getCircle().radius*theController.gui.getWeaponizer().getCircle().radius) == true){
-//			System.out.println("yes it intersects");
+		if(!state.equals(State.DEAD)){
+			if(!theController.doesIntersect(theController.gui.getWeaponizer().getPosition(), theController.gui.getWeaponizer().getCircle().radius) &&
+					!theController.doesIntersect(theController.gui.getMaskizer().getPosition(), theController.gui.getMaskizer().getCircle().radius)){
+				theController.touchPos.y = Gdx.input.getY();
+				theController.touchPos.x = Gdx.input.getX();
+				theController.l1Renderer.getCam().unproject(theController.touchPos);
+				theController.touchPos.z = 0;
+			}else if(Intersector.intersectSegmentCircle(theController.point, theController.point, theController.gui.getWeaponizer().getPosition(), theController.gui.getWeaponizer().getCircle().radius*theController.gui.getWeaponizer().getCircle().radius) == true){
+	//			System.out.println("yes it intersects");
+			}
 		}
 	}
 	private void movementCollisionAndAnimation(float speed, HashMap<State, AnimationControl> animations) {
