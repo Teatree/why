@@ -18,7 +18,7 @@ import com.sun.org.apache.xerces.internal.impl.dv.xs.BooleanDV;
 public abstract class AbstractGameObject {
 
 	public enum State{
-		STANDARD, HURT, DEAD, ANIMATING, ACTIVATING, ATTACKING, PURSUIT, GUNMOVEMENT;
+		STANDARD, HURT, DEAD, ANIMATING, ANIMATINGLARGE, ACTIVATING, ATTACKING, PURSUIT, GUNMOVEMENT;
 	}
 	
 	protected TextureRegion currentFrame;

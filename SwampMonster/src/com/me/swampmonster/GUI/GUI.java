@@ -26,6 +26,7 @@ public class GUI {
 		weaponizer.update();
 		maskizer.update();
 		croshair.update();
+		gameoverGUI.update();
 	}
 
 	public OxygenBar getOxygenBar() {

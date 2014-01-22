@@ -202,6 +202,21 @@
     <property name="blocked" value="blocked"/>
    </properties>
   </tile>
+  <tile id="642">
+   <properties>
+    <property name="walkable" value="walkable"/>
+   </properties>
+  </tile>
+  <tile id="706">
+   <properties>
+    <property name="walkable" value="walkable"/>
+   </properties>
+  </tile>
+  <tile id="770">
+   <properties>
+    <property name="walkable" value="walkable"/>
+   </properties>
+  </tile>
  </tileset>
  <layer name="background" width="60" height="30">
   <data encoding="base64" compression="zlib">

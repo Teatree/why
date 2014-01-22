@@ -95,6 +95,7 @@ public class TheController extends InputAdapter{
 		pathfinder.findPath(level1.getEnemy().getPosition(), supportVector2);
 		gui = new GUI();
 		gui.getCroshair().setTheController(this);
+		gui.getGameoverGUI().setTheController(this);
 		gui.getCroshair().setPosition(new Vector2 (330f,100f));
 		point = new Vector2();
 		V3point = new Vector3();
@@ -112,6 +113,10 @@ public class TheController extends InputAdapter{
 		if (Gdx.input.isKeyPressed(Keys.O)){
 			level1.getPlayer().setState(State.ACTIVATING);
 		}
+		if (Gdx.input.isKeyPressed(Keys.O) && Gdx.input.isKeyPressed(Keys.CONTROL_RIGHT)){
+			level1.getPlayer().setState(State.ANIMATINGLARGE);
+			level1.getPlayer().setDoing("pullingGunOut");
+		}
 		// Camera Controls (zoom)
 		float camZoomSpeed = 1 * deltaTime;
 		float camZoomSpeedAccelerationFactor = 50;
@@ -126,7 +131,7 @@ public class TheController extends InputAdapter{
 		}
 		if (Gdx.input.isKeyPressed(Keys.N) && !NalreadyPressed){
 			hurt = true;
-			timer2=40; // Remember that this one is supposed to be the same as the pending time of hurt state animation
+			timer2=50; // Remember that this one is supposed to be the same as the pending time of hurt state animation
 			System.out.println("Health: " + level1.getPlayer().getHealth());
 			NalreadyPressed = true;
 		}else if(!Gdx.input.isKeyPressed(Keys.N)){
@@ -144,9 +149,11 @@ public class TheController extends InputAdapter{
 		}
 		
 		if(gui.getMaskizer().isOn() && !level1.getPlayer().isMaskOn()){
+			level1.getPlayer().setDoing("puttingMaskOn");
 			level1.getPlayer().setState(State.ANIMATING);
 		}else if(!gui.getMaskizer().isOn() && level1.getPlayer().isMaskOn()){
 			level1.getPlayer().setState(State.ANIMATING);
+			level1.getPlayer().setDoing("takingMaskOff");
 		}
 	}
 	
@@ -196,7 +203,7 @@ public class TheController extends InputAdapter{
 	
 	private void painLogic() {
 		if(timer2 > 0){
-			if(timer2 == 40){
+			if(timer2 == 50){
 				level1.getPlayer().setDamageType("lackOfOxygen");
 				hurt();
 			}
@@ -207,7 +214,7 @@ public class TheController extends InputAdapter{
 		}
 		
 		if(level1.getPlayer().getOxygen() <= 0 && !hurt){
-			timer2 = 40;
+			timer2 = 50;
 		}
 		
 		if(level1.getPlayer().getHealth() <= 0){
@@ -221,9 +228,8 @@ public class TheController extends InputAdapter{
 	
 	private void restarter(){
 		if(level1.getPlayer().getState() == State.DEAD && Gdx.input.justTouched() && doesIntersect(new Vector2(400, 140), 60)){
-			touchPos.x = 330f;
-			touchPos.y = 100f;
 			init();
+			level1.getPlayer().setJustSpawned(true);
 		}
 	}
 	

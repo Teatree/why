@@ -20,7 +20,11 @@ public class Player extends AbstractGameObject{
 	int time = 0;
 	String nastyaSpriteStandard;
 	String nastyaSpriteOxygen;
+	// responsible for what kind of animation are to be played in the Animating State
+	String doing;
+	// responsible for what kind of animation are to be played in the Animating State, to be changed to something better
 	boolean maskOn;
+	boolean justSpawned;
 	
 	public Player(Vector2 position){
 		this.position = position;
@@ -32,12 +36,14 @@ public class Player extends AbstractGameObject{
 		
 		animationsStandard.put(state.STANDARD, new AnimationControl(nastyaSpriteStandard, 8, 32, 7)); 
 		animationsStandard.put(state.ANIMATING, new AnimationControl(nastyaSpriteStandard, 8, 32, 8)); 
+		animationsStandard.put(state.ANIMATINGLARGE, new AnimationControl(nastyaSpriteStandard, 4, 32, 8)); 
 		animationsStandard.put(state.ACTIVATING, new AnimationControl(nastyaSpriteStandard, 8, 32, 8)); 
 		animationsStandard.put(state.HURT, new AnimationControl(nastyaSpriteStandard, 8, 32, 8)); 
 		animationsStandard.put(state.GUNMOVEMENT, new AnimationControl(nastyaSpriteStandard, 8, 32, 7)); 
 		animationsStandard.put(state.DEAD, new AnimationControl(nastyaSpriteStandard, 8, 32, 8)); 
 		animationsOxygen.put(state.STANDARD, new AnimationControl(nastyaSpriteOxygen, 8, 32, 7)); 
 		animationsOxygen.put(state.ANIMATING, new AnimationControl(nastyaSpriteOxygen, 8, 32, 8)); 
+		animationsOxygen.put(state.ANIMATINGLARGE, new AnimationControl(nastyaSpriteOxygen, 4, 32, 8)); 
 		animationsOxygen.put(state.ACTIVATING, new AnimationControl(nastyaSpriteOxygen, 8, 32, 8)); 
 		animationsOxygen.put(state.HURT, new AnimationControl(nastyaSpriteOxygen, 8, 32, 8)); 
 		animationsOxygen.put(state.GUNMOVEMENT, new AnimationControl(nastyaSpriteOxygen, 8, 32, 7)); 
@@ -47,6 +53,7 @@ public class Player extends AbstractGameObject{
 		
 		dead = false;
 		maskOn = false;
+		justSpawned = true;
 		health = 6;
 		oxygen = 96;
 		sprite = new Sprite(animationsStandard.get(state.STANDARD).getCurrentFrame());
@@ -74,37 +81,65 @@ public class Player extends AbstractGameObject{
 		sprite.setX(position.x);
 		sprite.setY(position.y);
 		
+		
 		HashMap<State, AnimationControl> animations = new HashMap<AbstractGameObject.State, AnimationControl>();
 		
-//		System.out.println("mask: " + maskOn);
+		// I don't fucking know if thsi is better, I just spent 2 hours on this solution, so deal with it!
+		if(Gdx.input.justTouched() && !justSpawned){
+			inputNav();
+		}
+		
 		if(maskOn){
 			animations = animationsOxygen;
 			oxygen -= 0.05f;
 		}else if(!maskOn){
 			animations = animationsStandard;
 		}
+		
+		if(Gdx.input.justTouched()){
+			justSpawned = false;
+		}
+		
 //		System.out.println("player position = " + position.x + " : " + position.y);
 //		System.out.println("player position = " + sprite.getX() + " : " + sprite.getY());
-		
+	//ANIMATINGLARGE
+		if(state.equals(State.ANIMATINGLARGE)){
+			if(doing.equals("pullingGunOut")){
+				if(time < 83){
+					sprite = new Sprite(animations.get(state.ANIMATING).getCurrentFrame());
+					currentFrame = animations.get(state).doComplexAnimation(72, 1.4f, 0.017f);
+					
+					sprite.setRegion(animations.get(state).getCurrentFrame());
+					sprite.setBounds(sprite.getX(), sprite.getY(), 32, 32);
+					time++;
+				}
+				else{
+					time = 0;
+					state = State.STANDARD;
+				}
+			}
+		}
 	//ANIMATING
 		if(state.equals(State.ANIMATING)){
 //			System.out.println(" (PLAYER): I'm currently in ANIMATING state");
-			if(time < 62){
-				sprite = new Sprite(animations.get(state.ANIMATING).getCurrentFrame());
-				currentFrame = animations.get(state).doComplexAnimation(128, 1f, Gdx.graphics.getDeltaTime());
-				
-				sprite.setRegion(animations.get(state).getCurrentFrame());
-				sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
-				time++;
-			}
-			else{
-				time = 0;
-				if(!maskOn){
-					setMaskOn(true);
-				}else if(maskOn){
-					setMaskOn(false);
+			if(doing.equals("puttingMaskOn") || doing.equals("takingMaskOff")){
+				if(time < 62){
+					sprite = new Sprite(animations.get(state.ANIMATING).getCurrentFrame());
+					currentFrame = animations.get(state).doComplexAnimation(128, 1f, Gdx.graphics.getDeltaTime());
+					
+					sprite.setRegion(animations.get(state).getCurrentFrame());
+					sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
+					time++;
 				}
-				state = State.STANDARD;
+				else{
+					time = 0;
+					if(!maskOn){
+						setMaskOn(true);
+					}else if(maskOn){
+						setMaskOn(false);
+					}
+					state = State.STANDARD;
+				}
 			}
 		}
 		
@@ -114,11 +149,11 @@ public class Player extends AbstractGameObject{
 				if(time < 62){
 					sprite = new Sprite(animations.get(state.ACTIVATING).getCurrentFrame());
 					currentFrame = animations.get(state).doComplexAnimation(136, 1f, Gdx.graphics.getDeltaTime());
-						
+							
 					sprite.setRegion(animations.get(state).getCurrentFrame());
 					sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
 					time++;
-				}
+					}
 				else{
 					time = 0;
 					state = State.STANDARD;
@@ -128,7 +163,7 @@ public class Player extends AbstractGameObject{
 	//HURT
 		if(state.equals(State.HURT)){
 //			System.out.println(" (PLAYER): I'm currently in HURT state");
-			if(time < 30){
+			if(time < 40){
 				sprite = new Sprite(animations.get(state.HURT).getCurrentFrame());
 				
 				time++;
@@ -157,9 +192,7 @@ public class Player extends AbstractGameObject{
 			sprite.setRegion(animations.get(state).getCurrentFrame());
 			sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
 			
-			if(Gdx.input.justTouched()){
-					inputNav();
-			}
+			
 			//movement
 			 	movementCollisionAndAnimation(playerMovementSpeed, animations);
 		}
@@ -442,6 +475,22 @@ public class Player extends AbstractGameObject{
 	}
 	public void setMaskOn(boolean maskOn) {
 		this.maskOn = maskOn;
+	}
+
+	public String getDoing() {
+		return doing;
+	}
+
+	public void setDoing(String doing) {
+		this.doing = doing;
+	}
+
+	public boolean isJustSpawned() {
+		return justSpawned;
+	}
+
+	public void setJustSpawned(boolean justSpawned) {
+		this.justSpawned = justSpawned;
 	}
 	
 }

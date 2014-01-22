@@ -146,8 +146,13 @@ public class L1Renderer {
 		if(theController.level1.getPlayer().getOxygen()>0){
 			staticSr.setColor(Color.YELLOW);
 		}
-		if(theController.level1.getPlayer().getOxygen()>0 && theController.level1.getPlayer().getOxygen()<22){
+		if(theController.level1.getPlayer().getOxygen()<42){
 			warningFlicker(staticSr);
+		}
+		if(theController.level1.getPlayer().getOxygen()<=0 && timer >= 10){
+			System.out.println(timer);
+			staticSr.setColor(new Color(0, 200, 20, 0.5f));
+			staticSr.rect(30, 422, 96, 22);
 		}
 		if(theController.level1.getPlayer().isMaskOn()){
 			if(theController.level1.getPlayer().getOxygen()>0){
@@ -194,13 +199,6 @@ public class L1Renderer {
 			staticBatch.draw(theController.gui.getWeaponizer().getSprite(), 0, 0);
 			staticBatch.draw(theController.gui.getMaskizer().getSprite(), 0, 128);
 		}
-		// debug Feature
-		font.setColor(0.0f, 0.0f, 1.0f, 1.0f);
-		font.draw(staticBatch, "Zoom: " + theController.cameraHelper.getZoom(), 700, 20);
-		font.setColor(Color.RED);
-		if(theController.level1.getPlayer().getOxygen()>0 && theController.level1.getPlayer().getOxygen()<20){
-			font.draw(staticBatch, "LOW!", 130, 438);
-		}
 		staticBatch.end();
 		
 		Gdx.gl.glEnable(GL20.GL_BLEND);
@@ -235,27 +233,25 @@ public class L1Renderer {
 		font.setColor(Color.YELLOW);
 		font.setScale(2);
 		if(assRevert >= 0.4f && theController.level1.getPlayer().getState() == State.DEAD){
-			font.draw(staticBatch, "GAME OVER", 310, 280);
+			font.draw(staticBatch, theController.gui.getGameoverGUI().getGameOverString(), 310, 280);
 		}
 		if(assRevert >= 0.4f && theController.level1.getPlayer().getState() == State.DEAD){
 			font.setScale(1);
-			font.draw(staticBatch, "<Insert a witty cause of death message here>", 210, 230);
+			font.draw(staticBatch, theController.gui.getGameoverGUI().getWittyMessage(), 240-theController.gui.getGameoverGUI().getWittyMessage().length(), 230);
 		}
 		if(assRevert >= 0.45f && theController.level1.getPlayer().getState() == State.DEAD){
 			font.setScale(1);
-			font.draw(staticBatch, "RESTART", 361, 170);
+			font.draw(staticBatch, theController.gui.getGameoverGUI().getRestartString(), 361, 170);
 		}
 		staticBatch.end();
 	}
 	
 	public void warningFlicker(ShapeRenderer Sr){
-		if(timer >= 21){
-			System.out.println(timer);
+		if(timer >= 42){
 			Sr.setColor(Color.YELLOW);
 			timer--;
-		}else if(timer <= 21 && timer > 0){
+		}else if(timer <= 42 && timer > 0){
 			Sr.setColor(Color.CYAN);
-			System.out.println("yes" + timer);
 			timer--;
 		}else if(timer == 0){
 			timer = 60;
@@ -282,4 +278,5 @@ public class L1Renderer {
 	public void setCam(OrthographicCamera cam) {
 		this.cam = cam;
 	}
+	
 }
