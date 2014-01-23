@@ -48,7 +48,7 @@ public class TheController extends InputAdapter{
 	
 	public void update(float deltaTime){
 		restarter();
-		cameraHelper.upadate(V3playerPos.x, V3playerPos.y);
+		cameraHelper.upadate(V3playerPos.x, V3playerPos.y, 5);
 		level1.update();
 		gui.update(level1.getPlayer().getHealth());
 		handleDebugInput(deltaTime);
@@ -108,16 +108,21 @@ public class TheController extends InputAdapter{
 		float camMoveSpeed = 50 * deltaTime;
 		float camMoveSpeedAccelerationFactor = 10;
 		if (Gdx.input.isKeyPressed(Keys.SHIFT_LEFT)) camMoveSpeed *= camMoveSpeedAccelerationFactor;
-		if (Gdx.input.isKeyPressed(Keys.A)) moveCamera(-camMoveSpeed,0);
-		if (Gdx.input.isKeyPressed(Keys.D)) moveCamera(camMoveSpeed,0);
-		if (Gdx.input.isKeyPressed(Keys.W)) moveCamera(0, camMoveSpeed);
-		if (Gdx.input.isKeyPressed(Keys.S)) moveCamera(0,-camMoveSpeed);
+		if (Gdx.input.isKeyPressed(Keys.A) && !cameraHelper.hasTarget) moveCamera(-camMoveSpeed,0);
+		if (Gdx.input.isKeyPressed(Keys.D) && !cameraHelper.hasTarget) moveCamera(camMoveSpeed,0);
+		if (Gdx.input.isKeyPressed(Keys.W) && !cameraHelper.hasTarget) moveCamera(0, camMoveSpeed);
+		if (Gdx.input.isKeyPressed(Keys.S) && !cameraHelper.hasTarget) moveCamera(0,-camMoveSpeed);
 		if (Gdx.input.isKeyPressed(Keys.O)){
 			level1.getPlayer().setState(State.ACTIVATING);
 		}
 		if (Gdx.input.isKeyPressed(Keys.O) && Gdx.input.isKeyPressed(Keys.CONTROL_RIGHT)){
 			level1.getPlayer().setState(State.ANIMATINGLARGE);
 			level1.getPlayer().setDoing("pullingGunOut");
+		}
+		if (Gdx.input.isKeyPressed(Keys.X) && Gdx.input.isKeyPressed(Keys.CONTROL_RIGHT)){
+		// property in the setShakeAmt is supposed to be SHAKE_INTENCITY, but it's not, deal with it!
+			cameraHelper.setShakeAmt(45);
+			cameraHelper.cameraShake();
 		}
 		// Camera Controls (zoom)
 		float camZoomSpeed = 1 * deltaTime;
@@ -180,7 +185,7 @@ public class TheController extends InputAdapter{
 
 	private void findRandomPos() {
 		timer++;
-		if(timer > 50){
+		if(timer > 5){
 			int x = (int) (level1.getEnemy().getgReenAura().x - (level1.getEnemy().getgReenAura().radius/2));
 			int x1 = (int) (level1.getEnemy().getgReenAura().x + (level1.getEnemy().getgReenAura().radius/2));
 			int Rx = randomGenerator.nextInt(x1 - x) + x;
@@ -196,8 +201,9 @@ public class TheController extends InputAdapter{
 				randVector2.y = Ry;
 			}
 			System.out.println("randVector2 is: " + randVector2.x + " : " + randVector2.y);
-		
-			pathfinder.findPath(level1.getEnemy().getPosition(), randVector2);
+//			if(randVector2){
+				pathfinder.findPath(level1.getEnemy().getPosition(), randVector2);
+//			}
 			level1.getEnemy().setCunter(pathfinder.findLastNotNullInArray());
 			timer = 0;
 		}

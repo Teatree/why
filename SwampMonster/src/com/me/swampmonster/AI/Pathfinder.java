@@ -91,10 +91,14 @@ public class Pathfinder {
 				Node node = currentNode.getParentNode();
 				reconstructPath(navigatedNodes, currentNode);
 				int cuntar = 0;
-				while(node.getParentNode() != null && !node.getParentNode().equals(startingPosition)){
-					path[cuntar] = node;
-					node = node.getParentNode();
-					cuntar++;
+				if(node.getParentNode() != null){
+					while(node.getParentNode() != null && !node.getParentNode().equals(startingPosition)){
+						path[cuntar] = node;
+						node = node.getParentNode();
+						cuntar++;
+					}
+				}else if(node.getParentNode() == null){
+					System.out.println("the GetParent is null!");
 				}
 //				System.out.println("(findPath): Found the path!");
 				return true;
