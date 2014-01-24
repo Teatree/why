@@ -1,5 +1,6 @@
 package com.me.swampmonster.models;
 
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 
 
@@ -22,6 +23,18 @@ public class L1{
 		enemy.update();
 		bunker.update();
 	}
+	
+	public void drawPlayer(SpriteBatch b){
+		b.begin();
+		b.draw(getPlayer().getSprite(), getPlayer().getPosition().x, getPlayer().getPosition().y, getPlayer().getSprite().getWidth(), getPlayer().getSprite().getHeight());
+		b.end();
+	}
+	public void drawEnemy(SpriteBatch b){
+		b.begin();
+		b.draw(getEnemy().getSprite(), getEnemy().getPosition().x, getEnemy().getPosition().y, getEnemy().getSprite().getWidth(), getEnemy().getSprite().getHeight());
+		b.end();
+	}
+	
 	public Bunker getBunker() {
 		return bunker;
 	}

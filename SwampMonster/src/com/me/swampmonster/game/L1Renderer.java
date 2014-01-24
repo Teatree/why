@@ -8,8 +8,10 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
+import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.maps.tiled.renderers.BatchTiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.me.swampmonster.AI.Node;
@@ -34,12 +36,14 @@ public class L1Renderer {
 	private SpriteBatch batch;
 	private SpriteBatch staticBatch;
 	private OrthogonalTiledMapRenderer mapRenderer;
+	private OrthogonalTiledMapRenderer mapInsideBunkerRenderer;
+	private BatchTiledMapRenderer batchMapRenderer;
+	private TiledMapTileLayer layer1;
 	private BitmapFont font;
 	private int timer;
 	
 	private int width;
 	private int height;
-	private float unitScale = 1f;
 	
 	float ass = 1f;
 	float assRevert = 0f;
@@ -59,7 +63,8 @@ public class L1Renderer {
 		batch = new SpriteBatch();
 		sr = new ShapeRenderer();
 		staticSr = new ShapeRenderer();
-		mapRenderer = new OrthogonalTiledMapRenderer(level1.getBunker().getMap(), unitScale);
+		mapRenderer = new OrthogonalTiledMapRenderer(level1.getBunker().getMap());
+		layer1 = level1.getBunker().gettLayer();
 		
 		timer = 60;
 		
@@ -76,24 +81,27 @@ public class L1Renderer {
 		batch.setProjectionMatrix(cam.combined);
 		sr.setProjectionMatrix(cam.combined);
 		
-		mapRenderer.setView(cam);
-		mapRenderer.render();
+//		if(theController.level1.getPlayer().getPosition().y < 300){
+			mapRenderer.setView(cam);
+			mapRenderer.render();
+//		}
+//		mapRenderer.renderTileLayer(layer1);
 		
 		batch.begin();
-		batch.draw(theController.level1.getPlayer().getSprite(), theController.level1.getPlayer().getPosition().x, 
-				theController.level1.getPlayer().getPosition().y, 
-				theController.level1.getPlayer().getSprite().getWidth(), 
-				theController.level1.getPlayer().getSprite().getHeight());
-		batch.draw(theController.level1.getEnemy().getSprite(), theController.level1.getEnemy().getPosition().x, 
-				theController.level1.getEnemy().getPosition().y, 
-				theController.level1.getEnemy().getSprite().getWidth(), 
-				theController.level1.getEnemy().getSprite().getHeight());
 		if(Gdx.input.isTouched() && theController.level1.getPlayer().getState() == State.GUNMOVEMENT && theController.gui.getCroshair().isAiming()){
 			batch.draw(theController.gui.getCroshair().getSprite(), theController.getV3point().x, theController.getV3point().y, 
 					theController.gui.getCroshair().getSprite().getWidth(), 
 					theController.gui.getCroshair().getSprite().getHeight());
 		}
 		batch.end();
+		
+		if(theController.level1.getEnemy().getPosition().y+20 < theController.level1.getPlayer().getPosition().y+20){
+			theController.level1.drawPlayer(batch);
+		}	
+		theController.level1.drawEnemy(batch);
+		if(theController.level1.getEnemy().getPosition().y+20 > theController.level1.getPlayer().getPosition().y+20){
+			theController.level1.drawPlayer(batch);
+		}
 		
 		// Temporary deBug feature
 		sr.begin(ShapeType.Line);

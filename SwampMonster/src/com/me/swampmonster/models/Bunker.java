@@ -14,6 +14,8 @@ import com.badlogic.gdx.utils.Array;
 
 public class Bunker extends AbstractGameObject{
 	
+	TiledMapTileLayer tLayer;
+	
 	public Bunker(){
 		map = new TmxMapLoader().load("data/Map.tmx");
 		
@@ -28,7 +30,7 @@ public class Bunker extends AbstractGameObject{
 		
 		AnimatedTiledMapTile animatedTile = new AnimatedTiledMapTile(1, frameTiles);
 		
-		TiledMapTileLayer tLayer = (TiledMapTileLayer) map.getLayers().get("background");
+		tLayer = (TiledMapTileLayer) map.getLayers().get("background");
 		
 		for(int x = 0; x < tLayer.getWidth(); x++){
 			for(int y = 0; y < tLayer.getHeight(); y++){
@@ -48,6 +50,14 @@ public class Bunker extends AbstractGameObject{
 		this.map = map;
 	}
 	
+	public TiledMapTileLayer gettLayer() {
+		return tLayer;
+	}
+
+	public void settLayer(TiledMapTileLayer tLayer) {
+		this.tLayer = tLayer;
+	}
+
 	public void update(){
 		AnimatedTiledMapTile.updateAnimationBaseTime();
 	}

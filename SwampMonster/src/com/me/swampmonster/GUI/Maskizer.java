@@ -24,10 +24,10 @@ public class Maskizer extends AbstractGameObject{
 		circle.radius = 28;
 	}
 	public void update(){
-		if(Gdx.input.justTouched() && doesIntersect(position, circle.radius) && !on){
+		if(Gdx.input.justTouched() && doesIntersect(position, circle.radius) && !on && !theController.gui.getWeaponizer().isOn()){
 			on = true;
 			System.out.println(on);
-		}else if(Gdx.input.justTouched() && doesIntersect(position, circle.radius) && on){
+		}else if(Gdx.input.justTouched() && doesIntersect(position, circle.radius) && on && !theController.gui.getWeaponizer().isOn()){
 			on = false;
 			System.out.println(on);
 		}

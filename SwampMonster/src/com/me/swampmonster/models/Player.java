@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.Map;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Intersector;
@@ -102,19 +103,27 @@ public class Player extends AbstractGameObject{
 		
 //		System.out.println("player position = " + position.x + " : " + position.y);
 //		System.out.println("player position = " + sprite.getX() + " : " + sprite.getY());
+		
 	//ANIMATINGLARGE
 		if(state.equals(State.ANIMATINGLARGE)){
-			if(doing.equals("pullingGunOut")){
+			if(doing.equals("pullingGunOut") || doing.equals("puttingGunAway")){
+				System.out.println("animating Large");
 				if(time < 83){
-					sprite = new Sprite(animations.get(state.ANIMATING).getCurrentFrame());
+					sprite = new Sprite(animations.get(state.ANIMATINGLARGE).getCurrentFrame());
 					currentFrame = animations.get(state).doComplexAnimation(72, 1.4f, 0.017f);
 					
 					sprite.setRegion(animations.get(state).getCurrentFrame());
 					sprite.setBounds(sprite.getX(), sprite.getY(), 32, 32);
 					time++;
 				}
-				else{
+				else if(doing.equals("pullingGunOut")){
 					time = 0;
+					System.out.println("Changing state to GunMovement");
+					state = State.GUNMOVEMENT;
+				}
+				else if(doing.equals("puttingGunAway")){
+					time = 0;
+					System.out.println("Changing state to Standard");
 					state = State.STANDARD;
 				}
 			}

@@ -149,10 +149,12 @@ public class TheController extends InputAdapter{
 			System.out.println("Oxygen: " + level1.getPlayer().getOxygen());
 		}
 		
-		if(gui.getWeaponizer().isOn()&& level1.getPlayer().getState() == State.STANDARD){
-			level1.getPlayer().setState(State.GUNMOVEMENT);
+		if(gui.getWeaponizer().isOn() && level1.getPlayer().getState() == State.STANDARD){
+			level1.getPlayer().setDoing("pullingGunOut");
+			level1.getPlayer().setState(State.ANIMATINGLARGE);
 		}else if(!gui.getWeaponizer().isOn() && level1.getPlayer().getState() == State.GUNMOVEMENT){
-			level1.getPlayer().setState(State.STANDARD);
+			level1.getPlayer().setState(State.ANIMATINGLARGE);
+			level1.getPlayer().setDoing("puttingGunAway");
 		}
 		
 		if(gui.getMaskizer().isOn() && !level1.getPlayer().isMaskOn()){
@@ -185,7 +187,7 @@ public class TheController extends InputAdapter{
 
 	private void findRandomPos() {
 		timer++;
-		if(timer > 5){
+		if(timer > 70){
 			int x = (int) (level1.getEnemy().getgReenAura().x - (level1.getEnemy().getgReenAura().radius/2));
 			int x1 = (int) (level1.getEnemy().getgReenAura().x + (level1.getEnemy().getgReenAura().radius/2));
 			int Rx = randomGenerator.nextInt(x1 - x) + x;
@@ -211,7 +213,7 @@ public class TheController extends InputAdapter{
 	
 	private void painLogic() {
 		if(timer2 > 0){
-			if(timer2 == 50){
+			if(timer2 == 80){
 				level1.getPlayer().setDamageType("lackOfOxygen");
 				hurt();
 			}
@@ -222,7 +224,7 @@ public class TheController extends InputAdapter{
 		}
 		
 		if(level1.getPlayer().getOxygen() <= 0 && !hurt){
-			timer2 = 50;
+			timer2 = 80;
 		}
 		
 		if(level1.getPlayer().getHealth() <= 0){

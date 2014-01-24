@@ -202,6 +202,11 @@
     <property name="blocked" value="blocked"/>
    </properties>
   </tile>
+  <tile id="578">
+   <properties>
+    <property name="walkable" value="walkable"/>
+   </properties>
+  </tile>
   <tile id="642">
    <properties>
     <property name="walkable" value="walkable"/>
@@ -225,12 +230,7 @@
  </layer>
  <layer name="Слой тайлов 3" width="60" height="30">
   <data encoding="base64" compression="zlib">
-   eJztz8ERABAQBEEuPqF5iExMHnJwhe6q/c+WAgDcptXsgrP6Z38BAADgRTP2RmSXAAu9YAMN
-  </data>
- </layer>
- <layer name="blackground" width="60" height="30">
-  <data encoding="base64" compression="zlib">
-   eJztz8EJgDAQBdElNiAWpkYLE7WuWFOmCQkk8+DDHnciJEmSJEmSJElSC0eKOFPrL/41sZvGjz3sHaD3onHmWFgZoDfTuLGV7Z339qICW6gGDQ==
+   eJztzwENADAIwDDuD2mIRsUhz1sFWwQA8Jo82wWz6rNfAAAAALipAfKeANs=
   </data>
  </layer>
 </map>

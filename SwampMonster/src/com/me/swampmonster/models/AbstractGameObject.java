@@ -32,6 +32,7 @@ public abstract class AbstractGameObject {
 	protected Circle circle;
 	protected Line2D line;
 	protected TiledMap map;
+	protected TiledMap map_inside_bunker;
 	protected String damageType;
 	
 	protected Vector2 oldPos;
@@ -126,6 +127,12 @@ public abstract class AbstractGameObject {
 	}
 	public void setDamageType(String damageType) {
 		this.damageType = damageType;
+	}
+	public TiledMap getMap_inside_bunker() {
+		return map_inside_bunker;
+	}
+	public void setMap_inside_bunker(TiledMap map_inside_bunker) {
+		this.map_inside_bunker = map_inside_bunker;
 	}
 	
 }
