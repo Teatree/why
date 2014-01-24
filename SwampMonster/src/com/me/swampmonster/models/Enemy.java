@@ -108,8 +108,6 @@ public class Enemy extends AbstractGameObject{
 				if(state.equals(State.PURSUIT)){
 					sprite.setRegion(animations.get(state).getCurrentFrame());
 					
-					theController.pathfinder.findPath(theController.level1.getEnemy().getPosition(), theController.level1.getPlayer().getPosition());
-					
 					//MOVEMENT + COLLISION PROCESSING AND DETECTION
 						if(cunter == 0){ 
 							cunter = theController.pathfinder.findLastNotNullInArray();
@@ -221,6 +219,7 @@ public class Enemy extends AbstractGameObject{
 	private void moveLeft() {
 		if (position.x > theController.level1.getPlayer().getPosition().x+16) {
 			position.x -= playerMovementSpeed;
+			sprite.translateX(-playerMovementSpeed);
 			playerMovementDirection = "left";
 			if(position.x > theController.level1.getPlayer().getPosition().x+16 && position.y < theController.level1.getPlayer().getPosition().y-1 && position.y > theController.level1.getPlayer().getPosition().y-4){
 				currentFrame = animationsStandard.get(state).animate(8);
@@ -294,7 +293,7 @@ public class Enemy extends AbstractGameObject{
 	private void moveLeftOnPath() {
 		if (theController.pathfinder.getPath()[cunter] != null && (int)position.x > (int)(theController.pathfinder.getPath()[cunter].x*16)) {
 			position.x -= playerMovementSpeed;
-			sprite.translateX(playerMovementSpeed);
+			sprite.translateX(-playerMovementSpeed);
 			playerMovementDirection = "left";
 			if(playerMovementDirection != "down" && playerMovementDirection != "up"){
 				currentFrame = animationsStandard.get(state).animate(8);
@@ -333,6 +332,7 @@ public class Enemy extends AbstractGameObject{
 	
 	private void contact(Collidable collidable) {
 		collidable.doCollide(this);
+		System.err.println("Colliding, on path");
 	}
 
 	public Vector2 getOldPos() {
