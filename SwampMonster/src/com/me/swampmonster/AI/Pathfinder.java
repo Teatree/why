@@ -87,7 +87,7 @@ public class Pathfinder {
 //			System.out.println("CurrentNode! ==== " + currentNode);
 //			System.out.println("TargetNode! ==== " + targetNode);
 			
-			if (currentNode.equals(targetNode) && currentNode != null) {
+			if (currentNode != null && currentNode.equals(targetNode) && currentNode.getParentNode() != null) {
 				Node node = currentNode.getParentNode();
 				reconstructPath(navigatedNodes, currentNode);
 				int cuntar = 0;
@@ -101,7 +101,7 @@ public class Pathfinder {
 						cuntar++;
 					}
 				}if(node.getParentNode() == null){
-					System.out.println("the GetParent is null!");
+//					System.out.println("the GetParent is null!");
 					return false;
 				}
 //				System.out.println("(findPath): Found the path!");

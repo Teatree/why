@@ -70,6 +70,7 @@ public class TheController extends InputAdapter{
 		
 //		l1Renderer.getCam().position.x = level1.getPlayer().getPosition().x;
 //		l1Renderer.getCam().position.y = level1.getPlayer().getPosition().y;
+		System.out.println("Enemy state: " + level1.getEnemy().getState());
 	}
 
 	
@@ -138,7 +139,7 @@ public class TheController extends InputAdapter{
 		}
 		if (Gdx.input.isKeyPressed(Keys.N) && !NalreadyPressed){
 			hurt = true;
-			timer2=50; // Remember that this one is supposed to be the same as the pending time of hurt state animation
+			timer2=80; // Remember that this one is supposed to be the same as the pending time of hurt state animation
 			System.out.println("Health: " + level1.getPlayer().getHealth());
 			NalreadyPressed = true;
 		}else if(!Gdx.input.isKeyPressed(Keys.N)){
@@ -192,17 +193,17 @@ public class TheController extends InputAdapter{
 			int x1 = (int) (level1.getEnemy().getgReenAura().x + (level1.getEnemy().getgReenAura().radius/2));
 			int Rx = randomGenerator.nextInt(x1 - x) + x;
 			if(Rx > 0 && Rx < 800){
-				System.out.println("(pathfinderStuff()) getting the random number -X- ");
+//				System.out.println("(pathfinderStuff()) getting the random number -X- ");
 				randVector2.x = Rx;
 			}
 			int y = (int) (level1.getEnemy().getgReenAura().y - (level1.getEnemy().getgReenAura().radius/2));
 			int y1 = (int) (level1.getEnemy().getgReenAura().y + (level1.getEnemy().getgReenAura().radius/2));
 			int Ry = randomGenerator.nextInt(y1 - y) + y;
 			if(Ry > 0 && Ry < 480){
-				System.out.println("(pathfinderStuff()) getting the random number -Y- ");
+//				System.out.println("(pathfinderStuff()) getting the random number -Y- ");
 				randVector2.y = Ry;
 			}
-			System.out.println("randVector2 is: " + randVector2.x + " : " + randVector2.y);
+//			System.out.println("randVector2 is: " + randVector2.x + " : " + randVector2.y);
 //			if(randVector2){
 				pathfinder.findPath(level1.getEnemy().getPosition(), randVector2);
 //			}
@@ -217,10 +218,8 @@ public class TheController extends InputAdapter{
 				level1.getPlayer().setDamageType("lackOfOxygen");
 				hurt();
 			}
-			hurt = true;
 			timer2--;
 		}else if(timer2 == 0 && hurt){
-			hurt = false;
 		}
 		
 		if(level1.getPlayer().getOxygen() <= 0 && !hurt){

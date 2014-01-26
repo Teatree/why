@@ -112,9 +112,8 @@ public class Enemy extends AbstractGameObject{
 						if(cunter == 0){ 
 							cunter = theController.pathfinder.findLastNotNullInArray();
 						}
-						// boom!
-				        onPathMovingAndCollisionDetection();
-				        // boom!
+						
+				    onPathMovingAndCollisionDetection();
 				        
 					orientOnPath();
 					standAnimation(88, 72, 80, 64);
@@ -159,6 +158,7 @@ public class Enemy extends AbstractGameObject{
 					theController.level1.getPlayer().setDamageType("enemy");
 					theController.level1.getPlayer().setState(State.HURT);
 					theController.level1.getPlayer().setHealth(theController.level1.getPlayer().getHealth()-1);
+					
 					timer = 0;
 					timer2 = 0;
 				}

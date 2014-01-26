@@ -202,11 +202,6 @@
     <property name="blocked" value="blocked"/>
    </properties>
   </tile>
-  <tile id="578">
-   <properties>
-    <property name="walkable" value="walkable"/>
-   </properties>
-  </tile>
   <tile id="642">
    <properties>
     <property name="walkable" value="walkable"/>
@@ -225,7 +220,7 @@
  </tileset>
  <layer name="background" width="60" height="30">
   <data encoding="base64" compression="zlib">
-   eJztmF1OwzAMgNOMB8atxmAd7FRQifFzK5BYBZci0VrJeK7rJE4KlIdPU9u09td4TtulMWY5MxYz4d83jlVlzGUB1lUe39C6v3N5bCK4MEek45sf5PvAcEPAjR8C+0rqCtYE5THkyHl735rhiYAbPwT2bbp5v3XsBDVRylcLytfP+7PjRVATIU5sbdvT4zl831GtHrr9H45PwT0K8eVqYm3LzO+j4x7QBtaE1rNHU8rXxWkBe0HcHL5vhXxjGOtXEs7wvgUdax+RX8w5mr5WUs9VmX51VX3vV9eJvlRdWwDnC2Pk8vVxYL/CcTV9x+a31H+xdsls7fE3h6+oPxf0hXH9evw6wkHoG/LOLImrAczdg9djijaDrySuBjB3z6ar677GtwPbqesRBsatmRy441SumHOblucU3zem/KaUEkvStyUxtXwl1+HGnDxDCcf092HsPSvWV3rdkHstiU/NLXw2+Wu+Wnlp+cacq9lLUuYhF31si7Zz+k4J9I3ptb+NufrOiS8LUvGK
+   eJzlmNtuwjAMhtOwC+CtNg5l8FSj0ji9FUi0Yi9FIooUMtd1g2MVcvEJlbqyv+RXihgppUaJMaih1LwyqfuG8pkp9SXAJOuH74+ZYx7AWN2g1hfMvpA/ZU2s7y/CNwBW34TvS8mVmwlO3xxhB4DVN+H7FvW+Lw0rQiakfLmAfO2+7w0HQia6+KLeWsb37GW1rL+/GP4Ia8TlOxHy3RrWDlXHTHDluZDyNX0qhw2hbwzfk5BvCBy+H77zAO61CZgv5JlQXwjdcv9+Tkrs1TR7PK9mkXx1i7eUr+3jnleUvpAvdga3uUr75maYhb59xvClIOnr9rXv42MLZcc8U6D05cCd3eK/jyGqCL6Uvhy4s1vmda7vGV80XHP7un1zZAbsPjSrz1A/N+c7/XcR25dybvcNzPffbyhiTZ/X4dn9bXJ9R99XJFXfvuYvpm8Kzqn6psQVS3Lx2w==
   </data>
  </layer>
  <layer name="Слой тайлов 3" width="60" height="30">

@@ -177,6 +177,8 @@ public class Player extends AbstractGameObject{
 				
 				time++;
 				
+				theController.hurt = true;
+				
 				if(damageType == "enemy"){
 					takingDamageFromEnemy(animations);
 				}
@@ -190,6 +192,7 @@ public class Player extends AbstractGameObject{
 			}else{
 				currentFrame = animations.get(state.HURT).animate(64);
 				state = State.STANDARD;
+				theController.hurt = false;
 				time = 0;
 			}
 		}
@@ -231,7 +234,7 @@ public class Player extends AbstractGameObject{
 //			System.out.println(" (PLAYER): I'm DEAD :(");
 			if(time < 108){
 				sprite = new Sprite(animations.get(state.ANIMATING).getCurrentFrame());
-				currentFrame = animations.get(state).doComplexAnimation(112, 1.8f, 0.0175f);
+				currentFrame = animations.get(state).doComplexAnimation(112, 1.4f, 0.018f);
 				
 				sprite.setRegion(animations.get(state).getCurrentFrame());
 				sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
