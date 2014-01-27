@@ -70,7 +70,6 @@ public class TheController extends InputAdapter{
 		
 //		l1Renderer.getCam().position.x = level1.getPlayer().getPosition().x;
 //		l1Renderer.getCam().position.y = level1.getPlayer().getPosition().y;
-		System.out.println("Enemy state: " + level1.getEnemy().getState());
 	}
 
 	

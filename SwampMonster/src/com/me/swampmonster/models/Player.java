@@ -21,6 +21,7 @@ public class Player extends AbstractGameObject{
 	int time = 0;
 	String nastyaSpriteStandard;
 	String nastyaSpriteOxygen;
+	String nastyaSpriteGun;
 	// responsible for what kind of animation are to be played in the Animating State
 	String doing;
 	// responsible for what kind of animation are to be played in the Animating State, to be changed to something better
@@ -31,6 +32,7 @@ public class Player extends AbstractGameObject{
 		this.position = position;
 		nastyaSpriteStandard = "data/NastyaSheet2.png";
 		nastyaSpriteOxygen = "data/NastyaOxygenSheet.png";
+		nastyaSpriteGun = "data/NastyaGunSheet.png";
 		
 		circle = new Circle();
 		circle.radius = 16;
@@ -40,14 +42,14 @@ public class Player extends AbstractGameObject{
 		animationsStandard.put(state.ANIMATINGLARGE, new AnimationControl(nastyaSpriteStandard, 4, 32, 8)); 
 		animationsStandard.put(state.ACTIVATING, new AnimationControl(nastyaSpriteStandard, 8, 32, 8)); 
 		animationsStandard.put(state.HURT, new AnimationControl(nastyaSpriteStandard, 8, 32, 8)); 
-		animationsStandard.put(state.GUNMOVEMENT, new AnimationControl(nastyaSpriteStandard, 8, 32, 7)); 
+		animationsStandard.put(state.GUNMOVEMENT, new AnimationControl(nastyaSpriteGun, 8, 16, 7)); 
 		animationsStandard.put(state.DEAD, new AnimationControl(nastyaSpriteStandard, 8, 32, 8)); 
 		animationsOxygen.put(state.STANDARD, new AnimationControl(nastyaSpriteOxygen, 8, 32, 7)); 
 		animationsOxygen.put(state.ANIMATING, new AnimationControl(nastyaSpriteOxygen, 8, 32, 8)); 
 		animationsOxygen.put(state.ANIMATINGLARGE, new AnimationControl(nastyaSpriteOxygen, 4, 32, 8)); 
 		animationsOxygen.put(state.ACTIVATING, new AnimationControl(nastyaSpriteOxygen, 8, 32, 8)); 
 		animationsOxygen.put(state.HURT, new AnimationControl(nastyaSpriteOxygen, 8, 32, 8)); 
-		animationsOxygen.put(state.GUNMOVEMENT, new AnimationControl(nastyaSpriteOxygen, 8, 32, 7)); 
+		animationsOxygen.put(state.GUNMOVEMENT, new AnimationControl(nastyaSpriteGun, 8, 16, 7)); 
 		animationsOxygen.put(state.DEAD, new AnimationControl(nastyaSpriteOxygen, 8, 32, 8)); 
 		
 		oldPos = position;
@@ -106,8 +108,25 @@ public class Player extends AbstractGameObject{
 		
 	//ANIMATINGLARGE
 		if(state.equals(State.ANIMATINGLARGE)){
-			if(doing.equals("pullingGunOut") || doing.equals("puttingGunAway")){
-				System.out.println("animating Large");
+			if(doing.equals("puttingGunAway")){
+				if(time < 83){
+					sprite = new Sprite(animations.get(state.GUNMOVEMENT).getCurrentFrame());
+					currentFrame = animations.get(state.GUNMOVEMENT).doComplexAnimation(40, 2f, 0.015f);
+					
+					sprite.setRegion(animations.get(state.GUNMOVEMENT).getCurrentFrame());
+					sprite.setBounds(sprite.getX(), sprite.getY(), 32, 32);
+					time++;
+				}
+				else if(doing.equals("pullingGunOut")){
+					time = 0;
+					state = State.GUNMOVEMENT;
+				}
+				else if(doing.equals("puttingGunAway")){
+					time = 0;
+					state = State.STANDARD;
+				}
+			}
+			if(doing.equals("pullingGunOut")){
 				if(time < 83){
 					sprite = new Sprite(animations.get(state.ANIMATINGLARGE).getCurrentFrame());
 					currentFrame = animations.get(state).doComplexAnimation(72, 1.4f, 0.017f);
@@ -118,12 +137,11 @@ public class Player extends AbstractGameObject{
 				}
 				else if(doing.equals("pullingGunOut")){
 					time = 0;
-					System.out.println("Changing state to GunMovement");
 					state = State.GUNMOVEMENT;
 				}
 				else if(doing.equals("puttingGunAway")){
 					time = 0;
-					System.out.println("Changing state to Standard");
+					standingAnimation(animations);
 					state = State.STANDARD;
 				}
 			}
@@ -214,17 +232,34 @@ public class Player extends AbstractGameObject{
 //			System.out.println(" (PLAYER): I'm currently in GUNMOVEMENT state");
 			sprite = new Sprite(animations.get(state.GUNMOVEMENT).getCurrentFrame());
 			sprite.setRegion(animations.get(state).getCurrentFrame());
-			sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
+			sprite.setBounds(sprite.getX(), sprite.getY(), 32, 32);
 			
 			
 			if (!theController.gui.getCroshair().isAiming() && Gdx.input.justTouched() && !theController.doesIntersect(new Vector2(400,255), circle.radius*2)) {
 		        inputNav();
 		    }	
-			
-				movementCollisionAndAnimation(playerMovementSpeed/3, animations);
+				
+				if(!theController.gui.getCroshair().isAiming()){
+					currentFrame = animations.get(state).animate(0);
+				}
+				
 				if(theController.gui.getCroshair().isAiming()){
 					theController.touchPos.x = position.x+9;
 					theController.touchPos.y = position.y+4;
+					
+					System.out.println("touch pos: " + theController.gui.getCroshair().getPosition().x + " : " + theController.gui.getCroshair().getPosition().y);
+				}
+				if(theController.gui.getCroshair().isAiming() && theController.getPoint().y > position.y+32){
+					currentFrame = animations.get(state).animate(24);
+				}
+				else if(theController.gui.getCroshair().isAiming() && theController.getPoint().y < position.y-16){
+					currentFrame = animations.get(state).animate(0);
+				}
+				else if(theController.gui.getCroshair().isAiming() && theController.getPoint().x < position.x+64){
+					currentFrame = animations.get(state).animate(16);
+				}
+				else if(theController.gui.getCroshair().isAiming() && theController.getPoint().x > position.x-64){
+					currentFrame = animations.get(state).animate(8);
 				}
 			
 		}
