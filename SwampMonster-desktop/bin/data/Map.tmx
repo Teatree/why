@@ -223,9 +223,14 @@
    eJzlmNtuwjAMhtOwC+CtNg5l8FSj0ji9FUi0Yi9FIooUMtd1g2MVcvEJlbqyv+RXihgppUaJMaih1LwyqfuG8pkp9SXAJOuH74+ZYx7AWN2g1hfMvpA/ZU2s7y/CNwBW34TvS8mVmwlO3xxhB4DVN+H7FvW+Lw0rQiakfLmAfO2+7w0HQia6+KLeWsb37GW1rL+/GP4Ia8TlOxHy3RrWDlXHTHDluZDyNX0qhw2hbwzfk5BvCBy+H77zAO61CZgv5JlQXwjdcv9+Tkrs1TR7PK9mkXx1i7eUr+3jnleUvpAvdga3uUr75maYhb59xvClIOnr9rXv42MLZcc8U6D05cCd3eK/jyGqCL6Uvhy4s1vmda7vGV80XHP7un1zZAbsPjSrz1A/N+c7/XcR25dybvcNzPffbyhiTZ/X4dn9bXJ9R99XJFXfvuYvpm8Kzqn6psQVS3Lx2w==
   </data>
  </layer>
- <layer name="Слой тайлов 3" width="60" height="30">
+ <layer name="foreground" width="60" height="30">
   <data encoding="base64" compression="zlib">
-   eJztzwENADAIwDDuD2mIRsUhz1sFWwQA8Jo82wWz6rNfAAAAALipAfKeANs=
+   eJztlesOgjAMRgf8Mb6VooD6VEoiXt5KEyH6UnYBk7mM0cyt3nqSE6OMtB+rQwiGYVQmkRBTAtPo3Ulb1tBH5uBYtGLXlx+Ud2txYdC2vk89L2auQsyEzJtb3Bu0re9Tz1t2+74EV4QzMZTXl6a8ct8P4BE5Ez5IYpq8F21W6+73K3hDPiMfpER5d+BGsXGYCR+UVHmhTqNYIeqGyHsmyutikP9vYq5VOfTncg/5PBPt1Sx6Pq/mP55X1lHPK0zdb8+bw1lRxO3nP+RVke/j04B1gLyYuj7Ue9ffxyabAHkxdX2o9551c/2Y8aLnu2/UurmlB9t1U6+6owC9MwzDMAzDMK9xB8wg3qQ=
+  </data>
+ </layer>
+ <layer name="fiveground" width="60" height="30">
+  <data encoding="base64" compression="zlib">
+   eJzt0zEOgCAMQFG4n6dy9tDubpja2vBewtx+AmMAuzvn9+dP9Ob0Vt3RLr3HzOt97l/xB67k3og3EaG6S6/ejr2rMzv3vpmrt3cvAABAlBuB9Nxi
   </data>
  </layer>
 </map>

@@ -146,6 +146,8 @@ public class Enemy extends AbstractGameObject{
 				currentFrame = animationsStandard.get(state).animate(standing);
 			}
 			if(timer2 >= 40 && timer < 30){
+				theController.cameraHelper.setShakeAmt(25);
+				theController.cameraHelper.cameraShake();
 //            			System.out.println("timer1: " + timer);
 				currentFrame = animationsStandard.get(state).doComplexAnimation(animation, 1.8f, Gdx.graphics.getDeltaTime());
 				

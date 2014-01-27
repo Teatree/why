@@ -45,6 +45,10 @@ public class L1Renderer {
 	private int width;
 	private int height;
 	
+	private int[] background = {0};
+	private int[] foreground = {1};
+	private int[] fiveground = {2};
+	
 	float ass = 1f;
 	float assRevert = 0f;
 	
@@ -81,10 +85,12 @@ public class L1Renderer {
 		batch.setProjectionMatrix(cam.combined);
 		sr.setProjectionMatrix(cam.combined);
 		
-//		if(theController.level1.getPlayer().getPosition().y < 300){
-			mapRenderer.setView(cam);
-			mapRenderer.render();
-//		}
+		mapRenderer.setView(cam);
+		mapRenderer.render(foreground);
+		if(theController.level1.getPlayer().getPosition().y < 300){
+			mapRenderer.render(background);
+			mapRenderer.render(fiveground);
+		}
 //		mapRenderer.renderTileLayer(layer1);
 		
 		batch.begin();
