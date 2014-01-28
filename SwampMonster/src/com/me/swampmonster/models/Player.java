@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.Map;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Intersector;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.me.swampmonster.animations.AnimationControl;
 import com.me.swampmonster.game.TheController;
@@ -19,6 +20,8 @@ public class Player extends AbstractGameObject{
 	
 	State state = State.STANDARD;
 	int time = 0;
+	int timeDead = 0;
+	int timeShooting = 0;
 	String nastyaSpriteStandard;
 	String nastyaSpriteOxygen;
 	String nastyaSpriteGun;
@@ -27,6 +30,7 @@ public class Player extends AbstractGameObject{
 	// responsible for what kind of animation are to be played in the Animating State, to be changed to something better
 	boolean maskOn;
 	boolean justSpawned;
+	boolean shooting;
 	
 	public Player(Vector2 position){
 		this.position = position;
@@ -36,6 +40,8 @@ public class Player extends AbstractGameObject{
 		
 		circle = new Circle();
 		circle.radius = 16;
+		rectanlge = new Rectangle();
+		
 		
 		animationsStandard.put(state.STANDARD, new AnimationControl(nastyaSpriteStandard, 8, 32, 7)); 
 		animationsStandard.put(state.ANIMATING, new AnimationControl(nastyaSpriteStandard, 8, 32, 8)); 
@@ -57,6 +63,7 @@ public class Player extends AbstractGameObject{
 		dead = false;
 		maskOn = false;
 		justSpawned = true;
+		shooting = false;
 		health = 6;
 		oxygen = 96;
 		sprite = new Sprite(animationsStandard.get(state.STANDARD).getCurrentFrame());
@@ -84,6 +91,10 @@ public class Player extends AbstractGameObject{
 		sprite.setX(position.x);
 		sprite.setY(position.y);
 		
+		rectanlge.x = sprite.getX();
+		rectanlge.y = sprite.getY();
+		rectanlge.width = sprite.getWidth();
+		rectanlge.height = sprite.getHeight();
 		
 		HashMap<State, AnimationControl> animations = new HashMap<AbstractGameObject.State, AnimationControl>();
 		
@@ -111,7 +122,7 @@ public class Player extends AbstractGameObject{
 			if(doing.equals("puttingGunAway")){
 				if(time < 83){
 					sprite = new Sprite(animations.get(state.GUNMOVEMENT).getCurrentFrame());
-					currentFrame = animations.get(state.GUNMOVEMENT).doComplexAnimation(40, 2f, 0.015f);
+					currentFrame = animations.get(state.GUNMOVEMENT).doComplexAnimation(40, 2f, 0.013f);
 					
 					sprite.setRegion(animations.get(state.GUNMOVEMENT).getCurrentFrame());
 					sprite.setBounds(sprite.getX(), sprite.getY(), 32, 32);
@@ -246,38 +257,63 @@ public class Player extends AbstractGameObject{
 				if(theController.gui.getCroshair().isAiming()){
 					theController.touchPos.x = position.x+9;
 					theController.touchPos.y = position.y+4;
-					
-					System.out.println("touch pos: " + theController.gui.getCroshair().getPosition().x + " : " + theController.gui.getCroshair().getPosition().y);
 				}
-				if(theController.gui.getCroshair().isAiming() && theController.getPoint().y > position.y+32){
+				if(theController.gui.getCroshair().isAiming() && theController.getV3point().y > position.y+8 && theController.getV3point().x < position.x+32 &&
+						theController.getV3point().x > position.x){
 					currentFrame = animations.get(state).animate(24);
 				}
-				else if(theController.gui.getCroshair().isAiming() && theController.getPoint().y < position.y-16){
+				else if(theController.gui.getCroshair().isAiming() && theController.getV3point().y < position.y+8 && theController.getV3point().x < position.x+32 &&
+						theController.getV3point().x > position.x){
 					currentFrame = animations.get(state).animate(0);
 				}
-				else if(theController.gui.getCroshair().isAiming() && theController.getPoint().x < position.x+64){
-					currentFrame = animations.get(state).animate(16);
-				}
-				else if(theController.gui.getCroshair().isAiming() && theController.getPoint().x > position.x-64){
+				if(theController.gui.getCroshair().isAiming() && theController.getV3point().x < position.x){
 					currentFrame = animations.get(state).animate(8);
 				}
+				else if(theController.gui.getCroshair().isAiming() && theController.getV3point().x > position.x+32){
+					currentFrame = animations.get(state).animate(16);
+				}
+				
+			if(!Gdx.input.isTouched() && theController.gui.getCroshair().isAiming()){
+				shooting = true;
+				System.out.println("shooting: " + shooting);
+			}
+			if(!theController.gui.getCroshair().isAiming() && timeShooting == 0){
+				shooting = false;
+				System.out.println("shooting: " + shooting);
+			}
 			
 		}
 		
 	//DEAD
 		if(state.equals(State.DEAD)){
 //			System.out.println(" (PLAYER): I'm DEAD :(");
-			if(time < 108){
+			if(timeDead < 89){
 				sprite = new Sprite(animations.get(state.ANIMATING).getCurrentFrame());
-				currentFrame = animations.get(state).doComplexAnimation(112, 1.4f, 0.018f);
+				currentFrame = animations.get(state).doComplexAnimation(112, 1.6f, 0.018f);
 				
 				sprite.setRegion(animations.get(state).getCurrentFrame());
 				sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
-				time++;
+				timeDead++;
 			}
 			
 			dead = true;
 		}
+		
+		// Shooting
+		if(shooting && timeShooting < 30){
+			System.out.println("shooting...");
+			currentFrame = animations.get(state).doComplexAnimation(32, 0.5f, 0.001f);
+			
+			sprite.setRegion(animations.get(state).getCurrentFrame());
+			sprite.setBounds(sprite.getX(), sprite.getY(), 32, 32);
+			timeShooting++;
+		}
+		if(shooting && timeShooting > 29){
+			animations.get(state).setCurrentFrame(currentFrame);
+			shooting = false;
+			timeShooting = 0;
+		}
+		
 		
 	}
 
