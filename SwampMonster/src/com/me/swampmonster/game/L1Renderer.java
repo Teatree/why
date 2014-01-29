@@ -87,11 +87,10 @@ public class L1Renderer {
 		
 		mapRenderer.setView(cam);
 		mapRenderer.render(foreground);
-		if(theController.level1.getPlayer().getPosition().y < 300){
+		if(theController.level1.getPlayer().getPosition().x > 656){
 			mapRenderer.render(background);
 			mapRenderer.render(fiveground);
 		}
-//		mapRenderer.renderTileLayer(layer1);
 		
 		batch.begin();
 		if(Gdx.input.isTouched() && theController.level1.getPlayer().getState() == State.GUNMOVEMENT && theController.gui.getCroshair().isAiming()){
