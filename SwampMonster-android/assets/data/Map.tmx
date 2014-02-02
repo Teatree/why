@@ -172,6 +172,16 @@
     <property name="walkable" value="walkable"/>
    </properties>
   </tile>
+  <tile id="393">
+   <properties>
+    <property name="blocked" value="blocked"/>
+   </properties>
+  </tile>
+  <tile id="394">
+   <properties>
+    <property name="blocked" value="blocked"/>
+   </properties>
+  </tile>
   <tile id="448">
    <properties>
     <property name="blocked" value="blocked"/>
@@ -227,6 +237,16 @@
     <property name="walkable" value="walkable"/>
    </properties>
   </tile>
+  <tile id="709">
+   <properties>
+    <property name="blocked" value="blocked"/>
+   </properties>
+  </tile>
+  <tile id="710">
+   <properties>
+    <property name="blocked" value="blocked"/>
+   </properties>
+  </tile>
   <tile id="769">
    <properties>
     <property name="walkable" value="walkable"/>
@@ -237,6 +257,16 @@
     <property name="walkable" value="walkable"/>
    </properties>
   </tile>
+  <tile id="773">
+   <properties>
+    <property name="blocked" value="blocked"/>
+   </properties>
+  </tile>
+  <tile id="774">
+   <properties>
+    <property name="blocked" value="blocked"/>
+   </properties>
+  </tile>
  </tileset>
  <layer name="background" width="100" height="40">
   <data encoding="base64" compression="zlib">
@@ -245,7 +275,7 @@
  </layer>
  <layer name="foreground" width="100" height="40">
   <data encoding="base64" compression="zlib">
-   eJztl+1OwjAYRrv5x3hXgjJUbgqWgF9X5Q9Z8KZsQzW16UrT1Bddz0lOGB/NwvPkbTOlAAAAAAAAAADA57pRaibgvDn3P/0frHVOiwyv1NHU3/f0kYTpY2u9G3FbQL+PlLmscaZMH531acSugH4fvZ2be+1D4LrWmVoXyjunDzM3z9qXwHVopmqgF+rj3duL9vbzg/YjcB3qcCqsIv9Lqo9H7cZxSFjTtnIZSfL6F/rQ2Q6Ou/b0mtlE+4gh1UeOG/r4dpeRX86a6H51ce505JGaj5vm53l+m7Bmqud5DKk+zH3c8zzlvvTxu310+jxYtsdX+ggj2YeLeR55O+G+wj5Scimhn63/PBJyqLCPlFxK6Ge7sPvW1x62HHlfG24uXSSj2PehLH0vK8wWAAAAAAAAAABgSnwC9kHgVw==
+   eJzt1u0KgjAYhuFpUNBhSSV9nJQK9nlU/aiok2qShNlaY9g0d1/wgET74fvwtoQAAAAAAABA3SkUIgp+n3PY9pv+h0TOamaRsXjE9PtZ0Pab/oeij7zM/EPyBlLvw2Qvfdypoo+4zPZD4gZS7yMr92Yhs1Q8+7pTSUPztumj2JudzF7xrNopH2SO+jjVf4vKz68yN8WzqsO+WGney1UfG5m0kovBmbCn98ehC33I2V4qWYffz0Q97UPHVR82SenjmbXF/GzOaH+vBm1Pxz1X+zEJXu/zqcGZvt7nOq76UP3fpY939NEtbfUxlHfDMdBn5OH9YTKXJuLjbAEAAAAAAAAAfrgDfeu/Lg==
   </data>
  </layer>
  <layer name="fiveground" width="100" height="40">
