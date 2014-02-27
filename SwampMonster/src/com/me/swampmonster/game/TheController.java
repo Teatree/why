@@ -84,7 +84,7 @@ public class TheController extends InputAdapter{
 		level1.getPlayer().setPosition(new Vector2 (180f,380f));
 		level1.getPlayer().getSprite().setSize(level1.getPlayer().getSprite().getWidth()/2, level1.getPlayer().getSprite().getHeight()/2);
 		level1.getEnemy().setTheController(this);
-		level1.getEnemy().setPosition(new Vector2 (910f,400f));
+		level1.getEnemy().setPosition(new Vector2 (110f,100f));
 		level1.getEnemy().getSprite().setSize(level1.getEnemy().getSprite().getWidth()/2, level1.getEnemy().getSprite().getHeight()/2);
 		
 		collisionHandler = new CollisionHelper();
