@@ -23,7 +23,6 @@ public class Player extends AbstractGameObject{
 	int timeDead = 0;
 	int timeShooting = 0;
 	String nastyaSpriteStandard;
-	String nastyaSpriteOxygen;
 	String nastyaSpriteGun;
 	// responsible for what kind of animation are to be played in the Animating State
 	String doing;
@@ -34,8 +33,7 @@ public class Player extends AbstractGameObject{
 	
 	public Player(Vector2 position){
 		this.position = position;
-		nastyaSpriteStandard = "data/NastyaSheet2.png";
-		nastyaSpriteOxygen = "data/NastyaOxygenSheet.png";
+		nastyaSpriteStandard = "data/NastyaOxygenSheet.png";
 		nastyaSpriteGun = "data/NastyaGunSheet.png";
 		
 		circle = new Circle();
@@ -50,18 +48,11 @@ public class Player extends AbstractGameObject{
 		animationsStandard.put(state.HURT, new AnimationControl(nastyaSpriteStandard, 8, 32, 8)); 
 		animationsStandard.put(state.GUNMOVEMENT, new AnimationControl(nastyaSpriteGun, 8, 16, 7)); 
 		animationsStandard.put(state.DEAD, new AnimationControl(nastyaSpriteStandard, 8, 32, 8)); 
-		animationsOxygen.put(state.STANDARD, new AnimationControl(nastyaSpriteOxygen, 8, 32, 7)); 
-		animationsOxygen.put(state.ANIMATING, new AnimationControl(nastyaSpriteOxygen, 8, 32, 8)); 
-		animationsOxygen.put(state.ANIMATINGLARGE, new AnimationControl(nastyaSpriteOxygen, 4, 32, 8)); 
-		animationsOxygen.put(state.ACTIVATING, new AnimationControl(nastyaSpriteOxygen, 8, 32, 8)); 
-		animationsOxygen.put(state.HURT, new AnimationControl(nastyaSpriteOxygen, 8, 32, 8)); 
-		animationsOxygen.put(state.GUNMOVEMENT, new AnimationControl(nastyaSpriteGun, 8, 16, 7)); 
-		animationsOxygen.put(state.DEAD, new AnimationControl(nastyaSpriteOxygen, 8, 32, 8)); 
 		
 		oldPos = position;
 		
 		dead = false;
-		maskOn = false;
+		maskOn = true;
 		justSpawned = true;
 		shooting = false;
 		health = 6;
@@ -103,12 +94,7 @@ public class Player extends AbstractGameObject{
 			inputNav();
 		}
 		
-		if(maskOn){
-			animations = animationsOxygen;
-			oxygen -= 0.05f;
-		}else if(!maskOn){
-			animations = animationsStandard;
-		}
+		animations = animationsStandard;
 		
 		if(Gdx.input.justTouched()){
 			justSpawned = false;
@@ -160,25 +146,7 @@ public class Player extends AbstractGameObject{
 	//ANIMATING
 		if(state.equals(State.ANIMATING)){
 //			System.out.println(" (PLAYER): I'm currently in ANIMATING state");
-			if(doing.equals("puttingMaskOn") || doing.equals("takingMaskOff")){
-				if(time < 62){
-					sprite = new Sprite(animations.get(state.ANIMATING).getCurrentFrame());
-					currentFrame = animations.get(state).doComplexAnimation(128, 1f, Gdx.graphics.getDeltaTime());
-					
-					sprite.setRegion(animations.get(state).getCurrentFrame());
-					sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
-					time++;
-				}
-				else{
-					time = 0;
-					if(!maskOn){
-						setMaskOn(true);
-					}else if(maskOn){
-						setMaskOn(false);
-					}
-					state = State.STANDARD;
-				}
-			}
+			
 		}
 		
 		//ACTIVATING
@@ -393,8 +361,7 @@ public class Player extends AbstractGameObject{
 	
 	private void inputNav() {
 		if(!state.equals(State.DEAD)){
-			if(!theController.doesIntersect(theController.gui.getWeaponizer().getPosition(), theController.gui.getWeaponizer().getCircle().radius) &&
-					!theController.doesIntersect(theController.gui.getMaskizer().getPosition(), theController.gui.getMaskizer().getCircle().radius)){
+			if(!theController.doesIntersect(theController.gui.getWeaponizer().getPosition(), theController.gui.getWeaponizer().getCircle().radius)){
 				theController.touchPos.y = Gdx.input.getY();
 				theController.touchPos.x = Gdx.input.getX();
 				theController.l1Renderer.getCam().unproject(theController.touchPos);

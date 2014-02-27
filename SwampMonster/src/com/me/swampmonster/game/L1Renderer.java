@@ -130,7 +130,7 @@ public class L1Renderer {
 			}
 		}
 		sr.setColor(Color.BLACK);
-		sr.rect(theController.touchPos.x, theController.touchPos.y, 10, 10);
+		sr.rect(theController.touchPos.x, theController.touchPos.y, 1, 1);
 		sr.end();
 		// Temporary deBug feature
 		
@@ -186,13 +186,6 @@ public class L1Renderer {
 			}
 		staticSr.circle(theController.gui.getWeaponizer().getCircle().x, theController.gui.getWeaponizer().getCircle().y, theController.gui.getWeaponizer().getCircle().radius);
 		
-		
-		if(theController.gui.getMaskizer().isOn() == false){
-			staticSr.setColor(Color.LIGHT_GRAY);
-		}else if(theController.gui.getMaskizer().isOn() == true){
-			staticSr.setColor(Color.WHITE);
-		}
-		staticSr.circle(theController.gui.getMaskizer().getCircle().x, theController.gui.getMaskizer().getCircle().y, theController.gui.getMaskizer().getCircle().radius);
 		}
 		staticSr.end();
 		Gdx.gl.glDisable(GL20.GL_BLEND);
@@ -212,7 +205,6 @@ public class L1Renderer {
 		}
 		if(theController.level1.getPlayer().getState() != State.DEAD){
 			staticBatch.draw(theController.gui.getWeaponizer().getSprite(), 0, 0);
-			staticBatch.draw(theController.gui.getMaskizer().getSprite(), 0, 128);
 		}
 		staticBatch.end();
 		

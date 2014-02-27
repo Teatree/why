@@ -97,7 +97,6 @@ public class TheController extends InputAdapter{
 		gui.getCroshair().setTheController(this);
 		gui.getGameoverGUI().setTheController(this);
 		gui.getWeaponizer().setTheController(this);
-		gui.getMaskizer().setTheController(this);
 		gui.getCroshair().setPosition(new Vector2 (330f,100f));
 		point = new Vector2();
 		V3point = new Vector3();
@@ -157,13 +156,6 @@ public class TheController extends InputAdapter{
 			level1.getPlayer().setDoing("puttingGunAway");
 		}
 		
-		if(gui.getMaskizer().isOn() && !level1.getPlayer().isMaskOn()){
-			level1.getPlayer().setDoing("puttingMaskOn");
-			level1.getPlayer().setState(State.ANIMATING);
-		}else if(!gui.getMaskizer().isOn() && level1.getPlayer().isMaskOn()){
-			level1.getPlayer().setState(State.ANIMATING);
-			level1.getPlayer().setDoing("takingMaskOff");
-		}
 	}
 	
 

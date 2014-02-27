@@ -8,7 +8,6 @@ public class GUI {
 	private OxygenBar oxygenBar;
 	private HealthBar healthBar;
 	private Weaponizer weaponizer;
-	private Maskizer maskizer;
 	private Croshair croshair;
 	private GameOverGUI gameoverGUI;
 	
@@ -17,14 +16,12 @@ public class GUI {
 		oxygenBar = new OxygenBar();
 		healthBar = new HealthBar();
 		weaponizer = new Weaponizer();
-		maskizer = new Maskizer();
 		croshair = new Croshair(new Vector2());
 	}
 	
 	public void update(int qH){
 		healthBar.update(qH);
 		weaponizer.update();
-		maskizer.update();
 		croshair.update();
 		gameoverGUI.update();
 	}
@@ -52,15 +49,6 @@ public class GUI {
 	public void setWeaponizer(Weaponizer weaponizer) {
 		this.weaponizer = weaponizer;
 	}
-
-	public Maskizer getMaskizer() {
-		return maskizer;
-	}
-
-	public void setMaskizer(Maskizer maskizer) {
-		this.maskizer = maskizer;
-	}
-
 	public Croshair getCroshair() {
 		return croshair;
 	}
