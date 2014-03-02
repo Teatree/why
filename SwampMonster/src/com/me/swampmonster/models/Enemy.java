@@ -6,6 +6,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector2;
+import com.me.swampmonster.AI.Node;
+import com.me.swampmonster.AI.Pathfinder;
 import com.me.swampmonster.animations.AnimationControl;
 import com.me.swampmonster.game.TheController;
 import com.me.swampmonster.game.collision.Collidable;
@@ -22,6 +24,8 @@ public class Enemy extends AbstractGameObject{
 	public Circle gReenAura;
 	public Circle oRangeAura;
 	
+	public Node[] path;
+	
 	public Enemy(Vector2 position){
 		this.position = position;
 		gReenAura = new Circle();
@@ -37,6 +41,7 @@ public class Enemy extends AbstractGameObject{
 		// Timer2 is for the waiting period
 		timer = 0;
 		timer2 = 0;
+		path = new Node[99];
 		
 		sprite = new Sprite(animationsStandard.get(state.STANDARD).getCurrentFrame());
 	}
@@ -52,7 +57,9 @@ public class Enemy extends AbstractGameObject{
 		
 		HashMap<State, AnimationControl> animations = animationsStandard;
 		
-		if(!state.equals(State.ATTACKING)){
+		System.out.println(state);
+		
+		if(!state.equals(State.STANDARD)){
 			timer = 0;
 			timer2 = 0;
 		}
@@ -62,10 +69,28 @@ public class Enemy extends AbstractGameObject{
 		// Standing animation between attacks doesn't work.
 			
 			//MOVEMENT + COLLISION PROCESSING AND DETECTION
-
-            if(state.equals(State.ATTACKING)){
-            	
-            	sprite.setRegion(animations.get(state).getCurrentFrame());
+		
+		// PURSUIT!
+				if(state.equals(State.PURSUIT)){
+					sprite.setRegion(animations.get(state).getCurrentFrame());
+					
+					//MOVEMENT + COLLISION PROCESSING AND DETECTION
+						if(cunter == 0){ 
+							cunter = Pathfinder.findLastNotNullInArray();
+						}
+					
+					onPathMovingAndCollisionDetection();
+				        
+					orientOnPath();
+					standAnimation(88, 72, 80, 64);
+					
+					if(path.length < 3){
+						setState(State.STANDARD);
+					}
+				}
+		// STANDARD!
+			if(state.equals(State.STANDARD)){
+				sprite.setRegion(animations.get(state).getCurrentFrame());
             	
             	if(timer == 0 && timer2 == 0){
 	            	moveLeft();
@@ -90,49 +115,20 @@ public class Enemy extends AbstractGameObject{
             		timer = 0;
             		timer2 = 0;
             	}
-            	if(playerMovementDirection == "right"){
-            		inflictOnThe(88, 56);
+            	if(getoRangeAura().overlaps(theController.level1.getPlayer().getCircle()) && theController.level1.getPlayer().getState() != State.DEAD){
+	            	if(playerMovementDirection == "right"){
+	            		inflictOnThe(88, 56);
+	            	}
+	            	if(playerMovementDirection == "left"){
+	            		inflictOnThe(72, 40);
+	            	}
+	            	if(playerMovementDirection == "up"){
+	            		inflictOnThe(80, 48);
+	            	}
+	            	if(playerMovementDirection == "down"){
+	            		inflictOnThe(64, 32);
+	            	}
             	}
-            	if(playerMovementDirection == "left"){
-            		inflictOnThe(72, 40);
-            	}
-            	if(playerMovementDirection == "up"){
-            		inflictOnThe(80, 48);
-            	}
-            	if(playerMovementDirection == "down"){
-            		inflictOnThe(64, 32);
-            	}
-		}
-		
-		// PURSUIT!
-				if(state.equals(State.PURSUIT)){
-					sprite.setRegion(animations.get(state).getCurrentFrame());
-					
-					//MOVEMENT + COLLISION PROCESSING AND DETECTION
-						if(cunter == 0){ 
-							cunter = theController.pathfinder.findLastNotNullInArray();
-						}
-						
-				    onPathMovingAndCollisionDetection();
-				        
-					orientOnPath();
-					standAnimation(88, 72, 80, 64);
-					
-				}
-		// STANDARD!
-			if(state.equals(State.STANDARD)){
-			sprite.setRegion(animations.get(state).getCurrentFrame());
-			
-			// X AXIS MOVEMENT + COLLISION PROCESSING AND DETECTION
-			//movement
-				if(cunter == 0){ 
-					cunter = theController.pathfinder.findLastNotNullInArray();
-				}
-				
-		    onPathMovingAndCollisionDetection();
-			
-			orientOnPath();
-			standAnimation(88, 72, 80, 64);
 		}
 	}
 
@@ -172,15 +168,15 @@ public class Enemy extends AbstractGameObject{
 		moveLeftOnPath();
 		Collidable collidable = collisionCheckerLeft();
 		collisionCheck(collidable);
-		
+
 		moveRightOnPath();
 		collidable = collisionCheckerRight();
 		collisionCheck(collidable);
-		
+
 		moveDownOnPath();
 		collidable = collisionCheckerBottom();
 		collisionCheck(collidable);
-		
+
 		moveUpOnPath();
 		collidable = collisionCheckerTop();
 		collisionCheck(collidable);
@@ -264,7 +260,7 @@ public class Enemy extends AbstractGameObject{
 	}
 
 	private void moveUpOnPath() {
-		if (theController.pathfinder.getPath()[cunter] != null && (int)position.y < (int)(theController.pathfinder.getPath()[cunter].y*16)) {
+		if (path[cunter] != null && (int)position.y < (int)(path[cunter].y*16)) {
 			position.y += playerMovementSpeed;
 			sprite.translateY(playerMovementSpeed);
 			playerMovementDirection = "up";
@@ -273,7 +269,7 @@ public class Enemy extends AbstractGameObject{
 	}
 
 	private void moveDownOnPath() {
-		if (theController.pathfinder.getPath()[cunter] != null && (int)position.y > (int)(theController.pathfinder.getPath()[cunter].y*16)) {
+		if (path[cunter] != null && (int)position.y > (int)(path[cunter].y*16)) {
 			position.y -= playerMovementSpeed;
 			sprite.translateY(-playerMovementSpeed);
 			playerMovementDirection = "down";
@@ -282,7 +278,7 @@ public class Enemy extends AbstractGameObject{
 	}
 
 	private void moveRightOnPath() {
-		if (theController.pathfinder.getPath()[cunter] != null && (int)position.x < (int)(theController.pathfinder.getPath()[cunter].x*16)) {
+		if (path[cunter] != null && (int)position.x < (int)(path[cunter].x*16)) {
 			position.x += playerMovementSpeed;
 			sprite.translateX(playerMovementSpeed);
 			playerMovementDirection = "right";
@@ -293,7 +289,7 @@ public class Enemy extends AbstractGameObject{
 	}
 
 	private void moveLeftOnPath() {
-		if (theController.pathfinder.getPath()[cunter] != null && (int)position.x > (int)(theController.pathfinder.getPath()[cunter].x*16)) {
+		if (path[cunter] != null && (int)position.x > (int)(path[cunter].x*16)) {
 			position.x -= playerMovementSpeed;
 			sprite.translateX(-playerMovementSpeed);
 			playerMovementDirection = "left";
@@ -321,11 +317,13 @@ public class Enemy extends AbstractGameObject{
 	}
 
 	private void orientOnPath() {
-		if(theController.pathfinder.getPath()[cunter] != null && position.x >= (theController.pathfinder.getPath()[cunter].x*16)-1 && position.x <= (theController.pathfinder.getPath()[cunter].x*16)+1
-				&& position.y <= (theController.pathfinder.getPath()[cunter].y*16)+1 && position.y >= (theController.pathfinder.getPath()[cunter].y*16)-1){
-			if(cunter>0){
-				theController.pathfinder.getPath()[cunter] = null;
+		if(path[cunter] != null && position.x >= (path[cunter].x*16)-1 && position.x <= (path[cunter].x*16)+1
+				&& position.y <= (path[cunter].y*16)+1 && position.y >= (path[cunter].y*16)-1){
+			if(cunter>=0){
+				path[cunter] = null;
 				cunter--;
+			}else{
+				state = State.STANDARD;
 			}
 		}
 	}
@@ -334,7 +332,10 @@ public class Enemy extends AbstractGameObject{
 	
 	private void contact(Collidable collidable) {
 		collidable.doCollide(this);
-		System.err.println("Colliding, on path");
+		path = Pathfinder.findPath(position, theController.level1.getPlayer().position);
+		System.out.println(position.x);
+		System.out.println(theController.level1.getPlayer().position.x);
+		state = State.PURSUIT;
 	}
 
 	public Vector2 getOldPos() {
@@ -407,6 +408,14 @@ public class Enemy extends AbstractGameObject{
 
 	public void setState(State state) {
 		this.state = state;
+	}
+
+	public Node[] getPath() {
+		return path;
+	}
+
+	public void setPath(Node[] path) {
+		this.path = path;
 	}
 	
 	

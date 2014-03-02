@@ -61,7 +61,7 @@ public class L1Renderer {
 		
 		gui = new GUI();
 		// Temporary debug feature
-		pathfinder = new Pathfinder(level1.getBunker().getMap());
+		Pathfinder.setTiledMap(level1.getBunker().getMap());
 		// temporary bedug feature
 		staticBatch = new SpriteBatch();
 		batch = new SpriteBatch();
@@ -124,9 +124,11 @@ public class L1Renderer {
 		sr.end();
 		sr.begin(ShapeType.Filled);
 		sr.setColor(Color.RED);
-		for(Node n : theController.pathfinder.getPath()){
-			if(n != null){
-				sr.rect((n.x*16)+6, (n.y*16)+6, 4, 4);
+		if(theController.level1.getEnemy().getPath() != null){
+			for(Node n : theController.level1.getEnemy().getPath()){
+				if(n != null){
+					sr.rect((n.x*16)+6, (n.y*16)+6, 4, 4);
+				}
 			}
 		}
 		sr.setColor(Color.BLACK);

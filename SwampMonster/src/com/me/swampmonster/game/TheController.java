@@ -39,7 +39,6 @@ public class TheController extends InputAdapter{
 	public boolean NalreadyPressed = false;
 	// temp
 	
-	public Pathfinder pathfinder;
 	public TiledMapTileLayer collisionLayer;
 	
 	public TheController(){
@@ -79,7 +78,7 @@ public class TheController extends InputAdapter{
 		cameraHelper = new CameraHelper();
 		randVector2 = new Vector2();
 		level1 = new L1();
-		pathfinder = new Pathfinder(level1.getBunker().getMap());
+		Pathfinder.setTiledMap(level1.getBunker().getMap());
 		level1.getPlayer().setTheController(this);
 		level1.getPlayer().setPosition(new Vector2 (180f,380f));
 		level1.getPlayer().getSprite().setSize(level1.getPlayer().getSprite().getWidth()/2, level1.getPlayer().getSprite().getHeight()/2);
@@ -92,7 +91,6 @@ public class TheController extends InputAdapter{
 		collisionLayer = (TiledMapTileLayer) level1.getBunker().getMap().getLayers().get(0);
 		
 		supportVector2 = new Vector2(level1.getEnemy().getPosition().x+17, level1.getEnemy().getPosition().y+17);
-		pathfinder.findPath(level1.getEnemy().getPosition(), supportVector2);
 		gui = new GUI();
 		gui.getCroshair().setTheController(this);
 		gui.getGameoverGUI().setTheController(this);
@@ -131,10 +129,6 @@ public class TheController extends InputAdapter{
 		cameraHelper.addZoom(camZoomSpeed);
 		if (Gdx.input.isKeyPressed(Keys.E)) cameraHelper.addZoom(-camZoomSpeed);
 		if (Gdx.input.isKeyPressed(Keys.F)) cameraHelper.setZoom(1);
-		if (Gdx.input.isKeyPressed(Keys.K)){ 
-			level1.getEnemy().setCunter(0);
-			pathfinder.findPath(level1.getEnemy().getPosition(), level1.getPlayer().getPosition());
-		}
 		if (Gdx.input.isKeyPressed(Keys.N) && !NalreadyPressed){
 			hurt = true;
 			timer2=80; // Remember that this one is supposed to be the same as the pending time of hurt state animation
@@ -161,47 +155,46 @@ public class TheController extends InputAdapter{
 
 	private void pathfindingStuff(){
 		
-		if(level1.getEnemy().getoRangeAura().overlaps(level1.getPlayer().getCircle()) && level1.getPlayer().getState() != State.DEAD){
-			level1.getEnemy().setState(State.ATTACKING);
-		}else if(level1.getEnemy().getgReenAura().overlaps(level1.getPlayer().getCircle()) && level1.getPlayer().getState() != State.DEAD){
-			level1.getEnemy().setCunter(0);
-			level1.getEnemy().setState(State.PURSUIT);
-			pathfinder.findPath(level1.getEnemy().getPosition(), level1.getPlayer().getPosition());
-		}else{
-			level1.getEnemy().setState(State.STANDARD);
-		}
+//		if(level1.getEnemy().getoRangeAura().overlaps(level1.getPlayer().getCircle()) && level1.getPlayer().getState() != State.DEAD){
+//			level1.getEnemy().setState(State.STANDARD);
+//		}else if(level1.getEnemy().getgReenAura().overlaps(level1.getPlayer().getCircle()) && level1.getPlayer().getState() != State.DEAD){
+//			level1.getEnemy().setCunter(0);
+//			level1.getEnemy().setState(State.PURSUIT);
+//		}else{
+//			level1.getEnemy().setState(State.STANDARD);
+//		}
 		
-		if(level1.getEnemy().getPosition().x == level1.getEnemy().getOldPos().x && level1.getEnemy().getPosition().y == level1.getEnemy().getOldPos().y 
-				&& level1.getEnemy().getState() == State.STANDARD){
-			findRandomPos();
-		}
+//		if(level1.getEnemy().getPosition().x == level1.getEnemy().getOldPos().x && level1.getEnemy().getPosition().y == level1.getEnemy().getOldPos().y 
+//				&& level1.getEnemy().getState() == State.STANDARD){
+//			findRandomPos();
+//		}
 	}
 
-	private void findRandomPos() {
-		timer++;
-		if(timer > 70){
-			int x = (int) (level1.getEnemy().getgReenAura().x - (level1.getEnemy().getgReenAura().radius/2));
-			int x1 = (int) (level1.getEnemy().getgReenAura().x + (level1.getEnemy().getgReenAura().radius/2));
-			int Rx = randomGenerator.nextInt(x1 - x) + x;
-			if(Rx > 0 && Rx < 800){
-//				System.out.println("(pathfinderStuff()) getting the random number -X- ");
-				randVector2.x = Rx;
-			}
-			int y = (int) (level1.getEnemy().getgReenAura().y - (level1.getEnemy().getgReenAura().radius/2));
-			int y1 = (int) (level1.getEnemy().getgReenAura().y + (level1.getEnemy().getgReenAura().radius/2));
-			int Ry = randomGenerator.nextInt(y1 - y) + y;
-			if(Ry > 0 && Ry < 480){
-//				System.out.println("(pathfinderStuff()) getting the random number -Y- ");
-				randVector2.y = Ry;
-			}
-//			System.out.println("randVector2 is: " + randVector2.x + " : " + randVector2.y);
-//			if(randVector2){
-				pathfinder.findPath(level1.getEnemy().getPosition(), randVector2);
+//	private void findRandomPos() {
+//		timer++;
+//		if(timer > 70){
+//			int x = (int) (level1.getEnemy().getgReenAura().x - (level1.getEnemy().getgReenAura().radius/2));
+//			int x1 = (int) (level1.getEnemy().getgReenAura().x + (level1.getEnemy().getgReenAura().radius/2));
+//			int Rx = randomGenerator.nextInt(x1 - x) + x;
+//			if(Rx > 0 && Rx < 800){
+////				System.out.println("(pathfinderStuff()) getting the random number -X- ");
+//				randVector2.x = Rx;
 //			}
-			level1.getEnemy().setCunter(pathfinder.findLastNotNullInArray());
-			timer = 0;
-		}
-	}
+//			int y = (int) (level1.getEnemy().getgReenAura().y - (level1.getEnemy().getgReenAura().radius/2));
+//			int y1 = (int) (level1.getEnemy().getgReenAura().y + (level1.getEnemy().getgReenAura().radius/2));
+//			int Ry = randomGenerator.nextInt(y1 - y) + y;
+//			if(Ry > 0 && Ry < 480){
+////				System.out.println("(pathfinderStuff()) getting the random number -Y- ");
+//				randVector2.y = Ry;
+//			}
+////			System.out.println("randVector2 is: " + randVector2.x + " : " + randVector2.y);
+////			if(randVector2){
+//				pathfinder.findPath(level1.getEnemy().getPosition(), randVector2);
+////			}
+//			level1.getEnemy().setCunter(pathfinder.findLastNotNullInArray());
+//			timer = 0;
+//		}
+//	}
 	
 	private void painLogic() {
 		if(timer2 > 0){

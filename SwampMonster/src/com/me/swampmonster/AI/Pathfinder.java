@@ -16,23 +16,23 @@ import com.badlogic.gdx.math.Vector2;
  
 public class Pathfinder {
  
-	private PriorityQueue<Node> openList;
-	private Set<Node> closedList;
+	private static PriorityQueue<Node> openList;
+	private static Set<Node> closedList;
 	
-	private TiledMap tiledMap;
-	private TiledMapTileLayer nodeLayer;
+	private static TiledMap tiledMap;
+	private static TiledMapTileLayer nodeLayer;
 	
-	private int mapWidth;
-	private int mapHeight;
+	private static int mapWidth;
+	private static int mapHeight;
 	
-	private Node[][] nodes;
+	private static Node[][] nodes;
 	private Iterator<TiledMapTile> it;
-	private Node startingNode;
-	private Node targetNode;
-	public Node[] path;
+	private static Node startingNode;
+	private static Node targetNode;
+	public static Node[] path;
 	
-	public Pathfinder(TiledMap tiledMap) {
-		this.tiledMap = tiledMap;
+	public static void setTiledMap(TiledMap tiledMap) {
+		Pathfinder.tiledMap = tiledMap;
 		
 		openList = new PriorityQueue<Node>();
 		closedList = new HashSet<Node>();
@@ -52,7 +52,7 @@ public class Pathfinder {
 		loadNodes();
 	}
 	
-	private void loadNodes() {
+	private static void loadNodes() {
 		for (int x = 0; x < mapWidth; x++) {        // consider x++
 			for (int y = 0; y < mapHeight; y++) {
 				nodes[x][y] = new Node(x, y, null);
@@ -60,7 +60,7 @@ public class Pathfinder {
 		}
 	}
 	
-	public boolean findPath(Vector2 startingPosition, Vector2 targetPosition) {
+	public static Node[] findPath(Vector2 startingPosition, Vector2 targetPosition) {
 		loadNodes();
 //		System.out.println("(findPath): working!");
 		
@@ -91,21 +91,23 @@ public class Pathfinder {
 				Node node = currentNode.getParentNode();
 				reconstructPath(navigatedNodes, currentNode);
 				int cuntar = 0;
+				
 				if(node.getParentNode() == null){
-					System.out.println("the GetParent is null!");
-					return false;
-				}else if(node.getParentNode() != null){
+//					System.out.println("the GetParent is null!");
+					return null;
+				}else {
 					while(node.getParentNode() != null && !node.getParentNode().equals(startingPosition)){
 						path[cuntar] = node;
 						node = node.getParentNode();
 						cuntar++;
 					}
-				}if(node.getParentNode() == null){
-//					System.out.println("the GetParent is null!");
-					return false;
 				}
-//				System.out.println("(findPath): Found the path!");
-				return true;
+				
+//				if(node.getParentNode() == null){
+//					System.out.println("the GetParent is null!");
+//					return null;
+//				}
+				return path;
 			}
 			
 			openList.remove(currentNode);
@@ -138,14 +140,14 @@ public class Pathfinder {
 			}
 		}
 		
-		return false;
+		return null;
 	}
 	
-	private void reconstructPath(Node[][] navigatedNodes, Node currentNode) {
+	private static void reconstructPath(Node[][] navigatedNodes, Node currentNode) {
 		
 	}
 	
-	private List<Node> getNeighborNodes(Node parentNode) {
+	private static List<Node> getNeighborNodes(Node parentNode) {
 		List<Node> neighborNodes = new ArrayList<Node>();
 		
 		if (parentNode.y + 1 < nodes[parentNode.x].length && getTileAt(nodes[parentNode.x][parentNode.y + 1].x , nodes[parentNode.x][parentNode.y + 1].y).getProperties().containsKey("walkable")){
@@ -163,25 +165,25 @@ public class Pathfinder {
 		return neighborNodes; 
 	}
 	
-	private int distanceToNode(Node nodeA, Node nodeB) {
+	private static int distanceToNode(Node nodeA, Node nodeB) {
 		return Math.abs(nodeA.x - nodeB.x) + Math.abs(nodeA.y - nodeB.y);
 	}
 	
-	private boolean nodeIsWalkable(int x, int y) {
+	private static boolean nodeIsWalkable(int x, int y) {
 		if (nodeLayer.getCell(x, y) == null) {
 			return false;
 		}
 		
 		return true;
 	}
-	private Node getNodeAt(float x, float y) {
+	private static Node getNodeAt(float x, float y) {
 		int cellx = (int)x / (int)nodeLayer.getTileWidth();
 		int celly = (int)y / (int)nodeLayer.getTileHeight();
 //		System.out.println(cellx + " and " + celly);
 		return getNodeAt(cellx, celly);
 	}
 	
-	private Node getNodeAt(int x, int y) {
+	private static Node getNodeAt(int x, int y) {
 		if (x < 0 || x >= mapWidth) {
 			return null;
 		}
@@ -191,14 +193,14 @@ public class Pathfinder {
 		return nodes[x][y];
 	}
 	
-	private Cell getCellAt(float x, float y) {
+	private static Cell getCellAt(float x, float y) {
 		int cellX = (int)x / (int)nodeLayer.getTileWidth();
 		int cellY = (int)y / (int)nodeLayer.getTileHeight();
 		
 		return nodeLayer.getCell(cellX, cellY);
 	}
 	
-	private TiledMapTile getTileAt(float x, float y) {
+	private static TiledMapTile getTileAt(float x, float y) {
 		x = x * nodeLayer.getTileWidth();
 		y = y * nodeLayer.getTileHeight();
 		
@@ -206,14 +208,14 @@ public class Pathfinder {
 		return cell != null? cell.getTile() : null;
 	}
 	
-	public int findLastNotNullInArray(){
+	public static int findLastNotNullInArray(){
 		int i = 0;
 		while(path[i] != null){
 			i++;
 		}
 		return i - 1;
 	}
-	public Node[] getPath() {
+	public static Node[] getPath() {
 		return path;
 	}
 
