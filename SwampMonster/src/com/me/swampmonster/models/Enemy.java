@@ -84,9 +84,9 @@ public class Enemy extends AbstractGameObject{
 					orientOnPath();
 					standAnimation(88, 72, 80, 64);
 					
-					if(path.length < 3){
-						setState(State.STANDARD);
-					}
+//					if(path.length == 0){
+//						setState(State.STANDARD);
+//					}
 				}
 		// STANDARD!
 			if(state.equals(State.STANDARD)){
@@ -165,21 +165,26 @@ public class Enemy extends AbstractGameObject{
 	}
 
 	private void onPathMovingAndCollisionDetection() {
-		moveLeftOnPath();
-		Collidable collidable = collisionCheckerLeft();
-		collisionCheck(collidable);
+		if(cunter >= 0){
+			moveLeftOnPath();
+			Collidable collidable = collisionCheckerLeft();
+			collisionCheck(collidable);
+		
+			moveRightOnPath();
+			collidable = collisionCheckerRight();
+			collisionCheck(collidable);
 
-		moveRightOnPath();
-		collidable = collisionCheckerRight();
-		collisionCheck(collidable);
+			moveDownOnPath();
+			collidable = collisionCheckerBottom();
+			collisionCheck(collidable);
 
-		moveDownOnPath();
-		collidable = collisionCheckerBottom();
-		collisionCheck(collidable);
-
-		moveUpOnPath();
-		collidable = collisionCheckerTop();
-		collisionCheck(collidable);
+			moveUpOnPath();
+			collidable = collisionCheckerTop();
+			collisionCheck(collidable);
+			if(cunter == 0){
+				state = State.STANDARD;
+			}
+		}
 	}
 
 
@@ -317,12 +322,12 @@ public class Enemy extends AbstractGameObject{
 	}
 
 	private void orientOnPath() {
-		if(path[cunter] != null && position.x >= (path[cunter].x*16)-1 && position.x <= (path[cunter].x*16)+1
+		if(cunter>=0 && path[cunter] != null && position.x >= (path[cunter].x*16)-1 && position.x <= (path[cunter].x*16)+1
 				&& position.y <= (path[cunter].y*16)+1 && position.y >= (path[cunter].y*16)-1){
 			if(cunter>=0){
 				path[cunter] = null;
 				cunter--;
-			}else{
+			}else if(cunter==0){
 				state = State.STANDARD;
 			}
 		}
