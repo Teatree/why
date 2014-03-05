@@ -222,7 +222,7 @@ public class Enemy extends AbstractGameObject{
 		}
 	}
 
-
+ // because fuck 4A games
 	private Collidable collisionCheckerTop() {
 		Collidable collidable;
 		collidable = CollisionHelper.isCollidable(position.x+sprite.getWidth(), (position.y+sprite.getHeight()/2)-1, theController.collisionLayer);
