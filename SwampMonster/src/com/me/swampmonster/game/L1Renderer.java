@@ -109,31 +109,31 @@ public class L1Renderer {
 		}
 		
 		// Temporary deBug feature
-//		sr.begin(ShapeType.Line);
-//		sr.setColor(Color.GREEN);
-//		sr.circle(theController.level1.getEnemy().getPosition().x+8, theController.level1.getEnemy().getPosition().y+16, theController.level1.getEnemy().getgReenAura().radius);
-//		sr.setColor(Color.BLUE);
-//		sr.circle(theController.level1.getEnemy().getoRangeAura().x+8, theController.level1.getEnemy().getoRangeAura().y+16, theController.level1.getEnemy().getoRangeAura().radius);
-//		sr.setColor(Color.WHITE);
-//		sr.rect(theController.level1.getPlayer().getPosition().x, theController.level1.getPlayer().getPosition().y,
-//				theController.level1.getPlayer().getRectanlge().width, theController.level1.getPlayer().getRectanlge().height);
-//		sr.setColor(Color.WHITE);
-//		if(Gdx.input.isTouched() && theController.level1.getPlayer().getState() == State.GUNMOVEMENT && theController.gui.getCroshair().isAiming()){
-//			sr.line(theController.V3playerPos, theController.V3point);
-//		}
-//		sr.end();
-//		sr.begin(ShapeType.Filled);
-//		sr.setColor(Color.RED);
-//		if(theController.level1.getEnemy().getPath() != null){
-//			for(Node n : theController.level1.getEnemy().getPath()){
-//				if(n != null){
-//					sr.rect((n.x*16)+6, (n.y*16)+6, 4, 4);
-//				}
-//			}
-//		}
-//		sr.setColor(Color.BLACK);
-//		sr.rect(theController.touchPos.x, theController.touchPos.y, 1, 1);
-//		sr.end();
+		sr.begin(ShapeType.Line);
+		sr.setColor(Color.GREEN);
+		sr.circle(theController.level1.getEnemy().getPosition().x+8, theController.level1.getEnemy().getPosition().y+16, theController.level1.getEnemy().getgReenAura().radius);
+		sr.setColor(Color.BLUE);
+		sr.circle(theController.level1.getEnemy().getoRangeAura().x+8, theController.level1.getEnemy().getoRangeAura().y+16, theController.level1.getEnemy().getoRangeAura().radius);
+		sr.setColor(Color.WHITE);
+		sr.rect(theController.level1.getPlayer().getPosition().x, theController.level1.getPlayer().getPosition().y,
+				theController.level1.getPlayer().getRectanlge().width, theController.level1.getPlayer().getRectanlge().height);
+		sr.setColor(Color.WHITE);
+		if(Gdx.input.isTouched() && theController.level1.getPlayer().getState() == State.GUNMOVEMENT && theController.gui.getCroshair().isAiming()){
+			sr.line(theController.V3playerPos, theController.V3point);
+		}
+		sr.end();
+		sr.begin(ShapeType.Filled);
+		sr.setColor(Color.RED);
+		if(theController.level1.getEnemy().getPath() != null){
+			for(Node n : theController.level1.getEnemy().getPath()){
+				if(n != null){
+					sr.rect((n.x*16)+6, (n.y*16)+6, 4, 4);
+				}
+			}
+		}
+		sr.setColor(Color.BLACK);
+		sr.rect(theController.touchPos.x, theController.touchPos.y, 1, 1);
+		sr.end();
 		// Temporary deBug feature
 		
 		Gdx.gl.glEnable(GL20.GL_BLEND);

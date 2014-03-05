@@ -19,7 +19,9 @@ public class Enemy extends AbstractGameObject{
 	State state = State.STANDARD;
 	int cunter;
 	int timer;
+	int timeDead = 0;
 	int timer2;
+	int number;
 	
 	public Circle gReenAura;
 	public Circle oRangeAura;
@@ -35,6 +37,8 @@ public class Enemy extends AbstractGameObject{
 		animationsStandard.put(State.PURSUIT, new AnimationControl("data/Skelenten.png", 8, 16, 4)); 
 		animationsStandard.put(State.STANDARD, new AnimationControl("data/Skelenten.png", 8, 16, 4)); 
 		animationsStandard.put(State.ATTACKING, new AnimationControl("data/Skelenten.png", 8, 16, 4)); 
+		animationsStandard.put(State.ANIMATING, new AnimationControl("data/Skelenten.png", 8, 16, 4)); 
+		animationsStandard.put(State.DEAD, new AnimationControl("data/Skelenten.png", 8, 16, 4)); 
 		oldPos = position;
 		playerMovementSpeed = 0.3f;
 		// Timer is for the length of the actual animation
@@ -42,6 +46,8 @@ public class Enemy extends AbstractGameObject{
 		timer = 0;
 		timer2 = 0;
 		path = new Node[99];
+		
+		number = 0;
 		
 		sprite = new Sprite(animationsStandard.get(state.STANDARD).getCurrentFrame());
 	}
@@ -56,8 +62,6 @@ public class Enemy extends AbstractGameObject{
 		oRangeAura.y = position.y;
 		
 		HashMap<State, AnimationControl> animations = animationsStandard;
-		
-		System.out.println(state);
 		
 		if(!state.equals(State.STANDARD)){
 			timer = 0;
@@ -84,6 +88,8 @@ public class Enemy extends AbstractGameObject{
 				        
 					orientOnPath();
 					standAnimation(88, 72, 80, 64);
+					
+					
 					
 //					if(path.length == 0){
 //						setState(State.STANDARD);
@@ -136,6 +142,25 @@ public class Enemy extends AbstractGameObject{
             		timer2 = 0;
             	}
 		}
+			//ANIMATING
+			if(state.equals(State.ANIMATING)){
+//				System.out.println(" (PLAYER): I'm currently in ANIMATING state");
+				
+			}
+			//DEAD
+			if(state.equals(State.DEAD)){
+//				System.out.println(" (PLAYER): I'm DEAD :(");
+				if(timeDead < 89){
+					sprite = new Sprite(animations.get(state.ANIMATING).getCurrentFrame());
+					currentFrame = animations.get(state).doComplexAnimation(96, 2f, 0.02f);
+					
+					sprite.setRegion(animations.get(state).getCurrentFrame());
+					sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
+					timeDead++;
+				}
+				
+				dead = true;
+			}
 	}
 
 	private void inflictOnThe(int standing, int animation) {
@@ -188,6 +213,10 @@ public class Enemy extends AbstractGameObject{
 			collidable = collisionCheckerTop();
 			collisionCheck(collidable);
 			if(cunter == 0){
+				System.out.println("happened");
+				if(number < 99){
+					clear();
+				}
 				state = State.STANDARD;
 			}
 		}
@@ -333,8 +362,6 @@ public class Enemy extends AbstractGameObject{
 			if(cunter>=0){
 				path[cunter] = null;
 				cunter--;
-			}else if(cunter==0){
-				state = State.STANDARD;
 			}
 		}
 	}
@@ -344,9 +371,16 @@ public class Enemy extends AbstractGameObject{
 	private void contact(Collidable collidable) {
 		collidable.doCollide(this);
 		path = Pathfinder.findPath(position, theController.level1.getPlayer().position);
-		System.out.println(position.x);
-		System.out.println(theController.level1.getPlayer().position.x);
+//		System.out.println(position.x);
+//		System.out.println(theController.level1.getPlayer().position.x);
 		state = State.PURSUIT;
+	}
+	private void clear(){
+		if(number < 99){
+			path[number] = null;
+			number++;
+			System.out.println("clear() informtaion: " + "path.length = " + path.length);
+		}
 	}
 
 	public Vector2 getOldPos() {

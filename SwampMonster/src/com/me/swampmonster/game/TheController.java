@@ -110,7 +110,7 @@ public class TheController extends InputAdapter{
 		if (Gdx.input.isKeyPressed(Keys.W) && !cameraHelper.hasTarget) moveCamera(0, camMoveSpeed);
 		if (Gdx.input.isKeyPressed(Keys.S) && !cameraHelper.hasTarget) moveCamera(0,-camMoveSpeed);
 		if (Gdx.input.isKeyPressed(Keys.O)){
-			level1.getPlayer().setState(State.ACTIVATING);
+			level1.getEnemy().setState(State.DEAD);
 		}
 		if (Gdx.input.isKeyPressed(Keys.O) && Gdx.input.isKeyPressed(Keys.CONTROL_RIGHT)){
 			level1.getPlayer().setState(State.ANIMATINGLARGE);
