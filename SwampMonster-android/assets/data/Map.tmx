@@ -212,6 +212,16 @@
     <property name="blocked" value="blocked"/>
    </properties>
   </tile>
+  <tile id="513">
+   <properties>
+    <property name="walkable" value="walkable"/>
+   </properties>
+  </tile>
+  <tile id="514">
+   <properties>
+    <property name="walkable" value="walkable"/>
+   </properties>
+  </tile>
   <tile id="577">
    <properties>
     <property name="walkable" value="walkable"/>

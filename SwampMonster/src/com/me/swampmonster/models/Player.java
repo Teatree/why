@@ -10,6 +10,7 @@ import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.me.swampmonster.animations.AnimationControl;
 import com.me.swampmonster.game.TheController;
 import com.me.swampmonster.game.collision.Collidable;
@@ -29,7 +30,8 @@ public class Player extends AbstractGameObject{
 	// responsible for what kind of animation are to be played in the Animating State, to be changed to something better
 	boolean maskOn;
 	boolean justSpawned;
-	boolean shooting;
+	public boolean shooting;
+	Vector3 shotDir;
 	
 	public Player(Vector2 position){
 		this.position = position;
@@ -39,7 +41,6 @@ public class Player extends AbstractGameObject{
 		circle = new Circle();
 		circle.radius = 16;
 		rectanlge = new Rectangle();
-		
 		
 		animationsStandard.put(state.STANDARD, new AnimationControl(nastyaSpriteStandard, 8, 32, 7)); 
 		animationsStandard.put(state.ANIMATING, new AnimationControl(nastyaSpriteStandard, 8, 32, 8)); 
@@ -58,6 +59,7 @@ public class Player extends AbstractGameObject{
 		health = 6;
 		oxygen = 96;
 		sprite = new Sprite(animationsStandard.get(state.STANDARD).getCurrentFrame());
+		shotDir = new Vector3();
 	}
 	
 	  public Vector2 getPosition() {
@@ -243,11 +245,10 @@ public class Player extends AbstractGameObject{
 				
 			if(!Gdx.input.isTouched() && theController.gui.getCroshair().isAiming()){
 				shooting = true;
-				System.out.println("shooting: " + shooting);
+				
 			}
 			if(!theController.gui.getCroshair().isAiming() && timeShooting == 0){
 				shooting = false;
-				System.out.println("shooting: " + shooting);
 			}
 			
 		}
@@ -274,7 +275,13 @@ public class Player extends AbstractGameObject{
 			
 			sprite.setRegion(animations.get(state).getCurrentFrame());
 			sprite.setBounds(sprite.getX(), sprite.getY(), 32, 32);
+			
 			timeShooting++;
+		}
+		if(shooting && timeShooting < 2){
+			shotDir.x = theController.V3point.x;
+			shotDir.y = theController.V3point.y;
+			theController.projectile.setPosition(new Vector2(theController.level1.getPlayer().getPosition().x, theController.level1.getPlayer().getPosition().y));
 		}
 		if(shooting && timeShooting > 29){
 			animations.get(state).setCurrentFrame(currentFrame);
@@ -541,6 +548,14 @@ public class Player extends AbstractGameObject{
 
 	public void setJustSpawned(boolean justSpawned) {
 		this.justSpawned = justSpawned;
+	}
+
+	public Vector3 getShotDir() {
+		return shotDir;
+	}
+
+	public void setShotDir(Vector3 shotDir) {
+		this.shotDir = shotDir;
 	}
 	
 }

@@ -94,10 +94,14 @@ public class L1Renderer {
 		
 		batch.begin();
 		if(Gdx.input.isTouched() && theController.level1.getPlayer().getState() == State.GUNMOVEMENT && theController.gui.getCroshair().isAiming()){
-			batch.draw(theController.gui.getCroshair().getSprite(), theController.getV3point().x, theController.getV3point().y, 
+			batch.draw(theController.gui.getCroshair().getSprite(), theController.getV3point().x-16, theController.getV3point().y-16, 
 					theController.gui.getCroshair().getSprite().getWidth(), 
 					theController.gui.getCroshair().getSprite().getHeight());
 		}
+		// temporary drawing of a projectile
+		batch.draw(theController.projectile.getSprite(), theController.projectile.getPosition().x, theController.projectile.getPosition().y, 
+				theController.projectile.getSprite().getWidth(), theController.projectile.getSprite().getHeight());
+		
 		batch.end();
 		
 		if(theController.level1.getEnemy().getPosition().y+20 < theController.level1.getPlayer().getPosition().y+20){
@@ -118,12 +122,13 @@ public class L1Renderer {
 		sr.rect(theController.level1.getPlayer().getPosition().x, theController.level1.getPlayer().getPosition().y,
 				theController.level1.getPlayer().getRectanlge().width, theController.level1.getPlayer().getRectanlge().height);
 		sr.setColor(Color.WHITE);
-		if(Gdx.input.isTouched() && theController.level1.getPlayer().getState() == State.GUNMOVEMENT && theController.gui.getCroshair().isAiming()){
-			sr.line(theController.V3playerPos, theController.V3point);
+		if(theController.level1.getPlayer().getState() == State.GUNMOVEMENT){
+			sr.line(theController.V3playerPos, theController.level1.getPlayer().getShotDir());
 		}
 		sr.end();
 		sr.begin(ShapeType.Filled);
 		sr.setColor(Color.RED);
+		sr.circle(theController.projectile.getCircle().x, theController.projectile.getCircle().y, theController.projectile.getCircle().radius);
 		if(theController.level1.getEnemy().getPath() != null){
 			for(Node n : theController.level1.getEnemy().getPath()){
 				if(n != null){

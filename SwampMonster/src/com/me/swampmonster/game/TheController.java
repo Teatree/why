@@ -14,6 +14,7 @@ import com.me.swampmonster.GUI.GUI;
 import com.me.swampmonster.game.collision.CollisionHelper;
 import com.me.swampmonster.models.L1;
 import com.me.swampmonster.models.AbstractGameObject.State;
+import com.me.swampmonster.models.Projectile;
 import com.me.swampmonster.utils.CameraHelper;
 
 public class TheController extends InputAdapter{
@@ -31,6 +32,7 @@ public class TheController extends InputAdapter{
 	public Vector2 randVector2;
 	public Vector2 supportVector2; // maybe not needed here; it's for the enemies to no move large distance to the player from the start
 	Random randomGenerator = new Random();
+	public Projectile projectile;
 	
 	
 	//temp
@@ -67,6 +69,7 @@ public class TheController extends InputAdapter{
 		V3playerPos.y = level1.getPlayer().getPosition().y + level1.getPlayer().getCircle().radius/2;
 		V3playerPos.z = 0;
 		
+		projectile.update();
 //		l1Renderer.getCam().position.x = level1.getPlayer().getPosition().x;
 //		l1Renderer.getCam().position.y = level1.getPlayer().getPosition().y;
 	}
@@ -99,6 +102,9 @@ public class TheController extends InputAdapter{
 		point = new Vector2();
 		V3point = new Vector3();
 		V3playerPos = new Vector3();
+		projectile = new Projectile(new Vector2(level1.getPlayer().getPosition().x, level1.getPlayer().getPosition().y));
+		projectile.setTheController(this);
+		projectile.setPosition(new Vector2(level1.getPlayer().getPosition().x, level1.getPlayer().getPosition().y));
 	}
 
 	private void handleDebugInput(float deltaTime) {
@@ -216,7 +222,13 @@ public class TheController extends InputAdapter{
 		if(level1.getPlayer().getState() == State.DEAD){
 			level1.getEnemy().setState(State.STANDARD);
 		}
-
+		// remember thius might be your chance.
+		
+//		if(level1.getEnemy().getCircle().overlaps(projectile.getCircle())){
+//			level1.getEnemy().setState(State.DEAD);
+//		}
+		
+//		this little thing is not done!
 	}
 	
 	private void restarter(){
