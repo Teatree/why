@@ -150,19 +150,19 @@ public class L1Renderer {
 				staticSr.rect(r.x, r.y, r.width, r.height);
 			}
 		}
-		if(theController.hurt){
+		if(theController.level1.getPlayer().isHurt()){
 			int j = 0;
 			if(theController.level1.getPlayer().getHealth()>1){
 				j = theController.level1.getPlayer().getHealth()-1;
 			}
-			theController.hurt = true;
+			theController.level1.getPlayer().setHurt(true);
 			staticSr.setColor(new Color(200, 0, 0, ass));
 			if(theController.gui.getHealthBar().getHealthBarRect()[j]!=null){
 				staticSr.rect(theController.gui.getHealthBar().getHealthBarRect()[j].x+16, theController.gui.getHealthBar().getHealthBarRect()[j].y, 
 						theController.gui.getHealthBar().getHealthBarRect()[j].width, theController.gui.getHealthBar().getHealthBarRect()[j].height);
 			}
 			ass = ass - 0.02f;
-		}else if(!theController.hurt){
+		}else if(!theController.level1.getPlayer().isHurt()){
 			ass = 1f;
 		}
 		if(theController.level1.getPlayer().getOxygen()>0){

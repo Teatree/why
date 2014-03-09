@@ -14,6 +14,7 @@ import com.me.swampmonster.GUI.GUI;
 import com.me.swampmonster.game.collision.CollisionHelper;
 import com.me.swampmonster.models.L1;
 import com.me.swampmonster.models.AbstractGameObject.State;
+import com.me.swampmonster.models.Player;
 import com.me.swampmonster.models.Projectile;
 import com.me.swampmonster.utils.CameraHelper;
 
@@ -36,7 +37,6 @@ public class TheController extends InputAdapter{
 	
 	
 	//temp
-	public boolean hurt;
 	public boolean restart;
 	public boolean NalreadyPressed = false;
 	// temp
@@ -50,7 +50,17 @@ public class TheController extends InputAdapter{
 	public void update(float deltaTime){
 		restarter();
 		cameraHelper.upadate(V3playerPos.x, V3playerPos.y, 5);
-		level1.update();
+		level1.update(gui.getCroshair().isAiming(), touchPos, V3point, collisionLayer);
+		
+		// I don't fucking know if thsi is better, I just spent 2 hours on this solution, so deal with it!
+		if(Gdx.input.justTouched() && !level1.getPlayer().isJustSpawned()){
+			inputNav();
+		}
+		
+		if(level1.getPlayer().shooting && level1.getPlayer().getTimeShooting() < 2){
+			projectile.setPosition(new Vector2(level1.getPlayer().getPosition()));
+		}
+		
 		gui.update(level1.getPlayer().getHealth());
 		handleDebugInput(deltaTime);
 		pathfindingStuff();
@@ -75,20 +85,31 @@ public class TheController extends InputAdapter{
 //		l1Renderer.getCam().position.y = level1.getPlayer().getPosition().y;
 	}
 
+	private void inputNav() {
+		if(!level1.getPlayer().getState().equals(State.DEAD)){
+			if(!doesIntersect(gui.getWeaponizer().getPosition(), gui.getWeaponizer().getCircle().radius)){
+				touchPos.y = Gdx.input.getY();
+				touchPos.x = Gdx.input.getX();
+				l1Renderer.getCam().unproject(touchPos);
+				touchPos.z = 0;
+			}else if(Intersector.intersectSegmentCircle(point, point, gui.getWeaponizer().getPosition(), gui.getWeaponizer().getCircle().radius*gui.getWeaponizer().getCircle().radius) == true){
+	//			System.out.println("yes it intersects");
+			}
+		}
+	}
 	
 	public void init(){
-		hurt = false;
 		Gdx.input.setInputProcessor(this);
 		cameraHelper = new CameraHelper();
 		randVector2 = new Vector2();
 		level1 = new L1();
 		Pathfinder.setTiledMap(level1.getBunker().getMap());
-		level1.getPlayer().setTheController(this);
 		level1.getPlayer().setPosition(new Vector2 (180f,380f));
 		level1.getPlayer().getSprite().setSize(level1.getPlayer().getSprite().getWidth()/2, level1.getPlayer().getSprite().getHeight()/2);
 		level1.getEnemy().setTheController(this);
 		level1.getEnemy().setPosition(new Vector2 (110f,100f));
 		level1.getEnemy().getSprite().setSize(level1.getEnemy().getSprite().getWidth()/2, level1.getEnemy().getSprite().getHeight()/2);
+		level1.getPlayer().setHurt(false);
 		
 		collisionHandler = new CollisionHelper();
 		touchPos = new Vector3(level1.getPlayer().getPosition().x+10, level1.getPlayer().getPosition().y, 0);
@@ -137,7 +158,7 @@ public class TheController extends InputAdapter{
 		if (Gdx.input.isKeyPressed(Keys.E)) cameraHelper.addZoom(-camZoomSpeed);
 		if (Gdx.input.isKeyPressed(Keys.F)) cameraHelper.setZoom(1);
 		if (Gdx.input.isKeyPressed(Keys.N) && !NalreadyPressed){
-			hurt = true;
+			level1.getPlayer().setHurt(true);
 			timer2=80; // Remember that this one is supposed to be the same as the pending time of hurt state animation
 			System.out.println("Health: " + level1.getPlayer().getHealth());
 			NalreadyPressed = true;
@@ -210,10 +231,10 @@ public class TheController extends InputAdapter{
 				hurt();
 			}
 			timer2--;
-		}else if(timer2 == 0 && hurt){
+		}else if(timer2 == 0 && level1.getPlayer().isHurt()){
 		}
 		
-		if(level1.getPlayer().getOxygen() <= 0 && !hurt){
+		if(level1.getPlayer().getOxygen() <= 0 && !level1.getPlayer().isHurt()){
 			timer2 = 80;
 		}
 		
