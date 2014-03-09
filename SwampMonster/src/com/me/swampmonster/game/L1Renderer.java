@@ -128,7 +128,7 @@ public class L1Renderer {
 		sr.end();
 		sr.begin(ShapeType.Filled);
 		sr.setColor(Color.RED);
-		sr.circle(theController.projectile.getCircle().x, theController.projectile.getCircle().y, theController.projectile.getCircle().radius);
+//		sr.circle(theController.projectile.getCircle().x, theController.projectile.getCircle().y, theController.projectile.getCircle().radius);
 		if(theController.level1.getEnemy().getPath() != null){
 			for(Node n : theController.level1.getEnemy().getPath()){
 				if(n != null){

@@ -70,6 +70,7 @@ public class TheController extends InputAdapter{
 		V3playerPos.z = 0;
 		
 		projectile.update();
+				
 //		l1Renderer.getCam().position.x = level1.getPlayer().getPosition().x;
 //		l1Renderer.getCam().position.y = level1.getPlayer().getPosition().y;
 	}
@@ -222,13 +223,7 @@ public class TheController extends InputAdapter{
 		if(level1.getPlayer().getState() == State.DEAD){
 			level1.getEnemy().setState(State.STANDARD);
 		}
-		// remember thius might be your chance.
 		
-//		if(level1.getEnemy().getCircle().overlaps(projectile.getCircle())){
-//			level1.getEnemy().setState(State.DEAD);
-//		}
-		
-//		this little thing is not done!
 	}
 	
 	private void restarter(){

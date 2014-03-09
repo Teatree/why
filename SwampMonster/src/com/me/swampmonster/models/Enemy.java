@@ -61,6 +61,14 @@ public class Enemy extends AbstractGameObject{
 		oRangeAura.x = position.x;
 		oRangeAura.y = position.y;
 		
+		// remember thius might be your chance.
+		
+		if(oRangeAura.overlaps(theController.projectile.getCircle())){
+			state = State.DEAD;
+		}
+		
+//		this little thing is not done!
+		
 		HashMap<State, AnimationControl> animations = animationsStandard;
 		
 		if(!state.equals(State.STANDARD)){
