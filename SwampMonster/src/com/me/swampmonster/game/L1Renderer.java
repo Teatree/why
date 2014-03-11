@@ -100,8 +100,10 @@ public class L1Renderer {
 		}
 		// temporary drawing of a projectile
 		batch.draw(theController.projectile.getSprite(), theController.projectile.getPosition().x, theController.projectile.getPosition().y, 
-				theController.projectile.getSprite().getWidth(), theController.projectile.getSprite().getHeight());
-		
+				theController.projectile.getSprite().getOriginX(), theController.projectile.getSprite().getOriginY(),
+				theController.projectile.getSprite().getWidth(), theController.projectile.getSprite().getHeight(), 
+				1,1,
+				theController.projectile.getSprite().getRotation());
 		batch.end();
 		
 		if(theController.level1.getEnemy().getPosition().y+20 < theController.level1.getPlayer().getPosition().y+20){
@@ -202,11 +204,7 @@ public class L1Renderer {
 		if(theController.doesIntersect(new Vector2(416,255), theController.level1.getPlayer().getCircle().radius*2)){
 			staticSr.setColor(Color.WHITE);
 		}
-		if(theController.level1.getPlayer().getState() == State.STANDARD){
-			staticSr.circle(400, 255, theController.level1.getPlayer().getCircle().radius*2);
-		}else if(theController.level1.getPlayer().getState() == State.GUNMOVEMENT){
-			staticSr.circle(416, 255, theController.level1.getPlayer().getCircle().radius*2);
-		}
+		staticSr.circle(400, 255, theController.level1.getPlayer().getCircle().radius*2);
 		staticSr.end();
 		
 		staticBatch.begin();

@@ -45,7 +45,7 @@ public class Player extends AbstractGameObject{
 		
 		animationsStandard.put(state.STANDARD, new AnimationControl(nastyaSpriteStandard, 8, 32, 7)); 
 		animationsStandard.put(state.ANIMATING, new AnimationControl(nastyaSpriteStandard, 8, 32, 8)); 
-		animationsStandard.put(state.ANIMATINGLARGE, new AnimationControl(nastyaSpriteStandard, 4, 32, 8)); 
+		animationsStandard.put(state.ANIMATINGLARGE, new AnimationControl(nastyaSpriteStandard, 8, 32, 8)); 
 		animationsStandard.put(state.ACTIVATING, new AnimationControl(nastyaSpriteStandard, 8, 32, 8)); 
 		animationsStandard.put(state.HURT, new AnimationControl(nastyaSpriteStandard, 8, 32, 8)); 
 		animationsStandard.put(state.GUNMOVEMENT, new AnimationControl(nastyaSpriteGun, 8, 16, 7)); 
@@ -108,10 +108,10 @@ public class Player extends AbstractGameObject{
 			if(doing.equals("puttingGunAway")){
 				if(time < 83){
 					sprite = new Sprite(animations.get(state.GUNMOVEMENT).getCurrentFrame());
-					currentFrame = animations.get(state.GUNMOVEMENT).doComplexAnimation(40, 2f, 0.013f);
+					currentFrame = animations.get(state.GUNMOVEMENT).doComplexAnimation(40, 1f, Gdx.graphics.getDeltaTime()*0.79f);
 					
 					sprite.setRegion(animations.get(state.GUNMOVEMENT).getCurrentFrame());
-					sprite.setBounds(sprite.getX(), sprite.getY(), 32, 32);
+					sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
 					time++;
 				}
 				else if(doing.equals("pullingGunOut")){
@@ -126,10 +126,10 @@ public class Player extends AbstractGameObject{
 			if(doing.equals("pullingGunOut")){
 				if(time < 83){
 					sprite = new Sprite(animations.get(state.ANIMATINGLARGE).getCurrentFrame());
-					currentFrame = animations.get(state).doComplexAnimation(72, 1.4f, 0.017f);
+					currentFrame = animations.get(state).doComplexAnimation(64, 1f, Gdx.graphics.getDeltaTime()*0.79f);
 					
 					sprite.setRegion(animations.get(state).getCurrentFrame());
-					sprite.setBounds(sprite.getX(), sprite.getY(), 32, 32);
+					sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
 					time++;
 				}
 				else if(doing.equals("pullingGunOut")){
@@ -149,23 +149,6 @@ public class Player extends AbstractGameObject{
 			
 		}
 		
-		//ACTIVATING
-			if(state.equals(State.ACTIVATING)){
-//				System.out.println(" (PLAYER): I'm currently in ANIMATING state");
-				if(time < 62){
-					sprite = new Sprite(animations.get(state.ACTIVATING).getCurrentFrame());
-					currentFrame = animations.get(state).doComplexAnimation(136, 1f, Gdx.graphics.getDeltaTime());
-							
-					sprite.setRegion(animations.get(state).getCurrentFrame());
-					sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
-					time++;
-					}
-				else{
-					time = 0;
-					state = State.STANDARD;
-				}
-			}
-			
 	//HURT
 		if(state.equals(State.HURT)){
 //			System.out.println(" (PLAYER): I'm currently in HURT state");
@@ -211,7 +194,7 @@ public class Player extends AbstractGameObject{
 //			System.out.println(" (PLAYER): I'm currently in GUNMOVEMENT state");
 			sprite = new Sprite(animations.get(state.GUNMOVEMENT).getCurrentFrame());
 			sprite.setRegion(animations.get(state).getCurrentFrame());
-			sprite.setBounds(sprite.getX(), sprite.getY(), 32, 32);
+			sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
 			
 //			
 //			if (!aiming && Gdx.input.justTouched() && !theController.doesIntersect(new Vector2(400,255), circle.radius*2)) {
@@ -272,7 +255,7 @@ public class Player extends AbstractGameObject{
 			currentFrame = animations.get(state).doComplexAnimation(32, 0.5f, 0.001f);
 			
 			sprite.setRegion(animations.get(state).getCurrentFrame());
-			sprite.setBounds(sprite.getX(), sprite.getY(), 32, 32);
+			sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
 			
 			timeShooting++;
 		}
