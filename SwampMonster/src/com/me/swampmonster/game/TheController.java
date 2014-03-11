@@ -273,7 +273,7 @@ public class TheController extends InputAdapter{
 	}
 	
 	public void hurt(){
-		level1.getPlayer().setState(State.HURT);
+		level1.getPlayer().setState(State.STANDARD);
 		if(level1.getPlayer().getHealth()>=0){
 			level1.getPlayer().setHealth(level1.getPlayer().getHealth() - 1);
 		}
