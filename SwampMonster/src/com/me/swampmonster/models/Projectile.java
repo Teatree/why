@@ -14,6 +14,7 @@ public class Projectile extends AbstractGameObject{
 		circle = new Circle();
 		circle.radius = 8;
 	}
+	// git is great !
 	
 	public void update(){
 		circle.x = position.x+8;
