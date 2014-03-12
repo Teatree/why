@@ -22,7 +22,7 @@ public class L1{
 	}
 	public void update(boolean aiming, Vector3 touchPos, Vector3 V3point, TiledMapTileLayer collisionLayer) {
 		player.update(aiming, this.enemy, touchPos, V3point, collisionLayer);
-		this.enemy.update();
+		this.enemy.update(collisionLayer);
 		bunker.update();
 	}
 	

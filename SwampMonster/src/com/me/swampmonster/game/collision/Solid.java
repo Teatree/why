@@ -6,17 +6,17 @@ import com.me.swampmonster.models.AbstractGameObject;
 
 public class Solid implements Collidable{
 
-	public void doCollide(AbstractGameObject abstractGameObject) {
+	public void doCollide(AbstractGameObject abstractGameObject, TiledMapTileLayer collisionLayer) {
 		boolean collisionX = false;
 		boolean collisionY = false; 
         //collision detection
         if(abstractGameObject.getPlayerMovementDirection() == "left"){
         	//left side
-        	collisionX = collidesLeft(abstractGameObject.getTheController().collisionLayer, abstractGameObject);
+        	collisionX = collidesLeft(collisionLayer, abstractGameObject);
 	    }
 	    else if(abstractGameObject.getPlayerMovementDirection() == "right"){
 	    	//right side
-	    	collisionX = collidesRight(abstractGameObject.getTheController().collisionLayer, abstractGameObject);
+	    	collisionX = collidesRight(collisionLayer, abstractGameObject);
 	    }
         //collision result
 	    if(collisionX){
@@ -25,10 +25,10 @@ public class Solid implements Collidable{
 	      //collision detection
 		    if(abstractGameObject.getPlayerMovementDirection() == "up"){
 		    	//top side
-		    	collisionY = collidesTop(abstractGameObject.getTheController().collisionLayer, abstractGameObject);
+		    	collisionY = collidesTop(collisionLayer, abstractGameObject);
 		    }else if(abstractGameObject.getPlayerMovementDirection() == "down"){
 		    	//bottom side
-		    	collisionY = coolidesBottom(abstractGameObject.getTheController().collisionLayer, abstractGameObject);
+		    	collisionY = coolidesBottom(collisionLayer, abstractGameObject);
 		    }
 		    //collision result
 		    if(collisionY){

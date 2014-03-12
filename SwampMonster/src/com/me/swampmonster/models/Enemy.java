@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector2;
 import com.me.swampmonster.AI.Node;
@@ -52,7 +53,7 @@ public class Enemy extends AbstractGameObject{
 		sprite = new Sprite(animationsStandard.get(state.STANDARD).getCurrentFrame());
 	}
 	
-	public void update(){
+	public void update(TiledMapTileLayer collisionLayer){
 		oldPos.x = position.x;
 		oldPos.y = position.y; 
 		
@@ -92,7 +93,7 @@ public class Enemy extends AbstractGameObject{
 							cunter = Pathfinder.findLastNotNullInArray();
 						}
 					
-					onPathMovingAndCollisionDetection();
+					onPathMovingAndCollisionDetection(collisionLayer);
 				        
 					orientOnPath();
 					standAnimation(88, 72, 80, 64);
@@ -110,19 +111,19 @@ public class Enemy extends AbstractGameObject{
             	if(timer == 0 && timer2 == 0){
 	            	moveLeft();
 	            	Collidable collidable = collisionCheckerLeft();
-	            	collisionCheck(collidable);
+	            	collisionCheck(collidable, collisionLayer);
 	            	
 	            	moveRight();
 	            	collidable = collisionCheckerRight();
-	            	collisionCheck(collidable);
+	            	collisionCheck(collidable, collisionLayer);
 	            	
 	            	moveDown();
 	            	collidable = collisionCheckerBottom();
-	            	collisionCheck(collidable);
+	            	collisionCheck(collidable, collisionLayer);
 	            	
 	            	moveUp();
 	            	collidable = collisionCheckerTop();
-	            	collisionCheck(collidable);
+	            	collisionCheck(collidable, collisionLayer);
 //	            	System.out.println("playerDircetion = " + playerMovementDirection);
             	}
             	
@@ -203,23 +204,23 @@ public class Enemy extends AbstractGameObject{
 		}
 	}
 
-	private void onPathMovingAndCollisionDetection() {
+	private void onPathMovingAndCollisionDetection(TiledMapTileLayer collisionLayer) {
 		if(cunter >= 0){
 			moveLeftOnPath();
 			Collidable collidable = collisionCheckerLeft();
-			collisionCheck(collidable);
+			collisionCheck(collidable, collisionLayer);
 		
 			moveRightOnPath();
 			collidable = collisionCheckerRight();
-			collisionCheck(collidable);
+			collisionCheck(collidable, collisionLayer);
 
 			moveDownOnPath();
 			collidable = collisionCheckerBottom();
-			collisionCheck(collidable);
+			collisionCheck(collidable, collisionLayer);
 
 			moveUpOnPath();
 			collidable = collisionCheckerTop();
-			collisionCheck(collidable);
+			collisionCheck(collidable, collisionLayer);
 			if(cunter == 0){
 				System.out.println("happened");
 				if(number < 99){
@@ -301,9 +302,9 @@ public class Enemy extends AbstractGameObject{
 		 }
 	}
 
-	private void collisionCheck(Collidable collidable) {
+	private void collisionCheck(Collidable collidable, TiledMapTileLayer collisionLayer) {
 		if(collidable != null){
-			contact(collidable);
+			contact(collidable, collisionLayer);
 		}
 	}
 
@@ -376,8 +377,8 @@ public class Enemy extends AbstractGameObject{
 	
 	
 	
-	private void contact(Collidable collidable) {
-		collidable.doCollide(this);
+	private void contact(Collidable collidable, TiledMapTileLayer collisionLayer) {
+		collidable.doCollide(this, collisionLayer);
 		path = Pathfinder.findPath(position, theController.level1.getPlayer().position);
 //		System.out.println(position.x);
 //		System.out.println(theController.level1.getPlayer().position.x);

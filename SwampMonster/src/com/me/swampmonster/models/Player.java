@@ -107,7 +107,7 @@ public class Player extends AbstractGameObject{
 			if(doing.equals("puttingGunAway")){
 				if(time < 83){
 					sprite = new Sprite(animations.get(state.GUNMOVEMENT).getCurrentFrame());
-					currentFrame = animations.get(state.GUNMOVEMENT).doComplexAnimation(40, 1f, Gdx.graphics.getDeltaTime()*0.79f);
+					currentFrame = animations.get(state.GUNMOVEMENT).doComplexAnimation(40, 1f, Gdx.graphics.getDeltaTime()*0.7f);
 					
 					sprite.setRegion(animations.get(state.GUNMOVEMENT).getCurrentFrame());
 					sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
@@ -125,7 +125,7 @@ public class Player extends AbstractGameObject{
 			if(doing.equals("pullingGunOut")){
 				if(time < 83){
 					sprite = new Sprite(animations.get(state.ANIMATINGLARGE).getCurrentFrame());
-					currentFrame = animations.get(state).doComplexAnimation(64, 1f, Gdx.graphics.getDeltaTime()*0.79f);
+					currentFrame = animations.get(state).doComplexAnimation(64, 1f, Gdx.graphics.getDeltaTime()*0.7f);
 					
 					sprite.setRegion(animations.get(state).getCurrentFrame());
 					sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
@@ -198,7 +198,7 @@ public class Player extends AbstractGameObject{
 //		    }	
 				
 				if(!aiming){
-					currentFrame = animations.get(state).animate(0);
+					currentFrame = animations.get(state).doComplexAnimation(0, 0.5f, Gdx.graphics.getDeltaTime());
 				}
 				
 				if(aiming){
@@ -207,17 +207,17 @@ public class Player extends AbstractGameObject{
 				}
 				if(aiming && V3point.y > position.y+8 && V3point.x < position.x+32 &&
 						V3point.x > position.x){
-					currentFrame = animations.get(state).animate(24);
+					currentFrame = animations.get(state).doComplexAnimation(24, 0.5f, Gdx.graphics.getDeltaTime());
 				}
 				else if(aiming && V3point.y < position.y+8 && V3point.x < position.x+32 &&
 						V3point.x > position.x){
-					currentFrame = animations.get(state).animate(0);
+					currentFrame = animations.get(state).doComplexAnimation(0, 0.5f, Gdx.graphics.getDeltaTime());
 				}
 				if(aiming && V3point.x < position.x){
-					currentFrame = animations.get(state).animate(8);
+					currentFrame = animations.get(state).doComplexAnimation(8, 0.5f, Gdx.graphics.getDeltaTime());
 				}
 				else if(aiming && V3point.x > position.x+32){
-					currentFrame = animations.get(state).animate(16);
+					currentFrame = animations.get(state).doComplexAnimation(16, 0.5f, Gdx.graphics.getDeltaTime());
 				}
 				
 			if(!Gdx.input.isTouched() && aiming){
@@ -275,25 +275,25 @@ public class Player extends AbstractGameObject{
 		
 		damagedFromTop(collidableUp, animations, enemy, touchPos);
 		collidableUp = collisionCheckerUp(collisionLayer);
-		collisionCheck(collidableUp);
+		collisionCheck(collidableUp, collisionLayer);
 		
 		Collidable collidableDown = null;
 		
 		damageFromBottom(collidableDown, animations, enemy, touchPos);
 		collidableDown = collisionCheckerDown(collisionLayer);
-		collisionCheck(collidableDown);
+		collisionCheck(collidableDown, collisionLayer);
 		
 		Collidable collidableLeft = null;
 		
 		damageFromLeft(collidableLeft, animations, enemy, touchPos);
 		collidableLeft = collisionCheckerLeft(collisionLayer);
-		collisionCheck(collidableLeft);
+		collisionCheck(collidableLeft, collisionLayer);
 		
 		Collidable collidableRight = null;
 		
 		damageFromRight(collidableRight, animations, enemy, touchPos);
 		collidableRight = collisionCheckerRight(collisionLayer);
-		collisionCheck(collidableRight);
+		collisionCheck(collidableRight, collisionLayer);
 	}
 	
 	private void damageFromRight(Collidable collidableUp, HashMap<State, AnimationControl> animations, AbstractGameObject enemy, Vector3 touchPos) {
@@ -349,28 +349,28 @@ public class Player extends AbstractGameObject{
 		
 		moveLeft(collidableLeft, speed, animations, touchPos);
 		collidableLeft = collisionCheckerLeft(collisionLayer);
-		collisionCheck(collidableLeft);
+		collisionCheck(collidableLeft, collisionLayer);
 		
 		// ---------------------right------------------------ //
 		Collidable collidableRight = null;
 		
 		moveRight(collidableRight, speed, animations, touchPos);
 		collidableRight = collisionCheckerRight(collisionLayer);
-		collisionCheck(collidableRight);
+		collisionCheck(collidableRight, collisionLayer);
 		
 		// ---------------------down------------------------ //
 		Collidable collidableDown = null;
 		
 		moveDown(collidableDown, speed, animations, touchPos);
 		collidableDown = collisionCheckerDown(collisionLayer);
-		collisionCheck(collidableDown);
+		collisionCheck(collidableDown, collisionLayer);
 		
 		// ---------------------up------------------------ //
 		Collidable collidableUp = null;
 		
 		moveUp(collidableUp, speed, animations, touchPos);
 		collidableUp = collisionCheckerUp(collisionLayer);
-		collisionCheck(collidableUp);
+		collisionCheck(collidableUp, collisionLayer);
 		
 		standingAnimation(animations);
 	}
@@ -427,9 +427,9 @@ public class Player extends AbstractGameObject{
 			currentFrame = animations.get(state).animate(16);
 		}
 	}
-	private void collisionCheck(Collidable collidableLeft) {
+	private void collisionCheck(Collidable collidableLeft, TiledMapTileLayer collisionLayer) {
 		if(collidableLeft != null){
-			contact(collidableLeft);
+			contact(collidableLeft, collisionLayer);
 		}
 	}
 	private Collidable collisionCheckerLeft(TiledMapTileLayer collisionLayer) {
@@ -467,8 +467,8 @@ public class Player extends AbstractGameObject{
 	}
 	
 	//Collision reaction
-	public void contact(Collidable collidable){
-		collidable.doCollide(this);
+	public void contact(Collidable collidable, TiledMapTileLayer collisionLayer){
+		collidable.doCollide(this, collisionLayer);
 	}
 	public String getPlayerMovementDirection() {
 		return playerMovementDirection;
