@@ -58,7 +58,8 @@ public class TheController extends InputAdapter{
 		}
 		
 		if(level1.getPlayer().shooting && level1.getPlayer().getTimeShooting() < 2){
-			projectile.setPosition(new Vector2(level1.getPlayer().getPosition()));
+			projectile = new Projectile(new Vector2(level1.getPlayer().getPosition().x, level1.getPlayer().getPosition().y), getRotation());
+			projectile.setPosition(new Vector2(level1.getPlayer().getPosition().x, level1.getPlayer().getPosition().y));
 		}
 		
 		gui.update(level1.getPlayer().getHealth());
@@ -79,10 +80,14 @@ public class TheController extends InputAdapter{
 		V3playerPos.y = level1.getPlayer().getPosition().y + level1.getPlayer().getCircle().radius/2;
 		V3playerPos.z = 0;
 		
-		projectile.update();
+		if(projectile != null){
+			projectile.update(level1.getPlayer().getShotDir());
+		}
+		System.out.println(getRotation());
 				
 //		l1Renderer.getCam().position.x = level1.getPlayer().getPosition().x;
 //		l1Renderer.getCam().position.y = level1.getPlayer().getPosition().y;
+		
 	}
 
 	private void inputNav() {
@@ -124,9 +129,7 @@ public class TheController extends InputAdapter{
 		point = new Vector2();
 		V3point = new Vector3();
 		V3playerPos = new Vector3();
-		projectile = new Projectile(new Vector2(level1.getPlayer().getPosition().x, level1.getPlayer().getPosition().y));
-		projectile.setTheController(this);
-		projectile.setPosition(new Vector2(level1.getPlayer().getPosition().x, level1.getPlayer().getPosition().y));
+		
 	}
 
 	private void handleDebugInput(float deltaTime) {
@@ -180,7 +183,14 @@ public class TheController extends InputAdapter{
 		
 	}
 	
-
+	private float getRotation(){
+		double angle1 = Math.atan2(level1.getPlayer().getPosition().y - level1.getPlayer().getPosition().y,
+				level1.getPlayer().getPosition().x - 0);
+		double angle2 = Math.atan2(level1.getPlayer().getPosition().y - level1.getPlayer().getShotDir().y,
+				level1.getPlayer().getPosition().x - level1.getPlayer().getShotDir().x);
+		return (float)(angle2-angle1);
+	}
+	
 	private void pathfindingStuff(){
 		
 //		if(level1.getEnemy().getoRangeAura().overlaps(level1.getPlayer().getCircle()) && level1.getPlayer().getState() != State.DEAD){

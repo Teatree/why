@@ -99,11 +99,13 @@ public class L1Renderer {
 					theController.gui.getCroshair().getSprite().getHeight());
 		}
 		// temporary drawing of a projectile
-		batch.draw(theController.projectile.getSprite(), theController.projectile.getPosition().x, theController.projectile.getPosition().y, 
-				theController.projectile.getSprite().getOriginX(), theController.projectile.getSprite().getOriginY(),
-				theController.projectile.getSprite().getWidth(), theController.projectile.getSprite().getHeight(), 
-				1,1,
+		if(theController.projectile != null){
+			batch.draw(theController.projectile.getSprite(), theController.projectile.getPosition().x, theController.projectile.getPosition().y, 
+					theController.projectile.getSprite().getOriginX(), theController.projectile.getSprite().getOriginY(),
+					theController.projectile.getSprite().getWidth(), theController.projectile.getSprite().getHeight(), 
+					1,1,
 				theController.projectile.getSprite().getRotation());
+		}
 		batch.end();
 		
 		if(theController.level1.getEnemy().getPosition().y+20 < theController.level1.getPlayer().getPosition().y+20){

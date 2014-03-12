@@ -64,7 +64,7 @@ public class Enemy extends AbstractGameObject{
 		
 		// remember thius might be your chance.
 		
-		if(oRangeAura.overlaps(theController.projectile.getCircle())){
+		if(theController.projectile != null && oRangeAura.overlaps(theController.projectile.getCircle())){
 			state = State.DEAD;
 		}
 		

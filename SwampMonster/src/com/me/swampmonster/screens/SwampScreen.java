@@ -31,7 +31,6 @@ public class SwampScreen implements Screen {
 		renderer.setSize(width, height);
 	}
 
-
 	public void hide() {
 	}
 
