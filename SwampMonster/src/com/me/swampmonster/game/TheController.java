@@ -35,7 +35,6 @@ public class TheController extends InputAdapter{
 	Random randomGenerator = new Random();
 	public Projectile projectile;
 	
-	
 	//temp
 	public boolean restart;
 	public boolean NalreadyPressed = false;
@@ -45,6 +44,37 @@ public class TheController extends InputAdapter{
 	
 	public TheController(){
 		init();
+	}
+	
+	// INIT METHOD! 
+	public void init(){
+		Gdx.input.setInputProcessor(this);
+		cameraHelper = new CameraHelper();
+		randVector2 = new Vector2();
+		level1 = new L1();
+		Pathfinder.setTiledMap(level1.getBunker().getMap());
+		level1.getPlayer().setPosition(new Vector2 (180f,380f));
+		level1.getPlayer().getSprite().setSize(level1.getPlayer().getSprite().getWidth()/2, level1.getPlayer().getSprite().getHeight()/2);
+		level1.getEnemy().setTheController(this);
+		level1.getEnemy().setPosition(new Vector2 (110f,100f));
+		level1.getEnemy().getSprite().setSize(level1.getEnemy().getSprite().getWidth()/2, level1.getEnemy().getSprite().getHeight()/2);
+		level1.getPlayer().setHurt(false);
+		
+		collisionHandler = new CollisionHelper();
+		touchPos = new Vector3(level1.getPlayer().getPosition().x+10, level1.getPlayer().getPosition().y, 0);
+		collisionLayer = (TiledMapTileLayer) level1.getBunker().getMap().getLayers().get(0);
+		
+		supportVector2 = new Vector2(level1.getEnemy().getPosition().x+17, level1.getEnemy().getPosition().y+17);
+		gui = new GUI();
+		gui.getCroshair().setTheController(this);
+		gui.getGameoverGUI().setTheController(this);
+		gui.getWeaponizer().setTheController(this);
+		gui.getCroshair().setPosition(new Vector2 (330f,100f));
+		point = new Vector2();
+		V3point = new Vector3();
+		V3playerPos = new Vector3();
+		
+		
 	}
 	
 	public void update(float deltaTime){
@@ -80,14 +110,22 @@ public class TheController extends InputAdapter{
 		V3playerPos.y = level1.getPlayer().getPosition().y + level1.getPlayer().getCircle().radius/2;
 		V3playerPos.z = 0;
 		
-		if(projectile != null){
-			projectile.update(level1.getPlayer().getShotDir());
-		}
-		System.out.println(getRotation());
 				
 //		l1Renderer.getCam().position.x = level1.getPlayer().getPosition().x;
 //		l1Renderer.getCam().position.y = level1.getPlayer().getPosition().y;
 		
+		// This bit is responsible for calculating where exactly the projective has to go when shot.
+		float direction_x = level1.getPlayer().getShotDir().x - V3playerPos.x;
+		float direction_y = level1.getPlayer().getShotDir().y - V3playerPos.y;
+		
+		float length =(float) Math.sqrt(direction_x*direction_x + direction_y*direction_y);
+		direction_x /= length;
+		direction_y /= length;
+		
+		if(projectile != null){
+			projectile.update(level1.getPlayer().getShotDir(), direction_x, direction_y);
+		}
+		// It gives the actual direction to the projective as a parameter.
 	}
 
 	private void inputNav() {
@@ -103,34 +141,6 @@ public class TheController extends InputAdapter{
 		}
 	}
 	
-	public void init(){
-		Gdx.input.setInputProcessor(this);
-		cameraHelper = new CameraHelper();
-		randVector2 = new Vector2();
-		level1 = new L1();
-		Pathfinder.setTiledMap(level1.getBunker().getMap());
-		level1.getPlayer().setPosition(new Vector2 (180f,380f));
-		level1.getPlayer().getSprite().setSize(level1.getPlayer().getSprite().getWidth()/2, level1.getPlayer().getSprite().getHeight()/2);
-		level1.getEnemy().setTheController(this);
-		level1.getEnemy().setPosition(new Vector2 (110f,100f));
-		level1.getEnemy().getSprite().setSize(level1.getEnemy().getSprite().getWidth()/2, level1.getEnemy().getSprite().getHeight()/2);
-		level1.getPlayer().setHurt(false);
-		
-		collisionHandler = new CollisionHelper();
-		touchPos = new Vector3(level1.getPlayer().getPosition().x+10, level1.getPlayer().getPosition().y, 0);
-		collisionLayer = (TiledMapTileLayer) level1.getBunker().getMap().getLayers().get(0);
-		
-		supportVector2 = new Vector2(level1.getEnemy().getPosition().x+17, level1.getEnemy().getPosition().y+17);
-		gui = new GUI();
-		gui.getCroshair().setTheController(this);
-		gui.getGameoverGUI().setTheController(this);
-		gui.getWeaponizer().setTheController(this);
-		gui.getCroshair().setPosition(new Vector2 (330f,100f));
-		point = new Vector2();
-		V3point = new Vector3();
-		V3playerPos = new Vector3();
-		
-	}
 
 	private void handleDebugInput(float deltaTime) {
 		float camMoveSpeed = 50 * deltaTime;
@@ -184,10 +194,10 @@ public class TheController extends InputAdapter{
 	}
 	
 	private float getRotation(){
-		double angle1 = Math.atan2(level1.getPlayer().getPosition().y - level1.getPlayer().getPosition().y,
-				level1.getPlayer().getPosition().x - 0);
-		double angle2 = Math.atan2(level1.getPlayer().getPosition().y - level1.getPlayer().getShotDir().y,
-				level1.getPlayer().getPosition().x - level1.getPlayer().getShotDir().x);
+		double angle1 = Math.atan2(V3playerPos.y - level1.getPlayer().getPosition().y,
+				V3playerPos.x - 0);
+		double angle2 = Math.atan2(V3playerPos.y - level1.getPlayer().getShotDir().y,
+				V3playerPos.x - level1.getPlayer().getShotDir().x);
 		return (float)(angle2-angle1);
 	}
 	
