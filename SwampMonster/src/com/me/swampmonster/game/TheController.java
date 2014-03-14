@@ -91,6 +91,8 @@ public class TheController extends InputAdapter{
 			projectile.setPosition(new Vector2(level1.getPlayer().getPosition().x, level1.getPlayer().getPosition().y));
 		}
 		
+		// morazm
+		
 		gui.update(level1.getPlayer(), point);
 		handleDebugInput(deltaTime);
 		pathfindingStuff();
