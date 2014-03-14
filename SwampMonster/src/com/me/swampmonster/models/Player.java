@@ -19,7 +19,6 @@ import com.me.swampmonster.models.AbstractGameObject.State;
 
 public class Player extends AbstractGameObject{
 	
-	State state = State.STANDARD;
 	int time = 0;
 	int timeDead = 0;
 	private int timeShooting = 0;
@@ -32,9 +31,10 @@ public class Player extends AbstractGameObject{
 	boolean justSpawned;
 	public boolean shooting;
 	Vector3 shotDir;
-	private boolean hurt;
 	
 	public Player(Vector2 position){
+		state = State.STANDARD;
+		
 		this.position = position;
 		nastyaSpriteStandard = "data/NastyaOxygenSheet.png";
 		nastyaSpriteGun = "data/NastyaGunSheet.png";
@@ -56,11 +56,20 @@ public class Player extends AbstractGameObject{
 		maskOn = true;
 		justSpawned = true;
 		shooting = false;
-		health = 6;
-		oxygen = 96;
+		
+		// ***Character stats board***
+		characterStatsBoard();
+		// ***Character stats board***
 		sprite = new Sprite(animationsStandard.get(state.STANDARD).getCurrentFrame());
 		shotDir = new Vector3();
 	}
+	
+	public void characterStatsBoard(){
+		// HEALTH, DAMAGE, OXYGEN, TYPE, TOUGHGUY, COLORSCHEME, ETC.
+		health = 6;
+		oxygen = 96;
+	}
+	
 	
 	  public Vector2 getPosition() {
 		   return position;
@@ -148,28 +157,6 @@ public class Player extends AbstractGameObject{
 			
 		}
 		
-	//HURT
-		if(hurt){
-//			System.out.println(" (PLAYER): I'm currently in HURT state");
-			if(time < 40){
-				sprite = new Sprite(animations.get(state.STANDARD).getCurrentFrame());
-				
-				time++;
-				
-				if(damageType == "enemy"){
-					takingDamageFromEnemy(animations, enemy, touchPos, collisionLayer);
-				}
-				if(damageType == "lackOfOxygen"){
-					currentFrame = animations.get(state.STANDARD).doComplexAnimation(104, 0.2f, Gdx.graphics.getDeltaTime()/2);
-					
-					sprite.setRegion(animations.get(state).getCurrentFrame());
-					sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
-				}else if(time > 39){
-					hurt = false;
-					time = 0;
-				}
-			}
-		}
 		
 	//STANDARD
 		if(state.equals(State.STANDARD)){
@@ -245,6 +232,29 @@ public class Player extends AbstractGameObject{
 			dead = true;
 		}
 		
+		//Hurt
+		if(hurt){
+//			System.out.println(" (PLAYER): I'm currently in HURT state");
+			if(time < 40){
+				sprite = new Sprite(animations.get(state.STANDARD).getCurrentFrame());
+				
+				time++;
+				
+				if(damageType == "enemy"){
+					takingDamageFromEnemy(animations, enemy, touchPos, collisionLayer);
+				}
+				if(damageType == "lackOfOxygen"){
+					currentFrame = animations.get(state.STANDARD).doComplexAnimation(104, 0.2f, Gdx.graphics.getDeltaTime()/2);
+					
+					sprite.setRegion(animations.get(state).getCurrentFrame());
+					sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
+				}else if(time > 39){
+					hurt = false;
+					time = 0;
+				}
+			}
+		}
+		
 		// Shooting
 		if(shooting && timeShooting < 30){
 			System.out.println("shooting...");
@@ -265,8 +275,6 @@ public class Player extends AbstractGameObject{
 			shooting = false;
 			timeShooting = 0;
 		}
-		
-		
 	}
 
 	private void takingDamageFromEnemy(HashMap<State, AnimationControl> animations, AbstractGameObject enemy, Vector3 touchPos, TiledMapTileLayer collisionLayer) {
@@ -482,12 +490,6 @@ public class Player extends AbstractGameObject{
 	public void setPlayerMovementSpeedX(float playerMovementSpeedX) {
 		this.playerMovementSpeed = playerMovementSpeedX;
 	}
-	public State getState() {
-		return state;
-	}
-	public void setState(State state) {
-		this.state = state;
-	}
 	public boolean isMaskOn() {
 		return maskOn;
 	}
@@ -519,14 +521,6 @@ public class Player extends AbstractGameObject{
 		this.shotDir = shotDir;
 	}
 	
-	public boolean isHurt() {
-		return hurt;
-	}
-
-	public void setHurt(boolean hurt) {
-		this.hurt = hurt;
-	}
-
 	public int getTimeShooting() {
 		return timeShooting;
 	}

@@ -10,10 +10,10 @@ import com.badlogic.gdx.math.Vector2;
 import com.me.swampmonster.AI.Node;
 import com.me.swampmonster.AI.Pathfinder;
 import com.me.swampmonster.animations.AnimationControl;
-import com.me.swampmonster.game.TheController;
 import com.me.swampmonster.game.collision.Collidable;
 import com.me.swampmonster.game.collision.CollisionHelper;
 import com.me.swampmonster.models.AbstractGameObject.State;
+import com.me.swampmonster.utils.CameraHelper;
 
 public class Enemy extends AbstractGameObject{
 	
@@ -50,10 +50,20 @@ public class Enemy extends AbstractGameObject{
 		
 		number = 0;
 		
+		// ***Character stats board***
+		characterStatsBoard();
+		// ***Character stats board***
+		
 		sprite = new Sprite(animationsStandard.get(state.STANDARD).getCurrentFrame());
 	}
 	
-	public void update(TiledMapTileLayer collisionLayer){
+	public void characterStatsBoard(){
+		// HEALTH, DAMAGE, TYPE, TOUGHGUY, COLORSCHEME, ETC.
+		health = 2;
+		damage = 1;
+	}
+	
+	public void update(TiledMapTileLayer collisionLayer, AbstractGameObject projectile, AbstractGameObject player, CameraHelper cameraHelper){
 		oldPos.x = position.x;
 		oldPos.y = position.y; 
 		
@@ -64,7 +74,7 @@ public class Enemy extends AbstractGameObject{
 		
 		// remember thius might be your chance.
 		
-		if(theController.projectile != null && oRangeAura.overlaps(theController.projectile.getCircle())){
+		if(projectile != null && oRangeAura.overlaps(projectile.getCircle())){
 			state = State.DEAD;
 		}
 		
@@ -93,7 +103,7 @@ public class Enemy extends AbstractGameObject{
 							cunter = Pathfinder.findLastNotNullInArray();
 						}
 					
-					onPathMovingAndCollisionDetection(collisionLayer);
+					onPathMovingAndCollisionDetection(collisionLayer, player);
 				        
 					orientOnPath();
 					standAnimation(88, 72, 80, 64);
@@ -109,21 +119,21 @@ public class Enemy extends AbstractGameObject{
 				sprite.setRegion(animations.get(state).getCurrentFrame());
             	
             	if(timer == 0 && timer2 == 0){
-	            	moveLeft();
-	            	Collidable collidable = collisionCheckerLeft();
-	            	collisionCheck(collidable, collisionLayer);
+	            	moveLeft(player);
+	            	Collidable collidable = collisionCheckerLeft(collisionLayer);
+	            	collisionCheck(collidable, collisionLayer, player);
 	            	
-	            	moveRight();
-	            	collidable = collisionCheckerRight();
-	            	collisionCheck(collidable, collisionLayer);
+	            	moveRight(player);
+	            	collidable = collisionCheckerRight(collisionLayer);
+	            	collisionCheck(collidable, collisionLayer, player);
 	            	
-	            	moveDown();
-	            	collidable = collisionCheckerBottom();
-	            	collisionCheck(collidable, collisionLayer);
+	            	moveDown(player);
+	            	collidable = collisionCheckerBottom(collisionLayer);
+	            	collisionCheck(collidable, collisionLayer, player);
 	            	
-	            	moveUp();
-	            	collidable = collisionCheckerTop();
-	            	collisionCheck(collidable, collisionLayer);
+	            	moveUp(player);
+	            	collidable = collisionCheckerTop(collisionLayer);
+	            	collisionCheck(collidable, collisionLayer, player);
 //	            	System.out.println("playerDircetion = " + playerMovementDirection);
             	}
             	
@@ -132,21 +142,21 @@ public class Enemy extends AbstractGameObject{
             		timer2 = 0;
             	}
             	
-            	if(getoRangeAura().overlaps(theController.level1.getPlayer().getCircle()) && theController.level1.getPlayer().getState() != State.DEAD){
+            	if(getoRangeAura().overlaps(player.getCircle()) && player.getState() != State.DEAD){
 	            	if(playerMovementDirection == "right"){
-	            		inflictOnThe(88, 56);
+	            		inflictOnThe(88, 56, player, cameraHelper);
 	            	}
 	            	if(playerMovementDirection == "left"){
-	            		inflictOnThe(72, 40);
+	            		inflictOnThe(72, 40, player, cameraHelper);
 	            	}
 	            	if(playerMovementDirection == "up"){
-	            		inflictOnThe(80, 48);
+	            		inflictOnThe(80, 48, player, cameraHelper);
 	            	}
 	            	if(playerMovementDirection == "down"){
-	            		inflictOnThe(64, 32);
+	            		inflictOnThe(64, 32, player, cameraHelper);
 	            	}
             	}
-            	if(!getoRangeAura().overlaps(theController.level1.getPlayer().getCircle())){
+            	if(!getoRangeAura().overlaps(player.getCircle())){
             		timer = 0;
             		timer2 = 0;
             	}
@@ -172,7 +182,7 @@ public class Enemy extends AbstractGameObject{
 			}
 	}
 
-	private void inflictOnThe(int standing, int animation) {
+	private void inflictOnThe(int standing, int animation, AbstractGameObject player, CameraHelper cameraHelper) {
 		// Timer is for the length of the actual animation
 		// Timer2 is for the waiting period
 		if(oldPos.x == position.x && oldPos.y == position.y){
@@ -182,8 +192,8 @@ public class Enemy extends AbstractGameObject{
 				currentFrame = animationsStandard.get(state).animate(standing);
 			}
 			if(timer2 >= 40 && timer < 30){
-				theController.cameraHelper.setShakeAmt(25);
-				theController.cameraHelper.cameraShake();
+				cameraHelper.setShakeAmt(25);
+				cameraHelper.cameraShake();
 //            			System.out.println("timer1: " + timer);
 				currentFrame = animationsStandard.get(state).doComplexAnimation(animation, 1.8f, Gdx.graphics.getDeltaTime());
 				
@@ -193,9 +203,9 @@ public class Enemy extends AbstractGameObject{
 				if(timer == 30 && timer2 >= 40){
 					currentFrame = animationsStandard.get(state).animate(standing);
 					// And may be inflict different hurts, direction/ kinds of hurts/ etc.
-					theController.level1.getPlayer().setDamageType("enemy");
-					theController.level1.getPlayer().setHurt(true);
-					theController.level1.getPlayer().setHealth(theController.level1.getPlayer().getHealth()-1);
+					player.setDamageType("enemy");
+					player.setHurt(true);
+					player.setHealth(player.getHealth()-damage);
 					
 					timer = 0;
 					timer2 = 0;
@@ -204,23 +214,23 @@ public class Enemy extends AbstractGameObject{
 		}
 	}
 
-	private void onPathMovingAndCollisionDetection(TiledMapTileLayer collisionLayer) {
+	private void onPathMovingAndCollisionDetection(TiledMapTileLayer collisionLayer, AbstractGameObject player) {
 		if(cunter >= 0){
 			moveLeftOnPath();
-			Collidable collidable = collisionCheckerLeft();
-			collisionCheck(collidable, collisionLayer);
+			Collidable collidable = collisionCheckerLeft(collisionLayer);
+			collisionCheck(collidable, collisionLayer, player);
 		
 			moveRightOnPath();
-			collidable = collisionCheckerRight();
-			collisionCheck(collidable, collisionLayer);
+			collidable = collisionCheckerRight(collisionLayer);
+			collisionCheck(collidable, collisionLayer, player);
 
 			moveDownOnPath();
-			collidable = collisionCheckerBottom();
-			collisionCheck(collidable, collisionLayer);
+			collidable = collisionCheckerBottom(collisionLayer);
+			collisionCheck(collidable, collisionLayer, player);
 
 			moveUpOnPath();
-			collidable = collisionCheckerTop();
-			collisionCheck(collidable, collisionLayer);
+			collidable = collisionCheckerTop(collisionLayer);
+			collisionCheck(collidable, collisionLayer, player);
 			if(cunter == 0){
 				System.out.println("happened");
 				if(number < 99){
@@ -231,61 +241,60 @@ public class Enemy extends AbstractGameObject{
 		}
 	}
 
- // because fuck 4A games
-	private Collidable collisionCheckerTop() {
+	private Collidable collisionCheckerTop(TiledMapTileLayer collisionLayer) {
 		Collidable collidable;
-		collidable = CollisionHelper.isCollidable(position.x+sprite.getWidth(), (position.y+sprite.getHeight()/2)-1, theController.collisionLayer);
-		if(collidable == null)collidable = CollisionHelper.isCollidable(position.x, (position.y+sprite.getHeight()/2)-1, theController.collisionLayer);
-		if(collidable == null)collidable = CollisionHelper.isCollidable(position.x+(sprite.getWidth()/2), (position.y+sprite.getHeight()/2)-1, theController.collisionLayer);
+		collidable = CollisionHelper.isCollidable(position.x+sprite.getWidth(), (position.y+sprite.getHeight()/2)-1, collisionLayer);
+		if(collidable == null)collidable = CollisionHelper.isCollidable(position.x, (position.y+sprite.getHeight()/2)-1, collisionLayer);
+		if(collidable == null)collidable = CollisionHelper.isCollidable(position.x+(sprite.getWidth()/2), (position.y+sprite.getHeight()/2)-1, collisionLayer);
 		return collidable;
 	}
 
-	private Collidable collisionCheckerBottom() {
+	private Collidable collisionCheckerBottom(TiledMapTileLayer collisionLayer) {
 		Collidable collidable;
-		collidable = CollisionHelper.isCollidable(position.x+sprite.getWidth(), position.y, theController.collisionLayer);
-		if(collidable == null)collidable = CollisionHelper.isCollidable(position.x, position.y, theController.collisionLayer);
-		if(collidable == null)collidable = CollisionHelper.isCollidable(position.x+(sprite.getWidth()/2), position.y, theController.collisionLayer);
+		collidable = CollisionHelper.isCollidable(position.x+sprite.getWidth(), position.y, collisionLayer);
+		if(collidable == null)collidable = CollisionHelper.isCollidable(position.x, position.y, collisionLayer);
+		if(collidable == null)collidable = CollisionHelper.isCollidable(position.x+(sprite.getWidth()/2), position.y, collisionLayer);
 		return collidable;
 	}
 
-	private Collidable collisionCheckerRight() {
+	private Collidable collisionCheckerRight(TiledMapTileLayer collisionLayer) {
 		Collidable collidable;
-		collidable = CollisionHelper.isCollidable(position.x+sprite.getWidth(), position.y + (sprite.getHeight()/2)-1, theController.collisionLayer);
-		if(collidable == null)collidable = CollisionHelper.isCollidable(position.x+sprite.getWidth(), position.y, theController.collisionLayer);
-		if(collidable == null)collidable = CollisionHelper.isCollidable(position.x+sprite.getWidth(), position.y +(sprite.getHeight()/4), theController.collisionLayer);
+		collidable = CollisionHelper.isCollidable(position.x+sprite.getWidth(), position.y + (sprite.getHeight()/2)-1, collisionLayer);
+		if(collidable == null)collidable = CollisionHelper.isCollidable(position.x+sprite.getWidth(), position.y, collisionLayer);
+		if(collidable == null)collidable = CollisionHelper.isCollidable(position.x+sprite.getWidth(), position.y +(sprite.getHeight()/4), collisionLayer);
 		return collidable;
 	}
 
-	private Collidable collisionCheckerLeft() {
-		Collidable collidable = CollisionHelper.isCollidable(position.x, position.y + (sprite.getHeight()/2)-1, theController.collisionLayer);
-		if(collidable == null)collidable = CollisionHelper.isCollidable(position.x, position.y, theController.collisionLayer);
-		if(collidable == null)collidable = CollisionHelper.isCollidable(position.x, position.y + (sprite.getHeight()/4), theController.collisionLayer);
+	private Collidable collisionCheckerLeft(TiledMapTileLayer collisionLayer) {
+		Collidable collidable = CollisionHelper.isCollidable(position.x, position.y + (sprite.getHeight()/2)-1, collisionLayer);
+		if(collidable == null)collidable = CollisionHelper.isCollidable(position.x, position.y, collisionLayer);
+		if(collidable == null)collidable = CollisionHelper.isCollidable(position.x, position.y + (sprite.getHeight()/4), collisionLayer);
 		return collidable;
 	}
 
-	private void moveLeft() {
-		if (position.x > theController.level1.getPlayer().getPosition().x) {
+	private void moveLeft(AbstractGameObject player) {
+		if (position.x > player.getPosition().x) {
 			position.x -= playerMovementSpeed;
 			sprite.translateX(-playerMovementSpeed);
 			playerMovementDirection = "left";
-			if(position.x > theController.level1.getPlayer().getPosition().x+16 && position.y < theController.level1.getPlayer().getPosition().y+3 && position.y > theController.level1.getPlayer().getPosition().y-3){
+			if(position.x > player.getPosition().x+16 && position.y < player.getPosition().y+3 && position.y > player.getPosition().y-3){
 				currentFrame = animationsStandard.get(state).animate(8);
 			}
 		}
 	}
 	
-	private void moveRight() {
-		if (position.x < theController.level1.getPlayer().getPosition().x-6) {
+	private void moveRight(AbstractGameObject player) {
+		if (position.x < player.getPosition().x-6) {
 			position.x += playerMovementSpeed;
 			sprite.translateX(playerMovementSpeed);
 			playerMovementDirection = "right";
-			if(position.x < theController.level1.getPlayer().getPosition().x-6 && position.y < theController.level1.getPlayer().getPosition().y+3 && position.y > theController.level1.getPlayer().getPosition().y-3){
+			if(position.x < player.getPosition().x-6 && position.y < player.getPosition().y+3 && position.y > player.getPosition().y-3){
 				currentFrame = animationsStandard.get(state).animate(24);
 			}        
 		}
 	}
-	private void moveDown() {
-		if (position.y > theController.level1.getPlayer().getPosition().y+3) {
+	private void moveDown(AbstractGameObject player) {
+		if (position.y > player.getPosition().y+3) {
 		    position.y -= playerMovementSpeed;
 		    sprite.translateY(-playerMovementSpeed);
 		    playerMovementDirection = "down";
@@ -293,8 +302,8 @@ public class Enemy extends AbstractGameObject{
          }
 	}
 
-	private void moveUp() {
-		if (position.y < theController.level1.getPlayer().getPosition().y-3) {
+	private void moveUp(AbstractGameObject player) {
+		if (position.y < player.getPosition().y-3) {
 		    position.y += playerMovementSpeed;
 		    sprite.translateY(playerMovementSpeed);
 		    playerMovementDirection = "up";
@@ -302,9 +311,9 @@ public class Enemy extends AbstractGameObject{
 		 }
 	}
 
-	private void collisionCheck(Collidable collidable, TiledMapTileLayer collisionLayer) {
+	private void collisionCheck(Collidable collidable, TiledMapTileLayer collisionLayer, AbstractGameObject player) {
 		if(collidable != null){
-			contact(collidable, collisionLayer);
+			contact(collidable, collisionLayer, player);
 		}
 	}
 
@@ -377,9 +386,9 @@ public class Enemy extends AbstractGameObject{
 	
 	
 	
-	private void contact(Collidable collidable, TiledMapTileLayer collisionLayer) {
+	private void contact(Collidable collidable, TiledMapTileLayer collisionLayer, AbstractGameObject player) {
 		collidable.doCollide(this, collisionLayer);
-		path = Pathfinder.findPath(position, theController.level1.getPlayer().position);
+		path = Pathfinder.findPath(position, player.position);
 //		System.out.println(position.x);
 //		System.out.println(theController.level1.getPlayer().position.x);
 		state = State.PURSUIT;
@@ -418,14 +427,6 @@ public class Enemy extends AbstractGameObject{
 
 	public void setPlayerMovementSpeedX(float playerMovementSpeedX) {
 		this.playerMovementSpeed = playerMovementSpeedX;
-	}
-	public TheController getTheController() {
-		return theController;
-	}
-
-
-	public void setTheController(TheController theController) {
-		this.theController = theController;
 	}
 
 	public void doCollide(Player player) {

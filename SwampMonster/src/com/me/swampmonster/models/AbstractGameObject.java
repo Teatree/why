@@ -24,6 +24,7 @@ public abstract class AbstractGameObject {
 	protected TextureRegion currentFrame;
 	protected HashMap<State, AnimationControl> animationsStandard = new HashMap<State, AnimationControl>();   
 	
+	protected State state;
 	protected Vector2 position;
 	protected Sprite sprite;
 	protected boolean dead;
@@ -33,6 +34,7 @@ public abstract class AbstractGameObject {
 	protected TiledMap map;
 	protected TiledMap map_inside_bunker;
 	protected String damageType;
+	protected boolean hurt;
 	
 	protected Vector2 oldPos;
 	protected TheController theController;
@@ -41,6 +43,7 @@ public abstract class AbstractGameObject {
 	protected float playerMovementSpeed = 0.5f; 
 	
 	protected int health;
+	protected int damage;
 	protected float oxygen;
 	
 	public Vector2 getPosition() {
@@ -132,6 +135,24 @@ public abstract class AbstractGameObject {
 	}
 	public void setMap_inside_bunker(TiledMap map_inside_bunker) {
 		this.map_inside_bunker = map_inside_bunker;
+	}
+	public State getState() {
+		return state;
+	}
+	public void setState(State state) {
+		this.state = state;
+	}
+	public boolean isHurt() {
+		return hurt;
+	}
+	public void setHurt(boolean hurt) {
+		this.hurt = hurt;
+	}
+	public int getDamage() {
+		return damage;
+	}
+	public void setDamage(int damage) {
+		this.damage = damage;
 	}
 	
 }

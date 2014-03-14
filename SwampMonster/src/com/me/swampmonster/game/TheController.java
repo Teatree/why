@@ -14,6 +14,7 @@ import com.me.swampmonster.GUI.GUI;
 import com.me.swampmonster.game.collision.CollisionHelper;
 import com.me.swampmonster.models.L1;
 import com.me.swampmonster.models.AbstractGameObject.State;
+import com.me.swampmonster.models.AbstractGameObject;
 import com.me.swampmonster.models.Player;
 import com.me.swampmonster.models.Projectile;
 import com.me.swampmonster.utils.CameraHelper;
@@ -55,7 +56,6 @@ public class TheController extends InputAdapter{
 		Pathfinder.setTiledMap(level1.getBunker().getMap());
 		level1.getPlayer().setPosition(new Vector2 (180f,380f));
 		level1.getPlayer().getSprite().setSize(level1.getPlayer().getSprite().getWidth()/2, level1.getPlayer().getSprite().getHeight()/2);
-		level1.getEnemy().setTheController(this);
 		level1.getEnemy().setPosition(new Vector2 (110f,100f));
 		level1.getEnemy().getSprite().setSize(level1.getEnemy().getSprite().getWidth()/2, level1.getEnemy().getSprite().getHeight()/2);
 		level1.getPlayer().setHurt(false);
@@ -66,7 +66,6 @@ public class TheController extends InputAdapter{
 		
 		supportVector2 = new Vector2(level1.getEnemy().getPosition().x+17, level1.getEnemy().getPosition().y+17);
 		gui = new GUI();
-		gui.getCroshair().setTheController(this);
 		gui.getGameoverGUI().setTheController(this);
 		gui.getWeaponizer().setTheController(this);
 		gui.getCroshair().setPosition(new Vector2 (330f,100f));
@@ -80,7 +79,7 @@ public class TheController extends InputAdapter{
 	public void update(float deltaTime){
 		restarter();
 		cameraHelper.upadate(V3playerPos.x, V3playerPos.y, 5);
-		level1.update(gui.getCroshair().isAiming(), touchPos, V3point, collisionLayer);
+		level1.update(gui.getCroshair().isAiming(), touchPos, V3point, collisionLayer, projectile, cameraHelper);
 		
 		// I don't fucking know if thsi is better, I just spent 2 hours on this solution, so deal with it!
 		if(Gdx.input.justTouched() && !level1.getPlayer().isJustSpawned()){
@@ -92,7 +91,7 @@ public class TheController extends InputAdapter{
 			projectile.setPosition(new Vector2(level1.getPlayer().getPosition().x, level1.getPlayer().getPosition().y));
 		}
 		
-		gui.update(level1.getPlayer().getHealth());
+		gui.update(level1.getPlayer(), point);
 		handleDebugInput(deltaTime);
 		pathfindingStuff();
 		//could probably be in the right class

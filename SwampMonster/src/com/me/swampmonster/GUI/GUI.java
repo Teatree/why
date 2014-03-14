@@ -1,6 +1,7 @@
 package com.me.swampmonster.GUI;
 
 import com.badlogic.gdx.math.Vector2;
+import com.me.swampmonster.models.AbstractGameObject;
 
 
 public class GUI {
@@ -19,10 +20,10 @@ public class GUI {
 		croshair = new Croshair(new Vector2());
 	}
 	
-	public void update(int qH){
-		healthBar.update(qH);
+	public void update(AbstractGameObject player, Vector2 point){
+		healthBar.update(player);
 		weaponizer.update();
-		croshair.update();
+		croshair.update(player, point);
 		gameoverGUI.update();
 	}
 

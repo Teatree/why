@@ -17,7 +17,7 @@ public class Projectile extends AbstractGameObject{
 		circle = new Circle();
 		circle.radius = 8;
 		
-		projectileSpeed = 0.8f;
+		projectileSpeed = 1.8f;
 	}
 	// git is great !
 	

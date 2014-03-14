@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import com.me.swampmonster.utils.CameraHelper;
 
 
 public class L1{
@@ -20,9 +21,9 @@ public class L1{
 		enemy = new Enemy(new Vector2());
 		bunker = new Bunker();
 	}
-	public void update(boolean aiming, Vector3 touchPos, Vector3 V3point, TiledMapTileLayer collisionLayer) {
-		player.update(aiming, this.enemy, touchPos, V3point, collisionLayer);
-		this.enemy.update(collisionLayer);
+	public void update(boolean aiming, Vector3 touchPos, Vector3 V3point, TiledMapTileLayer collisionLayer, AbstractGameObject projectile, CameraHelper cameraHelper) {
+		this.player.update(aiming, this.enemy, touchPos, V3point, collisionLayer);
+		this.enemy.update(collisionLayer, projectile, this.player, cameraHelper);
 		bunker.update();
 	}
 	

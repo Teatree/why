@@ -12,9 +12,9 @@ public class HealthBar extends AbstractGameObject{
 	public HealthBar(){
 		sprite = new Sprite(new Texture("data/healthbar.png"));
 	}
-	public void update(int qH){
+	public void update(AbstractGameObject player){
 		healthBarRect = new Rectangle[6];
-		fillBar(healthBarRect, 454, qH);
+		fillBar(healthBarRect, 454, player.getHealth());
 	}
 	private void fillBar(Rectangle[] r, int y, int q) {
 		int cunter = 0;
