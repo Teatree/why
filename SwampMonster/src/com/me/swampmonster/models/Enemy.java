@@ -12,7 +12,6 @@ import com.me.swampmonster.AI.Pathfinder;
 import com.me.swampmonster.animations.AnimationControl;
 import com.me.swampmonster.game.collision.Collidable;
 import com.me.swampmonster.game.collision.CollisionHelper;
-import com.me.swampmonster.models.AbstractGameObject.State;
 import com.me.swampmonster.utils.CameraHelper;
 
 public class Enemy extends AbstractGameObject{
@@ -54,7 +53,7 @@ public class Enemy extends AbstractGameObject{
 		characterStatsBoard();
 		// ***Character stats board***
 		
-		sprite = new Sprite(animationsStandard.get(state.STANDARD).getCurrentFrame());
+		sprite = new Sprite(animationsStandard.get(State.STANDARD).getCurrentFrame());
 	}
 	
 	public void characterStatsBoard(){
@@ -72,7 +71,7 @@ public class Enemy extends AbstractGameObject{
 		oRangeAura.x = position.x;
 		oRangeAura.y = position.y;
 		
-		// remember thius might be your chance.
+		// remember this might be your chance.
 		
 		if(projectile != null && oRangeAura.overlaps(projectile.getCircle())){
 			state = State.DEAD;
@@ -100,7 +99,7 @@ public class Enemy extends AbstractGameObject{
 					
 					//MOVEMENT + COLLISION PROCESSING AND DETECTION
 						if(cunter == 0){ 
-							cunter = Pathfinder.findLastNotNullInArray();
+							cunter = findLastNotNullInArray();
 						}
 					
 					onPathMovingAndCollisionDetection(collisionLayer, player);
@@ -170,7 +169,7 @@ public class Enemy extends AbstractGameObject{
 			if(state.equals(State.DEAD)){
 //				System.out.println(" (PLAYER): I'm DEAD :(");
 				if(timeDead < 89){
-					sprite = new Sprite(animations.get(state.ANIMATING).getCurrentFrame());
+					sprite = new Sprite(animations.get(State.ANIMATING).getCurrentFrame());
 					currentFrame = animations.get(state).doComplexAnimation(96, 2f, 0.02f);
 					
 					sprite.setRegion(animations.get(state).getCurrentFrame());
@@ -388,7 +387,7 @@ public class Enemy extends AbstractGameObject{
 	
 	private void contact(Collidable collidable, TiledMapTileLayer collisionLayer, AbstractGameObject player) {
 		collidable.doCollide(this, collisionLayer);
-		path = Pathfinder.findPath(position, player.position);
+		path = Pathfinder.findPath(position, player.position, collisionLayer);
 //		System.out.println(position.x);
 //		System.out.println(theController.level1.getPlayer().position.x);
 		state = State.PURSUIT;
@@ -431,6 +430,14 @@ public class Enemy extends AbstractGameObject{
 
 	public void doCollide(Player player) {
 		
+	}
+	
+	private int findLastNotNullInArray(){
+		int i = 0;
+		while(path[i] != null){
+			i++;
+		}
+		return i - 1;
 	}
 
 	public int getCunter() {

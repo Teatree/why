@@ -8,14 +8,12 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
-import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.renderers.BatchTiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.me.swampmonster.AI.Node;
-import com.me.swampmonster.AI.Pathfinder;
 import com.me.swampmonster.GUI.GUI;
 import com.me.swampmonster.models.L1;
 import com.me.swampmonster.models.AbstractGameObject.State;
@@ -28,7 +26,6 @@ public class L1Renderer {
 	private TheController theController;
 	
 	// Temporary debug feature
-	private Pathfinder pathfinder;
 	private ShapeRenderer sr;
 	private ShapeRenderer staticSr;
 	// Temporary debug feature
@@ -61,7 +58,7 @@ public class L1Renderer {
 		
 		gui = new GUI();
 		// Temporary debug feature
-		Pathfinder.setTiledMap(level1.getBunker().getMap());
+//		Pathfinder.setTiledMap(level1.getBunker().getMap());
 		// temporary bedug feature
 		staticBatch = new SpriteBatch();
 		batch = new SpriteBatch();
