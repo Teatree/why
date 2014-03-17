@@ -42,11 +42,11 @@ public class GameOverGUI extends AbstractGameObject{
 		RestartString = "RESTART";
 	}
 	
-	public void update(){
-		if(theController.level1.getPlayer().getDamageType() == "lackOfOxygen"){
+	public void update(AbstractGameObject player){
+		if(player.getDamageType() == "lackOfOxygen"){
 			WittyMessage = WittySuffocationMessages[i];
 		}
-		if(theController.level1.getPlayer().getDamageType() == "enemy"){
+		if(player.getDamageType() == "enemy"){
 			WittyMessage = WittyEnemyMessages[i];
 		}
 		

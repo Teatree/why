@@ -30,7 +30,6 @@ public class TheController extends InputAdapter{
 	public Vector3 V3point;
 	public Vector3 V3playerPos;
 	public Vector2 randVector2;
-	public Vector2 supportVector2; // maybe not needed here; it's for the enemies to no move large distance to the player from the start
 	Random randomGenerator = new Random();
 	public Projectile projectile;
 	
@@ -59,18 +58,15 @@ public class TheController extends InputAdapter{
 		level1.getPlayer().setHurt(false);
 		
 		collisionHandler = new CollisionHelper();
-		touchPos = new Vector3(level1.getPlayer().getPosition().x+10, level1.getPlayer().getPosition().y, 0);
 		collisionLayer = (TiledMapTileLayer) level1.getBunker().getMap().getLayers().get(0);
 		
-		supportVector2 = new Vector2(level1.getEnemy().getPosition().x+17, level1.getEnemy().getPosition().y+17);
 		gui = new GUI();
-		gui.getGameoverGUI().setTheController(this);
-		gui.getWeaponizer().setTheController(this);
 		gui.getCroshair().setPosition(new Vector2 (330f,100f));
+		
+		touchPos = new Vector3(level1.getPlayer().getPosition().x+10, level1.getPlayer().getPosition().y, 0);
 		point = new Vector2();
 		V3point = new Vector3();
 		V3playerPos = new Vector3();
-		
 		
 	}
 	
@@ -88,8 +84,6 @@ public class TheController extends InputAdapter{
 			projectile = new Projectile(new Vector2(level1.getPlayer().getPosition().x, level1.getPlayer().getPosition().y), getRotation());
 			projectile.setPosition(new Vector2(level1.getPlayer().getPosition().x, level1.getPlayer().getPosition().y));
 		}
-		
-		// morazm
 		
 		gui.update(level1.getPlayer(), point);
 		handleDebugInput(deltaTime);

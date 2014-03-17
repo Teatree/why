@@ -22,9 +22,9 @@ public class GUI {
 	
 	public void update(AbstractGameObject player, Vector2 point){
 		healthBar.update(player);
-		weaponizer.update();
+		weaponizer.update(point);
 		croshair.update(player, point);
-		gameoverGUI.update();
+		gameoverGUI.update(player);
 	}
 
 	public OxygenBar getOxygenBar() {
