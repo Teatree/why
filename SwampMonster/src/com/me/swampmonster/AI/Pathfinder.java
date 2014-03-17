@@ -3,62 +3,24 @@ package com.me.swampmonster.AI;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Set;
-import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import com.badlogic.gdx.math.Vector2;
+import com.me.swampmonster.models.Enemy;
  
 public class Pathfinder {
- 
-//	private static PriorityQueue<Node> openList;
-//	private static Set<Node> closedList;
-	
-//	private static TiledMap tiledMap;
-//	private static TiledMapTileLayer nodeLayer;
-	
-//	private static int mapWidth;
-//	private static int mapHeight;
-	
-//	private static Node[][] nodes;
-//	private static Node startingNode;
-//	private static Node targetNode;
-//	public static Node[] path;
-	
-//	public static void setTiledMap(TiledMap tiledMap, TiledMapTileLayer nodeLayer) {
-////		Pathfinder.tiledMap = tiledMap;
-//		
-//		openList = new PriorityQueue<Node>();
-//		closedList = new HashSet<Node>();
-//		
-//		nodeLayer = (TiledMapTileLayer) tiledMap.getLayers().get("background");
-//		
-//		mapWidth = nodeLayer.getWidth();
-//		mapHeight = nodeLayer.getHeight();
-//		
-//		path = new Node[99];
-//		nodes = new Node[mapWidth][mapHeight];
-//		loadNodes();
-//	}
-	
-//	public void setMap(TiledMap newMap) {
-////		tiledMap = newMap;
-//		loadNodes();
-//	}
-//	
-//	private static void loadNodes() {
-//		for (int x = 0; x < mapWidth; x++) {        // consider x++
-//			for (int y = 0; y < mapHeight; y++) {
-//				nodes[x][y] = new Node(x, y, null);
-//			}
-//		}
-//	}
 	
 	public static Node[] findPath(Vector2 startingPosition, Vector2 targetPosition, TiledMapTileLayer nodeLayer) {
-//		loadNodes();
+		
 //		System.out.println("(findPath): working!");
 		
 		int mapWidth = nodeLayer.getWidth();
@@ -219,12 +181,22 @@ public class Pathfinder {
 		Cell cell = getCellAt(x, y, nodeLayer);
 		return cell != null? cell.getTile() : null;
 	}
+
 	
-//	public static int findLastNotNullInArray(){
-//		int i = 0;
-//		while(path[i] != null){
-//			i++;
-//		}
-//		return i - 1;
-//	}
+	//threads pool
+	static ExecutorService threadPool = Executors.newCachedThreadPool();
+	
+    public static void findPathInThreadPool(final Vector2 startingPosition, final Vector2 targetPosition, final TiledMapTileLayer nodeLayer, final Enemy enemy) {
+    	Future future = threadPool.submit(new Runnable() {
+            public void run() {
+                enemy.setPath(findPath(startingPosition, targetPosition, nodeLayer));
+            }
+        });
+    }
+
+    static AtomicInteger counter = new AtomicInteger();
+    public static void someTask() {
+        System.out.println("someTask: " + counter.incrementAndGet() 
+                + " on thread: " + Thread.currentThread());
+    }
 }

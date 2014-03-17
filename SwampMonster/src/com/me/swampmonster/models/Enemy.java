@@ -291,6 +291,7 @@ public class Enemy extends AbstractGameObject{
 				currentFrame = animationsStandard.get(state).animate(24);
 			}        
 		}
+		
 	}
 	private void moveDown(AbstractGameObject player) {
 		if (position.y > player.getPosition().y+3) {
@@ -387,7 +388,7 @@ public class Enemy extends AbstractGameObject{
 	
 	private void contact(Collidable collidable, TiledMapTileLayer collisionLayer, AbstractGameObject player) {
 		collidable.doCollide(this, collisionLayer);
-		path = Pathfinder.findPath(position, player.position, collisionLayer);
+		Pathfinder.findPathInThreadPool(position, player.position, collisionLayer, this);
 //		System.out.println(position.x);
 //		System.out.println(theController.level1.getPlayer().position.x);
 		state = State.PURSUIT;
