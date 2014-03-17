@@ -2,7 +2,6 @@ package com.me.swampmonster.models;
 
 import java.awt.geom.Line2D;
 import java.util.HashMap;
-import java.util.Map;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -10,10 +9,8 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Vector3;
 import com.me.swampmonster.animations.AnimationControl;
 import com.me.swampmonster.game.TheController;
-import com.sun.org.apache.xerces.internal.impl.dv.xs.BooleanDV;
 
 public abstract class AbstractGameObject {
 

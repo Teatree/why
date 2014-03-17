@@ -11,9 +11,9 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.me.swampmonster.GUI.GUI;
 import com.me.swampmonster.game.collision.CollisionHelper;
+import com.me.swampmonster.models.Enemy;
 import com.me.swampmonster.models.L1;
 import com.me.swampmonster.models.AbstractGameObject.State;
-import com.me.swampmonster.models.Player;
 import com.me.swampmonster.models.Projectile;
 import com.me.swampmonster.utils.CameraHelper;
 
@@ -53,8 +53,14 @@ public class TheController extends InputAdapter{
 //		Pathfinder.setTiledMap(level1.getBunker().getMap());
 		level1.getPlayer().setPosition(new Vector2 (180f,380f));
 		level1.getPlayer().getSprite().setSize(level1.getPlayer().getSprite().getWidth()/2, level1.getPlayer().getSprite().getHeight()/2);
-		level1.getEnemy().setPosition(new Vector2 (110f,100f));
-		level1.getEnemy().getSprite().setSize(level1.getEnemy().getSprite().getWidth()/2, level1.getEnemy().getSprite().getHeight()/2);
+		
+		//:TODO change 
+		level1.getEnemies().get(0).setPosition(new Vector2 (110f,100f));
+		level1.getEnemies().get(0).getSprite().setSize(level1.getEnemies().get(0).getSprite().getWidth()/2, level1.getEnemies().get(0).getSprite().getHeight()/2);
+		
+		level1.getEnemies().get(1).setPosition(new Vector2 (80f,70f));
+		level1.getEnemies().get(1).getSprite().setSize(level1.getEnemies().get(0).getSprite().getWidth()/2, level1.getEnemies().get(0).getSprite().getHeight()/2);
+		
 		level1.getPlayer().setHurt(false);
 		
 		collisionHandler = new CollisionHelper();
@@ -143,8 +149,10 @@ public class TheController extends InputAdapter{
 		if (Gdx.input.isKeyPressed(Keys.D) && !cameraHelper.hasTarget) moveCamera(camMoveSpeed,0);
 		if (Gdx.input.isKeyPressed(Keys.W) && !cameraHelper.hasTarget) moveCamera(0, camMoveSpeed);
 		if (Gdx.input.isKeyPressed(Keys.S) && !cameraHelper.hasTarget) moveCamera(0,-camMoveSpeed);
+		
 		if (Gdx.input.isKeyPressed(Keys.O)){
-			level1.getEnemy().setState(State.DEAD);
+			for (Enemy enemy : level1.getEnemies())
+				enemy.setState(State.DEAD);
 		}
 		if (Gdx.input.isKeyPressed(Keys.O) && Gdx.input.isKeyPressed(Keys.CONTROL_RIGHT)){
 			level1.getPlayer().setState(State.ANIMATINGLARGE);
@@ -255,7 +263,8 @@ public class TheController extends InputAdapter{
 			level1.getPlayer().setState(State.DEAD);
 		}
 		if(level1.getPlayer().getState() == State.DEAD){
-			level1.getEnemy().setState(State.STANDARD);
+			for (Enemy enemy : level1.getEnemies())
+				enemy.setState(State.STANDARD);
 		}
 		
 	}

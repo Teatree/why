@@ -8,7 +8,6 @@ import java.util.PriorityQueue;
 import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import com.badlogic.gdx.maps.tiled.TiledMapTile;
@@ -181,13 +180,12 @@ public class Pathfinder {
 		Cell cell = getCellAt(x, y, nodeLayer);
 		return cell != null? cell.getTile() : null;
 	}
-
 	
 	//threads pool
 	static ExecutorService threadPool = Executors.newCachedThreadPool();
 	
     public static void findPathInThreadPool(final Vector2 startingPosition, final Vector2 targetPosition, final TiledMapTileLayer nodeLayer, final Enemy enemy) {
-    	Future future = threadPool.submit(new Runnable() {
+    	threadPool.submit(new Runnable() {
             public void run() {
                 enemy.setPath(findPath(startingPosition, targetPosition, nodeLayer));
             }

@@ -1,21 +1,19 @@
 package com.me.swampmonster.models;
 
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.maps.Map;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Circle;
-import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.me.swampmonster.animations.AnimationControl;
 import com.me.swampmonster.game.collision.Collidable;
 import com.me.swampmonster.game.collision.CollisionHelper;
-import com.me.swampmonster.models.AbstractGameObject.State;
 
 public class Player extends AbstractGameObject{
 	
@@ -32,6 +30,8 @@ public class Player extends AbstractGameObject{
 	public boolean shooting;
 	Vector3 shotDir;
 	
+	private Set<Enemy> harmfulEnemies = new HashSet<Enemy>();
+	
 	public Player(Vector2 position){
 		state = State.STANDARD;
 		
@@ -43,12 +43,12 @@ public class Player extends AbstractGameObject{
 		circle.radius = 16;
 		rectanlge = new Rectangle();
 		
-		animationsStandard.put(state.STANDARD, new AnimationControl(nastyaSpriteStandard, 8, 32, 7)); 
-		animationsStandard.put(state.ANIMATING, new AnimationControl(nastyaSpriteStandard, 8, 32, 8)); 
-		animationsStandard.put(state.ANIMATINGLARGE, new AnimationControl(nastyaSpriteStandard, 8, 32, 8)); 
-		animationsStandard.put(state.ACTIVATING, new AnimationControl(nastyaSpriteStandard, 8, 32, 8)); 
-		animationsStandard.put(state.GUNMOVEMENT, new AnimationControl(nastyaSpriteGun, 8, 16, 7)); 
-		animationsStandard.put(state.DEAD, new AnimationControl(nastyaSpriteStandard, 8, 32, 8)); 
+		animationsStandard.put(State.STANDARD, new AnimationControl(nastyaSpriteStandard, 8, 32, 7)); 
+		animationsStandard.put(State.ANIMATING, new AnimationControl(nastyaSpriteStandard, 8, 32, 8)); 
+		animationsStandard.put(State.ANIMATINGLARGE, new AnimationControl(nastyaSpriteStandard, 8, 32, 8)); 
+		animationsStandard.put(State.ACTIVATING, new AnimationControl(nastyaSpriteStandard, 8, 32, 8)); 
+		animationsStandard.put(State.GUNMOVEMENT, new AnimationControl(nastyaSpriteGun, 8, 16, 7)); 
+		animationsStandard.put(State.DEAD, new AnimationControl(nastyaSpriteStandard, 8, 32, 8)); 
 		
 		oldPos = position;
 		
@@ -60,7 +60,7 @@ public class Player extends AbstractGameObject{
 		// ***Character stats board***
 		characterStatsBoard();
 		// ***Character stats board***
-		sprite = new Sprite(animationsStandard.get(state.STANDARD).getCurrentFrame());
+		sprite = new Sprite(animationsStandard.get(State.STANDARD).getCurrentFrame());
 		shotDir = new Vector3();
 	}
 	
@@ -85,7 +85,7 @@ public class Player extends AbstractGameObject{
 	 }
 		 
 		 
-	public void update(boolean aiming, AbstractGameObject enemy, Vector3 touchPos, Vector3 V3point, TiledMapTileLayer collisionLayer) {
+	public void update(boolean aiming, Vector3 touchPos, Vector3 V3point, TiledMapTileLayer collisionLayer) {
 		oldPos.x = position.x;
 		oldPos.y = position.y;
 		
@@ -115,10 +115,10 @@ public class Player extends AbstractGameObject{
 		if(state.equals(State.ANIMATINGLARGE)){
 			if(doing.equals("puttingGunAway")){
 				if(time < 83){
-					sprite = new Sprite(animations.get(state.GUNMOVEMENT).getCurrentFrame());
-					currentFrame = animations.get(state.GUNMOVEMENT).doComplexAnimation(40, 1f, Gdx.graphics.getDeltaTime()*0.7f);
+					sprite = new Sprite(animations.get(State.GUNMOVEMENT).getCurrentFrame());
+					currentFrame = animations.get(State.GUNMOVEMENT).doComplexAnimation(40, 1f, Gdx.graphics.getDeltaTime()*0.7f);
 					
-					sprite.setRegion(animations.get(state.GUNMOVEMENT).getCurrentFrame());
+					sprite.setRegion(animations.get(State.GUNMOVEMENT).getCurrentFrame());
 					sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
 					time++;
 				}
@@ -133,7 +133,7 @@ public class Player extends AbstractGameObject{
 			}
 			if(doing.equals("pullingGunOut")){
 				if(time < 83){
-					sprite = new Sprite(animations.get(state.ANIMATINGLARGE).getCurrentFrame());
+					sprite = new Sprite(animations.get(State.ANIMATINGLARGE).getCurrentFrame());
 					currentFrame = animations.get(state).doComplexAnimation(64, 1f, Gdx.graphics.getDeltaTime()*0.7f);
 					
 					sprite.setRegion(animations.get(state).getCurrentFrame());
@@ -161,7 +161,7 @@ public class Player extends AbstractGameObject{
 	//STANDARD
 		if(state.equals(State.STANDARD)){
 //			System.out.println(" (PLAYER): I'm currently in STANDARD state");
-			sprite = new Sprite(animations.get(state.STANDARD).getCurrentFrame());
+			sprite = new Sprite(animations.get(State.STANDARD).getCurrentFrame());
 			sprite.setRegion(animations.get(state).getCurrentFrame());
 			sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
 			
@@ -175,7 +175,7 @@ public class Player extends AbstractGameObject{
 	//GUN MOVEMENT
 		if(state.equals(State.GUNMOVEMENT)){
 //			System.out.println(" (PLAYER): I'm currently in GUNMOVEMENT state");
-			sprite = new Sprite(animations.get(state.GUNMOVEMENT).getCurrentFrame());
+			sprite = new Sprite(animations.get(State.GUNMOVEMENT).getCurrentFrame());
 			sprite.setRegion(animations.get(state).getCurrentFrame());
 			sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
 			
@@ -221,7 +221,7 @@ public class Player extends AbstractGameObject{
 		if(state.equals(State.DEAD)){
 //			System.out.println(" (PLAYER): I'm DEAD :(");
 			if(timeDead < 89){
-				sprite = new Sprite(animations.get(state.ANIMATING).getCurrentFrame());
+				sprite = new Sprite(animations.get(State.ANIMATING).getCurrentFrame());
 				currentFrame = animations.get(state).doComplexAnimation(112, 1.6f, 0.018f);
 				
 				sprite.setRegion(animations.get(state).getCurrentFrame());
@@ -236,15 +236,17 @@ public class Player extends AbstractGameObject{
 		if(hurt){
 //			System.out.println(" (PLAYER): I'm currently in HURT state");
 			if(time < 40){
-				sprite = new Sprite(animations.get(state.STANDARD).getCurrentFrame());
+				sprite = new Sprite(animations.get(State.STANDARD).getCurrentFrame());
 				
 				time++;
 				
 				if(damageType == "enemy"){
-					takingDamageFromEnemy(animations, enemy, touchPos, collisionLayer);
+					for (Enemy enemy : harmfulEnemies)
+						takingDamageFromEnemy(animations, enemy, touchPos, collisionLayer);
+				
 				}
 				if(damageType == "lackOfOxygen"){
-					currentFrame = animations.get(state.STANDARD).doComplexAnimation(104, 0.2f, Gdx.graphics.getDeltaTime()/2);
+					currentFrame = animations.get(State.STANDARD).doComplexAnimation(104, 0.2f, Gdx.graphics.getDeltaTime()/2);
 					
 					sprite.setRegion(animations.get(state).getCurrentFrame());
 					sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
@@ -306,7 +308,7 @@ public class Player extends AbstractGameObject{
 	
 	private void damageFromRight(Collidable collidableUp, HashMap<State, AnimationControl> animations, AbstractGameObject enemy, Vector3 touchPos) {
 		if (enemy.playerMovementDirection == "right" && collidableUp == null) { 
-			currentFrame = animations.get(state.STANDARD).doComplexAnimation(108, 0.2f, Gdx.graphics.getDeltaTime()/2);
+			currentFrame = animations.get(State.STANDARD).doComplexAnimation(108, 0.2f, Gdx.graphics.getDeltaTime()/2);
 			
 			sprite.setRegion(animations.get(state).getCurrentFrame());
 			sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
@@ -317,7 +319,7 @@ public class Player extends AbstractGameObject{
 	}
 	private void damageFromLeft(Collidable collidableUp, HashMap<State, AnimationControl> animations, AbstractGameObject enemy, Vector3 touchPos) {
 		if (enemy.playerMovementDirection == "left" && collidableUp == null) { 
-			currentFrame = animations.get(state.STANDARD).doComplexAnimation(106, 0.2f, Gdx.graphics.getDeltaTime()/2);
+			currentFrame = animations.get(State.STANDARD).doComplexAnimation(106, 0.2f, Gdx.graphics.getDeltaTime()/2);
 			
 			sprite.setRegion(animations.get(state).getCurrentFrame());
 			sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
@@ -328,7 +330,7 @@ public class Player extends AbstractGameObject{
 	}
 	private void damageFromBottom(Collidable collidableUp, HashMap<State, AnimationControl> animations, AbstractGameObject enemy, Vector3 touchPos) {
 		if (enemy.playerMovementDirection == "down" && collidableUp == null) { 
-			currentFrame = animations.get(state.STANDARD).doComplexAnimation(110, 0.2f, Gdx.graphics.getDeltaTime()/2);
+			currentFrame = animations.get(State.STANDARD).doComplexAnimation(110, 0.2f, Gdx.graphics.getDeltaTime()/2);
 			
 			sprite.setRegion(animations.get(state).getCurrentFrame());
 			sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
@@ -339,7 +341,7 @@ public class Player extends AbstractGameObject{
 	}
 	private void damagedFromTop(Collidable collidableUp, HashMap<State, AnimationControl> animations, AbstractGameObject enemy, Vector3 touchPos) {
 		if (enemy.playerMovementDirection == "up" && collidableUp == null) { 
-			currentFrame = animations.get(state.STANDARD).doComplexAnimation(104, 0.2f, Gdx.graphics.getDeltaTime()/2);
+			currentFrame = animations.get(State.STANDARD).doComplexAnimation(104, 0.2f, Gdx.graphics.getDeltaTime()/2);
 			
 			sprite.setRegion(animations.get(state).getCurrentFrame());
 			sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
@@ -490,6 +492,11 @@ public class Player extends AbstractGameObject{
 	public void setPlayerMovementSpeedX(float playerMovementSpeedX) {
 		this.playerMovementSpeed = playerMovementSpeedX;
 	}
+	
+	public void addHarmfulEnemy(Enemy enemy){
+		this.harmfulEnemies.add(enemy);
+	}
+	
 	public boolean isMaskOn() {
 		return maskOn;
 	}
