@@ -40,7 +40,6 @@ public class Enemy extends AbstractGameObject{
 		animationsStandard.put(State.ANIMATING, new AnimationControl("data/Skelenten.png", 8, 16, 4)); 
 		animationsStandard.put(State.DEAD, new AnimationControl("data/Skelenten.png", 8, 16, 4)); 
 		oldPos = position;
-		playerMovementSpeed = 0.3f;
 		// Timer is for the length of the actual animation
 		// Timer2 is for the waiting period
 		timer = 0;
@@ -60,6 +59,7 @@ public class Enemy extends AbstractGameObject{
 		// HEALTH, DAMAGE, TYPE, TOUGHGUY, COLORSCHEME, ETC.
 		health = 2;
 		damage = 1;
+		playerMovementSpeed = 0.3f;
 	}
 	
 	public void update(TiledMapTileLayer collisionLayer, AbstractGameObject projectile, AbstractGameObject player, CameraHelper cameraHelper){
@@ -417,16 +417,6 @@ public class Enemy extends AbstractGameObject{
 
 	public void setPlayerMovementDirection(String playerMovementDirection) {
 		this.playerMovementDirection = playerMovementDirection;
-	}
-
-
-	public float getPlayerMovementSpeedX() {
-		return playerMovementSpeed;
-	}
-
-
-	public void setPlayerMovementSpeedX(float playerMovementSpeedX) {
-		this.playerMovementSpeed = playerMovementSpeedX;
 	}
 
 	public void doCollide(Player player) {
