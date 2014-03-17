@@ -118,10 +118,12 @@ public class L1Renderer {
 		
 		// Temporary deBug feature
 		sr.begin(ShapeType.Line);
-		sr.setColor(Color.GREEN);
-//		sr.circle(theController.level1.getEnemy().getPosition().x+8, theController.level1.getEnemy().getPosition().y+16, theController.level1.getEnemy().getgReenAura().radius);
-//		sr.setColor(Color.BLUE);
-//		sr.circle(theController.level1.getEnemy().getoRangeAura().x+8, theController.level1.getEnemy().getoRangeAura().y+16, theController.level1.getEnemy().getoRangeAura().radius);
+		for (Enemy enemy : theController.level1.getEnemies()){
+			sr.setColor(Color.GREEN);
+			sr.circle(enemy.getPosition().x+8, enemy.getPosition().y+16, enemy.getgReenAura().radius);
+			sr.setColor(Color.BLUE);
+			sr.circle(enemy.getoRangeAura().x+8, enemy.getoRangeAura().y+16, enemy.getoRangeAura().radius);
+		}	
 		sr.setColor(Color.WHITE);
 		sr.rect(theController.level1.getPlayer().getPosition().x, theController.level1.getPlayer().getPosition().y,
 				theController.level1.getPlayer().getRectanlge().width, theController.level1.getPlayer().getRectanlge().height);
