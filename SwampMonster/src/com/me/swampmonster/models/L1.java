@@ -26,8 +26,8 @@ public class L1{
 		enemies.add(new Enemy(new Vector2()));
 		bunker = new Bunker();
 	}
-	public void update(boolean aiming, Vector3 touchPos, Vector3 V3point, TiledMapTileLayer collisionLayer, AbstractGameObject projectile, CameraHelper cameraHelper) {
-		this.player.update(aiming, touchPos, V3point, collisionLayer);
+	public void update(boolean aiming, Vector3 touchPos, Vector3 V3point, TiledMapTileLayer collisionLayer, AbstractGameObject projectile, CameraHelper cameraHelper, float direction_x, float direction_y) {
+		this.player.update(aiming, touchPos, V3point, collisionLayer, direction_x, direction_y);
 		for (Enemy enemy : enemies){
 			enemy.update(collisionLayer, projectile, this.player, cameraHelper);
 		}

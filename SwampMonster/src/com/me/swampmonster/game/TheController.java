@@ -33,6 +33,9 @@ public class TheController extends InputAdapter{
 	Random randomGenerator = new Random();
 	public Projectile projectile;
 	
+	float dx;
+	float dy;
+	
 	//temp
 	public boolean restart;
 	public boolean NalreadyPressed = false;
@@ -82,7 +85,7 @@ public class TheController extends InputAdapter{
 	public void update(float deltaTime){
 		restarter();
 		cameraHelper.upadate(V3playerPos.x, V3playerPos.y, 5);
-		level1.update(gui.getCroshair().isAiming(), touchPos, V3point, collisionLayer, projectile, cameraHelper);
+		level1.update(gui.getCroshair().isAiming(), touchPos, V3point, collisionLayer, projectile, cameraHelper, dx, dy);
 		
 		// I don't fucking know if thsi is better, I just spent 2 hours on this solution, so deal with it!
 		if(Gdx.input.justTouched() && !level1.getPlayer().isJustSpawned()){
@@ -117,6 +120,14 @@ public class TheController extends InputAdapter{
 //		l1Renderer.getCam().position.y = level1.getPlayer().getPosition().y;
 		
 		// This bit is responsible for calculating where exactly the projective has to go when shot.
+		dx = touchPos.x - V3playerPos.x;
+		dy = touchPos.y - V3playerPos.y;
+		
+		float length1 = (float) Math.sqrt(dx*dx + dy*dy);
+		dx /= length1;
+		dy /= length1;
+		
+		//
 		float direction_x = level1.getPlayer().getShotDir().x - V3playerPos.x;
 		float direction_y = level1.getPlayer().getShotDir().y - V3playerPos.y;
 		
