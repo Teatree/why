@@ -393,12 +393,12 @@ public class Player extends AbstractGameObject{
 	}
 	
 	private void moveUp(Collidable collidableUp, float speeds, HashMap<State, AnimationControl> animations, Vector3 touchPos, float dx, float dy) {
-		if (position.y < touchPos.y -5 && collidableUp == null) {
+		if (position.y < touchPos.y && collidableUp == null) {
 			position.x += dx*playerMovementSpeed;
 			position.y += dy*playerMovementSpeed;
 			sprite.translateY(speeds);
 			playerMovementDirection = "up";
-			if(oldPos.y != position.y){
+			if(position.y < touchPos.y && position.x < touchPos.x + 45 && position.x > touchPos.x - 45 && collidableUp == null){
 				currentFrame = animations.get(state).animate(8);
 			}
 		}
@@ -412,12 +412,12 @@ public class Player extends AbstractGameObject{
 	}
 	
 	private void moveDown(Collidable collidableDown, float speeds, HashMap<State, AnimationControl> animations, Vector3 touchPos, float direction_x, float direction_y) {
-		if (position.y > touchPos.y -1 && collidableDown == null) {
+		if (position.y > touchPos.y && collidableDown == null) {
 			position.x += direction_x*playerMovementSpeed;
 			position.y += direction_y*playerMovementSpeed;
 			sprite.translateY(-speeds);
 			playerMovementDirection = "down";
-			if(oldPos.y != position.y){
+			if(position.y > touchPos.y && position.x < touchPos.x + 45 && position.x > touchPos.x - 45 && collidableDown == null){
 				currentFrame = animations.get(state).animate(0);
 			}
 		}
@@ -430,13 +430,13 @@ public class Player extends AbstractGameObject{
 		return collidableRight;
 	}
 	private void moveRight(Collidable collidableRight, float speeds, HashMap<State, AnimationControl> animations, Vector3 touchPos, float dx, float dy) {
-		if (position.x <  touchPos.x -19/2 && collidableRight == null) {
+		if (position.x < touchPos.x  && position.y < touchPos.y  + 45 && position.y > touchPos.y  - 45 && collidableRight == null) {
 			position.x += dx*playerMovementSpeed;
 			position.y += dy*playerMovementSpeed;
 			sprite.translateX(speeds);
 			playerMovementDirection = "right";
 		}
-		if(position.x <  touchPos.x -19/2 && position.y < touchPos.y -1 && position.y > touchPos.y -5 && oldPos.x != position.x && collidableRight == null){
+		if(position.x < touchPos.x && position.y < touchPos.y + 45 && position.y > touchPos.y - 45 && collidableRight == null){
 			currentFrame = animations.get(state).animate(16);
 		}
 	}
@@ -453,13 +453,13 @@ public class Player extends AbstractGameObject{
 		return collidableLeft;
 	}
 	private void moveLeft(Collidable collidableLeft, float speeds, HashMap<State, AnimationControl> animations, Vector3 touchPos, float dx, float dy) {
-		if (position.x > touchPos.x -16 && collidableLeft == null) {
+		if (position.x > touchPos.x  && position.y < touchPos.y  + 45 && position.y > touchPos.y  - 45 && collidableLeft == null) {
 			position.x += dx*playerMovementSpeed;
 			position.y += dy*playerMovementSpeed;
 			playerMovementDirection = "left";
 			sprite.translateX(-speeds);
 		}
-		if(position.x > touchPos.x -16 && position.y < touchPos.y -1 && position.y > touchPos.y -5 && oldPos.x != position.x && collidableLeft == null){
+		if(position.x > touchPos.x && position.y < touchPos.y  + 45 && position.y > touchPos.y  - 45 && collidableLeft == null){
 			currentFrame = animations.get(state).animate(24);
 		}
 	}
