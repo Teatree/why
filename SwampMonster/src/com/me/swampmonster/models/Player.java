@@ -361,26 +361,26 @@ public class Player extends AbstractGameObject{
 		collidableLeft = collisionCheckerLeft(collisionLayer);
 		collisionCheck(collidableLeft, collisionLayer);
 		
-		// ---------------------right------------------------ //
-		Collidable collidableRight = null;
-		
-		moveRight(collidableRight, speed, animations, touchPos, dx, dy);
-		collidableRight = collisionCheckerRight(collisionLayer);
-		collisionCheck(collidableRight, collisionLayer);
-		
-		// ---------------------down------------------------ //
-		Collidable collidableDown = null;
-		
-		moveDown(collidableDown, speed, animations, touchPos, dx, dy);
-		collidableDown = collisionCheckerDown(collisionLayer);
-		collisionCheck(collidableDown, collisionLayer);
-		
-		// ---------------------up------------------------ //
-		Collidable collidableUp = null;
-		
-		moveUp(collidableUp, speed, animations, touchPos, dx, dy);
-		collidableUp = collisionCheckerUp(collisionLayer);
-		collisionCheck(collidableUp, collisionLayer);
+//		// ---------------------right------------------------ //
+//		Collidable collidableRight = null;
+//		
+//		moveRight(collidableRight, speed, animations, touchPos, dx, dy);
+//		collidableRight = collisionCheckerRight(collisionLayer);
+//		collisionCheck(collidableRight, collisionLayer);
+//		
+//		// ---------------------down------------------------ //
+//		Collidable collidableDown = null;
+//		
+//		moveDown(collidableDown, speed, animations, touchPos, dx, dy);
+//		collidableDown = collisionCheckerDown(collisionLayer);
+//		collisionCheck(collidableDown, collisionLayer);
+//		
+//		// ---------------------up------------------------ //
+//		Collidable collidableUp = null;
+//		
+//		moveUp(collidableUp, speed, animations, touchPos, dx, dy);
+//		collidableUp = collisionCheckerUp(collisionLayer);
+//		collisionCheck(collidableUp, collisionLayer);
 		
 		standingAnimation(animations);
 	}
@@ -453,7 +453,7 @@ public class Player extends AbstractGameObject{
 		return collidableLeft;
 	}
 	private void moveLeft(Collidable collidableLeft, float speeds, HashMap<State, AnimationControl> animations, Vector3 touchPos, float dx, float dy) {
-		if (position.x > touchPos.x  && position.y < touchPos.y  + 45 && position.y > touchPos.y  - 45 && collidableLeft == null) {
+		if (position.x != touchPos.x && collidableLeft == null) {
 			position.x += dx*playerMovementSpeed;
 			position.y += dy*playerMovementSpeed;
 			playerMovementDirection = "left";
