@@ -219,10 +219,15 @@
   </tile>
   <tile id="514">
    <properties>
-    <property name="walkable" value="walkable"/>
+    <property name="blocked" value="blocked"/>
    </properties>
   </tile>
   <tile id="577">
+   <properties>
+    <property name="walkable" value="walkable"/>
+   </properties>
+  </tile>
+  <tile id="578">
    <properties>
     <property name="walkable" value="walkable"/>
    </properties>

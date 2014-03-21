@@ -142,16 +142,16 @@ public class Enemy extends AbstractGameObject{
             	}
             	
             	if(getoRangeAura().overlaps(player.getCircle()) && player.getState() != State.DEAD){
-	            	if(playerMovementDirection == "right"){
+	            	if(playerMovementDirectionLR == "right"){
 	            		inflictOnThe(88, 56, player, cameraHelper);
 	            	}
-	            	if(playerMovementDirection == "left"){
+	            	if(playerMovementDirectionLR == "left"){
 	            		inflictOnThe(72, 40, player, cameraHelper);
 	            	}
-	            	if(playerMovementDirection == "up"){
+	            	if(playerMovementDirectionLR == "up"){
 	            		inflictOnThe(80, 48, player, cameraHelper);
 	            	}
-	            	if(playerMovementDirection == "down"){
+	            	if(playerMovementDirectionLR == "down"){
 	            		inflictOnThe(64, 32, player, cameraHelper);
 	            	}
             	}
@@ -275,7 +275,7 @@ public class Enemy extends AbstractGameObject{
 		if (position.x > player.getPosition().x) {
 			position.x -= playerMovementSpeed;
 			sprite.translateX(-playerMovementSpeed);
-			playerMovementDirection = "left";
+			playerMovementDirectionLR = "left";
 			if(position.x > player.getPosition().x+16 && position.y < player.getPosition().y+3 && position.y > player.getPosition().y-3){
 				currentFrame = animationsStandard.get(state).animate(8);
 			}
@@ -286,7 +286,7 @@ public class Enemy extends AbstractGameObject{
 		if (position.x < player.getPosition().x-6) {
 			position.x += playerMovementSpeed;
 			sprite.translateX(playerMovementSpeed);
-			playerMovementDirection = "right";
+			playerMovementDirectionLR = "right";
 			if(position.x < player.getPosition().x-6 && position.y < player.getPosition().y+3 && position.y > player.getPosition().y-3){
 				currentFrame = animationsStandard.get(state).animate(24);
 			}        
@@ -297,7 +297,7 @@ public class Enemy extends AbstractGameObject{
 		if (position.y > player.getPosition().y+3) {
 		    position.y -= playerMovementSpeed;
 		    sprite.translateY(-playerMovementSpeed);
-		    playerMovementDirection = "down";
+		    playerMovementDirectionLR = "down";
 		    currentFrame = animationsStandard.get(state).animate(0);
          }
 	}
@@ -306,7 +306,7 @@ public class Enemy extends AbstractGameObject{
 		if (position.y < player.getPosition().y-3) {
 		    position.y += playerMovementSpeed;
 		    sprite.translateY(playerMovementSpeed);
-		    playerMovementDirection = "up";
+		    playerMovementDirectionLR = "up";
 		    currentFrame = animationsStandard.get(state).animate(16);
 		 }
 	}
@@ -321,7 +321,7 @@ public class Enemy extends AbstractGameObject{
 		if (path[cunter] != null && (int)position.y < (int)(path[cunter].y*16)) {
 			position.y += playerMovementSpeed;
 			sprite.translateY(playerMovementSpeed);
-			playerMovementDirection = "up";
+			playerMovementDirectionLR = "up";
 			currentFrame = animationsStandard.get(state).animate(16);
 		}
 	}
@@ -330,7 +330,7 @@ public class Enemy extends AbstractGameObject{
 		if (path[cunter] != null && (int)position.y > (int)(path[cunter].y*16)) {
 			position.y -= playerMovementSpeed;
 			sprite.translateY(-playerMovementSpeed);
-			playerMovementDirection = "down";
+			playerMovementDirectionLR = "down";
 		   	currentFrame = animationsStandard.get(state).animate(0);
 		}
 	}
@@ -339,8 +339,8 @@ public class Enemy extends AbstractGameObject{
 		if (path[cunter] != null && (int)position.x < (int)(path[cunter].x*16)) {
 			position.x += playerMovementSpeed;
 			sprite.translateX(playerMovementSpeed);
-			playerMovementDirection = "right";
-			if(playerMovementDirection != "down" && playerMovementDirection != "up"){
+			playerMovementDirectionLR = "right";
+			if(playerMovementDirectionLR != "down" && playerMovementDirectionLR != "up"){
 				currentFrame = animationsStandard.get(state).animate(24);
 			}
 		}
@@ -350,8 +350,8 @@ public class Enemy extends AbstractGameObject{
 		if (path[cunter] != null && (int)position.x > (int)(path[cunter].x*16)) {
 			position.x -= playerMovementSpeed;
 			sprite.translateX(-playerMovementSpeed);
-			playerMovementDirection = "left";
-			if(playerMovementDirection != "down" && playerMovementDirection != "up"){
+			playerMovementDirectionLR = "left";
+			if(playerMovementDirectionLR != "down" && playerMovementDirectionLR != "up"){
 				currentFrame = animationsStandard.get(state).animate(8);
 			}
 		}
@@ -359,16 +359,16 @@ public class Enemy extends AbstractGameObject{
 
 	private void standAnimation(int r, int l, int u, int d) {
 		if(oldPos.x == position.x && oldPos.y == position.y){
-			if(playerMovementDirection == "right"){
+			if(playerMovementDirectionLR == "right"){
 				currentFrame = animationsStandard.get(state).animate(r);
 			}
-			if(playerMovementDirection == "left"){
+			if(playerMovementDirectionLR == "left"){
 				currentFrame = animationsStandard.get(state).animate(l);
 			}
-			if(playerMovementDirection == "up"){
+			if(playerMovementDirectionLR == "up"){
 				currentFrame = animationsStandard.get(state).animate(u);
 			}
-			if(playerMovementDirection == "down"){
+			if(playerMovementDirectionLR == "down"){
 				currentFrame = animationsStandard.get(state).animate(d);
 			}
 		}
@@ -411,12 +411,12 @@ public class Enemy extends AbstractGameObject{
 
 
 	public String getPlayerMovementDirection() {
-		return playerMovementDirection;
+		return playerMovementDirectionLR;
 	}
 
 
 	public void setPlayerMovementDirection(String playerMovementDirection) {
-		this.playerMovementDirection = playerMovementDirection;
+		this.playerMovementDirectionLR = playerMovementDirection;
 	}
 
 	public void doCollide(Player player) {

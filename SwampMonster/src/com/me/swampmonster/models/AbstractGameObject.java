@@ -37,6 +37,8 @@ public abstract class AbstractGameObject {
 	protected TheController theController;
 	
 	protected String playerMovementDirection; 
+	protected String playerMovementDirectionLR; 
+	protected String playerMovementDirectionUD; 
 	protected float playerMovementSpeed = 0.5f; 
 	
 	protected int health;
@@ -78,6 +80,18 @@ public abstract class AbstractGameObject {
 	}
 	public void setPlayerMovementDirection(String playerMovementDirection) {
 		this.playerMovementDirection = playerMovementDirection;
+	}
+	public String getPlayerMovementDirectionLR() {
+		return playerMovementDirectionLR;
+	}
+	public void setPlayerMovementDirectionLR(String playerMovementDirectionLR) {
+		this.playerMovementDirectionLR = playerMovementDirectionLR;
+	}
+	public String getPlayerMovementDirectionUD() {
+		return playerMovementDirectionUD;
+	}
+	public void setPlayerMovementDirectionUD(String playerMovementDirectionUD) {
+		this.playerMovementDirectionUD = playerMovementDirectionUD;
 	}
 	public float getPlayerMovementSpeedX() {
 		return playerMovementSpeed;

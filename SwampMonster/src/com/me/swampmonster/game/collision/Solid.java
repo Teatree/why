@@ -10,11 +10,11 @@ public class Solid implements Collidable{
 		boolean collisionX = false;
 		boolean collisionY = false; 
         //collision detection
-        if(abstractGameObject.getPlayerMovementDirection() == "left"){
+        if(abstractGameObject.getPlayerMovementDirectionLR() == "left"){
         	//left side
         	collisionX = collidesLeft(collisionLayer, abstractGameObject);
 	    }
-	    else if(abstractGameObject.getPlayerMovementDirection() == "right"){
+	    else if(abstractGameObject.getPlayerMovementDirectionLR() == "right"){
 	    	//right side
 	    	collisionX = collidesRight(collisionLayer, abstractGameObject);
 	    }
@@ -23,10 +23,10 @@ public class Solid implements Collidable{
 	    	abstractGameObject.setPosition(new Vector2(abstractGameObject.getOldPos().x, abstractGameObject.getPosition().y));
 	    }
 	      //collision detection
-		    if(abstractGameObject.getPlayerMovementDirection() == "up"){
+		    if(abstractGameObject.getPlayerMovementDirectionUD() == "up"){
 		    	//top side
 		    	collisionY = collidesTop(collisionLayer, abstractGameObject);
-		    }else if(abstractGameObject.getPlayerMovementDirection() == "down"){
+		    }else if(abstractGameObject.getPlayerMovementDirectionUD() == "down"){
 		    	//bottom side
 		    	collisionY = coolidesBottom(collisionLayer, abstractGameObject);
 		    }
