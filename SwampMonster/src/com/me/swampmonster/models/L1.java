@@ -34,19 +34,19 @@ public class L1{
 		bunker.update();
 	}
 	
-	public void drawPlayer(SpriteBatch b){
-		b.begin();
-		b.draw(getPlayer().getSprite(), getPlayer().getPosition().x, getPlayer().getPosition().y, getPlayer().getSprite().getWidth(), getPlayer().getSprite().getHeight());
-		b.end();
-	}
+//	public void drawPlayer(SpriteBatch b){
+//		b.begin();
+//		b.draw(getPlayer().getSprite(), getPlayer().getPosition().x, getPlayer().getPosition().y, getPlayer().getSprite().getWidth(), getPlayer().getSprite().getHeight());
+//		b.end();
+//	}
 	
-	public void drawEnemy(SpriteBatch b){
-		for (Enemy enemy : enemies){
-			b.begin();
-			b.draw(enemy.getSprite(), enemy.getPosition().x, enemy.getPosition().y, enemy.getSprite().getWidth(), enemy.getSprite().getHeight());
-			b.end();
-		}
-	}
+//	public void drawEnemy(SpriteBatch b){
+//		for (Enemy enemy : enemies){
+//			b.begin();
+//			b.draw(enemy.getSprite(), enemy.getPosition().x, enemy.getPosition().y, enemy.getSprite().getWidth(), enemy.getSprite().getHeight());
+//			b.end();
+//		}
+//	}
 	
 	public Bunker getBunker() {
 		return bunker;

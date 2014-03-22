@@ -62,7 +62,7 @@ public class Enemy extends AbstractGameObject{
 		playerMovementSpeed = 0.3f;
 	}
 	
-	public void update(TiledMapTileLayer collisionLayer, AbstractGameObject projectile, AbstractGameObject player, CameraHelper cameraHelper){
+	public void update(TiledMapTileLayer collisionLayer, AbstractGameObject projectile, Player player, CameraHelper cameraHelper){
 		oldPos.x = position.x;
 		oldPos.y = position.y; 
 		
@@ -181,7 +181,7 @@ public class Enemy extends AbstractGameObject{
 			}
 	}
 
-	private void inflictOnThe(int standing, int animation, AbstractGameObject player, CameraHelper cameraHelper) {
+	private void inflictOnThe(int standing, int animation, Player player, CameraHelper cameraHelper) {
 		// Timer is for the length of the actual animation
 		// Timer2 is for the waiting period
 		if(oldPos.x == position.x && oldPos.y == position.y){
@@ -203,6 +203,7 @@ public class Enemy extends AbstractGameObject{
 					currentFrame = animationsStandard.get(state).animate(standing);
 					// And may be inflict different hurts, direction/ kinds of hurts/ etc.
 					player.setDamageType("enemy");
+					player.addHarmfulEnemy(this);
 					player.setHurt(true);
 					player.setHealth(player.getHealth()-damage);
 					
@@ -425,6 +426,7 @@ public class Enemy extends AbstractGameObject{
 	
 	private int findLastNotNullInArray(){
 		int i = 0;
+		if (path != null)
 		while(path[i] != null){
 			i++;
 		}

@@ -128,16 +128,22 @@ public class TheController extends InputAdapter{
 		dy /= length1;
 		
 		//
-		float direction_x = level1.getPlayer().getShotDir().x - V3playerPos.x;
-		float direction_y = level1.getPlayer().getShotDir().y - V3playerPos.y;
 		
-		float length =(float) Math.sqrt(direction_x*direction_x + direction_y*direction_y);
-		direction_x /= length;
-		direction_y /= length;
+		if(level1.getPlayer().shooting){
+			float direction_x = level1.getPlayer().getShotDir().x - V3playerPos.x;
+			float direction_y = level1.getPlayer().getShotDir().y - V3playerPos.y;
+			
+			float length =(float) Math.sqrt(direction_x*direction_x + direction_y*direction_y);
+			direction_x /= length;
+			direction_y /= length;
+			
+			projectile.setDirection(direction_x, direction_y);
+		}
 		
 		if(projectile != null){
-			projectile.update(level1.getPlayer().getShotDir(), direction_x, direction_y);
+			projectile.update();
 		}
+		
 		// It gives the actual direction to the projective as a parameter.
 	}
 

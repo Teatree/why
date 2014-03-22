@@ -106,15 +106,25 @@ public class L1Renderer {
 		}
 		batch.end();
 		
+		batch.begin();
 		for (Enemy enemy : theController.level1.getEnemies()){
-			if(enemy.getPosition().y+20 < theController.level1.getPlayer().getPosition().y+20){
-				theController.level1.drawPlayer(batch);
-			}	
-			theController.level1.drawEnemy(batch);
+			System.out.println("enemyPosY: " + enemy.getPosition().y+20 + " playerPosY: " + theController.level1.getPlayer().getPosition().y+20);
 			if(enemy.getPosition().y+20 > theController.level1.getPlayer().getPosition().y+20){
-				theController.level1.drawPlayer(batch);
+				batch.draw(enemy.getSprite(), enemy.getPosition().x, enemy.getPosition().y, enemy.getSprite().getWidth(), enemy.getSprite().getHeight());
 			}
 		}
+			
+			batch.draw(theController.level1.getPlayer().getSprite(), theController.level1.getPlayer().getPosition().x, theController.level1.getPlayer().getPosition().y,
+					theController.level1.getPlayer().getSprite().getWidth(), theController.level1.getPlayer().getSprite().getHeight());
+//			theController.level1.drawEnemy(batch);
+		for(Enemy enemy : theController.level1.getEnemies()){
+			if(enemy.getPosition().y+20 < theController.level1.getPlayer().getPosition().y+20){
+				batch.draw(enemy.getSprite(), enemy.getPosition().x, enemy.getPosition().y, enemy.getSprite().getWidth(), enemy.getSprite().getHeight());
+			}
+		}
+		
+		batch.end();
+		
 		
 		// Temporary deBug feature
 		sr.begin(ShapeType.Line);

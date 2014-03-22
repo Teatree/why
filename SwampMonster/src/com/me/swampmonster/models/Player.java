@@ -241,9 +241,11 @@ public class Player extends AbstractGameObject{
 				time++;
 				
 				if(damageType == "enemy"){
-					for (Enemy enemy : harmfulEnemies)
+					System.out.println(harmfulEnemies.size());
+					for (Enemy enemy : harmfulEnemies){
+						System.out.println(enemy.getPlayerMovementDirection());
 						takingDamageFromEnemy(animations, enemy, touchPos, collisionLayer);
-				
+					}
 				}
 				if(damageType == "lackOfOxygen"){
 					currentFrame = animations.get(State.STANDARD).doComplexAnimation(104, 0.2f, Gdx.graphics.getDeltaTime()/2);
@@ -266,6 +268,7 @@ public class Player extends AbstractGameObject{
 			sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
 			
 			timeShooting++;
+			
 		}
 		if(shooting && timeShooting < 2){
 			shotDir.x = V3point.x;
@@ -280,7 +283,7 @@ public class Player extends AbstractGameObject{
 	}
 
 	private void takingDamageFromEnemy(HashMap<State, AnimationControl> animations, AbstractGameObject enemy, Vector3 touchPos, TiledMapTileLayer collisionLayer) {
-		
+		System.out.println(enemy.getPlayerMovementDirection());
 		Collidable collidableUp = null;
 		
 		damagedFromTop(collidableUp, animations, enemy, touchPos);
