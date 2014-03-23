@@ -17,8 +17,11 @@ public class EnemyGenerator {
 		enemyTypes.put(4, EnemyBreather.class);
 	}
 	
+	
+	
 	public Enemy getEnemy(int enemyRang, int toughRang){
 		try {
+			//reflection
 			return enemyTypes.get(enemyRang).getConstructor(Vector2.class).newInstance(new Vector2());
 		} catch (Exception e) {
 			e.printStackTrace();
