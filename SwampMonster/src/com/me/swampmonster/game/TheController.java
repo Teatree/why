@@ -63,8 +63,8 @@ public class TheController extends InputAdapter{
 		level1.getEnemies().get(0).getSprite().setSize(level1.getEnemies().get(0).getSprite().getWidth()/2, level1.getEnemies().get(0).getSprite().getHeight()/2);
 		
 		level1.getEnemies().get(1).setPosition(new Vector2 (60f,30f));
-		level1.getEnemies().get(1).getSprite().setSize(level1.getEnemies().get(0).getSprite().getWidth()/2, level1.getEnemies().get(0).getSprite().getHeight()/2);
-		level1.getEnemies().get(1).setPlayerMovementSpeedX(0.1f);
+		level1.getEnemies().get(1).getSprite().setSize(level1.getEnemies().get(1).getSprite().getWidth()/2, level1.getEnemies().get(1).getSprite().getHeight()/2);
+//		level1.getEnemies().get(1).setPlayerMovementSpeedX(0.1f);
 		//:TODO :3
 		
 		level1.getPlayer().setHurt(false);

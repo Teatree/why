@@ -22,7 +22,7 @@ public class L1{
 	public void create(){
 		player = new Player(new Vector2());
 		enemies = new ArrayList<Enemy>();
-		enemies.add(new Enemy(new Vector2()));
+		enemies.add(new EnemyZombie(new Vector2()));
 		enemies.add(new Enemy(new Vector2()));
 		bunker = new Bunker();
 	}

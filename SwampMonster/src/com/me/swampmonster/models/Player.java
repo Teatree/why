@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
+import sun.net.www.content.audio.x_aiff;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
@@ -61,6 +63,7 @@ public class Player extends AbstractGameObject{
 		characterStatsBoard();
 		// ***Character stats board***
 		sprite = new Sprite(animationsStandard.get(State.STANDARD).getCurrentFrame());
+		sprite.setColor(0,1,0,1);
 		shotDir = new Vector3();
 	}
 	
@@ -162,6 +165,7 @@ public class Player extends AbstractGameObject{
 		if(state.equals(State.STANDARD)){
 //			System.out.println(" (PLAYER): I'm currently in STANDARD state");
 			sprite = new Sprite(animations.get(State.STANDARD).getCurrentFrame());
+			sprite.setColor(0,0,1,1);
 			sprite.setRegion(animations.get(state).getCurrentFrame());
 			sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
 			
@@ -241,9 +245,9 @@ public class Player extends AbstractGameObject{
 				time++;
 				
 				if(damageType == "enemy"){
-					System.out.println(harmfulEnemies.size());
+//					System.out.println(harmfulEnemies.size());
 					for (Enemy enemy : harmfulEnemies){
-						System.out.println(enemy.getPlayerMovementDirection());
+//						System.out.println(enemy.getPlayerMovementDirection());
 						takingDamageFromEnemy(animations, enemy, touchPos, collisionLayer);
 					}
 				}
@@ -283,7 +287,7 @@ public class Player extends AbstractGameObject{
 	}
 
 	private void takingDamageFromEnemy(HashMap<State, AnimationControl> animations, AbstractGameObject enemy, Vector3 touchPos, TiledMapTileLayer collisionLayer) {
-		System.out.println(enemy.getPlayerMovementDirection());
+//		System.out.println(enemy.getPlayerMovementDirection());
 		Collidable collidableUp = null;
 		
 		damagedFromTop(collidableUp, animations, enemy, touchPos);
@@ -357,7 +361,7 @@ public class Player extends AbstractGameObject{
 	
 	
 	private void movementCollisionAndAnimation(float speed, HashMap<State, AnimationControl> animations, Vector3 touchPos, TiledMapTileLayer collisionLayer, float dx, float dy) {
-		// ---------------------left------------------------ //
+		// ---------------------movement, just, movement------------------------ //
 		Collidable collidableLeft = null;
 		Collidable collidableRight = null;
 		Collidable collidableDown = null;
@@ -424,31 +428,32 @@ public class Player extends AbstractGameObject{
 		
 		if(position.x > touchPos.x-10){
 			playerMovementDirectionLR = "left";
-			if((dx*playerMovementSpeed)<(dy*playerMovementSpeed)){
-				playerMovementDirection = "left";
-				currentFrame = animationsStandard.get(state).animate(24);
-			}
 		}
 		if(position.x < touchPos.x-10){
 			playerMovementDirectionLR = "right";
-			if((dx*playerMovementSpeed)>(dy*playerMovementSpeed)){
-				playerMovementDirection = "right";
-				currentFrame = animationsStandard.get(state).animate(16);
-			}
 		}
 		if(position.y > touchPos.y-10){
 			playerMovementDirectionUD = "down";
-			if((dx*playerMovementSpeed)>(dy*playerMovementSpeed)){
-				playerMovementDirection = "down";
-				currentFrame = animationsStandard.get(state).animate(0);
-			}
 		}
 		if(position.y < touchPos.y-10){
 			playerMovementDirectionUD = "up";
-			if((dx*playerMovementSpeed)<(dy*playerMovementSpeed)){
-				playerMovementDirection = "up";
-				currentFrame = animationsStandard.get(state).animate(8);
-			}
+		}
+		
+		if(Math.abs((dx*playerMovementSpeed))>Math.abs((dy*playerMovementSpeed)) && dx>0){
+			playerMovementDirection = "right";
+			currentFrame = animationsStandard.get(state).animate(16);
+		}
+		if(Math.abs((dx*playerMovementSpeed))>Math.abs((dy*playerMovementSpeed)) && dx<0){
+			playerMovementDirection = "left";
+			currentFrame = animationsStandard.get(state).animate(24);
+		}
+		if(Math.abs((dx*playerMovementSpeed))<Math.abs((dy*playerMovementSpeed)) && dy<0){
+			playerMovementDirection = "down";
+			currentFrame = animationsStandard.get(state).animate(0);
+		}
+		if(Math.abs((dx*playerMovementSpeed))<Math.abs((dy*playerMovementSpeed)) && dy>0){
+			playerMovementDirection = "up";
+			currentFrame = animationsStandard.get(state).animate(8);
 		}
 	}
 	private void standingAnimation(HashMap<State, AnimationControl> animations) {

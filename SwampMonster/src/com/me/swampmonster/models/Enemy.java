@@ -3,6 +3,7 @@ package com.me.swampmonster.models;
 import java.util.HashMap;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Circle;
@@ -14,14 +15,14 @@ import com.me.swampmonster.game.collision.Collidable;
 import com.me.swampmonster.game.collision.CollisionHelper;
 import com.me.swampmonster.utils.CameraHelper;
 
-public class Enemy extends AbstractGameObject{
+public class Enemy extends AbstractGameObject implements Cloneable{
 	
 	State state = State.STANDARD;
 	int cunter;
 	int timer;
 	int timeDead = 0;
 	int timer2;
-	int number;
+//	int number;
 	
 	public Circle gReenAura;
 	public Circle oRangeAura;
@@ -46,7 +47,7 @@ public class Enemy extends AbstractGameObject{
 		timer2 = 0;
 		path = new Node[99];
 		
-		number = 0;
+//		number = 0;
 		
 		// ***Character stats board***
 		characterStatsBoard();
@@ -98,9 +99,13 @@ public class Enemy extends AbstractGameObject{
 					sprite.setRegion(animations.get(state).getCurrentFrame());
 					
 					//MOVEMENT + COLLISION PROCESSING AND DETECTION
-						if(cunter == 0){ 
-							cunter = findLastNotNullInArray();
-						}
+					System.out.println("cunter = " + cunter);
+					if(path != null){
+						System.out.println("path [cunter] " + path[cunter]);
+					}
+					if(cunter  <= 0){ 
+						cunter = findLastNotNullInArray();
+					}
 					
 					onPathMovingAndCollisionDetection(collisionLayer, player);
 				        
@@ -169,7 +174,6 @@ public class Enemy extends AbstractGameObject{
 			if(state.equals(State.DEAD)){
 //				System.out.println(" (PLAYER): I'm DEAD :(");
 				if(timeDead < 89){
-					sprite = new Sprite(animations.get(State.ANIMATING).getCurrentFrame());
 					currentFrame = animations.get(state).doComplexAnimation(96, 2f, 0.02f);
 					
 					sprite.setRegion(animations.get(state).getCurrentFrame());
@@ -233,9 +237,10 @@ public class Enemy extends AbstractGameObject{
 			collisionCheck(collidable, collisionLayer, player);
 			if(cunter == 0){
 				System.out.println("happened");
-				if(number < 99){
-					clear();
-				}
+				path[cunter] = null;
+//				if(number < 99){
+//					clear();
+//				}
 				state = State.STANDARD;
 			}
 		}
@@ -378,10 +383,8 @@ public class Enemy extends AbstractGameObject{
 	private void orientOnPath() {
 		if(cunter>=0 && path[cunter] != null && position.x >= (path[cunter].x*16)-1 && position.x <= (path[cunter].x*16)+1
 				&& position.y <= (path[cunter].y*16)+1 && position.y >= (path[cunter].y*16)-1){
-			if(cunter>=0){
 				path[cunter] = null;
 				cunter--;
-			}
 		}
 	}
 	
@@ -394,13 +397,12 @@ public class Enemy extends AbstractGameObject{
 //		System.out.println(theController.level1.getPlayer().position.x);
 		state = State.PURSUIT;
 	}
-	private void clear(){
-		if(number < 99){
-			path[number] = null;
-			number++;
-			System.out.println("clear() informtaion: " + "path.length = " + path.length);
-		}
-	}
+//	private void clear(){
+//		while(number < 99){
+//			path[number] = null;
+//			number++;
+//		}
+//	}
 
 	public Vector2 getOldPos() {
 		return oldPos;
@@ -427,9 +429,9 @@ public class Enemy extends AbstractGameObject{
 	private int findLastNotNullInArray(){
 		int i = 0;
 		if (path != null)
-		while(path[i] != null){
-			i++;
-		}
+			while(path[i] != null){
+				i++;
+			}
 		return i - 1;
 	}
 

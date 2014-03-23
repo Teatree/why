@@ -2,6 +2,7 @@ package com.me.swampmonster.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -108,18 +109,21 @@ public class L1Renderer {
 		
 		batch.begin();
 		for (Enemy enemy : theController.level1.getEnemies()){
-			System.out.println("enemyPosY: " + enemy.getPosition().y+20 + " playerPosY: " + theController.level1.getPlayer().getPosition().y+20);
 			if(enemy.getPosition().y+20 > theController.level1.getPlayer().getPosition().y+20){
-				batch.draw(enemy.getSprite(), enemy.getPosition().x, enemy.getPosition().y, enemy.getSprite().getWidth(), enemy.getSprite().getHeight());
+				enemy.getSprite().setPosition(enemy.getPosition().x, enemy.getPosition().y);
+				enemy.getSprite().draw(batch);
 			}
 		}
 			
-			batch.draw(theController.level1.getPlayer().getSprite(), theController.level1.getPlayer().getPosition().x, theController.level1.getPlayer().getPosition().y,
-					theController.level1.getPlayer().getSprite().getWidth(), theController.level1.getPlayer().getSprite().getHeight());
+			theController.level1.getPlayer().getSprite().setPosition(theController.level1.getPlayer().getPosition().x, theController.level1.getPlayer().getPosition().y);
+			theController.level1.getPlayer().getSprite().draw(batch);
+//			batch.draw(theController.level1.getPlayer().getSprite(), theController.level1.getPlayer().getPosition().x, theController.level1.getPlayer().getPosition().y,
+//					theController.level1.getPlayer().getSprite().getWidth(), theController.level1.getPlayer().getSprite().getHeight());
 //			theController.level1.drawEnemy(batch);
 		for(Enemy enemy : theController.level1.getEnemies()){
 			if(enemy.getPosition().y+20 < theController.level1.getPlayer().getPosition().y+20){
-				batch.draw(enemy.getSprite(), enemy.getPosition().x, enemy.getPosition().y, enemy.getSprite().getWidth(), enemy.getSprite().getHeight());
+				enemy.getSprite().setPosition(enemy.getPosition().x, enemy.getPosition().y);
+				enemy.getSprite().draw(batch);
 			}
 		}
 		
