@@ -35,7 +35,7 @@ public class AnimationControl {
 	
 	public TextureRegion animate(int i){
 		if (stateTime < 1) {
-			stateTime += Gdx.graphics.getDeltaTime();
+			stateTime += Gdx.graphics.getDeltaTime()/1.5f;
 		} else {
 			stateTime = 0;
 		}

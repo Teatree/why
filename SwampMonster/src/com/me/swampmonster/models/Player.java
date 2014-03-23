@@ -163,7 +163,7 @@ public class Player extends AbstractGameObject{
 		if(state.equals(State.STANDARD)){
 //			System.out.println(" (PLAYER): I'm currently in STANDARD state");
 			sprite = new Sprite(animations.get(State.STANDARD).getCurrentFrame());
-			sprite.setColor(1,1,1,0.39f);
+//			sprite.setColor(1,1,1,0.39f);
 			sprite.setRegion(animations.get(state).getCurrentFrame());
 			sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
 			

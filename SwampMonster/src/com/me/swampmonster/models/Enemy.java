@@ -34,10 +34,10 @@ public class Enemy extends AbstractGameObject implements Cloneable{
 		gReenAura.radius = 164;
 		oRangeAura = new Circle();
 		oRangeAura.radius = 16;
-		animationsStandard.put(State.PURSUIT, new AnimationControl("data/Skelenten.png", 8, 16, 4)); 
-		animationsStandard.put(State.STANDARD, new AnimationControl("data/Skelenten.png", 8, 16, 4)); 
-		animationsStandard.put(State.ATTACKING, new AnimationControl("data/Skelenten.png", 8, 16, 4)); 
-		animationsStandard.put(State.ANIMATING, new AnimationControl("data/Skelenten.png", 8, 16, 4)); 
+		animationsStandard.put(State.PURSUIT, new AnimationControl("data/Skelenten.png", 8, 16, 8)); 
+		animationsStandard.put(State.STANDARD, new AnimationControl("data/Skelenten.png", 8, 16, 8)); 
+		animationsStandard.put(State.ATTACKING, new AnimationControl("data/Skelenten.png", 8, 16, 8)); 
+		animationsStandard.put(State.ANIMATING, new AnimationControl("data/Skelenten.png", 8, 16, 8)); 
 		animationsStandard.put(State.DEAD, new AnimationControl("data/Skelenten.png", 8, 16, 4)); 
 		oldPos = position;
 		// Timer is for the length of the actual animation
@@ -169,8 +169,8 @@ public class Enemy extends AbstractGameObject implements Cloneable{
 			//DEAD
 			if(state.equals(State.DEAD)){
 //				System.out.println(" (PLAYER): I'm DEAD :(");
-				if(timeDead < 89){
-					currentFrame = animations.get(state).doComplexAnimation(96, 2f, 0.02f);
+				if(timeDead < 65){
+					currentFrame = animations.get(state).doComplexAnimation(96, 2f, 0.03f);
 					
 					sprite.setRegion(animations.get(state).getCurrentFrame());
 					sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);

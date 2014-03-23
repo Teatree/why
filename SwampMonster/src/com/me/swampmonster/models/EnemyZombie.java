@@ -10,8 +10,10 @@ public class EnemyZombie extends Enemy{
 	public EnemyZombie(Vector2 position) {
 		super(position);
 		
-		animationsStandard.put(State.STANDARD, new AnimationControl("data/EnemyZombie.png", 8, 8, 4)); 
-		sprite = new Sprite(animationsStandard.get(State.STANDARD).getCurrentFrame());
+		animationsStandard.put(State.PURSUIT, new AnimationControl("data/EnemyZombie.png", 8, 16, 8)); 
+		animationsStandard.put(State.STANDARD, new AnimationControl("data/EnemyZombie.png", 8, 16, 8)); 
+		animationsStandard.put(State.DEAD, new AnimationControl("data/EnemyZombie.png", 8, 16, 4)); 
+		sprite = new Sprite(animationsStandard.get(state).getCurrentFrame());
 		sprite.setColor(1, 1, 1, 1);
 		health = 2;
 		damage = 2;
