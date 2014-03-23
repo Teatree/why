@@ -3,7 +3,6 @@ package com.me.swampmonster.models;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
@@ -22,7 +21,7 @@ public class L1{
 	public void create(){
 		player = new Player(new Vector2());
 		enemies = new ArrayList<Enemy>();
-		enemies.add(new EnemyZombie(new Vector2()));
+		enemies.add(new EnemyMaggot(new Vector2()));
 		enemies.add(new Enemy(new Vector2()));
 		bunker = new Bunker();
 	}

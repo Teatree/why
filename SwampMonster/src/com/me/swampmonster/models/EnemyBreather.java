@@ -1,0 +1,11 @@
+package com.me.swampmonster.models;
+
+import com.badlogic.gdx.math.Vector2;
+
+public class EnemyBreather extends Enemy {
+
+	public EnemyBreather(Vector2 position) {
+		super(position);
+	}
+
+}

@@ -3,7 +3,6 @@ package com.me.swampmonster.models;
 import java.util.HashMap;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Circle;
@@ -100,9 +99,6 @@ public class Enemy extends AbstractGameObject implements Cloneable{
 					
 					//MOVEMENT + COLLISION PROCESSING AND DETECTION
 					System.out.println("cunter = " + cunter);
-					if(path != null){
-						System.out.println("path [cunter] " + path[cunter]);
-					}
 					if(cunter  <= 0){ 
 						cunter = findLastNotNullInArray();
 					}

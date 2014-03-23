@@ -4,8 +4,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
-import sun.net.www.content.audio.x_aiff;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
@@ -63,7 +61,7 @@ public class Player extends AbstractGameObject{
 		characterStatsBoard();
 		// ***Character stats board***
 		sprite = new Sprite(animationsStandard.get(State.STANDARD).getCurrentFrame());
-		sprite.setColor(0,1,0,1);
+		sprite.setColor(1,1,1,0.39f);
 		shotDir = new Vector3();
 	}
 	
@@ -165,7 +163,7 @@ public class Player extends AbstractGameObject{
 		if(state.equals(State.STANDARD)){
 //			System.out.println(" (PLAYER): I'm currently in STANDARD state");
 			sprite = new Sprite(animations.get(State.STANDARD).getCurrentFrame());
-			sprite.setColor(0,0,1,1);
+			sprite.setColor(1,1,1,0.39f);
 			sprite.setRegion(animations.get(state).getCurrentFrame());
 			sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
 			
