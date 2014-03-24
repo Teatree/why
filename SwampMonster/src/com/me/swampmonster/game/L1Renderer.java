@@ -109,7 +109,7 @@ public class L1Renderer {
 		
 		batch.begin();
 		for (Enemy enemy : theController.level1.getEnemies()){
-			if(enemy.getPosition().y+20 > theController.level1.getPlayer().getPosition().y+20){
+			if(enemy.getPosition().y+32 > theController.level1.getPlayer().getPosition().y+32){
 				enemy.getSprite().setPosition(enemy.getPosition().x, enemy.getPosition().y);
 				enemy.getSprite().draw(batch);
 			}
@@ -121,7 +121,7 @@ public class L1Renderer {
 //					theController.level1.getPlayer().getSprite().getWidth(), theController.level1.getPlayer().getSprite().getHeight());
 //			theController.level1.drawEnemy(batch);
 		for(Enemy enemy : theController.level1.getEnemies()){
-			if(enemy.getPosition().y+20 < theController.level1.getPlayer().getPosition().y+20){
+			if(enemy.getPosition().y+32 < theController.level1.getPlayer().getPosition().y+32){
 				enemy.getSprite().setPosition(enemy.getPosition().x, enemy.getPosition().y);
 				enemy.getSprite().draw(batch);
 			}

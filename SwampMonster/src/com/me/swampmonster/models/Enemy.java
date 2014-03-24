@@ -62,7 +62,7 @@ public class Enemy extends AbstractGameObject implements Cloneable{
 		playerMovementSpeed = 0.3f;
 	}
 	
-	public void update(TiledMapTileLayer collisionLayer, AbstractGameObject projectile, Player player, CameraHelper cameraHelper){
+	public void update(TiledMapTileLayer collisionLayer, AbstractGameObject projectile, Player player, CameraHelper cameraHelper, float enemyDx, float enemyDy){
 		oldPos.x = position.x;
 		oldPos.y = position.y; 
 		
@@ -119,21 +119,25 @@ public class Enemy extends AbstractGameObject implements Cloneable{
 				sprite.setRegion(animations.get(state).getCurrentFrame());
             	
             	if(timer == 0 && timer2 == 0){
-	            	moveLeft(player);
-	            	Collidable collidable = collisionCheckerLeft(collisionLayer);
-	            	collisionCheck(collidable, collisionLayer, player);
+            		
+            		Collidable collidableLeft = null;
+            		Collidable collidableRight = null;
+            		Collidable collidableDown = null;
+            		Collidable collidableUp = null;
+            		
+	            	moveLeft(player, collidableLeft, collidableRight, collidableDown, collidableUp, enemyDx, enemyDy, playerMovementSpeed);
+	            	collidableLeft = collisionCheckerLeft(collisionLayer);
+	            	collisionCheck(collidableLeft, collisionLayer, player);
 	            	
-	            	moveRight(player);
-	            	collidable = collisionCheckerRight(collisionLayer);
-	            	collisionCheck(collidable, collisionLayer, player);
-	            	
-	            	moveDown(player);
-	            	collidable = collisionCheckerBottom(collisionLayer);
-	            	collisionCheck(collidable, collisionLayer, player);
-	            	
-	            	moveUp(player);
-	            	collidable = collisionCheckerTop(collisionLayer);
-	            	collisionCheck(collidable, collisionLayer, player);
+//	            	moveRight(player);
+	            	collidableRight = collisionCheckerRight(collisionLayer);
+	            	collisionCheck(collidableRight, collisionLayer, player);
+//	            	moveDown(player);
+	            	collidableDown = collisionCheckerBottom(collisionLayer);
+	            	collisionCheck(collidableDown, collisionLayer, player);
+//	            	moveUp(player);
+	            	collidableUp = collisionCheckerTop(collisionLayer);
+	            	collisionCheck(collidableUp, collisionLayer, player);
 //	            	System.out.println("playerDircetion = " + playerMovementDirection);
             	}
             	
@@ -273,14 +277,45 @@ public class Enemy extends AbstractGameObject implements Cloneable{
 		return collidable;
 	}
 
-	private void moveLeft(AbstractGameObject player) {
-		if (position.x > player.getPosition().x) {
-			position.x -= playerMovementSpeed;
-			sprite.translateX(-playerMovementSpeed);
-			playerMovementDirectionLR = "left";
-			if(position.x > player.getPosition().x+16 && position.y < player.getPosition().y+3 && position.y > player.getPosition().y-3){
-				currentFrame = animationsStandard.get(state).animate(8);
+	private void moveLeft(AbstractGameObject player, Collidable collidableLeft, Collidable collidableRight, Collidable collidableDown, Collidable collidableUp, float enemyDx, float enemyDy, float playerMovementSpeed) {
+		if (position.x > player.getPosition().x-4 || position.x < player.getPosition().x-10 || position.y > player.getPosition().y-4 || position.y < player.getPosition().y-10) {
+			if(collidableLeft == null || collidableRight == null){
+				position.x += enemyDx*playerMovementSpeed;
 			}
+			if(collidableUp == null || collidableDown == null){
+				position.y += enemyDy*playerMovementSpeed;
+			}
+//			sprite.translateX(-playerMovementSpeed);
+		}
+		
+		if(position.x > player.getPosition().x-10){
+			playerMovementDirectionLR = "left";
+		}
+		if(position.x < player.getPosition().x-10){
+			playerMovementDirectionLR = "right";
+		}
+		if(position.y > player.getPosition().y-10){
+			playerMovementDirectionUD = "down";
+		}
+		if(position.y < player.getPosition().y-10){
+			playerMovementDirectionUD = "up";
+		}
+		
+		if(Math.abs((enemyDx*playerMovementSpeed))>Math.abs((enemyDy*playerMovementSpeed)) && enemyDx>0){
+			playerMovementDirection = "right";
+			currentFrame = animationsStandard.get(state).animate(16);
+		}
+		if(Math.abs((enemyDx*playerMovementSpeed))>Math.abs((enemyDy*playerMovementSpeed)) && enemyDx<0){
+			playerMovementDirection = "left";
+			currentFrame = animationsStandard.get(state).animate(24);
+		}
+		if(Math.abs((enemyDx*playerMovementSpeed))<Math.abs((enemyDy*playerMovementSpeed)) && enemyDy<0){
+			playerMovementDirection = "down";
+			currentFrame = animationsStandard.get(state).animate(0);
+		}
+		if(Math.abs((enemyDx*playerMovementSpeed))<Math.abs((enemyDy*playerMovementSpeed)) && enemyDy>0){
+			playerMovementDirection = "up";
+			currentFrame = animationsStandard.get(state).animate(8);
 		}
 	}
 	

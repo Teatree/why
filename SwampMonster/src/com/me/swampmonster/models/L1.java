@@ -25,10 +25,11 @@ public class L1{
 		enemies.add(new Enemy(new Vector2()));
 		bunker = new Bunker();
 	}
-	public void update(boolean aiming, Vector3 touchPos, Vector3 V3point, TiledMapTileLayer collisionLayer, AbstractGameObject projectile, CameraHelper cameraHelper, float direction_x, float direction_y) {
-		this.player.update(aiming, touchPos, V3point, collisionLayer, direction_x, direction_y);
+	public void update(boolean aiming, Vector3 touchPos, Vector3 V3point, TiledMapTileLayer collisionLayer, AbstractGameObject projectile, CameraHelper cameraHelper,
+			float dx, float dy, float enemyDx, float enemyDy) {
+		this.player.update(aiming, touchPos, V3point, collisionLayer, dx, dy);
 		for (Enemy enemy : enemies){
-			enemy.update(collisionLayer, projectile, this.player, cameraHelper);
+			enemy.update(collisionLayer, projectile, this.player, cameraHelper, enemyDx, enemyDy);
 		}
 		bunker.update();
 	}
