@@ -71,21 +71,6 @@ public class Player extends AbstractGameObject{
 		oxygen = 96;
 	}
 	
-	
-	  public Vector2 getPosition() {
-		   return position;
-		  }
-	 public void setPosition(Vector2 position) {
-		  this.position = position;
-	}
-	 public Vector2 getOldPos() {
-		 return oldPos;
-		}
-		 public void setOldPos(Vector2 oldPos) {
-		   this.oldPos = oldPos;
-	 }
-		 
-		 
 	public void update(boolean aiming, Vector3 touchPos, Vector3 V3point, TiledMapTileLayer collisionLayer, float dx, float dy) {
 		oldPos.x = position.x;
 		oldPos.y = position.y;
@@ -417,6 +402,7 @@ public class Player extends AbstractGameObject{
 		if (position.x > touchPos.x-4 || position.x < touchPos.x-10 || position.y > touchPos.y-4 || position.y < touchPos.y-10) {
 			if(collidableLeft == null || collidableRight == null){
 				position.x += dx*playerMovementSpeed;
+//				System.out.println("dx*playerMovementSpeed: " + dx*playerMovementSpeed + " position.x: " + position.x);
 			}
 			if(collidableUp == null || collidableDown == null){
 				position.y += dy*playerMovementSpeed;

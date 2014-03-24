@@ -19,7 +19,6 @@ import com.me.swampmonster.models.AbstractGameObject.State;
 import com.me.swampmonster.utils.Constants;
 
 public class L1Renderer {
-	private L1 level1;
 	private OrthographicCamera cam;
 	private TheController theController;
 	
@@ -43,8 +42,7 @@ public class L1Renderer {
 	float ass = 1f;
 	float assRevert = 0f;
 	
-	public L1Renderer(L1 level1, TheController theController){
-		this.level1 = level1;
+	public L1Renderer(TheController theController){
 		this.theController = theController;
 		this.cam = new OrthographicCamera(Constants.VIEWPORT_WIDTH, Constants.VIEWPORT_HEIGHT);
 		font = new BitmapFont(Gdx.files.internal("data/font.fnt"),
@@ -57,8 +55,8 @@ public class L1Renderer {
 		batch = new SpriteBatch();
 		sr = new ShapeRenderer();
 		staticSr = new ShapeRenderer();
-		mapRenderer = new OrthogonalTiledMapRenderer(level1.getBunker().getMap());
-		layer1 = level1.getBunker().gettLayer();
+		mapRenderer = new OrthogonalTiledMapRenderer(theController.level1.getBunker().getMap());
+		layer1 = theController.level1.getBunker().gettLayer();
 		
 		timer = 60;
 		

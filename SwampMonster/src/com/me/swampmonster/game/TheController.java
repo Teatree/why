@@ -29,6 +29,7 @@ public class TheController extends InputAdapter{
 	public Vector2 point;
 	public Vector3 V3point;
 	public Vector3 V3playerPos;
+	public Vector3 V3enemyPos;
 	public Vector2 randVector2;
 //	Random randomGenerator = new Random();
 	public Projectile projectile;
@@ -130,8 +131,10 @@ public class TheController extends InputAdapter{
 		dx /= length1;
 		dy /= length1;
 		
-		enemyDx = touchPos.x - V3playerPos.x;
-		enemyDy = touchPos.y - V3playerPos.y;
+		for (Enemy enemy : level1.getEnemies()){
+			enemyDx = level1.getPlayer().getPosition().x - enemy.getPosition().x;
+			enemyDy = level1.getPlayer().getPosition().y - enemy.getPosition().y;
+		}
 		
 		float enemyLength = (float) Math.sqrt(enemyDx*enemyDx + enemyDy*enemyDy);
 		enemyDx /= enemyLength;

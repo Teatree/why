@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.me.swampmonster.AI.Node;
 import com.me.swampmonster.AI.Pathfinder;
 import com.me.swampmonster.animations.AnimationControl;
@@ -23,6 +24,9 @@ public class Enemy extends AbstractGameObject implements Cloneable{
 	int timeDead = 0;
 	int timer2;
 //	int number;
+	
+//  Vector3 of enemy's position on the map
+	private Vector3 V3enemyPos;
 	
 	public Circle gReenAura;
 	public Circle oRangeAura;
@@ -48,10 +52,16 @@ public class Enemy extends AbstractGameObject implements Cloneable{
 		path = new Node[99];
 		
 //		number = 0;
+//		V3enemyPos = new Vector3();
+//		
+//		V3enemyPos.x = position.x + circle.radius/2;
+//		V3enemyPos.y = position.y + circle.radius/2;
+//		V3enemyPos.z = 0;
 		
-		// ***Character stats board***
+		
+		// ***Character stats board, probably need to delete this***
 		characterStatsBoard();
-		// ***Character stats board***
+		// ***Character stats board, probably need to delete this***
 		
 		sprite = new Sprite(animationsStandard.get(State.STANDARD).getCurrentFrame());
 	}
@@ -126,7 +136,7 @@ public class Enemy extends AbstractGameObject implements Cloneable{
             		Collidable collidableDown = null;
             		Collidable collidableUp = null;
             		
-	            	moveLeft(player, collidableLeft, collidableRight, collidableDown, collidableUp, enemyDx, enemyDy, playerMovementSpeed);
+	            	move(player, collidableLeft, collidableRight, collidableDown, collidableUp, enemyDx, enemyDy, playerMovementSpeed);
 	            	collidableLeft = collisionCheckerLeft(collisionLayer);
 	            	collisionCheck(collidableLeft, collisionLayer, player);
 	            	
@@ -278,15 +288,16 @@ public class Enemy extends AbstractGameObject implements Cloneable{
 		return collidable;
 	}
 
-	private void moveLeft(AbstractGameObject player, Collidable collidableLeft, Collidable collidableRight, Collidable collidableDown, Collidable collidableUp, float enemyDx, float enemyDy, float playerMovementSpeed) {
+	private void move(AbstractGameObject player, Collidable collidableLeft, Collidable collidableRight, Collidable collidableDown, Collidable collidableUp, float enemyDx, float enemyDy, float playerMovementSpeed) {
 		if (position.x > player.getPosition().x-4 || position.x < player.getPosition().x-10 || position.y > player.getPosition().y-4 || position.y < player.getPosition().y-10) {
 			if(collidableLeft == null || collidableRight == null){
 				position.x += enemyDx*playerMovementSpeed;
+//				System.out.println("enemyDx*playerMovementSpeed: " + enemyDx*playerMovementSpeed + " position.x: " + position.x);
 			}
 			if(collidableUp == null || collidableDown == null){
 				position.y += enemyDy*playerMovementSpeed;
 			}
-//			sprite.translateX(-playerMovementSpeed);
+			sprite.translateX(-playerMovementSpeed);
 		}
 		
 		if(position.x > player.getPosition().x-10){
@@ -304,11 +315,11 @@ public class Enemy extends AbstractGameObject implements Cloneable{
 		
 		if(Math.abs((enemyDx*playerMovementSpeed))>Math.abs((enemyDy*playerMovementSpeed)) && enemyDx>0){
 			playerMovementDirection = "right";
-			currentFrame = animationsStandard.get(state).animate(16);
+			currentFrame = animationsStandard.get(state).animate(24);
 		}
 		if(Math.abs((enemyDx*playerMovementSpeed))>Math.abs((enemyDy*playerMovementSpeed)) && enemyDx<0){
 			playerMovementDirection = "left";
-			currentFrame = animationsStandard.get(state).animate(24);
+			currentFrame = animationsStandard.get(state).animate(16);
 		}
 		if(Math.abs((enemyDx*playerMovementSpeed))<Math.abs((enemyDy*playerMovementSpeed)) && enemyDy<0){
 			playerMovementDirection = "down";

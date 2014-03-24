@@ -5,18 +5,15 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL10;
 import com.me.swampmonster.game.L1Renderer;
 import com.me.swampmonster.game.TheController;
-import com.me.swampmonster.models.L1;
 
 public class SwampScreen implements Screen {
 
-	private L1 level1;
 	private L1Renderer renderer;
 	private TheController theController;
 	
 	public void show() {
 		theController = new TheController();
-		level1 = new L1(); 
-		renderer = new L1Renderer(level1, theController);
+		renderer = new L1Renderer(theController);
 		theController.l1Renderer = renderer;
 	}
 	public void render(float delta) {
