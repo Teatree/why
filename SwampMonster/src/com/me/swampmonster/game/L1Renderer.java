@@ -2,7 +2,6 @@ package com.me.swampmonster.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -10,12 +9,10 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.badlogic.gdx.maps.tiled.renderers.BatchTiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.me.swampmonster.AI.Node;
-import com.me.swampmonster.GUI.GUI;
 import com.me.swampmonster.models.Enemy;
 import com.me.swampmonster.models.L1;
 import com.me.swampmonster.models.AbstractGameObject.State;
@@ -23,7 +20,6 @@ import com.me.swampmonster.utils.Constants;
 
 public class L1Renderer {
 	private L1 level1;
-	private GUI gui;
 	private OrthographicCamera cam;
 	private TheController theController;
 	
@@ -35,14 +31,10 @@ public class L1Renderer {
 	private SpriteBatch batch;
 	private SpriteBatch staticBatch;
 	private OrthogonalTiledMapRenderer mapRenderer;
-	private OrthogonalTiledMapRenderer mapInsideBunkerRenderer;
-	private BatchTiledMapRenderer batchMapRenderer;
 	private TiledMapTileLayer layer1;
 	private BitmapFont font;
 	private int timer;
 	
-	private int width;
-	private int height;
 	
 	private int[] background = {0};
 	private int[] foreground = {1};
@@ -58,7 +50,6 @@ public class L1Renderer {
 		font = new BitmapFont(Gdx.files.internal("data/font.fnt"),
 		         Gdx.files.internal("data/font_0.tga"), false);
 		
-		gui = new GUI();
 		// Temporary debug feature
 //		Pathfinder.setTiledMap(level1.getBunker().getMap());
 		// temporary bedug feature

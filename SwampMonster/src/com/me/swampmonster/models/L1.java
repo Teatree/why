@@ -18,13 +18,18 @@ public class L1{
 	public L1(){
 		create();
 	}
+	
 	public void create(){
+		EnemyGenerator enemyGenerator = new EnemyGenerator();
 		player = new Player(new Vector2());
 		enemies = new ArrayList<Enemy>();
-		enemies.add(new EnemyZombie(new Vector2()));
-		enemies.add(new Enemy(new Vector2()));
+		enemies.add(enemyGenerator.getEnemy(3, 4));
+		System.out.println("First = " + enemies.get(0).getClass().getSimpleName() + " tought guy " + enemies.get(0).toughness);
+		enemies.add(enemyGenerator.getEnemy(3, 4));
+		System.out.println("And  " + enemies.get(1).getClass().getSimpleName() + " tought guy " + enemies.get(1).toughness);
 		bunker = new Bunker();
 	}
+	
 	public void update(boolean aiming, Vector3 touchPos, Vector3 V3point, TiledMapTileLayer collisionLayer, AbstractGameObject projectile, CameraHelper cameraHelper,
 			float dx, float dy, float enemyDx, float enemyDy) {
 		this.player.update(aiming, touchPos, V3point, collisionLayer, dx, dy);

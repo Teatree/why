@@ -14,7 +14,6 @@ public class Node implements Comparable<Node>{
 		this.y = y;
 		this.g = Float.POSITIVE_INFINITY;
 		this.h = Float.POSITIVE_INFINITY;
-		this.f = f;
 		
 		this.parentNode = parentNode;
 	}

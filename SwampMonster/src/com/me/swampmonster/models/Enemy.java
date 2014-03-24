@@ -16,6 +16,7 @@ import com.me.swampmonster.utils.CameraHelper;
 
 public class Enemy extends AbstractGameObject implements Cloneable{
 	
+	Toughness toughness;
 	State state = State.STANDARD;
 	int cunter;
 	int timer;
@@ -98,7 +99,7 @@ public class Enemy extends AbstractGameObject implements Cloneable{
 					sprite.setRegion(animations.get(state).getCurrentFrame());
 					
 					//MOVEMENT + COLLISION PROCESSING AND DETECTION
-					System.out.println("cunter = " + cunter);
+//					System.out.println("cunter = " + cunter);
 					if(cunter  <= 0){ 
 						cunter = findLastNotNullInArray();
 					}
@@ -504,6 +505,14 @@ public class Enemy extends AbstractGameObject implements Cloneable{
 
 	public void setPath(Node[] path) {
 		this.path = path;
+	}
+
+	public Toughness getToughness() {
+		return toughness;
+	}
+
+	public void setToughness(Toughness toughness) {
+		this.toughness = toughness;
 	}
 	
 	

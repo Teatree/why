@@ -10,7 +10,6 @@ import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.me.swampmonster.animations.AnimationControl;
-import com.me.swampmonster.game.TheController;
 
 public abstract class AbstractGameObject {
 
@@ -34,7 +33,6 @@ public abstract class AbstractGameObject {
 	protected boolean hurt;
 	
 	protected Vector2 oldPos;
-	protected TheController theController;
 	
 	protected String playerMovementDirection; 
 	protected String playerMovementDirectionLR; 
@@ -68,12 +66,6 @@ public abstract class AbstractGameObject {
 	}
 	public void setOldPos(Vector2 oldPos) {
 		this.oldPos = oldPos;
-	}
-	public TheController getTheController() {
-		return theController;
-	}
-	public void setTheController(TheController theController) {
-		this.theController = theController;
 	}
 	public String getPlayerMovementDirection() {
 		return playerMovementDirection;
@@ -165,5 +157,7 @@ public abstract class AbstractGameObject {
 	public void setDamage(int damage) {
 		this.damage = damage;
 	}
+	
+	
 	
 }

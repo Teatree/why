@@ -30,7 +30,7 @@ public class TheController extends InputAdapter{
 	public Vector3 V3point;
 	public Vector3 V3playerPos;
 	public Vector2 randVector2;
-	Random randomGenerator = new Random();
+//	Random randomGenerator = new Random();
 	public Projectile projectile;
 	
 	float dx;

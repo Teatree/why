@@ -7,7 +7,6 @@ import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector2;
 import com.me.swampmonster.models.AbstractGameObject;
-import com.sun.xml.internal.bind.v2.TODO;
 
 public class Weaponizer extends AbstractGameObject{
 	
