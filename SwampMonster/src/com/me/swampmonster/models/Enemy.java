@@ -498,5 +498,7 @@ public class Enemy extends AbstractGameObject implements Cloneable{
 		this.toughness = toughness;
 	}
 	
-	
+	public void setColour(float red, float green, float blue, float alpha){
+		sprite.setColor(red, green, blue, alpha);
+	}
 }

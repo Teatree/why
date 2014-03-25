@@ -54,7 +54,7 @@ public class EnemyGenerator {
 			enemy.setPlayerMovementSpeedX((float)(enemy.getPlayerMovementSpeedX() + toughtness.speed));
 			enemy.setDamage((int)(enemy.getDamage() + toughtness.damage));
 			enemy.setHealth((int)(enemy.getHealth() + toughtness.health));
+			enemy.setColour(toughtness.red, toughtness.green, toughtness.blue, toughtness.alpha);
 		}
-		
 	}
 }
