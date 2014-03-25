@@ -285,7 +285,7 @@ public class Enemy extends AbstractGameObject implements Cloneable{
 
 	private void move(AbstractGameObject player, Collidable collidableLeft, Collidable collidableRight, Collidable collidableDown, Collidable collidableUp, float enemyDx, float enemyDy, float playerMovementSpeed) {
 		if (position.x > player.getPosition().x-4 || position.x < player.getPosition().x-10 || position.y > player.getPosition().y-4 || position.y < player.getPosition().y-10) {
-			System.out.println("yes it is !");
+//			System.out.println("yes it is !");
 			if(collidableLeft == null || collidableRight == null){
 				position.x += enemyDx*playerMovementSpeed;
 //				System.out.println("enemyDx*playerMovementSpeed: " + enemyDx*playerMovementSpeed + " position.x: " + position.x);
