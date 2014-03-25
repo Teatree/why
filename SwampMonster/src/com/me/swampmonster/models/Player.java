@@ -40,7 +40,7 @@ public class Player extends AbstractGameObject{
 		nastyaSpriteGun = "data/NastyaGunSheet.png";
 		
 		circle = new Circle();
-		circle.radius = 16;
+		circle.radius = 8;
 		rectanlge = new Rectangle();
 		
 		animationsStandard.put(State.STANDARD, new AnimationControl(nastyaSpriteStandard, 8, 32, 7)); 
@@ -248,7 +248,7 @@ public class Player extends AbstractGameObject{
 		
 		// Shooting
 		if(shooting && timeShooting < 30){
-			System.out.println("shooting...");
+//			System.out.println("shooting...");
 			currentFrame = animations.get(state).doComplexAnimation(32, 0.5f, 0.001f);
 			
 			sprite.setRegion(animations.get(state).getCurrentFrame());

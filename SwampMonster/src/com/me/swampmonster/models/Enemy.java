@@ -41,7 +41,7 @@ public class Enemy extends AbstractGameObject implements Cloneable{
 		gReenAura = new Circle();
 		gReenAura.radius = 164;
 		oRangeAura = new Circle();
-		oRangeAura.radius = 16;
+		oRangeAura.radius = 8;
 		animationsStandard.put(State.PURSUIT, new AnimationControl("data/Skelenten.png", 8, 16, 8)); 
 		animationsStandard.put(State.STANDARD, new AnimationControl("data/Skelenten.png", 8, 16, 8)); 
 		animationsStandard.put(State.ATTACKING, new AnimationControl("data/Skelenten.png", 8, 16, 8)); 
@@ -133,7 +133,9 @@ public class Enemy extends AbstractGameObject implements Cloneable{
 			if(state.equals(State.STANDARD)){
 				sprite.setRegion(animations.get(state).getCurrentFrame());
             	
-            	if(timer == 0 && timer2 == 0){
+            	if(timer == 0 && timer2 == 0 && !getoRangeAura().overlaps(player.getCircle()) && player.getState() != State.DEAD){
+            		
+//            		System.out.println("move is active... and overlpas is: " + getoRangeAura().overlaps(player.getCircle()));
             		
             		Collidable collidableLeft = null;
             		Collidable collidableRight = null;
@@ -153,25 +155,29 @@ public class Enemy extends AbstractGameObject implements Cloneable{
             	}
             	
             	if(oldPos.x != position.x || oldPos.y != position.y && timer>0 && timer2>0){
+//            		System.out.println("yes!1");
             		timer = 0;
             		timer2 = 0;
+//            		System.out.println("condition oldPos.x != position.x || oldPos.y != position.y && timer>0 && timer2>0 is true!");
             	}
             	
             	if(getoRangeAura().overlaps(player.getCircle()) && player.getState() != State.DEAD){
-	            	if(playerMovementDirectionLR == "right"){
+//            		System.out.println("yes!2 and overlpas is: " + getoRangeAura().overlaps(player.getCircle()));
+	            	if(playerMovementDirection == "right"){
 	            		inflictOnThe(88, 56, player, cameraHelper);
 	            	}
-	            	if(playerMovementDirectionLR == "left"){
+	            	if(playerMovementDirection == "left"){
 	            		inflictOnThe(72, 40, player, cameraHelper);
 	            	}
-	            	if(playerMovementDirectionLR == "up"){
+	            	if(playerMovementDirection == "up"){
 	            		inflictOnThe(80, 48, player, cameraHelper);
 	            	}
-	            	if(playerMovementDirectionLR == "down"){
+	            	if(playerMovementDirection == "down"){
 	            		inflictOnThe(64, 32, player, cameraHelper);
 	            	}
             	}
             	if(!getoRangeAura().overlaps(player.getCircle())){
+//            		System.out.println("yes!3");
             		timer = 0;
             		timer2 = 0;
             	}
