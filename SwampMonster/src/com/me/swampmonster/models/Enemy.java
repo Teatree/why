@@ -97,7 +97,6 @@ public class Enemy extends AbstractGameObject implements Cloneable{
 			timer2 = 0;
 		}
 		
-	// ATTACKING!
 		
 		// Standing animation between attacks doesn't work.
 			
@@ -140,16 +139,12 @@ public class Enemy extends AbstractGameObject implements Cloneable{
 	            	collidableLeft = collisionCheckerLeft(collisionLayer);
 	            	collisionCheck(collidableLeft, collisionLayer, player);
 	            	
-//	            	moveRight(player);
 	            	collidableRight = collisionCheckerRight(collisionLayer);
 	            	collisionCheck(collidableRight, collisionLayer, player);
-//	            	moveDown(player);
 	            	collidableDown = collisionCheckerBottom(collisionLayer);
 	            	collisionCheck(collidableDown, collisionLayer, player);
-//	            	moveUp(player);
 	            	collidableUp = collisionCheckerTop(collisionLayer);
 	            	collisionCheck(collidableUp, collisionLayer, player);
-//	            	System.out.println("playerDircetion = " + playerMovementDirection);
             	}
             	
             	if(oldPos.x != position.x || oldPos.y != position.y && timer>0 && timer2>0){
@@ -290,6 +285,7 @@ public class Enemy extends AbstractGameObject implements Cloneable{
 
 	private void move(AbstractGameObject player, Collidable collidableLeft, Collidable collidableRight, Collidable collidableDown, Collidable collidableUp, float enemyDx, float enemyDy, float playerMovementSpeed) {
 		if (position.x > player.getPosition().x-4 || position.x < player.getPosition().x-10 || position.y > player.getPosition().y-4 || position.y < player.getPosition().y-10) {
+			System.out.println("yes it is !");
 			if(collidableLeft == null || collidableRight == null){
 				position.x += enemyDx*playerMovementSpeed;
 //				System.out.println("enemyDx*playerMovementSpeed: " + enemyDx*playerMovementSpeed + " position.x: " + position.x);
@@ -319,7 +315,7 @@ public class Enemy extends AbstractGameObject implements Cloneable{
 		}
 		if(Math.abs((enemyDx*playerMovementSpeed))>Math.abs((enemyDy*playerMovementSpeed)) && enemyDx<0){
 			playerMovementDirection = "left";
-			currentFrame = animationsStandard.get(state).animate(16);
+			currentFrame = animationsStandard.get(state).animate(8);
 		}
 		if(Math.abs((enemyDx*playerMovementSpeed))<Math.abs((enemyDy*playerMovementSpeed)) && enemyDy<0){
 			playerMovementDirection = "down";
@@ -327,39 +323,10 @@ public class Enemy extends AbstractGameObject implements Cloneable{
 		}
 		if(Math.abs((enemyDx*playerMovementSpeed))<Math.abs((enemyDy*playerMovementSpeed)) && enemyDy>0){
 			playerMovementDirection = "up";
-			currentFrame = animationsStandard.get(state).animate(8);
+			currentFrame = animationsStandard.get(state).animate(16);
 		}
 	}
 	
-	private void moveRight(AbstractGameObject player) {
-		if (position.x < player.getPosition().x-6) {
-			position.x += playerMovementSpeed;
-			sprite.translateX(playerMovementSpeed);
-			playerMovementDirectionLR = "right";
-			if(position.x < player.getPosition().x-6 && position.y < player.getPosition().y+3 && position.y > player.getPosition().y-3){
-				currentFrame = animationsStandard.get(state).animate(24);
-			}        
-		}
-		
-	}
-	private void moveDown(AbstractGameObject player) {
-		if (position.y > player.getPosition().y+3) {
-		    position.y -= playerMovementSpeed;
-		    sprite.translateY(-playerMovementSpeed);
-		    playerMovementDirectionLR = "down";
-		    currentFrame = animationsStandard.get(state).animate(0);
-         }
-	}
-
-	private void moveUp(AbstractGameObject player) {
-		if (position.y < player.getPosition().y-3) {
-		    position.y += playerMovementSpeed;
-		    sprite.translateY(playerMovementSpeed);
-		    playerMovementDirectionLR = "up";
-		    currentFrame = animationsStandard.get(state).animate(16);
-		 }
-	}
-
 	private void collisionCheck(Collidable collidable, TiledMapTileLayer collisionLayer, AbstractGameObject player) {
 		if(collidable != null){
 			contact(collidable, collisionLayer, player);

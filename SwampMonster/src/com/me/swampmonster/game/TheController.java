@@ -131,14 +131,15 @@ public class TheController extends InputAdapter{
 		dx /= length1;
 		dy /= length1;
 		
+		//:TODO Make sure this works, Dmitriy
 		for (Enemy enemy : level1.getEnemies()){
 			enemyDx = level1.getPlayer().getPosition().x - enemy.getPosition().x;
 			enemyDy = level1.getPlayer().getPosition().y - enemy.getPosition().y;
+			
+			float enemyLength = (float) Math.sqrt(enemyDx*enemyDx + enemyDy*enemyDy);
+			enemyDx /= enemyLength;
+			enemyDy /= enemyLength;
 		}
-		
-		float enemyLength = (float) Math.sqrt(enemyDx*enemyDx + enemyDy*enemyDy);
-		enemyDx /= enemyLength;
-		enemyDy /= enemyLength;
 		
 		//
 		
