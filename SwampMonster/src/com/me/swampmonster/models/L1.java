@@ -31,10 +31,10 @@ public class L1{
 	}
 	
 	public void update(boolean aiming, Vector3 touchPos, Vector3 V3point, TiledMapTileLayer collisionLayer, AbstractGameObject projectile, CameraHelper cameraHelper,
-			float dx, float dy, float enemyDx, float enemyDy) {
+			float dx, float dy) {
 		this.player.update(aiming, touchPos, V3point, collisionLayer, dx, dy);
 		for (Enemy enemy : enemies){
-			enemy.update(collisionLayer, projectile, this.player, cameraHelper, enemyDx, enemyDy);
+			enemy.update(collisionLayer, projectile, this.player, cameraHelper);
 		}
 		bunker.update();
 	}

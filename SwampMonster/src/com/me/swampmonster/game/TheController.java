@@ -89,7 +89,7 @@ public class TheController extends InputAdapter{
 	public void update(float deltaTime){
 		restarter();
 		cameraHelper.upadate(V3playerPos.x, V3playerPos.y, 5);
-		level1.update(gui.getCroshair().isAiming(), touchPos, V3point, collisionLayer, projectile, cameraHelper, dx, dy, enemyDx, enemyDy);
+		level1.update(gui.getCroshair().isAiming(), touchPos, V3point, collisionLayer, projectile, cameraHelper, dx, dy);
 		
 		// I don't fucking know if thsi is better, I just spent 2 hours on this solution, so deal with it!
 		if(Gdx.input.justTouched() && !level1.getPlayer().isJustSpawned()){
@@ -132,14 +132,7 @@ public class TheController extends InputAdapter{
 		dy /= length1;
 		
 		//:TODO Make sure this works, Dmitriy
-		for (Enemy enemy : level1.getEnemies()){
-			enemyDx = level1.getPlayer().getPosition().x - enemy.getPosition().x;
-			enemyDy = level1.getPlayer().getPosition().y - enemy.getPosition().y;
-			
-			float enemyLength = (float) Math.sqrt(enemyDx*enemyDx + enemyDy*enemyDy);
-			enemyDx /= enemyLength;
-			enemyDy /= enemyLength;
-		}
+		
 		
 		//
 		

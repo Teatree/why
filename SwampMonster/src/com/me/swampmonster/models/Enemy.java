@@ -25,6 +25,9 @@ public class Enemy extends AbstractGameObject implements Cloneable{
 	int timer2;
 //	int number;
 	
+	float enemyDx;
+	float enemyDy;
+	
 //  Vector3 of enemy's position on the map
 	private Vector3 V3enemyPos;
 	
@@ -54,11 +57,6 @@ public class Enemy extends AbstractGameObject implements Cloneable{
 //		number = 0;
 //		V3enemyPos = new Vector3();
 //		
-//		V3enemyPos.x = position.x + circle.radius/2;
-//		V3enemyPos.y = position.y + circle.radius/2;
-//		V3enemyPos.z = 0;
-		
-		
 		// ***Character stats board, probably need to delete this***
 		characterStatsBoard();
 		// ***Character stats board, probably need to delete this***
@@ -73,7 +71,7 @@ public class Enemy extends AbstractGameObject implements Cloneable{
 		playerMovementSpeed = 0.3f;
 	}
 	
-	public void update(TiledMapTileLayer collisionLayer, AbstractGameObject projectile, Player player, CameraHelper cameraHelper, float enemyDx, float enemyDy){
+	public void update(TiledMapTileLayer collisionLayer, AbstractGameObject projectile, Player player, CameraHelper cameraHelper){
 		oldPos.x = position.x;
 		oldPos.y = position.y; 
 		
@@ -81,6 +79,13 @@ public class Enemy extends AbstractGameObject implements Cloneable{
 		gReenAura.y = position.y;
 		oRangeAura.x = position.x;
 		oRangeAura.y = position.y;
+		
+		enemyDx = player.getPosition().x - position.x;
+		enemyDy = player.getPosition().y - position.y;
+			
+		float enemyLength = (float) Math.sqrt(enemyDx*enemyDx + enemyDy*enemyDy);
+		enemyDx /= enemyLength;
+		enemyDy /= enemyLength;
 		
 		// remember this might be your chance.
 		
