@@ -40,7 +40,7 @@ public class Player extends AbstractGameObject{
 		nastyaSpriteGun = "data/NastyaGunSheet.png";
 		
 		circle = new Circle();
-		circle.radius = 8;
+		circle.radius = 16;
 		rectanlge = new Rectangle();
 		
 		animationsStandard.put(State.STANDARD, new AnimationControl(nastyaSpriteStandard, 8, 32, 7)); 
@@ -399,7 +399,7 @@ public class Player extends AbstractGameObject{
 		return collidableLeft;
 	}
 	private void move(Collidable collidableLeft, Collidable collidableRight, Collidable collidableUp, Collidable collidableDown, float speeds, HashMap<State, AnimationControl> animations, Vector3 touchPos, float dx, float dy) {
-		if (position.x > touchPos.x-4 || position.x < touchPos.x-10 || position.y > touchPos.y-4 || position.y < touchPos.y-10) {
+		if (position.x > touchPos.x-4 || position.x < touchPos.x-14 || position.y > touchPos.y-4 || position.y < touchPos.y-14) {
 			if(collidableLeft == null || collidableRight == null){
 				position.x += dx*playerMovementSpeed;
 //				System.out.println("dx*playerMovementSpeed: " + dx*playerMovementSpeed + " position.x: " + position.x);
@@ -410,32 +410,32 @@ public class Player extends AbstractGameObject{
 			sprite.translateX(-speeds);
 		}
 		
-		if(position.x > touchPos.x-10){
+		if(position.x > touchPos.x-4){
 			playerMovementDirectionLR = "left";
 		}
-		if(position.x < touchPos.x-10){
+		if(position.x < touchPos.x-14){
 			playerMovementDirectionLR = "right";
 		}
-		if(position.y > touchPos.y-10){
+		if(position.y > touchPos.y-4){
 			playerMovementDirectionUD = "down";
 		}
-		if(position.y < touchPos.y-10){
+		if(position.y < touchPos.y-14){
 			playerMovementDirectionUD = "up";
 		}
 		
-		if(Math.abs((dx*playerMovementSpeed))>Math.abs((dy*playerMovementSpeed)) && dx>0){
+		if(Math.abs((dx*playerMovementSpeed))>Math.abs((dy*playerMovementSpeed)) && playerMovementDirectionLR == "right"){
 			playerMovementDirection = "right";
 			currentFrame = animationsStandard.get(state).animate(16);
 		}
-		if(Math.abs((dx*playerMovementSpeed))>Math.abs((dy*playerMovementSpeed)) && dx<0){
+		if(Math.abs((dx*playerMovementSpeed))>Math.abs((dy*playerMovementSpeed)) && playerMovementDirectionLR == "left"){
 			playerMovementDirection = "left";
 			currentFrame = animationsStandard.get(state).animate(24);
 		}
-		if(Math.abs((dx*playerMovementSpeed))<Math.abs((dy*playerMovementSpeed)) && dy<0){
+		if(Math.abs((dx*playerMovementSpeed))<Math.abs((dy*playerMovementSpeed)) && playerMovementDirectionUD == "down"){
 			playerMovementDirection = "down";
 			currentFrame = animationsStandard.get(state).animate(0);
 		}
-		if(Math.abs((dx*playerMovementSpeed))<Math.abs((dy*playerMovementSpeed)) && dy>0){
+		if(Math.abs((dx*playerMovementSpeed))<Math.abs((dy*playerMovementSpeed)) && playerMovementDirectionUD == "up"){
 			playerMovementDirection = "up";
 			currentFrame = animationsStandard.get(state).animate(8);
 		}

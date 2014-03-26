@@ -208,11 +208,13 @@ public class L1Renderer {
 		Gdx.gl.glDisable(GL20.GL_BLEND);
 		
 		staticSr.begin(ShapeType.Line);
-		staticSr.setColor(Color.MAGENTA);
-		if(theController.doesIntersect(new Vector2(416,255), theController.level1.getPlayer().getCircle().radius*2)){
-			staticSr.setColor(Color.WHITE);
+		if(theController.level1.getPlayer().getState() == State.GUNMOVEMENT){
+			staticSr.setColor(Color.MAGENTA);
+			if(theController.doesIntersect(new Vector2(416,255), theController.level1.getPlayer().getCircle().radius*2)){
+				staticSr.setColor(Color.WHITE);
+			}
+			staticSr.circle(400, 255, theController.level1.getPlayer().getCircle().radius*2);
 		}
-		staticSr.circle(400, 255, theController.level1.getPlayer().getCircle().radius*2);
 		staticSr.end();
 		
 		staticBatch.begin();
