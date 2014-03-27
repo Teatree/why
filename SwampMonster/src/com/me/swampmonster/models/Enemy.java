@@ -139,11 +139,12 @@ public class Enemy extends AbstractGameObject implements Cloneable{
 					orientOnPath();
 					standAnimation(88, 72, 80, 64);
 					
-					
-					
-					if(path.length == 0){
+					if (findLastNotNullInArray() == 0){
 						setState(State.STANDARD);
 					}
+//					if(path.length == 0){
+//						setState(State.STANDARD);
+//					}
 				}
 		// STANDARD!
 			if(state.equals(State.STANDARD)){
@@ -252,7 +253,6 @@ public class Enemy extends AbstractGameObject implements Cloneable{
 
 	private void onPathMovingAndCollisionDetection(TiledMapTileLayer collisionLayer, AbstractGameObject player, float enemyPathDx, float enemyPathDy) {
 		if(cunter >= 0){
-			
 			Collidable collidableLeft = null;
     		Collidable collidableRight = null;
     		Collidable collidableDown = null;
@@ -260,13 +260,13 @@ public class Enemy extends AbstractGameObject implements Cloneable{
 			
 			moveOnPath(collidableLeft, collidableRight, collidableDown, collidableUp, enemyPathDx, enemyPathDy, playerMovementSpeed);
 			collidableLeft = collisionCheckerLeft(collisionLayer);
-        	collisionCheck(collidableLeft, collisionLayer, player);
+//        	collisionCheck(collidableLeft, collisionLayer, player);
         	collidableRight = collisionCheckerRight(collisionLayer);
-        	collisionCheck(collidableRight, collisionLayer, player);
+//        	collisionCheck(collidableRight, collisionLayer, player);
         	collidableDown = collisionCheckerBottom(collisionLayer);
-        	collisionCheck(collidableDown, collisionLayer, player);
+//        	collisionCheck(collidableDown, collisionLayer, player);
         	collidableUp = collisionCheckerTop(collisionLayer);
-        	collisionCheck(collidableUp, collisionLayer, player);
+//        	collisionCheck(collidableUp, collisionLayer, player);
 			
 			if(cunter == 0){
 				System.out.println("happened");
@@ -438,7 +438,7 @@ public class Enemy extends AbstractGameObject implements Cloneable{
 		if(cunter>=0 && path[cunter] != null && position.x >= (path[cunter].x*16)-1 && position.x <= (path[cunter].x*16)+1
 				&& position.y <= (path[cunter].y*16)+1 && position.y >= (path[cunter].y*16)-1){
 				path[cunter] = null;
-				System.out.println("taking of one Node from the path of Nodes, there was: " + cunter + "Nodes and now there are: ");
+				System.out.println("taking of one Node from the path of Nodes, there was: " + cunter + " Nodes and now there are: ");
 				cunter--;
 				System.out.println(cunter);
 		}
