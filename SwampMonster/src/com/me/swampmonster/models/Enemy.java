@@ -146,7 +146,9 @@ public class Enemy extends AbstractGameObject implements Cloneable{
 //						setState(State.STANDARD);
 //					}
 				}
-		// STANDARD!
+				
+				
+		// THIS IS STANDARD!
 			if(state.equals(State.STANDARD)){
 				sprite.setRegion(animations.get(state).getCurrentFrame());
             	
