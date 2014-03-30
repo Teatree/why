@@ -1,7 +1,11 @@
 package com.me.swampmonster.game.collision;
 
+import java.util.List;
+
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
+import com.badlogic.gdx.math.Circle;
+import com.me.swampmonster.models.Enemy;
 
 public class CollisionHelper {
 	
@@ -17,5 +21,23 @@ public class CollisionHelper {
 		}
 		return solid;
 		
+	}
+	
+	public static Collidable isCollidableEnemy(Enemy enemyKing, List<Enemy> enemies){
+		Solid solid= null;
+		enemyKing.setSwitzerland(true);
+		if(enemies!=null && enemyKing!=null){
+			for(Enemy enemy : enemies){
+				if(enemy != enemyKing){
+					if(enemyKing.getRectanlge().overlaps(enemy.getRectanlge())){
+						solid = new Solid();
+					}
+					if (enemy.isSwitzerland()){
+						enemyKing.setSwitzerland(false);
+					}
+				}
+			}
+		}
+		return solid;
 	}
 }

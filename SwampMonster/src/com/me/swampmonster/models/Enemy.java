@@ -1,11 +1,13 @@
 package com.me.swampmonster.models;
 
 import java.util.HashMap;
+import java.util.List;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Circle;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.me.swampmonster.AI.Node;
@@ -15,7 +17,7 @@ import com.me.swampmonster.game.collision.Collidable;
 import com.me.swampmonster.game.collision.CollisionHelper;
 import com.me.swampmonster.utils.CameraHelper;
 
-public class Enemy extends AbstractGameObject implements Cloneable{
+public class Enemy extends AbstractGameObject implements Cloneable, Collidable{
 	
 	Toughness toughness;
 	State state = State.STANDARD;
@@ -23,6 +25,7 @@ public class Enemy extends AbstractGameObject implements Cloneable{
 	int timer;
 	int timeDead = 0;
 	int timer2;
+	int timereskin = 0;
 //	int number;
 	
 	float enemyDx;
@@ -30,6 +33,8 @@ public class Enemy extends AbstractGameObject implements Cloneable{
 	
 	float enemyPathDx;
 	float enemyPathDy;
+	
+	boolean switzerland = false;
 	
 //  Vector3 of enemy's position on the map
 	private Vector3 V3enemyPos;
@@ -41,6 +46,7 @@ public class Enemy extends AbstractGameObject implements Cloneable{
 	
 	public Enemy(Vector2 position){
 		this.position = position;
+		rectanlge = new Rectangle();
 		gReenAura = new Circle();
 		gReenAura.radius = 164;
 		oRangeAura = new Circle();
@@ -74,7 +80,7 @@ public class Enemy extends AbstractGameObject implements Cloneable{
 		playerMovementSpeed = 0.3f;
 	}
 	
-	public void update(TiledMapTileLayer collisionLayer, AbstractGameObject projectile, Player player, CameraHelper cameraHelper){
+	public void update(TiledMapTileLayer collisionLayer, AbstractGameObject projectile, Player player, CameraHelper cameraHelper, List<Enemy> enemies){
 		oldPos.x = position.x;
 		oldPos.y = position.y; 
 		
@@ -82,6 +88,11 @@ public class Enemy extends AbstractGameObject implements Cloneable{
 		gReenAura.y = position.y;
 		oRangeAura.x = position.x;
 		oRangeAura.y = position.y;
+		
+		rectanlge.x = sprite.getX();
+		rectanlge.y = sprite.getY();
+		rectanlge.width = sprite.getWidth();
+		rectanlge.height = sprite.getHeight();
 		
 		// Direction for the standard state
 		enemyDx = player.getPosition().x - position.x;
@@ -92,7 +103,7 @@ public class Enemy extends AbstractGameObject implements Cloneable{
 		enemyDy /= enemyLength;
 		
 		// Direction for the pursuit state
-		if(path[cunter]!=null){
+		if(cunter != -1 && path!=null && path[cunter]!=null){
 			enemyPathDx = path[cunter].x*16 - position.x;
 			enemyPathDy = path[cunter].y*16 - position.y;
 			
@@ -134,7 +145,7 @@ public class Enemy extends AbstractGameObject implements Cloneable{
 						cunter = findLastNotNullInArray();
 					}
 					
-					onPathMovingAndCollisionDetection(collisionLayer, player, enemyPathDx, enemyPathDy);
+					onPathMovingAndCollisionDetection(collisionLayer, player, enemyPathDx, enemyPathDy, enemies);
 				        
 					orientOnPath();
 					standAnimation(88, 72, 80, 64);
@@ -161,14 +172,14 @@ public class Enemy extends AbstractGameObject implements Cloneable{
             		Collidable collidableDown = null;
             		Collidable collidableUp = null;
             		
-	            	move(player, collidableLeft, collidableRight, collidableDown, collidableUp, enemyDx, enemyDy, playerMovementSpeed);
-	            	collidableLeft = collisionCheckerLeft(collisionLayer);
+	            	move(player, collidableLeft, collidableRight, collidableDown, collidableUp, enemyDx, enemyDy, playerMovementSpeed, enemies);
+	            	collidableLeft = collisionCheckerLeft(collisionLayer, enemies);
 	            	collisionCheck(collidableLeft, collisionLayer, player);
-	            	collidableRight = collisionCheckerRight(collisionLayer);
+	            	collidableRight = collisionCheckerRight(collisionLayer, enemies);
 	            	collisionCheck(collidableRight, collisionLayer, player);
-	            	collidableDown = collisionCheckerBottom(collisionLayer);
+	            	collidableDown = collisionCheckerBottom(collisionLayer, enemies);
 	            	collisionCheck(collidableDown, collisionLayer, player);
-	            	collidableUp = collisionCheckerTop(collisionLayer);
+	            	collidableUp = collisionCheckerTop(collisionLayer, enemies);
 	            	collisionCheck(collidableUp, collisionLayer, player);
             	}
             	
@@ -253,22 +264,19 @@ public class Enemy extends AbstractGameObject implements Cloneable{
 		}
 	}
 
-	private void onPathMovingAndCollisionDetection(TiledMapTileLayer collisionLayer, AbstractGameObject player, float enemyPathDx, float enemyPathDy) {
+	private void onPathMovingAndCollisionDetection(TiledMapTileLayer collisionLayer, AbstractGameObject player, float enemyPathDx, float enemyPathDy, List<Enemy> enemies) {
 		if(cunter >= 0){
 			Collidable collidableLeft = null;
     		Collidable collidableRight = null;
     		Collidable collidableDown = null;
     		Collidable collidableUp = null;
 			
-			moveOnPath(collidableLeft, collidableRight, collidableDown, collidableUp, enemyPathDx, enemyPathDy, playerMovementSpeed);
-			collidableLeft = collisionCheckerLeft(collisionLayer);
-//        	collisionCheck(collidableLeft, collisionLayer, player);
-        	collidableRight = collisionCheckerRight(collisionLayer);
-//        	collisionCheck(collidableRight, collisionLayer, player);
-        	collidableDown = collisionCheckerBottom(collisionLayer);
-//        	collisionCheck(collidableDown, collisionLayer, player);
-        	collidableUp = collisionCheckerTop(collisionLayer);
-//        	collisionCheck(collidableUp, collisionLayer, player);
+			moveOnPath(collidableLeft, collidableRight, collidableDown, collidableUp, enemyPathDx, enemyPathDy,
+					playerMovementSpeed, enemies, collisionLayer, player);
+			collidableLeft = collisionCheckerLeft(collisionLayer, enemies);
+        	collidableRight = collisionCheckerRight(collisionLayer, enemies);
+        	collidableDown = collisionCheckerBottom(collisionLayer, enemies);
+        	collidableUp = collisionCheckerTop(collisionLayer, enemies);
 			
 			if(cunter == 0){
 				System.out.println("happened");
@@ -281,38 +289,43 @@ public class Enemy extends AbstractGameObject implements Cloneable{
 		}
 	}
 
-	private Collidable collisionCheckerTop(TiledMapTileLayer collisionLayer) {
+	private Collidable collisionCheckerTop(TiledMapTileLayer collisionLayer, List<Enemy> enemies) {
 		Collidable collidable;
 		collidable = CollisionHelper.isCollidable(position.x+sprite.getWidth(), (position.y+sprite.getHeight()/2)-1, collisionLayer);
 		if(collidable == null)collidable = CollisionHelper.isCollidable(position.x, (position.y+sprite.getHeight()/2)-1, collisionLayer);
 		if(collidable == null)collidable = CollisionHelper.isCollidable(position.x+(sprite.getWidth()/2), (position.y+sprite.getHeight()/2)-1, collisionLayer);
+		if(collidable == null)collidable = CollisionHelper.isCollidableEnemy(this, enemies);
 		return collidable;
 	}
 
-	private Collidable collisionCheckerBottom(TiledMapTileLayer collisionLayer) {
+	private Collidable collisionCheckerBottom(TiledMapTileLayer collisionLayer, List<Enemy> enemies) {
 		Collidable collidable;
 		collidable = CollisionHelper.isCollidable(position.x+sprite.getWidth(), position.y, collisionLayer);
 		if(collidable == null)collidable = CollisionHelper.isCollidable(position.x, position.y, collisionLayer);
 		if(collidable == null)collidable = CollisionHelper.isCollidable(position.x+(sprite.getWidth()/2), position.y, collisionLayer);
+		if(collidable == null)collidable = CollisionHelper.isCollidableEnemy(this, enemies);
 		return collidable;
 	}
 
-	private Collidable collisionCheckerRight(TiledMapTileLayer collisionLayer) {
+	private Collidable collisionCheckerRight(TiledMapTileLayer collisionLayer, List<Enemy> enemies) {
 		Collidable collidable;
 		collidable = CollisionHelper.isCollidable(position.x+sprite.getWidth(), position.y + (sprite.getHeight()/2)-1, collisionLayer);
 		if(collidable == null)collidable = CollisionHelper.isCollidable(position.x+sprite.getWidth(), position.y, collisionLayer);
 		if(collidable == null)collidable = CollisionHelper.isCollidable(position.x+sprite.getWidth(), position.y +(sprite.getHeight()/4), collisionLayer);
+		if(collidable == null)collidable = CollisionHelper.isCollidableEnemy(this, enemies);
 		return collidable;
 	}
 
-	private Collidable collisionCheckerLeft(TiledMapTileLayer collisionLayer) {
+	private Collidable collisionCheckerLeft(TiledMapTileLayer collisionLayer, List<Enemy> enemies) {
 		Collidable collidable = CollisionHelper.isCollidable(position.x, position.y + (sprite.getHeight()/2)-1, collisionLayer);
 		if(collidable == null)collidable = CollisionHelper.isCollidable(position.x, position.y, collisionLayer);
 		if(collidable == null)collidable = CollisionHelper.isCollidable(position.x, position.y + (sprite.getHeight()/4), collisionLayer);
+		if(collidable == null)collidable = CollisionHelper.isCollidableEnemy(this, enemies);
 		return collidable;
 	}
 
-	private void move(AbstractGameObject player, Collidable collidableLeft, Collidable collidableRight, Collidable collidableDown, Collidable collidableUp, float enemyDx, float enemyDy, float playerMovementSpeed) {
+	private void move(AbstractGameObject player, Collidable collidableLeft, Collidable collidableRight,
+			Collidable collidableDown, Collidable collidableUp, float enemyDx, float enemyDy, float playerMovementSpeed, List<Enemy> enemies) {
 		if (position.x > player.getPosition().x-4 || position.x < player.getPosition().x-10 || position.y > player.getPosition().y-4 || position.y < player.getPosition().y-10) {
 //			System.out.println("yes it is !");
 			if(collidableLeft == null || collidableRight == null){
@@ -361,62 +374,57 @@ public class Enemy extends AbstractGameObject implements Cloneable{
 			contact(collidable, collisionLayer, player);
 		}
 	}
-	
-// Just for reference, delete when deemed useless...
-	private void moveUpOnPath() {
-		if (path[cunter] != null && (int)position.y < (int)(path[cunter].y*16)) {
-			position.y += playerMovementSpeed;
-			sprite.translateY(playerMovementSpeed);
-			playerMovementDirectionLR = "up";
-			currentFrame = animationsStandard.get(state).animate(16);
-		}
-	}
 
-	private void moveOnPath(Collidable collidableLeft, Collidable collidableRight, Collidable collidableDown, Collidable collidableUp, float enemyPathDx, float enemyPathDy, float playerMovementSpeed) {
-			if(path[cunter] != null){ 
-				if(position.x > (path[cunter].x*16)-4 || position.x < (path[cunter].x*16)-10 || position.y > (path[cunter].y*16)-4 || position.y < (path[cunter].y*16)-10) {
-					
-				if(collidableLeft == null || collidableRight == null){
-					position.x += enemyPathDx*playerMovementSpeed;
+	private void moveOnPath(Collidable collidableLeft, Collidable collidableRight, Collidable collidableDown, Collidable collidableUp,
+			float enemyPathDx, float enemyPathDy, float playerMovementSpeed, List<Enemy> enemies, TiledMapTileLayer collisionLayer, AbstractGameObject player) {
+		if(CollisionHelper.isCollidableEnemy(this, enemies) == null){
+				if(path != null && path[cunter] != null){ 
+					if(position.x > (path[cunter].x*16)-4 || position.x < (path[cunter].x*16)-10 || position.y > (path[cunter].y*16)-4 || position.y < (path[cunter].y*16)-10) {
+						
+					if(collidableLeft == null || collidableRight == null){
+						position.x += enemyPathDx*playerMovementSpeed;
+					}
+					if(collidableUp == null || collidableDown == null){
+						position.y += enemyPathDy*playerMovementSpeed;
+					}
+					sprite.translateX(-playerMovementSpeed);
 				}
-				if(collidableUp == null || collidableDown == null){
-					position.y += enemyPathDy*playerMovementSpeed;
+			if(position.x > (path[cunter].x*16)-10){
+				playerMovementDirectionLR = "left";
+			}
+			if(position.x < (path[cunter].x*16)-10){
+				playerMovementDirectionLR = "right";
+			}
+			if(position.y > (path[cunter].x*16)-10){
+				playerMovementDirectionUD = "down";
+			}
+			if(position.y < (path[cunter].x*16)-10){
+				playerMovementDirectionUD = "up";
+			}
 				}
-				
-				sprite.translateX(-playerMovementSpeed);
+			
+			if(Math.abs((enemyPathDx*playerMovementSpeed))>Math.abs((enemyPathDy*playerMovementSpeed)) && enemyPathDx>0){
+				playerMovementDirection = "right";
+				currentFrame = animationsStandard.get(state).animate(24);
 			}
-		
-		if(position.x > (path[cunter].x*16)-10){
-			playerMovementDirectionLR = "left";
-		}
-		if(position.x < (path[cunter].x*16)-10){
-			playerMovementDirectionLR = "right";
-		}
-		if(position.y > (path[cunter].x*16)-10){
-			playerMovementDirectionUD = "down";
-		}
-		if(position.y < (path[cunter].x*16)-10){
-			playerMovementDirectionUD = "up";
-		}
+			if(Math.abs((enemyPathDx*playerMovementSpeed))>Math.abs((enemyPathDy*playerMovementSpeed)) && enemyPathDx<0){
+				playerMovementDirection = "left";
+				currentFrame = animationsStandard.get(state).animate(8);
 			}
-		
-		if(Math.abs((enemyPathDx*playerMovementSpeed))>Math.abs((enemyPathDy*playerMovementSpeed)) && enemyPathDx>0){
-			playerMovementDirection = "right";
-			currentFrame = animationsStandard.get(state).animate(24);
+			if(Math.abs((enemyPathDx*playerMovementSpeed))<Math.abs((enemyPathDy*playerMovementSpeed)) && enemyPathDy<0){
+				playerMovementDirection = "down";
+				currentFrame = animationsStandard.get(state).animate(0);
+			}
+			if(Math.abs((enemyPathDx*playerMovementSpeed))<Math.abs((enemyPathDy*playerMovementSpeed)) && enemyPathDy>0){
+				playerMovementDirection = "up";
+				currentFrame = animationsStandard.get(state).animate(16);
+			}
+		} else {
+			if(switzerland){
+				stop(901);
+			}
+			state = State.STANDARD;
 		}
-		if(Math.abs((enemyPathDx*playerMovementSpeed))>Math.abs((enemyPathDy*playerMovementSpeed)) && enemyPathDx<0){
-			playerMovementDirection = "left";
-			currentFrame = animationsStandard.get(state).animate(8);
-		}
-		if(Math.abs((enemyPathDx*playerMovementSpeed))<Math.abs((enemyPathDy*playerMovementSpeed)) && enemyPathDy<0){
-			playerMovementDirection = "down";
-			currentFrame = animationsStandard.get(state).animate(0);
-		}
-		if(Math.abs((enemyPathDx*playerMovementSpeed))<Math.abs((enemyPathDy*playerMovementSpeed)) && enemyPathDy>0){
-			playerMovementDirection = "up";
-			currentFrame = animationsStandard.get(state).animate(16);
-		}
-		
 	}
 
 	private void standAnimation(int r, int l, int u, int d) {
@@ -437,16 +445,23 @@ public class Enemy extends AbstractGameObject implements Cloneable{
 	}
 
 	private void orientOnPath() {
-		if(cunter>=0 && path[cunter] != null && position.x >= (path[cunter].x*16)-1 && position.x <= (path[cunter].x*16)+1
+		if(path != null && cunter>=0 && path[cunter] != null && position.x >= (path[cunter].x*16)-1 && position.x <= (path[cunter].x*16)+1
 				&& position.y <= (path[cunter].y*16)+1 && position.y >= (path[cunter].y*16)-1){
 				path[cunter] = null;
-				System.out.println("taking of one Node from the path of Nodes, there was: " + cunter + " Nodes and now there are: ");
+//				System.out.println("taking of one Node from the path of Nodes, there was: " + cunter + " Nodes and now there are: ");
 				cunter--;
-				System.out.println(cunter);
+//				System.out.println(cunter);
 		}
 	}
 	
-	
+	private void stop(float secs){
+		if(timereskin<secs){
+			enemyDx=0;
+			enemyDy=0;
+			timereskin++;
+			System.out.println("stoped: " + timereskin);
+		}
+	}
 	
 	private void contact(Collidable collidable, TiledMapTileLayer collisionLayer, AbstractGameObject player) {
 		collidable.doCollide(this, collisionLayer);
@@ -544,4 +559,19 @@ public class Enemy extends AbstractGameObject implements Cloneable{
 	public void setColour(float red, float green, float blue, float alpha){
 		sprite.setColor(red, green, blue, alpha);
 	}
+
+	public void doCollide(AbstractGameObject abstractGameObject,
+			TiledMapTileLayer collisionLayer) {
+		
+	}
+
+	public boolean isSwitzerland() {
+		return switzerland;
+	}
+
+	public void setSwitzerland(boolean switzerland) {
+		this.switzerland = switzerland;
+	}
+	
+	
 }

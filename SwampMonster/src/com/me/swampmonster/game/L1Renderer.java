@@ -130,6 +130,10 @@ public class L1Renderer {
 		sr.setColor(Color.WHITE);
 		sr.rect(theController.level1.getPlayer().getPosition().x, theController.level1.getPlayer().getPosition().y,
 				theController.level1.getPlayer().getRectanlge().width, theController.level1.getPlayer().getRectanlge().height);
+		for(Enemy enemy:theController.level1.getEnemies()){
+			sr.rect(enemy.getRectanlge().x, enemy.getRectanlge().y,
+					enemy.getRectanlge().width, enemy.getRectanlge().height);
+		}
 		sr.setColor(Color.WHITE);
 		if(theController.level1.getPlayer().getState() == State.GUNMOVEMENT){
 			sr.line(theController.V3playerPos, theController.level1.getPlayer().getShotDir());

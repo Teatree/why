@@ -34,7 +34,7 @@ public class L1{
 			float dx, float dy) {
 		this.player.update(aiming, touchPos, V3point, collisionLayer, dx, dy);
 		for (Enemy enemy : enemies){
-			enemy.update(collisionLayer, projectile, this.player, cameraHelper);
+			enemy.update(collisionLayer, projectile, this.player, cameraHelper, this.enemies);
 		}
 		bunker.update();
 	}
