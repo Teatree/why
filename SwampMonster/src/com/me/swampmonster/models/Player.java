@@ -297,7 +297,7 @@ public class Player extends AbstractGameObject{
 	}
 	
 	private void damageFromRight(Collidable collidableUp, HashMap<State, AnimationControl> animations, AbstractGameObject enemy, Vector3 touchPos) {
-		if (enemy.playerMovementDirectionLR == "right" && collidableUp == null) { 
+		if (enemy.playerMovementDirection == "right" && collidableUp == null) { 
 			currentFrame = animations.get(State.STANDARD).doComplexAnimation(108, 0.2f, Gdx.graphics.getDeltaTime()/2);
 			
 			sprite.setRegion(animations.get(state).getCurrentFrame());
@@ -308,7 +308,7 @@ public class Player extends AbstractGameObject{
 		}
 	}
 	private void damageFromLeft(Collidable collidableUp, HashMap<State, AnimationControl> animations, AbstractGameObject enemy, Vector3 touchPos) {
-		if (enemy.playerMovementDirectionLR == "left" && collidableUp == null) { 
+		if (enemy.playerMovementDirection == "left" && collidableUp == null) { 
 			currentFrame = animations.get(State.STANDARD).doComplexAnimation(106, 0.2f, Gdx.graphics.getDeltaTime()/2);
 			
 			sprite.setRegion(animations.get(state).getCurrentFrame());
@@ -319,7 +319,7 @@ public class Player extends AbstractGameObject{
 		}
 	}
 	private void damageFromBottom(Collidable collidableUp, HashMap<State, AnimationControl> animations, AbstractGameObject enemy, Vector3 touchPos) {
-		if (enemy.playerMovementDirectionLR == "down" && collidableUp == null) { 
+		if (enemy.playerMovementDirection == "down" && collidableUp == null) { 
 			currentFrame = animations.get(State.STANDARD).doComplexAnimation(110, 0.2f, Gdx.graphics.getDeltaTime()/2);
 			
 			sprite.setRegion(animations.get(state).getCurrentFrame());
@@ -330,7 +330,7 @@ public class Player extends AbstractGameObject{
 		}
 	}
 	private void damagedFromTop(Collidable collidableUp, HashMap<State, AnimationControl> animations, AbstractGameObject enemy, Vector3 touchPos) {
-		if (enemy.playerMovementDirectionLR == "up" && collidableUp == null) { 
+		if (enemy.playerMovementDirection == "up" && collidableUp == null) { 
 			currentFrame = animations.get(State.STANDARD).doComplexAnimation(104, 0.2f, Gdx.graphics.getDeltaTime()/2);
 			
 			sprite.setRegion(animations.get(state).getCurrentFrame());
