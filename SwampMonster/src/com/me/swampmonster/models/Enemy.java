@@ -26,7 +26,6 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable{
 	int timeDead = 0;
 	int timer2;
 	int timereskin = 0;
-//	int number;
 	
 	float enemyDx;
 	float enemyDy;
@@ -35,9 +34,6 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable{
 	float enemyPathDy;
 	
 	boolean switzerland = false;
-	
-//  Vector3 of enemy's position on the map
-	private Vector3 V3enemyPos;
 	
 	public Circle gReenAura;
 	public Circle oRangeAura;
@@ -63,9 +59,6 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable{
 		timer2 = 0;
 		path = new Node[99];
 		
-//		number = 0;
-//		V3enemyPos = new Vector3();
-//		
 		// ***Character stats board, probably need to delete this***
 		characterStatsBoard();
 		// ***Character stats board, probably need to delete this***
@@ -153,9 +146,6 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable{
 					if (findLastNotNullInArray() == 0){
 						setState(State.STANDARD);
 					}
-//					if(path.length == 0){
-//						setState(State.STANDARD);
-//					}
 				}
 				
 				
@@ -278,14 +268,11 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable{
         	collidableDown = collisionCheckerBottom(collisionLayer, enemies);
         	collidableUp = collisionCheckerTop(collisionLayer, enemies);
 			
-			if(cunter == 0){
-				System.out.println("happened");
-				path[cunter] = null;
-//				if(number < 99){
-//					clear();
-//				}
-				state = State.STANDARD;
-			}
+//			if(cunter == 0){
+//				System.out.println("happened");
+//				path[cunter] = null;
+//				state = State.STANDARD;
+//			}
 		}
 	}
 
@@ -421,9 +408,8 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable{
 			}
 		} else {
 			if(switzerland){
-				stop(901);
+				state = State.STANDARD;
 			}
-			state = State.STANDARD;
 		}
 	}
 
@@ -470,12 +456,6 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable{
 //		System.out.println(theController.level1.getPlayer().position.x);
 		state = State.PURSUIT;
 	}
-//	private void clear(){
-//		while(number < 99){
-//			path[number] = null;
-//			number++;
-//		}
-//	}
 
 	public Vector2 getOldPos() {
 		return oldPos;
