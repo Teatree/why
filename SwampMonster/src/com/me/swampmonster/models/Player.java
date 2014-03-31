@@ -39,6 +39,7 @@ public class Player extends AbstractGameObject{
 		nastyaSpriteStandard = "data/NastyaOxygenSheet.png";
 		nastyaSpriteGun = "data/NastyaGunSheet.png";
 		
+		points = 0;
 		circle = new Circle();
 		circle.radius = 16;
 		rectanlge = new Rectangle();

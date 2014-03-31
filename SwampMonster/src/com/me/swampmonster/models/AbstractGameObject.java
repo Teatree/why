@@ -41,6 +41,7 @@ public abstract class AbstractGameObject {
 	
 	protected int health;
 	protected int damage;
+	protected int points;
 	protected float oxygen;
 	
 	public Vector2 getPosition() {
@@ -156,6 +157,12 @@ public abstract class AbstractGameObject {
 	}
 	public void setDamage(int damage) {
 		this.damage = damage;
+	}
+	public int getPoints() {
+		return points;
+	}
+	public void setPoints(int points) {
+		this.points = points;
 	}
 	
 	

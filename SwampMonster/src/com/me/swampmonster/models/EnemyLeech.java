@@ -9,6 +9,7 @@ public class EnemyLeech extends Enemy{
 		playerMovementSpeed = 0.2f;
 		health = 1;
 		damage = 1;
+		points = 200;
 	}
 
 }

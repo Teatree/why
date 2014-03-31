@@ -16,6 +16,7 @@ public class EnemyZombie extends Enemy{
 		sprite.setColor(1, 1, 1, 1);
 		health = 2;
 		damage = 2;
+		points = 100;
 		playerMovementSpeed = 0.15f;
 	}
 }

@@ -33,7 +33,7 @@ public class L1Renderer {
 	private TiledMapTileLayer layer1;
 	private BitmapFont font;
 	private int timer;
-	
+	private CharSequence str;
 	
 	private int[] background = {0};
 	private int[] foreground = {1};
@@ -64,6 +64,8 @@ public class L1Renderer {
 	public void render() {
 		Gdx.gl.glClearColor(0,0,0,1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		
+		str = "points: " + theController.level1.getPlayer().getPoints();
 		
 		theController.cameraHelper.applyTo(cam);
 		
@@ -260,6 +262,8 @@ public class L1Renderer {
 		staticSr.end();
 		
 		staticBatch.begin();
+		font.setColor(1.0f, 1.0f, 1.0f, 1.0f);
+		font.draw(staticBatch, str, 580, 420);
 		font.setColor(Color.YELLOW);
 		font.setScale(2);
 		if(assRevert >= 0.4f && theController.level1.getPlayer().getState() == State.DEAD){

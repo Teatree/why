@@ -52,6 +52,7 @@ public class EnemyGenerator {
 		if(toughtness != null){
 			enemy.setToughness(toughtness);
 			enemy.setPlayerMovementSpeedX((float)(enemy.getPlayerMovementSpeedX() + toughtness.speed));
+			enemy.setPoints((int)(enemy.getPoints() + toughtness.points));
 			enemy.setDamage((int)(enemy.getDamage() + toughtness.damage));
 			enemy.setHealth((int)(enemy.getHealth() + toughtness.health));
 			enemy.setColour(toughtness.red, toughtness.green, toughtness.blue, toughtness.alpha);

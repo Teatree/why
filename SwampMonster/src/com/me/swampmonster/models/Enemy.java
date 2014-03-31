@@ -70,6 +70,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable{
 		// HEALTH, DAMAGE, TYPE, TOUGHGUY, COLORSCHEME, ETC.
 		health = 2;
 		damage = 1;
+		points = 0;
 		playerMovementSpeed = 0.3f;
 	}
 	
@@ -216,9 +217,18 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable{
 					sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
 					timeDead++;
 				}
+				if(timeDead==1){
+					rewardPlayer(player);
+					System.out.println("points: " + player.getPoints());
+				}
 				
 				dead = true;
 			}
+	}
+
+	private void rewardPlayer(AbstractGameObject player) {
+		player.setPoints(player.getPoints()+points);
+		
 	}
 
 	private void inflictOnThe(int standing, int animation, Player player, CameraHelper cameraHelper) {

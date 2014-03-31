@@ -9,6 +9,7 @@ public class EnemySofa extends Enemy {
 		playerMovementSpeed = 0.3f;
 		health = 4;
 		damage = 2;
+		points = 150;
 	}
 
 }
