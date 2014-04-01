@@ -68,13 +68,15 @@ public class SlotMachine extends AbstractGameObject{
 	public void update(){
 		if(slotMachine){
 			if(timer<60){
-				int perkRand = random.nextInt();
+				int perkRand = random.nextInt((11-1)+1);
 				
 				Perks perks = null;
 				perks = perkParams.get((perkRand));
 				
 				currentFrame = animation.getKeyFrame(perkRand);
 				sprite = new Sprite(currentFrame);
+				sprite.setX(300);
+				sprite.setY(300);
 				
 				timer++;
 			}

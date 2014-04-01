@@ -27,6 +27,7 @@ public class GUI {
 		weaponizer.update(point);
 		croshair.update(player, point);
 		gameoverGUI.update(player);
+		slotMachine.update();
 	}
 
 	public OxygenBar getOxygenBar() {
