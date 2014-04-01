@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
-import com.badlogic.gdx.math.Circle;
 import com.me.swampmonster.models.Enemy;
 
 public class CollisionHelper {

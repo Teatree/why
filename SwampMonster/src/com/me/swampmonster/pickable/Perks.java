@@ -1,10 +1,5 @@
 package com.me.swampmonster.pickable;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.me.swampmonster.models.AbstractGameObject;
-
 public enum Perks{
 	
 		RELOAD_SPEED (0, "text", 0d, 2d, 0d, 0d, 0d), 
