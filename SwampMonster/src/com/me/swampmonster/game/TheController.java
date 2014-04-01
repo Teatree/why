@@ -228,10 +228,17 @@ public class TheController extends InputAdapter{
 			level1.getPlayer().setState(State.ANIMATINGLARGE);
 			level1.getPlayer().setDoing("puttingGunAway");
 		}
-		if(Gdx.input.getX()>debugRect.x && Gdx.input.getX()<debugRect.x+debugRect.width){
+//		if(isPressed){
+//			gui.getSlotMachine().setSlotMachine(true);
+//		}else if(isPressed){
+//			gui.getSlotMachine().setSlotMachine(false);
+//		}
+		if(Gdx.input.justTouched() && Gdx.input.getX()>debugRect.x && Gdx.input.getX()<debugRect.x+debugRect.width && !isPressed){
 			gui.getSlotMachine().setSlotMachine(true);
-		}else{
+			isPressed = true;
+		}else if(Gdx.input.justTouched() && Gdx.input.getX()>debugRect.x && Gdx.input.getX()<debugRect.x+debugRect.width && isPressed){
 			gui.getSlotMachine().setSlotMachine(false);
+			isPressed = false;
 		}
 		
 	}
