@@ -1,5 +1,6 @@
 package com.me.swampmonster.game;
 
+import java.awt.Rectangle;
 import java.util.Random;
 
 import com.badlogic.gdx.Gdx;
@@ -43,6 +44,8 @@ public class TheController extends InputAdapter{
 	//temp
 	public boolean restart;
 	public boolean NalreadyPressed = false;
+	public Rectangle debugRect;
+	public boolean isPressed;
 	// temp
 	
 	public TiledMapTileLayer collisionLayer;
@@ -84,6 +87,13 @@ public class TheController extends InputAdapter{
 		V3point = new Vector3();
 		V3playerPos = new Vector3();
 		
+		// debug feature!!!
+		isPressed = false;
+		debugRect = new Rectangle();
+		debugRect.x = 780;
+		debugRect.y = 370;
+		debugRect.width = 20;
+		debugRect.height = 20;
 	}
 	
 	public void update(float deltaTime){
@@ -217,6 +227,11 @@ public class TheController extends InputAdapter{
 		}else if(!gui.getWeaponizer().isOn() && level1.getPlayer().getState() == State.GUNMOVEMENT){
 			level1.getPlayer().setState(State.ANIMATINGLARGE);
 			level1.getPlayer().setDoing("puttingGunAway");
+		}
+		if(Gdx.input.getX()>debugRect.x && Gdx.input.getX()<debugRect.x+debugRect.width){
+			gui.getSlotMachine().setSlotMachine(true);
+		}else{
+			gui.getSlotMachine().setSlotMachine(false);
 		}
 		
 	}

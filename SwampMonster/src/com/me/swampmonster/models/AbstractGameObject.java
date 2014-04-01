@@ -42,6 +42,7 @@ public abstract class AbstractGameObject {
 	protected int health;
 	protected int damage;
 	protected int points;
+	protected int reloadSpeed;
 	protected float oxygen;
 	
 	public Vector2 getPosition() {
