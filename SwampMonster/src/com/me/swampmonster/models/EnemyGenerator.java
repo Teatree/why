@@ -1,8 +1,6 @@
 package com.me.swampmonster.models;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -42,6 +40,18 @@ public class EnemyGenerator {
 		try {
 			enemy = enemyTypes.get(currentEnemyType).getConstructor(Vector2.class).newInstance(new Vector2());
 			setToughtness(toughtnessParams.get(toughGuy), enemy);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return enemy;
+	}
+	
+	public Enemy getPlainEnemy(int enemyMin, int enemyMax){
+		random = new Random();
+		int currentEnemyType = random.nextInt(enemyMax - enemyMin + 1) + enemyMin;
+		Enemy enemy = null;
+		try {
+			enemy = enemyTypes.get(currentEnemyType).getConstructor(Vector2.class).newInstance(new Vector2());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
