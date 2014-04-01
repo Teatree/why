@@ -14,6 +14,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.me.swampmonster.animations.AnimationControl;
 import com.me.swampmonster.game.collision.Collidable;
 import com.me.swampmonster.game.collision.CollisionHelper;
+import com.me.swampmonster.pickable.Perks;
 
 public class Player extends AbstractGameObject{
 	
@@ -472,6 +473,16 @@ public class Player extends AbstractGameObject{
 	public void addHarmfulEnemy(Enemy enemy){
 		this.harmfulEnemies.add(enemy);
 	}
+	
+	public void getPerkEffect(Perks perk){
+		this.playerMovementSpeed += perk.speed;
+		this.reloadSpeed += perk.reloadSpeed;
+		this.damage += perk.damage;
+		this.health += perk.health;
+		this.points += perk.points;
+	}
+
+	
 	
 	public boolean isMaskOn() {
 		return maskOn;
