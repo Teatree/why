@@ -63,7 +63,7 @@ public class Pathfinder {
 				
 				if(node.getParentNode() == null){
 //					System.out.println("the GetParent is null!");
-					return null;
+					return new Node[99];
 				}else {
 					while(node.getParentNode() != null && !node.getParentNode().equals(startingPosition)){
 						path[cuntar] = node;

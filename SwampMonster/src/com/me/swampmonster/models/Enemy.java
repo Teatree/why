@@ -459,7 +459,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable{
 					state = State.STANDARD;
 					switzerland = false;
 				} else {
-					stop(100);
+					stop(600);
 				}
 			}
 		}

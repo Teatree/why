@@ -9,7 +9,9 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import com.me.swampmonster.models.AbstractGameObject;
+import com.me.swampmonster.models.Enemy;
 import com.me.swampmonster.pickable.Perks;
 
 public class SlotMachine extends AbstractGameObject{
@@ -79,16 +81,27 @@ public class SlotMachine extends AbstractGameObject{
 		
 	}
 	
+	public Perks getRandPerk(int valMin, int valMax){
+		random = new Random();
+		int key = random.nextInt(valMax - valMin + 1) + valMin;
+		Perks perk = null;
+		try {
+			perk = perkParams.get(key);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return perk;
+	}
+	
 	public void update(){
 		if(slotMachine){
 			
 			if(timer<60){
 				for(Sprite n:spriteSlots){
 //					System.out.println("sprUte: " + sprUte);
-					int perkRand = random.nextInt((11-1)+1);
+//					int perkRand = random.nextInt((11-1)+1);
 					
-					Perks perks = null;
-					perks = perkParams.get(perkRand);
+					Perks perks = getRandPerk(1, 11);
 					
 					currentFrame = animation.getKeyFrame(3);
 					n = new Sprite(currentFrame);
