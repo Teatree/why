@@ -26,10 +26,11 @@ public class SlotMachine extends AbstractGameObject{
 	private TextureRegion[] frames;
 	private TextureRegion currentFrame;
 	
-	private Sprite spriteSlot1;
-	private Sprite spriteSlot2;
-	private Sprite spriteSlot3;
+//	private Sprite spriteSlot1;
+//	private Sprite spriteSlot2;
+//	private Sprite spriteSlot3;
 	private Sprite[] spriteSlots;
+	private int spritesCounter;
 	
 	public SlotMachine(){
 		slotMachine = false;
@@ -49,20 +50,20 @@ public class SlotMachine extends AbstractGameObject{
 		animation = new Animation(1, frames);
 		
 		currentFrame = animation.getKeyFrame(0);
-		
-		spriteSlot1 = new Sprite(currentFrame);
-		spriteSlot2 = new Sprite(currentFrame);
-		spriteSlot3 = new Sprite(currentFrame);
+		spriteSlots = new Sprite[3];
+		spriteSlots[0] = new Sprite(currentFrame);
+		spriteSlots[1] = new Sprite(currentFrame);
+		spriteSlots[2] = new Sprite(currentFrame);
 		sprite.setX(0);
 		sprite.setY(0);
 		sprite.setScale(2, 2);
-		spriteSlot1.setX(100);
+		spriteSlots[0].setX(100);
 //		spriteSlot1.setY(175);
-		spriteSlot2.setX(180);
+		spriteSlots[1].setX(180);
 //		spriteSlot2.setY(175);
-		spriteSlot3.setX(260);
+		spriteSlots[2].setX(260);
 //		spriteSlot3.setY(175);
-		spriteSlots = new Sprite[]{spriteSlot1, spriteSlot2, spriteSlot3};
+//		spriteSlots = new Sprite[]{spriteSlot1, spriteSlot2, spriteSlot3};
 		
 		perkParams = new HashMap<Integer, Perks>();
 		perkParams.put(0, null);
@@ -81,37 +82,31 @@ public class SlotMachine extends AbstractGameObject{
 		
 	}
 	
-	public Perks getRandPerk(int valMin, int valMax){
-		random = new Random();
-		int key = random.nextInt(valMax - valMin + 1) + valMin;
-		Perks perk = null;
-		try {
-			perk = perkParams.get(key);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return perk;
-	}
-	
 	public void update(){
-		if(slotMachine){
-			
-			if(timer<60){
-				for(Sprite n:spriteSlots){
-//					System.out.println("sprUte: " + sprUte);
-//					int perkRand = random.nextInt((11-1)+1);
-					
-					Perks perks = getRandPerk(1, 11);
-					
-					currentFrame = animation.getKeyFrame(3);
-					n = new Sprite(currentFrame);
-					n.setY(70);
-					
+		int perkRand = 0;
+		if (spritesCounter < 3){
+			if(slotMachine){
+				if(timer < 60){
+					for(Sprite n : spriteSlots){
+	//					System.out.println("sprUte: " + sprUte);
+						perkRand = random.nextInt((11-1)+1);
+						currentFrame = animation.getKeyFrame(11);
+						float x = n.getX();
+						n = new Sprite(currentFrame);
+						n.setY(70);
+						n.setX(x);
+					}
+					timer++;
 				}
-				timer++;
+			} else {
+				Perks perk = perkParams.get(perkRand);
+				float x = spriteSlots[spritesCounter].getX();
+				spriteSlots[spritesCounter] = new Sprite(animation.getKeyFrame(perkRand));
+				spriteSlots[spritesCounter].setY(70);
+				spriteSlots[spritesCounter].setX(x);
+				timer = 0;
+				spritesCounter++;
 			}
-		}else{
-			timer=0;
 		}
 	}
 
