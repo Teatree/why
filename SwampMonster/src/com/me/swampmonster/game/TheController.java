@@ -32,7 +32,6 @@ public class TheController extends InputAdapter{
 	public Vector3 V3playerPos;
 	public Vector3 V3enemyPos;
 	public Vector2 randVector2;
-//	Random randomGenerator = new Random();
 	public Projectile projectile;
 	
 	float dx;
@@ -336,6 +335,18 @@ public class TheController extends InputAdapter{
 			init();
 			System.out.println("Game world resetted");
 			}
+		
+		if (keycode == Keys.X){
+			for (Enemy e : level1.getEnemies()){
+				System.out.print("Enemy " + e.getClass().getSimpleName());
+				System.out.println(" state = " + e.getState());
+				System.out.print(" path = " + e.getPath());
+				System.out.print(" cunter = " + e.getCunter());
+				System.out.print(" timereskin = " + e.getTimereskin());
+				System.out.println(" switcerland = " + e.isSwitzerland());
+			}
+		}
+		
 		if (keycode == Keys.ENTER && cameraHelper.hasTarget) {
 			cameraHelper.hasTarget = false;
 			System.out.println(cameraHelper.hasTarget + " " + level1.getPlayer().getSprite().getOriginX());

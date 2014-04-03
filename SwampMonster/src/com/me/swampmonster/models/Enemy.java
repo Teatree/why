@@ -9,13 +9,11 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Vector3;
 import com.me.swampmonster.AI.Node;
 import com.me.swampmonster.AI.Pathfinder;
 import com.me.swampmonster.animations.AnimationControl;
 import com.me.swampmonster.game.collision.Collidable;
 import com.me.swampmonster.game.collision.CollisionHelper;
-import com.me.swampmonster.models.AbstractGameObject.State;
 import com.me.swampmonster.utils.CameraHelper;
 
 public class Enemy extends AbstractGameObject implements Cloneable, Collidable{
@@ -115,7 +113,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable{
 			damageType = "player";
 			health = health-player.damage;
 		}
-		if(health<=0){
+		if(health <= 0){
 			state = State.DEAD;
 		}
 		
@@ -143,17 +141,16 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable{
 					
 					//MOVEMENT + COLLISION PROCESSING AND DETECTION
 //					System.out.println("cunter = " + cunter);
-					if(cunter  <= 0){ 
+					if(cunter <= 0 || path[cunter] == null){ 
 						cunter = findLastNotNullInArray();
-					}
-					
-					onPathMovingAndCollisionDetection(collisionLayer, player, enemyPathDx, enemyPathDy, enemies);
-				        
-					orientOnPath();
-					standAnimation(88, 72, 80, 64);
-					
-					if (findLastNotNullInArray() == 0){
-						setState(State.STANDARD);
+						System.out.println(findLastNotNullInArray());
+						if (cunter <= 0){
+							setState(State.STANDARD);
+						}
+					} else {
+						onPathMovingAndCollisionDetection(collisionLayer, player, enemyPathDx, enemyPathDy, enemies);
+						orientOnPath();
+						standAnimation(88, 72, 80, 64);
 					}
 				}
 			}
@@ -237,8 +234,6 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable{
 			if(hurt){
 //				System.out.println(" (PLAYER): I'm currently in HURT state");
 				if(time < 40){
-					sprite = new Sprite(animations.get(State.STANDARD).getCurrentFrame());
-					
 					time++;
 					
 					if(damageType == "player"){
@@ -315,25 +310,17 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable{
 	}
 
 	private void onPathMovingAndCollisionDetection(TiledMapTileLayer collisionLayer, AbstractGameObject player, float enemyPathDx, float enemyPathDy, List<Enemy> enemies) {
-		if(cunter >= 0){
-			Collidable collidableLeft = null;
-    		Collidable collidableRight = null;
-    		Collidable collidableDown = null;
-    		Collidable collidableUp = null;
+		Collidable collidableLeft = null;
+    	Collidable collidableRight = null;
+    	Collidable collidableDown = null;
+    	Collidable collidableUp = null;
 			
-			moveOnPath(collidableLeft, collidableRight, collidableDown, collidableUp, enemyPathDx, enemyPathDy,
+		moveOnPath(collidableLeft, collidableRight, collidableDown, collidableUp, enemyPathDx, enemyPathDy,
 					playerMovementSpeed, enemies, collisionLayer, player);
-			collidableLeft = collisionCheckerLeft(collisionLayer, enemies);
-        	collidableRight = collisionCheckerRight(collisionLayer, enemies);
-        	collidableDown = collisionCheckerBottom(collisionLayer, enemies);
-        	collidableUp = collisionCheckerTop(collisionLayer, enemies);
-			
-//			if(cunter == 0){
-//				System.out.println("happened");
-//				path[cunter] = null;
-//				state = State.STANDARD;
-//			}
-		}
+		collidableLeft = collisionCheckerLeft(collisionLayer, enemies);
+        collidableRight = collisionCheckerRight(collisionLayer, enemies);
+        collidableDown = collisionCheckerBottom(collisionLayer, enemies);
+        collidableUp = collisionCheckerTop(collisionLayer, enemies);
 	}
 
 	private Collidable collisionCheckerTop(TiledMapTileLayer collisionLayer, List<Enemy> enemies) {
@@ -468,7 +455,12 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable{
 			}
 		} else {
 			if(switzerland){
-				state = State.STANDARD;
+				if (timereskin == 0){
+					state = State.STANDARD;
+					switzerland = false;
+				} else {
+					stop(100);
+				}
 			}
 		}
 	}
@@ -662,6 +654,14 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable{
 
 	public void setSwitzerland(boolean switzerland) {
 		this.switzerland = switzerland;
+	}
+
+	public int getTimereskin() {
+		return timereskin;
+	}
+
+	public void setTimereskin(int timereskin) {
+		this.timereskin = timereskin;
 	}
 	
 	
