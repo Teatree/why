@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
@@ -282,6 +283,9 @@ public class L1Renderer {
 			staticBatch.draw(theController.gui.getSlotMachine().getSprite(), theController.gui.getSlotMachine().getSprite().getX(), theController.gui.getSlotMachine().getSprite().getY(),
 					theController.gui.getSlotMachine().getSprite().getOriginX(), theController.gui.getSlotMachine().getSprite().getOriginY(), theController.gui.getSlotMachine().getSprite().getWidth(), theController.gui.getSlotMachine().getSprite().getHeight(),
 					theController.gui.getSlotMachine().getSprite().getScaleX(), theController.gui.getSlotMachine().getSprite().getScaleY(), theController.gui.getSlotMachine().getSprite().getRotation());
+			for(Sprite sprite:theController.gui.getSlotMachine().getSpriteSlots()){
+				staticBatch.draw(sprite, sprite.getX(), sprite.getY(), sprite.getOriginX(), sprite.getOriginY(), sprite.getWidth(), sprite.getHeight(), sprite.getScaleX(), sprite.getScaleY(), sprite.getRotation());
+			}
 		}
 		staticBatch.end();
 	}

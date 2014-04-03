@@ -71,6 +71,7 @@ public class Player extends AbstractGameObject{
 		// HEALTH, DAMAGE, OXYGEN, TYPE, TOUGHGUY, COLORSCHEME, ETC.
 		health = 6;
 		oxygen = 96;
+		damage = 1;
 	}
 	
 	public void update(boolean aiming, Vector3 touchPos, Vector3 V3point, TiledMapTileLayer collisionLayer, float dx, float dy) {

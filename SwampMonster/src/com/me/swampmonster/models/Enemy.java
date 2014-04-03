@@ -15,6 +15,7 @@ import com.me.swampmonster.AI.Pathfinder;
 import com.me.swampmonster.animations.AnimationControl;
 import com.me.swampmonster.game.collision.Collidable;
 import com.me.swampmonster.game.collision.CollisionHelper;
+import com.me.swampmonster.models.AbstractGameObject.State;
 import com.me.swampmonster.utils.CameraHelper;
 
 public class Enemy extends AbstractGameObject implements Cloneable, Collidable{
@@ -23,6 +24,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable{
 	State state = State.STANDARD;
 	int cunter;
 	int timer;
+	int time;
 	int timeDead = 0;
 	int timer2;
 	int timereskin = 0;
@@ -108,10 +110,14 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable{
 		
 		// remember this might be your chance.
 		
-		if(projectile != null && oRangeAura.overlaps(projectile.getCircle())){
+		if(projectile != null && oRangeAura.overlaps(projectile.getCircle()) && !hurt){
+			hurt = true;
+			damageType = "player";
+			health = health-player.damage;
+		}
+		if(health<=0){
 			state = State.DEAD;
 		}
-		
 //		this little thing is not done!
 		
 		HashMap<State, AnimationControl> animations = animationsStandard;
@@ -129,6 +135,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable{
 			//MOVEMENT + COLLISION PROCESSING AND DETECTION
 		
 		// PURSUIT!
+			if(!hurt){
 				if(state.equals(State.PURSUIT)){
             		
 					sprite.setRegion(animations.get(state).getCurrentFrame());
@@ -148,12 +155,12 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable{
 						setState(State.STANDARD);
 					}
 				}
-				
+			}
 				
 		// THIS IS STANDARD!
 			if(state.equals(State.STANDARD)){
 				sprite.setRegion(animations.get(state).getCurrentFrame());
-            	
+            	if(!hurt){
             	if(timer == 0 && timer2 == 0 && !getoRangeAura().overlaps(player.getCircle()) && player.getState() != State.DEAD){
             		
 //            		System.out.println("move is active... and overlpas is: " + getoRangeAura().overlaps(player.getCircle()));
@@ -201,6 +208,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable{
             		timer = 0;
             		timer2 = 0;
             	}
+            }
 		}
 			//ANIMATING
 			if(state.equals(State.ANIMATING)){
@@ -219,12 +227,53 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable{
 				}
 				if(timeDead==1){
 					rewardPlayer(player);
-					System.out.println("points: " + player.getPoints());
+//					System.out.println("points: " + player.getPoints());
 				}
 				
 				dead = true;
 			}
-	}
+			
+			if(hurt){
+//				System.out.println(" (PLAYER): I'm currently in HURT state");
+				if(time < 40){
+					sprite = new Sprite(animations.get(State.STANDARD).getCurrentFrame());
+					
+					time++;
+					
+					if(damageType == "player"){
+//						private void takingDamageFromEnemy(HashMap<State, AnimationControl> animations, AbstractGameObject enemy, Vector3 touchPos, TiledMapTileLayer collisionLayer) {
+//						System.out.println(enemy.getPlayerMovementDirection());
+						Collidable collidableUp = null;
+						
+						damagedFromTop(collidableUp, animations, player);
+						collidableUp = collisionCheckerTop(collisionLayer, enemies);
+						collisionCheck(collidableUp, collisionLayer, player);
+						
+						Collidable collidableDown = null;
+						
+						damageFromBottom(collidableDown, animations, player);
+						collidableDown = collisionCheckerBottom(collisionLayer, enemies);
+						collisionCheck(collidableDown, collisionLayer, player);
+						
+						Collidable collidableLeft = null;
+						
+						damageFromLeft(collidableLeft, animations, player);
+						collidableLeft = collisionCheckerLeft(collisionLayer, enemies);
+						collisionCheck(collidableLeft, collisionLayer, player);
+						
+						Collidable collidableRight = null;
+						
+						damageFromRight(collidableRight, animations, player);
+						collidableRight = collisionCheckerRight(collisionLayer, enemies);
+						collisionCheck(collidableRight, collisionLayer, player);
+					}
+					
+					}else if(time > 39){
+						hurt = false;
+						time = 0;
+					}
+				}
+			}
 
 	private void rewardPlayer(AbstractGameObject player) {
 		player.setPoints(player.getPoints()+points);
@@ -466,6 +515,57 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable{
 //		System.out.println(theController.level1.getPlayer().position.x);
 		state = State.PURSUIT;
 	}
+	
+	//temporary look
+	private void damageFromRight(Collidable collidableUp, HashMap<State, AnimationControl> animations, AbstractGameObject player) {
+		if (player.playerMovementDirection == "right" && collidableUp == null) { 
+			currentFrame = animations.get(State.STANDARD).doComplexAnimation(0, 0.2f, Gdx.graphics.getDeltaTime()/2);
+			
+			sprite.setRegion(animations.get(state).getCurrentFrame());
+			sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
+			position.x += playerMovementSpeed/2;
+			sprite.translateY(playerMovementSpeed/2);
+		}
+	}
+	private void damageFromLeft(Collidable collidableUp, HashMap<State, AnimationControl> animations, AbstractGameObject player) {
+		if (player.playerMovementDirection == "left" && collidableUp == null) { 
+			currentFrame = animations.get(State.STANDARD).doComplexAnimation(0, 0.2f, Gdx.graphics.getDeltaTime()/2);
+			
+			sprite.setRegion(animations.get(state).getCurrentFrame());
+			sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
+			position.x -= playerMovementSpeed/2;
+			sprite.translateY(playerMovementSpeed/2);
+		}
+	}
+	private void damageFromBottom(Collidable collidableUp, HashMap<State, AnimationControl> animations, AbstractGameObject player) {
+		if (player.playerMovementDirection == "down" && collidableUp == null) { 
+			currentFrame = animations.get(State.STANDARD).doComplexAnimation(0, 0.2f, Gdx.graphics.getDeltaTime()/2);
+			
+			sprite.setRegion(animations.get(state).getCurrentFrame());
+			sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
+			position.y -= playerMovementSpeed/2;
+			sprite.translateY(playerMovementSpeed/2);
+		}
+	}
+	private void damagedFromTop(Collidable collidableUp, HashMap<State, AnimationControl> animations, AbstractGameObject player) {
+		if (player.playerMovementDirection == "up" && collidableUp == null) { 
+			currentFrame = animations.get(State.STANDARD).doComplexAnimation(0, 0.2f, Gdx.graphics.getDeltaTime()/2);
+			
+			sprite.setRegion(animations.get(state).getCurrentFrame());
+			sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
+			
+			position.y += playerMovementSpeed/2;
+			sprite.translateY(playerMovementSpeed/2);
+		}
+	}
+	
+	public void enemyHurt(AbstractGameObject player){
+		state = State.STANDARD;
+		if(health>=0){
+			health = health - player.getDamage();
+		}
+	}
+	//temporary look
 
 	public Vector2 getOldPos() {
 		return oldPos;

@@ -24,18 +24,23 @@ public class SlotMachine extends AbstractGameObject{
 	private TextureRegion[] frames;
 	private TextureRegion currentFrame;
 	
+	private Sprite spriteSlot1;
+	private Sprite spriteSlot2;
+	private Sprite spriteSlot3;
+	private Sprite[] spriteSlots;
+	
 	public SlotMachine(){
 		slotMachine = false;
 		timer = 0;
+		sprite = new Sprite(new Texture("data/slotMachineCase.png"));
 		texture = new Texture(Gdx.files.internal("data/perkSheet.png"));
-		sprite = new Sprite(texture);
-		TextureRegion[][] tmp = TextureRegion.split(texture, texture.getWidth() / 8,
-						texture.getHeight() / 8);
-		frames = new TextureRegion[8 * 8];
-
+		TextureRegion[][] tmp = TextureRegion.split(texture, texture.getWidth() / 4,
+						texture.getHeight() / 4);
+		frames = new TextureRegion[4 * 4];
+		
 		int index = 0;
-		for (int i = 0; i < 8; i++) {
-			for (int j = 0; j < 8; j++) {
+		for (int i = 0; i < 4; i++) {
+			for (int j = 0; j < 4; j++) {
 				frames[index++] = tmp[i][j];
 			}
 		}
@@ -43,10 +48,19 @@ public class SlotMachine extends AbstractGameObject{
 		
 		currentFrame = animation.getKeyFrame(0);
 		
-		sprite = new Sprite(currentFrame);
-		sprite.setX(275);
-		sprite.setY(175);
+		spriteSlot1 = new Sprite(currentFrame);
+		spriteSlot2 = new Sprite(currentFrame);
+		spriteSlot3 = new Sprite(currentFrame);
+		sprite.setX(0);
+		sprite.setY(0);
 		sprite.setScale(2, 2);
+		spriteSlot1.setX(100);
+//		spriteSlot1.setY(175);
+		spriteSlot2.setX(180);
+//		spriteSlot2.setY(175);
+		spriteSlot3.setX(260);
+//		spriteSlot3.setY(175);
+		spriteSlots = new Sprite[]{spriteSlot1, spriteSlot2, spriteSlot3};
 		
 		perkParams = new HashMap<Integer, Perks>();
 		perkParams.put(0, null);
@@ -67,17 +81,20 @@ public class SlotMachine extends AbstractGameObject{
 	
 	public void update(){
 		if(slotMachine){
+			
 			if(timer<60){
-				int perkRand = random.nextInt((11-1)+1);
-				
-				Perks perks = null;
-				perks = perkParams.get((perkRand));
-				
-				currentFrame = animation.getKeyFrame(perkRand);
-				sprite = new Sprite(currentFrame);
-				sprite.setX(300);
-				sprite.setY(300);
-				
+				for(Sprite n:spriteSlots){
+//					System.out.println("sprUte: " + sprUte);
+					int perkRand = random.nextInt((11-1)+1);
+					
+					Perks perks = null;
+					perks = perkParams.get(perkRand);
+					
+					currentFrame = animation.getKeyFrame(3);
+					n = new Sprite(currentFrame);
+					n.setY(70);
+					
+				}
 				timer++;
 			}
 		}else{
@@ -92,5 +109,14 @@ public class SlotMachine extends AbstractGameObject{
 	public void setSlotMachine(boolean slotMachine) {
 		this.slotMachine = slotMachine;
 	}
+
+	public Sprite[] getSpriteSlots() {
+		return spriteSlots;
+	}
+
+	public void setSpriteSlots(Sprite[] spriteSlots) {
+		this.spriteSlots = spriteSlots;
+	}
+	
 	
 }
