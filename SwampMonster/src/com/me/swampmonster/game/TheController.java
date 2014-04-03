@@ -119,6 +119,7 @@ public class TheController extends InputAdapter{
 		point.x = Gdx.input.getX();
 		point.y = 480-Gdx.input.getY();
 		
+		
 		V3point.x = Gdx.input.getX();
 		V3point.y = Gdx.input.getY();
 		l1Renderer.getCam().unproject(V3point);

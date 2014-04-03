@@ -1,6 +1,7 @@
 package com.me.swampmonster.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -11,6 +12,8 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.math.Matrix3;
+import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.me.swampmonster.AI.Node;
@@ -21,7 +24,9 @@ import com.me.swampmonster.utils.Constants;
 
 public class L1Renderer {
 	private OrthographicCamera cam;
+	private Matrix4 matrix;
 	private TheController theController;
+	private Vector2 rPoint;
 	
 	// Temporary debug feature
 	private ShapeRenderer sr;
@@ -48,7 +53,8 @@ public class L1Renderer {
 		this.cam = new OrthographicCamera(Constants.VIEWPORT_WIDTH, Constants.VIEWPORT_HEIGHT);
 		font = new BitmapFont(Gdx.files.internal("data/font.fnt"),
 		         Gdx.files.internal("data/font_0.tga"), false);
-		
+		matrix = cam.combined.cpy();
+		matrix.setToOrtho2D(0,0,Constants.VIEWPORT_GUI_WIDTH,Constants.VIEWPORT_GUI_HEIGHT);
 		// Temporary debug feature
 //		Pathfinder.setTiledMap(level1.getBunker().getMap());
 		// temporary bedug feature
@@ -61,6 +67,8 @@ public class L1Renderer {
 		
 		timer = 60;
 		
+		rPoint = theController.point;
+//		rPoint.unproject
 	}	
 	public void render() {
 		Gdx.gl.glClearColor(0,0,0,1);
@@ -75,6 +83,7 @@ public class L1Renderer {
 		
 		batch.setProjectionMatrix(cam.combined);
 		sr.setProjectionMatrix(cam.combined);
+		staticSr.setProjectionMatrix(matrix);
 		
 		mapRenderer.setView(cam);
 		mapRenderer.render(background);
@@ -131,6 +140,7 @@ public class L1Renderer {
 			sr.circle(enemy.getoRangeAura().x+8, enemy.getoRangeAura().y+16, enemy.getoRangeAura().radius);
 		}	
 		sr.setColor(Color.WHITE);
+		sr.rect(theController.point.x, theController.point.y, 32, 32);
 		sr.rect(theController.level1.getPlayer().getPosition().x, theController.level1.getPlayer().getPosition().y,
 				theController.level1.getPlayer().getRectanlge().width, theController.level1.getPlayer().getRectanlge().height);
 		for(Enemy enemy:theController.level1.getEnemies()){
@@ -217,7 +227,7 @@ public class L1Renderer {
 		staticSr.begin(ShapeType.Line);
 		if(theController.level1.getPlayer().getState() == State.GUNMOVEMENT){
 			staticSr.setColor(Color.MAGENTA);
-			if(theController.doesIntersect(new Vector2(416,255), theController.level1.getPlayer().getCircle().radius*2)){
+			if(theController.doesIntersect(new Vector2(theController.level1.getPlayer().getCircle().x, theController.level1.getPlayer().getCircle().y), theController.level1.getPlayer().getCircle().radius*2)){
 				staticSr.setColor(Color.WHITE);
 			}
 			staticSr.circle(400, 255, theController.level1.getPlayer().getCircle().radius*2);

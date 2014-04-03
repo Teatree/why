@@ -24,10 +24,10 @@ public class Weaponizer extends AbstractGameObject{
 		circle.radius = 56;
 	}
 	public void update(Vector2 point){
-		if(Gdx.input.justTouched() && doesIntersect(position, circle.radius, point) && !on){
+		if(Gdx.input.justTouched() && doesIntersect(new Vector2(circle.x, circle.y), circle.radius, point) && !on){
 			on = true;
 //			System.out.println(on);
-		}else if(Gdx.input.justTouched() && doesIntersect(position, circle.radius, point) && on){
+		}else if(Gdx.input.justTouched() && doesIntersect(new Vector2(circle.x, circle.y), circle.radius, point) && on){
 			on = false;
 //			System.out.println(on);
 		}
