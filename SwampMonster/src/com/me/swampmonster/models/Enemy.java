@@ -510,45 +510,45 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable{
 	}
 	
 	//temporary look
-	private void damageFromRight(Collidable collidableUp, HashMap<State, AnimationControl> animations, AbstractGameObject projectile) {
+	private void damageFromRight(Collidable collidableUp, HashMap<State, AnimationControl> animationsStandard, AbstractGameObject projectile) {
 		if (projectile.getPosition().x > position.x+sprite.getWidth() && collidableUp == null) { 
 			System.out.println("supposed to be animating... Right");
-			currentFrame = animations.get(State.STANDARD).doComplexAnimation(112, 0.1f, Gdx.graphics.getDeltaTime()/2);
+			currentFrame = animationsStandard.get(State.STANDARD).doComplexAnimation(112, 0.1f, Gdx.graphics.getDeltaTime()/2);
 			
-			sprite.setRegion(animations.get(state).getCurrentFrame());
+			sprite.setRegion(animationsStandard.get(state).getCurrentFrame());
 			sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
 			position.x += playerMovementSpeed/2;
 			sprite.translateY(playerMovementSpeed/2);
 		}
 	}
-	private void damageFromLeft(Collidable collidableUp, HashMap<State, AnimationControl> animations, AbstractGameObject projectile) {
+	private void damageFromLeft(Collidable collidableUp, HashMap<State, AnimationControl> animationsStandard, AbstractGameObject projectile) {
 		if (projectile.getPosition().x < position.x && collidableUp == null) {
 			System.out.println("supposed to be animating... Left");
-			currentFrame = animations.get(State.STANDARD).doComplexAnimation(108, 0.1f, Gdx.graphics.getDeltaTime()/2);
+			currentFrame = animationsStandard.get(State.STANDARD).doComplexAnimation(108, 0.1f, Gdx.graphics.getDeltaTime()/2);
 			
-			sprite.setRegion(animations.get(state).getCurrentFrame());
+			sprite.setRegion(animationsStandard.get(state).getCurrentFrame());
 			sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
 			position.x -= playerMovementSpeed/2;
 			sprite.translateY(playerMovementSpeed/2);
 		}
 	}
-	private void damageFromBottom(Collidable collidableUp, HashMap<State, AnimationControl> animations, AbstractGameObject projectile) {
+	private void damageFromBottom(Collidable collidableUp, HashMap<State, AnimationControl> animationsStandard, AbstractGameObject projectile) {
 		if (projectile.getPosition().y < position.y && collidableUp == null) { 
 			System.out.println("supposed to be animating... Bottom");
-			currentFrame = animations.get(State.STANDARD).doComplexAnimation(116, 0.1f, Gdx.graphics.getDeltaTime()/2);
+			currentFrame = animationsStandard.get(State.STANDARD).doComplexAnimation(116, 0.1f, Gdx.graphics.getDeltaTime()/2);
 			
-			sprite.setRegion(animations.get(state).getCurrentFrame());
+			sprite.setRegion(animationsStandard.get(state).getCurrentFrame());
 			sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
 			position.y -= playerMovementSpeed/2;
 			sprite.translateY(playerMovementSpeed/2);
 		}
 	}
-	private void damagedFromTop(Collidable collidableUp, HashMap<State, AnimationControl> animations, AbstractGameObject projectile) {
+	private void damagedFromTop(Collidable collidableUp, HashMap<State, AnimationControl> animationsStandard, AbstractGameObject projectile) {
 		if (projectile.getPosition().y > position.y+sprite.getHeight() && collidableUp == null) { 
 			System.out.println("supposed to be animating... Top");
-			currentFrame = animations.get(State.STANDARD).doComplexAnimation(104, 0.1f, Gdx.graphics.getDeltaTime()/2);
+			currentFrame = animationsStandard.get(State.STANDARD).doComplexAnimation(104, 0.1f, Gdx.graphics.getDeltaTime()/2);
 			
-			sprite.setRegion(animations.get(state).getCurrentFrame());
+			sprite.setRegion(animationsStandard.get(state).getCurrentFrame());
 			sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
 			
 			position.y += playerMovementSpeed/2;
