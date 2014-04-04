@@ -26,7 +26,7 @@ public class L1{
 		enemies.add(enemyGenerator.getEnemy(3, 4));
 		System.out.println("First = " + enemies.get(0).getClass().getSimpleName() + " tought guy " + enemies.get(0).toughness + " Health: " + enemies.get(0).health);
 		enemies.add(enemyGenerator.getEnemy(3, 4));
-		System.out.println("And  " + enemies.get(1).getClass().getSimpleName() + " tought guy " + enemies.get(1).toughness + " Health: " + enemies.get(0).health);
+		System.out.println("And  " + enemies.get(1).getClass().getSimpleName() + " tought guy " + enemies.get(1).toughness + " Health: " + enemies.get(1).health);
 		bunker = new Bunker();
 	}
 	
