@@ -123,6 +123,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable{
 		
 //		System.out.println("enemy state: " + state);
 		
+		
 		if(!state.equals(State.STANDARD)){
 			timer = 0;
 			timer2 = 0;
@@ -241,25 +242,25 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable{
 //						System.out.println(enemy.getPlayerMovementDirection());
 						Collidable collidableUp = null;
 						
-						damagedFromTop(collidableUp, animations, player);
+						damagedFromTop(collidableUp, animations, projectile);
 						collidableUp = collisionCheckerTop(collisionLayer, enemies);
 						collisionCheck(collidableUp, collisionLayer, player);
 						
 						Collidable collidableDown = null;
 						
-						damageFromBottom(collidableDown, animations, player);
+						damageFromBottom(collidableDown, animations, projectile);
 						collidableDown = collisionCheckerBottom(collisionLayer, enemies);
 						collisionCheck(collidableDown, collisionLayer, player);
 						
 						Collidable collidableLeft = null;
 						
-						damageFromLeft(collidableLeft, animations, player);
+						damageFromLeft(collidableLeft, animations, projectile);
 						collidableLeft = collisionCheckerLeft(collisionLayer, enemies);
 						collisionCheck(collidableLeft, collisionLayer, player);
 						
 						Collidable collidableRight = null;
 						
-						damageFromRight(collidableRight, animations, player);
+						damageFromRight(collidableRight, animations, projectile);
 						collidableRight = collisionCheckerRight(collisionLayer, enemies);
 						collisionCheck(collidableRight, collisionLayer, player);
 					}
@@ -453,15 +454,6 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable{
 				playerMovementDirection = "up";
 				currentFrame = animationsStandard.get(state).animate(16);
 			}
-		} else {
-			if(switzerland){
-				if (timereskin == 0){
-					state = State.STANDARD;
-					switzerland = false;
-				} else {
-					stop(600);
-				}
-			}
 		}
 	}
 
@@ -498,11 +490,15 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable{
 			enemyDy=0;
 			timereskin++;
 			System.out.println("stoped: " + timereskin);
+		}else if (timereskin>secs-1){
+			switzerland = false;
+			timereskin = 0;
 		}
 	}
 	
 	private void contact(Collidable collidable, TiledMapTileLayer collisionLayer, AbstractGameObject player) {
 		collidable.doCollide(this, collisionLayer);
+		collidable.doCollideAbstactObject(this);
 		Pathfinder.findPathInThreadPool(position, player.position, collisionLayer, this);
 //		System.out.println(position.x);
 //		System.out.println(theController.level1.getPlayer().position.x);
@@ -510,8 +506,8 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable{
 	}
 	
 	//temporary look
-	private void damageFromRight(Collidable collidableUp, HashMap<State, AnimationControl> animations, AbstractGameObject player) {
-		if (player.playerMovementDirection == "right" && collidableUp == null) { 
+	private void damageFromRight(Collidable collidableUp, HashMap<State, AnimationControl> animations, AbstractGameObject projectile) {
+		if (projectile.getPosition().x>position.x+sprite.getWidth() && collidableUp == null) { 
 			currentFrame = animations.get(State.STANDARD).doComplexAnimation(0, 0.2f, Gdx.graphics.getDeltaTime()/2);
 			
 			sprite.setRegion(animations.get(state).getCurrentFrame());
@@ -520,8 +516,8 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable{
 			sprite.translateY(playerMovementSpeed/2);
 		}
 	}
-	private void damageFromLeft(Collidable collidableUp, HashMap<State, AnimationControl> animations, AbstractGameObject player) {
-		if (player.playerMovementDirection == "left" && collidableUp == null) { 
+	private void damageFromLeft(Collidable collidableUp, HashMap<State, AnimationControl> animations, AbstractGameObject projectile) {
+		if (projectile.getPosition().x<position.x && collidableUp == null) { 
 			currentFrame = animations.get(State.STANDARD).doComplexAnimation(0, 0.2f, Gdx.graphics.getDeltaTime()/2);
 			
 			sprite.setRegion(animations.get(state).getCurrentFrame());
@@ -530,8 +526,8 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable{
 			sprite.translateY(playerMovementSpeed/2);
 		}
 	}
-	private void damageFromBottom(Collidable collidableUp, HashMap<State, AnimationControl> animations, AbstractGameObject player) {
-		if (player.playerMovementDirection == "down" && collidableUp == null) { 
+	private void damageFromBottom(Collidable collidableUp, HashMap<State, AnimationControl> animations, AbstractGameObject projectile) {
+		if (projectile.getPosition().y<position.y && collidableUp == null) { 
 			currentFrame = animations.get(State.STANDARD).doComplexAnimation(0, 0.2f, Gdx.graphics.getDeltaTime()/2);
 			
 			sprite.setRegion(animations.get(state).getCurrentFrame());
@@ -540,8 +536,8 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable{
 			sprite.translateY(playerMovementSpeed/2);
 		}
 	}
-	private void damagedFromTop(Collidable collidableUp, HashMap<State, AnimationControl> animations, AbstractGameObject player) {
-		if (player.playerMovementDirection == "up" && collidableUp == null) { 
+	private void damagedFromTop(Collidable collidableUp, HashMap<State, AnimationControl> animations, AbstractGameObject projectile) {
+		if (projectile.getPosition().y>position.y+sprite.getHeight() && collidableUp == null) { 
 			currentFrame = animations.get(State.STANDARD).doComplexAnimation(0, 0.2f, Gdx.graphics.getDeltaTime()/2);
 			
 			sprite.setRegion(animations.get(state).getCurrentFrame());
@@ -578,10 +574,6 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable{
 		this.playerMovementDirectionLR = playerMovementDirection;
 	}
 
-	public void doCollide(Player player) {
-		
-	}
-	
 	private int findLastNotNullInArray(){
 		int i = 0;
 		if (path != null)
@@ -643,11 +635,6 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable{
 		sprite.setColor(red, green, blue, alpha);
 	}
 
-	public void doCollide(AbstractGameObject abstractGameObject,
-			TiledMapTileLayer collisionLayer) {
-		
-	}
-
 	public boolean isSwitzerland() {
 		return switzerland;
 	}
@@ -662,6 +649,36 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable{
 
 	public void setTimereskin(int timereskin) {
 		this.timereskin = timereskin;
+	}
+
+	public void doCollide(AbstractGameObject abstractGameObject,
+			TiledMapTileLayer collisionLayer) {
+		
+	}
+
+	public void doCollideAbstactObject(AbstractGameObject abstractGameObject) {
+		
+		if(playerMovementDirectionLR == "right"){
+			abstractGameObject.setPosition(new Vector2(abstractGameObject.getPosition().x - 3,
+				abstractGameObject.getPosition().y));
+			state = State.STANDARD;
+		}
+		if(playerMovementDirectionLR == "left"){
+			abstractGameObject.setPosition(new Vector2(abstractGameObject.getPosition().x + 3,
+					abstractGameObject.getPosition().y));
+			state = State.STANDARD;
+		}
+		if(playerMovementDirectionUD == "up"){
+			abstractGameObject.setPosition(new Vector2(abstractGameObject.getPosition().x,
+					abstractGameObject.getPosition().y - 3));
+			state = State.STANDARD;
+		}
+		if(playerMovementDirectionUD == "down"){
+			abstractGameObject.setPosition(new Vector2(abstractGameObject.getPosition().x,
+					abstractGameObject.getPosition().y + 3));
+			state = State.STANDARD;
+		}
+		
 	}
 	
 	

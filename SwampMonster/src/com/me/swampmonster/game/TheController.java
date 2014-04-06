@@ -65,6 +65,7 @@ public class TheController extends InputAdapter{
 		
 		//:TODO change 
 		//:TODO Nastya thinks she is cool
+		if(level1.getEnemies()!= null){
 		level1.getEnemies().get(0).setPosition(new Vector2 (180f,450f));
 		level1.getEnemies().get(0).getSprite().setSize(level1.getEnemies().get(0).getSprite().getWidth()/2, level1.getEnemies().get(0).getSprite().getHeight()/2);
 		
@@ -73,7 +74,8 @@ public class TheController extends InputAdapter{
 		
 		level1.getEnemies().get(2).setPosition(new Vector2 (50f,450f));
 		level1.getEnemies().get(2).getSprite().setSize(level1.getEnemies().get(2).getSprite().getWidth()/2, level1.getEnemies().get(2).getSprite().getHeight()/2);
-//		level1.getEnemies().get(1).setPlayerMovementSpeedX(0.1f);
+		}
+		//		level1.getEnemies().get(1).setPlayerMovementSpeedX(0.1f);
 		//:TODO :3
 		
 		level1.getPlayer().setHurt(false);

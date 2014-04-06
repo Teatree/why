@@ -24,11 +24,11 @@ public class L1{
 		player = new Player(new Vector2());
 		enemies = new ArrayList<Enemy>();
 		enemies.add(enemyGenerator.getEnemy(3, 4));
-		System.out.println("First = " + enemies.get(0).getClass().getSimpleName() + " tought guy " + enemies.get(0).toughness + " Health: " + enemies.get(0).health);
+//		System.out.println("First = " + enemies.get(0).getClass().getSimpleName() + " tought guy " + enemies.get(0).toughness + " Health: " + enemies.get(0).health);
 		enemies.add(enemyGenerator.getEnemy(3, 4));
-		System.out.println("And  " + enemies.get(1).getClass().getSimpleName() + " tought guy " + enemies.get(1).toughness + " Health: " + enemies.get(1).health);
-		enemies.add(enemyGenerator.getEnemy(3, 5));
-		System.out.println("And  " + enemies.get(2).getClass().getSimpleName() + " tought guy " + enemies.get(2).toughness + " Health: " + enemies.get(2).health);
+//		System.out.println("And  " + enemies.get(1).getClass().getSimpleName() + " tought guy " + enemies.get(1).toughness + " Health: " + enemies.get(1).health);
+		enemies.add(enemyGenerator.getEnemy(3, 4));
+//		System.out.println("And  " + enemies.get(2).getClass().getSimpleName() + " tought guy " + enemies.get(2).toughness + " Health: " + enemies.get(2).health);
 		bunker = new Bunker();
 	}
 	

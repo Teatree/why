@@ -1,5 +1,7 @@
 package com.me.swampmonster.game.collision;
 
+import java.util.List;
+
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Vector2;
 import com.me.swampmonster.models.AbstractGameObject;
@@ -72,5 +74,9 @@ public class Solid implements Collidable{
 					return true;
 			}
 			return false;
+		}
+
+		public void doCollideAbstactObject(AbstractGameObject abstractGameObject) {
+			
 		}
 }
