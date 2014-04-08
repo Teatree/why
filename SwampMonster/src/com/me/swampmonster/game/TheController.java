@@ -12,9 +12,10 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.me.swampmonster.GUI.GUI;
 import com.me.swampmonster.game.collision.CollisionHelper;
+import com.me.swampmonster.models.AbstractGameObject.State;
 import com.me.swampmonster.models.Enemy;
 import com.me.swampmonster.models.L1;
-import com.me.swampmonster.models.AbstractGameObject.State;
+import com.me.swampmonster.models.AbstractGameObject;
 import com.me.swampmonster.models.Projectile;
 import com.me.swampmonster.utils.CameraHelper;
 
