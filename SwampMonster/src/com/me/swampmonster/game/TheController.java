@@ -60,7 +60,7 @@ public class TheController extends InputAdapter{
 		randVector2 = new Vector2();
 		level1 = new L1();
 //		Pathfinder.setTiledMap(level1.getBunker().getMap());
-		level1.getPlayer().setPosition(new Vector2 (180f,380f));
+		level1.getPlayer().setPosition(new Vector2 (180f,350f));
 		level1.getPlayer().getSprite().setSize(level1.getPlayer().getSprite().getWidth()/2, level1.getPlayer().getSprite().getHeight()/2);
 		
 		//:TODO change 
@@ -151,7 +151,7 @@ public class TheController extends InputAdapter{
 		
 		//
 		
-		if(level1.getPlayer().shooting){
+		if(projectile!=null && level1.getPlayer().shooting){
 			float direction_x = level1.getPlayer().getShotDir().x - V3playerPos.x;
 			float direction_y = level1.getPlayer().getShotDir().y - V3playerPos.y;
 			
@@ -161,8 +161,15 @@ public class TheController extends InputAdapter{
 			
 			projectile.setDirection(direction_x, direction_y);
 		}
+		for(Enemy e: level1.getEnemies()){
+			if(e.getState()!=State.DEAD){
+			if(projectile != null && e.oRangeAura.overlaps(projectile.getCircle())){
+					projectile = null;
+				}
+			}
+		}
 		
-		if(projectile != null){
+		if(projectile!=null){
 			projectile.update();
 		}
 		
@@ -195,10 +202,6 @@ public class TheController extends InputAdapter{
 		if (Gdx.input.isKeyPressed(Keys.O)){
 			for (Enemy enemy : level1.getEnemies())
 				enemy.setState(State.DEAD);
-		}
-		if (Gdx.input.isKeyPressed(Keys.O) && Gdx.input.isKeyPressed(Keys.CONTROL_RIGHT)){
-			level1.getPlayer().setState(State.ANIMATINGLARGE);
-			level1.getPlayer().setDoing("pullingGunOut");
 		}
 		if (Gdx.input.isKeyPressed(Keys.X) && Gdx.input.isKeyPressed(Keys.CONTROL_RIGHT)){
 		// property in the setShakeAmt is supposed to be SHAKE_INTENCITY, but it's not, deal with it!

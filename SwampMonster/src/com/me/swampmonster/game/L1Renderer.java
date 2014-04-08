@@ -83,7 +83,7 @@ public class L1Renderer {
 		
 		batch.setProjectionMatrix(cam.combined);
 		sr.setProjectionMatrix(cam.combined);
-		staticSr.setProjectionMatrix(matrix);
+//		staticSr.setProjectionMatrix(matrix);
 		
 		mapRenderer.setView(cam);
 		mapRenderer.render(background);
@@ -135,11 +135,14 @@ public class L1Renderer {
 		sr.begin(ShapeType.Line);
 		for (Enemy enemy : theController.level1.getEnemies()){
 			sr.setColor(Color.GREEN);
-			sr.circle(enemy.getPosition().x+8, enemy.getPosition().y+16, enemy.getgReenAura().radius);
+			sr.circle(enemy.getPosition().x, enemy.getPosition().y, enemy.getgReenAura().radius);
 			sr.setColor(Color.BLUE);
-			sr.circle(enemy.getoRangeAura().x+8, enemy.getoRangeAura().y+16, enemy.getoRangeAura().radius);
+			sr.circle(enemy.getoRangeAura().x, enemy.getoRangeAura().y, enemy.getoRangeAura().radius);
 		}	
 		sr.setColor(Color.WHITE);
+		if(theController.projectile!=null){
+			sr.circle(theController.projectile.getCircle().x, theController.projectile.getCircle().y, theController.projectile.getCircle().radius);
+		}
 		sr.rect(theController.point.x, theController.point.y, 32, 32);
 		sr.rect(theController.level1.getPlayer().getPosition().x, theController.level1.getPlayer().getPosition().y,
 				theController.level1.getPlayer().getRectanlge().width, theController.level1.getPlayer().getRectanlge().height);
