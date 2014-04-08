@@ -23,20 +23,17 @@ public class CollisionHelper {
 	}
 	
 	public static Collidable isCollidableEnemy(Enemy enemyKing, List<Enemy> enemies){
-		Solid solid= null;
 		enemyKing.setSwitzerland(true);
 		if(enemies!=null && enemyKing!=null){
 			for(Enemy enemy : enemies){
-				if(enemy != enemyKing){
-					if(enemyKing.getRectanlge().overlaps(enemy.getRectanlge())){
-						solid = new Solid();
-					}
+				if(enemy != enemyKing && enemyKing.getRectanlge().overlaps(enemy.getRectanlge())){
 					if (enemy.isSwitzerland()){
 						enemyKing.setSwitzerland(false);
 					}
+					return enemy;
 				}
 			}
 		}
-		return solid;
+		return null;
 	}
 }

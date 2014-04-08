@@ -1,6 +1,5 @@
 package com.me.swampmonster.game;
 
-import java.awt.Rectangle;
 import java.util.Random;
 
 import com.badlogic.gdx.Gdx;
@@ -8,6 +7,7 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Intersector;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.me.swampmonster.GUI.GUI;
@@ -65,12 +65,17 @@ public class TheController extends InputAdapter{
 		
 		//:TODO change 
 		//:TODO Nastya thinks she is cool
-		level1.getEnemies().get(0).setPosition(new Vector2 (110f,100f));
+		if(level1.getEnemies()!= null){
+		level1.getEnemies().get(0).setPosition(new Vector2 (180f,450f));
 		level1.getEnemies().get(0).getSprite().setSize(level1.getEnemies().get(0).getSprite().getWidth()/2, level1.getEnemies().get(0).getSprite().getHeight()/2);
 		
-		level1.getEnemies().get(1).setPosition(new Vector2 (60f,30f));
+		level1.getEnemies().get(1).setPosition(new Vector2 (110f,450f));
 		level1.getEnemies().get(1).getSprite().setSize(level1.getEnemies().get(1).getSprite().getWidth()/2, level1.getEnemies().get(1).getSprite().getHeight()/2);
-//		level1.getEnemies().get(1).setPlayerMovementSpeedX(0.1f);
+		
+		level1.getEnemies().get(2).setPosition(new Vector2 (50f,450f));
+		level1.getEnemies().get(2).getSprite().setSize(level1.getEnemies().get(2).getSprite().getWidth()/2, level1.getEnemies().get(2).getSprite().getHeight()/2);
+		}
+		//		level1.getEnemies().get(1).setPlayerMovementSpeedX(0.1f);
 		//:TODO :3
 		
 		level1.getPlayer().setHurt(false);
