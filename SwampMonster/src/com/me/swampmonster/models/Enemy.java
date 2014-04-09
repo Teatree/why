@@ -1,6 +1,7 @@
 package com.me.swampmonster.models;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 import com.badlogic.gdx.Gdx;
@@ -26,6 +27,8 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable{
 	int timeDead = 0;
 	int timer2;
 	int timereskin = 0;
+	public int timeRemove = 0;
+	public String projectileLocation;
 	
 	float enemyDx;
 	float enemyDy;
@@ -228,38 +231,43 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable{
 					rewardPlayer(player);
 //					System.out.println("points: " + player.getPoints());
 				}
-				
-				dead = true;
+				if(timeDead > 64){
+					dead = true;
+				}
 			}
 			if(hurt){
+				if(projectile!=null){
+					getProjectileLocationRelativeToSprite(projectile);
+				}
 //				System.out.println(" (PLAYER): I'm currently in HURT state");
 				if(time < 40){
 					time++;
+					System.out.println("projectileLocationRelativeTo: " + projectileLocation);
 					
-					if(projectile != null && damageType == "player" && state != State.DEAD){
+					if(damageType == "player" && state != State.DEAD){
 //						private void takingDamageFromEnemy(HashMap<State, AnimationControl> animations, AbstractGameObject enemy, Vector3 touchPos, TiledMapTileLayer collisionLayer) {
 //						System.out.println(enemy.getPlayerMovementDirection());
 						Collidable collidableUp = null;
 						
-						damagedFromTop(collidableUp, animationsStandard, projectile);
+						damagedFromTop(collidableUp, animationsStandard);
 						collidableUp = collisionCheckerTop(collisionLayer, enemies);
 						collisionCheck(collidableUp, collisionLayer, player);
 						
 						Collidable collidableDown = null;
 						
-						damageFromBottom(collidableDown, animationsStandard, projectile);
+						damageFromBottom(collidableDown, animationsStandard);
 						collidableDown = collisionCheckerBottom(collisionLayer, enemies);
 						collisionCheck(collidableDown, collisionLayer, player);
 						
 						Collidable collidableLeft = null;
 						
-						damageFromLeft(collidableLeft, animationsStandard, projectile);
+						damageFromLeft(collidableLeft, animationsStandard);
 						collidableLeft = collisionCheckerLeft(collisionLayer, enemies);
 						collisionCheck(collidableLeft, collisionLayer, player);
 						
 						Collidable collidableRight = null;
 						
-						damageFromRight(collidableRight, animationsStandard, projectile);
+						damageFromRight(collidableRight, animationsStandard);
 						collidableRight = collisionCheckerRight(collisionLayer, enemies);
 						collisionCheck(collidableRight, collisionLayer, player);
 					}
@@ -270,6 +278,28 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable{
 					}
 				}
 			}
+
+	private String getProjectileLocationRelativeToSprite(AbstractGameObject projectile) {
+		if (projectile.getPosition().y > position.y+sprite.getHeight() && projectile.getPosition().x > position.x
+				&& projectile.getPosition().x < position.x+sprite.getWidth()) { 
+			projectileLocation="top";
+		}
+		if (projectile.getPosition().y < position.y && projectile.getPosition().x > position.x
+				&& projectile.getPosition().x < position.x+sprite.getWidth()) { 
+			projectileLocation="bottom";
+		}
+		if (projectile.getPosition().x < position.x && projectile.getPosition().y < position.y
+				&& projectile.getPosition().y > position.y+sprite.getHeight()) {
+			projectileLocation="left";
+		}
+		if (projectile.getPosition().x > position.x+sprite.getWidth() && projectile.getPosition().y < position.y
+				&& projectile.getPosition().y > position.y+sprite.getHeight()) { 
+			projectileLocation="right";
+		}
+		
+		
+		return projectileLocation;
+	}
 
 	private void rewardPlayer(AbstractGameObject player) {
 		player.setPoints(player.getPoints()+points);
@@ -506,56 +536,53 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable{
 	
 	//temporary look
 	
-	private void damageFromRight(Collidable collidableUp, HashMap<State, AnimationControl> animationsStandard, AbstractGameObject projectile) {
-		if (projectile.getPosition().x > position.x+sprite.getWidth() && collidableUp == null && projectile.getPosition().y < position.y
-				&& projectile.getPosition().y > position.y+sprite.getHeight()) { 
+	private void damageFromRight(Collidable collidableUp, HashMap<State, AnimationControl> animationsStandard) {
+		if (projectileLocation == "right" && collidableUp == null) { 
 			System.out.println("supposed to be animating... Right");
-			currentFrame = animationsStandard.get(State.STANDARD).doComplexAnimation(112, 1, 0.1f);
+			currentFrame = animationsStandard.get(State.STANDARD).doComplexAnimation(112, 0.6f, Gdx.graphics.getDeltaTime()/2);
 			sprite.setRegion(animationsStandard.get(state).getCurrentFrame());
 			sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
-			position.x += playerMovementSpeed/2;
-			sprite.translateY(playerMovementSpeed/2);
+			
+			position.x -= playerMovementSpeed/3;
+			sprite.translateY(playerMovementSpeed/3);
 		}
 	}
 
-	private void damageFromLeft(Collidable collidableUp, HashMap<State, AnimationControl> animationsStandard, AbstractGameObject projectile) {
-		if (projectile.getPosition().x < position.x && collidableUp == null && projectile.getPosition().y < position.y
-				&& projectile.getPosition().y > position.y+sprite.getHeight()) {
+	private void damageFromLeft(Collidable collidableUp, HashMap<State, AnimationControl> animationsStandard) {
+		if (projectileLocation == "left" && collidableUp == null) {
 			System.out.println("supposed to be animating... Left");
-			currentFrame = animationsStandard.get(State.STANDARD).doComplexAnimation(108, 0.2f, 0.1f);
+			currentFrame = animationsStandard.get(State.STANDARD).doComplexAnimation(108, 0.6f, Gdx.graphics.getDeltaTime()/2);
 			
 			sprite.setRegion(animationsStandard.get(state).getCurrentFrame());
 			sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
-			position.x -= playerMovementSpeed/2;
-			sprite.translateY(playerMovementSpeed/2);
+			position.x += playerMovementSpeed/3;
+			sprite.translateY(playerMovementSpeed/3);
 		}
 	}
 
-	private void damageFromBottom(Collidable collidableUp, HashMap<State, AnimationControl> animationsStandard, AbstractGameObject projectile) {
-		if (projectile.getPosition().y < position.y && projectile.getPosition().x > position.x
-				&& projectile.getPosition().x < position.x+sprite.getWidth() && collidableUp == null) { 
+	private void damageFromBottom(Collidable collidableUp, HashMap<State, AnimationControl> animationsStandard) {
+		if (projectileLocation == "bottom" && collidableUp == null) { 
 			System.out.println("supposed to be animating... Bottom");
-			currentFrame = animationsStandard.get(State.STANDARD).doComplexAnimation(104, 0.2f, 0.1f);
+			currentFrame = animationsStandard.get(State.STANDARD).doComplexAnimation(104, 0.6f, Gdx.graphics.getDeltaTime()/2);
 			
 			sprite.setRegion(animationsStandard.get(state).getCurrentFrame());
 			sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
-			position.y -= playerMovementSpeed/2;
-			sprite.translateY(playerMovementSpeed/2);
+			position.y += playerMovementSpeed/3;
+			sprite.translateY(playerMovementSpeed/3);
 		}
 	}
 
-	private void damagedFromTop(Collidable collidableUp, HashMap<State, AnimationControl> animationsStandard, AbstractGameObject projectile) {
-		if (projectile.getPosition().y > position.y+sprite.getHeight() && projectile.getPosition().x > position.x
-				&& projectile.getPosition().x < position.x+sprite.getWidth() && collidableUp == null) { 
+	private void damagedFromTop(Collidable collidableUp, HashMap<State, AnimationControl> animationsStandard) {
+		if (projectileLocation == "top" && collidableUp == null) { 
 			
 			System.out.println("supposed to be animating... Top");
-			currentFrame = animationsStandard.get(State.STANDARD).doComplexAnimation(116, 1, 0.1f);
+			currentFrame = animationsStandard.get(State.STANDARD).doComplexAnimation(116, 0.6f, Gdx.graphics.getDeltaTime()/2);
 			
 			sprite.setRegion(animationsStandard.get(state).getCurrentFrame());
 			sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
 			
-			position.y += playerMovementSpeed/2;
-			sprite.translateY(playerMovementSpeed/2);
+			position.y -= playerMovementSpeed/3;
+			sprite.translateY(playerMovementSpeed/3);
 		}
 	}
 	
@@ -691,6 +718,4 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable{
 		}
 		
 	}
-	
-	
 }

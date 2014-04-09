@@ -99,20 +99,37 @@ public class L1Renderer {
 					theController.gui.getCroshair().getSprite().getHeight());
 		}
 		// temporary drawing of a projectile
-		if(theController.projectile != null){
-			batch.draw(theController.projectile.getSprite(), theController.projectile.getPosition().x, theController.projectile.getPosition().y, 
-					theController.projectile.getSprite().getOriginX(), theController.projectile.getSprite().getOriginY(),
-					theController.projectile.getSprite().getWidth(), theController.projectile.getSprite().getHeight(), 
-					1,1,
-				theController.projectile.getSprite().getRotation());
-		}
 		batch.end();
 		
 		batch.begin();
 		for (Enemy enemy : theController.level1.getEnemies()){
 			if(enemy.getPosition().y+42 > theController.level1.getPlayer().getPosition().y+42){
 				enemy.getSprite().setPosition(enemy.getPosition().x, enemy.getPosition().y);
-				enemy.getSprite().draw(batch);
+				if(enemy.timeRemove<110){
+					enemy.getSprite().draw(batch);
+				}
+				if(enemy.timeRemove>110 && enemy.timeRemove<115){
+					enemy.getSprite().draw(batch);
+				}
+				if(enemy.timeRemove>120 && enemy.timeRemove<125){
+					enemy.getSprite().draw(batch);
+				}
+				if(enemy.timeRemove>130 && enemy.timeRemove<135){
+					enemy.getSprite().draw(batch);
+				}
+				if(enemy.timeRemove>140 && enemy.timeRemove<145){
+					enemy.getSprite().draw(batch);
+				}
+				if(enemy.timeRemove>150 && enemy.timeRemove<155){
+					enemy.getSprite().draw(batch);
+				}
+				if(enemy.timeRemove>160 && enemy.timeRemove<165){
+					enemy.getSprite().draw(batch);
+				}
+				if(enemy.timeRemove>170 && enemy.timeRemove<175){
+					enemy.getSprite().draw(batch);
+				}
+				
 			}
 		}
 			
@@ -126,6 +143,13 @@ public class L1Renderer {
 				enemy.getSprite().setPosition(enemy.getPosition().x, enemy.getPosition().y);
 				enemy.getSprite().draw(batch);
 			}
+		}
+		if(theController.projectile != null){
+			batch.draw(theController.projectile.getSprite(), theController.projectile.getPosition().x, theController.projectile.getPosition().y, 
+					theController.projectile.getSprite().getOriginX(), theController.projectile.getSprite().getOriginY(),
+					theController.projectile.getSprite().getWidth(), theController.projectile.getSprite().getHeight(), 
+					1,1,
+					theController.projectile.getSprite().getRotation());
 		}
 		
 		batch.end();

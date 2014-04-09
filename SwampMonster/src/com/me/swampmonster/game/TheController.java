@@ -1,5 +1,6 @@
 package com.me.swampmonster.game;
 
+import java.util.Iterator;
 import java.util.Random;
 
 import com.badlogic.gdx.Gdx;
@@ -103,9 +104,28 @@ public class TheController extends InputAdapter{
 	
 	public void update(float deltaTime){
 		restarter();
+		
 		cameraHelper.upadate(V3playerPos.x, V3playerPos.y, 5);
 		level1.update(gui.getCroshair().isAiming(), touchPos, V3point, collisionLayer, projectile, cameraHelper, dx, dy);
 		
+		Iterator itr = level1.getEnemies().iterator();
+		while(itr.hasNext()){
+			Enemy e = (Enemy) itr.next();
+			if(!e.isDead()){
+			if(projectile != null && e.oRangeAura.overlaps(projectile.getCircle())){
+					projectile = null;
+				}
+			}
+			if(e.isDead()){
+//				System.out.println("must work!");
+				if(e.timeRemove < 180){
+					e.timeRemove++;
+				}else if(e.timeRemove > 179){
+					itr.remove();
+					e.timeRemove = 0;
+				}
+			}
+		}
 		// I don't fucking know if thsi is better, I just spent 2 hours on this solution, so deal with it!
 		if(Gdx.input.justTouched() && !level1.getPlayer().isJustSpawned()){
 			inputNav();
@@ -161,13 +181,6 @@ public class TheController extends InputAdapter{
 			direction_y /= length;
 			
 			projectile.setDirection(direction_x, direction_y);
-		}
-		for(Enemy e: level1.getEnemies()){
-			if(e.getState()!=State.DEAD){
-			if(projectile != null && e.oRangeAura.overlaps(projectile.getCircle())){
-					projectile = null;
-				}
-			}
 		}
 		
 		if(projectile!=null){
