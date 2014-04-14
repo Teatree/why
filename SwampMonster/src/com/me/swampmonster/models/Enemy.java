@@ -280,21 +280,21 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable{
 			}
 
 	private String getProjectileLocationRelativeToSprite(AbstractGameObject projectile) {
-		if (projectile.getPosition().y > position.y+sprite.getHeight() && projectile.getPosition().x > position.x
-				&& projectile.getPosition().x < position.x+sprite.getWidth()) { 
+		if (projectile.getPosition().y > position.y+sprite.getHeight()/2 && projectile.getPosition().x > position.x-10
+				&& projectile.getPosition().x < position.x+sprite.getWidth()+10) { 
 			projectileLocation="top";
 		}
-		if (projectile.getPosition().y < position.y && projectile.getPosition().x > position.x
-				&& projectile.getPosition().x < position.x+sprite.getWidth()) { 
+		if (projectile.getPosition().y < position.y && projectile.getPosition().x > position.x-10
+				&& projectile.getPosition().x < position.x+sprite.getWidth()+10) { 
 			projectileLocation="bottom";
 		}
-		if (projectile.getPosition().x < position.x && projectile.getPosition().y < position.y
-				&& projectile.getPosition().y > position.y+sprite.getHeight()) {
-			projectileLocation="left";
-		}
-		if (projectile.getPosition().x > position.x+sprite.getWidth() && projectile.getPosition().y < position.y
-				&& projectile.getPosition().y > position.y+sprite.getHeight()) { 
+		if (projectile.getPosition().x < position.x && projectile.getPosition().y > position.y
+				&& projectile.getPosition().y < position.y+sprite.getHeight()) {
 			projectileLocation="right";
+		}
+		if (projectile.getPosition().x > position.x+sprite.getWidth()/2 && projectile.getPosition().y > position.y
+				&& projectile.getPosition().y < position.y+sprite.getHeight()) { 
+			projectileLocation="left";
 		}
 		
 		
