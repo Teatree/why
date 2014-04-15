@@ -43,6 +43,7 @@ public abstract class AbstractGameObject {
 	protected int damage;
 	protected int points;
 	protected int reloadSpeed;
+	protected int attackSpeed;
 	protected float oxygen;
 	
 	public Vector2 getPosition() {
@@ -164,6 +165,18 @@ public abstract class AbstractGameObject {
 	}
 	public void setPoints(int points) {
 		this.points = points;
+	}
+	public int getReloadSpeed() {
+		return reloadSpeed;
+	}
+	public void setReloadSpeed(int reloadSpeed) {
+		this.reloadSpeed = reloadSpeed;
+	}
+	public int getAttackSpeed() {
+		return attackSpeed;
+	}
+	public void setAttackSpeed(int attackSpeed) {
+		this.attackSpeed = attackSpeed;
 	}
 	
 	
