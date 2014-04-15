@@ -1,7 +1,6 @@
 package com.me.swampmonster.models;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 
 import com.badlogic.gdx.Gdx;
@@ -147,7 +146,6 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable{
 //					System.out.println("cunter = " + cunter);
 					if(cunter <= 0 || path[cunter] == null){ 
 						cunter = findLastNotNullInArray();
-						System.out.println(findLastNotNullInArray());
 						if (cunter <= 0){
 							setState(State.STANDARD);
 						}
@@ -229,7 +227,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable{
 				}
 				if(timeDead==1){
 					rewardPlayer(player);
-//					System.out.println("points: " + player.getPoints());
+//					"points: " + player.getPoints());
 				}
 				if(timeDead > 64){
 					dead = true;

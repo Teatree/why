@@ -1,7 +1,6 @@
 package com.me.swampmonster.utils;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Stack;
 
 import com.me.swampmonster.models.Enemy;
 import com.me.swampmonster.models.EnemyGenerator;
@@ -18,7 +17,7 @@ public class MisterSpawner {
 		int minTough = calcMinTough(playersScore);
 		int size = calcSize(playersScore);
 		int  amountOfToughGuys = calcAmountOfTough(playersScore);
-		List<Enemy> enemies = new ArrayList<Enemy>(); 
+		Stack<Enemy> enemies = new Stack<Enemy>(); 
 		
 		for (int i = 0; i < size - amountOfToughGuys; i++){
 			enemies.add(enemyGenerator.getPlainEnemy(minEnemy, maxEnemy));
@@ -26,7 +25,7 @@ public class MisterSpawner {
 		
 		for (int i = 0; i < amountOfToughGuys; i++){
 			//change enemy generator
-			enemies.add(enemyGenerator.getEnemy(maxEnemy, maxTough));
+			enemies.add(enemyGenerator.getToughEnemy(minEnemy, maxEnemy, minTough, maxTough));
 		}
 		wave.enemies = enemies;
 		wave.enemiesOnBattleField = calcEnemiesOnBattleField(playersScore);

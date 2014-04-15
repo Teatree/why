@@ -1,7 +1,6 @@
 package com.me.swampmonster.game;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -12,13 +11,11 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.badlogic.gdx.math.Matrix3;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.me.swampmonster.AI.Node;
 import com.me.swampmonster.models.Enemy;
-import com.me.swampmonster.models.L1;
 import com.me.swampmonster.models.AbstractGameObject.State;
 import com.me.swampmonster.utils.Constants;
 
@@ -102,7 +99,7 @@ public class L1Renderer {
 		batch.end();
 		
 		batch.begin();
-		for (Enemy enemy : theController.level1.getEnemies()){
+		for (Enemy enemy : theController.level1.enemiesOnStage){
 			if(enemy.getPosition().y+42 > theController.level1.getPlayer().getPosition().y+42){
 				enemy.getSprite().setPosition(enemy.getPosition().x, enemy.getPosition().y);
 				if(enemy.timeRemove<110){
@@ -138,7 +135,7 @@ public class L1Renderer {
 //			batch.draw(theController.level1.getPlayer().getSprite(), theController.level1.getPlayer().getPosition().x, theController.level1.getPlayer().getPosition().y,
 //					theController.level1.getPlayer().getSprite().getWidth(), theController.level1.getPlayer().getSprite().getHeight());
 //			theController.level1.drawEnemy(batch);
-		for(Enemy enemy : theController.level1.getEnemies()){
+		for(Enemy enemy : theController.level1.enemiesOnStage){
 			if(enemy.getPosition().y+42 < theController.level1.getPlayer().getPosition().y+42){
 				enemy.getSprite().setPosition(enemy.getPosition().x, enemy.getPosition().y);
 				enemy.getSprite().draw(batch);
@@ -157,7 +154,7 @@ public class L1Renderer {
 		
 		// Temporary deBug feature
 		sr.begin(ShapeType.Line);
-		for (Enemy enemy : theController.level1.getEnemies()){
+		for (Enemy enemy : theController.level1.enemiesOnStage){
 			sr.setColor(Color.GREEN);
 			sr.circle(enemy.getPosition().x, enemy.getPosition().y, enemy.getgReenAura().radius);
 			sr.setColor(Color.BLUE);
@@ -170,7 +167,7 @@ public class L1Renderer {
 		sr.rect(theController.point.x, theController.point.y, 32, 32);
 		sr.rect(theController.level1.getPlayer().getPosition().x, theController.level1.getPlayer().getPosition().y,
 				theController.level1.getPlayer().getRectanlge().width, theController.level1.getPlayer().getRectanlge().height);
-		for(Enemy enemy:theController.level1.getEnemies()){
+		for(Enemy enemy:theController.level1.enemiesOnStage){
 			sr.rect(enemy.getRectanlge().x, enemy.getRectanlge().y,
 					enemy.getRectanlge().width, enemy.getRectanlge().height);
 		}
@@ -182,7 +179,7 @@ public class L1Renderer {
 		sr.begin(ShapeType.Filled);
 		sr.setColor(Color.RED);
 //		sr.circle(theController.projectile.getCircle().x, theController.projectile.getCircle().y, theController.projectile.getCircle().radius);
-		for (Enemy enemy : theController.level1.getEnemies())
+		for (Enemy enemy : theController.level1.enemiesOnStage)
 			if(enemy.getPath() != null){
 				for(Node n : enemy.getPath()){
 					if(n != null){

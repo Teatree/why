@@ -1,8 +1,9 @@
 package com.me.swampmonster.models;
 
-import java.util.List;
+import java.util.Stack;
 
 public class Wave {
-	public List<Enemy> enemies;
+	
+	public Stack<Enemy> enemies;
 	public int enemiesOnBattleField;
 }

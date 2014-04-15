@@ -1,8 +1,6 @@
 package com.me.swampmonster.game;
 
 import java.util.Iterator;
-import java.util.Random;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputAdapter;
@@ -16,7 +14,6 @@ import com.me.swampmonster.game.collision.CollisionHelper;
 import com.me.swampmonster.models.AbstractGameObject.State;
 import com.me.swampmonster.models.Enemy;
 import com.me.swampmonster.models.L1;
-import com.me.swampmonster.models.AbstractGameObject;
 import com.me.swampmonster.models.Projectile;
 import com.me.swampmonster.utils.CameraHelper;
 
@@ -67,17 +64,17 @@ public class TheController extends InputAdapter{
 		
 		//:TODO change 
 		//:TODO Nastya thinks she is cool
-		if(level1.getEnemies()!= null){
-		level1.getEnemies().get(0).setPosition(new Vector2 (180f,450f));
-		level1.getEnemies().get(0).getSprite().setSize(level1.getEnemies().get(0).getSprite().getWidth()/2, level1.getEnemies().get(0).getSprite().getHeight()/2);
+		if(level1.enemiesOnStage!= null){
+		level1.enemiesOnStage.get(0).setPosition(new Vector2 (180f,450f));
+		level1.enemiesOnStage.get(0).getSprite().setSize(level1.enemiesOnStage.get(0).getSprite().getWidth()/2, level1.enemiesOnStage.get(0).getSprite().getHeight()/2);
 		
-		level1.getEnemies().get(1).setPosition(new Vector2 (110f,450f));
-		level1.getEnemies().get(1).getSprite().setSize(level1.getEnemies().get(1).getSprite().getWidth()/2, level1.getEnemies().get(1).getSprite().getHeight()/2);
+		level1.enemiesOnStage.get(1).setPosition(new Vector2 (110f,450f));
+		level1.enemiesOnStage.get(1).getSprite().setSize(level1.enemiesOnStage.get(1).getSprite().getWidth()/2, level1.enemiesOnStage.get(1).getSprite().getHeight()/2);
 		
-		level1.getEnemies().get(2).setPosition(new Vector2 (50f,450f));
-		level1.getEnemies().get(2).getSprite().setSize(level1.getEnemies().get(2).getSprite().getWidth()/2, level1.getEnemies().get(2).getSprite().getHeight()/2);
+		level1.enemiesOnStage.get(2).setPosition(new Vector2 (50f,450f));
+		level1.enemiesOnStage.get(2).getSprite().setSize(level1.enemiesOnStage.get(2).getSprite().getWidth()/2, level1.enemiesOnStage.get(2).getSprite().getHeight()/2);
 		}
-		//		level1.getEnemies().get(1).setPlayerMovementSpeedX(0.1f);
+		//		level1.enemiesOnStage.get(1).setPlayerMovementSpeedX(0.1f);
 		//:TODO :3
 		
 		level1.getPlayer().setHurt(false);
@@ -108,7 +105,7 @@ public class TheController extends InputAdapter{
 		cameraHelper.upadate(V3playerPos.x, V3playerPos.y, 5);
 		level1.update(gui.getCroshair().isAiming(), touchPos, V3point, collisionLayer, projectile, cameraHelper, dx, dy);
 		
-		Iterator itr = level1.getEnemies().iterator();
+		Iterator<Enemy> itr = level1.enemiesOnStage.iterator();
 		while(itr.hasNext()){
 			Enemy e = (Enemy) itr.next();
 			if(!e.isDead()){
@@ -214,7 +211,7 @@ public class TheController extends InputAdapter{
 		if (Gdx.input.isKeyPressed(Keys.S) && !cameraHelper.hasTarget) moveCamera(0,-camMoveSpeed);
 		
 		if (Gdx.input.isKeyPressed(Keys.O)){
-			for (Enemy enemy : level1.getEnemies())
+			for (Enemy enemy : level1.enemiesOnStage)
 				enemy.setState(State.DEAD);
 		}
 		if (Gdx.input.isKeyPressed(Keys.X) && Gdx.input.isKeyPressed(Keys.CONTROL_RIGHT)){
@@ -334,7 +331,7 @@ public class TheController extends InputAdapter{
 			level1.getPlayer().setState(State.DEAD);
 		}
 		if(level1.getPlayer().getState() == State.DEAD){
-			for (Enemy enemy : level1.getEnemies())
+			for (Enemy enemy : level1.enemiesOnStage)
 				enemy.setState(State.STANDARD);
 		}
 		
@@ -360,13 +357,13 @@ public class TheController extends InputAdapter{
 			}
 		
 		if (keycode == Keys.X){
-			for (Enemy e : level1.getEnemies()){
-				System.out.print("Enemy " + e.getClass().getSimpleName());
-				System.out.println(" state = " + e.getState());
-				System.out.print(" path = " + e.getPath());
-				System.out.print(" cunter = " + e.getCunter());
-				System.out.print(" timereskin = " + e.getTimereskin());
-				System.out.println(" switcerland = " + e.isSwitzerland());
+			for (Enemy e : level1.enemiesOnStage){
+//				System.out.print("Enemy " + e.getClass().getSimpleName());
+//				System.out.println(" state = " + e.getState());
+//				System.out.print(" path = " + e.getPath());
+//				System.out.print(" cunter = " + e.getCunter());
+//				System.out.print(" timereskin = " + e.getTimereskin());
+//				System.out.println(" switcerland = " + e.isSwitzerland());
 			}
 		}
 		

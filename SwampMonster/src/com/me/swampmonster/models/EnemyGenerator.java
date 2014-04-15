@@ -32,10 +32,10 @@ public class EnemyGenerator {
 		random = new Random();
 	}
 	
-	public Enemy getEnemy(int enemyRang, int toughRang){
+	public Enemy getToughEnemy(int enemyMin, int enemyMax, int toughMin,  int toughMax){
 		random = new Random();
-		int currentEnemyType = random.nextInt(enemyRang);
-		int toughGuy = random.nextInt(toughRang+2);
+		int currentEnemyType = random.nextInt(enemyMax - enemyMin) + enemyMin;
+		int toughGuy = random.nextInt(toughMax - toughMin) + toughMin;
 		Enemy enemy = null;
 		try {
 			enemy = enemyTypes.get(currentEnemyType).getConstructor(Vector2.class).newInstance(new Vector2());
@@ -48,9 +48,10 @@ public class EnemyGenerator {
 	
 	public Enemy getPlainEnemy(int enemyMin, int enemyMax){
 		random = new Random();
-		int currentEnemyType = random.nextInt(enemyMax - enemyMin + 1) + enemyMin;
+		int currentEnemyType = random.nextInt(enemyMax - enemyMin) + enemyMin;
 		Enemy enemy = null;
 		try {
+			System.out.println(currentEnemyType);			
 			enemy = enemyTypes.get(currentEnemyType).getConstructor(Vector2.class).newInstance(new Vector2());
 		} catch (Exception e) {
 			e.printStackTrace();
