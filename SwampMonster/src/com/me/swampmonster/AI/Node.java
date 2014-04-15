@@ -1,8 +1,11 @@
 package com.me.swampmonster.AI;
 
+import com.badlogic.gdx.math.Vector2;
+
 public class Node implements Comparable<Node>{
 	public int x;
 	public int y;
+	public Vector2 position;
 	public float g;
 	public float h;
 	public float f;

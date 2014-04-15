@@ -74,6 +74,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable{
 		health = 2;
 		damage = 1;
 		points = 0;
+		attackSpeed = 40;
 		playerMovementSpeed = 0.3f;
 	}
 	
@@ -151,6 +152,25 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable{
 						if (cunter <= 0){
 							setState(State.STANDARD);
 						}
+						
+						//: TODO FINISH THIS! 
+						//: TODO The only thing that is left is to tweak it to perfection
+						//: TODO ... And you make sure it works for each of the enemies in
+						//: TODO the enemy list...
+					
+						if (cunter >= 0 && player.position.x > (path[cunter].x*16+player.sprite.getWidth()*3)){
+//							System.out.println("player has steped out of the last node on the path area on the RIGHT");
+//							System.out.println("player position x is " + player.position.x );
+//							System.out.println("last node on path pos x is " + (path[cunter].x*16+player.sprite.getWidth()*3));
+						}
+						if (cunter >= 0 && player.position.x < (path[cunter].x*16-player.sprite.getWidth()*3)){
+//							System.out.println("player has steped out of the last node on the path area on the LEFT");
+//							System.out.println("player position x is " + player.position.x );
+//							System.out.println("last node on path pos x is " + (path[cunter].x*16-player.sprite.getWidth()*3));
+						}
+						
+						// 
+						
 					} else {
 						onPathMovingAndCollisionDetection(collisionLayer, player, enemyPathDx, enemyPathDy, enemies);
 						orientOnPath();
@@ -193,16 +213,16 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable{
             	if(getoRangeAura().overlaps(player.getCircle()) && player.getState() != State.DEAD){
 //            		System.out.println("yes!2 and overlpas is: " + getoRangeAura().overlaps(player.getCircle()));
 	            	if(playerMovementDirection == "right"){
-	            		inflictOnThe(88, 56, player, cameraHelper);
+	            		inflictOnThe(88, 56, player, cameraHelper, attackSpeed);
 	            	}
 	            	if(playerMovementDirection == "left"){
-	            		inflictOnThe(72, 40, player, cameraHelper);
+	            		inflictOnThe(72, 40, player, cameraHelper, attackSpeed);
 	            	}
 	            	if(playerMovementDirection == "up"){
-	            		inflictOnThe(80, 48, player, cameraHelper);
+	            		inflictOnThe(80, 48, player, cameraHelper, attackSpeed);
 	            	}
 	            	if(playerMovementDirection == "down"){
-	            		inflictOnThe(64, 32, player, cameraHelper);
+	            		inflictOnThe(64, 32, player, cameraHelper, attackSpeed);
 	            	}
             	}
             	if(!getoRangeAura().overlaps(player.getCircle())){
@@ -306,16 +326,16 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable{
 		
 	}
 
-	private void inflictOnThe(int standing, int animation, Player player, CameraHelper cameraHelper) {
+	private void inflictOnThe(int standing, int animation, Player player, CameraHelper cameraHelper, int attackSpeed) {
 		// Timer is for the length of the actual animation
 		// Timer2 is for the waiting period
 		if(oldPos.x == position.x && oldPos.y == position.y){
-			if(timer2 < 40){
+			if(timer2 < attackSpeed){
 				timer2++;
 //            			System.out.println("timer2: " + timer2 );
 				currentFrame = animationsStandard.get(state).animate(standing);
 			}
-			if(timer2 >= 40 && timer < 30){
+			if(timer2 >= attackSpeed && timer < 30){
 				cameraHelper.setShakeAmt(25);
 				cameraHelper.cameraShake();
 //            			System.out.println("timer1: " + timer);
@@ -324,7 +344,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable{
 				sprite.setRegion(animationsStandard.get(state).getCurrentFrame());
 				sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
 				timer++;
-				if(timer == 30 && timer2 >= 40){
+				if(timer == 30 && timer2 >= attackSpeed){
 					currentFrame = animationsStandard.get(state).animate(standing);
 					// And may be inflict different hurts, direction/ kinds of hurts/ etc.
 					player.setDamageType("enemy");

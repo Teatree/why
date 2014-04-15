@@ -18,6 +18,7 @@ public class EnemyLeech extends Enemy{
 		health = 1;
 		damage = 1;
 		points = 200;
+		attackSpeed = 80;
 	}
 
 }
