@@ -20,7 +20,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable{
 	
 	Toughness toughness;
 	State state = State.STANDARD;
-	int cunter;
+	public int cunter;
 	int timer;
 	int time;
 	int timeDead = 0;
@@ -133,6 +133,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable{
 		}
 		
 		
+		
 		// Standing animation between attacks doesn't work.
 			
 			//MOVEMENT + COLLISION PROCESSING AND DETECTION
@@ -150,24 +151,6 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable{
 						if (cunter <= 0){
 							setState(State.STANDARD);
 						}
-						
-						//: TODO FINISH THIS! 
-						//: TODO The only thing that is left is to tweak it to perfection
-						//: TODO ... And you make sure it works for each of the enemies in
-						//: TODO the enemy list...
-					
-						if (cunter >= 0 && player.position.x > (path[cunter].x*16+player.sprite.getWidth()*3)){
-//							System.out.println("player has steped out of the last node on the path area on the RIGHT");
-//							System.out.println("player position x is " + player.position.x );
-//							System.out.println("last node on path pos x is " + (path[cunter].x*16+player.sprite.getWidth()*3));
-						}
-						if (cunter >= 0 && player.position.x < (path[cunter].x*16-player.sprite.getWidth()*3)){
-//							System.out.println("player has steped out of the last node on the path area on the LEFT");
-//							System.out.println("player position x is " + player.position.x );
-//							System.out.println("last node on path pos x is " + (path[cunter].x*16-player.sprite.getWidth()*3));
-						}
-						
-						// 
 						
 					} else {
 						onPathMovingAndCollisionDetection(collisionLayer, player, enemyPathDx, enemyPathDy, enemies);
@@ -208,7 +191,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable{
 //            		System.out.println("condition oldPos.x != position.x || oldPos.y != position.y && timer>0 && timer2>0 is true!");
             	}
             	
-            	if(getoRangeAura().overlaps(player.getCircle()) && player.getState() != State.DEAD){
+            	if(oRangeAura.overlaps(player.getCircle()) && player.getState() != State.DEAD){
 //            		System.out.println("yes!2 and overlpas is: " + getoRangeAura().overlaps(player.getCircle()));
 	            	if(playerMovementDirection == "right"){
 	            		inflictOnThe(88, 56, player, cameraHelper, attackSpeed);

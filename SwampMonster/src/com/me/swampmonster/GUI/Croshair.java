@@ -24,6 +24,7 @@ public class Croshair extends AbstractGameObject{
 		
 //		System.out.println("aiming " + aiming);
 		if(doesIntersect(new Vector2(400,255), player.getCircle().radius*2, point) && !aiming && Gdx.input.isTouched()){
+			player.setState(state.GUNMOVEMENT);
 			aiming = true;
 		}else if(!doesIntersect(new Vector2(400,255), player.getCircle().radius*2, point) && aiming && !Gdx.input.isTouched()){
 			aiming = false;

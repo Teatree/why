@@ -78,8 +78,8 @@ public class Player extends AbstractGameObject{
 		oldPos.x = position.x;
 		oldPos.y = position.y;
 		
-		circle.x = position.x;
-		circle.y = position.y;
+		circle.x = position.x+16;
+		circle.y = position.y+16;
 		
 		sprite.setX(position.x);
 		sprite.setY(position.y);
@@ -102,43 +102,7 @@ public class Player extends AbstractGameObject{
 		
 	//ANIMATINGLARGE
 		if(state.equals(State.ANIMATINGLARGE)){
-			if(doing.equals("puttingGunAway")){
-				if(time < 83){
-					sprite = new Sprite(animations.get(State.GUNMOVEMENT).getCurrentFrame());
-					currentFrame = animations.get(State.GUNMOVEMENT).doComplexAnimation(40, 1f, Gdx.graphics.getDeltaTime()*0.7f);
-					
-					sprite.setRegion(animations.get(State.GUNMOVEMENT).getCurrentFrame());
-					sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
-					time++;
-				}
-				else if(doing.equals("pullingGunOut")){
-					time = 0;
-					state = State.GUNMOVEMENT;
-				}
-				else if(doing.equals("puttingGunAway")){
-					time = 0;
-					state = State.STANDARD;
-				}
-			}
-			if(doing.equals("pullingGunOut")){
-				if(time < 83){
-					sprite = new Sprite(animations.get(State.ANIMATINGLARGE).getCurrentFrame());
-					currentFrame = animations.get(state).doComplexAnimation(64, 1f, Gdx.graphics.getDeltaTime()*0.7f);
-					
-					sprite.setRegion(animations.get(state).getCurrentFrame());
-					sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
-					time++;
-				}
-				else if(doing.equals("pullingGunOut")){
-					time = 0;
-					state = State.GUNMOVEMENT;
-				}
-				else if(doing.equals("puttingGunAway")){
-					time = 0;
-					standingAnimation(animations);
-					state = State.STANDARD;
-				}
-			}
+			
 		}
 	//ANIMATING
 		if(state.equals(State.ANIMATING)){
@@ -203,6 +167,10 @@ public class Player extends AbstractGameObject{
 			}
 			if(!aiming && timeShooting == 0){
 				shooting = false;
+				state = State.STANDARD;
+			}
+			if(shooting){
+				aiming=false;
 			}
 			
 		}

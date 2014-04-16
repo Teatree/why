@@ -1,6 +1,7 @@
 package com.me.swampmonster.game;
 
 import java.util.Iterator;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputAdapter;
@@ -62,8 +63,6 @@ public class TheController extends InputAdapter{
 		level1.getPlayer().setPosition(new Vector2 (180f,350f));
 		level1.getPlayer().getSprite().setSize(level1.getPlayer().getSprite().getWidth()/2, level1.getPlayer().getSprite().getHeight()/2);
 		
-		//:TODO change 
-		//:TODO Nastya thinks she is cool
 		if(level1.enemiesOnStage!= null){
 		level1.enemiesOnStage.get(0).setPosition(new Vector2 (180f,450f));
 		level1.enemiesOnStage.get(0).getSprite().setSize(level1.enemiesOnStage.get(0).getSprite().getWidth()/2, level1.enemiesOnStage.get(0).getSprite().getHeight()/2);
@@ -74,8 +73,6 @@ public class TheController extends InputAdapter{
 		level1.enemiesOnStage.get(2).setPosition(new Vector2 (50f,450f));
 		level1.enemiesOnStage.get(2).getSprite().setSize(level1.enemiesOnStage.get(2).getSprite().getWidth()/2, level1.enemiesOnStage.get(2).getSprite().getHeight()/2);
 		}
-		//		level1.enemiesOnStage.get(1).setPlayerMovementSpeedX(0.1f);
-		//:TODO :3
 		
 		level1.getPlayer().setHurt(false);
 		
@@ -165,7 +162,30 @@ public class TheController extends InputAdapter{
 		dy /= length1;
 		
 		//:TODO Make sure this works, Dmitriy
-		
+		//:TODO This is some weird shit, if you activate this,
+		//:TODO it will actually launch every other time,
+		//:TODO and other times give a null pointer, couldn't 
+		//:TODO trace it, good luck to you, love past me.
+//			for(Enemy enemy : level1.enemiesOnStage){
+//				if(enemy!=null && level1.getPlayer() != null && enemy.cunter >= 0 && enemy.path[enemy.cunter] != null){
+//					if (level1.getPlayer().getPosition().x > (enemy.path[enemy.cunter].x*16+level1.getPlayer().getSprite().getWidth()*3)){
+//						System.out.println("enemy: " + enemy + " player has steped out of the last node on the path area on the RIGHT");
+//						enemy.setState(State.STANDARD);
+//					}
+//					if (level1.getPlayer().getPosition().x < (enemy.path[enemy.cunter].x*16-level1.getPlayer().getSprite().getWidth()*3)){
+//						System.out.println("enemy: " + enemy + " player has steped out of the last node on the path area on the LEFT");
+//						enemy.setState(State.STANDARD);
+//					}
+//					if (level1.getPlayer().getPosition().y < (enemy.path[enemy.cunter].y*16-level1.getPlayer().getSprite().getWidth()*3)){
+//						System.out.println("enemy: " + enemy + " player has steped out of the last node on the path area on the BOTTOM");
+//						enemy.setState(State.STANDARD);
+//					}
+//					if (level1.getPlayer().getPosition().y > (enemy.path[enemy.cunter].y*16+level1.getPlayer().getSprite().getWidth()*3)){
+//						System.out.println("enemy: " + enemy + " player has steped out of the last node on the path area on the TOP");
+//						enemy.setState(State.STANDARD);
+//					}
+//				}
+//			}
 		
 		//
 		
@@ -240,13 +260,14 @@ public class TheController extends InputAdapter{
 			System.out.println("Oxygen: " + level1.getPlayer().getOxygen());
 		}
 		
-		if(gui.getWeaponizer().isOn() && level1.getPlayer().getState() == State.STANDARD){
-			level1.getPlayer().setDoing("pullingGunOut");
-			level1.getPlayer().setState(State.ANIMATINGLARGE);
-		}else if(!gui.getWeaponizer().isOn() && level1.getPlayer().getState() == State.GUNMOVEMENT){
-			level1.getPlayer().setState(State.ANIMATINGLARGE);
-			level1.getPlayer().setDoing("puttingGunAway");
-		}
+//		if(gui.getWeaponizer().isOn() && level1.getPlayer().getState() == State.STANDARD){
+//			level1.getPlayer().setDoing("pullingGunOut");
+//			level1.getPlayer().setState(State.ANIMATINGLARGE);
+//		}else if(!gui.getWeaponizer().isOn() && level1.getPlayer().getState() == State.GUNMOVEMENT){
+//			level1.getPlayer().setState(State.ANIMATINGLARGE);
+//			level1.getPlayer().setDoing("puttingGunAway");
+//		}
+		
 //		if(isPressed){
 //			gui.getSlotMachine().setSlotMachine(true);
 //		}else if(isPressed){
