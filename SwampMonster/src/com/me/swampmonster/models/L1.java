@@ -14,6 +14,7 @@ public class L1{
 	Player player;
 	public Stack<Enemy> enemiesOnStage;
 	Wave wave;
+	public Projectile projectile;
 	Bunker bunker;
 	
 	public L1(){
@@ -23,6 +24,7 @@ public class L1{
 	public void create(){
 		MisterSpawner misterSpawner = new MisterSpawner();
 		player = new Player(new Vector2());
+		projectile = new Projectile(new Vector2(), 34f);
 		wave = misterSpawner.generateWave(player.getPoints());
 		enemiesOnStage = new Stack<Enemy>();
 		bunker = new Bunker();

@@ -141,12 +141,12 @@ public class L1Renderer {
 				enemy.getSprite().draw(batch);
 			}
 		}
-		if(theController.projectile != null){
-			batch.draw(theController.projectile.getSprite(), theController.projectile.getPosition().x, theController.projectile.getPosition().y, 
-					theController.projectile.getSprite().getOriginX(), theController.projectile.getSprite().getOriginY(),
-					theController.projectile.getSprite().getWidth(), theController.projectile.getSprite().getHeight(), 
+		if(theController.level1.projectile != null){
+			batch.draw(theController.level1.projectile.getSprite(), theController.level1.projectile.getPosition().x, theController.level1.projectile.getPosition().y, 
+					theController.level1.projectile.getSprite().getOriginX(), theController.level1.projectile.getSprite().getOriginY(),
+					theController.level1.projectile.getSprite().getWidth(), theController.level1.projectile.getSprite().getHeight(), 
 					1,1,
-					theController.projectile.getSprite().getRotation());
+					theController.level1.projectile.getSprite().getRotation());
 		}
 		
 		batch.end();
@@ -161,8 +161,8 @@ public class L1Renderer {
 			sr.circle(enemy.getoRangeAura().x, enemy.getoRangeAura().y, enemy.getoRangeAura().radius);
 		}	
 		sr.setColor(Color.WHITE);
-		if(theController.projectile!=null){
-			sr.circle(theController.projectile.getCircle().x, theController.projectile.getCircle().y, theController.projectile.getCircle().radius);
+		if(theController.level1.projectile!=null){
+			sr.circle(theController.level1.projectile.getCircle().x, theController.level1.projectile.getCircle().y, theController.level1.projectile.getCircle().radius);
 		}
 		sr.rect(theController.point.x, theController.point.y, 32, 32);
 		sr.rect(theController.level1.getPlayer().getPosition().x, theController.level1.getPlayer().getPosition().y,

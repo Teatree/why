@@ -9,10 +9,12 @@ public class Projectile extends AbstractGameObject{
 	
 	private float direction_x;
 	private float direction_y;
+	private String projectileTypeLoc;
 	
 	public Projectile(Vector2 position, float rot){
+		projectileTypeLoc = "data/projectile.png";
 		this.position = position;
-		sprite = new Sprite(new Texture("data/projectile.png"));
+		sprite = new Sprite(new Texture(projectileTypeLoc));
 		sprite.setRotation(rot*57.29f);
 		circle = new Circle();
 		circle.radius = 8;
@@ -36,4 +38,13 @@ public class Projectile extends AbstractGameObject{
 		this.direction_x = direction_x;
 		this.direction_y = direction_y;
 	}
+
+	public String getProjectileTypeLoc() {
+		return projectileTypeLoc;
+	}
+
+	public void setProjectileTypeLoc(String projectileTypeLoc) {
+		this.projectileTypeLoc = projectileTypeLoc;
+	}
+	
 }

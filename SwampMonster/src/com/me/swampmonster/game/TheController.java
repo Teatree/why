@@ -32,7 +32,6 @@ public class TheController extends InputAdapter{
 	public Vector3 V3playerPos;
 	public Vector3 V3enemyPos;
 	public Vector2 randVector2;
-	public Projectile projectile;
 	
 	float dx;
 	float dy;
@@ -100,14 +99,14 @@ public class TheController extends InputAdapter{
 		restarter();
 		
 		cameraHelper.upadate(V3playerPos.x, V3playerPos.y, 5);
-		level1.update(gui.getCroshair().isAiming(), touchPos, V3point, collisionLayer, projectile, cameraHelper, dx, dy);
+		level1.update(gui.getCroshair().isAiming(), touchPos, V3point, collisionLayer, level1.projectile, cameraHelper, dx, dy);
 		
 		Iterator<Enemy> itr = level1.enemiesOnStage.iterator();
 		while(itr.hasNext()){
 			Enemy e = (Enemy) itr.next();
 			if(!e.isDead()){
-			if(projectile != null && e.oRangeAura.overlaps(projectile.getCircle())){
-					projectile = null;
+			if(level1.projectile != null && e.oRangeAura.overlaps(level1.projectile.getCircle())){
+					level1.projectile = null;
 				}
 			}
 			if(e.isDead()){
@@ -126,8 +125,8 @@ public class TheController extends InputAdapter{
 		}
 		
 		if(level1.getPlayer().shooting && level1.getPlayer().getTimeShooting() < 2){
-			projectile = new Projectile(new Vector2(level1.getPlayer().getPosition().x, level1.getPlayer().getPosition().y), getRotation());
-			projectile.setPosition(new Vector2(level1.getPlayer().getPosition().x, level1.getPlayer().getPosition().y));
+			level1.projectile = new Projectile(new Vector2(level1.getPlayer().getPosition().x, level1.getPlayer().getPosition().y), getRotation());
+			level1.projectile.setPosition(new Vector2(level1.getPlayer().getPosition().x, level1.getPlayer().getPosition().y));
 		}
 		
 		gui.update(level1.getPlayer(), point);
@@ -189,7 +188,7 @@ public class TheController extends InputAdapter{
 		
 		//
 		
-		if(projectile!=null && level1.getPlayer().shooting){
+		if(level1.projectile!=null && level1.getPlayer().shooting){
 			float direction_x = level1.getPlayer().getShotDir().x - V3playerPos.x;
 			float direction_y = level1.getPlayer().getShotDir().y - V3playerPos.y;
 			
@@ -197,11 +196,11 @@ public class TheController extends InputAdapter{
 			direction_x /= length;
 			direction_y /= length;
 			
-			projectile.setDirection(direction_x, direction_y);
+			level1.projectile.setDirection(direction_x, direction_y);
 		}
 		
-		if(projectile!=null){
-			projectile.update();
+		if(level1.projectile!=null){
+			level1.projectile.update();
 		}
 		
 		// It gives the actual direction to the projective as a parameter.
