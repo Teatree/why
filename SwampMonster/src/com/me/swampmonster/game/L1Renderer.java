@@ -17,6 +17,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.me.swampmonster.AI.Node;
 import com.me.swampmonster.models.Enemy;
 import com.me.swampmonster.models.AbstractGameObject.State;
+import com.me.swampmonster.models.Projectile;
 import com.me.swampmonster.utils.Constants;
 
 public class L1Renderer {
@@ -141,14 +142,15 @@ public class L1Renderer {
 				enemy.getSprite().draw(batch);
 			}
 		}
-		if(theController.level1.projectile != null){
-			batch.draw(theController.level1.projectile.getSprite(), theController.level1.projectile.getPosition().x, theController.level1.projectile.getPosition().y, 
-					theController.level1.projectile.getSprite().getOriginX(), theController.level1.projectile.getSprite().getOriginY(),
-					theController.level1.projectile.getSprite().getWidth(), theController.level1.projectile.getSprite().getHeight(), 
-					1,1,
-					theController.level1.projectile.getSprite().getRotation());
+		for(Projectile p: theController.level1.getPlayer().projectiles){
+			if(p != null){
+				batch.draw(p.getSprite(), p.getPosition().x, p.getPosition().y, 
+						p.getSprite().getOriginX(), p.getSprite().getOriginY(),
+						p.getSprite().getWidth(), p.getSprite().getHeight(), 
+						1,1,
+						p.getSprite().getRotation());
+			}
 		}
-		
 		batch.end();
 		
 		
@@ -156,13 +158,15 @@ public class L1Renderer {
 		sr.begin(ShapeType.Line);
 		for (Enemy enemy : theController.level1.enemiesOnStage){
 			sr.setColor(Color.GREEN);
-			sr.circle(enemy.getPosition().x, enemy.getPosition().y, enemy.getgReenAura().radius);
+			sr.circle(enemy.getgReenAura().x, enemy.getgReenAura().y, enemy.getgReenAura().radius);
 			sr.setColor(Color.BLUE);
 			sr.circle(enemy.getoRangeAura().x, enemy.getoRangeAura().y, enemy.getoRangeAura().radius);
 		}	
 		sr.setColor(Color.WHITE);
-		if(theController.level1.projectile!=null){
-			sr.circle(theController.level1.projectile.getCircle().x, theController.level1.projectile.getCircle().y, theController.level1.projectile.getCircle().radius);
+		for(Projectile p: theController.level1.getPlayer().projectiles){
+			if(p!=null){
+				sr.circle(p.getCircle().x, p.getCircle().y, p.getCircle().radius);
+			}
 		}
 		sr.rect(theController.point.x, theController.point.y, 32, 32);
 		sr.rect(theController.level1.getPlayer().getPosition().x, theController.level1.getPlayer().getPosition().y,
@@ -175,6 +179,7 @@ public class L1Renderer {
 		if(theController.level1.getPlayer().getState() == State.GUNMOVEMENT){
 			sr.line(theController.V3playerPos, theController.level1.getPlayer().getShotDir());
 		}
+		sr.circle(theController.level1.getPlayer().getCircle().x, theController.level1.getPlayer().getCircle().y, theController.level1.getPlayer().getCircle().radius);
 		sr.end();
 		sr.begin(ShapeType.Filled);
 		sr.setColor(Color.RED);
@@ -242,8 +247,8 @@ public class L1Renderer {
 			}else if(theController.gui.getWeaponizer().isOn() == true){
 				staticSr.setColor(Color.WHITE);
 			}
-		staticSr.circle(theController.gui.getWeaponizer().getCircle().x, theController.gui.getWeaponizer().getCircle().y, theController.gui.getWeaponizer().getCircle().radius);
 		
+			staticSr.circle(theController.gui.getWeaponizer().getCircle().x, theController.gui.getWeaponizer().getCircle().y, theController.gui.getWeaponizer().getCircle().radius);
 		}
 		staticSr.end();
 		Gdx.gl.glDisable(GL20.GL_BLEND);
@@ -253,7 +258,6 @@ public class L1Renderer {
 		if(theController.doesIntersect(new Vector2(theController.level1.getPlayer().getCircle().x, theController.level1.getPlayer().getCircle().y), theController.level1.getPlayer().getCircle().radius*2)){
 				staticSr.setColor(Color.WHITE);
 		}
-		staticSr.circle(400, 255, theController.level1.getPlayer().getCircle().radius*2);
 		
 		staticSr.end();
 		

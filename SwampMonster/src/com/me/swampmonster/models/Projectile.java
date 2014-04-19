@@ -2,13 +2,15 @@ package com.me.swampmonster.models;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector2;
+import com.me.swampmonster.game.collision.CollisionHelper;
 
 public class Projectile extends AbstractGameObject{
 	
-	private float direction_x;
-	private float direction_y;
+	public float direction_x;
+	public float direction_y;
 	private String projectileTypeLoc;
 	
 	public Projectile(Vector2 position, float rot){
@@ -32,6 +34,11 @@ public class Projectile extends AbstractGameObject{
 		
 		position.x += direction_x*playerMovementSpeed;
 		position.y += direction_y*playerMovementSpeed;
+		
+		
+	}
+	public boolean isCollision(TiledMapTileLayer collisionLayer){
+		return CollisionHelper.isCollidable(position.x+sprite.getWidth()/2, position.y+sprite.getHeight()/2, collisionLayer) != null;
 	}
 	
 	public void setDirection(float direction_x, float direction_y){

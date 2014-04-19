@@ -1,8 +1,10 @@
 package com.me.swampmonster.models;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.me.swampmonster.animations.AnimationControl;
+import com.me.swampmonster.utils.CameraHelper;
 
 public class EnemyLeech extends Enemy{
 
@@ -18,6 +20,38 @@ public class EnemyLeech extends Enemy{
 		damage = 1;
 		points = 200;
 		attackSpeed = 80;
+	}
+	
+	@Override
+	protected void inflictOnThe(int standing, int animation, Player player, CameraHelper cameraHelper, int attackSpeed) {
+		// Timer is for the length of the actual animation
+		// Timer2 is for the waiting period
+		if(oldPos.x == position.x && oldPos.y == position.y){
+			if(timer2 < attackSpeed){
+				timer2++;
+//            			System.out.println("timer2: " + timer2 );
+				currentFrame = animationsStandard.get(state).animate(standing);
+			}
+			if(timer2 >= attackSpeed && timer < 30){
+				cameraHelper.setShakeAmt(25);
+				cameraHelper.cameraShake();
+//            			System.out.println("timer1: " + timer);
+				currentFrame = animationsStandard.get(state).doComplexAnimation(animation, 1.8f, Gdx.graphics.getDeltaTime());
+				
+				sprite.setRegion(animationsStandard.get(state).getCurrentFrame());
+				sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
+				timer++;
+				if(timer == 30 && timer2 >= attackSpeed){
+					currentFrame = animationsStandard.get(state).animate(standing);
+					// And may be inflict different hurts, direction/ kinds of hurts/ etc.
+					player.setDamageType("enemy");
+					player.addHarmfulEnemy(this);
+					
+					timer = 0;
+					timer2 = 0;
+				}
+			}
+		}
 	}
 
 }

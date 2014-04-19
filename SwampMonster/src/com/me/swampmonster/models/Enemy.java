@@ -15,6 +15,7 @@ import com.me.swampmonster.animations.AnimationControl;
 import com.me.swampmonster.game.collision.Collidable;
 import com.me.swampmonster.game.collision.CollisionHelper;
 import com.me.swampmonster.utils.CameraHelper;
+import com.badlogic.gdx.math.Intersector;
 
 public class Enemy extends AbstractGameObject implements Cloneable, Collidable{
 	
@@ -77,14 +78,14 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable{
 		playerMovementSpeed = 0.3f;
 	}
 	
-	public void update(TiledMapTileLayer collisionLayer, AbstractGameObject projectile, Player player, CameraHelper cameraHelper, List<Enemy> enemies){
+	public void update(TiledMapTileLayer collisionLayer, List<Projectile> projectiles, Player player, CameraHelper cameraHelper, List<Enemy> enemies){
 		oldPos.x = position.x;
 		oldPos.y = position.y; 
 		
 		gReenAura.x = position.x;
 		gReenAura.y = position.y;
-		oRangeAura.x = position.x+8;
-		oRangeAura.y = position.y+16;
+		oRangeAura.x = position.x+sprite.getWidth()/2;
+		oRangeAura.y = position.y+sprite.getHeight()/2;
 		
 		rectanlge.x = sprite.getX();
 		rectanlge.y = sprite.getY();
@@ -108,16 +109,15 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable{
 			enemyPathDx /= enemyPathLength;
 			enemyPathDy /= enemyPathLength;
 		}
-		
-		// remember this might be your chance.
-		
-		if(projectile != null && oRangeAura.overlaps(projectile.getCircle()) && !hurt){
-			hurt = true;
-			damageType = "player";
-			enemyHurt(player);
-		}
-		if(health <= 0){
-			state = State.DEAD;
+		for(Projectile projectile: projectiles){
+			if(projectiles != null && Intersector.overlaps(projectile.getCircle(), rectanlge) && !hurt){
+				hurt = true;
+				damageType = "player";
+				enemyHurt(player);
+			}
+			if(health <= 0){
+				state = State.DEAD;
+			}
 		}
 		
 //		this little thing is not done!
@@ -237,8 +237,8 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable{
 				}
 			}
 			if(hurt){
-				if(projectile!=null){
-					getProjectileLocationRelativeToSprite(projectile);
+				if(projectiles!=null){
+					getProjectileLocationRelativeToSprite(projectiles);
 				}
 //				System.out.println(" (PLAYER): I'm currently in HURT state");
 				if(time < 40){
@@ -280,24 +280,25 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable{
 				}
 			}
 
-	private String getProjectileLocationRelativeToSprite(AbstractGameObject projectile) {
-		if (projectile.getPosition().y > position.y+sprite.getHeight()/2 && projectile.getPosition().x > position.x-10
-				&& projectile.getPosition().x < position.x+sprite.getWidth()+10) { 
-			projectileLocation="top";
+	private String getProjectileLocationRelativeToSprite(List<Projectile> projectiles) {
+		for(Projectile projectile: projectiles){
+			if (projectile.getPosition().y > position.y+sprite.getHeight()/2 && projectile.getPosition().x > position.x-10
+					&& projectile.getPosition().x < position.x+sprite.getWidth()+10) { 
+				projectileLocation="top";
+			}
+			if (projectile.getPosition().y < position.y && projectile.getPosition().x > position.x-10
+					&& projectile.getPosition().x < position.x+sprite.getWidth()+10) { 
+				projectileLocation="bottom";
+			}
+			if (projectile.getPosition().x < position.x && projectile.getPosition().y > position.y
+					&& projectile.getPosition().y < position.y+sprite.getHeight()) {
+				projectileLocation="right";
+			}
+			if (projectile.getPosition().x > position.x+sprite.getWidth()/2 && projectile.getPosition().y > position.y
+					&& projectile.getPosition().y < position.y+sprite.getHeight()) { 
+				projectileLocation="left";
+			}
 		}
-		if (projectile.getPosition().y < position.y && projectile.getPosition().x > position.x-10
-				&& projectile.getPosition().x < position.x+sprite.getWidth()+10) { 
-			projectileLocation="bottom";
-		}
-		if (projectile.getPosition().x < position.x && projectile.getPosition().y > position.y
-				&& projectile.getPosition().y < position.y+sprite.getHeight()) {
-			projectileLocation="right";
-		}
-		if (projectile.getPosition().x > position.x+sprite.getWidth()/2 && projectile.getPosition().y > position.y
-				&& projectile.getPosition().y < position.y+sprite.getHeight()) { 
-			projectileLocation="left";
-		}
-		
 		
 		return projectileLocation;
 	}
@@ -307,7 +308,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable{
 		
 	}
 
-	private void inflictOnThe(int standing, int animation, Player player, CameraHelper cameraHelper, int attackSpeed) {
+	protected void inflictOnThe(int standing, int animation, Player player, CameraHelper cameraHelper, int attackSpeed) {
 		// Timer is for the length of the actual animation
 		// Timer2 is for the waiting period
 		if(oldPos.x == position.x && oldPos.y == position.y){

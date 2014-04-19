@@ -1,5 +1,6 @@
 package com.me.swampmonster.models;
 
+import java.util.List;
 import java.util.Stack;
 
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
@@ -14,7 +15,6 @@ public class L1{
 	Player player;
 	public Stack<Enemy> enemiesOnStage;
 	Wave wave;
-	public Projectile projectile;
 	Bunker bunker;
 	
 	public L1(){
@@ -24,7 +24,6 @@ public class L1{
 	public void create(){
 		MisterSpawner misterSpawner = new MisterSpawner();
 		player = new Player(new Vector2());
-		projectile = new Projectile(new Vector2(), 34f);
 		wave = misterSpawner.generateWave(player.getPoints());
 		enemiesOnStage = new Stack<Enemy>();
 		bunker = new Bunker();
@@ -35,13 +34,13 @@ public class L1{
 	}
 	
 	public void update(boolean aiming, Vector3 touchPos, Vector3 V3point, TiledMapTileLayer collisionLayer, 
-			AbstractGameObject projectile, CameraHelper cameraHelper, float dx, float dy) {
+			List<Projectile> projectiles, CameraHelper cameraHelper, float dx, float dy) {
 		this.player.update(aiming, touchPos, V3point, collisionLayer, dx, dy);
 		if (enemiesOnStage.size() < wave.enemiesOnBattleField && !wave.enemies.empty()){
 			addEnemyOnBattlefield();
 		}
 		for (Enemy enemy : enemiesOnStage){
-			enemy.update(collisionLayer, projectile, this.player, cameraHelper, enemiesOnStage);
+			enemy.update(collisionLayer, projectiles, this.player, cameraHelper, enemiesOnStage);
 		}
 		
 		bunker.update();

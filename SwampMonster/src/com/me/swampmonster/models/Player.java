@@ -2,12 +2,16 @@ package com.me.swampmonster.models;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Circle;
+import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
@@ -29,7 +33,9 @@ public class Player extends AbstractGameObject{
 	boolean maskOn;
 	boolean justSpawned;
 	public boolean shooting;
+	public List<Projectile> projectiles;
 	Vector3 shotDir;
+	Vector3 V3playerPos;
 	
 	private Set<Enemy> harmfulEnemies = new HashSet<Enemy>();
 	
@@ -43,7 +49,11 @@ public class Player extends AbstractGameObject{
 		points = 0;
 		circle = new Circle();
 		circle.radius = 16;
+		V3playerPos = new Vector3();
 		rectanlge = new Rectangle();
+		projectiles = new LinkedList<Projectile>();
+
+//		projectiles.add(new Projectile(position, 12f));
 		
 		animationsStandard.put(State.STANDARD, new AnimationControl(nastyaSpriteStandard, 8, 32, 7)); 
 		animationsStandard.put(State.ANIMATING, new AnimationControl(nastyaSpriteStandard, 8, 32, 8)); 
@@ -78,8 +88,12 @@ public class Player extends AbstractGameObject{
 		oldPos.x = position.x;
 		oldPos.y = position.y;
 		
-		circle.x = position.x+16;
-		circle.y = position.y+16;
+		circle.x = position.x+sprite.getWidth()/2;
+		circle.y = position.y+sprite.getHeight()/2;
+		
+		V3playerPos.x = position.x + circle.radius/2;
+		V3playerPos.y = position.y + circle.radius/2;
+		V3playerPos.z = 0;
 		
 		sprite.setX(position.x);
 		sprite.setY(position.y);
@@ -238,7 +252,37 @@ public class Player extends AbstractGameObject{
 			shooting = false;
 			timeShooting = 0;
 		}
-	}
+		
+		// PROJECTILE
+		if(shooting && timeShooting < 2){
+			Projectile p = new Projectile(new Vector2(position.x, position.y), getRotation());
+			p.setPosition(new Vector2(position.x, position.y));
+			
+			float direction_x = shotDir.x - V3playerPos.x;
+			float direction_y = shotDir.y - V3playerPos.y;
+			
+			float length =(float) Math.sqrt(direction_x*direction_x + direction_y*direction_y);
+			direction_x /= length;
+			direction_y /= length;
+			
+			p.setDirection(direction_x, direction_y);
+			
+			projectiles.add(p);
+			
+		}
+		Iterator<Projectile> prj = projectiles.iterator();
+		while(prj.hasNext()){
+			Projectile p = (Projectile) prj.next();
+			if(p.isCollision(collisionLayer)){
+					prj.remove();
+					break;
+				}
+				if(p!=null){
+					p.update();
+				}
+			}
+		}
+		
 
 	private void takingDamageFromEnemy(HashMap<State, AnimationControl> animations, AbstractGameObject enemy, Vector3 touchPos, TiledMapTileLayer collisionLayer) {
 //		System.out.println(enemy.getPlayerMovementDirection());
@@ -451,7 +495,13 @@ public class Player extends AbstractGameObject{
 		this.points += perk.points;
 	}
 
-	
+	private float getRotation(){
+		double angle1 = Math.atan2(V3playerPos.y - position.y,
+				V3playerPos.x - 0);
+		double angle2 = Math.atan2(V3playerPos.y - shotDir.y,
+				V3playerPos.x - shotDir.x);
+		return (float)(angle2-angle1);
+	}
 	
 	public boolean isMaskOn() {
 		return maskOn;

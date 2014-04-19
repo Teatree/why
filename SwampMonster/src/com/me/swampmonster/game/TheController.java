@@ -72,7 +72,6 @@ public class TheController extends InputAdapter{
 		level1.enemiesOnStage.get(2).setPosition(new Vector2 (50f,450f));
 		level1.enemiesOnStage.get(2).getSprite().setSize(level1.enemiesOnStage.get(2).getSprite().getWidth()/2, level1.enemiesOnStage.get(2).getSprite().getHeight()/2);
 		}
-		
 		level1.getPlayer().setHurt(false);
 		
 		collisionHandler = new CollisionHelper();
@@ -99,15 +98,20 @@ public class TheController extends InputAdapter{
 		restarter();
 		
 		cameraHelper.upadate(V3playerPos.x, V3playerPos.y, 5);
-		level1.update(gui.getCroshair().isAiming(), touchPos, V3point, collisionLayer, level1.projectile, cameraHelper, dx, dy);
+		level1.update(gui.getCroshair().isAiming(), touchPos, V3point, collisionLayer, level1.getPlayer().projectiles, cameraHelper, dx, dy);
 		
 		Iterator<Enemy> itr = level1.enemiesOnStage.iterator();
+		Iterator<Projectile> prj = level1.getPlayer().projectiles.iterator();
 		while(itr.hasNext()){
 			Enemy e = (Enemy) itr.next();
 			if(!e.isDead()){
-			if(level1.projectile != null && e.oRangeAura.overlaps(level1.projectile.getCircle())){
-					level1.projectile = null;
-				}
+				while(prj.hasNext()){
+					Projectile p = (Projectile) prj.next();
+					if(p != null && Intersector.overlaps(p.getCircle(), e.getRectanlge())){
+							prj.remove();
+							break;
+						}
+					}
 			}
 			if(e.isDead()){
 //				System.out.println("must work!");
@@ -124,10 +128,6 @@ public class TheController extends InputAdapter{
 			inputNav();
 		}
 		
-		if(level1.getPlayer().shooting && level1.getPlayer().getTimeShooting() < 2){
-			level1.projectile = new Projectile(new Vector2(level1.getPlayer().getPosition().x, level1.getPlayer().getPosition().y), getRotation());
-			level1.projectile.setPosition(new Vector2(level1.getPlayer().getPosition().x, level1.getPlayer().getPosition().y));
-		}
 		
 		gui.update(level1.getPlayer(), point);
 		handleDebugInput(deltaTime);
@@ -188,20 +188,6 @@ public class TheController extends InputAdapter{
 		
 		//
 		
-		if(level1.projectile!=null && level1.getPlayer().shooting){
-			float direction_x = level1.getPlayer().getShotDir().x - V3playerPos.x;
-			float direction_y = level1.getPlayer().getShotDir().y - V3playerPos.y;
-			
-			float length =(float) Math.sqrt(direction_x*direction_x + direction_y*direction_y);
-			direction_x /= length;
-			direction_y /= length;
-			
-			level1.projectile.setDirection(direction_x, direction_y);
-		}
-		
-		if(level1.projectile!=null){
-			level1.projectile.update();
-		}
 		
 		// It gives the actual direction to the projective as a parameter.
 	}
@@ -282,13 +268,6 @@ public class TheController extends InputAdapter{
 		
 	}
 	
-	private float getRotation(){
-		double angle1 = Math.atan2(V3playerPos.y - level1.getPlayer().getPosition().y,
-				V3playerPos.x - 0);
-		double angle2 = Math.atan2(V3playerPos.y - level1.getPlayer().getShotDir().y,
-				V3playerPos.x - level1.getPlayer().getShotDir().x);
-		return (float)(angle2-angle1);
-	}
 	
 	private void pathfindingStuff(){
 		
