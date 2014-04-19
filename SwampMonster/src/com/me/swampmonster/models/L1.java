@@ -22,9 +22,10 @@ public class L1{
 	}
 	
 	public void create(){
+		WaveGenerator waveGenerator = new WaveGenerator();
 		MisterSpawner misterSpawner = new MisterSpawner();
 		player = new Player(new Vector2());
-		wave = misterSpawner.generateWave(player.getPoints());
+		wave = waveGenerator.generateWave(player.getPoints());
 		enemiesOnStage = new Stack<Enemy>();
 		bunker = new Bunker();
 		
