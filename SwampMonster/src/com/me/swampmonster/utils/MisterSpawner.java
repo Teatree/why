@@ -16,7 +16,7 @@ public class MisterSpawner {
 		int maxTough = calcMaxTough(playersScore);
 		int minTough = calcMinTough(playersScore);
 		int size = calcSize(playersScore);
-		int  amountOfToughGuys = calcAmountOfTough(playersScore);
+		int amountOfToughGuys = calcAmountOfTough(playersScore);
 		Stack<Enemy> enemies = new Stack<Enemy>(); 
 		
 		for (int i = 0; i < size - amountOfToughGuys; i++){
