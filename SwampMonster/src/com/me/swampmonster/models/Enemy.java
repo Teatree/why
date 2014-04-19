@@ -299,7 +299,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable{
 				projectileLocation="left";
 			}
 		}
-		// Stuff
+		// Stuff and Stuff, lov you git!
 		return projectileLocation;
 	}
 
