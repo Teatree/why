@@ -63,14 +63,8 @@ public class TheController extends InputAdapter{
 		level1.getPlayer().getSprite().setSize(level1.getPlayer().getSprite().getWidth()/2, level1.getPlayer().getSprite().getHeight()/2);
 		
 		if(level1.enemiesOnStage!= null){
-		level1.enemiesOnStage.get(0).setPosition(new Vector2 (180f,450f));
-		level1.enemiesOnStage.get(0).getSprite().setSize(level1.enemiesOnStage.get(0).getSprite().getWidth()/2, level1.enemiesOnStage.get(0).getSprite().getHeight()/2);
-		
-		level1.enemiesOnStage.get(1).setPosition(new Vector2 (110f,450f));
-		level1.enemiesOnStage.get(1).getSprite().setSize(level1.enemiesOnStage.get(1).getSprite().getWidth()/2, level1.enemiesOnStage.get(1).getSprite().getHeight()/2);
-		
-		level1.enemiesOnStage.get(2).setPosition(new Vector2 (50f,450f));
-		level1.enemiesOnStage.get(2).getSprite().setSize(level1.enemiesOnStage.get(2).getSprite().getWidth()/2, level1.enemiesOnStage.get(2).getSprite().getHeight()/2);
+//			level1.enemiesOnStage.get(0).setPosition(new Vector2 (180f,450f));
+//			level1.enemiesOnStage.get(0).getSprite().setSize(level1.enemiesOnStage.get(0).getSprite().getWidth()/2, level1.enemiesOnStage.get(0).getSprite().getHeight()/2);
 		}
 		level1.getPlayer().setHurt(false);
 		

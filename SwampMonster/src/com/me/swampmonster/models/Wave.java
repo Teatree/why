@@ -6,5 +6,5 @@ public class Wave {
 	public Stack<Enemy> enemies;
 	public int enemiesOnBattleField;
 	public int pendingPeriod;
-	public int rate;
+	public float rate;
 }

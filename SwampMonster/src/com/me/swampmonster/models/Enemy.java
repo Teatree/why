@@ -360,7 +360,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable{
 		collidable = CollisionHelper.isCollidable(position.x+sprite.getWidth(), (position.y+sprite.getHeight()/2)-1, collisionLayer);
 		if(collidable == null)collidable = CollisionHelper.isCollidable(position.x, (position.y+sprite.getHeight()/2)-1, collisionLayer);
 		if(collidable == null)collidable = CollisionHelper.isCollidable(position.x+(sprite.getWidth()/2), (position.y+sprite.getHeight()/2)-1, collisionLayer);
-		if(collidable == null)collidable = CollisionHelper.isCollidableEnemy(this, enemies);
+//		if(collidable == null)collidable = CollisionHelper.isCollidableEnemy(this, enemies);
 		return collidable;
 	}
 
@@ -369,7 +369,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable{
 		collidable = CollisionHelper.isCollidable(position.x+sprite.getWidth(), position.y, collisionLayer);
 		if(collidable == null)collidable = CollisionHelper.isCollidable(position.x, position.y, collisionLayer);
 		if(collidable == null)collidable = CollisionHelper.isCollidable(position.x+(sprite.getWidth()/2), position.y, collisionLayer);
-		if(collidable == null)collidable = CollisionHelper.isCollidableEnemy(this, enemies);
+//		if(collidable == null)collidable = CollisionHelper.isCollidableEnemy(this, enemies);
 		return collidable;
 	}
 
@@ -378,7 +378,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable{
 		collidable = CollisionHelper.isCollidable(position.x+sprite.getWidth(), position.y + (sprite.getHeight()/2)-1, collisionLayer);
 		if(collidable == null)collidable = CollisionHelper.isCollidable(position.x+sprite.getWidth(), position.y, collisionLayer);
 		if(collidable == null)collidable = CollisionHelper.isCollidable(position.x+sprite.getWidth(), position.y +(sprite.getHeight()/4), collisionLayer);
-		if(collidable == null)collidable = CollisionHelper.isCollidableEnemy(this, enemies);
+//		if(collidable == null)collidable = CollisionHelper.isCollidableEnemy(this, enemies);
 		return collidable;
 	}
 
@@ -386,7 +386,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable{
 		Collidable collidable = CollisionHelper.isCollidable(position.x, position.y + (sprite.getHeight()/2)-1, collisionLayer);
 		if(collidable == null)collidable = CollisionHelper.isCollidable(position.x, position.y, collisionLayer);
 		if(collidable == null)collidable = CollisionHelper.isCollidable(position.x, position.y + (sprite.getHeight()/4), collisionLayer);
-		if(collidable == null)collidable = CollisionHelper.isCollidableEnemy(this, enemies);
+//		if(collidable == null)collidable = CollisionHelper.isCollidableEnemy(this, enemies);
 		return collidable;
 	}
 

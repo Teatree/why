@@ -1,64 +1,38 @@
 package com.me.swampmonster.utils;
 
-import java.util.Stack;
+import java.util.Random;
 
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.math.Vector2;
+import com.me.swampmonster.game.collision.CollisionHelper;
 import com.me.swampmonster.models.Enemy;
-import com.me.swampmonster.models.EnemyGenerator;
-import com.me.swampmonster.models.Wave;
+import com.me.swampmonster.models.L1;
+import com.me.swampmonster.models.Player;
 
 public class MisterSpawner {
-	EnemyGenerator enemyGenerator = new EnemyGenerator();
+	Random random = new Random();
 	
-	public Wave generateWave(int playersScore){
-		Wave wave = new Wave();
-		int maxEnemy = calcMaxEnemy(playersScore);
-		int minEnemy = calcMinEnemy(playersScore);
-		int maxTough = calcMaxTough(playersScore);
-		int minTough = calcMinTough(playersScore);
-		int size = calcSize(playersScore);
-		int amountOfToughGuys = calcAmountOfTough(playersScore);
-		Stack<Enemy> enemies = new Stack<Enemy>(); 
-		
-		for (int i = 0; i < size - amountOfToughGuys; i++){
-			enemies.add(enemyGenerator.getPlainEnemy(minEnemy, maxEnemy));
+	public void spawnEnemy(L1 l, TiledMapTileLayer collisionLayer, Enemy enemy){
+		enemy.setPosition(calculateEnemiesPosition(l.getPlayer()));
+		Vector2 v2 = calculateEnemiesPosition(l.getPlayer());
+		if(!isValidPosition(v2, collisionLayer, enemy, l)){
+			enemy.setPosition(calculateEnemiesPosition(l.getPlayer()));
 		}
-		
-		for (int i = 0; i < amountOfToughGuys; i++){
-			//change enemy generator
-			enemies.add(enemyGenerator.getToughEnemy(minEnemy, maxEnemy, minTough, maxTough));
+	}
+	
+	private boolean isValidPosition(Vector2 v2, TiledMapTileLayer collisionLayer, Enemy enemy, L1 l) {
+		if(CollisionHelper.isCollidable(v2.x, v2.y, collisionLayer) != null || CollisionHelper.isCollidableEnemy(enemy, l.enemiesOnStage) != null
+				|| v2.x+enemy.getSprite().getWidth() >= collisionLayer.getWidth() || v2.y+enemy.getSprite().getHeight() >= collisionLayer.getHeight()){
+			return false;
 		}
-		wave.enemies = enemies;
-		wave.enemiesOnBattleField = calcEnemiesOnBattleField(playersScore);
-		return wave;
-	}
-	
-	//add formula
-	private int calcMaxEnemy(int playersScore){
-		return 5;
-	}
-	
-	private int calcMinEnemy(int playersScore){
-		return 1;
-	}
-	
-	private int calcMaxTough(int playersScore){
-		return 5;
-	}
-	
-	private int calcMinTough(int playersScore){
-		return 1;
-	}
-	
-	private int calcAmountOfTough(int playersScore){
-		return 3;
-	}
-	
-	private int calcSize(int playersScore){
-		return 10;
-	}
-	
-	private int calcEnemiesOnBattleField(int playersScore){
-		return 5;
+		return true;
 	}
 
+	public Vector2 calculateEnemiesPosition(Player player){
+		Vector2 vector2 = new Vector2();
+		vector2.y = player.getPosition().x + random.nextInt((int)Constants.VIEWPORT_GUI_HEIGHT/2 - (int)Constants.VIEWPORT_GUI_HEIGHT/5) + (int)Constants.VIEWPORT_GUI_HEIGHT/5;
+		vector2.x = player.getPosition().y + random.nextInt((int)Constants.VIEWPORT_GUI_WIDTH/2 - (int)Constants.VIEWPORT_GUI_WIDTH/5) + (int)Constants.VIEWPORT_GUI_WIDTH/5;
+		return vector2;
+	}
+	
 }

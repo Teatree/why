@@ -15,34 +15,47 @@ public class L1{
 	Player player;
 	public Stack<Enemy> enemiesOnStage;
 	Wave wave;
+	public int wavesAmount;
+	public int currentWave;
 	Bunker bunker;
+	WaveGenerator waveGenerator = new WaveGenerator();
+	MisterSpawner misterSpawner = new MisterSpawner();
 	
 	public L1(){
 		create();
 	}
 	
 	public void create(){
-		WaveGenerator waveGenerator = new WaveGenerator();
-		MisterSpawner misterSpawner = new MisterSpawner();
 		player = new Player(new Vector2());
+		wavesAmount = waveGenerator.getWavesAmount(player.getPoints());
+		currentWave = 1;
 		wave = waveGenerator.generateWave(player.getPoints());
 		enemiesOnStage = new Stack<Enemy>();
 		bunker = new Bunker();
 		
-		while (enemiesOnStage.size() < wave.enemiesOnBattleField && !wave.enemies.empty()){
-			enemiesOnStage.add(((Stack<Enemy>) wave.enemies).pop());
-		}
 	}
 	
 	public void update(boolean aiming, Vector3 touchPos, Vector3 V3point, TiledMapTileLayer collisionLayer, 
 			List<Projectile> projectiles, CameraHelper cameraHelper, float dx, float dy) {
 		this.player.update(aiming, touchPos, V3point, collisionLayer, dx, dy);
+		if(wave.enemies.empty() && currentWave<wavesAmount){
+			wave = waveGenerator.generateWave(player.getPoints());
+			currentWave++;
+		}
+		if (enemiesOnStage.size() < wave.enemiesOnBattleField && !wave.enemies.empty()){
+			Enemy enemy = wave.enemies.pop();
+			misterSpawner.spawnEnemy(this, collisionLayer, enemy);
+			enemiesOnStage.push(enemy);
+			
+		}
+		
 		if (enemiesOnStage.size() < wave.enemiesOnBattleField && !wave.enemies.empty()){
 			addEnemyOnBattlefield();
 		}
 		for (Enemy enemy : enemiesOnStage){
 			enemy.update(collisionLayer, projectiles, this.player, cameraHelper, enemiesOnStage);
 		}
+		
 		
 		bunker.update();
 	}
@@ -82,4 +95,5 @@ public class L1{
 	public void setPlayer(Player player) {
 		this.player = player;
 	}
+	
 }

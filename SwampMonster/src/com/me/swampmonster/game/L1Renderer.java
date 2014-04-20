@@ -1,6 +1,7 @@
 package com.me.swampmonster.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -38,10 +39,9 @@ public class L1Renderer {
 	private BitmapFont font;
 	private int timer;
 	private CharSequence str;
+	private CharSequence str2;
 	
 	private int[] background = {0};
-	private int[] foreground = {1};
-	private int[] fiveground = {2};
 	
 	float ass = 1f;
 	float assRevert = 0f;
@@ -73,6 +73,7 @@ public class L1Renderer {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
 		str = "points: " + theController.level1.getPlayer().getPoints();
+		str2 = "Wave:" + theController.level1.currentWave + "/" + theController.level1.wavesAmount;
 		
 		theController.cameraHelper.applyTo(cam);
 		
@@ -303,6 +304,7 @@ public class L1Renderer {
 		staticBatch.begin();
 		font.setColor(1.0f, 1.0f, 1.0f, 1.0f);
 		font.draw(staticBatch, str, 580, 420);
+		font.draw(staticBatch, str2, 580, 360);
 		font.setColor(Color.YELLOW);
 		font.setScale(2);
 		if(assRevert >= 0.4f && theController.level1.getPlayer().getState() == State.DEAD){
