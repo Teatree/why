@@ -12,15 +12,21 @@ import com.me.swampmonster.models.Player;
 public class MisterSpawner {
 	Random random = new Random();
 	
-	public void spawnEnemy(L1 l, TiledMapTileLayer collisionLayer, Enemy enemy){
+	int mapWith;
+	int mapHeight;
+	TiledMapTileLayer collisionLayer;
+	
+	public void spawnEnemy(L1 l, Enemy enemy){
+		mapWith = (int)collisionLayer.getTileWidth()*collisionLayer.getWidth();
+		mapHeight = (int)collisionLayer.getTileHeight()*collisionLayer.getHeight();
 		enemy.setPosition(calculateEnemiesPosition(l.getPlayer()));
 		Vector2 v2 = calculateEnemiesPosition(l.getPlayer());
-		if(!isValidPosition(v2, collisionLayer, enemy, l)){
+		if(!isValidPosition(v2, enemy, l)){
 			enemy.setPosition(calculateEnemiesPosition(l.getPlayer()));
 		}
 	}
 	
-	private boolean isValidPosition(Vector2 v2, TiledMapTileLayer collisionLayer, Enemy enemy, L1 l) {
+	private boolean isValidPosition(Vector2 v2, Enemy enemy, L1 l) {
 		if(CollisionHelper.isCollidable(v2.x, v2.y, collisionLayer) != null || CollisionHelper.isCollidableEnemy(enemy, l.enemiesOnStage) != null
 				|| v2.x+enemy.getSprite().getWidth() >= collisionLayer.getWidth() || v2.y+enemy.getSprite().getHeight() >= collisionLayer.getHeight()){
 			return false;
@@ -30,9 +36,37 @@ public class MisterSpawner {
 
 	public Vector2 calculateEnemiesPosition(Player player){
 		Vector2 vector2 = new Vector2();
-		vector2.y = player.getPosition().x + random.nextInt((int)Constants.VIEWPORT_GUI_HEIGHT/2 - (int)Constants.VIEWPORT_GUI_HEIGHT/5) + (int)Constants.VIEWPORT_GUI_HEIGHT/5;
-		vector2.x = player.getPosition().y + random.nextInt((int)Constants.VIEWPORT_GUI_WIDTH/2 - (int)Constants.VIEWPORT_GUI_WIDTH/5) + (int)Constants.VIEWPORT_GUI_WIDTH/5;
+		
+		int minPosX = (int)(player.getPosition().x + Constants.VIEWPORT_GUI_WIDTH/2);
+		int maxPosX = mapWith;
+		int minPosY = (int)(player.getPosition().y + Constants.VIEWPORT_GUI_HEIGHT/2);
+		int maxPosY = mapHeight;
+		
+		if (minPosX > mapWith){
+			maxPosX = (int)(player.getPosition().x - Constants.VIEWPORT_GUI_WIDTH/2);
+			minPosX = 0;
+		}
+		
+		if (minPosY > mapHeight){
+			maxPosY = (int)(player.getPosition().y - Constants.VIEWPORT_GUI_HEIGHT/2);
+			minPosY = 0;
+		}
+		
+		System.out.println(" map width = " + mapWith + " map height " + mapHeight);
+		vector2.x = random.nextInt(maxPosX - minPosX) + minPosX;
+		vector2.y = random.nextInt(maxPosY - minPosY) + minPosY;
+		System.out.println(" x = " + vector2.x + " y = " + vector2.y);
 		return vector2;
 	}
+
+	public TiledMapTileLayer getCollisionLayer() {
+		return collisionLayer;
+	}
+
+	public void setCollisionLayer(TiledMapTileLayer collisionLayer) {
+		this.collisionLayer = collisionLayer;
+	}
+	
+	
 	
 }

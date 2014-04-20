@@ -38,13 +38,14 @@ public class L1{
 	public void update(boolean aiming, Vector3 touchPos, Vector3 V3point, TiledMapTileLayer collisionLayer, 
 			List<Projectile> projectiles, CameraHelper cameraHelper, float dx, float dy) {
 		this.player.update(aiming, touchPos, V3point, collisionLayer, dx, dy);
+		misterSpawner.setCollisionLayer(collisionLayer);
 		if(wave.enemies.empty() && currentWave<wavesAmount){
 			wave = waveGenerator.generateWave(player.getPoints());
 			currentWave++;
 		}
 		if (enemiesOnStage.size() < wave.enemiesOnBattleField && !wave.enemies.empty()){
 			Enemy enemy = wave.enemies.pop();
-			misterSpawner.spawnEnemy(this, collisionLayer, enemy);
+			misterSpawner.spawnEnemy(this, enemy);
 			enemiesOnStage.push(enemy);
 			
 		}
