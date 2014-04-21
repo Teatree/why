@@ -14,7 +14,7 @@ public class EnemyMaggot extends Enemy {
 		animationsStandard.put(State.DEAD, new AnimationControl("data/EnemyMaggot.png", 8, 16, 4)); 
 		sprite = new Sprite(animationsStandard.get(state).getCurrentFrame());
 //		sprite.setColor(0, 1, 0, 0.7f);
-		playerMovementSpeed = 0.6f;
+		movementSpeed = 0.6f;
 		health = 1;
 		damage = 1;
 		points = 50;

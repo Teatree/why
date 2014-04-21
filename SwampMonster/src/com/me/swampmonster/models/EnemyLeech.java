@@ -15,7 +15,7 @@ public class EnemyLeech extends Enemy{
 		animationsStandard.put(State.PURSUIT, new AnimationControl("data/EnemyLeech.png", 8, 16, 7)); 
 		
 		sprite = new Sprite(animationsStandard.get(state).getCurrentFrame());
-		playerMovementSpeed = 0.2f;
+		movementSpeed = 0.2f;
 		health = 1;
 		damage = 1;
 		points = 200;

@@ -21,7 +21,7 @@ public class Projectile extends AbstractGameObject{
 		circle = new Circle();
 		circle.radius = 8;
 		
-		playerMovementSpeed = 1.8f;
+		movementSpeed = 1.8f;
 		
 		direction_x = 0;
 		direction_y = 0;
@@ -32,8 +32,8 @@ public class Projectile extends AbstractGameObject{
 		circle.x = position.x+8;
 		circle.y = position.y+8;
 		
-		position.x += direction_x*playerMovementSpeed;
-		position.y += direction_y*playerMovementSpeed;
+		position.x += direction_x*movementSpeed;
+		position.y += direction_y*movementSpeed;
 	}
 	
 	public boolean isCollision(TiledMapTileLayer collisionLayer){

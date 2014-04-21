@@ -37,7 +37,7 @@ public abstract class AbstractGameObject {
 	protected String playerMovementDirection; 
 	protected String playerMovementDirectionLR; 
 	protected String playerMovementDirectionUD; 
-	protected float playerMovementSpeed = 0.5f; 
+	protected float movementSpeed = 0.5f; 
 	
 	protected int health;
 	protected int damage;
@@ -89,10 +89,10 @@ public abstract class AbstractGameObject {
 		this.playerMovementDirectionUD = playerMovementDirectionUD;
 	}
 	public float getPlayerMovementSpeedX() {
-		return playerMovementSpeed;
+		return movementSpeed;
 	}
 	public void setPlayerMovementSpeedX(float playerMovementSpeedX) {
-		this.playerMovementSpeed = playerMovementSpeedX;
+		this.movementSpeed = playerMovementSpeedX;
 	}
 	public int getHealth() {
 		return health;

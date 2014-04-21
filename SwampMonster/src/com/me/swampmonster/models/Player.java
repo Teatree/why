@@ -136,7 +136,7 @@ public class Player extends AbstractGameObject{
 			
 			//movement
 			if(!hurt){
-			 	movementCollisionAndAnimation(playerMovementSpeed, animations, touchPos, collisionLayer, dx, dy);
+			 	movementCollisionAndAnimation(movementSpeed, animations, touchPos, collisionLayer, dx, dy);
 			}
 		}
 		
@@ -317,9 +317,9 @@ public class Player extends AbstractGameObject{
 			
 			sprite.setRegion(animations.get(state).getCurrentFrame());
 			sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
-			position.x += playerMovementSpeed/2;
-			touchPos.x += playerMovementSpeed/2;
-			sprite.translateY(playerMovementSpeed/2);
+			position.x += movementSpeed/2;
+			touchPos.x += movementSpeed/2;
+			sprite.translateY(movementSpeed/2);
 		}
 	}
 	private void damageFromLeft(Collidable collidableUp, HashMap<State, AnimationControl> animations, AbstractGameObject enemy, Vector3 touchPos) {
@@ -328,9 +328,9 @@ public class Player extends AbstractGameObject{
 			
 			sprite.setRegion(animations.get(state).getCurrentFrame());
 			sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
-			position.x -= playerMovementSpeed/2;
-			touchPos.x -= playerMovementSpeed/2;
-			sprite.translateY(playerMovementSpeed/2);
+			position.x -= movementSpeed/2;
+			touchPos.x -= movementSpeed/2;
+			sprite.translateY(movementSpeed/2);
 		}
 	}
 	private void damageFromBottom(Collidable collidableUp, HashMap<State, AnimationControl> animations, AbstractGameObject enemy, Vector3 touchPos) {
@@ -339,9 +339,9 @@ public class Player extends AbstractGameObject{
 			
 			sprite.setRegion(animations.get(state).getCurrentFrame());
 			sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
-			position.y -= playerMovementSpeed/2;
-			touchPos.y -= playerMovementSpeed/2;
-			sprite.translateY(playerMovementSpeed/2);
+			position.y -= movementSpeed/2;
+			touchPos.y -= movementSpeed/2;
+			sprite.translateY(movementSpeed/2);
 		}
 	}
 	private void damagedFromTop(Collidable collidableUp, HashMap<State, AnimationControl> animations, AbstractGameObject enemy, Vector3 touchPos) {
@@ -351,9 +351,9 @@ public class Player extends AbstractGameObject{
 			sprite.setRegion(animations.get(state).getCurrentFrame());
 			sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
 			
-			position.y += playerMovementSpeed/2;
-			touchPos.y += playerMovementSpeed/2;
-			sprite.translateY(playerMovementSpeed/2);
+			position.y += movementSpeed/2;
+			touchPos.y += movementSpeed/2;
+			sprite.translateY(movementSpeed/2);
 		}
 	}
 	
@@ -416,11 +416,11 @@ public class Player extends AbstractGameObject{
 	private void move(Collidable collidableLeft, Collidable collidableRight, Collidable collidableUp, Collidable collidableDown, float speeds, HashMap<State, AnimationControl> animations, Vector3 touchPos, float dx, float dy) {
 		if (position.x > touchPos.x-4 || position.x < touchPos.x-14 || position.y > touchPos.y-4 || position.y < touchPos.y-14) {
 			if(collidableLeft == null || collidableRight == null){
-				position.x += dx*playerMovementSpeed;
+				position.x += dx*movementSpeed;
 //				System.out.println("dx*playerMovementSpeed: " + dx*playerMovementSpeed + " position.x: " + position.x);
 			}
 			if(collidableUp == null || collidableDown == null){
-				position.y += dy*playerMovementSpeed;
+				position.y += dy*movementSpeed;
 			}
 			sprite.translateX(-speeds);
 		}
@@ -438,19 +438,19 @@ public class Player extends AbstractGameObject{
 			playerMovementDirectionUD = "up";
 		}
 		
-		if(Math.abs((dx*playerMovementSpeed))>Math.abs((dy*playerMovementSpeed)) && playerMovementDirectionLR == "right"){
+		if(Math.abs((dx*movementSpeed))>Math.abs((dy*movementSpeed)) && playerMovementDirectionLR == "right"){
 			playerMovementDirection = "right";
 			currentFrame = animationsStandard.get(state).animate(16);
 		}
-		if(Math.abs((dx*playerMovementSpeed))>Math.abs((dy*playerMovementSpeed)) && playerMovementDirectionLR == "left"){
+		if(Math.abs((dx*movementSpeed))>Math.abs((dy*movementSpeed)) && playerMovementDirectionLR == "left"){
 			playerMovementDirection = "left";
 			currentFrame = animationsStandard.get(state).animate(24);
 		}
-		if(Math.abs((dx*playerMovementSpeed))<Math.abs((dy*playerMovementSpeed)) && playerMovementDirectionUD == "down"){
+		if(Math.abs((dx*movementSpeed))<Math.abs((dy*movementSpeed)) && playerMovementDirectionUD == "down"){
 			playerMovementDirection = "down";
 			currentFrame = animationsStandard.get(state).animate(0);
 		}
-		if(Math.abs((dx*playerMovementSpeed))<Math.abs((dy*playerMovementSpeed)) && playerMovementDirectionUD == "up"){
+		if(Math.abs((dx*movementSpeed))<Math.abs((dy*movementSpeed)) && playerMovementDirectionUD == "up"){
 			playerMovementDirection = "up";
 			currentFrame = animationsStandard.get(state).animate(8);
 		}
@@ -477,15 +477,15 @@ public class Player extends AbstractGameObject{
 		collidable.doCollide(this, collisionLayer);
 	}
 	public float getPlayerMovementSpeedX() {
-		return playerMovementSpeed;
+		return movementSpeed;
 	}
 	public void setPlayerMovementSpeedX(float playerMovementSpeedX) {
-		this.playerMovementSpeed = playerMovementSpeedX;
+		this.movementSpeed = playerMovementSpeedX;
 	}
 	
 	
 	public void getPerkEffect(Perks perk){
-		this.playerMovementSpeed += perk.speed;
+		this.movementSpeed += perk.speed;
 		this.reloadSpeed += perk.reloadSpeed;
 		this.damage += perk.damage;
 		this.health += perk.health;

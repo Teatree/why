@@ -80,7 +80,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable{
 		damage = 1;
 		points = 0;
 		attackSpeed = 40;
-		playerMovementSpeed = 0.3f;
+		movementSpeed = 0.3f;
 	}
 	
 	public void update(TiledMapTileLayer collisionLayer, List<Projectile> projectiles, Player player, CameraHelper cameraHelper, List<Enemy> enemies){
@@ -182,7 +182,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable{
             		Collidable collidableDown = null;
             		Collidable collidableUp = null;
             		
-	            	move(player, collidableLeft, collidableRight, collidableDown, collidableUp, enemyDx, enemyDy, playerMovementSpeed, enemies);
+	            	move(player, collidableLeft, collidableRight, collidableDown, collidableUp, enemyDx, enemyDy, movementSpeed, enemies);
 	            	collidableLeft = collisionCheckerLeft(collisionLayer, enemies);
 	            	collisionCheck(collidableLeft, collisionLayer, player);
 	            	collidableRight = collisionCheckerRight(collisionLayer, enemies);
@@ -364,7 +364,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable{
     	Collidable collidableUp = null;
 			
 		moveOnPath(collidableLeft, collidableRight, collidableDown, collidableUp, enemyPathDx, enemyPathDy,
-					playerMovementSpeed, enemies, collisionLayer, player);
+					movementSpeed, enemies, collisionLayer, player);
 		collidableLeft = collisionCheckerLeft(collisionLayer, enemies);
         collidableRight = collisionCheckerRight(collisionLayer, enemies);
         collidableDown = collisionCheckerBottom(collisionLayer, enemies);
@@ -570,8 +570,8 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable{
 			sprite.setRegion(animationsStandard.get(state).getCurrentFrame());
 			sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
 			
-			position.x -= playerMovementSpeed/3;
-			sprite.translateY(playerMovementSpeed/3);
+			position.x -= movementSpeed/3;
+			sprite.translateY(movementSpeed/3);
 		}
 	}
 
@@ -582,8 +582,8 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable{
 			
 			sprite.setRegion(animationsStandard.get(state).getCurrentFrame());
 			sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
-			position.x += playerMovementSpeed/3;
-			sprite.translateY(playerMovementSpeed/3);
+			position.x += movementSpeed/3;
+			sprite.translateY(movementSpeed/3);
 		}
 	}
 
@@ -594,8 +594,8 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable{
 			
 			sprite.setRegion(animationsStandard.get(state).getCurrentFrame());
 			sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
-			position.y += playerMovementSpeed/3;
-			sprite.translateY(playerMovementSpeed/3);
+			position.y += movementSpeed/3;
+			sprite.translateY(movementSpeed/3);
 		}
 	}
 
@@ -608,8 +608,8 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable{
 			sprite.setRegion(animationsStandard.get(state).getCurrentFrame());
 			sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
 			
-			position.y -= playerMovementSpeed/3;
-			sprite.translateY(playerMovementSpeed/3);
+			position.y -= movementSpeed/3;
+			sprite.translateY(movementSpeed/3);
 		}
 	}
 	
