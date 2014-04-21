@@ -39,6 +39,7 @@ public class EnemyGenerator {
 		Enemy enemy = null;
 		try {
 			enemy = enemyTypes.get(currentEnemyType).getConstructor(Vector2.class).newInstance(new Vector2());
+			enemy.sprite.setSize(enemy.sprite.getWidth()/2, enemy.sprite.getHeight()/2);
 			setToughtness(toughtnessParams.get(toughGuy), enemy);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -53,6 +54,7 @@ public class EnemyGenerator {
 		try {
 			System.out.println(currentEnemyType);			
 			enemy = enemyTypes.get(currentEnemyType).getConstructor(Vector2.class).newInstance(new Vector2());
+			enemy.sprite.setSize(enemy.sprite.getWidth()/2, enemy.sprite.getHeight()/2);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

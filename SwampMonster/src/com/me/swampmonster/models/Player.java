@@ -37,7 +37,7 @@ public class Player extends AbstractGameObject{
 	Vector3 shotDir;
 	Vector3 V3playerPos;
 	
-	private Set<Enemy> harmfulEnemies = new HashSet<Enemy>();
+	public Enemy harmfulEnemy;
 	
 	public Player(Vector2 position){
 		state = State.STANDARD;
@@ -214,10 +214,10 @@ public class Player extends AbstractGameObject{
 				
 				if(damageType == "enemy"){
 //					System.out.println(harmfulEnemies.size());
-					for (Enemy enemy : harmfulEnemies){
+//					for (Enemy enemy : harmfulEnemies){
 //						System.out.println(enemy.getPlayerMovementDirection());
-						takingDamageFromEnemy(animations, enemy, touchPos, collisionLayer);
-					}
+						takingDamageFromEnemy(animations, harmfulEnemy, touchPos, collisionLayer);
+//					}
 				}
 				if(damageType == "lackOfOxygen"){
 					currentFrame = animations.get(State.STANDARD).doComplexAnimation(104, 0.2f, Gdx.graphics.getDeltaTime()/2);
@@ -483,9 +483,6 @@ public class Player extends AbstractGameObject{
 		this.playerMovementSpeed = playerMovementSpeedX;
 	}
 	
-	public void addHarmfulEnemy(Enemy enemy){
-		this.harmfulEnemies.add(enemy);
-	}
 	
 	public void getPerkEffect(Perks perk){
 		this.playerMovementSpeed += perk.speed;

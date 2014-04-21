@@ -162,6 +162,8 @@ public class L1Renderer {
 			sr.circle(enemy.getgReenAura().x, enemy.getgReenAura().y, enemy.getgReenAura().radius);
 			sr.setColor(Color.BLUE);
 			sr.circle(enemy.getoRangeAura().x, enemy.getoRangeAura().y, enemy.getoRangeAura().radius);
+			sr.setColor(Color.YELLOW);
+			sr.circle(enemy.yellowAura.x, enemy.yellowAura.y, enemy.yellowAura.radius);
 		}	
 		sr.setColor(Color.WHITE);
 		for(Projectile p: theController.level1.getPlayer().projectiles){
@@ -303,8 +305,8 @@ public class L1Renderer {
 		
 		staticBatch.begin();
 		font.setColor(1.0f, 1.0f, 1.0f, 1.0f);
-		font.draw(staticBatch, str, 580, 420);
-		font.draw(staticBatch, str2, 580, 360);
+		font.draw(staticBatch, str, 580, 460);
+		font.draw(staticBatch, str2, 580, 420);
 		font.setColor(Color.YELLOW);
 		font.setScale(2);
 		if(assRevert >= 0.4f && theController.level1.getPlayer().getState() == State.DEAD){

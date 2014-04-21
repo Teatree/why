@@ -34,9 +34,8 @@ public class Projectile extends AbstractGameObject{
 		
 		position.x += direction_x*playerMovementSpeed;
 		position.y += direction_y*playerMovementSpeed;
-		
-		
 	}
+	
 	public boolean isCollision(TiledMapTileLayer collisionLayer){
 		return CollisionHelper.isCollidable(position.x+sprite.getWidth()/2, position.y+sprite.getHeight()/2, collisionLayer) != null;
 	}

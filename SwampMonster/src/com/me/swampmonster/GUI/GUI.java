@@ -1,6 +1,7 @@
 package com.me.swampmonster.GUI;
 
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.me.swampmonster.models.AbstractGameObject;
 
 
@@ -22,10 +23,10 @@ public class GUI {
 		slotMachine = new SlotMachine();
 	}
 	
-	public void update(AbstractGameObject player, Vector2 point){
+	public void update(AbstractGameObject player, Vector2 point, Vector3 V3point){
 		healthBar.update(player);
-		weaponizer.update(point);
-		croshair.update(player, point);
+		weaponizer.update(player, point);
+		croshair.update(player, point, V3point);
 		gameoverGUI.update(player);
 		slotMachine.update();
 	}

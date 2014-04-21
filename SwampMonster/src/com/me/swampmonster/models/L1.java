@@ -28,8 +28,8 @@ public class L1{
 	public void create(){
 		player = new Player(new Vector2());
 		wavesAmount = waveGenerator.getWavesAmount(player.getPoints());
-		currentWave = 1;
-		wave = waveGenerator.generateWave(player.getPoints());
+		currentWave = 0;
+//		wave = waveGenerator.generateWave(player.getPoints());
 		enemiesOnStage = new Stack<Enemy>();
 		bunker = new Bunker();
 		
@@ -39,10 +39,11 @@ public class L1{
 			List<Projectile> projectiles, CameraHelper cameraHelper, float dx, float dy) {
 		this.player.update(aiming, touchPos, V3point, collisionLayer, dx, dy);
 		misterSpawner.setCollisionLayer(collisionLayer);
-		if(wave.enemies.empty() && currentWave<wavesAmount){
+		if(wave == null || wave.enemies.empty() && currentWave<wavesAmount){
 			wave = waveGenerator.generateWave(player.getPoints());
 			currentWave++;
 		}
+		if(wave!=null){
 		if (enemiesOnStage.size() < wave.enemiesOnBattleField && !wave.enemies.empty()){
 			Enemy enemy = wave.enemies.pop();
 			misterSpawner.spawnEnemy(this, enemy);
@@ -50,8 +51,6 @@ public class L1{
 			
 		}
 		
-		if (enemiesOnStage.size() < wave.enemiesOnBattleField && !wave.enemies.empty()){
-			addEnemyOnBattlefield();
 		}
 		for (Enemy enemy : enemiesOnStage){
 			enemy.update(collisionLayer, projectiles, this.player, cameraHelper, enemiesOnStage);
@@ -74,15 +73,6 @@ public class L1{
 //			b.end();
 //		}
 //	}
-	
-	private void addEnemyOnBattlefield(){
-		if (!wave.enemies.empty()){
-			Enemy e = wave.enemies.pop();
-			e.setPosition(new Vector2 (110f,450f));
-			e.getSprite().setSize(e.getSprite().getWidth()/2, e.getSprite().getHeight()/2);
-			enemiesOnStage.add(e);
-		}
-	}
 	
 	public Bunker getBunker() {
 		return bunker;

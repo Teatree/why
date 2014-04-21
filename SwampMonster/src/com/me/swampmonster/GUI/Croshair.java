@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.me.swampmonster.models.AbstractGameObject;
 
 public class Croshair extends AbstractGameObject{
@@ -18,15 +19,17 @@ public class Croshair extends AbstractGameObject{
 		sprite = new Sprite(new Texture("data/Croshair.png"));
 		aiming = false;
 	}
-	public void update(AbstractGameObject player, Vector2 point){
+	public void update(AbstractGameObject player, Vector2 point, Vector3 V3point){
 		position.x = player.getPosition().x;
 		position.y = player.getPosition().y;
 		
 //		System.out.println("aiming " + aiming);
-		if(doesIntersect(new Vector2(400,255), player.getCircle().radius*2, point) && !aiming && Gdx.input.isTouched()){
+		if(doesIntersect(new Vector2(player.getCircle().x, player.getCircle().y), player.getCircle().radius*2, new Vector2(V3point.x, V3point.y))
+				&& !aiming && Gdx.input.isTouched()){
 			player.setState(state.GUNMOVEMENT);
 			aiming = true;
-		}else if(!doesIntersect(new Vector2(400,255), player.getCircle().radius*2, point) && aiming && !Gdx.input.isTouched()){
+		}else if(!doesIntersect(new Vector2(player.getCircle().x, player.getCircle().y), player.getCircle().radius*2, new Vector2(V3point.x, V3point.y))
+				&& aiming && !Gdx.input.isTouched()){
 			aiming = false;
 		}
 	}

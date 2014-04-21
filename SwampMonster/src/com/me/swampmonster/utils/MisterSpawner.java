@@ -28,7 +28,7 @@ public class MisterSpawner {
 	
 	private boolean isValidPosition(Vector2 v2, Enemy enemy, L1 l) {
 		if(CollisionHelper.isCollidable(v2.x, v2.y, collisionLayer) != null || CollisionHelper.isCollidableEnemy(enemy, l.enemiesOnStage) != null
-				|| v2.x+enemy.getSprite().getWidth() >= collisionLayer.getWidth() || v2.y+enemy.getSprite().getHeight() >= collisionLayer.getHeight()){
+				|| v2.x+enemy.getSprite().getWidth() >= mapWith || v2.y+enemy.getSprite().getHeight() >= mapHeight){
 			return false;
 		}
 		return true;
@@ -42,12 +42,12 @@ public class MisterSpawner {
 		int minPosY = (int)(player.getPosition().y + Constants.VIEWPORT_GUI_HEIGHT/2);
 		int maxPosY = mapHeight;
 		
-		if (minPosX > mapWith){
+		if (minPosX >= mapWith){
 			maxPosX = (int)(player.getPosition().x - Constants.VIEWPORT_GUI_WIDTH/2);
 			minPosX = 0;
 		}
 		
-		if (minPosY > mapHeight){
+		if (minPosY >= mapHeight){
 			maxPosY = (int)(player.getPosition().y - Constants.VIEWPORT_GUI_HEIGHT/2);
 			minPosY = 0;
 		}

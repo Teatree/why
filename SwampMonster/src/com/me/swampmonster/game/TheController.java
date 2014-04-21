@@ -61,12 +61,9 @@ public class TheController extends InputAdapter{
 //		Pathfinder.setTiledMap(level1.getBunker().getMap());
 		level1.getPlayer().setPosition(new Vector2 (180f,350f));
 		level1.getPlayer().getSprite().setSize(level1.getPlayer().getSprite().getWidth()/2, level1.getPlayer().getSprite().getHeight()/2);
-		
-		if(level1.enemiesOnStage!= null){
-//			level1.enemiesOnStage.get(0).setPosition(new Vector2 (180f,450f));
-//			level1.enemiesOnStage.get(0).getSprite().setSize(level1.enemiesOnStage.get(0).getSprite().getWidth()/2, level1.enemiesOnStage.get(0).getSprite().getHeight()/2);
-		}
 		level1.getPlayer().setHurt(false);
+		
+		
 		
 		collisionHandler = new CollisionHelper();
 		collisionLayer = (TiledMapTileLayer) level1.getBunker().getMap().getLayers().get(0);
@@ -95,13 +92,17 @@ public class TheController extends InputAdapter{
 		level1.update(gui.getCroshair().isAiming(), touchPos, V3point, collisionLayer, level1.getPlayer().projectiles, cameraHelper, dx, dy);
 		
 		Iterator<Enemy> itr = level1.enemiesOnStage.iterator();
-		Iterator<Projectile> prj = level1.getPlayer().projectiles.iterator();
+		int i = 0;
 		while(itr.hasNext()){
 			Enemy e = (Enemy) itr.next();
+			i++;
 			if(!e.isDead()){
+				Iterator<Projectile> prj = level1.getPlayer().projectiles.iterator();
 				while(prj.hasNext()){
+//					System.out.println("enemies on Stage: " + level1.enemiesOnStage.size());
 					Projectile p = (Projectile) prj.next();
-					if(p != null && Intersector.overlaps(p.getCircle(), e.getRectanlge())){
+					if(Intersector.overlaps(p.getCircle(), e.getRectanlge())){
+						System.out.println("enemy number: " + i);
 							prj.remove();
 							break;
 						}
@@ -123,7 +124,7 @@ public class TheController extends InputAdapter{
 		}
 		
 		
-		gui.update(level1.getPlayer(), point);
+		gui.update(level1.getPlayer(), point, V3point);
 		handleDebugInput(deltaTime);
 		pathfindingStuff();
 		//could probably be in the right class

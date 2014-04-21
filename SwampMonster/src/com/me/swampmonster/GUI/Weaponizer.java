@@ -6,7 +6,9 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.me.swampmonster.models.AbstractGameObject;
+import com.me.swampmonster.models.Player;
 
 public class Weaponizer extends AbstractGameObject{
 	
@@ -23,11 +25,13 @@ public class Weaponizer extends AbstractGameObject{
 		circle.y = position.y;
 		circle.radius = 56;
 	}
-	public void update(Vector2 point){
-		if(Gdx.input.justTouched() && doesIntersect(new Vector2(circle.x, circle.y), circle.radius, point) && !on){
+	public void update(AbstractGameObject player, Vector2 point){
+		if(Gdx.input.justTouched() && doesIntersect(new Vector2(circle.x, circle.y), circle.radius,
+				new Vector2(point.x+player.getPosition().x, point.y+player.getPosition().y)) && !on){
 			on = true;
 //			System.out.println(on);
-		}else if(Gdx.input.justTouched() && doesIntersect(new Vector2(circle.x, circle.y), circle.radius, point) && on){
+		}else if(Gdx.input.justTouched() && doesIntersect(new Vector2(circle.x, circle.y), circle.radius, 
+				new Vector2(point.x+player.getPosition().x, point.y+player.getPosition().y)) && on){
 			on = false;
 //			System.out.println(on);
 		}

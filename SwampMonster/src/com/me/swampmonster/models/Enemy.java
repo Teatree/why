@@ -37,9 +37,12 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable{
 	float enemyPathDy;
 	
 	boolean switzerland = false;
+	boolean currentlyMovingOnPath = false;
+	boolean attackSequenceStarted = false;
 	
 	public Circle gReenAura;
 	public Circle oRangeAura;
+	public Circle yellowAura;
 	
 	public Node[] path;
 	
@@ -50,6 +53,8 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable{
 		gReenAura.radius = 164;
 		oRangeAura = new Circle();
 		oRangeAura.radius = 16;
+		yellowAura = new Circle();
+		yellowAura.radius = 8;
 		animationsStandard.put(State.PURSUIT, new AnimationControl("data/Skelenten.png", 8, 16, 8)); 
 		animationsStandard.put(State.STANDARD, new AnimationControl("data/Skelenten.png", 8, 16, 8)); 
 		animationsStandard.put(State.ATTACKING, new AnimationControl("data/Skelenten.png", 8, 16, 8)); 
@@ -86,6 +91,8 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable{
 		gReenAura.y = position.y;
 		oRangeAura.x = position.x+sprite.getWidth()/2;
 		oRangeAura.y = position.y+sprite.getHeight()/2;
+		yellowAura.x = position.x+sprite.getWidth()/2;
+		yellowAura.y = position.y+sprite.getHeight()/2;
 		
 		rectanlge.x = sprite.getX();
 		rectanlge.y = sprite.getY();
@@ -99,6 +106,8 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable{
 		float enemyLength = (float) Math.sqrt(enemyDx*enemyDx + enemyDy*enemyDy);
 		enemyDx /= enemyLength;
 		enemyDy /= enemyLength;
+		
+//		System.out.println("currentlyMovingOnPath " + currentlyMovingOnPath);
 		
 		// Direction for the pursuit state
 		if(cunter != -1 && path!=null && path[cunter]!=null){
@@ -164,7 +173,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable{
 			if(state.equals(State.STANDARD)){
 				sprite.setRegion(animations.get(state).getCurrentFrame());
             	if(!hurt){
-            	if(timer == 0 && timer2 == 0 && !getoRangeAura().overlaps(player.getCircle()) && player.getState() != State.DEAD){
+            	if(timer == 0 && timer2 == 0 && !yellowAura.overlaps(player.getCircle()) && player.getState() != State.DEAD){
             		
 //            		System.out.println("move is active... and overlpas is: " + getoRangeAura().overlaps(player.getCircle()));
             		
@@ -191,7 +200,11 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable{
 //            		System.out.println("condition oldPos.x != position.x || oldPos.y != position.y && timer>0 && timer2>0 is true!");
             	}
             	
-            	if(oRangeAura.overlaps(player.getCircle()) && player.getState() != State.DEAD){
+            	if(yellowAura.overlaps(player.getCircle()) && player.getState() != State.DEAD){
+            		attackSequenceStarted = true;
+            	}
+            	
+            	if(attackSequenceStarted){
 //            		System.out.println("yes!2 and overlpas is: " + getoRangeAura().overlaps(player.getCircle()));
 	            	if(playerMovementDirection == "right"){
 	            		inflictOnThe(88, 56, player, cameraHelper, attackSpeed);
@@ -206,11 +219,11 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable{
 	            		inflictOnThe(64, 32, player, cameraHelper, attackSpeed);
 	            	}
             	}
-            	if(!getoRangeAura().overlaps(player.getCircle())){
-//            		System.out.println("yes!3");
-            		timer = 0;
-            		timer2 = 0;
-            	}
+//            	if(!getoRangeAura().overlaps(player.getCircle())){
+////            		System.out.println("yes!3");
+//            		timer = 0;
+//            		timer2 = 0;
+//            	}
             }
 		}
 			//ANIMATING
@@ -329,13 +342,16 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable{
 				if(timer == 30 && timer2 >= attackSpeed){
 					currentFrame = animationsStandard.get(state).animate(standing);
 					// And may be inflict different hurts, direction/ kinds of hurts/ etc.
-					player.setDamageType("enemy");
-					player.addHarmfulEnemy(this);
-					player.setHurt(true);
-					player.setHealth(player.getHealth()-damage);
+					if(oRangeAura.overlaps(player.getCircle()) && !player.hurt){
+						player.setDamageType("enemy");
+						player.harmfulEnemy = this;
+						player.setHurt(true);
+						player.setHealth(player.getHealth()-damage);
+					}
 					
 					timer = 0;
 					timer2 = 0;
+					attackSequenceStarted = false;
 				}
 			}
 		}
@@ -443,6 +459,8 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable{
 
 	private void moveOnPath(Collidable collidableLeft, Collidable collidableRight, Collidable collidableDown, Collidable collidableUp,
 			float enemyPathDx, float enemyPathDy, float playerMovementSpeed, List<Enemy> enemies, TiledMapTileLayer collisionLayer, AbstractGameObject player) {
+		currentlyMovingOnPath = true;
+		System.out.println("currentlyMovingOnPath? = " + currentlyMovingOnPath);
 		if(CollisionHelper.isCollidableEnemy(this, enemies) == null){
 				if(path != null && path[cunter] != null){ 
 					if(position.x > (path[cunter].x*16)-4 || position.x < (path[cunter].x*16)-10 || position.y > (path[cunter].y*16)-4 || position.y < (path[cunter].y*16)-10) {
@@ -485,6 +503,9 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable{
 				playerMovementDirection = "up";
 				currentFrame = animationsStandard.get(state).animate(16);
 			}
+		}
+		if(cunter<=1){
+			currentlyMovingOnPath=false;
 		}
 	}
 
@@ -530,7 +551,11 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable{
 	private void contact(Collidable collidable, TiledMapTileLayer collisionLayer, AbstractGameObject player) {
 		collidable.doCollide(this, collisionLayer);
 		collidable.doCollideAbstactObject(this);
-		Pathfinder.findPathInThreadPool(position, player.position, collisionLayer, this);
+		if(!currentlyMovingOnPath &&
+				position.x + 400 > player.position.x && position.x - 400 < player.position.x &&
+				position.y + 400 > player.position.y && position.y - 400 < player.position.y){
+			Pathfinder.findPathInThreadPool(position, player.position, collisionLayer, this);
+		}
 //		System.out.println(position.x);
 //		System.out.println(theController.level1.getPlayer().position.x);
 		state = State.PURSUIT;

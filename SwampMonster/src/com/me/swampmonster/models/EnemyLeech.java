@@ -45,7 +45,7 @@ public class EnemyLeech extends Enemy{
 					currentFrame = animationsStandard.get(state).animate(standing);
 					// And may be inflict different hurts, direction/ kinds of hurts/ etc.
 					player.setDamageType("enemy");
-					player.addHarmfulEnemy(this);
+					player.harmfulEnemy = this;
 					
 					timer = 0;
 					timer2 = 0;
