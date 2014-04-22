@@ -31,6 +31,7 @@ public abstract class AbstractGameObject {
 	protected TiledMap map_inside_bunker;
 	protected String damageType;
 	protected boolean hurt;
+	protected boolean allowedToShoot;
 	
 	protected Vector2 oldPos;
 	
@@ -44,6 +45,7 @@ public abstract class AbstractGameObject {
 	protected int points;
 	protected int reloadSpeed;
 	protected int attackSpeed;
+	protected int shotCoolDown;
 	protected float oxygen;
 	
 	public Vector2 getPosition() {

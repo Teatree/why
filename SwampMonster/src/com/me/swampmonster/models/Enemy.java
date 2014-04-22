@@ -23,7 +23,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable{
 	State state = State.STANDARD;
 	public int cunter;
 	int timer;
-	int time;
+	public int time;
 	int timeDead = 0;
 	int timer2;
 	int timereskin = 0;

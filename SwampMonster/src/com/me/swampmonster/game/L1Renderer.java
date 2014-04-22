@@ -100,7 +100,26 @@ public class L1Renderer {
 		// temporary drawing of a projectile
 		batch.end();
 		
+		Gdx.gl.glEnable(GL20.GL_BLEND);
+		Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
 		batch.begin();
+		for (Enemy enemy : theController.level1.enemiesOnStage){
+			if(enemy.isHurt()){
+				if(enemy.time==4){
+					enemy.getSprite().setColor(enemy.getSprite().getColor().r, enemy.getSprite().getColor().g-1, enemy.getSprite().getColor().b-1, enemy.getSprite().getColor().a);;
+				}
+				if(enemy.time==14){
+					enemy.getSprite().setColor(enemy.getSprite().getColor().r, enemy.getSprite().getColor().g+1, enemy.getSprite().getColor().b+1, enemy.getSprite().getColor().a);
+				}
+				if(enemy.time==24){
+					enemy.getSprite().setColor(enemy.getSprite().getColor().r, enemy.getSprite().getColor().g-1, enemy.getSprite().getColor().b-1, enemy.getSprite().getColor().a);;
+				}
+				if(enemy.time==34){
+					enemy.getSprite().setColor(enemy.getSprite().getColor().r, enemy.getSprite().getColor().g+1, enemy.getSprite().getColor().b+1, enemy.getSprite().getColor().a);
+				}
+				
+			}
+		}
 		for (Enemy enemy : theController.level1.enemiesOnStage){
 			if(enemy.getPosition().y+42 > theController.level1.getPlayer().getPosition().y+42){
 				enemy.getSprite().setPosition(enemy.getPosition().x, enemy.getPosition().y);
@@ -131,6 +150,7 @@ public class L1Renderer {
 				
 			}
 		}
+		
 			
 			theController.level1.getPlayer().getSprite().setPosition(theController.level1.getPlayer().getPosition().x, theController.level1.getPlayer().getPosition().y);
 			theController.level1.getPlayer().getSprite().draw(batch);

@@ -75,6 +75,8 @@ public class Player extends AbstractGameObject{
 		sprite = new Sprite(animationsStandard.get(State.STANDARD).getCurrentFrame());
 		sprite.setColor(1,1,1,0.39f);
 		shotDir = new Vector3();
+		
+		allowedToShoot = true;
 	}
 	
 	public void characterStatsBoard(){
@@ -82,11 +84,16 @@ public class Player extends AbstractGameObject{
 		health = 6;
 		oxygen = 96;
 		damage = 1;
+		//:TODO IN ORDER TO CHANGE THIS, YOU GOT TO GET DOWN TO WHERE SHOOTIGN IS HAPPENING!
+		shotCoolDown = 90;
 	}
 	
 	public void update(boolean aiming, Vector3 touchPos, Vector3 V3point, TiledMapTileLayer collisionLayer, float dx, float dy) {
 		oldPos.x = position.x;
 		oldPos.y = position.y;
+		
+		System.out.println("allowedToShoot: " + allowedToShoot);
+		System.out.println("shotCoolDown: " + shotCoolDown);
 		
 		circle.x = position.x+sprite.getWidth()/2;
 		circle.y = position.y+sprite.getHeight()/2;
@@ -175,9 +182,9 @@ public class Player extends AbstractGameObject{
 					currentFrame = animations.get(state).doComplexAnimation(16, 0.5f, Gdx.graphics.getDeltaTime());
 				}
 				
-			if(!Gdx.input.isTouched() && aiming){
+			if(!Gdx.input.isTouched() && aiming && allowedToShoot){
 				shooting = true;
-				
+				allowedToShoot = false;
 			}
 			if(!aiming && timeShooting == 0){
 				shooting = false;
@@ -249,9 +256,19 @@ public class Player extends AbstractGameObject{
 		}
 		if(shooting && timeShooting > 29){
 			animations.get(state).setCurrentFrame(currentFrame);
-			shooting = false;
+			shooting=false;
 			timeShooting = 0;
 		}
+		if(!allowedToShoot){
+			shotCoolDown--;
+		}
+		if(!allowedToShoot && shotCoolDown<2){
+			allowedToShoot=true;
+			// THIS IS WERID, BUT EVERY TIME YOU WANT TO CAHNGE YOUR 
+			// SHOOTING COOLDOWN SPEED, YOU GOTTA GET DOWN HERE
+			shotCoolDown = 90;
+		}
+		//
 		
 		// PROJECTILE
 		if(shooting && timeShooting < 2){
