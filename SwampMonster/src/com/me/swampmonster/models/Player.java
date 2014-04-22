@@ -92,9 +92,6 @@ public class Player extends AbstractGameObject{
 		oldPos.x = position.x;
 		oldPos.y = position.y;
 		
-		System.out.println("allowedToShoot: " + allowedToShoot);
-		System.out.println("shotCoolDown: " + shotCoolDown);
-		
 		circle.x = position.x+sprite.getWidth()/2;
 		circle.y = position.y+sprite.getHeight()/2;
 		
@@ -273,10 +270,11 @@ public class Player extends AbstractGameObject{
 		// PROJECTILE
 		if(shooting && timeShooting < 2){
 			Projectile p = new Projectile(new Vector2(position.x, position.y), getRotation());
-			p.setPosition(new Vector2(position.x, position.y));
 			
 			float direction_x = shotDir.x - V3playerPos.x;
 			float direction_y = shotDir.y - V3playerPos.y;
+			
+			p.setPosition(new Vector2(position.x, position.y));
 			
 			float length =(float) Math.sqrt(direction_x*direction_x + direction_y*direction_y);
 			direction_x /= length;
