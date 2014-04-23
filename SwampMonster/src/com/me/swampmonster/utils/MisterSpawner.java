@@ -38,9 +38,9 @@ public class MisterSpawner {
 		Vector2 vector2 = new Vector2();
 		
 		int minPosX = (int)(player.getPosition().x + Constants.VIEWPORT_GUI_WIDTH/2);
-		int maxPosX = mapWith;
+		int maxPosX = mapWith/2;
 		int minPosY = (int)(player.getPosition().y + Constants.VIEWPORT_GUI_HEIGHT/2);
-		int maxPosY = mapHeight;
+		int maxPosY = mapHeight/2;
 		
 		if (minPosX >= mapWith){
 			maxPosX = (int)(player.getPosition().x - Constants.VIEWPORT_GUI_WIDTH/2);

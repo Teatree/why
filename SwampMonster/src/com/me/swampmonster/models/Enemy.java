@@ -155,7 +155,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable{
 					
 					//MOVEMENT + COLLISION PROCESSING AND DETECTION
 //					System.out.println("cunter = " + cunter);
-					if(cunter <= 0 || path[cunter] == null){ 
+					if(path != null && cunter <= 0 || path[cunter] == null){ 
 						cunter = findLastNotNullInArray();
 						if (cunter <= 0){
 							setState(State.STANDARD);
@@ -165,6 +165,20 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable{
 						onPathMovingAndCollisionDetection(collisionLayer, player, enemyPathDx, enemyPathDy, enemies);
 						orientOnPath();
 						standAnimation(88, 72, 80, 64);
+					}
+					
+					if(path[0] != null){
+						System.out.println("it's not null");
+						System.out.println("pathX: " + path[0].x*16 + "pathY:" + path[0].y*16);
+						System.out.println("playerX: " + player.position.x + "playerY:" + player.position.y);
+						if (player.position.x > path[0].x*16+120 || player.position.x < path[0].x*16-120 ||
+								player.position.y > path[0].y*16+120 || player.position.y < path[0].y*16-120){
+							System.out.println("You are officially outside the last seen zone!");
+							state = State.STANDARD;
+							for(int i = 0; i < path.length; i++){
+								path[i] = null;
+							}
+						}
 					}
 				}
 			}
@@ -460,7 +474,6 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable{
 	private void moveOnPath(Collidable collidableLeft, Collidable collidableRight, Collidable collidableDown, Collidable collidableUp,
 			float enemyPathDx, float enemyPathDy, float playerMovementSpeed, List<Enemy> enemies, TiledMapTileLayer collisionLayer, AbstractGameObject player) {
 		currentlyMovingOnPath = true;
-		System.out.println("currentlyMovingOnPath? = " + currentlyMovingOnPath);
 		if(CollisionHelper.isCollidableEnemy(this, enemies) == null){
 				if(path != null && path[cunter] != null){ 
 					if(position.x > (path[cunter].x*16)-4 || position.x < (path[cunter].x*16)-10 || position.y > (path[cunter].y*16)-4 || position.y < (path[cunter].y*16)-10) {
