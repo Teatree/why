@@ -342,14 +342,6 @@ public class L1Renderer {
 			font.setScale(1);
 			font.draw(staticBatch, theController.gui.getGameoverGUI().getRestartString(), 361, 170);
 		}
-		if(theController.gui.getSlotMachine().isSlotMachine()){
-			staticBatch.draw(theController.gui.getSlotMachine().getSprite(), theController.gui.getSlotMachine().getSprite().getX(), theController.gui.getSlotMachine().getSprite().getY(),
-					theController.gui.getSlotMachine().getSprite().getOriginX(), theController.gui.getSlotMachine().getSprite().getOriginY(), theController.gui.getSlotMachine().getSprite().getWidth(), theController.gui.getSlotMachine().getSprite().getHeight(),
-					theController.gui.getSlotMachine().getSprite().getScaleX(), theController.gui.getSlotMachine().getSprite().getScaleY(), theController.gui.getSlotMachine().getSprite().getRotation());
-			for(Sprite sprite:theController.gui.getSlotMachine().getSpriteSlots()){
-				staticBatch.draw(sprite, sprite.getX(), sprite.getY(), sprite.getOriginX(), sprite.getOriginY(), sprite.getWidth(), sprite.getHeight(), sprite.getScaleX(), sprite.getScaleY(), sprite.getRotation());
-			}
-		}
 		staticBatch.end();
 	}
 	

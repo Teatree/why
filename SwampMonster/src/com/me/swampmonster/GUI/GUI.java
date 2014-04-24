@@ -12,7 +12,6 @@ public class GUI {
 	private Weaponizer weaponizer;
 	private Croshair croshair;
 	private GameOverGUI gameoverGUI;
-	private SlotMachine slotMachine;
 	
 	public GUI(){
 		gameoverGUI = new GameOverGUI();
@@ -20,7 +19,6 @@ public class GUI {
 		healthBar = new HealthBar();
 		weaponizer = new Weaponizer();
 		croshair = new Croshair(new Vector2());
-		slotMachine = new SlotMachine();
 	}
 	
 	public void update(AbstractGameObject player, Vector2 point, Vector3 V3point){
@@ -28,7 +26,6 @@ public class GUI {
 		weaponizer.update(player, point);
 		croshair.update(player, point, V3point);
 		gameoverGUI.update(player);
-		slotMachine.update();
 	}
 
 	public OxygenBar getOxygenBar() {
@@ -68,14 +65,6 @@ public class GUI {
 
 	public void setGameoverGUI(GameOverGUI gameoverGUI) {
 		this.gameoverGUI = gameoverGUI;
-	}
-
-	public SlotMachine getSlotMachine() {
-		return slotMachine;
-	}
-
-	public void setSlotMachine(SlotMachine slotMachine) {
-		this.slotMachine = slotMachine;
 	}
 	
 	

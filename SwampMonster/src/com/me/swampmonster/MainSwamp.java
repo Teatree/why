@@ -1,12 +1,12 @@
 package com.me.swampmonster;
 
 import com.badlogic.gdx.Game;
-import com.me.swampmonster.screens.SwampScreen;
+import com.me.swampmonster.screens.MenuScreen;
 
 public class MainSwamp extends Game {
 	
 	public void create() {		
-		setScreen(new SwampScreen());
+		setScreen(new MenuScreen(this));
 	}
 	public void dispose() {
 		super.dispose();

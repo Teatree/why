@@ -2,6 +2,7 @@ package com.me.swampmonster.game;
 
 import java.util.Iterator;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputAdapter;
@@ -48,7 +49,7 @@ public class TheController extends InputAdapter{
 	
 	public TiledMapTileLayer collisionLayer;
 	
-	public TheController(){
+	public TheController(Game game){
 		init();
 	}
 	
@@ -253,14 +254,6 @@ public class TheController extends InputAdapter{
 //		}else if(isPressed){
 //			gui.getSlotMachine().setSlotMachine(false);
 //		}
-		if(Gdx.input.justTouched() && Gdx.input.getX()>debugRect.x && Gdx.input.getX()<debugRect.x+debugRect.width && !isPressed){
-			gui.getSlotMachine().setSlotMachine(true);
-			isPressed = true;
-		}else if(Gdx.input.justTouched() && Gdx.input.getX()>debugRect.x && Gdx.input.getX()<debugRect.x+debugRect.width && isPressed){
-			gui.getSlotMachine().setSlotMachine(false);
-			isPressed = false;
-		}
-		
 	}
 	
 	
