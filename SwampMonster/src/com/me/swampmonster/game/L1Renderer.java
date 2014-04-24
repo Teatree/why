@@ -203,6 +203,8 @@ public class L1Renderer {
 			sr.line(theController.V3playerPos, theController.level1.getPlayer().getShotDir());
 		}
 		sr.circle(theController.level1.getPlayer().getCircle().x, theController.level1.getPlayer().getCircle().y, theController.level1.getPlayer().getCircle().radius);
+		sr.setColor(Color.YELLOW);
+		sr.circle(theController.level1.getPlayer().aimingArea.x, theController.level1.getPlayer().aimingArea.y, theController.level1.getPlayer().aimingArea.radius);
 		sr.end();
 		sr.begin(ShapeType.Filled);
 		sr.setColor(Color.RED);

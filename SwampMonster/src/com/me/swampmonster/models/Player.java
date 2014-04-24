@@ -36,6 +36,7 @@ public class Player extends AbstractGameObject{
 	public List<Projectile> projectiles;
 	Vector3 shotDir;
 	Vector3 V3playerPos;
+	public Circle aimingArea;
 	
 	public Enemy harmfulEnemy;
 	
@@ -47,6 +48,8 @@ public class Player extends AbstractGameObject{
 		nastyaSpriteGun = "data/NastyaGunSheet.png";
 		
 		points = 0;
+		aimingArea = new Circle();
+		aimingArea.radius = 8;
 		circle = new Circle();
 		circle.radius = 16;
 		V3playerPos = new Vector3();
@@ -95,6 +98,9 @@ public class Player extends AbstractGameObject{
 		circle.x = position.x+sprite.getWidth()/2;
 		circle.y = position.y+sprite.getHeight()/2;
 		
+		aimingArea.x = position.x+sprite.getWidth()/2;
+		aimingArea.y = position.y+sprite.getHeight()/2;
+	
 		V3playerPos.x = position.x + circle.radius/2;
 		V3playerPos.y = position.y + circle.radius/2;
 		V3playerPos.z = 0;
@@ -269,12 +275,14 @@ public class Player extends AbstractGameObject{
 		
 		// PROJECTILE
 		if(shooting && timeShooting < 2){
-			Projectile p = new Projectile(new Vector2(position.x, position.y), getRotation());
-			
 			float direction_x = shotDir.x - V3playerPos.x;
 			float direction_y = shotDir.y - V3playerPos.y;
 			
-			p.setPosition(new Vector2(position.x, position.y));
+			//: TODO This look terrible, make it better bro...
+			Projectile p = new Projectile(new Vector2(aimingArea.x+direction_x/100-8, aimingArea.y+direction_y/100-8), getRotation());
+			System.out.println("direction_x and aimingArea.x" + direction_x + aimingArea.x);
+			
+			p.setPosition(new Vector2(aimingArea.x+direction_x/100-8, aimingArea.y+direction_y/100-8));
 			
 			float length =(float) Math.sqrt(direction_x*direction_x + direction_y*direction_y);
 			direction_x /= length;
