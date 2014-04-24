@@ -59,7 +59,7 @@ public class TheController extends InputAdapter{
 		randVector2 = new Vector2();
 		level1 = new L1();
 //		Pathfinder.setTiledMap(level1.getBunker().getMap());
-		level1.getPlayer().setPosition(new Vector2 (180f,350f));
+		level1.getPlayer().setPosition(new Vector2 (756f,659f));
 		level1.getPlayer().getSprite().setSize(level1.getPlayer().getSprite().getWidth()/2, level1.getPlayer().getSprite().getHeight()/2);
 		level1.getPlayer().setHurt(false);
 		
