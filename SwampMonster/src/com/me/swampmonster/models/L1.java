@@ -19,10 +19,13 @@ public class L1{
 	public List<Item> items;
 	public ItemGenerator itemGenerator;
 	public Stack<Enemy> enemiesOnStage;
-	Wave wave;
+	public Wave wave;
 	public int wavesAmount;
 	public int currentWave;
 	Bunker bunker;
+	
+	private Wave waveTemp;
+	private boolean needTogenerateNewWave = true;
 	WaveGenerator waveGenerator = new WaveGenerator();
 	MisterSpawner misterSpawner = new MisterSpawner();
 	
@@ -33,8 +36,9 @@ public class L1{
 	public void create(){
 		player = new Player(new Vector2());
 		wavesAmount = waveGenerator.getWavesAmount(player.getPoints());
-		currentWave = 0;
-//		wave = waveGenerator.generateWave(player.getPoints());
+		currentWave = 1;
+		System.out.println("create wave ");
+		wave = waveGenerator.generateWave(player.getPoints());
 		enemiesOnStage = new Stack<Enemy>();
 		bunker = new Bunker();
 		itemGenerator = new ItemGenerator();
@@ -46,18 +50,24 @@ public class L1{
 			List<Projectile> projectiles, CameraHelper cameraHelper, float dx, float dy) {
 		this.player.update(aiming, touchPos, V3point, collisionLayer, dx, dy);
 		misterSpawner.setCollisionLayer(collisionLayer);
-		if(wave == null || wave.enemies.empty() && currentWave<wavesAmount){
-			wave = waveGenerator.generateWave(player.getPoints());
+		
+		if (waveTemp == null && wave.enemies.size() < 20 && needTogenerateNewWave){
+			System.out.println(" generating temp" );
+			needTogenerateNewWave = false;
+			waveTemp = waveGenerator.generateWave(player.getPoints());			
+		}
+		
+		if( wave.enemies.empty() && waveTemp != null && currentWave < wavesAmount ){
+			System.out.println("swapping waves");
+			wave = waveTemp;
 			currentWave++;
 		}
-		if(wave!=null){
-		if (enemiesOnStage.size() < wave.enemiesOnBattleField && !wave.enemies.empty()){
+		if (wave!=null && enemiesOnStage.size() < wave.enemiesOnBattleField && !wave.enemies.empty()){
 			Enemy enemy = wave.enemies.pop();
 			misterSpawner.spawnEnemy(this, enemy);
 			enemiesOnStage.push(enemy);
 		}
 		
-		}
 		for (Enemy enemy : enemiesOnStage){
 			enemy.update(collisionLayer, projectiles, this.player, cameraHelper, enemiesOnStage);
 		}

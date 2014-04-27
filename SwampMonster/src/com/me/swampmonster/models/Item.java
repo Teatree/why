@@ -37,7 +37,6 @@ public class Item extends AbstractGameObject{
 	public void update(){
 		circle.x = position.x;
 		circle.y = position.y;
-		System.out.println("itemState = " + state);
 		
 		if(state.equals(State.STANDARD)){
 			

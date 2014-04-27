@@ -90,6 +90,8 @@ public class WaveGenerator {
 		wave.enemiesOnBattleField = calcEnemiesOnBattleField(playersScore);
 		return wave;
 	}
+	
+	
 
 	private void setWaveParams(int playersScore) {
 		if(playersScore>=0 && playersScore<100){
