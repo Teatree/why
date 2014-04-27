@@ -1,5 +1,6 @@
 package com.me.swampmonster.models;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
 
@@ -7,12 +8,16 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.me.swampmonster.utils.CameraHelper;
+import com.me.swampmonster.utils.ItemGenerator;
 import com.me.swampmonster.utils.MisterSpawner;
+import com.me.swampmonster.utils.WaveGenerator;
 
 
 public class L1{
 	
 	Player player;
+	public List<Item> items;
+	public ItemGenerator itemGenerator;
 	public Stack<Enemy> enemiesOnStage;
 	Wave wave;
 	public int wavesAmount;
@@ -32,7 +37,9 @@ public class L1{
 //		wave = waveGenerator.generateWave(player.getPoints());
 		enemiesOnStage = new Stack<Enemy>();
 		bunker = new Bunker();
-		
+		itemGenerator = new ItemGenerator();
+		items = new LinkedList<Item>();
+		items.add(itemGenerator.getItem(player.getPoints()));
 	}
 	
 	public void update(boolean aiming, Vector3 touchPos, Vector3 V3point, TiledMapTileLayer collisionLayer, 
@@ -48,7 +55,6 @@ public class L1{
 			Enemy enemy = wave.enemies.pop();
 			misterSpawner.spawnEnemy(this, enemy);
 			enemiesOnStage.push(enemy);
-			
 		}
 		
 		}
@@ -56,7 +62,9 @@ public class L1{
 			enemy.update(collisionLayer, projectiles, this.player, cameraHelper, enemiesOnStage);
 		}
 		
-		
+		for (Item item : items) {
+			item.update();
+		}
 		bunker.update();
 	}
 	
@@ -86,5 +94,4 @@ public class L1{
 	public void setPlayer(Player player) {
 		this.player = player;
 	}
-	
 }

@@ -1,7 +1,10 @@
-package com.me.swampmonster.models;
+package com.me.swampmonster.utils;
 
 import java.util.Random;
 import java.util.Stack;
+
+import com.me.swampmonster.models.Enemy;
+import com.me.swampmonster.models.Wave;
 
 public class WaveGenerator {
 	EnemyGenerator enemyGenerator = new EnemyGenerator();

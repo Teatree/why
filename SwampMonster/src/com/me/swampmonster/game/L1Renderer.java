@@ -17,6 +17,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.me.swampmonster.AI.Node;
 import com.me.swampmonster.models.Enemy;
+import com.me.swampmonster.models.Item;
 import com.me.swampmonster.models.AbstractGameObject.State;
 import com.me.swampmonster.models.Projectile;
 import com.me.swampmonster.utils.Constants;
@@ -172,6 +173,10 @@ public class L1Renderer {
 						p.getSprite().getRotation());
 			}
 		}
+		for (Item item: theController.level1.items) {
+			batch.draw(item.sprite, item.getPosition().x, item.getPosition().y, item.sprite.getWidth()/2, item.sprite.getHeight()/2);
+		}
+		
 		batch.end();
 		
 		

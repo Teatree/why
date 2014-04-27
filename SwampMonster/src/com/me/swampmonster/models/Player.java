@@ -1,17 +1,15 @@
 package com.me.swampmonster.models;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Circle;
-import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
@@ -113,6 +111,8 @@ public class Player extends AbstractGameObject{
 		rectanlge.width = sprite.getWidth();
 		rectanlge.height = sprite.getHeight();
 		
+		oxygen -= 0.1f;
+		
 		HashMap<State, AnimationControl> animations = new HashMap<AbstractGameObject.State, AnimationControl>();
 		
 		animations = animationsStandard;
@@ -163,7 +163,7 @@ public class Player extends AbstractGameObject{
 //		    }	
 				
 				if(!aiming){
-					currentFrame = animations.get(state).doComplexAnimation(0, 0.5f, Gdx.graphics.getDeltaTime());
+					currentFrame = animations.get(state).doComplexAnimation(0, 0.5f, Gdx.graphics.getDeltaTime(), Animation.NORMAL);
 				}
 				
 				if(aiming){
@@ -172,17 +172,17 @@ public class Player extends AbstractGameObject{
 				}
 				if(aiming && V3point.y > position.y+8 && V3point.x < position.x+32 &&
 						V3point.x > position.x){
-					currentFrame = animations.get(state).doComplexAnimation(24, 0.5f, Gdx.graphics.getDeltaTime());
+					currentFrame = animations.get(state).doComplexAnimation(24, 0.5f, Gdx.graphics.getDeltaTime(), Animation.NORMAL);
 				}
 				else if(aiming && V3point.y < position.y+8 && V3point.x < position.x+32 &&
 						V3point.x > position.x){
-					currentFrame = animations.get(state).doComplexAnimation(0, 0.5f, Gdx.graphics.getDeltaTime());
+					currentFrame = animations.get(state).doComplexAnimation(0, 0.5f, Gdx.graphics.getDeltaTime(), Animation.NORMAL);
 				}
 				if(aiming && V3point.x < position.x){
-					currentFrame = animations.get(state).doComplexAnimation(8, 0.5f, Gdx.graphics.getDeltaTime());
+					currentFrame = animations.get(state).doComplexAnimation(8, 0.5f, Gdx.graphics.getDeltaTime(), Animation.NORMAL);
 				}
 				else if(aiming && V3point.x > position.x+32){
-					currentFrame = animations.get(state).doComplexAnimation(16, 0.5f, Gdx.graphics.getDeltaTime());
+					currentFrame = animations.get(state).doComplexAnimation(16, 0.5f, Gdx.graphics.getDeltaTime(), Animation.NORMAL);
 				}
 				
 			if(!Gdx.input.isTouched() && aiming && allowedToShoot){
@@ -204,7 +204,7 @@ public class Player extends AbstractGameObject{
 //			System.out.println(" (PLAYER): I'm DEAD :(");
 			if(timeDead < 89){
 				sprite = new Sprite(animations.get(State.ANIMATING).getCurrentFrame());
-				currentFrame = animations.get(state).doComplexAnimation(112, 1.6f, 0.018f);
+				currentFrame = animations.get(state).doComplexAnimation(112, 1.6f, 0.018f, Animation.NORMAL);
 				
 				sprite.setRegion(animations.get(state).getCurrentFrame());
 				sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
@@ -230,7 +230,7 @@ public class Player extends AbstractGameObject{
 //					}
 				}
 				if(damageType == "lackOfOxygen"){
-					currentFrame = animations.get(State.STANDARD).doComplexAnimation(104, 0.2f, Gdx.graphics.getDeltaTime()/2);
+					currentFrame = animations.get(State.STANDARD).doComplexAnimation(104, 0.2f, Gdx.graphics.getDeltaTime()/2, Animation.NORMAL);
 					
 					sprite.setRegion(animations.get(state).getCurrentFrame());
 					sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
@@ -244,7 +244,7 @@ public class Player extends AbstractGameObject{
 		// Shooting
 		if(shooting && timeShooting < 30){
 //			System.out.println("shooting...");
-			currentFrame = animations.get(state).doComplexAnimation(32, 0.5f, 0.001f);
+			currentFrame = animations.get(state).doComplexAnimation(32, 0.5f, 0.001f, Animation.NORMAL);
 			
 			sprite.setRegion(animations.get(state).getCurrentFrame());
 			sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
@@ -336,7 +336,7 @@ public class Player extends AbstractGameObject{
 	
 	private void damageFromRight(Collidable collidableUp, HashMap<State, AnimationControl> animations, AbstractGameObject enemy, Vector3 touchPos) {
 		if (enemy.playerMovementDirection == "right" && collidableUp == null) { 
-			currentFrame = animations.get(State.STANDARD).doComplexAnimation(108, 0.2f, Gdx.graphics.getDeltaTime()/2);
+			currentFrame = animations.get(State.STANDARD).doComplexAnimation(108, 0.2f, Gdx.graphics.getDeltaTime()/2, Animation.NORMAL);
 			
 			sprite.setRegion(animations.get(state).getCurrentFrame());
 			sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
@@ -347,7 +347,7 @@ public class Player extends AbstractGameObject{
 	}
 	private void damageFromLeft(Collidable collidableUp, HashMap<State, AnimationControl> animations, AbstractGameObject enemy, Vector3 touchPos) {
 		if (enemy.playerMovementDirection == "left" && collidableUp == null) { 
-			currentFrame = animations.get(State.STANDARD).doComplexAnimation(106, 0.2f, Gdx.graphics.getDeltaTime()/2);
+			currentFrame = animations.get(State.STANDARD).doComplexAnimation(106, 0.2f, Gdx.graphics.getDeltaTime()/2, Animation.NORMAL);
 			
 			sprite.setRegion(animations.get(state).getCurrentFrame());
 			sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
@@ -358,7 +358,7 @@ public class Player extends AbstractGameObject{
 	}
 	private void damageFromBottom(Collidable collidableUp, HashMap<State, AnimationControl> animations, AbstractGameObject enemy, Vector3 touchPos) {
 		if (enemy.playerMovementDirection == "down" && collidableUp == null) { 
-			currentFrame = animations.get(State.STANDARD).doComplexAnimation(110, 0.2f, Gdx.graphics.getDeltaTime()/2);
+			currentFrame = animations.get(State.STANDARD).doComplexAnimation(110, 0.2f, Gdx.graphics.getDeltaTime()/2, Animation.NORMAL);
 			
 			sprite.setRegion(animations.get(state).getCurrentFrame());
 			sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
@@ -369,7 +369,7 @@ public class Player extends AbstractGameObject{
 	}
 	private void damagedFromTop(Collidable collidableUp, HashMap<State, AnimationControl> animations, AbstractGameObject enemy, Vector3 touchPos) {
 		if (enemy.playerMovementDirection == "up" && collidableUp == null) { 
-			currentFrame = animations.get(State.STANDARD).doComplexAnimation(104, 0.2f, Gdx.graphics.getDeltaTime()/2);
+			currentFrame = animations.get(State.STANDARD).doComplexAnimation(104, 0.2f, Gdx.graphics.getDeltaTime()/2, Animation.NORMAL);
 			
 			sprite.setRegion(animations.get(state).getCurrentFrame());
 			sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);

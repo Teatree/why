@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.utils.Array;
 
 public class AnimationControl {
 	private Animation animation;
@@ -47,14 +48,14 @@ public class AnimationControl {
 	//Does a complex animation...
 	//Comparator is to adjust the time spent moving forward in the array, standard = 1f;
 	//Adjusts the speed at which the frames are changing, standard = approximately 0.016f;
-	public TextureRegion doComplexAnimation(int i, float Comparator, float speedAdjust){
+	public TextureRegion doComplexAnimation(int i, float Comparator, float speedAdjust, int playType){
 		if (stateTime < Comparator) {
 			stateTime += speedAdjust;
 		} else {
 			stateTime = 0;
 		}
-		
-		currentFrame = new Animation(1, frames).getKeyFrame(i + stateTime*multiplier);
+		Array<TextureRegion> frames2 = new Array<TextureRegion>(frames);
+		currentFrame = new Animation(1, frames2, playType).getKeyFrame(i + stateTime*multiplier);
 		return currentFrame;
 	}
 

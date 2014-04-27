@@ -14,7 +14,7 @@ import com.me.swampmonster.animations.AnimationControl;
 public abstract class AbstractGameObject {
 
 	public enum State{
-		STANDARD, DEAD, ANIMATING, ANIMATINGLARGE, ACTIVATING, ATTACKING, PURSUIT, GUNMOVEMENT;
+		STANDARD, DEAD, ANIMATING, ANIMATINGLARGE, ACTIVATING, ATTACKING, PURSUIT, GUNMOVEMENT, SPAWNING;
 	}
 	
 	protected TextureRegion currentFrame;
@@ -22,7 +22,7 @@ public abstract class AbstractGameObject {
 	
 	protected State state;
 	protected Vector2 position;
-	protected Sprite sprite;
+	public Sprite sprite;
 	protected boolean dead;
 	protected Rectangle rectanlge;
 	protected Circle circle;

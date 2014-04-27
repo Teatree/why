@@ -1,10 +1,17 @@
-package com.me.swampmonster.models;
+package com.me.swampmonster.utils;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
 import com.badlogic.gdx.math.Vector2;
+import com.me.swampmonster.models.Enemy;
+import com.me.swampmonster.models.EnemyBreather;
+import com.me.swampmonster.models.EnemyLeech;
+import com.me.swampmonster.models.EnemyMaggot;
+import com.me.swampmonster.models.EnemySofa;
+import com.me.swampmonster.models.EnemyZombie;
+import com.me.swampmonster.models.Toughness;
 
 public class EnemyGenerator {
 	private Map <Integer, Class<? extends Enemy>> enemyTypes;

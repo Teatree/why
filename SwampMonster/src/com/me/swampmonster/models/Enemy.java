@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Circle;
@@ -249,7 +250,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable{
 			if(state.equals(State.DEAD)){
 //				System.out.println(" (PLAYER): I'm DEAD :(");
 				if(timeDead < 65){
-					currentFrame = animations.get(state).doComplexAnimation(96, 2f, 0.03f);
+					currentFrame = animations.get(state).doComplexAnimation(96, 2f, 0.03f, Animation.NORMAL);
 					
 					sprite.setRegion(animations.get(state).getCurrentFrame());
 					sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
@@ -345,10 +346,12 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable{
 				currentFrame = animationsStandard.get(state).animate(standing);
 			}
 			if(timer2 >= attackSpeed && timer < 30){
-				cameraHelper.setShakeAmt(25);
-				cameraHelper.cameraShake();
+				if(oRangeAura.overlaps(player.getCircle())){
+					cameraHelper.setShakeAmt(25);
+					cameraHelper.cameraShake();
+				}
 //            			System.out.println("timer1: " + timer);
-				currentFrame = animationsStandard.get(state).doComplexAnimation(animation, 1.8f, Gdx.graphics.getDeltaTime());
+				currentFrame = animationsStandard.get(state).doComplexAnimation(animation, 1.8f, Gdx.graphics.getDeltaTime(), Animation.NORMAL);
 				
 				sprite.setRegion(animationsStandard.get(state).getCurrentFrame());
 				sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
@@ -579,7 +582,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable{
 	private void damageFromRight(Collidable collidableUp, HashMap<State, AnimationControl> animationsStandard) {
 		if (projectileLocation == "right" && collidableUp == null) { 
 //			System.out.println("supposed to be animating... Right");
-			currentFrame = animationsStandard.get(State.STANDARD).doComplexAnimation(112, 0.6f, Gdx.graphics.getDeltaTime()/2);
+			currentFrame = animationsStandard.get(State.STANDARD).doComplexAnimation(112, 0.6f, Gdx.graphics.getDeltaTime()/2, Animation.NORMAL);
 			sprite.setRegion(animationsStandard.get(state).getCurrentFrame());
 			sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
 			
@@ -591,7 +594,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable{
 	private void damageFromLeft(Collidable collidableUp, HashMap<State, AnimationControl> animationsStandard) {
 		if (projectileLocation == "left" && collidableUp == null) {
 //			System.out.println("supposed to be animating... Left");
-			currentFrame = animationsStandard.get(State.STANDARD).doComplexAnimation(108, 0.6f, Gdx.graphics.getDeltaTime()/2);
+			currentFrame = animationsStandard.get(State.STANDARD).doComplexAnimation(108, 0.6f, Gdx.graphics.getDeltaTime()/2, Animation.NORMAL);
 			
 			sprite.setRegion(animationsStandard.get(state).getCurrentFrame());
 			sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
@@ -603,7 +606,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable{
 	private void damageFromBottom(Collidable collidableUp, HashMap<State, AnimationControl> animationsStandard) {
 		if (projectileLocation == "bottom" && collidableUp == null) { 
 //			System.out.println("supposed to be animating... Bottom");
-			currentFrame = animationsStandard.get(State.STANDARD).doComplexAnimation(104, 0.6f, Gdx.graphics.getDeltaTime()/2);
+			currentFrame = animationsStandard.get(State.STANDARD).doComplexAnimation(104, 0.6f, Gdx.graphics.getDeltaTime()/2, Animation.NORMAL);
 			
 			sprite.setRegion(animationsStandard.get(state).getCurrentFrame());
 			sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
@@ -616,7 +619,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable{
 		if (projectileLocation == "top" && collidableUp == null) { 
 			
 //			System.out.println("supposed to be animating... Top");
-			currentFrame = animationsStandard.get(State.STANDARD).doComplexAnimation(116, 0.6f, Gdx.graphics.getDeltaTime()/2);
+			currentFrame = animationsStandard.get(State.STANDARD).doComplexAnimation(116, 0.6f, Gdx.graphics.getDeltaTime()/2, Animation.NORMAL);
 			
 			sprite.setRegion(animationsStandard.get(state).getCurrentFrame());
 			sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);

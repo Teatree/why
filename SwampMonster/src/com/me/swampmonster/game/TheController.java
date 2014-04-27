@@ -1,5 +1,6 @@
 package com.me.swampmonster.game;
 
+import java.awt.ItemSelectable;
 import java.util.Iterator;
 
 import com.badlogic.gdx.Game;
@@ -15,6 +16,7 @@ import com.me.swampmonster.GUI.GUI;
 import com.me.swampmonster.game.collision.CollisionHelper;
 import com.me.swampmonster.models.AbstractGameObject.State;
 import com.me.swampmonster.models.Enemy;
+import com.me.swampmonster.models.Item;
 import com.me.swampmonster.models.L1;
 import com.me.swampmonster.models.Projectile;
 import com.me.swampmonster.utils.CameraHelper;
@@ -64,7 +66,7 @@ public class TheController extends InputAdapter{
 		level1.getPlayer().getSprite().setSize(level1.getPlayer().getSprite().getWidth()/2, level1.getPlayer().getSprite().getHeight()/2);
 		level1.getPlayer().setHurt(false);
 		
-		
+		level1.items.get(0).setPosition(new Vector2(700f, 650f));
 		
 		collisionHandler = new CollisionHelper();
 		collisionLayer = (TiledMapTileLayer) level1.getBunker().getMap().getLayers().get(0);
@@ -116,6 +118,21 @@ public class TheController extends InputAdapter{
 				}else if(e.timeRemove > 179){
 					itr.remove();
 					e.timeRemove = 0;
+				}
+			}
+		}
+		Iterator<Item> itm = level1.items.iterator();
+		while(itm.hasNext()){
+			Item item = itm.next();
+			if(item.deadAnimTimer==33){
+				itm.remove();
+			}
+			if(Intersector.overlaps(item.getCircle(), level1.getPlayer().getRectanlge())){
+				itm.remove();
+				if(item.itemType=="hp"){
+					level1.getPlayer().setHealth(level1.getPlayer().getHealth()+1);
+				}else{
+					level1.getPlayer().setOxygen(level1.getPlayer().getOxygen()+50);
 				}
 			}
 		}

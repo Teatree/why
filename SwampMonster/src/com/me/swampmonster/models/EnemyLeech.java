@@ -1,6 +1,7 @@
 package com.me.swampmonster.models;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.me.swampmonster.animations.AnimationControl;
@@ -36,7 +37,7 @@ public class EnemyLeech extends Enemy{
 				cameraHelper.setShakeAmt(25);
 				cameraHelper.cameraShake();
 //            			System.out.println("timer1: " + timer);
-				currentFrame = animationsStandard.get(state).doComplexAnimation(animation, 1.8f, Gdx.graphics.getDeltaTime());
+				currentFrame = animationsStandard.get(state).doComplexAnimation(animation, 1.8f, Gdx.graphics.getDeltaTime(), Animation.NORMAL);
 				
 				sprite.setRegion(animationsStandard.get(state).getCurrentFrame());
 				sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
