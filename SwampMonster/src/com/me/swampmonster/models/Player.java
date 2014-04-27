@@ -16,7 +16,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.me.swampmonster.animations.AnimationControl;
 import com.me.swampmonster.game.collision.Collidable;
 import com.me.swampmonster.game.collision.CollisionHelper;
-import com.me.swampmonster.pickable.Perks;
+import com.me.swampmonster.slotMachineStuff.Perks;
 
 public class Player extends AbstractGameObject{
 	

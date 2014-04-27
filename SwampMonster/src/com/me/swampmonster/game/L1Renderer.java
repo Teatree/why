@@ -1,12 +1,10 @@
 package com.me.swampmonster.game;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
@@ -223,7 +221,7 @@ public class L1Renderer {
 				}
 			}
 		sr.setColor(Color.BLACK);
-		sr.rect(theController.touchPos.x, theController.touchPos.y, 1, 1);
+		sr.rect(theController.pointRectV3.x, theController.pointRectV3.y, 1, 1);
 		sr.end();
 		// Temporary deBug feature
 		
@@ -289,6 +287,9 @@ public class L1Renderer {
 				staticSr.setColor(Color.WHITE);
 		}
 		
+		staticSr.setColor(Color.PINK);
+		staticSr.rect(theController.pointRect.x, theController.pointRect.y, 2, 2);
+		
 		staticSr.end();
 		
 		staticBatch.begin();
@@ -335,7 +336,7 @@ public class L1Renderer {
 		font.draw(staticBatch, str, 580, 460);
 		font.draw(staticBatch, str2, 580, 420);
 		font.setColor(Color.YELLOW);
-		font.setScale(2);
+		font.setScale(1);
 		if(assRevert >= 0.4f && theController.level1.getPlayer().getState() == State.DEAD){
 			font.draw(staticBatch, theController.gui.getGameoverGUI().getGameOverString(), 310, 280);
 		}

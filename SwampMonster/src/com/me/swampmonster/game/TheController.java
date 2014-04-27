@@ -1,6 +1,5 @@
 package com.me.swampmonster.game;
 
-import java.awt.ItemSelectable;
 import java.util.Iterator;
 
 import com.badlogic.gdx.Game;
@@ -19,6 +18,7 @@ import com.me.swampmonster.models.Enemy;
 import com.me.swampmonster.models.Item;
 import com.me.swampmonster.models.L1;
 import com.me.swampmonster.models.Projectile;
+import com.me.swampmonster.screens.SlotMachineScreen;
 import com.me.swampmonster.utils.CameraHelper;
 
 public class TheController extends InputAdapter{
@@ -46,7 +46,8 @@ public class TheController extends InputAdapter{
 	public boolean restart;
 	public boolean NalreadyPressed = false;
 	public Rectangle debugRect;
-	public boolean isPressed;
+	public Rectangle pointRectV3;
+	public Rectangle pointRect;
 	// temp
 	
 	public TiledMapTileLayer collisionLayer;
@@ -80,16 +81,30 @@ public class TheController extends InputAdapter{
 		V3playerPos = new Vector3();
 		
 		// debug feature!!!
-		isPressed = false;
 		debugRect = new Rectangle();
 		debugRect.x = 780;
 		debugRect.y = 370;
 		debugRect.width = 20;
 		debugRect.height = 20;
+		
+		pointRectV3 = new Rectangle();
+		pointRectV3.width = 1;
+		pointRectV3.height = 1;
+		
+		pointRect = new Rectangle();
+		pointRect.width = 1;
+		pointRect.height = 1;
+		
 	}
 	
-	public void update(float deltaTime){
+	public void update(float deltaTime, Game game){
 		restarter();
+		
+		pointRectV3.x = touchPos.x;
+		pointRectV3.y = touchPos.y;
+		
+		pointRect.x = point.x;
+		pointRect.y = point.y;
 		
 		cameraHelper.upadate(V3playerPos.x, V3playerPos.y, 5);
 		level1.update(gui.getCroshair().isAiming(), touchPos, V3point, collisionLayer, level1.getPlayer().projectiles, cameraHelper, dx, dy);
@@ -151,7 +166,6 @@ public class TheController extends InputAdapter{
 		point.x = Gdx.input.getX();
 		point.y = 480-Gdx.input.getY();
 		
-		
 		V3point.x = Gdx.input.getX();
 		V3point.y = Gdx.input.getY();
 		l1Renderer.getCam().unproject(V3point);
@@ -161,6 +175,9 @@ public class TheController extends InputAdapter{
 		V3playerPos.y = level1.getPlayer().getPosition().y + level1.getPlayer().getCircle().radius/2;
 		V3playerPos.z = 0;
 		
+		if(Intersector.overlaps(debugRect, pointRect)){
+			game.setScreen(new SlotMachineScreen(game));
+		}
 				
 //		l1Renderer.getCam().position.x = level1.getPlayer().getPosition().x;
 //		l1Renderer.getCam().position.y = level1.getPlayer().getPosition().y;
@@ -266,11 +283,6 @@ public class TheController extends InputAdapter{
 //			level1.getPlayer().setDoing("puttingGunAway");
 //		}
 		
-//		if(isPressed){
-//			gui.getSlotMachine().setSlotMachine(true);
-//		}else if(isPressed){
-//			gui.getSlotMachine().setSlotMachine(false);
-//		}
 	}
 	
 	

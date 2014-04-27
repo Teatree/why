@@ -18,6 +18,7 @@ public enum Toughness {
 	public final float blue;
 	public final float green;
 	public final float alpha;
+	
 	Toughness (Double speed, Double damage, Double health, Double points, Double attackSpeed, float red, float green, float blue, float alpha){
 		this.speed = speed;
 		this.damage = damage;

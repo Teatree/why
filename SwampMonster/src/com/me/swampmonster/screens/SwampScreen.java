@@ -26,7 +26,7 @@ public class SwampScreen extends AbstractGameScreen {
 		Gdx.gl.glClearColor(0.1f, 0.1f, 0.1f, 1);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 		if(!paused){
-			theController.update(Gdx.graphics.getDeltaTime());
+			theController.update(Gdx.graphics.getDeltaTime(), game);
 		}
 		renderer.render();
 	}

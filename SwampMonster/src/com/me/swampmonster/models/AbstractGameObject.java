@@ -180,6 +180,12 @@ public abstract class AbstractGameObject {
 	public void setAttackSpeed(int attackSpeed) {
 		this.attackSpeed = attackSpeed;
 	}
+	public int getShotCoolDown() {
+		return shotCoolDown;
+	}
+	public void setShotCoolDown(int shotCoolDown) {
+		this.shotCoolDown = shotCoolDown;
+	}
 	
 	
 	
