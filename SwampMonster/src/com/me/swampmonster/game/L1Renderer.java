@@ -171,6 +171,17 @@ public class L1Renderer {
 						p.getSprite().getRotation());
 			}
 		}
+		for(Enemy enemy : theController.level1.enemiesOnStage){
+			for(Projectile p : enemy.projectiles){
+				if(p != null){
+					batch.draw(p.getSprite(), p.getPosition().x, p.getPosition().y, 
+							p.getSprite().getOriginX(), p.getSprite().getOriginY(),
+							p.getSprite().getWidth(), p.getSprite().getHeight(), 
+							1,1,
+							p.getSprite().getRotation());
+				}
+			}
+		}
 		for (Item item: theController.level1.items) {
 			batch.draw(item.sprite, item.getPosition().x, item.getPosition().y, item.sprite.getWidth()/2, item.sprite.getHeight()/2);
 		}

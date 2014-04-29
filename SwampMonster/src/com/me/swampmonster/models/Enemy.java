@@ -1,6 +1,8 @@
 package com.me.swampmonster.models;
 
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
 import com.badlogic.gdx.Gdx;
@@ -30,6 +32,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable{
 	int timereskin = 0;
 	public int timeRemove = 0;
 	public String projectileLocation;
+	public List<Projectile> projectiles;
 	
 	float enemyDx;
 	float enemyDy;
@@ -67,6 +70,8 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable{
 		timer = 0;
 		timer2 = 0;
 		path = new Node[99];
+		
+		projectiles = new LinkedList<Projectile>();
 		
 		// ***Character stats board, probably need to delete this***
 		characterStatsBoard();
@@ -306,6 +311,17 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable{
 						time = 0;
 					}
 				}
+			Iterator<Projectile> prj = projectiles.iterator();
+			while(prj.hasNext()){
+				Projectile p = (Projectile) prj.next();
+				if(p.isCollision(collisionLayer)){
+						prj.remove();
+						break;
+					}
+					if(p!=null){
+						p.update();
+					}
+				}
 			}
 
 	private String getProjectileLocationRelativeToSprite(List<Projectile> projectiles) {
@@ -334,6 +350,14 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable{
 	private void rewardPlayer(AbstractGameObject player) {
 		player.setPoints(player.getPoints()+points);
 		
+	}
+	
+	protected float getRotation(Player player){
+		double angle1 = Math.atan2(position.y - (position.y + oRangeAura.radius/2),
+				position.x - 0);
+		double angle2 = Math.atan2(position.y - player.position.y,
+				position.x - player.position.x);
+		return (float)(angle2-angle1);
 	}
 
 	protected void inflictOnThe(int standing, int animation, Player player, CameraHelper cameraHelper, int attackSpeed) {

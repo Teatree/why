@@ -15,6 +15,7 @@ public class Projectile extends AbstractGameObject{
 	
 	public Projectile(Vector2 position, float rot){
 		projectileTypeLoc = "data/projectile.png";
+		
 		this.position = position;
 		sprite = new Sprite(new Texture(projectileTypeLoc));
 		sprite.setRotation(rot*57.29f);
