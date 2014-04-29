@@ -12,9 +12,8 @@ import com.me.swampmonster.utils.ItemGenerator;
 import com.me.swampmonster.utils.MisterSpawner;
 import com.me.swampmonster.utils.WaveGenerator;
 
+public class L1 {
 
-public class L1{
-	
 	Player player;
 	public List<Item> items;
 	public ItemGenerator itemGenerator;
@@ -23,17 +22,17 @@ public class L1{
 	public int wavesAmount;
 	public int currentWave;
 	Bunker bunker;
-	
+
 	private Wave waveTemp;
 	private boolean needTogenerateNewWave = true;
 	WaveGenerator waveGenerator = new WaveGenerator();
 	MisterSpawner misterSpawner = new MisterSpawner();
-	
-	public L1(){
+
+	public L1() {
 		create();
 	}
-	
-	public void create(){
+
+	public void create() {
 		player = new Player(new Vector2());
 		wavesAmount = waveGenerator.getWavesAmount(player.getPoints());
 		currentWave = 1;
@@ -45,62 +44,73 @@ public class L1{
 		items = new LinkedList<Item>();
 		items.add(itemGenerator.getItem(player.getPoints()));
 	}
-	
-	public void update(boolean aiming, Vector3 touchPos, Vector3 V3point, TiledMapTileLayer collisionLayer, 
-			List<Projectile> projectiles, CameraHelper cameraHelper, float dx, float dy) {
+
+	public void update(boolean aiming, Vector3 touchPos, Vector3 V3point,
+			TiledMapTileLayer collisionLayer, List<Projectile> projectiles,
+			CameraHelper cameraHelper, float dx, float dy) {
 		this.player.update(aiming, touchPos, V3point, collisionLayer, dx, dy);
 		misterSpawner.setCollisionLayer(collisionLayer);
-		
-		if (waveTemp == null && wave.enemies.size() < 20 && needTogenerateNewWave){
-			System.out.println(" generating temp" );
+
+		if (waveTemp == null && wave.enemies.size() < 20
+				&& needTogenerateNewWave) {
+			System.out.println(" generating temp");
 			needTogenerateNewWave = false;
-			waveTemp = waveGenerator.generateWave(player.getPoints());			
+			waveTemp = waveGenerator.generateWave(player.getPoints());
 		}
-		
-		if( wave.enemies.empty() && waveTemp != null && currentWave < wavesAmount ){
+
+		if (wave.enemies.empty() && waveTemp != null
+				&& currentWave < wavesAmount) {
 			System.out.println("swapping waves");
 			wave = waveTemp;
 			currentWave++;
 		}
-		if (wave!=null && enemiesOnStage.size() < wave.enemiesOnBattleField && !wave.enemies.empty()){
+		if (wave != null && enemiesOnStage.size() < wave.enemiesOnBattleField
+				&& !wave.enemies.empty()) {
 			Enemy enemy = wave.enemies.pop();
 			misterSpawner.spawnEnemy(this, enemy);
 			enemiesOnStage.push(enemy);
 		}
-		
-		for (Enemy enemy : enemiesOnStage){
-			enemy.update(collisionLayer, projectiles, this.player, cameraHelper, enemiesOnStage);
+
+		for (Enemy enemy : enemiesOnStage) {
+			enemy.update(collisionLayer, projectiles, this.player,
+					cameraHelper, enemiesOnStage);
 		}
-		
+
 		for (Item item : items) {
 			item.update();
 		}
 		bunker.update();
 	}
-	
-//	public void drawPlayer(SpriteBatch b){
-//		b.begin();
-//		b.draw(getPlayer().getSprite(), getPlayer().getPosition().x, getPlayer().getPosition().y, getPlayer().getSprite().getWidth(), getPlayer().getSprite().getHeight());
-//		b.end();
-//	}
-	
-//	public void drawEnemy(SpriteBatch b){
-//		for (Enemy enemy : enemies){
-//			b.begin();
-//			b.draw(enemy.getSprite(), enemy.getPosition().x, enemy.getPosition().y, enemy.getSprite().getWidth(), enemy.getSprite().getHeight());
-//			b.end();
-//		}
-//	}
-	
+
+	// public void drawPlayer(SpriteBatch b){
+	// b.begin();
+	// b.draw(getPlayer().getSprite(), getPlayer().getPosition().x,
+	// getPlayer().getPosition().y, getPlayer().getSprite().getWidth(),
+	// getPlayer().getSprite().getHeight());
+	// b.end();
+	// }
+
+	// public void drawEnemy(SpriteBatch b){
+	// for (Enemy enemy : enemies){
+	// b.begin();
+	// b.draw(enemy.getSprite(), enemy.getPosition().x, enemy.getPosition().y,
+	// enemy.getSprite().getWidth(), enemy.getSprite().getHeight());
+	// b.end();
+	// }
+	// }
+
 	public Bunker getBunker() {
 		return bunker;
 	}
+
 	public void setBunker(Bunker bunker) {
 		this.bunker = bunker;
 	}
+
 	public Player getPlayer() {
 		return player;
 	}
+
 	public void setPlayer(Player player) {
 		this.player = player;
 	}

@@ -1,6 +1,5 @@
 package com.me.swampmonster.utils;
 
-import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
@@ -38,7 +37,7 @@ public class CameraHelper {
 		if(hasTarget){
 			position.x = x;
 			position.y = y; 
-			zoom = 50f;
+			zoom = 0.5f;
 		}
 		
 		if (shakeX!=0 && shakeY!=0){
