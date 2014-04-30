@@ -1,7 +1,5 @@
 package com.me.swampmonster.models;
 
-import java.util.Iterator;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -18,13 +16,13 @@ public class EnemyLeech extends Enemy{
 		animationsStandard.put(State.STANDARD, new AnimationControl("data/EnemyLeech.png", 8, 16, 7)); 
 		animationsStandard.put(State.PURSUIT, new AnimationControl("data/EnemyLeech.png", 8, 16, 7)); 
 		
-		yellowAura.radius = yellowAura.radius*20;
+		yellowAura.radius = yellowAura.radius*14;
 		sprite = new Sprite(animationsStandard.get(state).getCurrentFrame());
 		movementSpeed = 0.2f;
 		health = 1;
 		damage = 1;
 		points = 200;
-		attackSpeed = 80;
+		attackSpeed = 150;
 	}
 	
 	@Override
@@ -38,29 +36,26 @@ public class EnemyLeech extends Enemy{
 				currentFrame = animationsStandard.get(state).animate(standing);
 			}
 			if(timer2 >= attackSpeed && timer < 30){
-				float direction_x = player.position.x - position.x;
-				float direction_y = player.position.y - position.y;
-				
-				Projectile p = new Projectile(new Vector2(100, 100), getRotation(player));
-				p.setPosition(new Vector2(oRangeAura.x+direction_x/100-8, oRangeAura.y+direction_y/100-8));
-				
-				float length =(float) Math.sqrt(direction_x*direction_x + direction_y*direction_y);
-				direction_x /= length;
-				direction_y /= length;
-				
-				p.setDirection(direction_x, direction_y);
-				
-				projectiles.add(p);
-				
-				cameraHelper.setShakeAmt(25);
-				cameraHelper.cameraShake();
-//            			System.out.println("timer1: " + timer);
 				currentFrame = animationsStandard.get(state).doComplexAnimation(animation, 1.8f, Gdx.graphics.getDeltaTime(), Animation.NORMAL);
 				
 				sprite.setRegion(animationsStandard.get(state).getCurrentFrame());
 				sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
 				timer++;
 				if(timer == 30 && timer2 >= attackSpeed){
+					float direction_x = player.position.x - position.x;
+					float direction_y = player.position.y - position.y;
+					
+					Projectile p = new Projectile(new Vector2(100, 100), getRotation(player));
+					p.setPosition(new Vector2(oRangeAura.x+direction_x/100-8, oRangeAura.y+direction_y/100-8));
+					
+					float length =(float) Math.sqrt(direction_x*direction_x + direction_y*direction_y);
+					direction_x /= length;
+					direction_y /= length;
+					
+					p.setDirection(direction_x, direction_y);
+					
+					enemyProjectiles.add(p);
+					
 					currentFrame = animationsStandard.get(state).animate(standing);
 					// And may be inflict different hurts, direction/ kinds of hurts/ etc.
 					player.setDamageType("enemy");
@@ -71,12 +66,5 @@ public class EnemyLeech extends Enemy{
 				}
 			}
 		}
-		Iterator<Projectile> prj = projectiles.iterator();
-		while(prj.hasNext()){
-			Projectile p = (Projectile) prj.next();
-				if(p!=null){
-					p.update();
-				}
-			}
-		}
 	}
+}

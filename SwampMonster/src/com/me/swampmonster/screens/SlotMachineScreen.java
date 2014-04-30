@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.me.swampmonster.game.TheController;
+import com.me.swampmonster.models.Player;
 import com.me.swampmonster.utils.Constants;
 
 public class SlotMachineScreen extends AbstractGameScreen {
@@ -15,13 +16,13 @@ public class SlotMachineScreen extends AbstractGameScreen {
 	Texture slotMachineCaseTexture;
 	Texture slotMachineNextButtonTexture;
 	BitmapFont font;
-	TheController theController;
+	Player player;
 
 	public SlotMachineScreen(Game game) {
 		super(game);
-
-		theController = new TheController(game);
-
+		
+		player = new Player(null);
+		
 		font = new BitmapFont(Gdx.files.internal("data/font.fnt"),
 				Gdx.files.internal("data/font_0.tga"), false);
 		slotMachineCaseTexture = new Texture("data/slotMachineCase.png");
@@ -36,19 +37,19 @@ public class SlotMachineScreen extends AbstractGameScreen {
 
 		batch.begin();
 		batch.draw(slotMachineCaseTexture, 144, 112);
-		batch.draw(slotMachineNextButtonTexture, 535, 125, 111*Gdx.graphics.getWidth(), 111*Gdx.graphics.getHeight());
+		batch.draw(slotMachineNextButtonTexture, 535, 125, 0.10f*Gdx.graphics.getWidth(), 0.20f*Gdx.graphics.getHeight());
 		font.setColor(Color.BLACK);
 		font.setScale(0.5f, 0.5f);
 		font.draw(batch, "MaxHP: "
-				+ theController.level1.getPlayer().getHealth(), 284, 215);
+				+ player.getHealth(), 284, 215);
 		font.draw(batch, "MaxO2: "
-				+ theController.level1.getPlayer().getOxygen(), 284, 200);
+				+ player.getOxygen(), 284, 200);
 		font.draw(batch, "Damage: "
-				+ theController.level1.getPlayer().getDamage(), 284, 185);
+				+ player.getDamage(), 284, 185);
 		font.draw(batch, "AS: "
-				+ theController.level1.getPlayer().getShotCoolDown(), 284, 170);
+				+ player.getShotCoolDown(), 284, 170);
 		font.draw(batch, "Score: "
-				+ theController.level1.getPlayer().getPoints(), 156, 338);
+				+ player.getPoints(), 156, 338);
 		batch.end();
 		if (Gdx.input.isTouched()) {
 			game.setScreen(new SwampScreen(game));

@@ -151,6 +151,22 @@ public class TheController extends InputAdapter{
 				}
 			}
 		}
+		
+		// PROJECTILE COLLISION DETECTION
+		for (Enemy e : level1.enemiesOnStage) {
+			for (Projectile p : e.enemyProjectiles) {
+				if (p.getCircle().overlaps(level1.getPlayer().aimingArea) && !level1.getPlayer().isHurt()) {
+					cameraHelper.setShakeAmt(25);
+					cameraHelper.cameraShake();
+
+					level1.getPlayer().setHurt(true);
+					level1.getPlayer().setDamageType("enemy");
+					level1.getPlayer().setHealth(
+							level1.getPlayer().getHealth() - e.getDamage());
+				}
+			}
+		}
+		
 		// I don't fucking know if thsi is better, I just spent 2 hours on this solution, so deal with it!
 		if(Gdx.input.justTouched() && !level1.getPlayer().isJustSpawned()){
 			inputNav();
@@ -255,7 +271,7 @@ public class TheController extends InputAdapter{
 			cameraHelper.cameraShake();
 		}
 		// Camera Controls (zoom)
-		float camZoomSpeed = 1 * deltaTime;
+		float camZoomSpeed = 0.1f * deltaTime;
 		float camZoomSpeedAccelerationFactor = 50;
 		if (Gdx.input.isKeyPressed(Keys.SHIFT_LEFT)) camZoomSpeed *= camZoomSpeedAccelerationFactor;
 		if (Gdx.input.isKeyPressed(Keys.Q))

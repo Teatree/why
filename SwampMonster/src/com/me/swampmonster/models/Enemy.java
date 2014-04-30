@@ -32,7 +32,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 	int timereskin = 0;
 	public int timeRemove = 0;
 	public String projectileLocation;
-	public List<Projectile> projectiles;
+	public List<Projectile> enemyProjectiles;
 
 	float enemyDx;
 	float enemyDy;
@@ -76,7 +76,8 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 		timer2 = 0;
 		path = new Node[99];
 
-		projectiles = new LinkedList<Projectile>();
+		enemyProjectiles = new LinkedList<Projectile>();
+		
 
 		// ***Character stats board, probably need to delete this***
 		characterStatsBoard();
@@ -138,6 +139,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 			if (projectiles != null
 					&& Intersector.overlaps(projectile.getCircle(), rectanlge)
 					&& !hurt) {
+				projectile.movementSpeed = 0.4f;
 				hurt = true;
 				damageType = "player";
 				enemyHurt(player);
@@ -344,9 +346,10 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 				time = 0;
 			}
 		}
-		Iterator<Projectile> prj = projectiles.iterator();
+		Iterator<Projectile> prj = enemyProjectiles.iterator();
 		while (prj.hasNext()) {
 			Projectile p = (Projectile) prj.next();
+			p.movementSpeed = 1f;
 			if (p.isCollision(collisionLayer)) {
 				prj.remove();
 				break;

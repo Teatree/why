@@ -172,7 +172,7 @@ public class L1Renderer {
 			}
 		}
 		for(Enemy enemy : theController.level1.enemiesOnStage){
-			for(Projectile p : enemy.projectiles){
+			for(Projectile p : enemy.enemyProjectiles){
 				if(p != null){
 					batch.draw(p.getSprite(), p.getPosition().x, p.getPosition().y, 
 							p.getSprite().getOriginX(), p.getSprite().getOriginY(),

@@ -271,7 +271,7 @@ public class Player extends AbstractGameObject{
 			// SHOOTING COOLDOWN SPEED, YOU GOTTA GET DOWN HERE
 			shotCoolDown = 90;
 		}
-		//
+		
 		
 		// PROJECTILE
 		if(shooting && timeShooting < 2){
@@ -294,17 +294,18 @@ public class Player extends AbstractGameObject{
 			
 		}
 		Iterator<Projectile> prj = projectiles.iterator();
-		while(prj.hasNext()){
+		while (prj.hasNext()) {
 			Projectile p = (Projectile) prj.next();
-			if(p.isCollision(collisionLayer)){
-					prj.remove();
-					break;
-				}
-				if(p!=null){
-					p.update();
-				}
+			if (p.isCollision(collisionLayer)) {
+				prj.remove();
+				break;
+			}
+			if (p != null) {
+				p.update();
 			}
 		}
+	}
+	
 		
 
 	private void takingDamageFromEnemy(HashMap<State, AnimationControl> animations, AbstractGameObject enemy, Vector3 touchPos, TiledMapTileLayer collisionLayer) {
@@ -334,15 +335,19 @@ public class Player extends AbstractGameObject{
 		collisionCheck(collidableRight, collisionLayer);
 	}
 	
-	private void damageFromRight(Collidable collidableUp, HashMap<State, AnimationControl> animations, AbstractGameObject enemy, Vector3 touchPos) {
-		if (enemy.playerMovementDirection == "right" && collidableUp == null) { 
-			currentFrame = animations.get(State.STANDARD).doComplexAnimation(108, 0.2f, Gdx.graphics.getDeltaTime()/2, Animation.NORMAL);
-			
+	private void damageFromRight(Collidable collidableUp,
+			HashMap<State, AnimationControl> animations,
+			AbstractGameObject enemy, Vector3 touchPos) {
+		if (enemy.playerMovementDirection == "right" && collidableUp == null) {
+			currentFrame = animations.get(State.STANDARD).doComplexAnimation(
+					108, 0.2f, Gdx.graphics.getDeltaTime() / 2,
+					Animation.NORMAL);
+
 			sprite.setRegion(animations.get(state).getCurrentFrame());
 			sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
-			position.x += movementSpeed/2;
-			touchPos.x += movementSpeed/2;
-			sprite.translateY(movementSpeed/2);
+			position.x += movementSpeed / 2;
+			touchPos.x += movementSpeed / 2;
+			sprite.translateY(movementSpeed / 2);
 		}
 	}
 	private void damageFromLeft(Collidable collidableUp, HashMap<State, AnimationControl> animations, AbstractGameObject enemy, Vector3 touchPos) {
