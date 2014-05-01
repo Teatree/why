@@ -29,53 +29,57 @@ public class MisterSpawner {
 	}
 	
 	private boolean isValidPosition(Vector2 v2) {
-		if(CollisionHelper.isCollidable(v2.x, v2.y, collisionLayer) == null){
+		if (CollisionHelper.isCollidable(v2.x, v2.y, collisionLayer) == null) {
 			return true;
 		}
 		return false;
 	}
 
-	public Vector2 calculateEnemiesPosition(Player player){
+	public Vector2 calculateEnemiesPosition(Player player) {
 		Vector2 vector2 = new Vector2();
-		int spawnRegion = random.nextInt(3); //0=north, 1=east, 2=south, 3=west
+		int spawnRegion = random.nextInt(3); // 0=north, 1=east, 2=south, 3=west
 		int minPosX;
 		int maxPosX;
-		int minPosY; 
+		int minPosY;
 		int maxPosY;
-		
-		 switch (spawnRegion){
-			 case 0 : {
-				 minPosX = 1;
-				 maxPosX = mapWith;
-				 minPosY = (int)(player.getPosition().y + Constants.VIEWPORT_GUI_HEIGHT/2);
-				 maxPosY = (int) (mapHeight - player.getSprite().getHeight());
-				 System.out.println("case 1 minX=" + maxPosX + " maxX =" + maxPosX + " minY=" + minPosY + " maxY=" + maxPosY);
-				 break;
-			 }
-			 case 1 : {
-				 minPosX = (int)(player.getPosition().x + Constants.VIEWPORT_GUI_HEIGHT/2);
-				 maxPosX = (int)(mapWith - player.getSprite().getWidth());
-				 minPosY = 1;
-				 maxPosY = mapHeight;
-				 System.out.println("case 2 minX=" + maxPosX + " maxX =" + maxPosX + " minY=" + minPosY + " maxY=" + maxPosY);
-				 break;
-			 }
-			 case 2 : {
-				 minPosX = 0;
-				 maxPosX = mapWith;
-				 minPosY = 1;
-				 maxPosY = (int)(player.getPosition().y + Constants.VIEWPORT_GUI_HEIGHT/2);
-				 System.out.println("case 2 minX=" + minPosX + " maxX =" + maxPosX + " minY=" + minPosY + " maxY=" + maxPosY);
-				 break;
-			 }
-			 default : {
-				 minPosX = 1;
-				 maxPosX = (int)(player.getPosition().x - Constants.VIEWPORT_GUI_HEIGHT/2);
-				 minPosY = 1;
-				 maxPosY = (int) (mapHeight - player.getSprite().getHeight());
-				 System.out.println("case 3 minX=" + maxPosX + " maxX =" + maxPosX + " minY=" + minPosY + " maxY=" + maxPosY);
-			 }
-		 }
+
+		switch (spawnRegion) {
+		case 0: {
+			minPosX = 1;
+			maxPosX = mapWith;
+			minPosY = (int) (player.getPosition().y + Constants.VIEWPORT_GUI_HEIGHT / 2);
+			maxPosY = (int) (mapHeight - player.getSprite().getHeight());
+			System.out.println("case 1 minX=" + maxPosX + " maxX =" + maxPosX
+					+ " minY=" + minPosY + " maxY=" + maxPosY);
+			break;
+		}
+		case 1: {
+			minPosX = (int) (player.getPosition().x + Constants.VIEWPORT_GUI_HEIGHT / 2);
+			maxPosX = (int) (mapWith - player.getSprite().getWidth());
+			minPosY = 1;
+			maxPosY = mapHeight;
+			System.out.println("case 2 minX=" + maxPosX + " maxX =" + maxPosX
+					+ " minY=" + minPosY + " maxY=" + maxPosY);
+			break;
+		}
+		case 2: {
+			minPosX = 0;
+			maxPosX = mapWith;
+			minPosY = 1;
+			maxPosY = (int) (player.getPosition().y + Constants.VIEWPORT_GUI_HEIGHT / 2);
+			System.out.println("case 2 minX=" + minPosX + " maxX =" + maxPosX
+					+ " minY=" + minPosY + " maxY=" + maxPosY);
+			break;
+		}
+		default: {
+			minPosX = 1;
+			maxPosX = (int) (player.getPosition().x - Constants.VIEWPORT_GUI_HEIGHT / 2);
+			minPosY = 1;
+			maxPosY = (int) (mapHeight - player.getSprite().getHeight());
+			System.out.println("case 3 minX=" + maxPosX + " maxX =" + maxPosX
+					+ " minY=" + minPosY + " maxY=" + maxPosY);
+		}
+		}
 		
 		if (minPosX >= mapWith - player.getSprite().getWidth()){
 			maxPosX = (int)(player.getPosition().x - Constants.VIEWPORT_GUI_WIDTH/2);

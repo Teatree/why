@@ -9,6 +9,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.me.swampmonster.utils.CameraHelper;
 import com.me.swampmonster.utils.ItemGenerator;
+import com.me.swampmonster.utils.MisterItemSpawner;
 import com.me.swampmonster.utils.MisterSpawner;
 import com.me.swampmonster.utils.WaveGenerator;
 
@@ -27,6 +28,7 @@ public class L1 {
 	private boolean needTogenerateNewWave = true;
 	WaveGenerator waveGenerator = new WaveGenerator();
 	MisterSpawner misterSpawner = new MisterSpawner();
+	MisterItemSpawner misterItemSpawner = new MisterItemSpawner();
 
 	public L1() {
 		create();
@@ -50,7 +52,8 @@ public class L1 {
 			CameraHelper cameraHelper, float dx, float dy) {
 		this.player.update(aiming, touchPos, V3point, collisionLayer, dx, dy);
 		misterSpawner.setCollisionLayer(collisionLayer);
-
+		misterItemSpawner.setCollisionLayer(collisionLayer);
+		
 		if (waveTemp == null && wave.enemies.size() < 20
 				&& needTogenerateNewWave) {
 			System.out.println(" generating temp");
@@ -75,7 +78,12 @@ public class L1 {
 			enemy.update(collisionLayer, projectiles, this.player,
 					cameraHelper, enemiesOnStage);
 		}
-
+		for (Item item : items) {
+			if (!item.spawned) {
+				misterItemSpawner.spawnItem(item, player);
+			}
+		}
+		
 		for (Item item : items) {
 			item.update();
 		}

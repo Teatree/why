@@ -10,6 +10,7 @@ public class Item extends AbstractGameObject{
 	public String itemType;
 	public int lifeTime;
 	public int deadAnimTimer;
+	public boolean spawned;
 		
 	private int animTimer;
 	private int animTimer2;

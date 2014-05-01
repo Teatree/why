@@ -34,7 +34,9 @@ public class Player extends AbstractGameObject{
 	public List<Projectile> projectiles;
 	Vector3 shotDir;
 	Vector3 V3playerPos;
+	
 	public Circle aimingArea;
+	public Circle invalidSpawnArea;
 	
 	public Enemy harmfulEnemy;
 	
@@ -48,6 +50,8 @@ public class Player extends AbstractGameObject{
 		points = 0;
 		aimingArea = new Circle();
 		aimingArea.radius = 8;
+		invalidSpawnArea = new Circle();
+		invalidSpawnArea.radius = 90;
 		circle = new Circle();
 		circle.radius = 16;
 		V3playerPos = new Vector3();
@@ -98,6 +102,8 @@ public class Player extends AbstractGameObject{
 		
 		aimingArea.x = position.x+sprite.getWidth()/2;
 		aimingArea.y = position.y+sprite.getHeight()/2;
+		invalidSpawnArea.x = position.x+8;
+		invalidSpawnArea.y = position.y+16;
 	
 		V3playerPos.x = position.x + circle.radius/2;
 		V3playerPos.y = position.y + circle.radius/2;

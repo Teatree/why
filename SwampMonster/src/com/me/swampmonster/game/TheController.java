@@ -67,8 +67,6 @@ public class TheController extends InputAdapter{
 		level1.getPlayer().getSprite().setSize(level1.getPlayer().getSprite().getWidth()/2, level1.getPlayer().getSprite().getHeight()/2);
 		level1.getPlayer().setHurt(false);
 		
-		level1.items.get(0).setPosition(new Vector2(700f, 650f));
-		
 		collisionHandler = new CollisionHelper();
 		collisionLayer = (TiledMapTileLayer) level1.getBunker().getMap().getLayers().get(0);
 		
