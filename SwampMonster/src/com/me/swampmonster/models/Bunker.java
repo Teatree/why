@@ -6,18 +6,18 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import com.badlogic.gdx.maps.tiled.tiles.AnimatedTiledMapTile;
 import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
 import com.badlogic.gdx.utils.Array;
+import com.me.swampmonster.utils.AssetsMainManager;
 
 public class Bunker extends AbstractGameObject{
 	
 	TiledMapTileLayer tLayer;
 	
 	public Bunker(){
-		map = new TmxMapLoader().load("data/Map.tmx");
+		map = AssetsMainManager.manager.get(AssetsMainManager.map);
 		
 		Array<StaticTiledMapTile> frameTiles = new Array<StaticTiledMapTile>(2);
 		

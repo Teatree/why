@@ -1,6 +1,9 @@
 package com.me.swampmonster.utils;
 
 import java.util.Random;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Vector2;
 import com.me.swampmonster.game.collision.CollisionHelper;
@@ -16,16 +19,22 @@ public class MisterSpawner {
 	TiledMapTileLayer collisionLayer;
 	Vector2 v2;
 	
-	public void spawnEnemy(final L1 l, Enemy enemy){
-		mapWith = (int)collisionLayer.getTileWidth()*collisionLayer.getWidth() - (int)l.getPlayer().getSprite().getWidth();
-		mapHeight = (int)collisionLayer.getTileHeight()*collisionLayer.getHeight() - (int)l.getPlayer().getSprite().getHeight();
-		v2 = calculateEnemiesPosition(l.getPlayer());
-		while(!isValidPosition(v2 )){
-			v2 = calculateEnemiesPosition(l.getPlayer());
-		}
-		System.out.print("Spawn enemy x=" + v2.x + " y=" + v2.y);	
-		System.out.println(CollisionHelper.isCollidable(v2.x, v2.y, collisionLayer) == null);
-		enemy.setPosition(v2);
+	static ExecutorService threadPool = Executors.newCachedThreadPool();
+	
+	public void spawnEnemy(final L1 l, final Enemy enemy){
+		threadPool.submit(new Runnable() {
+            public void run() {
+            	mapWith = (int)collisionLayer.getTileWidth()*collisionLayer.getWidth() - (int)l.getPlayer().getSprite().getWidth();
+            	mapHeight = (int)collisionLayer.getTileHeight()*collisionLayer.getHeight() - (int)l.getPlayer().getSprite().getHeight();
+            	v2 = calculateEnemiesPosition(l.getPlayer());
+            	while(!isValidPosition(v2 )){
+            		v2 = calculateEnemiesPosition(l.getPlayer());
+            	}
+            	System.out.print("Spawn enemy x=" + v2.x + " y=" + v2.y);	
+            	System.out.println(CollisionHelper.isCollidable(v2.x, v2.y, collisionLayer) == null);
+            	enemy.setPosition(v2);
+            }
+        });
 	}
 	
 	private boolean isValidPosition(Vector2 v2) {

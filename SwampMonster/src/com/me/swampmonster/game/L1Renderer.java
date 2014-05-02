@@ -8,7 +8,6 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Rectangle;
@@ -18,13 +17,13 @@ import com.me.swampmonster.models.Enemy;
 import com.me.swampmonster.models.Item;
 import com.me.swampmonster.models.AbstractGameObject.State;
 import com.me.swampmonster.models.Projectile;
+import com.me.swampmonster.utils.AssetsMainManager;
 import com.me.swampmonster.utils.Constants;
 
 public class L1Renderer {
 	private OrthographicCamera cam;
 	private Matrix4 matrix;
 	private TheController theController;
-	private Vector2 rPoint;
 	
 	// Temporary debug feature
 	private ShapeRenderer sr;
@@ -34,7 +33,6 @@ public class L1Renderer {
 	private SpriteBatch batch;
 	private SpriteBatch staticBatch;
 	private OrthogonalTiledMapRenderer mapRenderer;
-	private TiledMapTileLayer layer1;
 	private BitmapFont font;
 	private int timer;
 	private CharSequence str;
@@ -48,8 +46,7 @@ public class L1Renderer {
 	public L1Renderer(TheController theController){
 		this.theController = theController;
 		this.cam = new OrthographicCamera(Constants.VIEWPORT_WIDTH, Constants.VIEWPORT_HEIGHT);
-		font = new BitmapFont(Gdx.files.internal("data/font.fnt"),
-		         Gdx.files.internal("data/font_0.tga"), false);
+		font = AssetsMainManager.manager.get(AssetsMainManager.font);
 		matrix = cam.combined.cpy();
 		matrix.setToOrtho2D(0,0,Constants.VIEWPORT_GUI_WIDTH,Constants.VIEWPORT_GUI_HEIGHT);
 		// Temporary debug feature
@@ -60,11 +57,10 @@ public class L1Renderer {
 		sr = new ShapeRenderer();
 		staticSr = new ShapeRenderer();
 		mapRenderer = new OrthogonalTiledMapRenderer(theController.level1.getBunker().getMap());
-		layer1 = theController.level1.getBunker().gettLayer();
 		
 		timer = 60;
 		
-		rPoint = theController.point;
+//		rPoint = theController.point;
 //		rPoint.unproject
 	}	
 	public void render() {
@@ -85,10 +81,6 @@ public class L1Renderer {
 		
 		mapRenderer.setView(cam);
 		mapRenderer.render(background);
-//		if(theController.level1.getPlayer().getPosition().x > 650){
-//			mapRenderer.render(background);
-//			mapRenderer.render(fiveground);
-//		}
 		
 		batch.begin();
 		if(Gdx.input.isTouched() && theController.level1.getPlayer().getState() == State.GUNMOVEMENT && theController.gui.getCroshair().isAiming()){
