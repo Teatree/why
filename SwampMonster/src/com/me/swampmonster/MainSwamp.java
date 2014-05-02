@@ -1,12 +1,16 @@
 package com.me.swampmonster;
 
 import com.badlogic.gdx.Game;
-import com.me.swampmonster.screens.MenuScreen;
 import com.me.swampmonster.screens.SlotMachineScreen;
+import com.me.swampmonster.utils.AssetsMainManager;
 
 public class MainSwamp extends Game {
-	
+
 	public void create() {		
+		AssetsMainManager.load();
+		while (!AssetsMainManager.manager.update()){
+			System.out.println("! progress" + AssetsMainManager.manager.getProgress() );
+		}
 		setScreen(new SlotMachineScreen(this));
 	}
 	public void dispose() {

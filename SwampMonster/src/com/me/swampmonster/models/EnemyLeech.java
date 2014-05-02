@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.me.swampmonster.animations.AnimationControl;
+import com.me.swampmonster.utils.AssetsMainManager;
 import com.me.swampmonster.utils.CameraHelper;
 
 public class EnemyLeech extends Enemy{
@@ -13,8 +14,8 @@ public class EnemyLeech extends Enemy{
 	public EnemyLeech(Vector2 position) {
 		super(position);
 		
-		animationsStandard.put(State.STANDARD, new AnimationControl("data/EnemyLeech.png", 8, 16, 7)); 
-		animationsStandard.put(State.PURSUIT, new AnimationControl("data/EnemyLeech.png", 8, 16, 7)); 
+		animationsStandard.put(State.STANDARD, new AnimationControl(AssetsMainManager.manager.get(AssetsMainManager.enemyLeech), 8, 16, 7)); 
+		animationsStandard.put(State.PURSUIT, new AnimationControl(AssetsMainManager.manager.get(AssetsMainManager.enemyLeech), 8, 16, 7)); 
 		
 		yellowAura.radius = yellowAura.radius*14;
 		sprite = new Sprite(animationsStandard.get(state).getCurrentFrame());

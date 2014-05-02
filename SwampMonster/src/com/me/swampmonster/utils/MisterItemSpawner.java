@@ -1,5 +1,7 @@
 package com.me.swampmonster.utils;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Random;
 
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
@@ -15,8 +17,14 @@ public class MisterItemSpawner {
 	int mapWith;
 	int mapHeight;
 	TiledMapTileLayer collisionLayer;
+	ItemGenerator itemGenerator = new ItemGenerator();
+	Item item;
+	int spawnRate;
+	
+	public Item spawnItem(Player player) {
+		spawnRate = itemGenerator.generateSpawnRate(player.getPoints());
+		item = itemGenerator.getItem(player.getPoints());
 
-	public void spawnItem(Item item, Player player) {
 		mapWith = (int) collisionLayer.getTileWidth()
 				* collisionLayer.getWidth();
 		mapHeight = (int) collisionLayer.getTileHeight()
@@ -25,6 +33,7 @@ public class MisterItemSpawner {
 		while (!isValidPosition(item, player)) {
 			setItemPos(item, player);
 		}
+		return item;
 	}
 
 	private boolean isValidPosition(Item item, Player player) {

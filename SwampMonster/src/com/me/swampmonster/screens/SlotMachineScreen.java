@@ -7,16 +7,14 @@ import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.me.swampmonster.game.TheController;
 import com.me.swampmonster.models.Player;
-import com.me.swampmonster.utils.Constants;
 
 public class SlotMachineScreen extends AbstractGameScreen {
 	SpriteBatch batch;
 	Texture slotMachineCaseTexture;
 	Texture slotMachineNextButtonTexture;
 	BitmapFont font;
-	Player player;
+	public Player player;
 
 	public SlotMachineScreen(Game game) {
 		super(game);
@@ -41,9 +39,9 @@ public class SlotMachineScreen extends AbstractGameScreen {
 		font.setColor(Color.BLACK);
 		font.setScale(0.5f, 0.5f);
 		font.draw(batch, "MaxHP: "
-				+ player.getHealth(), 284, 215);
+				+ player.getMaxHealth(), 284, 215);
 		font.draw(batch, "MaxO2: "
-				+ player.getOxygen(), 284, 200);
+				+ player.maxOxygen, 284, 200);
 		font.draw(batch, "Damage: "
 				+ player.getDamage(), 284, 185);
 		font.draw(batch, "AS: "

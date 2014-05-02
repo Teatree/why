@@ -17,6 +17,7 @@ import com.me.swampmonster.AI.Pathfinder;
 import com.me.swampmonster.animations.AnimationControl;
 import com.me.swampmonster.game.collision.Collidable;
 import com.me.swampmonster.game.collision.CollisionHelper;
+import com.me.swampmonster.utils.AssetsMainManager;
 import com.me.swampmonster.utils.CameraHelper;
 import com.badlogic.gdx.math.Intersector;
 
@@ -60,15 +61,15 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 		yellowAura = new Circle();
 		yellowAura.radius = 8;
 		animationsStandard.put(State.PURSUIT, new AnimationControl(
-				"data/Skelenten.png", 8, 16, 8));
+				AssetsMainManager.manager.get(AssetsMainManager.enemy), 8, 16, 8));
 		animationsStandard.put(State.STANDARD, new AnimationControl(
-				"data/Skelenten.png", 8, 16, 8));
+				AssetsMainManager.manager.get(AssetsMainManager.enemy), 8, 16, 8));
 		animationsStandard.put(State.ATTACKING, new AnimationControl(
-				"data/Skelenten.png", 8, 16, 8));
+				AssetsMainManager.manager.get(AssetsMainManager.enemy), 8, 16, 8));
 		animationsStandard.put(State.ANIMATING, new AnimationControl(
-				"data/Skelenten.png", 8, 16, 8));
+				AssetsMainManager.manager.get(AssetsMainManager.enemy), 8, 16, 8));
 		animationsStandard.put(State.DEAD, new AnimationControl(
-				"data/Skelenten.png", 8, 16, 4));
+				AssetsMainManager.manager.get(AssetsMainManager.enemy), 8, 16, 4));
 		oldPos = position;
 		// Timer is for the length of the actual animation
 		// Timer2 is for the waiting period

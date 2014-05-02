@@ -141,11 +141,12 @@ public class TheController extends InputAdapter{
 				itm.remove();
 			}
 			if(Intersector.overlaps(item.getCircle(), level1.getPlayer().getRectanlge())){
-				itm.remove();
-				if(item.itemType=="hp"){
+				if(item.itemType=="hp" && level1.getPlayer().getHealth() < level1.getPlayer().getMaxHealth()){
 					level1.getPlayer().setHealth(level1.getPlayer().getHealth()+1);
-				}else{
-					level1.getPlayer().setOxygen(level1.getPlayer().getOxygen()+50);
+					itm.remove();
+				}else if(item.itemType == "O2" && level1.getPlayer().oxygen < level1.getPlayer().maxOxygen){
+					level1.getPlayer().oxygen = level1.getPlayer().oxygen+50;
+					itm.remove();
 				}
 			}
 		}
@@ -189,8 +190,12 @@ public class TheController extends InputAdapter{
 		V3playerPos.y = level1.getPlayer().getPosition().y + level1.getPlayer().getCircle().radius/2;
 		V3playerPos.z = 0;
 		
+		//:TODO pff
 		if(Intersector.overlaps(debugRect, pointRect)){
-			game.setScreen(new SlotMachineScreen(game));
+			SlotMachineScreen sl = new SlotMachineScreen(game);
+			sl.player = level1.getPlayer();
+			game.setScreen(sl);
+			
 		}
 				
 //		l1Renderer.getCam().position.x = level1.getPlayer().getPosition().x;
@@ -286,7 +291,7 @@ public class TheController extends InputAdapter{
 		}
 		if (Gdx.input.isKeyPressed(Keys.B)){
 			decreaseOxygen();
-			System.out.println("Oxygen: " + level1.getPlayer().getOxygen());
+			System.out.println("Oxygen: " + level1.getPlayer().oxygen);
 		}
 		
 //		if(gui.getWeaponizer().isOn() && level1.getPlayer().getState() == State.STANDARD){
@@ -353,7 +358,7 @@ public class TheController extends InputAdapter{
 		}else if(timer2 == 0 && level1.getPlayer().isHurt()){
 		}
 		
-		if(level1.getPlayer().getOxygen() <= 0 && !level1.getPlayer().isHurt()){
+		if(level1.getPlayer().oxygen <= 0 && !level1.getPlayer().isHurt()){
 			timer2 = 80;
 		}
 		
@@ -411,8 +416,8 @@ public class TheController extends InputAdapter{
 		}
 	}
 	private void decreaseOxygen() {
-		if(level1.getPlayer().getOxygen()>=0){
-			level1.getPlayer().setOxygen(level1.getPlayer().getOxygen() - 1);
+		if(level1.getPlayer().oxygen>=0){
+			level1.getPlayer().oxygen = level1.getPlayer().oxygen - 1;
 		}
 	}
 	public int findLastNotNullInArray(){

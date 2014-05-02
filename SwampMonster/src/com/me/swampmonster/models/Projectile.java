@@ -1,11 +1,11 @@
 package com.me.swampmonster.models;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector2;
 import com.me.swampmonster.game.collision.CollisionHelper;
+import com.me.swampmonster.utils.AssetsMainManager;
 
 public class Projectile extends AbstractGameObject{
 	
@@ -14,10 +14,9 @@ public class Projectile extends AbstractGameObject{
 	private String projectileTypeLoc;
 	
 	public Projectile(Vector2 position, float rot){
-		projectileTypeLoc = "data/projectile.png";
 		
 		this.position = position;
-		sprite = new Sprite(new Texture(projectileTypeLoc));
+		sprite = new Sprite(AssetsMainManager.manager.get(AssetsMainManager.projectile));
 		sprite.setRotation(rot*57.29f);
 		circle = new Circle();
 		circle.radius = 8;

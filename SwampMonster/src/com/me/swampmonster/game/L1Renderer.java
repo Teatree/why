@@ -261,24 +261,24 @@ public class L1Renderer {
 		}else if(!theController.level1.getPlayer().isHurt()){
 			ass = 1f;
 		}
-		if(theController.level1.getPlayer().getOxygen()>0){
+		if(theController.level1.getPlayer().oxygen>0){
 			staticSr.setColor(Color.YELLOW);
 		}
-		if(theController.level1.getPlayer().getOxygen()<42){
+		if(theController.level1.getPlayer().oxygen<42){
 			warningFlicker(staticSr);
 		}
-		if(theController.level1.getPlayer().getOxygen()<=0 && timer >= 10){
+		if(theController.level1.getPlayer().oxygen<=0 && timer >= 10){
 			System.out.println(timer);
 			staticSr.setColor(new Color(0, 200, 20, 0.5f));
 			staticSr.rect(30, 422, 96, 22);
 		}
 		if(theController.level1.getPlayer().isMaskOn()){
-			if(theController.level1.getPlayer().getOxygen()>0){
-				staticSr.rect(30, 422, theController.level1.getPlayer().getOxygen(), 22);
+			if(theController.level1.getPlayer().oxygen>0){
+				staticSr.rect(30, 422, theController.level1.getPlayer().oxygen, 22);
 			}
 		}
 		staticSr.setColor(Color.BLUE);
-		if(theController.level1.getPlayer().isMaskOn() && theController.level1.getPlayer().getOxygen() == 0){
+		if(theController.level1.getPlayer().isMaskOn() && theController.level1.getPlayer().oxygen == 0){
 			staticSr.rect(30, 422, 96, 22);
 		}
 		if(theController.level1.getPlayer().getState() != State.DEAD){

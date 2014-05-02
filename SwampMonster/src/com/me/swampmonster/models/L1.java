@@ -29,6 +29,7 @@ public class L1 {
 	WaveGenerator waveGenerator = new WaveGenerator();
 	MisterSpawner misterSpawner = new MisterSpawner();
 	MisterItemSpawner misterItemSpawner = new MisterItemSpawner();
+	private int itemSpawnRate;
 
 	public L1() {
 		create();
@@ -42,9 +43,9 @@ public class L1 {
 		wave = waveGenerator.generateWave(player.getPoints());
 		enemiesOnStage = new Stack<Enemy>();
 		bunker = new Bunker();
-		itemGenerator = new ItemGenerator();
 		items = new LinkedList<Item>();
-		items.add(itemGenerator.getItem(player.getPoints()));
+		itemGenerator = new ItemGenerator();
+		itemSpawnRate = itemGenerator.generateSpawnRate(player.getPoints());
 	}
 
 	public void update(boolean aiming, Vector3 touchPos, Vector3 V3point,
@@ -78,10 +79,12 @@ public class L1 {
 			enemy.update(collisionLayer, projectiles, this.player,
 					cameraHelper, enemiesOnStage);
 		}
-		for (Item item : items) {
-			if (!item.spawned) {
-				misterItemSpawner.spawnItem(item, player);
-			}
+		
+		if(itemSpawnRate<=0){
+			items.add(misterItemSpawner.spawnItem(player));
+			itemSpawnRate = itemGenerator.generateSpawnRate(player.getPoints());
+		}else{
+			itemSpawnRate--;
 		}
 		
 		for (Item item : items) {

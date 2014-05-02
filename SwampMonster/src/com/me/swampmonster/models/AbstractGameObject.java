@@ -2,7 +2,6 @@ package com.me.swampmonster.models;
 
 import java.awt.geom.Line2D;
 import java.util.HashMap;
-import java.util.List;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -42,12 +41,12 @@ public abstract class AbstractGameObject {
 	protected float movementSpeed = 0.5f; 
 	
 	protected int health;
+	protected int maxHealth;
 	protected int damage;
 	protected int points;
 	protected int reloadSpeed;
 	protected int attackSpeed;
 	protected int shotCoolDown;
-	protected float oxygen;
 	
 	public Vector2 getPosition() {
 		return position;
@@ -103,11 +102,11 @@ public abstract class AbstractGameObject {
 	public void setHealth(int health) {
 		this.health = health;
 	}
-	public float getOxygen() {
-		return oxygen;
+	public int getMaxHealth() {
+		return maxHealth;
 	}
-	public void setOxygen(float oxygen) {
-		this.oxygen = oxygen;
+	public void setMaxHealth(int maxHealth) {
+		this.maxHealth = maxHealth;
 	}
 	public Rectangle getRectanlge() {
 		return rectanlge;

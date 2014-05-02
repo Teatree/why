@@ -17,6 +17,7 @@ import com.me.swampmonster.animations.AnimationControl;
 import com.me.swampmonster.game.collision.Collidable;
 import com.me.swampmonster.game.collision.CollisionHelper;
 //import com.me.swampmonster.slotMachineStuff.Perks;
+import com.me.swampmonster.utils.AssetsMainManager;
 
 public class Player extends AbstractGameObject{
 	
@@ -34,6 +35,8 @@ public class Player extends AbstractGameObject{
 	public List<Projectile> projectiles;
 	Vector3 shotDir;
 	Vector3 V3playerPos;
+	public float oxygen;
+	public float maxOxygen;
 	
 	public Circle aimingArea;
 	public Circle invalidSpawnArea;
@@ -44,8 +47,6 @@ public class Player extends AbstractGameObject{
 		state = State.STANDARD;
 		
 		this.position = position;
-		nastyaSpriteStandard = "data/NastyaOxygenSheet.png";
-		nastyaSpriteGun = "data/NastyaGunSheet.png";
 		
 		points = 0;
 		aimingArea = new Circle();
@@ -60,12 +61,12 @@ public class Player extends AbstractGameObject{
 
 //		projectiles.add(new Projectile(position, 12f));
 		
-		animationsStandard.put(State.STANDARD, new AnimationControl(nastyaSpriteStandard, 8, 32, 7)); 
-		animationsStandard.put(State.ANIMATING, new AnimationControl(nastyaSpriteStandard, 8, 32, 8)); 
-		animationsStandard.put(State.ANIMATINGLARGE, new AnimationControl(nastyaSpriteStandard, 8, 32, 8)); 
-		animationsStandard.put(State.ACTIVATING, new AnimationControl(nastyaSpriteStandard, 8, 32, 8)); 
-		animationsStandard.put(State.GUNMOVEMENT, new AnimationControl(nastyaSpriteGun, 8, 16, 7)); 
-		animationsStandard.put(State.DEAD, new AnimationControl(nastyaSpriteStandard, 8, 32, 8)); 
+		animationsStandard.put(State.STANDARD, new AnimationControl(AssetsMainManager.manager.get(AssetsMainManager.nastyaSpriteStandard), 8, 32, 7)); 
+		animationsStandard.put(State.ANIMATING, new AnimationControl(AssetsMainManager.manager.get(AssetsMainManager.nastyaSpriteStandard), 8, 32, 8)); 
+		animationsStandard.put(State.ANIMATINGLARGE, new AnimationControl(AssetsMainManager.manager.get(AssetsMainManager.nastyaSpriteStandard), 8, 32, 8)); 
+		animationsStandard.put(State.ACTIVATING, new AnimationControl(AssetsMainManager.manager.get(AssetsMainManager.nastyaSpriteStandard), 8, 32, 8)); 
+		animationsStandard.put(State.GUNMOVEMENT, new AnimationControl(AssetsMainManager.manager.get(AssetsMainManager.nastyaSpriteGun), 8, 16, 7)); 
+		animationsStandard.put(State.DEAD, new AnimationControl(AssetsMainManager.manager.get(AssetsMainManager.nastyaSpriteStandard), 8, 32, 8)); 
 		
 		oldPos = position;
 		
@@ -86,8 +87,10 @@ public class Player extends AbstractGameObject{
 	
 	public void characterStatsBoard(){
 		// HEALTH, DAMAGE, OXYGEN, TYPE, TOUGHGUY, COLORSCHEME, ETC.
-		health = 6;
-		oxygen = 96;
+		maxHealth = 6;
+		health = maxHealth;
+		maxOxygen = 96;
+		oxygen = maxOxygen;
 		damage = 1;
 		//:TODO IN ORDER TO CHANGE THIS, YOU GOT TO GET DOWN TO WHERE SHOOTIGN IS HAPPENING!
 		shotCoolDown = 90;

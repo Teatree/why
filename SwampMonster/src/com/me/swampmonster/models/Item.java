@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Circle;
 import com.me.swampmonster.animations.AnimationControl;
+import com.me.swampmonster.utils.AssetsMainManager;
 
 public class Item extends AbstractGameObject{
 	public String itemType;
@@ -24,9 +25,9 @@ public class Item extends AbstractGameObject{
 		circle = new Circle();
 		circle.radius = 16;
 		
-		animationsStandard.put(State.SPAWNING, new AnimationControl("data/Items.png", 4, 4, 4));
-		animationsStandard.put(State.STANDARD, new AnimationControl("data/Items.png", 4, 4, 4));
-		animationsStandard.put(State.DEAD, new AnimationControl("data/Items.png", 4, 4, 4));
+		animationsStandard.put(State.SPAWNING, new AnimationControl(AssetsMainManager.manager.get(AssetsMainManager.items), 4, 4, 4));
+		animationsStandard.put(State.STANDARD, new AnimationControl(AssetsMainManager.manager.get(AssetsMainManager.items), 4, 4, 4));
+		animationsStandard.put(State.DEAD, new AnimationControl(AssetsMainManager.manager.get(AssetsMainManager.items), 4, 4, 4));
 		
 		sprite = new Sprite(animationsStandard.get(state).getCurrentFrame());
 		

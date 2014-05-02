@@ -34,6 +34,25 @@ public class AnimationControl {
 		currentFrame = animation.getKeyFrame(0);
 	}
 	
+	public AnimationControl(Texture t, int col, int row, int multiplier) {
+		this.multiplier = multiplier;
+		TextureRegion[][] tmp = TextureRegion
+				.split(t, t.getWidth() / col,
+						t.getHeight() / row);
+		frames = new TextureRegion[col * row];
+		
+		int index = 0;
+		for (int i = 0; i < row; i++) {
+			for (int j = 0; j < col; j++) {
+				frames[index++] = tmp[i][j];
+			}
+		}
+		
+		animation = new Animation(1, frames);
+		stateTime = 0f;
+		currentFrame = animation.getKeyFrame(0);
+	}
+	
 	public TextureRegion animate(int i){
 		if (stateTime < 1) {
 			stateTime += Gdx.graphics.getDeltaTime()/1.5f;

@@ -11,23 +11,29 @@ public class ItemGenerator {
 	private Random random = new Random();
 	
 	private enum ItemParams{
-		p0_500(600, 800),
-		p500_1000(500, 700),
-		p1000_2000(400, 600),
-		p2000_4000(300, 500);
+		p0_500(600, 800, 200, 300),
+		p500_1000(500, 700, 300, 400),
+		p1000_2000(400, 600, 400, 500),
+		p2000_4000(300, 500, 1000, 1000);
 		
 		public final int minLifeTime;
 		public final int maxLifeTime;
+		public final int minSpawnRate;
+		public final int maxSpawnRate;
 		
-		private ItemParams(int minLifeTime, int maxLifeTime){
+		
+		private ItemParams(int minLifeTime, int maxLifeTime, int minSpawnRate,
+				int maxSpawnRate) {
 			this.minLifeTime = minLifeTime;
 			this.maxLifeTime = maxLifeTime;
+			this.minSpawnRate = minSpawnRate;
+			this.maxSpawnRate = maxSpawnRate;
 		}
 	}
 	
 	public ItemGenerator(){
-		itemTypeParams.put(1, "hp");
-		itemTypeParams.put(2, "O2");
+		itemTypeParams.put(0, "hp");
+		itemTypeParams.put(1, "O2");
 	}
 	
 	public Item getItem(int playersScore){
@@ -36,6 +42,11 @@ public class ItemGenerator {
 		int lifeTime = random.nextInt(itemParams.maxLifeTime - itemParams.minLifeTime) + itemParams.minLifeTime;
 		Item item = new Item(type, lifeTime);
 		return item;
+	}
+	
+	public int generateSpawnRate(int playersScore){
+		setItemParams(playersScore);
+		return random.nextInt(itemParams.maxSpawnRate - itemParams.minSpawnRate) + itemParams.minSpawnRate;
 	}
 	
 	private void setItemParams(int playersScore) {
