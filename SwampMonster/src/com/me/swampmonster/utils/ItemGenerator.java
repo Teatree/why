@@ -11,10 +11,10 @@ public class ItemGenerator {
 	private Random random = new Random();
 	
 	private enum ItemParams{
-		p0_500(600, 800, 200, 300),
-		p500_1000(500, 700, 300, 400),
-		p1000_2000(400, 600, 400, 500),
-		p2000_4000(300, 500, 1000, 1000);
+		p0_500(10000, 11000, 100, 200),
+		p500_1000(1100, 1200, 200, 300),
+		p1000_2000(1300, 1400, 300, 400),
+		p2000_4000(1500, 1600, 400, 500);
 		
 		public final int minLifeTime;
 		public final int maxLifeTime;
@@ -50,7 +50,7 @@ public class ItemGenerator {
 	}
 	
 	private void setItemParams(int playersScore) {
-		if(playersScore>=0 && playersScore<100){
+		if(playersScore>=0 && playersScore<500){
 			itemParams = itemParams.p0_500;
 		}
 		else if(playersScore>100 && playersScore<1000){

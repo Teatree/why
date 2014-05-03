@@ -140,7 +140,6 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 			if (projectiles != null
 					&& Intersector.overlaps(projectile.getCircle(), rectanlge)
 					&& !hurt) {
-				projectile.movementSpeed = 0.4f;
 				hurt = true;
 				damageType = "player";
 				enemyHurt(player);
@@ -351,7 +350,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 		while (prj.hasNext()) {
 			Projectile p = (Projectile) prj.next();
 			p.movementSpeed = 1f;
-			if (p.isCollision(collisionLayer)) {
+			if (p.isCollision(collisionLayer) || Intersector.overlaps(p.circle, player.aimingArea)) {
 				prj.remove();
 				break;
 			}
@@ -710,10 +709,10 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 			TiledMapTileLayer collisionLayer, AbstractGameObject player) {
 		collidable.doCollide(this, collisionLayer);
 		collidable.doCollideAbstactObject(this);
-		if (!currentlyMovingOnPath && position.x + 400 > player.position.x
-				&& position.x - 400 < player.position.x
-				&& position.y + 400 > player.position.y
-				&& position.y - 400 < player.position.y) {
+		if (!currentlyMovingOnPath && position.x + 200 > player.position.x
+				&& position.x - 200 < player.position.x
+				&& position.y + 200 > player.position.y
+				&& position.y - 200 < player.position.y) {
 			Pathfinder.findPathInThreadPool(position, player.position,
 					collisionLayer, this);
 		}

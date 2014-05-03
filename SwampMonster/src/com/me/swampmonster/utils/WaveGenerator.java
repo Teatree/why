@@ -12,13 +12,13 @@ public class WaveGenerator {
 	private Random random = new Random();
 	
 	private enum WaveParams{
-		p0_500(2, 3, 0, 2, 15, 20, 2, 4, 13, 16, 3.0f, 10, 3, 4),
-		p500_1000(0, 5, 0, 3, 20, 30, 4, 5, 6, 7, 2.5f, 7, 6, 8),
+		p0_500(2, 3, 0, 2, 34, 35, 2, 3, 11, 12, 3.0f, 10, 3, 4),
+		p500_1000(0, 5, 0, 3, 60, 70, 4, 6, 12, 15, 2.5f, 7, 6, 8),
 		p1000_2000(0, 4, 0, 4, 28, 32, 6, 8, 7, 9, 2.0f, 5, 5, 5),
 		p2000_4000(0, 5, 0, 5, 37, 42, 10, 13, 9, 11, 1f, 3, 5, 7);
 			
-		public final int minEnemy;
-		public final int maxEnemy;
+		public final int minEnemyType;
+		public final int maxEnemyType;
 		public final int minTough;
 		public final int maxTough;
 		public final int waveSizeMin;
@@ -33,13 +33,13 @@ public class WaveGenerator {
 		public final int waveLimitMax;
 		
 		
-	private WaveParams(int minEnemy, int maxEnemy, int minTough,
+	private WaveParams(int minEnemyType, int maxEnemyType, int minTough,
 				int maxTough, int waveSizeMin, int waveSizeMax,
 				int amountOfToughGuysInAWaveMin,
 				int amountOfToughGuysInAWaveMax, int enemiesOnBattleFieldMin,
 				int enemiesOnBattleFieldMax, float rate, int pendingPeriod, int waveLimitMin, int waveLimitMax) {
-			this.minEnemy = minEnemy;
-			this.maxEnemy = maxEnemy;
+			this.minEnemyType = minEnemyType;
+			this.maxEnemyType = maxEnemyType;
 			this.minTough = minTough;
 			this.maxTough = maxTough;
 			this.waveSizeMin = waveSizeMin;
@@ -68,8 +68,8 @@ public class WaveGenerator {
 		wave.enemies = new Stack<Enemy>();
 		wave.pendingPeriod = waveParams.pendingPeriod;
 		wave.rate = waveParams.rate;
-		int maxEnemy = waveParams.maxEnemy;
-		int minEnemy = waveParams.minEnemy;
+		int maxEnemy = waveParams.maxEnemyType;
+		int minEnemy = waveParams.minEnemyType;
 		int maxTough = waveParams.maxTough;
 		int minTough = waveParams.minTough;
 		int waveSize = calcSize(playersScore);

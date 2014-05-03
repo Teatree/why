@@ -3,13 +3,11 @@ package com.me.swampmonster.utils;
 import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.BitmapFontLoader;
-import com.badlogic.gdx.assets.loaders.resolvers.ExternalFileHandleResolver;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-
 public class AssetsMainManager {
 
 	public static final AssetManager manager = new AssetManager();
@@ -27,7 +25,6 @@ public class AssetsMainManager {
 	public static final AssetDescriptor<Texture> slotMachineCase = new AssetDescriptor<Texture>("data\\slotMachineCase.png", Texture.class);
 	public static final AssetDescriptor<Texture> slotMachineNextButton = new AssetDescriptor<Texture>("data\\slotMachineNextButton.png", Texture.class);
 	public static final AssetDescriptor<TiledMap> map = new AssetDescriptor<TiledMap>("data\\Map.tmx", TiledMap.class);
-//	public static final AssetDescriptor<BitmapFont> font0 = new AssetDescriptor<BitmapFont>("data\\font_0.tga", BitmapFont.class);
 	public static final AssetDescriptor<BitmapFont> font = new AssetDescriptor<BitmapFont>("data\\font.fnt", BitmapFont.class);
 	
 	public static void load(){
@@ -45,7 +42,6 @@ public class AssetsMainManager {
 		manager.load(slotMachineCase);
 		manager.load(slotMachineNextButton);
 		manager.setLoader(BitmapFont.class, new BitmapFontLoader(new InternalFileHandleResolver()));
-//		manager.load(font0);
 		manager.load(font);
 		manager.setLoader(TiledMap.class, new TmxMapLoader());
 		manager.load(map);

@@ -118,7 +118,6 @@ public class TheController extends InputAdapter{
 //					System.out.println("enemies on Stage: " + level1.enemiesOnStage.size());
 					Projectile p = (Projectile) prj.next();
 					if(Intersector.overlaps(p.getCircle(), e.getRectanlge())){
-						System.out.println("enemy number: " + i);
 							prj.remove();
 							break;
 						}
@@ -154,7 +153,9 @@ public class TheController extends InputAdapter{
 		// PROJECTILE COLLISION DETECTION
 		for (Enemy e : level1.enemiesOnStage) {
 			for (Projectile p : e.enemyProjectiles) {
-				if (p.getCircle().overlaps(level1.getPlayer().aimingArea) && !level1.getPlayer().isHurt()) {
+				if (p.getCircle().overlaps(level1.getPlayer().aimingArea)
+						&& !level1.getPlayer().isHurt()
+						&& level1.getPlayer().getState() != State.DEAD) {
 					cameraHelper.setShakeAmt(25);
 					cameraHelper.cameraShake();
 

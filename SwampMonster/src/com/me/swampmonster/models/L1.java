@@ -25,7 +25,7 @@ public class L1 {
 	Bunker bunker;
 
 	private Wave waveTemp;
-	private boolean needTogenerateNewWave = true;
+	private boolean needTogenerateNewWave = false;
 	WaveGenerator waveGenerator = new WaveGenerator();
 	MisterSpawner misterSpawner = new MisterSpawner();
 	MisterItemSpawner misterItemSpawner = new MisterItemSpawner();
@@ -55,21 +55,29 @@ public class L1 {
 		misterSpawner.setCollisionLayer(collisionLayer);
 		misterItemSpawner.setCollisionLayer(collisionLayer);
 		
-		if (waveTemp == null && wave.enemies.size() < 20
-				&& needTogenerateNewWave) {
+		if (wave.enemies.empty()) {
+			needTogenerateNewWave = true;
+		}
+		
+		if (waveTemp == null && needTogenerateNewWave) {
 			System.out.println(" generating temp");
 			needTogenerateNewWave = false;
 			waveTemp = waveGenerator.generateWave(player.getPoints());
+			System.err.println("enemiesOnBattlefield WAVE TEMP : "
+					+ waveTemp.enemiesOnBattleField);
 		}
 
 		if (wave.enemies.empty() && waveTemp != null
 				&& currentWave < wavesAmount) {
 			System.out.println("swapping waves");
 			wave = waveTemp;
+			waveTemp = null;
+			needTogenerateNewWave = true;
 			currentWave++;
 		}
 		if (wave != null && enemiesOnStage.size() < wave.enemiesOnBattleField
 				&& !wave.enemies.empty()) {
+			System.err.println("enemiesOnBattlefield: " + wave.enemiesOnBattleField);
 			Enemy enemy = wave.enemies.pop();
 			misterSpawner.spawnEnemy(this, enemy);
 			enemiesOnStage.push(enemy);

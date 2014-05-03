@@ -115,6 +115,20 @@ public class L1Renderer {
 				
 			}
 		}
+		
+		for (Item item : theController.level1.items) {
+			for (Enemy e : theController.level1.enemiesOnStage) {
+				if (item.getPosition().y + 24 > e.getPosition().y + 24 && item.getPosition().y + 24 > theController.level1.getPlayer()
+						.getPosition().y + 24) {
+					item.getSprite().setPosition(item.getPosition().x,
+							item.getPosition().y);
+					batch.draw(item.sprite, item.getPosition().x,
+							item.getPosition().y, item.sprite.getWidth() / 2,
+							item.sprite.getHeight() / 2);
+				}
+			}
+		}
+		
 		for (Enemy enemy : theController.level1.enemiesOnStage){
 			if(enemy.getPosition().y+42 > theController.level1.getPlayer().getPosition().y+42){
 				enemy.getSprite().setPosition(enemy.getPosition().x, enemy.getPosition().y);
@@ -145,19 +159,59 @@ public class L1Renderer {
 				
 			}
 		}
+//		for (Item item : theController.level1.items) {
+//			for (Enemy e : theController.level1.enemiesOnStage) {
+//				if (item.getPosition().y + 24 < e.getPosition().y + 24 && item.getPosition().y + 24 > theController.level1.getPlayer()
+//						.getPosition().y + 24) {
+//					item.getSprite().setPosition(item.getPosition().x,
+//							item.getPosition().y);
+//					batch.draw(item.sprite, item.getPosition().x,
+//							item.getPosition().y, item.sprite.getWidth() / 2,
+//							item.sprite.getHeight() / 2);
+//				}
+//			}
+//		}
 		
-			
 			theController.level1.getPlayer().getSprite().setPosition(theController.level1.getPlayer().getPosition().x, theController.level1.getPlayer().getPosition().y);
 			theController.level1.getPlayer().getSprite().draw(batch);
 //			batch.draw(theController.level1.getPlayer().getSprite(), theController.level1.getPlayer().getPosition().x, theController.level1.getPlayer().getPosition().y,
 //					theController.level1.getPlayer().getSprite().getWidth(), theController.level1.getPlayer().getSprite().getHeight());
 //			theController.level1.drawEnemy(batch);
+			
+
+//			for (Item item : theController.level1.items) {
+//				for (Enemy e : theController.level1.enemiesOnStage) {
+//					if (item.getPosition().y + 24 > e.getPosition().y + 24 && item.getPosition().y + 24 < theController.level1.getPlayer()
+//							.getPosition().y + 24) {
+//						item.getSprite().setPosition(item.getPosition().x,
+//								item.getPosition().y);
+//						batch.draw(item.sprite, item.getPosition().x,
+//								item.getPosition().y, item.sprite.getWidth() / 2,
+//								item.sprite.getHeight() / 2);
+//					}
+//				}
+//			}
+	
 		for(Enemy enemy : theController.level1.enemiesOnStage){
 			if(enemy.getPosition().y+42 < theController.level1.getPlayer().getPosition().y+42){
 				enemy.getSprite().setPosition(enemy.getPosition().x, enemy.getPosition().y);
 				enemy.getSprite().draw(batch);
 			}
 		}
+
+		for (Item item : theController.level1.items) {
+			for (Enemy e : theController.level1.enemiesOnStage) {
+				if (item.getPosition().y + 24 < e.getPosition().y + 24 && item.getPosition().y + 24 < theController.level1.getPlayer()
+						.getPosition().y + 24) {
+					item.getSprite().setPosition(item.getPosition().x,
+							item.getPosition().y);
+					batch.draw(item.sprite, item.getPosition().x,
+							item.getPosition().y, item.sprite.getWidth() / 2,
+							item.sprite.getHeight() / 2);
+				}
+			}
+		}
+		
 		for(Projectile p: theController.level1.getPlayer().projectiles){
 			if(p != null){
 				batch.draw(p.getSprite(), p.getPosition().x, p.getPosition().y, 
@@ -178,9 +232,7 @@ public class L1Renderer {
 				}
 			}
 		}
-		for (Item item: theController.level1.items) {
-			batch.draw(item.sprite, item.getPosition().x, item.getPosition().y, item.sprite.getWidth()/2, item.sprite.getHeight()/2);
-		}
+		
 		
 		batch.end();
 		
