@@ -26,7 +26,7 @@ public abstract class AbstractGameObject {
 		}
 	}
 	public enum PositiveEffectsState {
-		SAFETY_BUBBLE(2000), SPEED_BOOST(212), RADIOACTIVE_AURA(160), NONE(0);
+		SAFETY_BUBBLE(20000), SPEED_BOOST(212), RADIOACTIVE_AURA(160), NONE(0);
 		
 		public int lifetime;
 		

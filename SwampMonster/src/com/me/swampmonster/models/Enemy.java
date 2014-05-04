@@ -40,7 +40,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 	float enemyPathDx;
 	float enemyPathDy;
 
-	boolean switzerland = false;
+	boolean iAmWaiting = false;
 	boolean currentlyMovingOnPath = false;
 	boolean attackSequenceStarted = false;
 
@@ -99,6 +99,8 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 	public void update(TiledMapTileLayer collisionLayer,
 			List<Projectile> projectiles, Player player,
 			CameraHelper cameraHelper, List<Enemy> enemies) {
+		
+		iAmWaiting = souldIWait(enemies);
 		oldPos.x = position.x;
 		oldPos.y = position.y;
 
@@ -267,7 +269,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 					}
 				}
 				// if(!getoRangeAura().overlaps(player.getCircle())){
-				// // System.out.println("yes!3");
+				// System.out.println("yes!3");
 				// timer = 0;
 				// timer2 = 0;
 				// }
@@ -538,54 +540,60 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 			Collidable collidableRight, Collidable collidableDown,
 			Collidable collidableUp, float enemyDx, float enemyDy,
 			float playerMovementSpeed, List<Enemy> enemies) {
-		if (position.x > player.getPosition().x - 4
-				|| position.x < player.getPosition().x - 10
-				|| position.y > player.getPosition().y - 4
-				|| position.y < player.getPosition().y - 10) {
-			// System.out.println("yes it is !");
-			if (collidableLeft == null || collidableRight == null) {
-				position.x += enemyDx * playerMovementSpeed;
-				// System.out.println("enemyDx*playerMovementSpeed: " +
-				// enemyDx*playerMovementSpeed + " position.x: " + position.x);
+		if (!iAmWaiting) {
+			if (position.x > player.getPosition().x - 4
+					|| position.x < player.getPosition().x - 10
+					|| position.y > player.getPosition().y - 4
+					|| position.y < player.getPosition().y - 10) {
+				// System.out.println("yes it is !");
+				if (collidableLeft == null || collidableRight == null) {
+					position.x += enemyDx * playerMovementSpeed;
+					// System.out.println("enemyDx*playerMovementSpeed: " +
+					// enemyDx*playerMovementSpeed + " position.x: " +
+					// position.x);
+				}
+				if (collidableUp == null || collidableDown == null) {
+					position.y += enemyDy * playerMovementSpeed;
+				}
+				sprite.translateX(-playerMovementSpeed);
 			}
-			if (collidableUp == null || collidableDown == null) {
-				position.y += enemyDy * playerMovementSpeed;
+
+			if (position.x > player.getPosition().x - 10) {
+				playerMovementDirectionLR = "left";
 			}
-			sprite.translateX(-playerMovementSpeed);
-		}
+			if (position.x < player.getPosition().x - 10) {
+				playerMovementDirectionLR = "right";
+			}
+			if (position.y > player.getPosition().y - 10) {
+				playerMovementDirectionUD = "down";
+			}
+			if (position.y < player.getPosition().y - 10) {
+				playerMovementDirectionUD = "up";
+			}
 
-		if (position.x > player.getPosition().x - 10) {
-			playerMovementDirectionLR = "left";
-		}
-		if (position.x < player.getPosition().x - 10) {
-			playerMovementDirectionLR = "right";
-		}
-		if (position.y > player.getPosition().y - 10) {
-			playerMovementDirectionUD = "down";
-		}
-		if (position.y < player.getPosition().y - 10) {
-			playerMovementDirectionUD = "up";
-		}
-
-		if (Math.abs((enemyDx * playerMovementSpeed)) > Math
-				.abs((enemyDy * playerMovementSpeed)) && enemyDx > 0) {
-			playerMovementDirection = "right";
-			currentFrame = animationsStandard.get(state).animate(24);
-		}
-		if (Math.abs((enemyDx * playerMovementSpeed)) > Math
-				.abs((enemyDy * playerMovementSpeed)) && enemyDx < 0) {
-			playerMovementDirection = "left";
-			currentFrame = animationsStandard.get(state).animate(8);
-		}
-		if (Math.abs((enemyDx * playerMovementSpeed)) < Math
-				.abs((enemyDy * playerMovementSpeed)) && enemyDy < 0) {
-			playerMovementDirection = "down";
-			currentFrame = animationsStandard.get(state).animate(0);
-		}
-		if (Math.abs((enemyDx * playerMovementSpeed)) < Math
-				.abs((enemyDy * playerMovementSpeed)) && enemyDy > 0) {
-			playerMovementDirection = "up";
-			currentFrame = animationsStandard.get(state).animate(16);
+			if (Math.abs((enemyDx * playerMovementSpeed)) > Math
+					.abs((enemyDy * playerMovementSpeed)) && enemyDx > 0) {
+				playerMovementDirection = "right";
+				currentFrame = animationsStandard.get(state).animate(24);
+			}
+			if (Math.abs((enemyDx * playerMovementSpeed)) > Math
+					.abs((enemyDy * playerMovementSpeed)) && enemyDx < 0) {
+				playerMovementDirection = "left";
+				currentFrame = animationsStandard.get(state).animate(8);
+			}
+			if (Math.abs((enemyDx * playerMovementSpeed)) < Math
+					.abs((enemyDy * playerMovementSpeed)) && enemyDy < 0) {
+				playerMovementDirection = "down";
+				currentFrame = animationsStandard.get(state).animate(0);
+			}
+			if (Math.abs((enemyDx * playerMovementSpeed)) < Math
+					.abs((enemyDy * playerMovementSpeed)) && enemyDy > 0) {
+				playerMovementDirection = "up";
+				currentFrame = animationsStandard.get(state).animate(16);
+			}
+		} else {
+			position = oldPos;
+			stop(156);
 		}
 	}
 
@@ -602,7 +610,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 			float playerMovementSpeed, List<Enemy> enemies,
 			TiledMapTileLayer collisionLayer, AbstractGameObject player) {
 		currentlyMovingOnPath = true;
-		if (CollisionHelper.isCollidableEnemy(this, enemies) == null) {
+		if (!iAmWaiting) {
 			if (path != null && path[cunter] != null) {
 				if (position.x > (path[cunter].x * 16) - 4
 						|| position.x < (path[cunter].x * 16) - 10
@@ -630,32 +638,32 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 					playerMovementDirectionUD = "up";
 				}
 			}
-
-			if (Math.abs((enemyPathDx * playerMovementSpeed)) > Math
-					.abs((enemyPathDy * playerMovementSpeed))
-					&& enemyPathDx > 0) {
-				playerMovementDirection = "right";
-				currentFrame = animationsStandard.get(state).animate(24);
-			}
-			if (Math.abs((enemyPathDx * playerMovementSpeed)) > Math
-					.abs((enemyPathDy * playerMovementSpeed))
-					&& enemyPathDx < 0) {
-				playerMovementDirection = "left";
-				currentFrame = animationsStandard.get(state).animate(8);
-			}
-			if (Math.abs((enemyPathDx * playerMovementSpeed)) < Math
-					.abs((enemyPathDy * playerMovementSpeed))
-					&& enemyPathDy < 0) {
-				playerMovementDirection = "down";
-				currentFrame = animationsStandard.get(state).animate(0);
-			}
-			if (Math.abs((enemyPathDx * playerMovementSpeed)) < Math
-					.abs((enemyPathDy * playerMovementSpeed))
-					&& enemyPathDy > 0) {
-				playerMovementDirection = "up";
-				currentFrame = animationsStandard.get(state).animate(16);
-			}
+		} else {
+			position = oldPos;
+			stop(145);
 		}
+
+		if (Math.abs((enemyPathDx * playerMovementSpeed)) > Math
+				.abs((enemyPathDy * playerMovementSpeed)) && enemyPathDx > 0) {
+			playerMovementDirection = "right";
+			currentFrame = animationsStandard.get(state).animate(24);
+		}
+		if (Math.abs((enemyPathDx * playerMovementSpeed)) > Math
+				.abs((enemyPathDy * playerMovementSpeed)) && enemyPathDx < 0) {
+			playerMovementDirection = "left";
+			currentFrame = animationsStandard.get(state).animate(8);
+		}
+		if (Math.abs((enemyPathDx * playerMovementSpeed)) < Math
+				.abs((enemyPathDy * playerMovementSpeed)) && enemyPathDy < 0) {
+			playerMovementDirection = "down";
+			currentFrame = animationsStandard.get(state).animate(0);
+		}
+		if (Math.abs((enemyPathDx * playerMovementSpeed)) < Math
+				.abs((enemyPathDy * playerMovementSpeed)) && enemyPathDy > 0) {
+			playerMovementDirection = "up";
+			currentFrame = animationsStandard.get(state).animate(16);
+		}
+
 		if (cunter <= 1) {
 			currentlyMovingOnPath = false;
 		}
@@ -697,9 +705,9 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 			enemyDx = 0;
 			enemyDy = 0;
 			timereskin++;
-			System.out.println("stoped: " + timereskin);
+//			System.out.println("stoped: " + timereskin);
 		} else if (timereskin > secs - 1) {
-			switzerland = false;
+			iAmWaiting = false;
 			timereskin = 0;
 		}
 	}
@@ -862,14 +870,6 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 		sprite.setColor(red, green, blue, alpha);
 	}
 
-	public boolean isSwitzerland() {
-		return switzerland;
-	}
-
-	public void setSwitzerland(boolean switzerland) {
-		this.switzerland = switzerland;
-	}
-
 	public int getTimereskin() {
 		return timereskin;
 	}
@@ -884,7 +884,6 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 	}
 
 	public void doCollideAbstactObject(AbstractGameObject abstractGameObject) {
-
 		if (playerMovementDirectionLR == "right") {
 			abstractGameObject.setPosition(new Vector2(abstractGameObject
 					.getPosition().x - 3, abstractGameObject.getPosition().y));
@@ -906,5 +905,15 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 			state = State.STANDARD;
 		}
 
+	}
+	
+	private boolean souldIWait(List <Enemy> enemies){
+		for (Enemy e : enemies){
+			if (e != this && Intersector.overlaps(e.rectanlge, this.rectanlge) && !e.iAmWaiting){
+				this.iAmWaiting = true;
+				return true;
+			}
+		}
+		return false;
 	}
 }

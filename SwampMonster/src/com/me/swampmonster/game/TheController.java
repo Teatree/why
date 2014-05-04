@@ -109,10 +109,8 @@ public class TheController extends InputAdapter{
 		level1.update(gui.getCroshair().isAiming(), touchPos, V3point, collisionLayer, level1.getPlayer().projectiles, cameraHelper, dx, dy);
 		
 		Iterator<Enemy> itr = level1.enemiesOnStage.iterator();
-		int i = 0;
 		while(itr.hasNext()){
 			Enemy e = (Enemy) itr.next();
-			i++;
 			if(!e.isDead()){
 				Iterator<Projectile> prj = level1.getPlayer().projectiles.iterator();
 				while(prj.hasNext()){
@@ -394,16 +392,16 @@ public class TheController extends InputAdapter{
 			System.out.println("Game world resetted");
 			}
 		
-		if (keycode == Keys.X){
-			for (Enemy e : level1.enemiesOnStage){
+//		if (keycode == Keys.X){
+//			for (Enemy e : level1.enemiesOnStage){
 //				System.out.print("Enemy " + e.getClass().getSimpleName());
 //				System.out.println(" state = " + e.getState());
 //				System.out.print(" path = " + e.getPath());
 //				System.out.print(" cunter = " + e.getCunter());
 //				System.out.print(" timereskin = " + e.getTimereskin());
 //				System.out.println(" switcerland = " + e.isSwitzerland());
-			}
-		}
+//			}
+//		}
 		
 		if (keycode == Keys.ENTER && cameraHelper.hasTarget) {
 			cameraHelper.hasTarget = false;

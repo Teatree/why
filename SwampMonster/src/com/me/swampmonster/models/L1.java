@@ -105,7 +105,7 @@ public class L1 {
 //			System.err.println("(L1)enemy posX: " + enemy.getPosition().x
 //					+ " posY: " + enemy.getPosition().y);
 			while (enemy.position.x < 1f || enemy.position.y < 1f) {
-				System.out.print("Loading...");
+				System.out.print("");
 			}
 			try {
 				enemiesOnStage.push(enemy);
