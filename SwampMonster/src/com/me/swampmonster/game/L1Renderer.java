@@ -83,6 +83,13 @@ public class L1Renderer {
 //			mapRenderer.render(background);
 //			mapRenderer.render(fiveground);
 //		}
+		for (Item item : theController.level1.items) {
+			batch.begin();
+			batch.draw(item.sprite, item.getPosition().x,
+					item.getPosition().y, item.sprite.getWidth() / 2,
+					item.sprite.getHeight() / 2);
+			batch.end();
+		}
 		
 		batch.begin();
 		if(Gdx.input.isTouched() && theController.level1.getPlayer().getState() == State.GUNMOVEMENT && theController.gui.getCroshair().isAiming()){
@@ -92,6 +99,7 @@ public class L1Renderer {
 		}
 		// temporary drawing of a projectile
 		batch.end();
+		
 		
 		Gdx.gl.glEnable(GL20.GL_BLEND);
 		Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
@@ -111,19 +119,6 @@ public class L1Renderer {
 					enemy.getSprite().setColor(enemy.getSprite().getColor().r, enemy.getSprite().getColor().g+1, enemy.getSprite().getColor().b+1, enemy.getSprite().getColor().a);
 				}
 				
-			}
-		}
-		
-		for (Item item : theController.level1.items) {
-			for (Enemy e : theController.level1.enemiesOnStage) {
-				if (item.getPosition().y + 24 > e.getPosition().y + 24 && item.getPosition().y + 24 > theController.level1.getPlayer()
-						.getPosition().y + 24) {
-					item.getSprite().setPosition(item.getPosition().x,
-							item.getPosition().y);
-					batch.draw(item.sprite, item.getPosition().x,
-							item.getPosition().y, item.sprite.getWidth() / 2,
-							item.sprite.getHeight() / 2);
-				}
 			}
 		}
 		
@@ -197,18 +192,18 @@ public class L1Renderer {
 			}
 		}
 
-		for (Item item : theController.level1.items) {
-			for (Enemy e : theController.level1.enemiesOnStage) {
-				if (item.getPosition().y + 24 < e.getPosition().y + 24 && item.getPosition().y + 24 < theController.level1.getPlayer()
-						.getPosition().y + 24) {
-					item.getSprite().setPosition(item.getPosition().x,
-							item.getPosition().y);
-					batch.draw(item.sprite, item.getPosition().x,
-							item.getPosition().y, item.sprite.getWidth() / 2,
-							item.sprite.getHeight() / 2);
-				}
-			}
-		}
+//		for (Item item : theController.level1.items) {
+//			for (Enemy e : theController.level1.enemiesOnStage) {
+//				if (item.getPosition().y + 24 < e.getPosition().y + 24 && item.getPosition().y + 24 < theController.level1.getPlayer()
+//						.getPosition().y + 24) {
+//					item.getSprite().setPosition(item.getPosition().x,
+//							item.getPosition().y);
+//					batch.draw(item.sprite, item.getPosition().x,
+//							item.getPosition().y, item.sprite.getWidth() / 2,
+//							item.sprite.getHeight() / 2);
+//				}
+//			}
+//		}
 		
 		for(Projectile p: theController.level1.getPlayer().projectiles){
 			if(p != null){

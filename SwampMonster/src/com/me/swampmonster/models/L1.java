@@ -75,7 +75,8 @@ public class L1 {
 		if (enemiesOnStage.empty() && waveTemp != null
 				&& currentWave < wavesAmount) {
 			if (pendingPeriodBetweedWavesCounter<=0){
-			System.out.println("swapping waves");
+			System.out.println("swapping waves " + items.size());
+			
 			wave = waveTemp;
 			waveTemp = null;
 			needTogenerateNewWave = true;
