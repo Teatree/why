@@ -9,7 +9,6 @@ import com.me.swampmonster.utils.AssetsMainManager;
 import com.me.swampmonster.utils.CameraHelper;
 
 public class EnemyLeech extends Enemy{
-	
 
 	public EnemyLeech(Vector2 position) {
 		super(position);
