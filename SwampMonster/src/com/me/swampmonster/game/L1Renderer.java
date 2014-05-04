@@ -1,5 +1,7 @@
 package com.me.swampmonster.game;
 
+import org.omg.CORBA.PUBLIC_MEMBER;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
@@ -9,9 +11,12 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.me.swampmonster.AI.Node;
 import com.me.swampmonster.models.Enemy;
 import com.me.swampmonster.models.Item;
@@ -19,10 +24,10 @@ import com.me.swampmonster.models.AbstractGameObject.State;
 import com.me.swampmonster.models.Projectile;
 import com.me.swampmonster.utils.AssetsMainManager;
 import com.me.swampmonster.utils.Constants;
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils.Text;
 
 public class L1Renderer {
 	private OrthographicCamera cam;
-	private Matrix4 matrix;
 	private TheController theController;
 	
 	// Temporary debug feature
@@ -31,12 +36,12 @@ public class L1Renderer {
 	// Temporary debug feature
 	
 	private SpriteBatch batch;
-	private SpriteBatch staticBatch;
 	private OrthogonalTiledMapRenderer mapRenderer;
 	private BitmapFont font;
 	private int timer;
 	private CharSequence str;
 	private CharSequence str2;
+	private Stage stage;
 	
 	private int[] background = {0};
 	
@@ -46,17 +51,27 @@ public class L1Renderer {
 	public L1Renderer(TheController theController){
 		this.theController = theController;
 		this.cam = new OrthographicCamera(Constants.VIEWPORT_WIDTH, Constants.VIEWPORT_HEIGHT);
+//		stage.setViewport(Constants.VIEWPORT_WIDTH, Constants.VIEWPORT_WIDTH, true);
 		font = AssetsMainManager.manager.get(AssetsMainManager.font);
-		matrix = cam.combined.cpy();
-		matrix.setToOrtho2D(0,0,Constants.VIEWPORT_GUI_WIDTH,Constants.VIEWPORT_GUI_HEIGHT);
 		// Temporary debug feature
 //		Pathfinder.setTiledMap(level1.getBunker().getMap());
 		// temporary bedug feature
-		staticBatch = new SpriteBatch();
+		stage = new Stage(Constants.VIEWPORT_WIDTH, Constants.VIEWPORT_HEIGHT, true, batch);
 		batch = new SpriteBatch();
 		sr = new ShapeRenderer();
 		staticSr = new ShapeRenderer();
 		mapRenderer = new OrthogonalTiledMapRenderer(theController.level1.getBunker().getMap());
+		
+		Image healthBarImage = new Image(theController.gui.getHealthBar().getSprite()); 
+		healthBarImage.setPosition(theController.gui.getHealthBar().getPosition().x, theController.gui.getHealthBar().getPosition().y);
+		Image weaponizerImage = new Image(theController.gui.getWeaponizer().getSprite()); 
+		Image oxygenBarImage = new Image(theController.gui.getOxygenBar().getSprite());
+		oxygenBarImage.setPosition(theController.gui.getOxygenBar().getPosition().x, theController.gui.getOxygenBar().getPosition().y);
+
+		
+		stage.addActor(healthBarImage);
+		stage.addActor(weaponizerImage);
+		stage.addActor(oxygenBarImage);
 		
 		timer = 60;
 	}	
@@ -70,26 +85,16 @@ public class L1Renderer {
 		
 		theController.cameraHelper.applyTo(cam);
 		
+		stage.act();
+		
 //		cam.unproject(theController.touchPos);
 //		System.out.println("MY X IS: " + theController.touchPos.x + " MY Y IS: " + theController.touchPos.y + " AND MY Z IS: " + theController.touchPos.z); 
 		
 		batch.setProjectionMatrix(cam.combined);
 		sr.setProjectionMatrix(cam.combined);
-//		staticSr.setProjectionMatrix(matrix);
 		
 		mapRenderer.setView(cam);
 		mapRenderer.render(background);
-//		if(theController.level1.getPlayer().getPosition().x > 650){
-//			mapRenderer.render(background);
-//			mapRenderer.render(fiveground);
-//		}
-		for (Item item : theController.level1.items) {
-			batch.begin();
-			batch.draw(item.sprite, item.getPosition().x,
-					item.getPosition().y, item.sprite.getWidth() / 2,
-					item.sprite.getHeight() / 2);
-			batch.end();
-		}
 		
 		batch.begin();
 		if(Gdx.input.isTouched() && theController.level1.getPlayer().getState() == State.GUNMOVEMENT && theController.gui.getCroshair().isAiming()){
@@ -99,7 +104,6 @@ public class L1Renderer {
 		}
 		// temporary drawing of a projectile
 		batch.end();
-		
 		
 		Gdx.gl.glEnable(GL20.GL_BLEND);
 		Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
@@ -119,6 +123,19 @@ public class L1Renderer {
 					enemy.getSprite().setColor(enemy.getSprite().getColor().r, enemy.getSprite().getColor().g+1, enemy.getSprite().getColor().b+1, enemy.getSprite().getColor().a);
 				}
 				
+			}
+		}
+		
+		for (Item item : theController.level1.items) {
+			for (Enemy e : theController.level1.enemiesOnStage) {
+				if (item.getPosition().y + 24 > e.getPosition().y + 24 && item.getPosition().y + 24 > theController.level1.getPlayer()
+						.getPosition().y + 24) {
+					item.getSprite().setPosition(item.getPosition().x,
+							item.getPosition().y);
+					batch.draw(item.sprite, item.getPosition().x,
+							item.getPosition().y, item.sprite.getWidth() / 2,
+							item.sprite.getHeight() / 2);
+				}
 			}
 		}
 		
@@ -192,18 +209,18 @@ public class L1Renderer {
 			}
 		}
 
-//		for (Item item : theController.level1.items) {
-//			for (Enemy e : theController.level1.enemiesOnStage) {
-//				if (item.getPosition().y + 24 < e.getPosition().y + 24 && item.getPosition().y + 24 < theController.level1.getPlayer()
-//						.getPosition().y + 24) {
-//					item.getSprite().setPosition(item.getPosition().x,
-//							item.getPosition().y);
-//					batch.draw(item.sprite, item.getPosition().x,
-//							item.getPosition().y, item.sprite.getWidth() / 2,
-//							item.sprite.getHeight() / 2);
-//				}
-//			}
-//		}
+		for (Item item : theController.level1.items) {
+			for (Enemy e : theController.level1.enemiesOnStage) {
+				if (item.getPosition().y + 24 < e.getPosition().y + 24 && item.getPosition().y + 24 < theController.level1.getPlayer()
+						.getPosition().y + 24) {
+					item.getSprite().setPosition(item.getPosition().x,
+							item.getPosition().y);
+					batch.draw(item.sprite, item.getPosition().x,
+							item.getPosition().y, item.sprite.getWidth() / 2,
+							item.sprite.getHeight() / 2);
+				}
+			}
+		}
 		
 		for(Projectile p: theController.level1.getPlayer().projectiles){
 			if(p != null){
@@ -282,11 +299,11 @@ public class L1Renderer {
 		Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
 		staticSr.begin(ShapeType.Filled);
 		staticSr.setColor(Color.RED);
-		for(Rectangle r : theController.gui.getHealthBar().getHealthBarRect()){
-			if(r != null){
-				staticSr.rect(r.x, r.y, r.width, r.height);
-			}
-		}
+//		for(Rectangle r : theController.gui.getHealthBar().getHealthBarRect()){
+//			if(r != null){
+//				staticSr.rect(r.x, r.y, r.width, r.height);
+//			}
+//		}
 		if(theController.level1.getPlayer().isHurt()){
 			int j = 0;
 			if(theController.level1.getPlayer().getHealth()>1){
@@ -345,16 +362,6 @@ public class L1Renderer {
 		
 		staticSr.end();
 		
-		staticBatch.begin();
-		staticBatch.draw(theController.gui.getHealthBar().getSprite(), 0, 448, theController.gui.getHealthBar().getSprite().getWidth(), theController.gui.getHealthBar().getSprite().getHeight());
-		if(theController.level1.getPlayer().isMaskOn()){
-			staticBatch.draw(theController.gui.getOxygenBar().getSprite(), 0, 416, theController.gui.getHealthBar().getSprite().getWidth(), theController.gui.getHealthBar().getSprite().getHeight());
-		}
-		if(theController.level1.getPlayer().getState() != State.DEAD){
-			staticBatch.draw(theController.gui.getWeaponizer().getSprite(), 0, 0);
-		}
-		staticBatch.end();
-		
 		Gdx.gl.glEnable(GL20.GL_BLEND);
 		Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
 		staticSr.begin(ShapeType.Filled);
@@ -384,24 +391,26 @@ public class L1Renderer {
 		staticSr.rect(theController.debugRect.x, theController.debugRect.y, theController.debugRect.width, theController.debugRect.height);
 		staticSr.end();
 		
-		staticBatch.begin();
-		font.setColor(1.0f, 1.0f, 1.0f, 1.0f);
-		font.draw(staticBatch, str, 580, 460);
-		font.draw(staticBatch, str2, 580, 420);
-		font.setColor(Color.YELLOW);
-		font.setScale(1);
-		if(assRevert >= 0.4f && theController.level1.getPlayer().getState() == State.DEAD){
-			font.draw(staticBatch, theController.gui.getGameoverGUI().getGameOverString(), 310, 280);
-		}
-		if(assRevert >= 0.4f && theController.level1.getPlayer().getState() == State.DEAD){
-			font.setScale(1);
-			font.draw(staticBatch, theController.gui.getGameoverGUI().getWittyMessage(), 240-theController.gui.getGameoverGUI().getWittyMessage().length(), 230);
-		}
-		if(assRevert >= 0.45f && theController.level1.getPlayer().getState() == State.DEAD){
-			font.setScale(1);
-			font.draw(staticBatch, theController.gui.getGameoverGUI().getRestartString(), 361, 170);
-		}
-		staticBatch.end();
+//		staticBatch.begin();
+//		font.setColor(1.0f, 1.0f, 1.0f, 1.0f);
+//		font.draw(staticBatch, str, 580, 460);
+//		font.draw(staticBatch, str2, 580, 420);
+//		font.setColor(Color.YELLOW);
+//		font.setScale(1);
+//		if(assRevert >= 0.4f && theController.level1.getPlayer().getState() == State.DEAD){
+//			font.draw(staticBatch, theController.gui.getGameoverGUI().getGameOverString(), 310, 280);
+//		}
+//		if(assRevert >= 0.4f && theController.level1.getPlayer().getState() == State.DEAD){
+//			font.setScale(1);
+//			font.draw(staticBatch, theController.gui.getGameoverGUI().getWittyMessage(), 240-theController.gui.getGameoverGUI().getWittyMessage().length(), 230);
+//		}
+//		if(assRevert >= 0.45f && theController.level1.getPlayer().getState() == State.DEAD){
+//			font.setScale(1);
+//			font.draw(staticBatch, theController.gui.getGameoverGUI().getRestartString(), 361, 170);
+//		}
+//		staticBatch.end();
+		
+		stage.draw();
 	}
 	
 	public void warningFlicker(ShapeRenderer Sr){
@@ -421,14 +430,16 @@ public class L1Renderer {
 	public void setSize(int width, int height){
 //		this.width = width;
 //		this.height = height;
+		stage.setViewport(Constants.VIEWPORT_WIDTH, Constants.VIEWPORT_GUI_HEIGHT, true);
 		cam.viewportWidth = (Constants.VIEWPORT_HEIGHT / height) *	width;
 		cam.update();
 	}
 	public void dispose(){
 		batch.dispose();
 		sr.dispose();
-		staticBatch.dispose();
+//		staticBatch.dispose();
 		staticSr.dispose();
+		stage.dispose();
 	}
 	public OrthographicCamera getCam() {
 		return cam;

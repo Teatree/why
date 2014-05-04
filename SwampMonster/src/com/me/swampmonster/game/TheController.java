@@ -94,6 +94,7 @@ public class TheController extends InputAdapter{
 		pointRect.width = 1;
 		pointRect.height = 1;
 		
+		
 	}
 	
 	public void update(float deltaTime, Game game){
@@ -199,9 +200,6 @@ public class TheController extends InputAdapter{
 			
 		}
 				
-//		l1Renderer.getCam().position.x = level1.getPlayer().getPosition().x;
-//		l1Renderer.getCam().position.y = level1.getPlayer().getPosition().y;
-		
 		// This bit is responsible for calculating where exactly the projective has to go when shot.
 		dx = touchPos.x - V3playerPos.x;
 		dy = touchPos.y - V3playerPos.y;
