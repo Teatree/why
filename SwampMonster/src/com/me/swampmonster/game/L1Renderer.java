@@ -299,11 +299,11 @@ public class L1Renderer {
 		Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
 		staticSr.begin(ShapeType.Filled);
 		staticSr.setColor(Color.RED);
-//		for(Rectangle r : theController.gui.getHealthBar().getHealthBarRect()){
-//			if(r != null){
-//				staticSr.rect(r.x, r.y, r.width, r.height);
-//			}
-//		}
+		for(Rectangle r : theController.gui.getHealthBar().getHealthBarRect()){
+			if(r != null){
+				staticSr.rect(r.x, r.y, r.width, r.height);
+			}
+		}
 		if(theController.level1.getPlayer().isHurt()){
 			int j = 0;
 			if(theController.level1.getPlayer().getHealth()>1){
