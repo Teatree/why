@@ -23,6 +23,7 @@ public class L1 {
 	public int wavesAmount;
 	public int currentWave;
 	Bunker bunker;
+	public boolean korea;
 
 	private Wave waveTemp;
 	private boolean needTogenerateNewWave = false;
@@ -30,6 +31,8 @@ public class L1 {
 	MisterSpawner misterSpawner = new MisterSpawner();
 	MisterItemSpawner misterItemSpawner = new MisterItemSpawner();
 	private int itemSpawnRate;
+	private int enemySpawnRateCounter;
+	private int enemyEnemyPendingCoounter;
 
 	public L1() {
 		create();
@@ -75,12 +78,31 @@ public class L1 {
 			needTogenerateNewWave = true;
 			currentWave++;
 		}
-		if (wave != null && enemiesOnStage.size() < wave.enemiesOnBattleField
-				&& !wave.enemies.empty()) {
-			System.err.println("enemiesOnBattlefield: " + wave.enemiesOnBattleField);
+		
+		if (!korea && enemiesOnStage.size() == wave.enemiesOnBattleField) {
+			enemyEnemyPendingCoounter = wave.pendingPeriod;
+			korea = true;
+		}
+		if (korea) {
+			enemyEnemyPendingCoounter--;
+		}
+		if (enemyEnemyPendingCoounter <= 0) {
+			korea = false;
+		}
+		
+		if (!korea && wave != null && enemiesOnStage.size() <= wave.enemiesOnBattleField
+				&& !wave.enemies.empty() && enemySpawnRateCounter <= 0) {
 			Enemy enemy = wave.enemies.pop();
 			misterSpawner.spawnEnemy(this, enemy);
+//			System.err.println("(L1)enemy posX: " + enemy.getPosition().x
+//					+ " posY: " + enemy.getPosition().y);
+			while (enemy.position.x < 1f || enemy.position.y < 1f) {
+				System.out.println("Loading...");
+			}
 			enemiesOnStage.push(enemy);
+			enemySpawnRateCounter = (int) wave.rate;
+		}else {
+			enemySpawnRateCounter--;
 		}
 
 		for (Enemy enemy : enemiesOnStage) {

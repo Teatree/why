@@ -12,7 +12,7 @@ import com.me.swampmonster.models.L1;
 import com.me.swampmonster.models.Player;
 
 public class MisterSpawner {
-	
+
 	Random random = new Random();
 	int mapWith;
 	int mapHeight;
@@ -20,23 +20,28 @@ public class MisterSpawner {
 	Vector2 v2;
 
 	static ExecutorService threadPool = Executors.newCachedThreadPool();
-	
-	public void spawnEnemy(final L1 l, final Enemy enemy){
+
+	public void spawnEnemy(final L1 l, final Enemy enemy) {
 		threadPool.submit(new Runnable() {
-            public void run() {
-            	mapWith = (int)collisionLayer.getTileWidth()*collisionLayer.getWidth() - (int)l.getPlayer().getSprite().getWidth();
-            	mapHeight = (int)collisionLayer.getTileHeight()*collisionLayer.getHeight() - (int)l.getPlayer().getSprite().getHeight();
-            	v2 = calculateEnemiesPosition(l.getPlayer());
-            	while(!isValidPosition(v2 )){
-            		v2 = calculateEnemiesPosition(l.getPlayer());
-            	}
-            	System.out.print("Spawn enemy x=" + v2.x + " y=" + v2.y);	
-            	System.out.println(CollisionHelper.isCollidable(v2.x, v2.y, collisionLayer) == null);
-            	enemy.setPosition(v2);
-            }
-        });
+			public void run() {
+				mapWith = (int) collisionLayer.getTileWidth()
+						* collisionLayer.getWidth()
+						- (int) l.getPlayer().getSprite().getWidth();
+				mapHeight = (int) collisionLayer.getTileHeight()
+						* collisionLayer.getHeight()
+						- (int) l.getPlayer().getSprite().getHeight();
+				v2 = calculateEnemiesPosition(l.getPlayer());
+				while (!isValidPosition(v2)) {
+					v2 = calculateEnemiesPosition(l.getPlayer());
+				}
+//				System.out.println("Spawn enemy x=" + v2.x + " y=" + v2.y);
+				enemy.position = v2;
+//				System.err.println("enemy posX: " + enemy.getPosition().x
+//						+ " posY: " + enemy.getPosition().y);
+			}
+		});
 	}
-	
+
 	private boolean isValidPosition(Vector2 v2) {
 		if (CollisionHelper.isCollidable(v2.x, v2.y, collisionLayer) == null) {
 			return true;
@@ -54,56 +59,62 @@ public class MisterSpawner {
 
 		switch (spawnRegion) {
 		case 0: {
-			minPosX = 1;
+			minPosX = 22;
 			maxPosX = mapWith;
 			minPosY = (int) (player.getPosition().y + Constants.VIEWPORT_GUI_HEIGHT / 2);
 			maxPosY = (int) (mapHeight - player.getSprite().getHeight());
-			System.out.println("case 1 minX=" + maxPosX + " maxX =" + maxPosX
+			System.out.println("case 0 minX=" + minPosX + " maxX =" + maxPosX
 					+ " minY=" + minPosY + " maxY=" + maxPosY);
 			break;
 		}
 		case 1: {
 			minPosX = (int) (player.getPosition().x + Constants.VIEWPORT_GUI_HEIGHT / 2);
 			maxPosX = (int) (mapWith - player.getSprite().getWidth());
-			minPosY = 1;
+			minPosY = 22;
 			maxPosY = mapHeight;
-			System.out.println("case 2 minX=" + maxPosX + " maxX =" + maxPosX
+			System.out.println("case 1 minX=" + minPosX + " maxX =" + maxPosX
 					+ " minY=" + minPosY + " maxY=" + maxPosY);
 			break;
 		}
 		case 2: {
-			minPosX = 0;
-			maxPosX = mapWith;
-			minPosY = 1;
-			maxPosY = (int) (player.getPosition().y + Constants.VIEWPORT_GUI_HEIGHT / 2);
+			minPosX = 22;
+			maxPosX = mapWith - 1;
+			minPosY = 22;
+			maxPosY = (int) (player.getPosition().y - Constants.VIEWPORT_GUI_HEIGHT / 2);
 			System.out.println("case 2 minX=" + minPosX + " maxX =" + maxPosX
 					+ " minY=" + minPosY + " maxY=" + maxPosY);
 			break;
 		}
 		default: {
-			minPosX = 1;
+			minPosX = 22;
 			maxPosX = (int) (player.getPosition().x - Constants.VIEWPORT_GUI_HEIGHT / 2);
-			minPosY = 1;
+			minPosY = 22;
 			maxPosY = (int) (mapHeight - player.getSprite().getHeight());
-			System.out.println("case 3 minX=" + maxPosX + " maxX =" + maxPosX
+			System.out.println("case 3 minX=" + minPosX + " maxX =" + maxPosX
 					+ " minY=" + minPosY + " maxY=" + maxPosY);
 		}
 		}
-		
-		if (minPosX >= mapWith - player.getSprite().getWidth()){
-			maxPosX = (int)(player.getPosition().x - Constants.VIEWPORT_GUI_WIDTH/2);
-			minPosX = 0;
-			System.out.println("minPosX >= mapWith - player.getSprite().getWidth()");
+
+		if (minPosX >= mapWith - player.getSprite().getWidth()) {
+			maxPosX = (int) (player.getPosition().x - Constants.VIEWPORT_GUI_WIDTH / 2);
+			minPosX = 1;
+			System.out
+					.println("minPosX >= mapWith - player.getSprite().getWidth()");
 		}
-		
-		if (minPosY >= mapHeight - player.getSprite().getHeight()){
-			maxPosY = (int)(player.getPosition().y - Constants.VIEWPORT_GUI_HEIGHT/2);
-			minPosY = 0;
-			System.out.println("minPosY >= mapHeight - player.getSprite().getHeight()");
+
+		if (minPosY >= mapHeight - player.getSprite().getHeight()) {
+			maxPosY = (int) (player.getPosition().y - Constants.VIEWPORT_GUI_HEIGHT / 2);
+			minPosY = 1;
+			System.out
+					.println("minPosY >= mapHeight - player.getSprite().getHeight()");
 		}
-		
+
 		vector2.x = random.nextInt(maxPosX - minPosX) + minPosX;
 		vector2.y = random.nextInt(maxPosY - minPosY) + minPosY;
+		while (vector2.x < 1f || vector2.y < 1f) {
+			vector2.x = random.nextInt(maxPosX - minPosX) + minPosX;
+			vector2.y = random.nextInt(maxPosY - minPosY) + minPosY;
+		}
 		return vector2;
 	}
 

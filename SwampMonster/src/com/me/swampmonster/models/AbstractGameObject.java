@@ -21,7 +21,7 @@ public abstract class AbstractGameObject {
 	protected HashMap<State, AnimationControl> animationsStandard = new HashMap<State, AnimationControl>();   
 	
 	protected State state;
-	protected Vector2 position;
+	public Vector2 position;
 	public Sprite sprite;
 	protected boolean dead;
 	protected Rectangle rectanlge;

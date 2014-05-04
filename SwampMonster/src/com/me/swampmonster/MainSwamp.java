@@ -9,7 +9,6 @@ public class MainSwamp extends Game {
 	public void create() {		
 		AssetsMainManager.load();
 		while (!AssetsMainManager.manager.update()){
-			System.out.println("! progress" + AssetsMainManager.manager.getProgress() );
 		}
 		setScreen(new SlotMachineScreen(this));
 	}
