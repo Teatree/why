@@ -8,6 +8,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.me.swampmonster.utils.CameraHelper;
+import com.me.swampmonster.utils.Constants;
 import com.me.swampmonster.utils.ItemGenerator;
 import com.me.swampmonster.utils.MisterItemSpawner;
 import com.me.swampmonster.utils.MisterSpawner;
@@ -33,6 +34,7 @@ public class L1 {
 	private int itemSpawnRate;
 	private int enemySpawnRateCounter;
 	private int enemyEnemyPendingCoounter;
+	private int pendingPeriodBetweedWavesCounter;
 
 	public L1() {
 		create();
@@ -70,13 +72,19 @@ public class L1 {
 					+ waveTemp.enemiesOnBattleField);
 		}
 
-		if (wave.enemies.empty() && waveTemp != null
+		if (enemiesOnStage.empty() && waveTemp != null
 				&& currentWave < wavesAmount) {
+			if (pendingPeriodBetweedWavesCounter<=0){
 			System.out.println("swapping waves");
 			wave = waveTemp;
 			waveTemp = null;
 			needTogenerateNewWave = true;
 			currentWave++;
+			pendingPeriodBetweedWavesCounter = Constants.pendingPeriodBetweedWaves;
+			System.out.println("NEXT WAVE!");
+			}else{
+				pendingPeriodBetweedWavesCounter--;
+			}
 		}
 		
 		if (!korea && enemiesOnStage.size() == wave.enemiesOnBattleField) {
@@ -97,9 +105,13 @@ public class L1 {
 //			System.err.println("(L1)enemy posX: " + enemy.getPosition().x
 //					+ " posY: " + enemy.getPosition().y);
 			while (enemy.position.x < 1f || enemy.position.y < 1f) {
-				System.out.println("Loading...");
+				System.out.print("Loading...");
 			}
-			enemiesOnStage.push(enemy);
+			try {
+				enemiesOnStage.push(enemy);
+			} catch (Exception e) {
+				
+			}
 			enemySpawnRateCounter = (int) wave.rate;
 		}else {
 			enemySpawnRateCounter--;

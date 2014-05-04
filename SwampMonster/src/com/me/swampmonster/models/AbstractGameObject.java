@@ -16,11 +16,31 @@ public abstract class AbstractGameObject {
 	public enum State{
 		STANDARD, DEAD, ANIMATING, ANIMATINGLARGE, ACTIVATING, ATTACKING, PURSUIT, GUNMOVEMENT, SPAWNING;
 	}
+	public enum NegativeEffectsState {
+		POISONED(90), FEAR(120), FROZEN(40), NONE(0);
+		
+		public int lifetime;
+		
+		NegativeEffectsState(int lifeTime){
+			this.lifetime = lifeTime;
+		}
+	}
+	public enum PositiveEffectsState {
+		SAFETY_BUBBLE(2000), SPEED_BOOST(212), RADIOACTIVE_AURA(160), NONE(0);
+		
+		public int lifetime;
+		
+		PositiveEffectsState(int lifeTime){
+			this.lifetime = lifeTime;
+		}
+	}
 	
 	protected TextureRegion currentFrame;
 	protected HashMap<State, AnimationControl> animationsStandard = new HashMap<State, AnimationControl>();   
 	
 	protected State state;
+	public NegativeEffectsState negativeEffectsState;
+	public PositiveEffectsState positiveEffectsState;
 	public Vector2 position;
 	public Sprite sprite;
 	protected boolean dead;

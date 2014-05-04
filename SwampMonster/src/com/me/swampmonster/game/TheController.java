@@ -13,6 +13,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.me.swampmonster.GUI.GUI;
 import com.me.swampmonster.game.collision.CollisionHelper;
+import com.me.swampmonster.models.AbstractGameObject.PositiveEffectsState;
 import com.me.swampmonster.models.AbstractGameObject.State;
 import com.me.swampmonster.models.Enemy;
 import com.me.swampmonster.models.Item;
@@ -155,7 +156,8 @@ public class TheController extends InputAdapter{
 			for (Projectile p : e.enemyProjectiles) {
 				if (p.getCircle().overlaps(level1.getPlayer().aimingArea)
 						&& !level1.getPlayer().isHurt()
-						&& level1.getPlayer().getState() != State.DEAD) {
+						&& level1.getPlayer().getState() != State.DEAD
+						&& level1.getPlayer().positiveEffectsState != PositiveEffectsState.SAFETY_BUBBLE) {
 					cameraHelper.setShakeAmt(25);
 					cameraHelper.cameraShake();
 

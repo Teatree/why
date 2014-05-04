@@ -13,4 +13,5 @@ public class Constants {
 	public static final String enemyMessage2 = "You went up agaist a zombie, and lost";
 	public static final String enemyMessage3 = "Bet you thought that guy was friendly";
 	
+	public static final int pendingPeriodBetweedWaves = 2800;
 }

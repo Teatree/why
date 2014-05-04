@@ -37,6 +37,7 @@ public class Player extends AbstractGameObject{
 	Vector3 V3playerPos;
 	public float oxygen;
 	public float maxOxygen;
+	public int positiveEffectCounter;
 	
 	public Circle aimingArea;
 	public Circle invalidSpawnArea;
@@ -45,6 +46,8 @@ public class Player extends AbstractGameObject{
 	
 	public Player(Vector2 position){
 		state = State.STANDARD;
+		positiveEffectsState = PositiveEffectsState.SAFETY_BUBBLE;
+		positiveEffectCounter = positiveEffectsState.lifetime;
 		
 		this.position = position;
 		
@@ -132,6 +135,11 @@ public class Player extends AbstractGameObject{
 		
 //		System.out.println("player position = " + position.x + " : " + position.y);
 //		System.out.println("player position = " + sprite.getX() + " : " + sprite.getY());
+		if(positiveEffectCounter<=0){
+			positiveEffectsState = PositiveEffectsState.NONE;
+		}else{
+			positiveEffectCounter--;
+		}
 		
 	//ANIMATINGLARGE
 		if(state.equals(State.ANIMATINGLARGE)){
@@ -224,7 +232,7 @@ public class Player extends AbstractGameObject{
 		}
 		
 		//Hurt
-		if(hurt){
+		if(hurt && !positiveEffectsState.equals(PositiveEffectsState.SAFETY_BUBBLE)){
 //			System.out.println(" (PLAYER): I'm currently in HURT state");
 			if(time < 40){
 				sprite = new Sprite(animations.get(State.STANDARD).getCurrentFrame());

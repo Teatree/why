@@ -23,7 +23,6 @@ import com.badlogic.gdx.math.Intersector;
 
 public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 
-	Toughness toughness;
 	State state = State.STANDARD;
 	public int cunter;
 	int timer;
@@ -435,7 +434,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 							standing);
 					// And may be inflict different hurts, direction/ kinds of
 					// hurts/ etc.
-					if (oRangeAura.overlaps(player.getCircle()) && !player.hurt) {
+					if (oRangeAura.overlaps(player.getCircle()) && !player.hurt && player.positiveEffectsState != PositiveEffectsState.SAFETY_BUBBLE) {
 						player.setDamageType("enemy");
 						player.harmfulEnemy = this;
 						player.setHurt(true);
@@ -857,14 +856,6 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 
 	public void setPath(Node[] path) {
 		this.path = path;
-	}
-
-	public Toughness getToughness() {
-		return toughness;
-	}
-
-	public void setToughness(Toughness toughness) {
-		this.toughness = toughness;
 	}
 
 	public void setColour(float red, float green, float blue, float alpha) {
