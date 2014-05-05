@@ -123,7 +123,7 @@ public class Player extends AbstractGameObject{
 		rectanlge.width = sprite.getWidth();
 		rectanlge.height = sprite.getHeight();
 		
-		oxygen -= 0.01f;
+		oxygen -= 0.05f;
 		
 		HashMap<State, AnimationControl> animations = new HashMap<AbstractGameObject.State, AnimationControl>();
 		

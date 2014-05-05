@@ -9,16 +9,13 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.me.swampmonster.utils.CameraHelper;
 import com.me.swampmonster.utils.Constants;
-import com.me.swampmonster.utils.ItemGenerator;
-import com.me.swampmonster.utils.MisterItemSpawner;
 import com.me.swampmonster.utils.MisterSpawner;
 import com.me.swampmonster.utils.WaveGenerator;
 
 public class L1 {
 
-	Player player;
+	public Player player;
 	public List<Item> items;
-	public ItemGenerator itemGenerator;
 	public Stack<Enemy> enemiesOnStage;
 	public Wave wave;
 	public int wavesAmount;
@@ -30,8 +27,6 @@ public class L1 {
 	private boolean needTogenerateNewWave = false;
 	WaveGenerator waveGenerator = new WaveGenerator();
 	MisterSpawner misterSpawner = new MisterSpawner();
-	MisterItemSpawner misterItemSpawner = new MisterItemSpawner();
-	private int itemSpawnRate;
 	private int enemySpawnRateCounter;
 	private int enemyEnemyPendingCoounter;
 	private int pendingPeriodBetweedWavesCounter;
@@ -44,13 +39,10 @@ public class L1 {
 		player = new Player(new Vector2());
 		wavesAmount = waveGenerator.getWavesAmount(player.getPoints());
 		currentWave = 1;
-		System.out.println("create wave ");
 		wave = waveGenerator.generateWave(player.getPoints());
 		enemiesOnStage = new Stack<Enemy>();
 		bunker = new Bunker();
 		items = new LinkedList<Item>();
-		itemGenerator = new ItemGenerator();
-		itemSpawnRate = itemGenerator.generateSpawnRate(player.getPoints());
 	}
 
 	public void update(boolean aiming, Vector3 touchPos, Vector3 V3point,
@@ -58,14 +50,12 @@ public class L1 {
 			CameraHelper cameraHelper, float dx, float dy) {
 		this.player.update(aiming, touchPos, V3point, collisionLayer, dx, dy);
 		misterSpawner.setCollisionLayer(collisionLayer);
-		misterItemSpawner.setCollisionLayer(collisionLayer);
 		
 		if (wave.enemies.empty()) {
 			needTogenerateNewWave = true;
 		}
 		
 		if (waveTemp == null && needTogenerateNewWave) {
-			System.out.println(" generating temp");
 			needTogenerateNewWave = false;
 			waveTemp = waveGenerator.generateWave(player.getPoints());
 			System.err.println("enemiesOnBattlefield WAVE TEMP : "
@@ -75,7 +65,6 @@ public class L1 {
 		if (enemiesOnStage.empty() && waveTemp != null
 				&& currentWave < wavesAmount) {
 			if (pendingPeriodBetweedWavesCounter<=0){
-			System.out.println("swapping waves");
 			wave = waveTemp;
 			waveTemp = null;
 			needTogenerateNewWave = true;
@@ -122,12 +111,10 @@ public class L1 {
 					cameraHelper, enemiesOnStage);
 		}
 		
-		if(itemSpawnRate<=0){
-			items.add(misterItemSpawner.spawnItem(player));
-			itemSpawnRate = itemGenerator.generateSpawnRate(player.getPoints());
-		}else{
-			itemSpawnRate--;
-		}
+//		if(itemSpawnRate<=0){
+//		}else{
+//			itemSpawnRate--;
+//		}
 		
 		for (Item item : items) {
 			item.update();

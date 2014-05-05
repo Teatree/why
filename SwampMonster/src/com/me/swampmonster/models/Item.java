@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Circle;
+import com.badlogic.gdx.math.Vector2;
 import com.me.swampmonster.animations.AnimationControl;
 import com.me.swampmonster.utils.AssetsMainManager;
 
@@ -17,13 +18,16 @@ public class Item extends AbstractGameObject{
 	private int animTimer2;
 	private int pendingTimer;
 	
-	//Animations
+	public Vector2 spawnPos;
+	public Vector2 targetPos;
 	
+	//Animations
 	public Item(String itemType, int lifeTime){
 		state = State.SPAWNING;
 		
 		circle = new Circle();
 		circle.radius = 16;
+		
 		
 		animationsStandard.put(State.SPAWNING, new AnimationControl(AssetsMainManager.manager.get(AssetsMainManager.items), 4, 4, 4));
 		animationsStandard.put(State.STANDARD, new AnimationControl(AssetsMainManager.manager.get(AssetsMainManager.items), 4, 4, 4));

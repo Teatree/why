@@ -19,6 +19,7 @@ import com.me.swampmonster.game.collision.Collidable;
 import com.me.swampmonster.game.collision.CollisionHelper;
 import com.me.swampmonster.utils.AssetsMainManager;
 import com.me.swampmonster.utils.CameraHelper;
+import com.me.swampmonster.utils.EnemyGenerator.Toughness;
 import com.badlogic.gdx.math.Intersector;
 
 public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
@@ -33,7 +34,8 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 	public int timeRemove = 0;
 	public String projectileLocation;
 	public List<Projectile> enemyProjectiles;
-
+	public Toughness toughness;
+	
 	float enemyDx;
 	float enemyDy;
 

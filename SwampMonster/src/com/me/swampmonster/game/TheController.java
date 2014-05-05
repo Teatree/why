@@ -21,6 +21,7 @@ import com.me.swampmonster.models.L1;
 import com.me.swampmonster.models.Projectile;
 import com.me.swampmonster.screens.SlotMachineScreen;
 import com.me.swampmonster.utils.CameraHelper;
+import com.me.swampmonster.utils.MisterItemSpawner;
 
 public class TheController extends InputAdapter{
 	public CameraHelper cameraHelper;  
@@ -52,6 +53,7 @@ public class TheController extends InputAdapter{
 	// temp
 	
 	public TiledMapTileLayer collisionLayer;
+	MisterItemSpawner misterItemSpawner = new MisterItemSpawner();
 	
 	public TheController(Game game){
 		init();
@@ -65,12 +67,13 @@ public class TheController extends InputAdapter{
 		level1 = new L1();
 //		Pathfinder.setTiledMap(level1.getBunker().getMap());
 		level1.getPlayer().setPosition(new Vector2 (756f,659f));
-		level1.getPlayer().getSprite().setSize(level1.getPlayer().getSprite().getWidth()/2, level1.getPlayer().getSprite().getHeight()/2);
+		level1.getPlayer().getSprite().setSize(level1.getPlayer().getSprite().getWidth()/2,
+				level1.getPlayer().getSprite().getHeight()/2);
 		level1.getPlayer().setHurt(false);
 		
 		collisionHandler = new CollisionHelper();
 		collisionLayer = (TiledMapTileLayer) level1.getBunker().getMap().getLayers().get(0);
-		
+		misterItemSpawner.setCollisionLayer(collisionLayer);
 		gui = new GUI();
 		gui.getCroshair().setPosition(new Vector2 (330f,100f));
 		
@@ -107,7 +110,8 @@ public class TheController extends InputAdapter{
 		pointRect.y = point.y;
 		
 		cameraHelper.upadate(V3playerPos.x, V3playerPos.y, 5);
-		level1.update(gui.getCroshair().isAiming(), touchPos, V3point, collisionLayer, level1.getPlayer().projectiles, cameraHelper, dx, dy);
+		level1.update(gui.getCroshair().isAiming(), touchPos, V3point, collisionLayer, 
+				level1.getPlayer().projectiles, cameraHelper, dx, dy);
 		
 		Iterator<Enemy> itr = level1.enemiesOnStage.iterator();
 		while(itr.hasNext()){
@@ -128,6 +132,10 @@ public class TheController extends InputAdapter{
 				if(e.timeRemove < 180){
 					e.timeRemove++;
 				}else if(e.timeRemove > 179){
+					Item i = misterItemSpawner.spawnItem(level1.player, e);
+					if (i != null){
+						level1.items.add(i);
+					}
 					itr.remove();
 					e.timeRemove = 0;
 				}
@@ -389,17 +397,6 @@ public class TheController extends InputAdapter{
 			init();
 			System.out.println("Game world resetted");
 			}
-		
-//		if (keycode == Keys.X){
-//			for (Enemy e : level1.enemiesOnStage){
-//				System.out.print("Enemy " + e.getClass().getSimpleName());
-//				System.out.println(" state = " + e.getState());
-//				System.out.print(" path = " + e.getPath());
-//				System.out.print(" cunter = " + e.getCunter());
-//				System.out.print(" timereskin = " + e.getTimereskin());
-//				System.out.println(" switcerland = " + e.isSwitzerland());
-//			}
-//		}
 		
 		if (keycode == Keys.ENTER && cameraHelper.hasTarget) {
 			cameraHelper.hasTarget = false;

@@ -1,7 +1,5 @@
 package com.me.swampmonster.game;
 
-import org.omg.CORBA.PUBLIC_MEMBER;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
@@ -15,8 +13,6 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.me.swampmonster.AI.Node;
 import com.me.swampmonster.models.Enemy;
 import com.me.swampmonster.models.Item;
@@ -24,7 +20,6 @@ import com.me.swampmonster.models.AbstractGameObject.State;
 import com.me.swampmonster.models.Projectile;
 import com.me.swampmonster.utils.AssetsMainManager;
 import com.me.swampmonster.utils.Constants;
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils.Text;
 
 public class L1Renderer {
 	private OrthographicCamera cam;
@@ -169,18 +164,6 @@ public class L1Renderer {
 				
 			}
 		}
-//		for (Item item : theController.level1.items) {
-//			for (Enemy e : theController.level1.enemiesOnStage) {
-//				if (item.getPosition().y + 24 < e.getPosition().y + 24 && item.getPosition().y + 24 > theController.level1.getPlayer()
-//						.getPosition().y + 24) {
-//					item.getSprite().setPosition(item.getPosition().x,
-//							item.getPosition().y);
-//					batch.draw(item.sprite, item.getPosition().x,
-//							item.getPosition().y, item.sprite.getWidth() / 2,
-//							item.sprite.getHeight() / 2);
-//				}
-//			}
-//		}
 		
 			theController.level1.getPlayer().getSprite().setPosition(theController.level1.getPlayer().getPosition().x, theController.level1.getPlayer().getPosition().y);
 			theController.level1.getPlayer().getSprite().draw(batch);
@@ -189,19 +172,6 @@ public class L1Renderer {
 //			theController.level1.drawEnemy(batch);
 			
 
-//			for (Item item : theController.level1.items) {
-//				for (Enemy e : theController.level1.enemiesOnStage) {
-//					if (item.getPosition().y + 24 > e.getPosition().y + 24 && item.getPosition().y + 24 < theController.level1.getPlayer()
-//							.getPosition().y + 24) {
-//						item.getSprite().setPosition(item.getPosition().x,
-//								item.getPosition().y);
-//						batch.draw(item.sprite, item.getPosition().x,
-//								item.getPosition().y, item.sprite.getWidth() / 2,
-//								item.sprite.getHeight() / 2);
-//					}
-//				}
-//			}
-	
 		for(Enemy enemy : theController.level1.enemiesOnStage){
 			if(enemy.getPosition().y+42 < theController.level1.getPlayer().getPosition().y+42){
 				enemy.getSprite().setPosition(enemy.getPosition().x, enemy.getPosition().y);

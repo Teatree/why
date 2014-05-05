@@ -1,11 +1,16 @@
 package com.me.swampmonster.utils;
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 import com.me.swampmonster.models.Item;
 
 public class ItemGenerator {
+	
+	private static final String HEALTH = "hp";
+	private static final String OXYGEN = "O2";
+	
 	HashMap<Integer, String> itemTypeParams = new HashMap<Integer, String>();
 	ItemParams itemParams;
 	private Random random = new Random();
@@ -32,16 +37,26 @@ public class ItemGenerator {
 	}
 	
 	public ItemGenerator(){
-		itemTypeParams.put(0, "hp");
-		itemTypeParams.put(1, "O2");
+		itemTypeParams.put(0, HEALTH);
+		itemTypeParams.put(1, OXYGEN);
 	}
 	
 	public Item getItem(int playersScore){
+		return generateItem(playersScore, itemTypeParams);
+	}
+	
+	public Item generateItem(int playersScore, Map<Integer, String> param) {
 		setItemParams(playersScore);
-		String type = itemTypeParams.get(random.nextInt(2));
+		String type = param.get(random.nextInt(param.size()));
 		int lifeTime = random.nextInt(itemParams.maxLifeTime - itemParams.minLifeTime) + itemParams.minLifeTime;
 		Item item = new Item(type, lifeTime);
 		return item;
+	}
+	
+	public Item getMoreLikelyOxugenItem(int playersScore){
+		Map<Integer, String> param = new HashMap<Integer, String>(itemTypeParams);
+		param.put(2, OXYGEN);
+		return generateItem(playersScore, param);
 	}
 	
 	public int generateSpawnRate(int playersScore){
@@ -51,16 +66,16 @@ public class ItemGenerator {
 	
 	private void setItemParams(int playersScore) {
 		if(playersScore>=0 && playersScore<500){
-			itemParams = itemParams.p0_500;
+			itemParams = ItemParams.p0_500;
 		}
 		else if(playersScore>100 && playersScore<1000){
-			itemParams = itemParams.p500_1000;
+			itemParams = ItemParams.p500_1000;
 		}
 		else if(playersScore>1000 && playersScore<2000){
-			itemParams = itemParams.p1000_2000;
+			itemParams = ItemParams.p1000_2000;
 		}
 		else if(playersScore>2000 && playersScore<4000){
-			itemParams = itemParams.p2000_4000;
+			itemParams = ItemParams.p2000_4000;
 		}
 	}
 }
