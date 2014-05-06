@@ -310,6 +310,8 @@ public class Player extends AbstractGameObject{
 			projectiles.add(p);
 			
 		}
+		
+		
 		Iterator<Projectile> prj = projectiles.iterator();
 		while (prj.hasNext()) {
 			Projectile p = (Projectile) prj.next();
