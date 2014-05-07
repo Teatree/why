@@ -51,8 +51,8 @@ public class L1Renderer {
 		// Temporary debug feature
 //		Pathfinder.setTiledMap(level1.getBunker().getMap());
 		// temporary bedug feature
-		stage = new Stage(Constants.VIEWPORT_WIDTH, Constants.VIEWPORT_HEIGHT, true, batch);
 		batch = new SpriteBatch();
+		stage = new Stage(Constants.VIEWPORT_WIDTH, Constants.VIEWPORT_HEIGHT, true, batch);
 		sr = new ShapeRenderer();
 		staticSr = new ShapeRenderer();
 		mapRenderer = new OrthogonalTiledMapRenderer(theController.level1.getBunker().getMap());

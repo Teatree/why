@@ -24,7 +24,6 @@ import com.badlogic.gdx.math.Intersector;
 
 public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 
-	State state = State.STANDARD;
 	public int cunter;
 	int timer;
 	public int time;
@@ -61,6 +60,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 		oRangeAura.radius = 16;
 		yellowAura = new Circle();
 		yellowAura.radius = 8;
+		state = State.STANDARD;
 		animationsStandard.put(State.PURSUIT, new AnimationControl(
 				AssetsMainManager.manager.get(AssetsMainManager.enemy), 8, 16, 8));
 		animationsStandard.put(State.STANDARD, new AnimationControl(
@@ -175,7 +175,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 
 				// MOVEMENT + COLLISION PROCESSING AND DETECTION
 				// System.out.println("cunter = " + cunter);
-				if (path != null && cunter <= 0 || path[cunter] == null) {
+				if (path != null && (cunter <= 0 || path[cunter] == null)) {
 					cunter = findLastNotNullInArray();
 					if (cunter <= 0) {
 						setState(State.STANDARD);

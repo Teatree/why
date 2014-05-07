@@ -65,7 +65,7 @@ public class Pathfinder {
 //					System.out.println("the GetParent is null!");
 					return new Node[99];
 				}else {
-					while(node.getParentNode() != null && !node.getParentNode().equals(startingPosition)){
+					while(node.getParentNode() != null /*&& !node.getParentNode().equals(startingPosition)*/){
 						path[cuntar] = node;
 						node = node.getParentNode();
 						cuntar++;
@@ -83,7 +83,6 @@ public class Pathfinder {
 //			System.out.println("Removing " + currentNode + " From openList, now openList contains: " + openList.size());
 			closedList.add(currentNode);
 //			System.out.println("Adding " + currentNode + " To closedList, now closedList contains: " + closedList.size());
-			
 			for (Node neighborNode : getNeighborNodes(currentNode, nodeLayer, nodes)) {
 				float tentativeGScore = currentNode.g + distanceToNode(currentNode, targetNode);
 				
