@@ -438,7 +438,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 							standing);
 					// And may be inflict different hurts, direction/ kinds of
 					// hurts/ etc.
-					if (oRangeAura.overlaps(player.getCircle()) && !player.hurt && player.positiveEffectsState != PositiveEffectsState.SAFETY_BUBBLE) {
+					if (oRangeAura.overlaps(player.getCircle()) && !player.hurt && player.positiveEffectsState != PositiveEffectsState.FADE) {
 						player.setDamageType("enemy");
 						player.harmfulEnemy = this;
 						player.setHurt(true);

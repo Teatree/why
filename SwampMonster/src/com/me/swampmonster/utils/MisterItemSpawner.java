@@ -29,7 +29,7 @@ public class MisterItemSpawner {
 		int haveIitem;
 
 		if (enmy.toughness != null) {
-			haveIitem = random.nextInt(200);
+			haveIitem = random.nextInt(102);
 		} else {
 			haveIitem = random.nextInt(1000);
 		}

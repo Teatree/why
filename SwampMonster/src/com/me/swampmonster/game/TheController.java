@@ -127,17 +127,18 @@ public class TheController extends InputAdapter{
 						}
 					}
 			}
-			if(e.isDead()){
-//				System.out.println("must work!");
-				if(e.timeRemove < 180){
+			if (e.isDead()) {
+				// System.out.println("must work!");
+				if (e.timeRemove < 180) {
 					e.timeRemove++;
-				}else if(e.timeRemove > 179){
-					Item i = misterItemSpawner.spawnItem(level1.player, e);
-					if (i != null){
-						level1.items.add(i);
-					}
+				}  else if (e.timeRemove > 179) {
 					itr.remove();
 					e.timeRemove = 0;
+				} if (e.timeRemove == 1) {
+					Item i = misterItemSpawner.spawnItem(level1.player, e);
+					if (i != null) {
+						level1.items.add(i);
+					}
 				}
 			}
 		}
@@ -164,7 +165,7 @@ public class TheController extends InputAdapter{
 				if (p.getCircle().overlaps(level1.getPlayer().aimingArea)
 						&& !level1.getPlayer().isHurt()
 						&& level1.getPlayer().getState() != State.DEAD
-						&& level1.getPlayer().positiveEffectsState != PositiveEffectsState.SAFETY_BUBBLE) {
+						&& level1.getPlayer().positiveEffectsState != PositiveEffectsState.FADE) {
 					cameraHelper.setShakeAmt(25);
 					cameraHelper.cameraShake();
 
@@ -356,16 +357,14 @@ public class TheController extends InputAdapter{
 //	}
 	
 	private void painLogic() {
-		if(timer2 > 0){
-			if(timer2 == 80){
+		if (timer2 > 0) {
+			if (timer2 == 79) {
 				level1.getPlayer().setDamageType("lackOfOxygen");
 				hurt();
 			}
 			timer2--;
-		}else if(timer2 == 0 && level1.getPlayer().isHurt()){
-		}
-		
-		if(level1.getPlayer().oxygen <= 0 && !level1.getPlayer().isHurt()){
+		} 
+		if (timer2 <= 0 && level1.getPlayer().oxygen <= 0 && !level1.getPlayer().isHurt()) {
 			timer2 = 80;
 		}
 		

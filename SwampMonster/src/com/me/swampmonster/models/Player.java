@@ -46,7 +46,7 @@ public class Player extends AbstractGameObject{
 	
 	public Player(Vector2 position){
 		state = State.STANDARD;
-		positiveEffectsState = PositiveEffectsState.SAFETY_BUBBLE;
+		positiveEffectsState = PositiveEffectsState.FADE;
 		positiveEffectCounter = positiveEffectsState.lifetime;
 		
 		this.position = position;
@@ -232,7 +232,7 @@ public class Player extends AbstractGameObject{
 		}
 		
 		//Hurt
-		if(hurt && !positiveEffectsState.equals(PositiveEffectsState.SAFETY_BUBBLE)){
+		if(hurt && !positiveEffectsState.equals(PositiveEffectsState.FADE)){
 //			System.out.println(" (PLAYER): I'm currently in HURT state");
 			if(time < 40){
 				sprite = new Sprite(animations.get(State.STANDARD).getCurrentFrame());
