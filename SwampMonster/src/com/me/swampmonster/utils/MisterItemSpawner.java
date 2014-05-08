@@ -31,20 +31,21 @@ public class MisterItemSpawner {
 		if (enmy.toughness != null) {
 			haveIitem = random.nextInt(102);
 		} else {
-			haveIitem = random.nextInt(200);
+			haveIitem = random.nextInt(100);
 		}
 
 		if (haveIitem < 100) {
 			if (player.oxygen <= 13) {
-				item = itemGenerator
-						.getMoreLikelyOxugenItem(player.getPoints());
+				item = itemGenerator.getMoreLikelyOxugenItem(player.getPoints());
 			} else {
 				item = itemGenerator.getItem(player.getPoints());
 			}
 		} else {
 			return null;
 		}
-		item.position = enmy.position;
+		item.position = new Vector2(enmy.position);
+//		item.position.x = enmy.position.x;
+//		item.position.y = enmy.position.y;
 		mapWith = (int) collisionLayer.getTileWidth()
 				* collisionLayer.getWidth();
 		mapHeight = (int) collisionLayer.getTileHeight()
