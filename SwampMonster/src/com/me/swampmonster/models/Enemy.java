@@ -139,9 +139,9 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 			enemyPathDx /= enemyPathLength;
 			enemyPathDy /= enemyPathLength;
 		}
+		if (projectiles != null)
 		for (Projectile projectile : projectiles) {
-			if (projectiles != null
-					&& Intersector.overlaps(projectile.getCircle(), rectanlge)
+			if (projectile != null && Intersector.overlaps(projectile.getCircle(), rectanlge)
 					&& !hurt) {
 				hurt = true;
 				damageType = "player";
@@ -352,12 +352,12 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 		Iterator<Projectile> prj = enemyProjectiles.iterator();
 		while (prj.hasNext()) {
 			Projectile p = (Projectile) prj.next();
-			p.movementSpeed = 1f;
-			if (p.isCollision(collisionLayer) || Intersector.overlaps(p.circle, player.aimingArea)) {
-				prj.remove();
-				break;
-			}
-			if (p != null) {
+			if (p != null){
+				p.movementSpeed = 1f;
+				if (p.isCollision(collisionLayer) || Intersector.overlaps(p.circle, player.aimingArea)) {
+					prj.remove();
+					break;
+				}
 				p.update();
 			}
 		}

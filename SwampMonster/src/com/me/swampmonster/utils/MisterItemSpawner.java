@@ -31,7 +31,7 @@ public class MisterItemSpawner {
 		if (enmy.toughness != null) {
 			haveIitem = random.nextInt(102);
 		} else {
-			haveIitem = random.nextInt(1000);
+			haveIitem = random.nextInt(200);
 		}
 
 		if (haveIitem < 100) {
@@ -44,7 +44,7 @@ public class MisterItemSpawner {
 		} else {
 			return null;
 		}
-		item.spawnPos = enmy.position;
+		item.position = enmy.position;
 		mapWith = (int) collisionLayer.getTileWidth()
 				* collisionLayer.getWidth();
 		mapHeight = (int) collisionLayer.getTileHeight()
@@ -55,7 +55,7 @@ public class MisterItemSpawner {
 		while (!isValidTargetPosition(item, player)) {
 			setItemTargetPos(item, player, enmy);
 		}
-		item.position = new Vector2(item.targetPos.x, item.targetPos.y);
+//		item.position = new Vector2(item.spawnPos.x, item.spawnPos.y);
 		return item;
 	}
 

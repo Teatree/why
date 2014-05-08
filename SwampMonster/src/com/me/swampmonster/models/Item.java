@@ -62,15 +62,19 @@ public class Item extends AbstractGameObject{
 			}
 		}
 		if(state.equals(State.SPAWNING)){
-			
-			if(animTimer != 33){
-				currentFrame = doItemAnimation(8, 0.8f, 0.03f, Animation.NORMAL);
-				animTimer++;
-			}else if(animTimer == 33){
-				state = State.STANDARD;
-				animTimer = 0;
+			if (!(position.x == targetPos.x)) {
+				position.x += 0.1f;
+				position.y += 2*Math.sin(position.x);
 			}
+//			if(animTimer != 33){
+				currentFrame = doItemAnimation(0, 0.9f, 0.03f, Animation.NORMAL);
+//				animTimer++;
+//			}else if(animTimer == 33){
+//				state = State.STANDARD;
+//				animTimer = 0;
+//			}
 		}
+		
 		if(state.equals(State.DEAD)){
 			
 			if(deadAnimTimer != 33){

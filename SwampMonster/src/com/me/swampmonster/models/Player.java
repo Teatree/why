@@ -315,7 +315,7 @@ public class Player extends AbstractGameObject{
 		Iterator<Projectile> prj = projectiles.iterator();
 		while (prj.hasNext()) {
 			Projectile p = (Projectile) prj.next();
-			if (p.isCollision(collisionLayer)) {
+			if (p != null && p.isCollision(collisionLayer)) {
 				prj.remove();
 				break;
 			}
