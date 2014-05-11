@@ -24,8 +24,8 @@ public class GameOverGUI extends AbstractGameObject{
 		circle.y = 140;
 		
 		rectanlge = new Rectangle();
-		rectanlge.height = 480;
-		rectanlge.width = 800;
+		rectanlge.height = Constants.VIEWPORT_HEIGHT;
+		rectanlge.width = Constants.VIEWPORT_GUI_WIDTH;
 		rectanlge.x = 0;
 		rectanlge.y = 0;
 		

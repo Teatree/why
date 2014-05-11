@@ -119,7 +119,7 @@ public class TheController extends InputAdapter{
 			if(!e.isDead()){
 				Iterator<Projectile> prj = level1.getPlayer().projectiles.iterator();
 				while(prj.hasNext()){
-//					System.out.println("enemies on Stage: " + level1.enemiesOnStage.size());
+//					// System.out.println("enemies on Stage: " + level1.enemiesOnStage.size());
 					Projectile p = (Projectile) prj.next();
 					if(Intersector.overlaps(p.getCircle(), e.getRectanlge())){
 							prj.remove();
@@ -128,7 +128,7 @@ public class TheController extends InputAdapter{
 					}
 			}
 			if (e.isDead()) {
-				// System.out.println("must work!");
+				// // System.out.println("must work!");
 				if (e.timeRemove < 180) {
 					e.timeRemove++;
 				}  else if (e.timeRemove > 179) {
@@ -225,19 +225,19 @@ public class TheController extends InputAdapter{
 //			for(Enemy enemy : level1.enemiesOnStage){
 //				if(enemy!=null && level1.getPlayer() != null && enemy.cunter >= 0 && enemy.path[enemy.cunter] != null){
 //					if (level1.getPlayer().getPosition().x > (enemy.path[enemy.cunter].x*16+level1.getPlayer().getSprite().getWidth()*3)){
-//						System.out.println("enemy: " + enemy + " player has steped out of the last node on the path area on the RIGHT");
+//						// System.out.println("enemy: " + enemy + " player has steped out of the last node on the path area on the RIGHT");
 //						enemy.setState(State.STANDARD);
 //					}
 //					if (level1.getPlayer().getPosition().x < (enemy.path[enemy.cunter].x*16-level1.getPlayer().getSprite().getWidth()*3)){
-//						System.out.println("enemy: " + enemy + " player has steped out of the last node on the path area on the LEFT");
+//						// System.out.println("enemy: " + enemy + " player has steped out of the last node on the path area on the LEFT");
 //						enemy.setState(State.STANDARD);
 //					}
 //					if (level1.getPlayer().getPosition().y < (enemy.path[enemy.cunter].y*16-level1.getPlayer().getSprite().getWidth()*3)){
-//						System.out.println("enemy: " + enemy + " player has steped out of the last node on the path area on the BOTTOM");
+//						// System.out.println("enemy: " + enemy + " player has steped out of the last node on the path area on the BOTTOM");
 //						enemy.setState(State.STANDARD);
 //					}
 //					if (level1.getPlayer().getPosition().y > (enemy.path[enemy.cunter].y*16+level1.getPlayer().getSprite().getWidth()*3)){
-//						System.out.println("enemy: " + enemy + " player has steped out of the last node on the path area on the TOP");
+//						// System.out.println("enemy: " + enemy + " player has steped out of the last node on the path area on the TOP");
 //						enemy.setState(State.STANDARD);
 //					}
 //				}
@@ -257,7 +257,7 @@ public class TheController extends InputAdapter{
 				l1Renderer.getCam().unproject(touchPos);
 				touchPos.z = 0;
 			}else if(Intersector.intersectSegmentCircle(point, point, gui.getWeaponizer().getPosition(), gui.getWeaponizer().getCircle().radius*gui.getWeaponizer().getCircle().radius) == true){
-	//			System.out.println("yes it intersects");
+	//			// System.out.println("yes it intersects");
 			}
 		}
 	}
@@ -276,6 +276,9 @@ public class TheController extends InputAdapter{
 			for (Enemy enemy : level1.enemiesOnStage)
 				enemy.setState(State.DEAD);
 		}
+		if (Gdx.input.isKeyPressed(Keys.P)){
+			level1.getPlayer().setState(State.DEAD);
+		}
 		if (Gdx.input.isKeyPressed(Keys.X) && Gdx.input.isKeyPressed(Keys.CONTROL_RIGHT)){
 		// property in the setShakeAmt is supposed to be SHAKE_INTENCITY, but it's not, deal with it!
 			cameraHelper.setShakeAmt(45);
@@ -292,14 +295,14 @@ public class TheController extends InputAdapter{
 		if (Gdx.input.isKeyPressed(Keys.N) && !NalreadyPressed){
 			level1.getPlayer().setHurt(true);
 			timer2=80; // Remember that this one is supposed to be the same as the pending time of hurt state animation
-			System.out.println("Health: " + level1.getPlayer().getHealth());
+			// System.out.println("Health: " + level1.getPlayer().getHealth());
 			NalreadyPressed = true;
 		}else if(!Gdx.input.isKeyPressed(Keys.N)){
 			NalreadyPressed = false;
 		}
 		if (Gdx.input.isKeyPressed(Keys.B)){
 			decreaseOxygen();
-			System.out.println("Oxygen: " + level1.getPlayer().oxygen);
+			// System.out.println("Oxygen: " + level1.getPlayer().oxygen);
 		}
 		
 //		if(gui.getWeaponizer().isOn() && level1.getPlayer().getState() == State.STANDARD){
@@ -337,17 +340,17 @@ public class TheController extends InputAdapter{
 //			int x1 = (int) (level1.getEnemy().getgReenAura().x + (level1.getEnemy().getgReenAura().radius/2));
 //			int Rx = randomGenerator.nextInt(x1 - x) + x;
 //			if(Rx > 0 && Rx < 800){
-////				System.out.println("(pathfinderStuff()) getting the random number -X- ");
+////				// System.out.println("(pathfinderStuff()) getting the random number -X- ");
 //				randVector2.x = Rx;
 //			}
 //			int y = (int) (level1.getEnemy().getgReenAura().y - (level1.getEnemy().getgReenAura().radius/2));
 //			int y1 = (int) (level1.getEnemy().getgReenAura().y + (level1.getEnemy().getgReenAura().radius/2));
 //			int Ry = randomGenerator.nextInt(y1 - y) + y;
 //			if(Ry > 0 && Ry < 480){
-////				System.out.println("(pathfinderStuff()) getting the random number -Y- ");
+////				// System.out.println("(pathfinderStuff()) getting the random number -Y- ");
 //				randVector2.y = Ry;
 //			}
-////			System.out.println("randVector2 is: " + randVector2.x + " : " + randVector2.y);
+////			// System.out.println("randVector2 is: " + randVector2.x + " : " + randVector2.y);
 ////			if(randVector2){
 //				pathfinder.findPath(level1.getEnemy().getPosition(), randVector2);
 ////			}
@@ -394,12 +397,12 @@ public class TheController extends InputAdapter{
 	public boolean keyUp (int keycode) {
 		if (keycode == Keys.R) {
 			init();
-			System.out.println("Game world resetted");
+			// System.out.println("Game world resetted");
 			}
 		
 		if (keycode == Keys.ENTER && cameraHelper.hasTarget) {
 			cameraHelper.hasTarget = false;
-			System.out.println(cameraHelper.hasTarget + " " + level1.getPlayer().getSprite().getOriginX());
+			// System.out.println(cameraHelper.hasTarget + " " + level1.getPlayer().getSprite().getOriginX());
 		}
 		return false;
 	}

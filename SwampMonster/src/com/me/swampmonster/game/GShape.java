@@ -20,6 +20,7 @@ public class GShape extends Group {
 	float assRevert = 0f;
 	private int timer;
 	private BitmapFont font;
+	private Vector2 vector2;
 	
 	private CharSequence str;
 	private CharSequence str2;
@@ -29,33 +30,18 @@ public class GShape extends Group {
 		sr = new ShapeRenderer();
 		this.theController = theController;
 	}
-
+	
+	
 	@Override
 	public void draw(SpriteBatch batch, float parentAlpha) {
 		super.draw(batch, parentAlpha);
 		
 		font = AssetsMainManager.manager.get(AssetsMainManager.font);
+		vector2 = new Vector2(theController.getPoint());
 		
 		str = "points: " + theController.level1.getPlayer().getPoints();
 		str2 = "Wave:" + theController.level1.currentWave + "/" + theController.level1.wavesAmount;
 		
-		font.setColor(1.0f, 1.0f, 1.0f, 1.0f);
-		font.draw(batch, str, 580, 460);
-		font.draw(batch, str2, 580, 420);
-		font.setColor(Color.YELLOW);
-		font.setScale(1);
-		if(assRevert >= 0.4f && theController.level1.getPlayer().getState() == State.DEAD){
-			font.draw(batch, theController.gui.getGameoverGUI().getGameOverString(), 310, 280);
-		}
-		if(assRevert >= 0.4f && theController.level1.getPlayer().getState() == State.DEAD){
-			font.setScale(1);
-			font.draw(batch, theController.gui.getGameoverGUI().getWittyMessage(), 240-theController.gui.getGameoverGUI().getWittyMessage().length(), 230);
-		}
-		if(assRevert >= 0.45f && theController.level1.getPlayer().getState() == State.DEAD){
-			font.setScale(1);
-			font.draw(batch, theController.gui.getGameoverGUI().getRestartString(), 361, 170);
-		}
-
 		batch.end();
 		
 		Gdx.gl.glEnable(GL20.GL_BLEND);
@@ -96,7 +82,7 @@ public class GShape extends Group {
 				warningFlicker(sr);
 			}
 			if (theController.level1.getPlayer().oxygen <= 0 && timer >= 10) {
-				System.out.println(timer);
+				// System.out.println(timer);
 				sr.setColor(new Color(0, 200, 20, 0.5f));
 				sr.rect(30, 422, 96, 22);
 			}
@@ -151,8 +137,8 @@ public class GShape extends Group {
 				sr.setColor(new Color(200, 0, 0, assRevert));
 				sr.rect(theController.gui.getGameoverGUI().getRectanlge().x,
 						theController.gui.getGameoverGUI().getRectanlge().y,
-						theController.gui.getGameoverGUI().getRectanlge().width,
-						theController.gui.getGameoverGUI().getRectanlge().height);
+						theController.gui.getGameoverGUI().getRectanlge().width+200,
+						theController.gui.getGameoverGUI().getRectanlge().height+200);
 				if (assRevert < 0.5f
 						&& theController.level1.getPlayer().getState() == State.DEAD) {
 					assRevert = assRevert + 0.002f;
@@ -161,10 +147,8 @@ public class GShape extends Group {
 			if (assRevert >= 0.45f
 					&& theController.level1.getPlayer().getState() == State.DEAD) {
 				sr.setColor(Color.GREEN);
-				if (theController.doesIntersect(new Vector2(theController.gui
-						.getGameoverGUI().getCircle().x, theController.gui
-						.getGameoverGUI().getCircle().y), theController.gui
-						.getGameoverGUI().getCircle().radius)) {
+				if (theController.gui.getGameoverGUI().getCircle().contains(vector2)){
+					System.out.println("X: " + vector2.x + " Y: " + vector2.y);
 					sr.setColor(new Color(0, 200, 0.5f, 100));
 				}
 				sr.circle(theController.gui.getGameoverGUI().getCircle().x,
@@ -188,6 +172,22 @@ public class GShape extends Group {
 			sr.end();
 		}
 		batch.begin();
+		font.setColor(1.0f, 1.0f, 1.0f, 1.0f);
+		font.draw(batch, str, 580, 460);
+		font.draw(batch, str2, 580, 420);
+		font.setColor(Color.YELLOW);
+		font.setScale(1);
+		if(assRevert >= 0.4f && theController.level1.getPlayer().getState() == State.DEAD){
+			font.draw(batch, theController.gui.getGameoverGUI().getGameOverString(), 310, 280);
+		}
+		if(assRevert >= 0.4f && theController.level1.getPlayer().getState() == State.DEAD){
+			font.setScale(1);
+			font.draw(batch, theController.gui.getGameoverGUI().getWittyMessage(), 240-theController.gui.getGameoverGUI().getWittyMessage().length(), 230);
+		}
+		if(assRevert >= 0.45f && theController.level1.getPlayer().getState() == State.DEAD){
+			font.setScale(1);
+			font.draw(batch, theController.gui.getGameoverGUI().getRestartString(), 361, 170);
+		}
 	}
 
 	public void warningFlicker(ShapeRenderer Sr) {

@@ -34,7 +34,7 @@ public class MisterSpawner {
 				while (!isValidPosition(v2)) {
 					v2 = calculateEnemiesPosition(l.getPlayer());
 				}
-//				System.out.println("Spawn enemy x=" + v2.x + " y=" + v2.y);
+//				// System.out.println("Spawn enemy x=" + v2.x + " y=" + v2.y);
 				enemy.position = v2;
 //				System.err.println("enemy posX: " + enemy.getPosition().x
 //						+ " posY: " + enemy.getPosition().y);
@@ -63,8 +63,8 @@ public class MisterSpawner {
 			maxPosX = mapWith;
 			minPosY = (int) (player.getPosition().y + Constants.VIEWPORT_GUI_HEIGHT / 2);
 			maxPosY = (int) (mapHeight - player.getSprite().getHeight());
-			System.out.println("case 0 minX=" + minPosX + " maxX =" + maxPosX
-					+ " minY=" + minPosY + " maxY=" + maxPosY);
+			// System.out.println("case 0 minX=" + minPosX + " maxX =" + maxPosX
+//					+ " minY=" + minPosY + " maxY=" + maxPosY);
 			break;
 		}
 		case 1: {
@@ -72,8 +72,8 @@ public class MisterSpawner {
 			maxPosX = (int) (mapWith - player.getSprite().getWidth());
 			minPosY = 22;
 			maxPosY = mapHeight;
-			System.out.println("case 1 minX=" + minPosX + " maxX =" + maxPosX
-					+ " minY=" + minPosY + " maxY=" + maxPosY);
+			// System.out.println("case 1 minX=" + minPosX + " maxX =" + maxPosX
+//					+ " minY=" + minPosY + " maxY=" + maxPosY);
 			break;
 		}
 		case 2: {
@@ -81,8 +81,8 @@ public class MisterSpawner {
 			maxPosX = mapWith - 1;
 			minPosY = 22;
 			maxPosY = (int) (player.getPosition().y - Constants.VIEWPORT_GUI_HEIGHT / 2);
-			System.out.println("case 2 minX=" + minPosX + " maxX =" + maxPosX
-					+ " minY=" + minPosY + " maxY=" + maxPosY);
+			// System.out.println("case 2 minX=" + minPosX + " maxX =" + maxPosX
+//					+ " minY=" + minPosY + " maxY=" + maxPosY);
 			break;
 		}
 		default: {
@@ -90,8 +90,8 @@ public class MisterSpawner {
 			maxPosX = (int) (player.getPosition().x - Constants.VIEWPORT_GUI_HEIGHT / 2);
 			minPosY = 22;
 			maxPosY = (int) (mapHeight - player.getSprite().getHeight());
-			System.out.println("case 3 minX=" + minPosX + " maxX =" + maxPosX
-					+ " minY=" + minPosY + " maxY=" + maxPosY);
+			// System.out.println("case 3 minX=" + minPosX + " maxX =" + maxPosX
+//					+ " minY=" + minPosY + " maxY=" + maxPosY);
 		}
 		}
 

@@ -1,6 +1,7 @@
 package com.me.swampmonster.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -50,15 +51,18 @@ public class L1Renderer {
 		Image weaponizerImage = new Image(theController.gui.getWeaponizer().getSprite()); 
 		Image oxygenBarImage = new Image(theController.gui.getOxygenBar().getSprite());
 		oxygenBarImage.setPosition(theController.gui.getOxygenBar().getPosition().x, theController.gui.getOxygenBar().getPosition().y);
-
+		
+		InputMultiplexer multiplexer = new InputMultiplexer();
+		multiplexer.addProcessor(stage);
+		multiplexer.addProcessor(theController);
+		Gdx.input.setInputProcessor(multiplexer);
+		
 		gshape = new GShape(theController);
 		stage.addActor(gshape);
 		
 		stage.addActor(healthBarImage);
 		stage.addActor(weaponizerImage);
 		stage.addActor(oxygenBarImage);
-		
-		
 		
 		timer = 60;
 	}	
@@ -72,7 +76,7 @@ public class L1Renderer {
 		stage.act();
 		
 //		cam.unproject(theController.touchPos);
-//		System.out.println("MY X IS: " + theController.touchPos.x + " MY Y IS: " + theController.touchPos.y + " AND MY Z IS: " + theController.touchPos.z); 
+//		// System.out.println("MY X IS: " + theController.touchPos.x + " MY Y IS: " + theController.touchPos.y + " AND MY Z IS: " + theController.touchPos.z); 
 		
 		batch.setProjectionMatrix(cam.combined);
 		sr.setProjectionMatrix(cam.combined);

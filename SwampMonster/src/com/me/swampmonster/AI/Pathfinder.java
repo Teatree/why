@@ -20,7 +20,7 @@ public class Pathfinder {
 	
 	public static Node[] findPath(Vector2 startingPosition, Vector2 targetPosition, TiledMapTileLayer nodeLayer) {
 		
-//		System.out.println("(findPath): working!");
+//		// System.out.println("(findPath): working!");
 		
 		int mapWidth = nodeLayer.getWidth();
 		int mapHeight = nodeLayer.getHeight();
@@ -51,10 +51,10 @@ public class Pathfinder {
 		
 		while (openList.size() > 0) {
 			Node currentNode = openList.poll();
-//			System.out.println("iteration");
+//			// System.out.println("iteration");
 			
-//			System.out.println("CurrentNode! ==== " + currentNode);
-//			System.out.println("TargetNode! ==== " + targetNode);
+//			// System.out.println("CurrentNode! ==== " + currentNode);
+//			// System.out.println("TargetNode! ==== " + targetNode);
 			
 			if (currentNode != null && currentNode.equals(targetNode) && currentNode.getParentNode() != null) {
 				Node node = currentNode.getParentNode();
@@ -62,7 +62,7 @@ public class Pathfinder {
 				int cuntar = 0;
 				
 				if(node.getParentNode() == null){
-//					System.out.println("the GetParent is null!");
+//					// System.out.println("the GetParent is null!");
 					return new Node[99];
 				}else {
 					while(node.getParentNode() != null /*&& !node.getParentNode().equals(startingPosition)*/){
@@ -73,16 +73,16 @@ public class Pathfinder {
 				}
 				
 //				if(node.getParentNode() == null){
-//					System.out.println("the GetParent is null!");
+//					// System.out.println("the GetParent is null!");
 //					return null;
 //				}
 				return path;
 			}
 			
 			openList.remove(currentNode);
-//			System.out.println("Removing " + currentNode + " From openList, now openList contains: " + openList.size());
+//			// System.out.println("Removing " + currentNode + " From openList, now openList contains: " + openList.size());
 			closedList.add(currentNode);
-//			System.out.println("Adding " + currentNode + " To closedList, now closedList contains: " + closedList.size());
+//			// System.out.println("Adding " + currentNode + " To closedList, now closedList contains: " + closedList.size());
 			for (Node neighborNode : getNeighborNodes(currentNode, nodeLayer, nodes)) {
 				float tentativeGScore = currentNode.g + distanceToNode(currentNode, targetNode);
 				
@@ -94,7 +94,7 @@ public class Pathfinder {
 				
 				if (neighborNode.g == 0 || tentativeGScore < neighborNode.g) {
 						navigatedNodes[neighborNode.x][neighborNode.y] = currentNode;
-//						System.out.println("Assigning currentNode, now it's: " + currentNode);
+//						// System.out.println("Assigning currentNode, now it's: " + currentNode);
 						neighborNode.g = tentativeGScore;
 						neighborNode.f = neighborNode.g + distanceToNode(neighborNode, targetNode);
 						
@@ -102,7 +102,7 @@ public class Pathfinder {
 						if (!openList.contains(neighborNode) && nodeIsWalkable(neighborNode.x, neighborNode.y, nodeLayer)) {
 							openList.add(neighborNode);
 							neighborNode.setParentNode(currentNode);
-//							System.out.println("Adding neighborNode to the OPEN_LIST");
+//							// System.out.println("Adding neighborNode to the OPEN_LIST");
 						}
 				}
 			}
@@ -151,7 +151,7 @@ public class Pathfinder {
 	private static Node getNodeAt(float x, float y, TiledMapTileLayer nodeLayer, Node [][] nodes) {
 		int cellx = (int)x / (int)nodeLayer.getTileWidth();
 		int celly = (int)y / (int)nodeLayer.getTileHeight();
-//		System.out.println(cellx + " and " + celly);
+//		// System.out.println(cellx + " and " + celly);
 		return getNodeAt(cellx, celly, nodes);
 	}
 	
@@ -193,7 +193,7 @@ public class Pathfinder {
 
     static AtomicInteger counter = new AtomicInteger();
     public static void someTask() {
-        System.out.println("someTask: " + counter.incrementAndGet() 
-                + " on thread: " + Thread.currentThread());
+//        // System.out.println("someTask: " + counter.incrementAndGet() 
+//                + " on thread: " + Thread.currentThread());
     }
 }

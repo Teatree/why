@@ -127,7 +127,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 		enemyDx /= enemyLength;
 		enemyDy /= enemyLength;
 
-		// System.out.println("currentlyMovingOnPath " + currentlyMovingOnPath);
+		// // System.out.println("currentlyMovingOnPath " + currentlyMovingOnPath);
 
 		// Direction for the pursuit state
 		if (cunter != -1 && path != null && path[cunter] != null) {
@@ -156,7 +156,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 
 		HashMap<State, AnimationControl> animations = animationsStandard;
 
-		// System.out.println("enemy state: " + state);
+		// // System.out.println("enemy state: " + state);
 
 		if (!state.equals(State.STANDARD)) {
 			timer = 0;
@@ -174,7 +174,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 				sprite.setRegion(animations.get(state).getCurrentFrame());
 
 				// MOVEMENT + COLLISION PROCESSING AND DETECTION
-				// System.out.println("cunter = " + cunter);
+				// // System.out.println("cunter = " + cunter);
 				if (path != null && (cunter <= 0 || path[cunter] == null)) {
 					cunter = findLastNotNullInArray();
 					if (cunter <= 0) {
@@ -189,11 +189,11 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 				}
 
 				if (path[0] != null) {
-					System.out.println("it's not null");
-					System.out.println("pathX: " + path[0].x * 16 + "pathY:"
-							+ path[0].y * 16);
-					System.out.println("playerX: " + player.position.x
-							+ "playerY:" + player.position.y);
+					// System.out.println("it's not null");
+					// System.out.println("pathX: " + path[0].x * 16 + "pathY:"
+//							+ path[0].y * 16);
+					// System.out.println("playerX: " + player.position.x
+//							+ "playerY:" + player.position.y);
 					if (player.position.x > path[0].x * 16 + 120
 							|| player.position.x < path[0].x * 16 - 120
 							|| player.position.y > path[0].y * 16 + 120
@@ -217,7 +217,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 						&& !yellowAura.overlaps(player.getCircle())
 						&& player.getState() != State.DEAD) {
 
-					// System.out.println("move is active... and overlpas is: "
+					// // System.out.println("move is active... and overlpas is: "
 					// + getoRangeAura().overlaps(player.getCircle()));
 
 					Collidable collidableLeft = null;
@@ -243,10 +243,10 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 
 				if (oldPos.x != position.x || oldPos.y != position.y
 						&& timer > 0 && timer2 > 0) {
-					// System.out.println("yes!1");
+					// // System.out.println("yes!1");
 					timer = 0;
 					timer2 = 0;
-					// System.out.println("condition oldPos.x != position.x || oldPos.y != position.y && timer>0 && timer2>0 is true!");
+					// // System.out.println("condition oldPos.x != position.x || oldPos.y != position.y && timer>0 && timer2>0 is true!");
 				}
 
 				if (yellowAura.overlaps(player.getCircle())
@@ -255,7 +255,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 				}
 
 				if (attackSequenceStarted) {
-					// System.out.println("yes!2 and overlpas is: " +
+					// // System.out.println("yes!2 and overlpas is: " +
 					// getoRangeAura().overlaps(player.getCircle()));
 					if (playerMovementDirection == "right") {
 						inflictOnThe(88, 56, player, cameraHelper, attackSpeed);
@@ -271,7 +271,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 					}
 				}
 				// if(!getoRangeAura().overlaps(player.getCircle())){
-				// System.out.println("yes!3");
+				// // System.out.println("yes!3");
 				// timer = 0;
 				// timer2 = 0;
 				// }
@@ -279,12 +279,12 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 		}
 		// ANIMATING
 		if (state.equals(State.ANIMATING)) {
-			// System.out.println(" (PLAYER): I'm currently in ANIMATING state");
+			// // System.out.println(" (PLAYER): I'm currently in ANIMATING state");
 
 		}
 		// DEAD
 		if (state.equals(State.DEAD)) {
-			// System.out.println(" (PLAYER): I'm DEAD :(");
+			// // System.out.println(" (PLAYER): I'm DEAD :(");
 			if (timeDead < 65) {
 				currentFrame = animations.get(state).doComplexAnimation(96, 2f,
 						0.03f, Animation.NORMAL);
@@ -305,17 +305,17 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 			if (projectiles != null) {
 				getProjectileLocationRelativeToSprite(projectiles);
 			}
-			// System.out.println(" (PLAYER): I'm currently in HURT state");
+			// // System.out.println(" (PLAYER): I'm currently in HURT state");
 			if (time < 40) {
 				time++;
-				// System.out.println("projectileLocationRelativeTo: " +
+				// // System.out.println("projectileLocationRelativeTo: " +
 				// projectileLocation);
 
 				if (damageType == "player" && state != State.DEAD) {
 					// private void takingDamageFromEnemy(HashMap<State,
 					// AnimationControl> animations, AbstractGameObject enemy,
 					// Vector3 touchPos, TiledMapTileLayer collisionLayer) {
-					// System.out.println(enemy.getPlayerMovementDirection());
+					// // System.out.println(enemy.getPlayerMovementDirection());
 					Collidable collidableUp = null;
 
 					damagedFromTop(collidableUp, animationsStandard);
@@ -416,7 +416,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 		if (oldPos.x == position.x && oldPos.y == position.y) {
 			if (timer2 < attackSpeed) {
 				timer2++;
-				// System.out.println("timer2: " + timer2 );
+				// // System.out.println("timer2: " + timer2 );
 				currentFrame = animationsStandard.get(state).animate(standing);
 			}
 			if (timer2 >= attackSpeed && timer < 30) {
@@ -424,7 +424,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 					cameraHelper.setShakeAmt(25);
 					cameraHelper.cameraShake();
 				}
-				// System.out.println("timer1: " + timer);
+				// // System.out.println("timer1: " + timer);
 				currentFrame = animationsStandard.get(state)
 						.doComplexAnimation(animation, 1.8f,
 								Gdx.graphics.getDeltaTime(), Animation.NORMAL);
@@ -547,10 +547,10 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 					|| position.x < player.getPosition().x - 10
 					|| position.y > player.getPosition().y - 4
 					|| position.y < player.getPosition().y - 10) {
-				// System.out.println("yes it is !");
+				// // System.out.println("yes it is !");
 				if (collidableLeft == null || collidableRight == null) {
 					position.x += enemyDx * playerMovementSpeed;
-					// System.out.println("enemyDx*playerMovementSpeed: " +
+					// // System.out.println("enemyDx*playerMovementSpeed: " +
 					// enemyDx*playerMovementSpeed + " position.x: " +
 					// position.x);
 				}
@@ -695,10 +695,10 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 				&& position.y <= (path[cunter].y * 16) + 1
 				&& position.y >= (path[cunter].y * 16) - 1) {
 			path[cunter] = null;
-			// System.out.println("taking of one Node from the path of Nodes, there was: "
+			// // System.out.println("taking of one Node from the path of Nodes, there was: "
 			// + cunter + " Nodes and now there are: ");
 			cunter--;
-			// System.out.println(cunter);
+			// // System.out.println(cunter);
 		}
 	}
 
@@ -707,7 +707,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 			enemyDx = 0;
 			enemyDy = 0;
 			timereskin++;
-//			System.out.println("stoped: " + timereskin);
+//			// System.out.println("stoped: " + timereskin);
 		} else if (timereskin > secs - 1) {
 			iAmWaiting = false;
 			timereskin = 0;
@@ -725,8 +725,8 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 			Pathfinder.findPathInThreadPool(position, player.position,
 					collisionLayer, this);
 		}
-		// System.out.println(position.x);
-		// System.out.println(theController.level1.getPlayer().position.x);
+		// // System.out.println(position.x);
+		// // System.out.println(theController.level1.getPlayer().position.x);
 		state = State.PURSUIT;
 	}
 
@@ -735,7 +735,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 	private void damageFromRight(Collidable collidableUp,
 			HashMap<State, AnimationControl> animationsStandard) {
 		if (projectileLocation == "right" && collidableUp == null) {
-			// System.out.println("supposed to be animating... Right");
+			// // System.out.println("supposed to be animating... Right");
 			currentFrame = animationsStandard.get(State.STANDARD)
 					.doComplexAnimation(112, 0.6f,
 							Gdx.graphics.getDeltaTime() / 2, Animation.NORMAL);
@@ -750,7 +750,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 	private void damageFromLeft(Collidable collidableUp,
 			HashMap<State, AnimationControl> animationsStandard) {
 		if (projectileLocation == "left" && collidableUp == null) {
-			// System.out.println("supposed to be animating... Left");
+			// // System.out.println("supposed to be animating... Left");
 			currentFrame = animationsStandard.get(State.STANDARD)
 					.doComplexAnimation(108, 0.6f,
 							Gdx.graphics.getDeltaTime() / 2, Animation.NORMAL);
@@ -765,7 +765,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 	private void damageFromBottom(Collidable collidableUp,
 			HashMap<State, AnimationControl> animationsStandard) {
 		if (projectileLocation == "bottom" && collidableUp == null) {
-			// System.out.println("supposed to be animating... Bottom");
+			// // System.out.println("supposed to be animating... Bottom");
 			currentFrame = animationsStandard.get(State.STANDARD)
 					.doComplexAnimation(104, 0.6f,
 							Gdx.graphics.getDeltaTime() / 2, Animation.NORMAL);
@@ -781,7 +781,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 			HashMap<State, AnimationControl> animationsStandard) {
 		if (projectileLocation == "top" && collidableUp == null) {
 
-			// System.out.println("supposed to be animating... Top");
+			// // System.out.println("supposed to be animating... Top");
 			currentFrame = animationsStandard.get(State.STANDARD)
 					.doComplexAnimation(116, 0.6f,
 							Gdx.graphics.getDeltaTime() / 2, Animation.NORMAL);

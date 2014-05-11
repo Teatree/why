@@ -32,7 +32,7 @@ public class EnemyLeech extends Enemy{
 		if(oldPos.x == position.x && oldPos.y == position.y){
 			if(timer2 < attackSpeed){
 				timer2++;
-//            			System.out.println("timer2: " + timer2 );
+//            			// System.out.println("timer2: " + timer2 );
 				currentFrame = animationsStandard.get(state).animate(standing);
 			}
 			if(timer2 >= attackSpeed && timer < 30){

@@ -70,7 +70,7 @@ public class L1 {
 			needTogenerateNewWave = true;
 			currentWave++;
 			pendingPeriodBetweedWavesCounter = Constants.pendingPeriodBetweedWaves;
-			System.out.println("NEXT WAVE!");
+			// System.out.println("NEXT WAVE!");
 			}else{
 				pendingPeriodBetweedWavesCounter--;
 			}

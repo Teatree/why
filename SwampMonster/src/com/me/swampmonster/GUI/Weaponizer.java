@@ -27,11 +27,11 @@ public class Weaponizer extends AbstractGameObject{
 		if(Gdx.input.justTouched() && doesIntersect(new Vector2(circle.x, circle.y), circle.radius,
 				new Vector2(point.x+player.getPosition().x, point.y+player.getPosition().y)) && !on){
 			on = true;
-//			System.out.println(on);
+//			// System.out.println(on);
 		}else if(Gdx.input.justTouched() && doesIntersect(new Vector2(circle.x, circle.y), circle.radius, 
 				new Vector2(point.x+player.getPosition().x, point.y+player.getPosition().y)) && on){
 			on = false;
-//			System.out.println(on);
+//			// System.out.println(on);
 		}
 	}
 	public boolean isOn() {

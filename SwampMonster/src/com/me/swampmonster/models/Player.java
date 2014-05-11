@@ -133,8 +133,8 @@ public class Player extends AbstractGameObject{
 			justSpawned = false;
 		}
 		
-//		System.out.println("player position = " + position.x + " : " + position.y);
-//		System.out.println("player position = " + sprite.getX() + " : " + sprite.getY());
+//		// System.out.println("player position = " + position.x + " : " + position.y);
+//		// System.out.println("player position = " + sprite.getX() + " : " + sprite.getY());
 		if(positiveEffectCounter<=0){
 			positiveEffectsState = PositiveEffectsState.NONE;
 		}else{
@@ -147,14 +147,14 @@ public class Player extends AbstractGameObject{
 		}
 	//ANIMATING
 		if(state.equals(State.ANIMATING)){
-//			System.out.println(" (PLAYER): I'm currently in ANIMATING state");
+//			// System.out.println(" (PLAYER): I'm currently in ANIMATING state");
 			
 		}
 		
 		
 	//STANDARD
 		if(state.equals(State.STANDARD)){
-//			System.out.println(" (PLAYER): I'm currently in STANDARD state");
+//			// System.out.println(" (PLAYER): I'm currently in STANDARD state");
 			sprite = new Sprite(animations.get(State.STANDARD).getCurrentFrame());
 //			sprite.setColor(1,1,1,0.39f);
 			sprite.setRegion(animations.get(state).getCurrentFrame());
@@ -169,7 +169,7 @@ public class Player extends AbstractGameObject{
 		
 	//GUN MOVEMENT
 		if(state.equals(State.GUNMOVEMENT)){
-//			System.out.println(" (PLAYER): I'm currently in GUNMOVEMENT state");
+//			// System.out.println(" (PLAYER): I'm currently in GUNMOVEMENT state");
 			sprite = new Sprite(animations.get(State.GUNMOVEMENT).getCurrentFrame());
 			sprite.setRegion(animations.get(state).getCurrentFrame());
 			sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
@@ -218,7 +218,7 @@ public class Player extends AbstractGameObject{
 		
 	//DEAD
 		if(state.equals(State.DEAD)){
-//			System.out.println(" (PLAYER): I'm DEAD :(");
+//			// System.out.println(" (PLAYER): I'm DEAD :(");
 			if(timeDead < 89){
 				sprite = new Sprite(animations.get(State.ANIMATING).getCurrentFrame());
 				currentFrame = animations.get(state).doComplexAnimation(112, 1.6f, 0.018f, Animation.NORMAL);
@@ -233,16 +233,16 @@ public class Player extends AbstractGameObject{
 		
 		//Hurt
 		if(hurt && !positiveEffectsState.equals(PositiveEffectsState.FADE)){
-//			System.out.println(" (PLAYER): I'm currently in HURT state");
+//			// System.out.println(" (PLAYER): I'm currently in HURT state");
 			if(time < 40){
 				sprite = new Sprite(animations.get(State.STANDARD).getCurrentFrame());
 				
 				time++;
 				
 				if(damageType == "enemy"){
-//					System.out.println(harmfulEnemies.size());
+//					// System.out.println(harmfulEnemies.size());
 //					for (Enemy enemy : harmfulEnemies){
-//						System.out.println(enemy.getPlayerMovementDirection());
+//						// System.out.println(enemy.getPlayerMovementDirection());
 						takingDamageFromEnemy(animations, harmfulEnemy, touchPos, collisionLayer);
 //					}
 				}
@@ -260,7 +260,7 @@ public class Player extends AbstractGameObject{
 		
 		// Shooting
 		if(shooting && timeShooting < 30){
-//			System.out.println("shooting...");
+//			// System.out.println("shooting...");
 			currentFrame = animations.get(state).doComplexAnimation(32, 0.5f, 0.001f, Animation.NORMAL);
 			
 			sprite.setRegion(animations.get(state).getCurrentFrame());
@@ -297,7 +297,7 @@ public class Player extends AbstractGameObject{
 			
 			//: TODO This look terrible, make it better bro...
 			Projectile p = new Projectile(new Vector2(aimingArea.x+direction_x/100-8, aimingArea.y+direction_y/100-8), getRotation());
-			System.out.println("direction_x and aimingArea.x" + direction_x + aimingArea.x);
+			// System.out.println("direction_x and aimingArea.x" + direction_x + aimingArea.x);
 			
 			p.setPosition(new Vector2(aimingArea.x+direction_x/100-8, aimingArea.y+direction_y/100-8));
 			
@@ -328,7 +328,7 @@ public class Player extends AbstractGameObject{
 		
 
 	private void takingDamageFromEnemy(HashMap<State, AnimationControl> animations, AbstractGameObject enemy, Vector3 touchPos, TiledMapTileLayer collisionLayer) {
-//		System.out.println(enemy.getPlayerMovementDirection());
+//		// System.out.println(enemy.getPlayerMovementDirection());
 		Collidable collidableUp = null;
 		
 		damagedFromTop(collidableUp, animations, enemy, touchPos);
@@ -464,7 +464,7 @@ public class Player extends AbstractGameObject{
 		if (position.x > touchPos.x-4 || position.x < touchPos.x-14 || position.y > touchPos.y-4 || position.y < touchPos.y-14) {
 			if(collidableLeft == null || collidableRight == null){
 				position.x += dx*movementSpeed;
-//				System.out.println("dx*playerMovementSpeed: " + dx*playerMovementSpeed + " position.x: " + position.x);
+//				// System.out.println("dx*playerMovementSpeed: " + dx*playerMovementSpeed + " position.x: " + position.x);
 			}
 			if(collidableUp == null || collidableDown == null){
 				position.y += dy*movementSpeed;
