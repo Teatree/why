@@ -12,8 +12,8 @@ import com.me.swampmonster.models.Player;
 
 public class MisterItemSpawner {
 
-	public static int spavning_distance_x = 51;
-	public static int spavning_distance_y = 51;
+	public static int spavning_distance_x = 31;
+	public static int spavning_distance_y = 31;
 	
 	Random random = new Random();
 	int mapWith;
@@ -22,6 +22,7 @@ public class MisterItemSpawner {
 	ItemGenerator itemGenerator = new ItemGenerator();
 	Item item;
 	int spawnRate;
+	
 	
 	public Item spawnItem(Player player, Enemy enmy) {
 		spawnRate = itemGenerator.generateSpawnRate(player.getPoints());

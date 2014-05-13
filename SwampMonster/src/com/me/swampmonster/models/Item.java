@@ -63,13 +63,11 @@ public class Item extends AbstractGameObject{
 		}
 		if(state.equals(State.SPAWNING)){
 			if (!(Math.round(position.x ) == Math.round(targetPos.x))) {
-				if (targetPos.x > position.x){
-					position.x += 0.7f;
-					position.y += 5*Math.sin(0.9*position.x +5);
-				} else {
-					position.x -= 0.7f;
-					position.y += 5*Math.sin(0.9*position.x+7);
-				}
+				position.x += 0.7f;
+				position.y += 5*Math.sin(0.13*position.x);
+			} else {
+				position.x -= 0.7f;
+				position.y += 5*Math.sin(0.13*position.x);
 			}
 //			if(animTimer != 33){
 				currentFrame = doItemAnimation(0, 0.9f, 0.03f, Animation.NORMAL);
