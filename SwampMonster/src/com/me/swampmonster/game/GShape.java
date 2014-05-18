@@ -12,6 +12,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.me.swampmonster.models.AbstractGameObject.State;
 import com.me.swampmonster.utils.AssetsMainManager;
+import com.me.swampmonster.utils.Constants;
 
 public class GShape extends Group {
 	private ShapeRenderer sr;
@@ -20,7 +21,6 @@ public class GShape extends Group {
 	float assRevert = 0f;
 	private int timer;
 	private BitmapFont font;
-	private Vector2 vector2;
 	
 	private CharSequence str;
 	private CharSequence str2;
@@ -37,7 +37,6 @@ public class GShape extends Group {
 		super.draw(batch, parentAlpha);
 		
 		font = AssetsMainManager.manager.get(AssetsMainManager.font);
-		vector2 = new Vector2(theController.getPoint());
 		
 		str = "points: " + theController.level1.getPlayer().getPoints();
 		str2 = "Wave:" + theController.level1.currentWave + "/" + theController.level1.wavesAmount;
@@ -51,6 +50,7 @@ public class GShape extends Group {
 		sr.translate(getX(), getY(), 0);
 		sr.begin(ShapeType.Filled);
 		sr.setColor(Color.RED);
+		
 		if (theController != null) {
 			for (Rectangle r : theController.gui.getHealthBar()
 					.getHealthBarRect()) {
@@ -117,7 +117,16 @@ public class GShape extends Group {
 			Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
 			sr.begin(ShapeType.Line);
 			sr.setColor(Color.MAGENTA);
-			if (theController.doesIntersect(new Vector2(theController.level1
+			
+			Vector2 point = new Vector2();
+			point.x = (Gdx.input.getX()*Constants.VIEWPORT_WIDTH)/Gdx.graphics.getWidth();
+			point.y = Constants.VIEWPORT_HEIGHT-(Gdx.input.getY()*Constants.VIEWPORT_HEIGHT)/Gdx.graphics.getHeight();
+			System.out.println("width: " + Gdx.graphics.getWidth() + ", height: " + Gdx.graphics.getHeight());
+			System.out.println("point.x: " + point.x + ", point.y: " + point.y);
+			
+			sr.rect(point.x, point.y, 10, 10);
+			
+			if (theController.doesIntersect(point, new Vector2(theController.level1
 					.getPlayer().getCircle().x, theController.level1
 					.getPlayer().getCircle().y), theController.level1
 					.getPlayer().getCircle().radius * 2)) {
@@ -133,6 +142,7 @@ public class GShape extends Group {
 			sr.setTransformMatrix(batch.getTransformMatrix());
 			sr.translate(getX(), getY(), 0);
 			sr.begin(ShapeType.Filled);
+			
 			if (theController.level1.getPlayer().isDead()) {
 				sr.setColor(new Color(200, 0, 0, assRevert));
 				sr.rect(theController.gui.getGameoverGUI().getRectanlge().x,
@@ -147,8 +157,8 @@ public class GShape extends Group {
 			if (assRevert >= 0.45f
 					&& theController.level1.getPlayer().getState() == State.DEAD) {
 				sr.setColor(Color.GREEN);
-				if (theController.gui.getGameoverGUI().getCircle().contains(vector2)){
-					System.out.println("X: " + vector2.x + " Y: " + vector2.y);
+				if (theController.gui.getGameoverGUI().getCircle().contains(point)){
+					System.out.println("X: " + point.x + " Y: " + point.y);
 					sr.setColor(new Color(0, 200, 0.5f, 100));
 				}
 				sr.circle(theController.gui.getGameoverGUI().getCircle().x,

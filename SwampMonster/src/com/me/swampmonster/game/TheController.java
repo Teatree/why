@@ -251,7 +251,7 @@ public class TheController extends InputAdapter{
 
 	private void inputNav() {
 		if(!level1.getPlayer().getState().equals(State.DEAD)){
-			if(!doesIntersect(gui.getWeaponizer().getPosition(), gui.getWeaponizer().getCircle().radius)){
+			if(!doesIntersect(point, gui.getWeaponizer().getPosition(), gui.getWeaponizer().getCircle().radius)){
 				touchPos.y = Gdx.input.getY();
 				touchPos.x = Gdx.input.getX();
 				l1Renderer.getCam().unproject(touchPos);
@@ -382,7 +382,7 @@ public class TheController extends InputAdapter{
 	}
 	
 	private void restarter(){
-		if(level1.getPlayer().getState() == State.DEAD && Gdx.input.justTouched() && doesIntersect(new Vector2(400, 140), 60)){
+		if(level1.getPlayer().getState() == State.DEAD && Gdx.input.justTouched() && doesIntersect(point, new Vector2(400, 140), 60)){
 			init();
 			level1.getPlayer().setJustSpawned(true);
 		}
@@ -430,7 +430,7 @@ public class TheController extends InputAdapter{
 	// v2 is the position at which the circle is situated
 	// radius is the circles radius
 	// inside Mr. Point is where the mouse clicks.
-	public boolean doesIntersect(Vector2 v2, float radius){
+	public boolean doesIntersect(Vector2 point, Vector2 v2, float radius){
 		boolean questionMark;
 		if(Intersector.intersectSegmentCircle(point, point, v2, radius*radius)){
 			questionMark = true;

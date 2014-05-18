@@ -1,7 +1,6 @@
 package com.me.swampmonster.game;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -42,7 +41,7 @@ public class L1Renderer {
 //		Pathfinder.setTiledMap(level1.getBunker().getMap());
 		// temporary bedug feature
 		batch = new SpriteBatch();
-		stage = new Stage(Constants.VIEWPORT_WIDTH, Constants.VIEWPORT_HEIGHT, true, batch);
+		stage = new Stage(Constants.VIEWPORT_WIDTH, Constants.VIEWPORT_HEIGHT, false, batch);
 		sr = new ShapeRenderer();
 		mapRenderer = new OrthogonalTiledMapRenderer(theController.level1.getBunker().getMap());
 		
@@ -51,11 +50,6 @@ public class L1Renderer {
 		Image weaponizerImage = new Image(theController.gui.getWeaponizer().getSprite()); 
 		Image oxygenBarImage = new Image(theController.gui.getOxygenBar().getSprite());
 		oxygenBarImage.setPosition(theController.gui.getOxygenBar().getPosition().x, theController.gui.getOxygenBar().getPosition().y);
-		
-		InputMultiplexer multiplexer = new InputMultiplexer();
-		multiplexer.addProcessor(stage);
-		multiplexer.addProcessor(theController);
-		Gdx.input.setInputProcessor(multiplexer);
 		
 		gshape = new GShape(theController);
 		stage.addActor(gshape);
@@ -226,6 +220,7 @@ public class L1Renderer {
 				sr.circle(p.getCircle().x, p.getCircle().y, p.getCircle().radius);
 			}
 		}
+		
 		sr.rect(theController.point.x, theController.point.y, 32, 32);
 		sr.rect(theController.level1.getPlayer().getPosition().x, theController.level1.getPlayer().getPosition().y,
 				theController.level1.getPlayer().getRectanlge().width, theController.level1.getPlayer().getRectanlge().height);

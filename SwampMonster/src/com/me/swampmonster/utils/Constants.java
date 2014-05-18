@@ -1,10 +1,12 @@
 package com.me.swampmonster.utils;
 
+import com.badlogic.gdx.Gdx;
+
 public class Constants {
-	public static final float VIEWPORT_WIDTH = 800.0f;
-	public static final float VIEWPORT_HEIGHT = 480.0f;
-	public static final float VIEWPORT_GUI_WIDTH = 800.0f;
-	public static final float VIEWPORT_GUI_HEIGHT = 480.0f;
+	public static final float VIEWPORT_WIDTH = Gdx.graphics.getWidth();
+	public static final float VIEWPORT_HEIGHT = Gdx.graphics.getHeight();
+	public static final float VIEWPORT_GUI_WIDTH = Gdx.graphics.getWidth();
+	public static final float VIEWPORT_GUI_HEIGHT = Gdx.graphics.getHeight();
 	
 	public static final String sufficateMessage1 = "You forgot your oxygen mask, you big dummy!";
 	public static final String sufficateMessage2 = "I gues the absence of oxygen has left you... breathless.";
