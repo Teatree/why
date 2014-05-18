@@ -110,6 +110,8 @@ public class GShape extends Group {
 			}
 			sr.end();
 			
+			//hhjkl
+			
 			sr.setProjectionMatrix(batch.getProjectionMatrix());
 			sr.setTransformMatrix(batch.getTransformMatrix());
 			sr.translate(getX(), getY(), 0);
