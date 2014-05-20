@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.World;
 import com.me.swampmonster.animations.AnimationControl;
 import com.me.swampmonster.utils.AssetsMainManager;
 
@@ -13,7 +14,7 @@ public class Item extends AbstractGameObject{
 	public int lifeTime;
 	public int deadAnimTimer;
 	public boolean spawned;
-		
+	
 	private int animTimer;
 	private int animTimer2;
 	private int pendingTimer;
@@ -61,21 +62,23 @@ public class Item extends AbstractGameObject{
 				}
 			}
 		}
-		if(state.equals(State.SPAWNING)){
-			if (!(Math.round(position.x ) == Math.round(targetPos.x))) {
-				position.x += 0.7f;
-				position.y += 5*Math.sin(0.13*position.x);
-			} else {
-				position.x -= 0.7f;
-				position.y += 5*Math.sin(0.13*position.x);
+		if (state.equals(State.SPAWNING)) {
+			if (!(Math.round(position.x) == Math.round(targetPos.x))) {
+				if (position.x < targetPos.x) {
+					position.x += 0.7f;
+					position.y += 5 * Math.sin(0.13 * position.x);
+				} else {
+					position.x -= 0.7f;
+					position.y += 5 * Math.sin(0.13 * position.x);
+				}
 			}
-//			if(animTimer != 33){
-				currentFrame = doItemAnimation(0, 0.9f, 0.03f, Animation.NORMAL);
-//				animTimer++;
-//			}else if(animTimer == 33){
-//				state = State.STANDARD;
-//				animTimer = 0;
-//			}
+			// if(animTimer != 33){
+			currentFrame = doItemAnimation(0, 0.9f, 0.03f, Animation.NORMAL);
+			// animTimer++;
+			// }else if(animTimer == 33){
+			// state = State.STANDARD;
+			// animTimer = 0;
+			// }
 		}
 		
 		if(state.equals(State.DEAD)){
