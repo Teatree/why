@@ -12,8 +12,8 @@ import com.me.swampmonster.models.Player;
 
 public class MisterItemSpawner {
 
-	public static int spavning_distance_x = 31;
-	public static int spavning_distance_y = 31;
+	public static int spavning_distance_x = 24;
+	public static int spavning_distance_y = 24;
 	
 	Random random = new Random();
 	int mapWith;
@@ -91,6 +91,7 @@ public class MisterItemSpawner {
 		vector2.x = random.nextInt(maxX - minX) + minX;
 		vector2.y = random.nextInt(maxY - minY) + minY;
 		i.targetPos = vector2;
+		i.collisionLayer = collisionLayer;
 		i.spawned = true;
 	}
 

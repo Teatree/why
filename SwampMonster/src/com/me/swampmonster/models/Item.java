@@ -3,10 +3,12 @@ package com.me.swampmonster.models;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.me.swampmonster.animations.AnimationControl;
+import com.me.swampmonster.game.collision.CollisionHelper;
 import com.me.swampmonster.utils.AssetsMainManager;
 
 public class Item extends AbstractGameObject{
@@ -21,6 +23,7 @@ public class Item extends AbstractGameObject{
 	
 	public Vector2 spawnPos;
 	public Vector2 targetPos;
+	public TiledMapTileLayer collisionLayer;
 	
 	//Animations
 	public Item(String itemType, int lifeTime){
@@ -63,13 +66,17 @@ public class Item extends AbstractGameObject{
 			}
 		}
 		if (state.equals(State.SPAWNING)) {
-			if (!(Math.round(position.x) == Math.round(targetPos.x))) {
+			if (!(Math.round(position.x) == Math.round(targetPos.x)) ) {
+				if (CollisionHelper.isCollidable(position.x + sprite.getWidth(), position.y, collisionLayer) != null ||
+						CollisionHelper.isCollidable(position.x, position.y + sprite.getHeight(), collisionLayer) != null) {
+					state = State.STANDARD;
+				}
 				if (position.x < targetPos.x) {
-					position.x += 0.7f;
-					position.y += 5 * Math.sin(0.13 * position.x);
+					position.x += 0.8f;
+					position.y += 4.33 * Math.sin(0.1 * position.x);
 				} else {
 					position.x -= 0.7f;
-					position.y += 5 * Math.sin(0.13 * position.x);
+					position.y += 4.33 * Math.sin(0.1 * position.x);
 				}
 			}
 			// if(animTimer != 33){
