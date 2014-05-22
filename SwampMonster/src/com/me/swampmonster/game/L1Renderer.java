@@ -16,6 +16,7 @@ import com.me.swampmonster.models.Item;
 import com.me.swampmonster.models.AbstractGameObject.State;
 import com.me.swampmonster.models.Projectile;
 import com.me.swampmonster.utils.Constants;
+import com.me.swampmonster.utils.EnemyGenerator.Toughness;
 
 public class L1Renderer {
 	private OrthographicCamera cam;
@@ -90,35 +91,48 @@ public class L1Renderer {
 		Gdx.gl.glEnable(GL20.GL_BLEND);
 		Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
 		batch.begin();
-		for (Enemy enemy : theController.level1.enemiesOnStage){
-			if(enemy.isHurt()){
-				if(enemy.time==4){
-					enemy.getSprite().setColor(enemy.getSprite().getColor().r, enemy.getSprite().getColor().g-1, enemy.getSprite().getColor().b-1, enemy.getSprite().getColor().a);;
+		for (Enemy enemy : theController.level1.enemiesOnStage) {
+			if (enemy.isHurt()) {
+				if (enemy.toughness != Toughness.ANGRY_GUY) {
+					if (enemy.time == 4 || enemy.time == 24) {
+						enemy.getSprite().setColor(
+								enemy.getSprite().getColor().r,
+								enemy.getSprite().getColor().g - 1,
+								enemy.getSprite().getColor().b - 1,
+								enemy.getSprite().getColor().a);
+						;
+					}
+					if (enemy.time == 14 || enemy.time == 34) {
+						enemy.getSprite().setColor(
+								enemy.getSprite().getColor().r,
+								enemy.getSprite().getColor().g + 1,
+								enemy.getSprite().getColor().b + 1,
+								enemy.getSprite().getColor().a);
+					}
+				} else {
+					if (enemy.time == 4 || enemy.time == 24) {
+						enemy.getSprite().setColor(
+								enemy.getSprite().getColor().r - Toughness.ANGRY_GUY.red,
+								enemy.getSprite().getColor().g - Toughness.ANGRY_GUY.green,
+								enemy.getSprite().getColor().b - Toughness.ANGRY_GUY.blue,
+								enemy.getSprite().getColor().a);
+					}
+					if (enemy.time == 14 || enemy.time == 34) {
+						enemy.getSprite().setColor(
+								enemy.getSprite().getColor().r + Toughness.ANGRY_GUY.red,
+								enemy.getSprite().getColor().g + Toughness.ANGRY_GUY.green,
+								enemy.getSprite().getColor().b + Toughness.ANGRY_GUY.blue,
+								enemy.getSprite().getColor().a);
+					}
 				}
-				if(enemy.time==14){
-					enemy.getSprite().setColor(enemy.getSprite().getColor().r, enemy.getSprite().getColor().g+1, enemy.getSprite().getColor().b+1, enemy.getSprite().getColor().a);
-				}
-				if(enemy.time==24){
-					enemy.getSprite().setColor(enemy.getSprite().getColor().r, enemy.getSprite().getColor().g-1, enemy.getSprite().getColor().b-1, enemy.getSprite().getColor().a);;
-				}
-				if(enemy.time==34){
-					enemy.getSprite().setColor(enemy.getSprite().getColor().r, enemy.getSprite().getColor().g+1, enemy.getSprite().getColor().b+1, enemy.getSprite().getColor().a);
-				}
-				
 			}
 		}
 		
 		for (Item item : theController.level1.items) {
-			for (Enemy e : theController.level1.enemiesOnStage) {
-				if (item.getPosition().y + 24 > e.getPosition().y + 24 && item.getPosition().y + 24 > theController.level1.getPlayer()
-						.getPosition().y + 24) {
-					item.getSprite().setPosition(item.getPosition().x,
-							item.getPosition().y);
-					batch.draw(item.sprite, item.getPosition().x,
-							item.getPosition().y, item.sprite.getWidth() / 2,
-							item.sprite.getHeight() / 2);
-				}
-			}
+			item.getSprite().setPosition(item.getPosition().x,
+					item.getPosition().y);
+			batch.draw(item.sprite, item.getPosition().x, item.getPosition().y,
+					item.sprite.getWidth() / 2, item.sprite.getHeight() / 2);
 		}
 		
 		for (Enemy enemy : theController.level1.enemiesOnStage){
@@ -163,19 +177,6 @@ public class L1Renderer {
 			if(enemy.getPosition().y+42 < theController.level1.getPlayer().getPosition().y+42){
 				enemy.getSprite().setPosition(enemy.getPosition().x, enemy.getPosition().y);
 				enemy.getSprite().draw(batch);
-			}
-		}
-
-		for (Item item : theController.level1.items) {
-			for (Enemy e : theController.level1.enemiesOnStage) {
-				if (item.getPosition().y + 24 < e.getPosition().y + 24 && item.getPosition().y + 24 < theController.level1.getPlayer()
-						.getPosition().y + 24) {
-					item.getSprite().setPosition(item.getPosition().x,
-							item.getPosition().y);
-					batch.draw(item.sprite, item.getPosition().x,
-							item.getPosition().y, item.sprite.getWidth() / 2,
-							item.sprite.getHeight() / 2);
-				}
 			}
 		}
 		

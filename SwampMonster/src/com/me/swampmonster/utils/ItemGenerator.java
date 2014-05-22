@@ -15,7 +15,7 @@ public class ItemGenerator {
 	ItemParams itemParams;
 	private Random random = new Random();
 	
-	private enum ItemParams{
+	private static enum ItemParams{
 		p0_500(10000, 11000, 100, 200),
 		p500_1000(1100, 1200, 200, 300),
 		p1000_2000(1300, 1400, 300, 400),

@@ -17,7 +17,6 @@ public class Item extends AbstractGameObject{
 	public int deadAnimTimer;
 	public boolean spawned;
 	
-	private int animTimer;
 	private int animTimer2;
 	private int pendingTimer;
 	
@@ -68,14 +67,15 @@ public class Item extends AbstractGameObject{
 		if (state.equals(State.SPAWNING)) {
 			if (!(Math.round(position.x) == Math.round(targetPos.x)) ) {
 				if (CollisionHelper.isCollidable(position.x + sprite.getWidth(), position.y, collisionLayer) != null ||
-						CollisionHelper.isCollidable(position.x, position.y + sprite.getHeight(), collisionLayer) != null) {
+						CollisionHelper.isCollidable(position.x, position.y + sprite.getHeight(), collisionLayer) != null
+						|| CollisionHelper.isCollidable(position.x, position.y, collisionLayer) != null) {
 					state = State.STANDARD;
 				}
 				if (position.x < targetPos.x) {
 					position.x += 0.8f;
 					position.y += 4.33 * Math.sin(0.1 * position.x);
 				} else {
-					position.x -= 0.7f;
+					position.x -= 0.8f;
 					position.y += 4.33 * Math.sin(0.1 * position.x);
 				}
 			}
