@@ -131,27 +131,34 @@ public class TheController extends InputAdapter{
 		}
 		
 		Iterator<Enemy> itr = level1.enemiesOnStage.iterator();
-		while(itr.hasNext()){
+		while (itr.hasNext()) {
 			Enemy e = (Enemy) itr.next();
-			if(!e.isDead()){
-				Iterator<Projectile> prj = level1.getPlayer().projectiles.iterator();
-				while(prj.hasNext()){
-//					// System.out.println("enemies on Stage: " + level1.enemiesOnStage.size());
+			if (!e.isDead()) {
+				if (level1.player.radioactiveAura != null && 
+						Intersector.overlaps(level1.player.radioactiveAura, e.getRectanlge())){
+					
+				}
+				Iterator<Projectile> prj = level1.getPlayer().projectiles
+						.iterator();
+				while (prj.hasNext()) {
+					//System.out.println("enemies on Stage: " +
 					Projectile p = (Projectile) prj.next();
-					if(Intersector.overlaps(p.getCircle(), e.getRectanlge())){
-							prj.remove();
-							break;
-						}
+					if (Intersector.overlaps(p.getCircle(), e.getRectanlge())) {
+						prj.remove();
+						break;
 					}
+				}
 			}
+			
 			if (e.isDead()) {
-				// // System.out.println("must work!");
+				// System.out.println("must work!");
 				if (e.timeRemove < 180) {
 					e.timeRemove++;
-				}  else if (e.timeRemove > 179) {
+				} else if (e.timeRemove > 179) {
 					itr.remove();
 					e.timeRemove = 0;
-				} if (e.timeRemove == 1) {
+				}
+				if (e.timeRemove == 1) {
 					Item i = misterItemSpawner.spawnItem(level1.player, e);
 					if (i != null) {
 						level1.items.add(i);

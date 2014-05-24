@@ -139,6 +139,14 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 			enemyPathDx /= enemyPathLength;
 			enemyPathDy /= enemyPathLength;
 		}
+		
+		if (player.radioactiveAura != null && 
+				Intersector.overlaps(player.radioactiveAura, rectanlge)){
+			hurt = true;
+			damageType = "player";
+			enemyHurt(player);
+		}
+		
 		if (projectiles != null)
 		for (Projectile projectile : projectiles) {
 			if (projectile != null  && 

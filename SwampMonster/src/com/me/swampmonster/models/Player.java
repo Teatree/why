@@ -16,11 +16,11 @@ import com.badlogic.gdx.math.Vector3;
 import com.me.swampmonster.animations.AnimationControl;
 import com.me.swampmonster.game.collision.Collidable;
 import com.me.swampmonster.game.collision.CollisionHelper;
-//import com.me.swampmonster.slotMachineStuff.Perks;
 import com.me.swampmonster.utils.AssetsMainManager;
 
 public class Player extends AbstractGameObject{
 	
+	private static final int RADIOACTIVE_RADIUS = 57;
 	private static final float SPEED_BOOST_EFFECT = 1.1f;
 	int time = 0;
 	int timeDead = 0;
@@ -46,9 +46,11 @@ public class Player extends AbstractGameObject{
 	
 	public Enemy harmfulEnemy;
 	
+	public Circle radioactiveAura = null;
+	
 	public Player(Vector2 position){
 		state = State.STANDARD;
-		setPositiveEffect(PositiveEffectsState.SPEED_BOOST);
+		setPositiveEffect(PositiveEffectsState.RADIOACTIVE_AURA);
 		
 		this.position = position;
 		
@@ -88,6 +90,8 @@ public class Player extends AbstractGameObject{
 		
 		allowedToShoot = true;
 	}
+	
+	
 	
 	public void characterStatsBoard(){
 		// HEALTH, DAMAGE, OXYGEN, TYPE, TOUGHGUY, COLORSCHEME, ETC.
@@ -136,9 +140,11 @@ public class Player extends AbstractGameObject{
 		
 		if(positiveEffectCounter<=0){
 			positiveEffectsState = PositiveEffectsState.NONE;
+			radioactiveAura = null;
 		}else{
 			positiveEffectCounter--;
 		}
+		
 		if(negativeEffectCounter<=0){
 			negativeEffectsState = NegativeEffectsState.NONE;
 		}else{
@@ -334,6 +340,7 @@ public class Player extends AbstractGameObject{
 					sprite.getColor().b, 0.5f);
 			break;
 		case RADIOACTIVE_AURA:
+			radioactiveAura = new Circle(position.x + sprite.getWidth()/2, position.y + sprite.getHeight()/2, RADIOACTIVE_RADIUS);
 			break;
 		case SPEED_BOOST:
 			this.sprite.setColor(1f, 1f, 0f, 1f);
@@ -361,6 +368,7 @@ public class Player extends AbstractGameObject{
 	
 	private void setPositiveEffect(PositiveEffectsState positiveEffect){
 		positiveEffectsState = positiveEffect;
+		System.out.println(positiveEffect.lifetime);
 		positiveEffectCounter = positiveEffect.lifetime;
 	}
 

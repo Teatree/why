@@ -14,10 +14,11 @@ import com.me.swampmonster.animations.AnimationControl;
 public abstract class AbstractGameObject {
 
 	public enum State{
-		STANDARD, DEAD, ANIMATING, ANIMATINGLARGE, ACTIVATING, ATTACKING, PURSUIT, GUNMOVEMENT, SPAWNING, DESPAWNING;
+		STANDARD, DEAD, ANIMATING, ANIMATINGLARGE, ACTIVATING, 
+		ATTACKING, PURSUIT, GUNMOVEMENT, SPAWNING, DESPAWNING;
 	}
 	public enum NegativeEffectsState {
-		POISONED(90), FEAR(120), FROZEN(40), NONE(0);
+		POISONED(90), FEAR(120), FROZEN(130), NONE(0);
 		
 		public int lifetime;
 		
@@ -26,7 +27,7 @@ public abstract class AbstractGameObject {
 		}
 	}
 	public enum PositiveEffectsState {
-		FADE(350), SPEED_BOOST(212), RADIOACTIVE_AURA(160), NONE(0);
+		FADE(350), SPEED_BOOST(212), RADIOACTIVE_AURA(490), NONE(0);
 		
 		public int lifetime;
 		
