@@ -1,12 +1,15 @@
 package com.me.swampmonster.models;
 
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
 
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import com.me.swampmonster.models.AbstractGameObject.State;
 import com.me.swampmonster.utils.CameraHelper;
 import com.me.swampmonster.utils.Constants;
 import com.me.swampmonster.utils.MisterSpawner;
@@ -116,9 +119,26 @@ public class L1 {
 //			itemSpawnRate--;
 //		}
 		
-		for (Item item : items) {
+		Iterator<Item> itm = items.iterator();
+		while(itm.hasNext()){
+			Item item = itm.next();
+			if(item.state == State.DEAD){
+				System.out.println("Remove item ");
+				itm.remove();
+			}
+			if(Intersector.overlaps(item.getCircle(), getPlayer().getRectanlge())){
+				if(item.itemType=="hp" && getPlayer().getHealth() < getPlayer().getMaxHealth()){
+					getPlayer().setHealth(getPlayer().getHealth()+1);
+					itm.remove();
+				}else if(item.itemType == "O2" && getPlayer().oxygen < getPlayer().maxOxygen){
+					getPlayer().oxygen = getPlayer().oxygen+50;
+					itm.remove();
+				}
+			}
+			System.out.println("item update " + item.state);
 			item.update();
 		}
+		
 		bunker.update();
 	}
 

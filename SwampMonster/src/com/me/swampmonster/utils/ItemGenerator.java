@@ -16,10 +16,10 @@ public class ItemGenerator {
 	private Random random = new Random();
 	
 	private static enum ItemParams{
-		p0_500(10000, 11000, 100, 200),
-		p500_1000(1100, 1200, 200, 300),
-		p1000_2000(1300, 1400, 300, 400),
-		p2000_4000(1500, 1600, 400, 500);
+		p0_500(15, 20, 10, 20),
+		p500_1000(60, 100, 200, 300),
+		p1000_2000(50, 140, 300, 400),
+		p2000_4000(40, 100, 400, 500);
 		
 		public final int minLifeTime;
 		public final int maxLifeTime;

@@ -1,14 +1,15 @@
 package com.me.swampmonster.models;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.World;
 import com.me.swampmonster.animations.AnimationControl;
 import com.me.swampmonster.game.collision.CollisionHelper;
+import com.me.swampmonster.models.AbstractGameObject.State;
 import com.me.swampmonster.utils.AssetsMainManager;
 
 public class Item extends AbstractGameObject{
@@ -35,6 +36,7 @@ public class Item extends AbstractGameObject{
 		animationsStandard.put(State.SPAWNING, new AnimationControl(AssetsMainManager.manager.get(AssetsMainManager.items), 4, 4, 4));
 		animationsStandard.put(State.STANDARD, new AnimationControl(AssetsMainManager.manager.get(AssetsMainManager.items), 4, 4, 4));
 		animationsStandard.put(State.DEAD, new AnimationControl(AssetsMainManager.manager.get(AssetsMainManager.items), 4, 4, 4));
+		animationsStandard.put(State.DESPAWNING, new AnimationControl(AssetsMainManager.manager.get(AssetsMainManager.items), 4, 4, 4));
 		
 		sprite = new Sprite(animationsStandard.get(state).getCurrentFrame());
 		
@@ -48,12 +50,14 @@ public class Item extends AbstractGameObject{
 		circle.y = position.y;
 		
 		if(state.equals(State.STANDARD)){
-			
 			pendingTimer++;
 			lifeTime--;
-			if(lifeTime==0){
-				state = State.DEAD;
+			System.out.println("Item Life teime  " + lifeTime);
+			if (lifeTime == 0) {
+				state = State.DESPAWNING;
+				deadAnimTimer = 0;
 			}
+			
 			if(pendingTimer>180){
 				if(animTimer2<32){
 					currentFrame = doItemAnimation(0, 0.9f, 0.03f, Animation.NORMAL);
@@ -64,6 +68,7 @@ public class Item extends AbstractGameObject{
 				}
 			}
 		}
+		
 		if (state.equals(State.SPAWNING)) {
 			if (!(Math.round(position.x) == Math.round(targetPos.x)) ) {
 				if (CollisionHelper.isCollidable(position.x + sprite.getWidth(), position.y, collisionLayer) != null ||
@@ -78,30 +83,31 @@ public class Item extends AbstractGameObject{
 					position.x -= 0.8f;
 					position.y += 4.33 * Math.sin(0.1 * position.x);
 				}
+			} else {
+				state = State.STANDARD;
 			}
-			// if(animTimer != 33){
 			currentFrame = doItemAnimation(0, 0.9f, 0.03f, Animation.NORMAL);
-			// animTimer++;
-			// }else if(animTimer == 33){
-			// state = State.STANDARD;
-			// animTimer = 0;
-			// }
 		}
 		
-		if(state.equals(State.DEAD)){
-			
-			if(deadAnimTimer != 33){
-				if(itemType=="hp"){
-					currentFrame = doItemAnimation(0, 0.9f, 0.03f, Animation.REVERSED);
-				}else{
-					currentFrame = doItemAnimation(-4, 0.9f, 0.03f, Animation.REVERSED);
-				}
-				deadAnimTimer++;
-			}else if(deadAnimTimer == 33){
+		sprite = new Sprite(new TextureRegion(currentFrame));
+		
+		if (state.equals(State.DESPAWNING)) {
+			System.out.println("Item is despawning");
+//			sprite = new Sprite(new TextureRegion(currentFrame));
+			if (deadAnimTimer == 4 || deadAnimTimer == 24 || deadAnimTimer == 44) {
+				sprite = null;
+			}
+			if (deadAnimTimer == 14 || deadAnimTimer == 34 || deadAnimTimer == 54 ) {
+				sprite = new Sprite(new TextureRegion(currentFrame));
+			}
+			deadAnimTimer++;
+			if (deadAnimTimer == 35) {
+				this.state = State.DEAD;
+				System.out.println("Item is dead !");
 				deadAnimTimer = 0;
 			}
 		}
-		sprite = new Sprite(new TextureRegion(currentFrame));
+		
 	}
 	
 	private TextureRegion doItemAnimation(int i, float Comparator, float speedAdjust, int playMode){

@@ -14,7 +14,7 @@ import com.me.swampmonster.animations.AnimationControl;
 public abstract class AbstractGameObject {
 
 	public enum State{
-		STANDARD, DEAD, ANIMATING, ANIMATINGLARGE, ACTIVATING, ATTACKING, PURSUIT, GUNMOVEMENT, SPAWNING;
+		STANDARD, DEAD, ANIMATING, ANIMATINGLARGE, ACTIVATING, ATTACKING, PURSUIT, GUNMOVEMENT, SPAWNING, DESPAWNING;
 	}
 	public enum NegativeEffectsState {
 		POISONED(90), FEAR(120), FROZEN(40), NONE(0);
@@ -38,7 +38,7 @@ public abstract class AbstractGameObject {
 	protected TextureRegion currentFrame;
 	protected HashMap<State, AnimationControl> animationsStandard = new HashMap<State, AnimationControl>();   
 	
-	protected State state;
+	public State state;
 	public NegativeEffectsState negativeEffectsState;
 	public PositiveEffectsState positiveEffectsState;
 	public Vector2 position;

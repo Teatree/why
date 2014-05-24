@@ -123,8 +123,8 @@ public class GShape extends Group {
 			Vector2 point = new Vector2();
 			point.x = (Gdx.input.getX()*Constants.VIEWPORT_WIDTH)/Gdx.graphics.getWidth();
 			point.y = Constants.VIEWPORT_HEIGHT-(Gdx.input.getY()*Constants.VIEWPORT_HEIGHT)/Gdx.graphics.getHeight();
-			System.out.println("width: " + Gdx.graphics.getWidth() + ", height: " + Gdx.graphics.getHeight());
-			System.out.println("point.x: " + point.x + ", point.y: " + point.y);
+//			System.out.println("width: " + Gdx.graphics.getWidth() + ", height: " + Gdx.graphics.getHeight());
+//			System.out.println("point.x: " + point.x + ", point.y: " + point.y);
 			
 			sr.rect(point.x, point.y, 10, 10);
 			

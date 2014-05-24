@@ -45,8 +45,6 @@ public class MisterItemSpawner {
 			return null;
 		}
 		item.position = new Vector2(enmy.position);
-//		item.position.x = enmy.position.x;
-//		item.position.y = enmy.position.y;
 		mapWith = (int) collisionLayer.getTileWidth()
 				* collisionLayer.getWidth();
 		mapHeight = (int) collisionLayer.getTileHeight()
@@ -57,7 +55,6 @@ public class MisterItemSpawner {
 		while (!isValidTargetPosition(item, player)) {
 			setItemTargetPos(item, player, enmy);
 		}
-//		item.position = new Vector2(item.spawnPos.x, item.spawnPos.y);
 		return item;
 	}
 

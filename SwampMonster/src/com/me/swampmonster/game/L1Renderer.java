@@ -100,7 +100,6 @@ public class L1Renderer {
 								enemy.getSprite().getColor().g - 1,
 								enemy.getSprite().getColor().b - 1,
 								enemy.getSprite().getColor().a);
-						;
 					}
 					if (enemy.time == 14 || enemy.time == 34) {
 						enemy.getSprite().setColor(
@@ -127,12 +126,16 @@ public class L1Renderer {
 				}
 			}
 		}
-		
+
 		for (Item item : theController.level1.items) {
-			item.getSprite().setPosition(item.getPosition().x,
-					item.getPosition().y);
-			batch.draw(item.sprite, item.getPosition().x, item.getPosition().y,
-					item.sprite.getWidth() / 2, item.sprite.getHeight() / 2);
+			if (item.sprite != null) {
+				item.getSprite().setPosition(item.getPosition().x,
+						item.getPosition().y);
+
+				batch.draw(item.sprite, item.getPosition().x,
+					item.getPosition().y, item.sprite.getWidth() / 2,
+					item.sprite.getHeight() / 2);
+			}
 		}
 		
 		for (Enemy enemy : theController.level1.enemiesOnStage){

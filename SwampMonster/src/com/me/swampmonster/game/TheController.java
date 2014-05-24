@@ -113,6 +113,23 @@ public class TheController extends InputAdapter{
 		level1.update(gui.getCroshair().isAiming(), touchPos, V3point, collisionLayer, 
 				level1.getPlayer().projectiles, cameraHelper, dx, dy);
 		
+		Iterator<Item> itm = level1.items.iterator();
+		while(itm.hasNext()){
+			Item item = itm.next();
+			if(item.state == State.DEAD){
+				itm.remove();
+			}
+			if(Intersector.overlaps(item.getCircle(), level1.getPlayer().getRectanlge())){
+				if(item.itemType=="hp" && level1.getPlayer().getHealth() < level1.getPlayer().getMaxHealth()){
+					level1.getPlayer().setHealth(level1.getPlayer().getHealth()+1);
+					itm.remove();
+				}else if(item.itemType == "O2" && level1.getPlayer().oxygen < level1.getPlayer().maxOxygen){
+					level1.getPlayer().oxygen = level1.getPlayer().oxygen+50;
+					itm.remove();
+				}
+			}
+		}
+		
 		Iterator<Enemy> itr = level1.enemiesOnStage.iterator();
 		while(itr.hasNext()){
 			Enemy e = (Enemy) itr.next();
@@ -139,22 +156,6 @@ public class TheController extends InputAdapter{
 					if (i != null) {
 						level1.items.add(i);
 					}
-				}
-			}
-		}
-		Iterator<Item> itm = level1.items.iterator();
-		while(itm.hasNext()){
-			Item item = itm.next();
-			if(item.deadAnimTimer==33){
-				itm.remove();
-			}
-			if(Intersector.overlaps(item.getCircle(), level1.getPlayer().getRectanlge())){
-				if(item.itemType=="hp" && level1.getPlayer().getHealth() < level1.getPlayer().getMaxHealth()){
-					level1.getPlayer().setHealth(level1.getPlayer().getHealth()+1);
-					itm.remove();
-				}else if(item.itemType == "O2" && level1.getPlayer().oxygen < level1.getPlayer().maxOxygen){
-					level1.getPlayer().oxygen = level1.getPlayer().oxygen+50;
-					itm.remove();
 				}
 			}
 		}
