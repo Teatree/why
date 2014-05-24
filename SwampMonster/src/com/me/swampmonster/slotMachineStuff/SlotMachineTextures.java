@@ -30,8 +30,8 @@ public class SlotMachineTextures extends Group {
 		font.setScale(0.5f, 0.5f);
 		font.draw(batch, "MaxHP: " + p.getMaxHealth(), 284, 215);
 		font.draw(batch, "MaxO2: " + p.maxOxygen, 284, 200);
-		font.draw(batch, "Damage: " + p.getDamage(), 284, 185);
-		font.draw(batch, "AS: " + p.getShotCoolDown(), 284, 170);
-		font.draw(batch, "Score: " + p.getPoints(), 156, 338);
+		font.draw(batch, "Damage: " + p.damage, 284, 185);
+		font.draw(batch, "AS: " + p.shotCoolDown, 284, 170);
+		font.draw(batch, "Score: " + p.points, 156, 338);
 	}
 }

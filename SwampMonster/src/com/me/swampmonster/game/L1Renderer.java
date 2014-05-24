@@ -81,7 +81,7 @@ public class L1Renderer {
 		mapRenderer.render(background);
 		
 		batch.begin();
-		if(Gdx.input.isTouched() && theController.level1.player.getState() == State.GUNMOVEMENT && theController.gui.getCroshair().isAiming()){
+		if(Gdx.input.isTouched() && theController.level1.player.state == State.GUNMOVEMENT && theController.gui.getCroshair().isAiming()){
 			batch.draw(theController.gui.getCroshair().getSprite(), theController.getV3point().x-16, theController.getV3point().y-16, 
 					theController.gui.getCroshair().getSprite().getWidth(), 
 					theController.gui.getCroshair().getSprite().getHeight());
@@ -93,7 +93,7 @@ public class L1Renderer {
 		Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
 		batch.begin();
 		for (Enemy enemy : theController.level1.enemiesOnStage) {
-			if (enemy.isHurt()) {
+			if (enemy.hurt) {
 				if (enemy.toughness != Toughness.ANGRY_GUY) {
 					if (enemy.time == 4 || enemy.time == 24) {
 						enemy.getSprite().setColor(
@@ -222,30 +222,30 @@ public class L1Renderer {
 		sr.setColor(Color.WHITE);
 		for(Projectile p: theController.level1.player.projectiles){
 			if(p!=null){
-				sr.circle(p.getCircle().x, p.getCircle().y, p.getCircle().radius);
+				sr.circle(p.circle.x, p.circle.y, p.circle.radius);
 			}
 		}
 		
 		sr.rect(theController.point.x, theController.point.y, 32, 32);
 		sr.rect(theController.level1.player.getPosition().x, theController.level1.player.getPosition().y,
-				theController.level1.player.getRectanlge().width, theController.level1.player.getRectanlge().height);
+				theController.level1.player.rectanlge.width, theController.level1.player.rectanlge.height);
 		sr.circle(theController.level1.player.invalidSpawnArea.x, theController.level1.player.invalidSpawnArea.y, theController.level1.player.invalidSpawnArea.radius);
 		for(Enemy enemy:theController.level1.enemiesOnStage){
-			sr.rect(enemy.getRectanlge().x, enemy.getRectanlge().y,
-					enemy.getRectanlge().width, enemy.getRectanlge().height);
+			sr.rect(enemy.rectanlge.x, enemy.rectanlge.y,
+					enemy.rectanlge.width, enemy.rectanlge.height);
 		}
 		sr.setColor(Color.WHITE);
-		if(theController.level1.player.getState() == State.GUNMOVEMENT){
+		if(theController.level1.player.state == State.GUNMOVEMENT){
 			sr.line(theController.V3playerPos, theController.level1.player.shotDir);
 		}
-		sr.circle(theController.level1.player.getCircle().x, theController.level1.player.getCircle().y, theController.level1.player.getCircle().radius);
+		sr.circle(theController.level1.player.circle.x, theController.level1.player.circle.y, theController.level1.player.circle.radius);
 		sr.setColor(Color.YELLOW);
 		sr.circle(theController.level1.player.aimingArea.x, theController.level1.player.aimingArea.y, theController.level1.player.aimingArea.radius);
 		sr.end();
 		
 		sr.begin(ShapeType.Filled);
 		sr.setColor(Color.RED);
-//		sr.circle(theController.projectile.getCircle().x, theController.projectile.getCircle().y, theController.projectile.getCircle().radius);
+//		sr.circle(theController.projectile.circle.x, theController.projectile.circle.y, theController.projectile.circle.radius);
 		for (Enemy enemy : theController.level1.enemiesOnStage)
 			if(enemy.getPath() != null){
 				for(Node n : enemy.getPath()){

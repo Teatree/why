@@ -71,10 +71,10 @@ public class EnemyGenerator {
 		if(toughtness != null){
 			enemy.toughness = toughtness;
 			enemy.setPlayerMovementSpeedX((float)(enemy.getPlayerMovementSpeedX() + toughtness.speed));
-			enemy.setPoints((int)(enemy.getPoints() + toughtness.points));
-			enemy.setDamage((int)(enemy.getDamage() + toughtness.damage));
-			enemy.setHealth((int)(enemy.getHealth() + toughtness.health));
-			enemy.setAttackSpeed((int)(enemy.getAttackSpeed() + toughtness.attackSpeed));
+			enemy.points +=toughtness.points;
+			enemy.damage += toughtness.damage;
+			enemy.health += toughtness.health;
+			enemy.attackSpeed += toughtness.attackSpeed;
 			enemy.setColour(toughtness.red, toughtness.green, toughtness.blue, toughtness.alpha);
 		}
 	}

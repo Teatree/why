@@ -271,9 +271,7 @@ public class Player extends AbstractGameObject{
 			if (positiveEffectsState == PositiveEffectsState.FADE){
 				positiveEffectsState = PositiveEffectsState.NONE;
 			}
-//			// System.out.println("shooting...");
 			currentFrame = animations.get(state).doComplexAnimation(32, 0.5f, 0.001f, Animation.NORMAL);
-			
 			sprite.setRegion(animations.get(state).getCurrentFrame());
 			sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
 			
@@ -377,7 +375,8 @@ public class Player extends AbstractGameObject{
 		negativeEffectCounter = negativeEffect.lifetime;
 	}
 	
-	private void takingDamageFromEnemy(HashMap<State, AnimationControl> animations, AbstractGameObject enemy, Vector3 touchPos, TiledMapTileLayer collisionLayer) {
+	private void takingDamageFromEnemy(HashMap<State, AnimationControl> animations, 
+			AbstractGameObject enemy, Vector3 touchPos, TiledMapTileLayer collisionLayer) {
 //		// System.out.println(enemy.getPlayerMovementDirection());
 		Collidable collidableUp = null;
 		
@@ -408,8 +407,8 @@ public class Player extends AbstractGameObject{
 			HashMap<State, AnimationControl> animations,
 			AbstractGameObject enemy, Vector3 touchPos) {
 		if (enemy.playerMovementDirection == "right" && collidableUp == null) {
-			currentFrame = animations.get(State.STANDARD).doComplexAnimation(
-					108, 0.2f, Gdx.graphics.getDeltaTime() / 2,
+			currentFrame = animations.get(State.STANDARD).
+					doComplexAnimation(108, 0.2f, Gdx.graphics.getDeltaTime() / 2,
 					Animation.NORMAL);
 
 			sprite.setRegion(animations.get(state).getCurrentFrame());
@@ -430,9 +429,11 @@ public class Player extends AbstractGameObject{
 			sprite.translateY(movementSpeed/2);
 		}
 	}
-	private void damageFromBottom(Collidable collidableUp, HashMap<State, AnimationControl> animations, AbstractGameObject enemy, Vector3 touchPos) {
+	private void damageFromBottom(Collidable collidableUp, HashMap<State, AnimationControl> animations, 
+			AbstractGameObject enemy, Vector3 touchPos) {
 		if (enemy.playerMovementDirection == "down" && collidableUp == null) { 
-			currentFrame = animations.get(State.STANDARD).doComplexAnimation(110, 0.2f, Gdx.graphics.getDeltaTime()/2, Animation.NORMAL);
+			currentFrame = animations.get(State.STANDARD).doComplexAnimation
+					(110, 0.2f, Gdx.graphics.getDeltaTime()/2, Animation.NORMAL);
 			
 			sprite.setRegion(animations.get(state).getCurrentFrame());
 			sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
@@ -455,7 +456,8 @@ public class Player extends AbstractGameObject{
 	}
 	
 	
-	private void movementCollisionAndAnimation(float speed, HashMap<State, AnimationControl> animations, Vector3 touchPos, TiledMapTileLayer collisionLayer, float dx, float dy) {
+	private void movementCollisionAndAnimation(float speed, HashMap<State, AnimationControl> animations, 
+			Vector3 touchPos, TiledMapTileLayer collisionLayer, float dx, float dy) {
 		// ---------------------movement, just, movement------------------------ //
 		Collidable collidableLeft = null;
 		Collidable collidableRight = null;
@@ -478,7 +480,8 @@ public class Player extends AbstractGameObject{
 		Collidable collidableUp;
 		collidableUp = CollisionHelper.isCollidable(position.x+(sprite.getWidth()/2), position.y+sprite.getHeight(), collisionLayer);
 		if(collidableUp == null)collidableUp = CollisionHelper.isCollidable(position.x, position.y+sprite.getHeight(), collisionLayer);
-		if(collidableUp == null)collidableUp = CollisionHelper.isCollidable(position.x+(sprite.getWidth()/4), position.y+sprite.getHeight(), collisionLayer);
+		if(collidableUp == null)collidableUp = CollisionHelper.isCollidable(position.x+(sprite.getWidth()/4), 
+				position.y+sprite.getHeight(), collisionLayer);
 		return collidableUp;
 	}
 	
@@ -486,7 +489,8 @@ public class Player extends AbstractGameObject{
 		Collidable collidableDown;
 		collidableDown = CollisionHelper.isCollidable(position.x+sprite.getWidth(), position.y, collisionLayer);
 		if(collidableDown == null)collidableDown = CollisionHelper.isCollidable(position.x, position.y, collisionLayer);
-		if(collidableDown == null)collidableDown = CollisionHelper.isCollidable(position.x+(sprite.getWidth()/2), position.y, collisionLayer);
+		if(collidableDown == null)collidableDown = CollisionHelper.isCollidable(position.x+(sprite.getWidth()/2), 
+				position.y, collisionLayer);
 		return collidableDown;
 	}
 	
@@ -494,7 +498,8 @@ public class Player extends AbstractGameObject{
 		Collidable collidableRight;
 		collidableRight = CollisionHelper.isCollidable(position.x+sprite.getWidth(), position.y + (sprite.getHeight()/2), collisionLayer);
 		if(collidableRight == null)collidableRight = CollisionHelper.isCollidable(position.x+sprite.getWidth(), position.y, collisionLayer);
-		if(collidableRight == null)collidableRight = CollisionHelper.isCollidable(position.x+sprite.getWidth(), position.y +(sprite.getHeight()/4), collisionLayer);
+		if(collidableRight == null)collidableRight = CollisionHelper.isCollidable(position.x+sprite.getWidth(), 
+				position.y +(sprite.getHeight()/4), collisionLayer);
 		return collidableRight;
 	}
 	
@@ -510,7 +515,8 @@ public class Player extends AbstractGameObject{
 		if(collidableLeft == null)collidableLeft = CollisionHelper.isCollidable(position.x, position.y + (sprite.getHeight()/4), collisionLayer);
 		return collidableLeft;
 	}
-	private void move(Collidable collidableLeft, Collidable collidableRight, Collidable collidableUp, Collidable collidableDown, float speeds, HashMap<State, AnimationControl> animations, Vector3 touchPos, float dx, float dy) {
+	private void move(Collidable collidableLeft, Collidable collidableRight, Collidable collidableUp, 
+			Collidable collidableDown, float speeds, HashMap<State, AnimationControl> animations, Vector3 touchPos, float dx, float dy) {
 		if (position.x > touchPos.x-4 || position.x < touchPos.x-14 || position.y > touchPos.y-4 || position.y < touchPos.y-14) {
 			if(collidableLeft == null || collidableRight == null){
 				position.x += dx*movementSpeed;

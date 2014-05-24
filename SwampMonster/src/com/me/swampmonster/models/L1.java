@@ -40,9 +40,9 @@ public class L1 {
 
 	public void create() {
 		player = new Player(new Vector2());
-		wavesAmount = waveGenerator.getWavesAmount(player.getPoints());
+		wavesAmount = waveGenerator.getWavesAmount(player.points);
 		currentWave = 1;
-		wave = waveGenerator.generateWave(player.getPoints());
+		wave = waveGenerator.generateWave(player.points);
 		enemiesOnStage = new Stack<Enemy>();
 		bunker = new Bunker();
 		items = new LinkedList<Item>();
@@ -60,7 +60,7 @@ public class L1 {
 		
 		if (waveTemp == null && needTogenerateNewWave) {
 			needTogenerateNewWave = false;
-			waveTemp = waveGenerator.generateWave(player.getPoints());
+			waveTemp = waveGenerator.generateWave(player.points);
 			System.err.println("enemiesOnBattlefield WAVE TEMP : "
 					+ waveTemp.enemiesOnBattleField);
 		}
@@ -126,9 +126,9 @@ public class L1 {
 				System.out.println("Remove item ");
 				itm.remove();
 			}
-			if(Intersector.overlaps(item.getCircle(), player.getRectanlge())){
-				if(item.itemType=="hp" && player.getHealth() < player.getMaxHealth()){
-					player.setHealth(player.getHealth()+1);
+			if(Intersector.overlaps(item.circle, player.rectanlge)){
+				if(item.itemType=="hp" && player.health < player.getMaxHealth()){
+					player.health++;
 					itm.remove();
 				}else if(item.itemType == "O2" && player.oxygen < player.maxOxygen){
 					player.oxygen = player.oxygen+50;

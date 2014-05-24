@@ -89,10 +89,12 @@ public class Item extends AbstractGameObject{
 		sprite = new Sprite(new TextureRegion(currentFrame));
 		
 		if (state.equals(State.DESPAWNING)) {
-			if (deadAnimTimer == 4 || deadAnimTimer == 24 || deadAnimTimer == 44) {
+			if (deadAnimTimer == 4 || deadAnimTimer == 24 || deadAnimTimer == 44 
+					|| deadAnimTimer == 64 || deadAnimTimer == 84) {
 				sprite = null;
 			}
-			if (deadAnimTimer == 14 || deadAnimTimer == 34 || deadAnimTimer == 54 ) {
+			if (deadAnimTimer == 14 || deadAnimTimer == 34 || deadAnimTimer == 54 
+					|| deadAnimTimer == 74 || deadAnimTimer == 94) {
 				sprite = new Sprite(new TextureRegion(currentFrame));
 			}
 			deadAnimTimer++;

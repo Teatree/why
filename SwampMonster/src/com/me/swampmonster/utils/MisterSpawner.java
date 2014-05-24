@@ -10,7 +10,6 @@ import com.me.swampmonster.game.collision.CollisionHelper;
 import com.me.swampmonster.models.Enemy;
 import com.me.swampmonster.models.L1;
 import com.me.swampmonster.models.Player;
-import com.me.swampmonster.utils.EnemyGenerator.Toughness;
 
 public class MisterSpawner {
 

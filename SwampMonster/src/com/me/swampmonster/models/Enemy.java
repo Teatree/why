@@ -149,8 +149,8 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 		
 		if (projectiles != null)
 		for (Projectile projectile : projectiles) {
-			if (projectile != null
-					&& Intersector.overlaps(projectile.getCircle(), rectanlge)
+			if (projectile != null  
+					&& Intersector.overlaps(projectile.circle, rectanlge)
 					&& !hurt) {
 				hurt = true;
 				damageType = "player";
@@ -187,7 +187,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 				if (path != null && (cunter <= 0 || path[cunter] == null)) {
 					cunter = findLastNotNullInArray();
 					if (cunter <= 0) {
-						setState(State.STANDARD);
+						state = State.STANDARD;
 					}
 
 				} else {
@@ -223,11 +223,11 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 			sprite.setRegion(animations.get(state).getCurrentFrame());
 			if (!hurt) {
 				if (timer == 0 && timer2 == 0
-						&& !yellowAura.overlaps(player.getCircle())
-						&& player.getState() != State.DEAD) {
+						&& !yellowAura.overlaps(player.circle)
+						&& player.state != State.DEAD) {
 
 					// // System.out.println("move is active... and overlpas is: "
-					// + getoRangeAura().overlaps(player.getCircle()));
+					// + getoRangeAura().overlaps(player.circle));
 
 					Collidable collidableLeft = null;
 					Collidable collidableRight = null;
@@ -258,14 +258,14 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 					// // System.out.println("condition oldPos.x != position.x || oldPos.y != position.y && timer>0 && timer2>0 is true!");
 				}
 
-				if (yellowAura.overlaps(player.getCircle())
-						&& player.getState() != State.DEAD) {
+				if (yellowAura.overlaps(player.circle)
+						&& player.state != State.DEAD) {
 					attackSequenceStarted = true;
 				}
 
 				if (attackSequenceStarted) {
 					// // System.out.println("yes!2 and overlpas is: " +
-					// getoRangeAura().overlaps(player.getCircle()));
+					// getoRangeAura().overlaps(player.circle));
 					if (playerMovementDirection == "right") {
 						inflictOnThe(88, 56, player, cameraHelper, attackSpeed);
 					}
@@ -279,7 +279,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 						inflictOnThe(64, 32, player, cameraHelper, attackSpeed);
 					}
 				}
-				// if(!getoRangeAura().overlaps(player.getCircle())){
+				// if(!getoRangeAura().overlaps(player.circle)){
 				// // System.out.println("yes!3");
 				// timer = 0;
 				// timer2 = 0;
@@ -303,7 +303,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 			}
 			if (timeDead == 1) {
 				rewardPlayer(player);
-				// "points: " + player.getPoints());
+				// "points: " + player.points);
 			}
 			if (timeDead > 64) {
 				dead = true;
@@ -405,7 +405,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 	}
 
 	private void rewardPlayer(AbstractGameObject player) {
-		player.setPoints(player.getPoints() + points);
+		player.points += this.points;
 
 	}
 
@@ -428,7 +428,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 				currentFrame = animationsStandard.get(state).animate(standing);
 			}
 			if (timer2 >= attackSpeed && timer < 30) {
-				if (oRangeAura.overlaps(player.getCircle())) {
+				if (oRangeAura.overlaps(player.circle)) {
 					cameraHelper.setShakeAmt(25);
 					cameraHelper.cameraShake();
 				}
@@ -446,12 +446,12 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 							standing);
 					// And may be inflict different hurts, direction/ kinds of
 					// hurts/ etc.
-					if (oRangeAura.overlaps(player.getCircle()) && !player.hurt && 
+					if (oRangeAura.overlaps(player.circle) && !player.hurt && 
 							player.positiveEffectsState != PositiveEffectsState.FADE) {
 						player.setDamageType("enemy");
 						player.harmfulEnemy = this;
-						player.setHurt(true);
-						player.setHealth(player.getHealth() - damage);
+						player.hurt = true;
+						player.health-= damage;
 					}
 
 					timer = 0;
@@ -862,14 +862,6 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 
 	public void setoRangeAura(Circle oRangeAura) {
 		this.oRangeAura = oRangeAura;
-	}
-
-	public State getState() {
-		return state;
-	}
-
-	public void setState(State state) {
-		this.state = state;
 	}
 
 	public Node[] getPath() {

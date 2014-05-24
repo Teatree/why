@@ -25,7 +25,7 @@ public class MisterItemSpawner {
 	
 	
 	public Item spawnItem(Player player, Enemy enmy) {
-		spawnRate = itemGenerator.generateSpawnRate(player.getPoints());
+		spawnRate = itemGenerator.generateSpawnRate(player.points);
 
 		int haveIitem;
 
@@ -37,9 +37,9 @@ public class MisterItemSpawner {
 
 		if (haveIitem < 100) {
 			if (player.oxygen <= 13) {
-				item = itemGenerator.getMoreLikelyOxugenItem(player.getPoints());
+				item = itemGenerator.getMoreLikelyOxugenItem(player.points);
 			} else {
-				item = itemGenerator.getItem(player.getPoints());
+				item = itemGenerator.getItem(player.points);
 			}
 		} else {
 			return null;
@@ -60,7 +60,7 @@ public class MisterItemSpawner {
 
 	private boolean isValidTargetPosition(Item item, Player player) {
 		if (CollisionHelper.isCollidable(item.targetPos.x, item.targetPos.y, collisionLayer) == null
-				&& !Intersector.overlaps(item.getCircle(), player.getRectanlge())) {
+				&& !Intersector.overlaps(item.circle, player.rectanlge)) {
 			return true;
 		}
 		return false;

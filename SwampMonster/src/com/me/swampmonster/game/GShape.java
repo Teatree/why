@@ -38,7 +38,7 @@ public class GShape extends Group {
 		
 		font = AssetsMainManager.manager.get(AssetsMainManager.font);
 		
-		str = "points: " + theController.level1.player.getPoints();
+		str = "points: " + theController.level1.player.points;
 		str2 = "Wave:" + theController.level1.currentWave + "/" + theController.level1.wavesAmount;
 		
 		batch.end();
@@ -58,12 +58,12 @@ public class GShape extends Group {
 					sr.rect(r.x, r.y, r.width, r.height);
 				}
 			}
-			if (theController.level1.player.isHurt()) {
+			if (theController.level1.player.hurt) {
 				int j = 0;
-				if (theController.level1.player.getHealth() > 1) {
-					j = theController.level1.player.getHealth() - 1;
+				if (theController.level1.player.health > 1) {
+					j = theController.level1.player.health - 1;
 				}
-				theController.level1.player.setHurt(true);
+				theController.level1.player.hurt = true;
 				sr.setColor(new Color(200, 0, 0, ass));
 				if (theController.gui.getHealthBar().getHealthBarRect()[j] != null) {
 					sr.rect(theController.gui.getHealthBar().getHealthBarRect()[j].x + 16,
@@ -72,7 +72,7 @@ public class GShape extends Group {
 							theController.gui.getHealthBar().getHealthBarRect()[j].height);
 				}
 				ass = ass - 0.02f;
-			} else if (!theController.level1.player.isHurt()) {
+			} else if (!theController.level1.player.hurt) {
 				ass = 1f;
 			}
 			if (theController.level1.player.oxygen > 0) {
@@ -97,16 +97,16 @@ public class GShape extends Group {
 					&& theController.level1.player.oxygen == 0) {
 				sr.rect(30, 422, 96, 22);
 			}
-			if (theController.level1.player.getState() != State.DEAD) {
+			if (theController.level1.player.state != State.DEAD) {
 				if (theController.gui.getWeaponizer().isOn() == false) {
 					sr.setColor(Color.LIGHT_GRAY);
 				} else if (theController.gui.getWeaponizer().isOn() == true) {
 					sr.setColor(Color.WHITE);
 				}
 
-				sr.circle(theController.gui.getWeaponizer().getCircle().x,
-						theController.gui.getWeaponizer().getCircle().y,
-						theController.gui.getWeaponizer().getCircle().radius);
+				sr.circle(theController.gui.getWeaponizer().circle.x,
+						theController.gui.getWeaponizer().circle.y,
+						theController.gui.getWeaponizer().circle.radius);
 			}
 			sr.end();
 			
@@ -129,9 +129,9 @@ public class GShape extends Group {
 			sr.rect(point.x, point.y, 10, 10);
 			
 			if (theController.doesIntersect(point, new Vector2(theController.level1
-					.player.getCircle().x, theController.level1
-					.player.getCircle().y), theController.level1
-					.player.getCircle().radius * 2)) {
+					.player.circle.x, theController.level1
+					.player.circle.y), theController.level1
+					.player.circle.radius * 2)) {
 				sr.setColor(Color.WHITE);
 			}
 
@@ -147,36 +147,36 @@ public class GShape extends Group {
 			
 			if (theController.level1.player.isDead()) {
 				sr.setColor(new Color(200, 0, 0, assRevert));
-				sr.rect(theController.gui.getGameoverGUI().getRectanlge().x,
-						theController.gui.getGameoverGUI().getRectanlge().y,
-						theController.gui.getGameoverGUI().getRectanlge().width+200,
-						theController.gui.getGameoverGUI().getRectanlge().height+200);
+				sr.rect(theController.gui.getGameoverGUI().rectanlge.x,
+						theController.gui.getGameoverGUI().rectanlge.y,
+						theController.gui.getGameoverGUI().rectanlge.width+200,
+						theController.gui.getGameoverGUI().rectanlge.height+200);
 				if (assRevert < 0.5f
-						&& theController.level1.player.getState() == State.DEAD) {
+						&& theController.level1.player.state == State.DEAD) {
 					assRevert = assRevert + 0.002f;
 				}
 			}
 			if (assRevert >= 0.45f
-					&& theController.level1.player.getState() == State.DEAD) {
+					&& theController.level1.player.state == State.DEAD) {
 				sr.setColor(Color.GREEN);
-				if (theController.gui.getGameoverGUI().getCircle().contains(point)){
+				if (theController.gui.getGameoverGUI().circle.contains(point)){
 					System.out.println("X: " + point.x + " Y: " + point.y);
 					sr.setColor(new Color(0, 200, 0.5f, 100));
 				}
-				sr.circle(theController.gui.getGameoverGUI().getCircle().x,
-						theController.gui.getGameoverGUI().getCircle().y,
-						theController.gui.getGameoverGUI().getCircle().radius);
+				sr.circle(theController.gui.getGameoverGUI().circle.x,
+						theController.gui.getGameoverGUI().circle.y,
+						theController.gui.getGameoverGUI().circle.radius);
 			}
 			sr.end();
 			Gdx.gl.glDisable(GL20.GL_BLEND);
 
 			sr.begin(ShapeType.Line);
 			if (assRevert >= 0.45f
-					&& theController.level1.player.getState() == State.DEAD) {
+					&& theController.level1.player.state == State.DEAD) {
 				sr.setColor(Color.BLACK);
-				sr.circle(theController.gui.getGameoverGUI().getCircle().x,
-						theController.gui.getGameoverGUI().getCircle().y,
-						theController.gui.getGameoverGUI().getCircle().radius);
+				sr.circle(theController.gui.getGameoverGUI().circle.x,
+						theController.gui.getGameoverGUI().circle.y,
+						theController.gui.getGameoverGUI().circle.radius);
 			}
 			sr.rect(theController.debugRect.x, theController.debugRect.y,
 					theController.debugRect.width,
@@ -189,14 +189,14 @@ public class GShape extends Group {
 		font.draw(batch, str2, 580, 420);
 		font.setColor(Color.YELLOW);
 		font.setScale(1);
-		if(assRevert >= 0.4f && theController.level1.player.getState() == State.DEAD){
+		if(assRevert >= 0.4f && theController.level1.player.state == State.DEAD){
 			font.draw(batch, theController.gui.getGameoverGUI().getGameOverString(), 310, 280);
 		}
-		if(assRevert >= 0.4f && theController.level1.player.getState() == State.DEAD){
+		if(assRevert >= 0.4f && theController.level1.player.state == State.DEAD){
 			font.setScale(1);
 			font.draw(batch, theController.gui.getGameoverGUI().getWittyMessage(), 240-theController.gui.getGameoverGUI().getWittyMessage().length(), 230);
 		}
-		if(assRevert >= 0.45f && theController.level1.player.getState() == State.DEAD){
+		if(assRevert >= 0.45f && theController.level1.player.state == State.DEAD){
 			font.setScale(1);
 			font.draw(batch, theController.gui.getGameoverGUI().getRestartString(), 361, 170);
 		}

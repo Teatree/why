@@ -69,7 +69,7 @@ public class TheController extends InputAdapter{
 		level1.player.setPosition(new Vector2 (756f,659f));
 		level1.player.getSprite().setSize(level1.player.getSprite().getWidth()/2,
 				level1.player.getSprite().getHeight()/2);
-		level1.player.setHurt(false);
+		level1.player.hurt = false;
 		
 		collisionHandler = new CollisionHelper();
 		collisionLayer = (TiledMapTileLayer) level1.bunker.getMap().getLayers().get(0);
@@ -119,9 +119,9 @@ public class TheController extends InputAdapter{
 			if(item.state == State.DEAD){
 				itm.remove();
 			}
-			if(Intersector.overlaps(item.getCircle(), level1.player.getRectanlge())){
-				if(item.itemType=="hp" && level1.player.getHealth() < level1.player.getMaxHealth()){
-					level1.player.setHealth(level1.player.getHealth()+1);
+			if(Intersector.overlaps(item.circle, level1.player.rectanlge)){
+				if(item.itemType=="hp" && level1.player.health < level1.player.getMaxHealth()){
+					level1.player.health++;
 					itm.remove();
 				}else if(item.itemType == "O2" && level1.player.oxygen < level1.player.maxOxygen){
 					level1.player.oxygen = level1.player.oxygen+50;
@@ -135,7 +135,7 @@ public class TheController extends InputAdapter{
 			Enemy e = (Enemy) itr.next();
 			if (!e.isDead()) {
 				if (level1.player.radioactiveAura != null && 
-						Intersector.overlaps(level1.player.radioactiveAura, e.getRectanlge())){
+						Intersector.overlaps(level1.player.radioactiveAura, e.rectanlge)){
 					
 				}
 				Iterator<Projectile> prj = level1.player.projectiles
@@ -143,7 +143,7 @@ public class TheController extends InputAdapter{
 				while (prj.hasNext()) {
 					//System.out.println("enemies on Stage: " +
 					Projectile p = (Projectile) prj.next();
-					if (Intersector.overlaps(p.getCircle(), e.getRectanlge())) {
+					if (Intersector.overlaps(p.circle, e.rectanlge)) {
 						prj.remove();
 						break;
 					}
@@ -170,17 +170,16 @@ public class TheController extends InputAdapter{
 		// PROJECTILE COLLISION DETECTION
 		for (Enemy e : level1.enemiesOnStage) {
 			for (Projectile p : e.enemyProjectiles) {
-				if (p.getCircle().overlaps(level1.player.aimingArea)
-						&& !level1.player.isHurt()
-						&& level1.player.getState() != State.DEAD
+				if (p.circle.overlaps(level1.player.aimingArea)
+						&& !level1.player.hurt
+						&& level1.player.state != State.DEAD
 						&& level1.player.positiveEffectsState != PositiveEffectsState.FADE) {
 					cameraHelper.setShakeAmt(25);
 					cameraHelper.cameraShake();
 
-					level1.player.setHurt(true);
+					level1.player.hurt = true;
 					level1.player.setDamageType("enemy");
-					level1.player.setHealth(
-							level1.player.getHealth() - e.getDamage());
+					level1.player.health -= e.damage;
 				}
 			}
 		}
@@ -205,8 +204,8 @@ public class TheController extends InputAdapter{
 		l1Renderer.getCam().unproject(V3point);
 		V3point.z = 0;
 		
-		V3playerPos.x = level1.player.getPosition().x + level1.player.getCircle().radius/2;
-		V3playerPos.y = level1.player.getPosition().y + level1.player.getCircle().radius/2;
+		V3playerPos.x = level1.player.getPosition().x + level1.player.circle.radius/2;
+		V3playerPos.y = level1.player.getPosition().y + level1.player.circle.radius/2;
 		V3playerPos.z = 0;
 		
 		//:TODO pff
@@ -234,19 +233,19 @@ public class TheController extends InputAdapter{
 //				if(enemy!=null && level1.player != null && enemy.cunter >= 0 && enemy.path[enemy.cunter] != null){
 //					if (level1.player.getPosition().x > (enemy.path[enemy.cunter].x*16+level1.player.getSprite().getWidth()*3)){
 //						// System.out.println("enemy: " + enemy + " player has steped out of the last node on the path area on the RIGHT");
-//						enemy.setState(State.STANDARD);
+//						enemy.state = State.STANDARD);
 //					}
 //					if (level1.player.getPosition().x < (enemy.path[enemy.cunter].x*16-level1.player.getSprite().getWidth()*3)){
 //						// System.out.println("enemy: " + enemy + " player has steped out of the last node on the path area on the LEFT");
-//						enemy.setState(State.STANDARD);
+//						enemy.state = State.STANDARD);
 //					}
 //					if (level1.player.getPosition().y < (enemy.path[enemy.cunter].y*16-level1.player.getSprite().getWidth()*3)){
 //						// System.out.println("enemy: " + enemy + " player has steped out of the last node on the path area on the BOTTOM");
-//						enemy.setState(State.STANDARD);
+//						enemy.state = State.STANDARD);
 //					}
 //					if (level1.player.getPosition().y > (enemy.path[enemy.cunter].y*16+level1.player.getSprite().getWidth()*3)){
 //						// System.out.println("enemy: " + enemy + " player has steped out of the last node on the path area on the TOP");
-//						enemy.setState(State.STANDARD);
+//						enemy.state = State.STANDARD);
 //					}
 //				}
 //			}
@@ -258,13 +257,13 @@ public class TheController extends InputAdapter{
 	}
 
 	private void inputNav() {
-		if(!level1.player.getState().equals(State.DEAD)){
-			if(!doesIntersect(point, gui.getWeaponizer().getPosition(), gui.getWeaponizer().getCircle().radius)){
+		if(!level1.player.state.equals(State.DEAD)){
+			if(!doesIntersect(point, gui.getWeaponizer().getPosition(), gui.getWeaponizer().circle.radius)){
 				touchPos.y = Gdx.input.getY();
 				touchPos.x = Gdx.input.getX();
 				l1Renderer.getCam().unproject(touchPos);
 				touchPos.z = 0;
-			}else if(Intersector.intersectSegmentCircle(point, point, gui.getWeaponizer().getPosition(), gui.getWeaponizer().getCircle().radius*gui.getWeaponizer().getCircle().radius) == true){
+			}else if(Intersector.intersectSegmentCircle(point, point, gui.getWeaponizer().getPosition(), gui.getWeaponizer().circle.radius*gui.getWeaponizer().circle.radius) == true){
 	//			// System.out.println("yes it intersects");
 			}
 		}
@@ -282,10 +281,10 @@ public class TheController extends InputAdapter{
 		
 		if (Gdx.input.isKeyPressed(Keys.O)){
 			for (Enemy enemy : level1.enemiesOnStage)
-				enemy.setState(State.DEAD);
+				enemy.state = State.DEAD;
 		}
 		if (Gdx.input.isKeyPressed(Keys.P)){
-			level1.player.setState(State.DEAD);
+			level1.player.state = State.DEAD;
 		}
 		if (Gdx.input.isKeyPressed(Keys.X) && Gdx.input.isKeyPressed(Keys.CONTROL_RIGHT)){
 		// property in the setShakeAmt is supposed to be SHAKE_INTENCITY, but it's not, deal with it!
@@ -301,9 +300,9 @@ public class TheController extends InputAdapter{
 		if (Gdx.input.isKeyPressed(Keys.E)) cameraHelper.addZoom(-camZoomSpeed);
 		if (Gdx.input.isKeyPressed(Keys.F)) cameraHelper.setZoom(1);
 		if (Gdx.input.isKeyPressed(Keys.N) && !NalreadyPressed){
-			level1.player.setHurt(true);
+			level1.player.hurt = true;
 			timer2=80; // Remember that this one is supposed to be the same as the pending time of hurt state animation
-			// System.out.println("Health: " + level1.player.getHealth());
+			// System.out.println("Health: " + level1.player.health);
 			NalreadyPressed = true;
 		}else if(!Gdx.input.isKeyPressed(Keys.N)){
 			NalreadyPressed = false;
@@ -313,11 +312,11 @@ public class TheController extends InputAdapter{
 			// System.out.println("Oxygen: " + level1.player.oxygen);
 		}
 		
-//		if(gui.getWeaponizer().isOn() && level1.player.getState() == State.STANDARD){
+//		if(gui.getWeaponizer().isOn() && level1.player.state == State.STANDARD){
 //			level1.player.setDoing("pullingGunOut");
-//			level1.player.setState(State.ANIMATINGLARGE);
-//		}else if(!gui.getWeaponizer().isOn() && level1.player.getState() == State.GUNMOVEMENT){
-//			level1.player.setState(State.ANIMATINGLARGE);
+//			level1.player.state = State.ANIMATINGLARGE);
+//		}else if(!gui.getWeaponizer().isOn() && level1.player.state == State.GUNMOVEMENT){
+//			level1.player.state = State.ANIMATINGLARGE);
 //			level1.player.setDoing("puttingGunAway");
 //		}
 		
@@ -326,17 +325,17 @@ public class TheController extends InputAdapter{
 	
 	private void pathfindingStuff(){
 		
-//		if(level1.getEnemy().getoRangeAura().overlaps(level1.player.getCircle()) && level1.player.getState() != State.DEAD){
-//			level1.getEnemy().setState(State.STANDARD);
-//		}else if(level1.getEnemy().getgReenAura().overlaps(level1.player.getCircle()) && level1.player.getState() != State.DEAD){
+//		if(level1.getEnemy().getoRangeAura().overlaps(level1.player.circle) && level1.player.state != State.DEAD){
+//			level1.getEnemy().state = State.STANDARD);
+//		}else if(level1.getEnemy().getgReenAura().overlaps(level1.player.circle) && level1.player.state != State.DEAD){
 //			level1.getEnemy().setCunter(0);
-//			level1.getEnemy().setState(State.PURSUIT);
+//			level1.getEnemy().state = State.PURSUIT);
 //		}else{
-//			level1.getEnemy().setState(State.STANDARD);
+//			level1.getEnemy().state = State.STANDARD);
 //		}
 		
 //		if(level1.getEnemy().getPosition().x == level1.getEnemy().getOldPos().x && level1.getEnemy().getPosition().y == level1.getEnemy().getOldPos().y 
-//				&& level1.getEnemy().getState() == State.STANDARD){
+//				&& level1.getEnemy().state == State.STANDARD){
 //			findRandomPos();
 //		}
 	}
@@ -375,22 +374,22 @@ public class TheController extends InputAdapter{
 			}
 			timer2--;
 		} 
-		if (timer2 <= 0 && level1.player.oxygen <= 0 && !level1.player.isHurt()) {
+		if (timer2 <= 0 && level1.player.oxygen <= 0 && !level1.player.hurt) {
 			timer2 = 80;
 		}
 		
-		if(level1.player.getHealth() <= 0){
-			level1.player.setState(State.DEAD);
+		if(level1.player.health <= 0){
+			level1.player.state = State.DEAD;
 		}
-		if(level1.player.getState() == State.DEAD){
+		if(level1.player.state == State.DEAD){
 			for (Enemy enemy : level1.enemiesOnStage)
-				enemy.setState(State.STANDARD);
+				enemy.state = State.STANDARD;
 		}
 		
 	}
 	
 	private void restarter(){
-		if(level1.player.getState() == State.DEAD && Gdx.input.justTouched() && doesIntersect(point, new Vector2(400, 140), 60)){
+		if(level1.player.state == State.DEAD && Gdx.input.justTouched() && doesIntersect(point, new Vector2(400, 140), 60)){
 			init();
 			level1.player.justSpawned = true;
 		}
@@ -416,9 +415,9 @@ public class TheController extends InputAdapter{
 	}
 	
 	public void hurt(){
-		level1.player.setState(State.STANDARD);
-		if(level1.player.getHealth()>=0){
-			level1.player.setHealth(level1.player.getHealth() - 1);
+		level1.player.state = State.STANDARD;
+		if(level1.player.health>=0){
+			level1.player.health--;
 		}
 	}
 	private void decreaseOxygen() {
