@@ -27,7 +27,7 @@ public abstract class AbstractGameObject {
 		}
 	}
 	public enum PositiveEffectsState {
-		FADE(350), SPEED_BOOST(212), RADIOACTIVE_AURA(490), NONE(0);
+		FADE(350), SPEED_BOOST(212), RADIOACTIVE_AURA(1890), NONE(0);
 		
 		public int lifetime;
 		
@@ -44,9 +44,9 @@ public abstract class AbstractGameObject {
 	public PositiveEffectsState positiveEffectsState;
 	public Vector2 position;
 	public Sprite sprite;
-	protected boolean dead;
-	protected Rectangle rectanlge;
-	protected Circle circle;
+	public boolean dead;
+	public Rectangle rectanlge;
+	public Circle circle;
 	protected Line2D line;
 	protected TiledMap map;
 	protected TiledMap map_inside_bunker;

@@ -135,7 +135,6 @@ public class L1 {
 					itm.remove();
 				}
 			}
-			System.out.println("item update " + item.state);
 			item.update();
 		}
 		

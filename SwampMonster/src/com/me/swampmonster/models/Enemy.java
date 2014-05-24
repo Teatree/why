@@ -149,19 +149,18 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 		
 		if (projectiles != null)
 		for (Projectile projectile : projectiles) {
-			if (projectile != null  && 
-					player.positiveEffectsState != PositiveEffectsState.FADE 
+			if (projectile != null
 					&& Intersector.overlaps(projectile.getCircle(), rectanlge)
 					&& !hurt) {
 				hurt = true;
 				damageType = "player";
 				enemyHurt(player);
 			}
-			if (health <= 0) {
-				state = State.DEAD;
-			}
 		}
 
+		if (health <= 0) {
+			state = State.DEAD;
+		}
 		// this little thing is not done!
 
 		HashMap<State, AnimationControl> animations = animationsStandard;
@@ -804,10 +803,13 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 		}
 	}
 
-	public void enemyHurt(AbstractGameObject player) {
+	public void enemyHurt(Player player) {
 		state = State.STANDARD;
 		if (health >= 0) {
-			health = health - player.getDamage();
+			if (player.positiveEffectsState != PositiveEffectsState.RADIOACTIVE_AURA){
+				health -= player.radioactiveDamage;
+			}
+			health -= player.damage;
 		}
 	}
 

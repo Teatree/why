@@ -20,8 +20,10 @@ import com.me.swampmonster.utils.AssetsMainManager;
 
 public class Player extends AbstractGameObject{
 	
+	private static final float FROZEN_MOVEMENT = 0.666f;
 	private static final int RADIOACTIVE_RADIUS = 57;
 	private static final float SPEED_BOOST_EFFECT = 1.1f;
+	
 	int time = 0;
 	int timeDead = 0;
 	private int timeShooting = 0;
@@ -47,11 +49,12 @@ public class Player extends AbstractGameObject{
 	public Enemy harmfulEnemy;
 	
 	public Circle radioactiveAura = null;
+	public int radioactiveDamage = 1;
 	
 	public Player(Vector2 position){
 		state = State.STANDARD;
-		setPositiveEffect(PositiveEffectsState.RADIOACTIVE_AURA);
-		
+		setPositiveEffect(PositiveEffectsState.FADE);
+//		setNegativeEffect(NegativeEffectsState.FROZEN);
 		this.position = position;
 		
 		points = 0;
@@ -165,12 +168,9 @@ public class Player extends AbstractGameObject{
 		
 	//STANDARD
 		if(state.equals(State.STANDARD)){
-//			// System.out.println(" (PLAYER): I'm currently in STANDARD state");
 			sprite = new Sprite(animations.get(State.STANDARD).getCurrentFrame());
-//			sprite.setColor(1,1,1,0.39f);
 			sprite.setRegion(animations.get(state).getCurrentFrame());
 			sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
-			
 			
 			//movement
 			if(!hurt){
@@ -270,6 +270,9 @@ public class Player extends AbstractGameObject{
 		
 		// Shooting
 		if(shooting && timeShooting < 30){
+			if (positiveEffectsState == PositiveEffectsState.FADE){
+				positiveEffectsState = PositiveEffectsState.NONE;
+			}
 //			// System.out.println("shooting...");
 			currentFrame = animations.get(state).doComplexAnimation(32, 0.5f, 0.001f, Animation.NORMAL);
 			
@@ -346,8 +349,6 @@ public class Player extends AbstractGameObject{
 			this.sprite.setColor(1f, 1f, 0f, 1f);
 			movementSpeed = SPEED_BOOST_EFFECT;
 			break;
-		case NONE:
-			break;
 		default:
 			break;
 		}
@@ -356,6 +357,8 @@ public class Player extends AbstractGameObject{
 		case FEAR:
 			break;
 		case FROZEN:
+			this.sprite.setColor(4/255f, 180/255f, 1f, 1f);
+			movementSpeed = FROZEN_MOVEMENT;
 			break;
 		case NONE:
 			break;
@@ -368,7 +371,6 @@ public class Player extends AbstractGameObject{
 	
 	private void setPositiveEffect(PositiveEffectsState positiveEffect){
 		positiveEffectsState = positiveEffect;
-		System.out.println(positiveEffect.lifetime);
 		positiveEffectCounter = positiveEffect.lifetime;
 	}
 
