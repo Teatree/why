@@ -1,6 +1,5 @@
 package com.me.swampmonster.models;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -9,7 +8,6 @@ import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector2;
 import com.me.swampmonster.animations.AnimationControl;
 import com.me.swampmonster.game.collision.CollisionHelper;
-import com.me.swampmonster.models.AbstractGameObject.State;
 import com.me.swampmonster.utils.AssetsMainManager;
 
 public class Item extends AbstractGameObject{
@@ -52,7 +50,6 @@ public class Item extends AbstractGameObject{
 		if(state.equals(State.STANDARD)){
 			pendingTimer++;
 			lifeTime--;
-			System.out.println("Item Life teime  " + lifeTime);
 			if (lifeTime == 0) {
 				state = State.DESPAWNING;
 				deadAnimTimer = 0;
@@ -92,8 +89,6 @@ public class Item extends AbstractGameObject{
 		sprite = new Sprite(new TextureRegion(currentFrame));
 		
 		if (state.equals(State.DESPAWNING)) {
-			System.out.println("Item is despawning");
-//			sprite = new Sprite(new TextureRegion(currentFrame));
 			if (deadAnimTimer == 4 || deadAnimTimer == 24 || deadAnimTimer == 44) {
 				sprite = null;
 			}
@@ -103,7 +98,6 @@ public class Item extends AbstractGameObject{
 			deadAnimTimer++;
 			if (deadAnimTimer == 35) {
 				this.state = State.DEAD;
-				System.out.println("Item is dead !");
 				deadAnimTimer = 0;
 			}
 		}

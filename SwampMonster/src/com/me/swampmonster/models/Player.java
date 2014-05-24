@@ -6,7 +6,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
@@ -22,6 +21,7 @@ import com.me.swampmonster.utils.AssetsMainManager;
 
 public class Player extends AbstractGameObject{
 	
+	private static final float SPEED_BOOST_EFFECT = 1.1f;
 	int time = 0;
 	int timeDead = 0;
 	private int timeShooting = 0;
@@ -39,6 +39,7 @@ public class Player extends AbstractGameObject{
 	public float oxygen;
 	public float maxOxygen;
 	public int positiveEffectCounter;
+	public int negativeEffectCounter;
 	
 	public Circle aimingArea;
 	public Circle invalidSpawnArea;
@@ -47,8 +48,7 @@ public class Player extends AbstractGameObject{
 	
 	public Player(Vector2 position){
 		state = State.STANDARD;
-		positiveEffectsState = PositiveEffectsState.FADE;
-		positiveEffectCounter = positiveEffectsState.lifetime;
+		setPositiveEffect(PositiveEffectsState.SPEED_BOOST);
 		
 		this.position = position;
 		
@@ -138,6 +138,11 @@ public class Player extends AbstractGameObject{
 			positiveEffectsState = PositiveEffectsState.NONE;
 		}else{
 			positiveEffectCounter--;
+		}
+		if(negativeEffectCounter<=0){
+			negativeEffectsState = NegativeEffectsState.NONE;
+		}else{
+			negativeEffectCounter--;
 		}
 		
 		
@@ -322,25 +327,48 @@ public class Player extends AbstractGameObject{
 				p.update();
 			}
 		}
-		
-		switch (positiveEffectsState){
+
+		switch (positiveEffectsState) {
 		case FADE:
-			this.sprite.setColor(sprite.getColor().r,sprite.getColor().g,sprite.getColor().b,0.5f);
-			break;
-		case NONE:
+			this.sprite.setColor(sprite.getColor().r, sprite.getColor().g,
+					sprite.getColor().b, 0.5f);
 			break;
 		case RADIOACTIVE_AURA:
 			break;
 		case SPEED_BOOST:
+			this.sprite.setColor(1f, 1f, 0f, 1f);
+			movementSpeed = SPEED_BOOST_EFFECT;
+			break;
+		case NONE:
 			break;
 		default:
 			break;
-			
+		}
+		
+		switch (negativeEffectsState){
+		case FEAR:
+			break;
+		case FROZEN:
+			break;
+		case NONE:
+			break;
+		case POISONED:
+			break;
+		default:
+			break;
 		}
 	}
 	
-		
+	private void setPositiveEffect(PositiveEffectsState positiveEffect){
+		positiveEffectsState = positiveEffect;
+		positiveEffectCounter = positiveEffect.lifetime;
+	}
 
+	private void setNegativeEffect (NegativeEffectsState negativeEffect){
+		negativeEffectsState = negativeEffect;
+		negativeEffectCounter = negativeEffect.lifetime;
+	}
+	
 	private void takingDamageFromEnemy(HashMap<State, AnimationControl> animations, AbstractGameObject enemy, Vector3 touchPos, TiledMapTileLayer collisionLayer) {
 //		// System.out.println(enemy.getPlayerMovementDirection());
 		Collidable collidableUp = null;
@@ -599,6 +627,4 @@ public class Player extends AbstractGameObject{
 	public void setTimeShooting(int timeShooting) {
 		this.timeShooting = timeShooting;
 	}
-	
-	
 }
