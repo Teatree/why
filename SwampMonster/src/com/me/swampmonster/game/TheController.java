@@ -65,19 +65,19 @@ public class TheController extends InputAdapter{
 		cameraHelper = new CameraHelper();
 		randVector2 = new Vector2();
 		level1 = new L1();
-//		Pathfinder.setTiledMap(level1.getBunker().getMap());
-		level1.getPlayer().setPosition(new Vector2 (756f,659f));
-		level1.getPlayer().getSprite().setSize(level1.getPlayer().getSprite().getWidth()/2,
-				level1.getPlayer().getSprite().getHeight()/2);
-		level1.getPlayer().setHurt(false);
+//		Pathfinder.setTiledMap(level1.bunker.getMap());
+		level1.player.setPosition(new Vector2 (756f,659f));
+		level1.player.getSprite().setSize(level1.player.getSprite().getWidth()/2,
+				level1.player.getSprite().getHeight()/2);
+		level1.player.setHurt(false);
 		
 		collisionHandler = new CollisionHelper();
-		collisionLayer = (TiledMapTileLayer) level1.getBunker().getMap().getLayers().get(0);
+		collisionLayer = (TiledMapTileLayer) level1.bunker.getMap().getLayers().get(0);
 		misterItemSpawner.setCollisionLayer(collisionLayer);
 		gui = new GUI();
 		gui.getCroshair().setPosition(new Vector2 (330f,100f));
 		
-		touchPos = new Vector3(level1.getPlayer().getPosition().x+10, level1.getPlayer().getPosition().y, 0);
+		touchPos = new Vector3(level1.player.getPosition().x+10, level1.player.getPosition().y, 0);
 		point = new Vector2();
 		V3point = new Vector3();
 		V3playerPos = new Vector3();
@@ -111,7 +111,7 @@ public class TheController extends InputAdapter{
 		
 		cameraHelper.upadate(V3playerPos.x, V3playerPos.y, 5);
 		level1.update(gui.getCroshair().isAiming(), touchPos, V3point, collisionLayer, 
-				level1.getPlayer().projectiles, cameraHelper, dx, dy);
+				level1.player.projectiles, cameraHelper, dx, dy);
 		
 		Iterator<Item> itm = level1.items.iterator();
 		while(itm.hasNext()){
@@ -119,12 +119,12 @@ public class TheController extends InputAdapter{
 			if(item.state == State.DEAD){
 				itm.remove();
 			}
-			if(Intersector.overlaps(item.getCircle(), level1.getPlayer().getRectanlge())){
-				if(item.itemType=="hp" && level1.getPlayer().getHealth() < level1.getPlayer().getMaxHealth()){
-					level1.getPlayer().setHealth(level1.getPlayer().getHealth()+1);
+			if(Intersector.overlaps(item.getCircle(), level1.player.getRectanlge())){
+				if(item.itemType=="hp" && level1.player.getHealth() < level1.player.getMaxHealth()){
+					level1.player.setHealth(level1.player.getHealth()+1);
 					itm.remove();
-				}else if(item.itemType == "O2" && level1.getPlayer().oxygen < level1.getPlayer().maxOxygen){
-					level1.getPlayer().oxygen = level1.getPlayer().oxygen+50;
+				}else if(item.itemType == "O2" && level1.player.oxygen < level1.player.maxOxygen){
+					level1.player.oxygen = level1.player.oxygen+50;
 					itm.remove();
 				}
 			}
@@ -138,7 +138,7 @@ public class TheController extends InputAdapter{
 						Intersector.overlaps(level1.player.radioactiveAura, e.getRectanlge())){
 					
 				}
-				Iterator<Projectile> prj = level1.getPlayer().projectiles
+				Iterator<Projectile> prj = level1.player.projectiles
 						.iterator();
 				while (prj.hasNext()) {
 					//System.out.println("enemies on Stage: " +
@@ -170,28 +170,28 @@ public class TheController extends InputAdapter{
 		// PROJECTILE COLLISION DETECTION
 		for (Enemy e : level1.enemiesOnStage) {
 			for (Projectile p : e.enemyProjectiles) {
-				if (p.getCircle().overlaps(level1.getPlayer().aimingArea)
-						&& !level1.getPlayer().isHurt()
-						&& level1.getPlayer().getState() != State.DEAD
-						&& level1.getPlayer().positiveEffectsState != PositiveEffectsState.FADE) {
+				if (p.getCircle().overlaps(level1.player.aimingArea)
+						&& !level1.player.isHurt()
+						&& level1.player.getState() != State.DEAD
+						&& level1.player.positiveEffectsState != PositiveEffectsState.FADE) {
 					cameraHelper.setShakeAmt(25);
 					cameraHelper.cameraShake();
 
-					level1.getPlayer().setHurt(true);
-					level1.getPlayer().setDamageType("enemy");
-					level1.getPlayer().setHealth(
-							level1.getPlayer().getHealth() - e.getDamage());
+					level1.player.setHurt(true);
+					level1.player.setDamageType("enemy");
+					level1.player.setHealth(
+							level1.player.getHealth() - e.getDamage());
 				}
 			}
 		}
 		
 		// I don't fucking know if thsi is better, I just spent 2 hours on this solution, so deal with it!
-		if(Gdx.input.justTouched() && !level1.getPlayer().isJustSpawned()){
+		if(Gdx.input.justTouched() && !level1.player.justSpawned){
 			inputNav();
 		}
 		
 		
-		gui.update(level1.getPlayer(), point, V3point);
+		gui.update(level1.player, point, V3point);
 		handleDebugInput(deltaTime);
 		pathfindingStuff();
 		//could probably be in the right class
@@ -205,14 +205,14 @@ public class TheController extends InputAdapter{
 		l1Renderer.getCam().unproject(V3point);
 		V3point.z = 0;
 		
-		V3playerPos.x = level1.getPlayer().getPosition().x + level1.getPlayer().getCircle().radius/2;
-		V3playerPos.y = level1.getPlayer().getPosition().y + level1.getPlayer().getCircle().radius/2;
+		V3playerPos.x = level1.player.getPosition().x + level1.player.getCircle().radius/2;
+		V3playerPos.y = level1.player.getPosition().y + level1.player.getCircle().radius/2;
 		V3playerPos.z = 0;
 		
 		//:TODO pff
 		if(Intersector.overlaps(debugRect, pointRect)){
 			SlotMachineScreen sl = new SlotMachineScreen(game);
-			sl.player = level1.getPlayer();
+			sl.player = level1.player;
 			game.setScreen(sl);
 			
 		}
@@ -231,20 +231,20 @@ public class TheController extends InputAdapter{
 		//:TODO and other times give a null pointer, couldn't 
 		//:TODO trace it, good luck to you, love past me.
 //			for(Enemy enemy : level1.enemiesOnStage){
-//				if(enemy!=null && level1.getPlayer() != null && enemy.cunter >= 0 && enemy.path[enemy.cunter] != null){
-//					if (level1.getPlayer().getPosition().x > (enemy.path[enemy.cunter].x*16+level1.getPlayer().getSprite().getWidth()*3)){
+//				if(enemy!=null && level1.player != null && enemy.cunter >= 0 && enemy.path[enemy.cunter] != null){
+//					if (level1.player.getPosition().x > (enemy.path[enemy.cunter].x*16+level1.player.getSprite().getWidth()*3)){
 //						// System.out.println("enemy: " + enemy + " player has steped out of the last node on the path area on the RIGHT");
 //						enemy.setState(State.STANDARD);
 //					}
-//					if (level1.getPlayer().getPosition().x < (enemy.path[enemy.cunter].x*16-level1.getPlayer().getSprite().getWidth()*3)){
+//					if (level1.player.getPosition().x < (enemy.path[enemy.cunter].x*16-level1.player.getSprite().getWidth()*3)){
 //						// System.out.println("enemy: " + enemy + " player has steped out of the last node on the path area on the LEFT");
 //						enemy.setState(State.STANDARD);
 //					}
-//					if (level1.getPlayer().getPosition().y < (enemy.path[enemy.cunter].y*16-level1.getPlayer().getSprite().getWidth()*3)){
+//					if (level1.player.getPosition().y < (enemy.path[enemy.cunter].y*16-level1.player.getSprite().getWidth()*3)){
 //						// System.out.println("enemy: " + enemy + " player has steped out of the last node on the path area on the BOTTOM");
 //						enemy.setState(State.STANDARD);
 //					}
-//					if (level1.getPlayer().getPosition().y > (enemy.path[enemy.cunter].y*16+level1.getPlayer().getSprite().getWidth()*3)){
+//					if (level1.player.getPosition().y > (enemy.path[enemy.cunter].y*16+level1.player.getSprite().getWidth()*3)){
 //						// System.out.println("enemy: " + enemy + " player has steped out of the last node on the path area on the TOP");
 //						enemy.setState(State.STANDARD);
 //					}
@@ -258,7 +258,7 @@ public class TheController extends InputAdapter{
 	}
 
 	private void inputNav() {
-		if(!level1.getPlayer().getState().equals(State.DEAD)){
+		if(!level1.player.getState().equals(State.DEAD)){
 			if(!doesIntersect(point, gui.getWeaponizer().getPosition(), gui.getWeaponizer().getCircle().radius)){
 				touchPos.y = Gdx.input.getY();
 				touchPos.x = Gdx.input.getX();
@@ -285,7 +285,7 @@ public class TheController extends InputAdapter{
 				enemy.setState(State.DEAD);
 		}
 		if (Gdx.input.isKeyPressed(Keys.P)){
-			level1.getPlayer().setState(State.DEAD);
+			level1.player.setState(State.DEAD);
 		}
 		if (Gdx.input.isKeyPressed(Keys.X) && Gdx.input.isKeyPressed(Keys.CONTROL_RIGHT)){
 		// property in the setShakeAmt is supposed to be SHAKE_INTENCITY, but it's not, deal with it!
@@ -301,24 +301,24 @@ public class TheController extends InputAdapter{
 		if (Gdx.input.isKeyPressed(Keys.E)) cameraHelper.addZoom(-camZoomSpeed);
 		if (Gdx.input.isKeyPressed(Keys.F)) cameraHelper.setZoom(1);
 		if (Gdx.input.isKeyPressed(Keys.N) && !NalreadyPressed){
-			level1.getPlayer().setHurt(true);
+			level1.player.setHurt(true);
 			timer2=80; // Remember that this one is supposed to be the same as the pending time of hurt state animation
-			// System.out.println("Health: " + level1.getPlayer().getHealth());
+			// System.out.println("Health: " + level1.player.getHealth());
 			NalreadyPressed = true;
 		}else if(!Gdx.input.isKeyPressed(Keys.N)){
 			NalreadyPressed = false;
 		}
 		if (Gdx.input.isKeyPressed(Keys.B)){
 			decreaseOxygen();
-			// System.out.println("Oxygen: " + level1.getPlayer().oxygen);
+			// System.out.println("Oxygen: " + level1.player.oxygen);
 		}
 		
-//		if(gui.getWeaponizer().isOn() && level1.getPlayer().getState() == State.STANDARD){
-//			level1.getPlayer().setDoing("pullingGunOut");
-//			level1.getPlayer().setState(State.ANIMATINGLARGE);
-//		}else if(!gui.getWeaponizer().isOn() && level1.getPlayer().getState() == State.GUNMOVEMENT){
-//			level1.getPlayer().setState(State.ANIMATINGLARGE);
-//			level1.getPlayer().setDoing("puttingGunAway");
+//		if(gui.getWeaponizer().isOn() && level1.player.getState() == State.STANDARD){
+//			level1.player.setDoing("pullingGunOut");
+//			level1.player.setState(State.ANIMATINGLARGE);
+//		}else if(!gui.getWeaponizer().isOn() && level1.player.getState() == State.GUNMOVEMENT){
+//			level1.player.setState(State.ANIMATINGLARGE);
+//			level1.player.setDoing("puttingGunAway");
 //		}
 		
 	}
@@ -326,9 +326,9 @@ public class TheController extends InputAdapter{
 	
 	private void pathfindingStuff(){
 		
-//		if(level1.getEnemy().getoRangeAura().overlaps(level1.getPlayer().getCircle()) && level1.getPlayer().getState() != State.DEAD){
+//		if(level1.getEnemy().getoRangeAura().overlaps(level1.player.getCircle()) && level1.player.getState() != State.DEAD){
 //			level1.getEnemy().setState(State.STANDARD);
-//		}else if(level1.getEnemy().getgReenAura().overlaps(level1.getPlayer().getCircle()) && level1.getPlayer().getState() != State.DEAD){
+//		}else if(level1.getEnemy().getgReenAura().overlaps(level1.player.getCircle()) && level1.player.getState() != State.DEAD){
 //			level1.getEnemy().setCunter(0);
 //			level1.getEnemy().setState(State.PURSUIT);
 //		}else{
@@ -370,19 +370,19 @@ public class TheController extends InputAdapter{
 	private void painLogic() {
 		if (timer2 > 0) {
 			if (timer2 == 79) {
-				level1.getPlayer().setDamageType("lackOfOxygen");
+				level1.player.setDamageType("lackOfOxygen");
 				hurt();
 			}
 			timer2--;
 		} 
-		if (timer2 <= 0 && level1.getPlayer().oxygen <= 0 && !level1.getPlayer().isHurt()) {
+		if (timer2 <= 0 && level1.player.oxygen <= 0 && !level1.player.isHurt()) {
 			timer2 = 80;
 		}
 		
-		if(level1.getPlayer().getHealth() <= 0){
-			level1.getPlayer().setState(State.DEAD);
+		if(level1.player.getHealth() <= 0){
+			level1.player.setState(State.DEAD);
 		}
-		if(level1.getPlayer().getState() == State.DEAD){
+		if(level1.player.getState() == State.DEAD){
 			for (Enemy enemy : level1.enemiesOnStage)
 				enemy.setState(State.STANDARD);
 		}
@@ -390,9 +390,9 @@ public class TheController extends InputAdapter{
 	}
 	
 	private void restarter(){
-		if(level1.getPlayer().getState() == State.DEAD && Gdx.input.justTouched() && doesIntersect(point, new Vector2(400, 140), 60)){
+		if(level1.player.getState() == State.DEAD && Gdx.input.justTouched() && doesIntersect(point, new Vector2(400, 140), 60)){
 			init();
-			level1.getPlayer().setJustSpawned(true);
+			level1.player.justSpawned = true;
 		}
 	}
 	
@@ -410,20 +410,20 @@ public class TheController extends InputAdapter{
 		
 		if (keycode == Keys.ENTER && cameraHelper.hasTarget) {
 			cameraHelper.hasTarget = false;
-			// System.out.println(cameraHelper.hasTarget + " " + level1.getPlayer().getSprite().getOriginX());
+			// System.out.println(cameraHelper.hasTarget + " " + level1.player.getSprite().getOriginX());
 		}
 		return false;
 	}
 	
 	public void hurt(){
-		level1.getPlayer().setState(State.STANDARD);
-		if(level1.getPlayer().getHealth()>=0){
-			level1.getPlayer().setHealth(level1.getPlayer().getHealth() - 1);
+		level1.player.setState(State.STANDARD);
+		if(level1.player.getHealth()>=0){
+			level1.player.setHealth(level1.player.getHealth() - 1);
 		}
 	}
 	private void decreaseOxygen() {
-		if(level1.getPlayer().oxygen>=0){
-			level1.getPlayer().oxygen = level1.getPlayer().oxygen - 1;
+		if(level1.player.oxygen>=0){
+			level1.player.oxygen = level1.player.oxygen - 1;
 		}
 	}
 	public int findLastNotNullInArray(){

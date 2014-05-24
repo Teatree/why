@@ -40,12 +40,12 @@ public class L1Renderer {
 		this.cam = new OrthographicCamera(Constants.VIEWPORT_WIDTH, Constants.VIEWPORT_HEIGHT);
 //		stage.setViewport(Constants.VIEWPORT_WIDTH, Constants.VIEWPORT_WIDTH, true);
 		// Temporary debug feature
-//		Pathfinder.setTiledMap(level1.getBunker().getMap());
+//		Pathfinder.setTiledMap(level1.bunker.getMap());
 		// temporary bedug feature
 		batch = new SpriteBatch();
 		stage = new Stage(Constants.VIEWPORT_WIDTH, Constants.VIEWPORT_HEIGHT, false, batch);
 		sr = new ShapeRenderer();
-		mapRenderer = new OrthogonalTiledMapRenderer(theController.level1.getBunker().getMap());
+		mapRenderer = new OrthogonalTiledMapRenderer(theController.level1.bunker.getMap());
 		
 		Image healthBarImage = new Image(theController.gui.getHealthBar().getSprite()); 
 		healthBarImage.setPosition(theController.gui.getHealthBar().getPosition().x, theController.gui.getHealthBar().getPosition().y);
@@ -81,7 +81,7 @@ public class L1Renderer {
 		mapRenderer.render(background);
 		
 		batch.begin();
-		if(Gdx.input.isTouched() && theController.level1.getPlayer().getState() == State.GUNMOVEMENT && theController.gui.getCroshair().isAiming()){
+		if(Gdx.input.isTouched() && theController.level1.player.getState() == State.GUNMOVEMENT && theController.gui.getCroshair().isAiming()){
 			batch.draw(theController.gui.getCroshair().getSprite(), theController.getV3point().x-16, theController.getV3point().y-16, 
 					theController.gui.getCroshair().getSprite().getWidth(), 
 					theController.gui.getCroshair().getSprite().getHeight());
@@ -140,7 +140,7 @@ public class L1Renderer {
 		}
 		
 		for (Enemy enemy : theController.level1.enemiesOnStage){
-			if(enemy.getPosition().y+42 > theController.level1.getPlayer().getPosition().y+42){
+			if(enemy.getPosition().y+42 > theController.level1.player.getPosition().y+42){
 				enemy.getSprite().setPosition(enemy.getPosition().x, enemy.getPosition().y);
 				if(enemy.timeRemove<110){
 					enemy.getSprite().draw(batch);
@@ -170,21 +170,21 @@ public class L1Renderer {
 			}
 		}
 		
-			theController.level1.getPlayer().getSprite().setPosition(theController.level1.getPlayer().getPosition().x, theController.level1.getPlayer().getPosition().y);
-			theController.level1.getPlayer().getSprite().draw(batch);
-//			batch.draw(theController.level1.getPlayer().getSprite(), theController.level1.getPlayer().getPosition().x, theController.level1.getPlayer().getPosition().y,
-//					theController.level1.getPlayer().getSprite().getWidth(), theController.level1.getPlayer().getSprite().getHeight());
+			theController.level1.player.getSprite().setPosition(theController.level1.player.getPosition().x, theController.level1.player.getPosition().y);
+			theController.level1.player.getSprite().draw(batch);
+//			batch.draw(theController.level1.player.getSprite(), theController.level1.player.getPosition().x, theController.level1.player.getPosition().y,
+//					theController.level1.player.getSprite().getWidth(), theController.level1.player.getSprite().getHeight());
 //			theController.level1.drawEnemy(batch);
 			
 
 		for(Enemy enemy : theController.level1.enemiesOnStage){
-			if(enemy.getPosition().y+42 < theController.level1.getPlayer().getPosition().y+42){
+			if(enemy.getPosition().y+42 < theController.level1.player.getPosition().y+42){
 				enemy.getSprite().setPosition(enemy.getPosition().x, enemy.getPosition().y);
 				enemy.getSprite().draw(batch);
 			}
 		}
 		
-		for(Projectile p: theController.level1.getPlayer().projectiles){
+		for(Projectile p: theController.level1.player.projectiles){
 			if(p != null){
 				batch.draw(p.getSprite(), p.getPosition().x, p.getPosition().y, 
 						p.getSprite().getOriginX(), p.getSprite().getOriginY(),
@@ -220,27 +220,27 @@ public class L1Renderer {
 			sr.circle(enemy.yellowAura.x, enemy.yellowAura.y, enemy.yellowAura.radius);
 		}	
 		sr.setColor(Color.WHITE);
-		for(Projectile p: theController.level1.getPlayer().projectiles){
+		for(Projectile p: theController.level1.player.projectiles){
 			if(p!=null){
 				sr.circle(p.getCircle().x, p.getCircle().y, p.getCircle().radius);
 			}
 		}
 		
 		sr.rect(theController.point.x, theController.point.y, 32, 32);
-		sr.rect(theController.level1.getPlayer().getPosition().x, theController.level1.getPlayer().getPosition().y,
-				theController.level1.getPlayer().getRectanlge().width, theController.level1.getPlayer().getRectanlge().height);
-		sr.circle(theController.level1.getPlayer().invalidSpawnArea.x, theController.level1.getPlayer().invalidSpawnArea.y, theController.level1.getPlayer().invalidSpawnArea.radius);
+		sr.rect(theController.level1.player.getPosition().x, theController.level1.player.getPosition().y,
+				theController.level1.player.getRectanlge().width, theController.level1.player.getRectanlge().height);
+		sr.circle(theController.level1.player.invalidSpawnArea.x, theController.level1.player.invalidSpawnArea.y, theController.level1.player.invalidSpawnArea.radius);
 		for(Enemy enemy:theController.level1.enemiesOnStage){
 			sr.rect(enemy.getRectanlge().x, enemy.getRectanlge().y,
 					enemy.getRectanlge().width, enemy.getRectanlge().height);
 		}
 		sr.setColor(Color.WHITE);
-		if(theController.level1.getPlayer().getState() == State.GUNMOVEMENT){
-			sr.line(theController.V3playerPos, theController.level1.getPlayer().getShotDir());
+		if(theController.level1.player.getState() == State.GUNMOVEMENT){
+			sr.line(theController.V3playerPos, theController.level1.player.shotDir);
 		}
-		sr.circle(theController.level1.getPlayer().getCircle().x, theController.level1.getPlayer().getCircle().y, theController.level1.getPlayer().getCircle().radius);
+		sr.circle(theController.level1.player.getCircle().x, theController.level1.player.getCircle().y, theController.level1.player.getCircle().radius);
 		sr.setColor(Color.YELLOW);
-		sr.circle(theController.level1.getPlayer().aimingArea.x, theController.level1.getPlayer().aimingArea.y, theController.level1.getPlayer().aimingArea.radius);
+		sr.circle(theController.level1.player.aimingArea.x, theController.level1.player.aimingArea.y, theController.level1.player.aimingArea.radius);
 		sr.end();
 		
 		sr.begin(ShapeType.Filled);

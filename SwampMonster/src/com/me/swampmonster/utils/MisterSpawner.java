@@ -27,13 +27,13 @@ public class MisterSpawner {
 			public void run() {
 				mapWith = (int) collisionLayer.getTileWidth()
 						* collisionLayer.getWidth()
-						- (int) l.getPlayer().getSprite().getWidth();
+						- (int) l.player.getSprite().getWidth();
 				mapHeight = (int) collisionLayer.getTileHeight()
 						* collisionLayer.getHeight()
-						- (int) l.getPlayer().getSprite().getHeight();
-				v2 = calculateEnemiesPosition(l.getPlayer());
+						- (int) l.player.getSprite().getHeight();
+				v2 = calculateEnemiesPosition(l.player);
 				while (!isValidPosition(v2)) {
-					v2 = calculateEnemiesPosition(l.getPlayer());
+					v2 = calculateEnemiesPosition(l.player);
 				}
 //				// System.out.println("Spawn enemy x=" + v2.x + " y=" + v2.y);
 				enemy.position = v2;

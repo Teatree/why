@@ -23,16 +23,16 @@ public class L1 {
 	public Wave wave;
 	public int wavesAmount;
 	public int currentWave;
-	Bunker bunker;
+	public Bunker bunker;
 	public boolean korea;
 
 	private Wave waveTemp;
 	private boolean needTogenerateNewWave = false;
-	WaveGenerator waveGenerator = new WaveGenerator();
-	MisterSpawner misterSpawner = new MisterSpawner();
 	private int enemySpawnRateCounter;
 	private int enemyEnemyPendingCoounter;
 	private int pendingPeriodBetweedWavesCounter;
+	private WaveGenerator waveGenerator = new WaveGenerator();
+	private MisterSpawner misterSpawner = new MisterSpawner();
 
 	public L1() {
 		create();
@@ -126,12 +126,12 @@ public class L1 {
 				System.out.println("Remove item ");
 				itm.remove();
 			}
-			if(Intersector.overlaps(item.getCircle(), getPlayer().getRectanlge())){
-				if(item.itemType=="hp" && getPlayer().getHealth() < getPlayer().getMaxHealth()){
-					getPlayer().setHealth(getPlayer().getHealth()+1);
+			if(Intersector.overlaps(item.getCircle(), player.getRectanlge())){
+				if(item.itemType=="hp" && player.getHealth() < player.getMaxHealth()){
+					player.setHealth(player.getHealth()+1);
 					itm.remove();
-				}else if(item.itemType == "O2" && getPlayer().oxygen < getPlayer().maxOxygen){
-					getPlayer().oxygen = getPlayer().oxygen+50;
+				}else if(item.itemType == "O2" && player.oxygen < player.maxOxygen){
+					player.oxygen = player.oxygen+50;
 					itm.remove();
 				}
 			}
@@ -139,38 +139,5 @@ public class L1 {
 		}
 		
 		bunker.update();
-	}
-
-	// public void drawPlayer(SpriteBatch b){
-	// b.begin();
-	// b.draw(getPlayer().getSprite(), getPlayer().getPosition().x,
-	// getPlayer().getPosition().y, getPlayer().getSprite().getWidth(),
-	// getPlayer().getSprite().getHeight());
-	// b.end();
-	// }
-
-	// public void drawEnemy(SpriteBatch b){
-	// for (Enemy enemy : enemies){
-	// b.begin();
-	// b.draw(enemy.getSprite(), enemy.getPosition().x, enemy.getPosition().y,
-	// enemy.getSprite().getWidth(), enemy.getSprite().getHeight());
-	// b.end();
-	// }
-	// }
-
-	public Bunker getBunker() {
-		return bunker;
-	}
-
-	public void setBunker(Bunker bunker) {
-		this.bunker = bunker;
-	}
-
-	public Player getPlayer() {
-		return player;
-	}
-
-	public void setPlayer(Player player) {
-		this.player = player;
 	}
 }

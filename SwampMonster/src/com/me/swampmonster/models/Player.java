@@ -32,11 +32,11 @@ public class Player extends AbstractGameObject{
 	// responsible for what kind of animation are to be played in the Animating State
 	String doing;
 	// responsible for what kind of animation are to be played in the Animating State, to be changed to something better
-	boolean maskOn;
-	boolean justSpawned;
+	public boolean maskOn;
+	public boolean justSpawned;
 	public boolean shooting;
 	public List<Projectile> projectiles;
-	Vector3 shotDir;
+	public Vector3 shotDir;
 	Vector3 V3playerPos;
 	public float oxygen;
 	public float maxOxygen;
@@ -93,8 +93,6 @@ public class Player extends AbstractGameObject{
 		
 		allowedToShoot = true;
 	}
-	
-	
 	
 	public void characterStatsBoard(){
 		// HEALTH, DAMAGE, OXYGEN, TYPE, TOUGHGUY, COLORSCHEME, ETC.
@@ -597,44 +595,5 @@ public class Player extends AbstractGameObject{
 		double angle2 = Math.atan2(V3playerPos.y - shotDir.y,
 				V3playerPos.x - shotDir.x);
 		return (float)(angle2-angle1);
-	}
-	
-	public boolean isMaskOn() {
-		return maskOn;
-	}
-	public void setMaskOn(boolean maskOn) {
-		this.maskOn = maskOn;
-	}
-
-	public String getDoing() {
-		return doing;
-	}
-
-	public void setDoing(String doing) {
-		this.doing = doing;
-	}
-
-	public boolean isJustSpawned() {
-		return justSpawned;
-	}
-
-	public void setJustSpawned(boolean justSpawned) {
-		this.justSpawned = justSpawned;
-	}
-
-	public Vector3 getShotDir() {
-		return shotDir;
-	}
-
-	public void setShotDir(Vector3 shotDir) {
-		this.shotDir = shotDir;
-	}
-	
-	public int getTimeShooting() {
-		return timeShooting;
-	}
-
-	public void setTimeShooting(int timeShooting) {
-		this.timeShooting = timeShooting;
 	}
 }
