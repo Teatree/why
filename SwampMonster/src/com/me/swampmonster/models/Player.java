@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
@@ -133,13 +134,12 @@ public class Player extends AbstractGameObject{
 			justSpawned = false;
 		}
 		
-//		// System.out.println("player position = " + position.x + " : " + position.y);
-//		// System.out.println("player position = " + sprite.getX() + " : " + sprite.getY());
 		if(positiveEffectCounter<=0){
 			positiveEffectsState = PositiveEffectsState.NONE;
 		}else{
 			positiveEffectCounter--;
 		}
+		
 		
 	//ANIMATINGLARGE
 		if(state.equals(State.ANIMATINGLARGE)){
@@ -232,26 +232,25 @@ public class Player extends AbstractGameObject{
 		}
 		
 		//Hurt
-		if(hurt && !positiveEffectsState.equals(PositiveEffectsState.FADE)){
-//			// System.out.println(" (PLAYER): I'm currently in HURT state");
-			if(time < 40){
+		if (hurt && !positiveEffectsState.equals(PositiveEffectsState.FADE)) {
+			// // System.out.println(" (PLAYER): I'm currently in HURT state");
+			if (time < 40) {
 				sprite = new Sprite(animations.get(State.STANDARD).getCurrentFrame());
 				
 				time++;
-				
-				if(damageType == "enemy"){
-//					// System.out.println(harmfulEnemies.size());
-//					for (Enemy enemy : harmfulEnemies){
-//						// System.out.println(enemy.getPlayerMovementDirection());
-						takingDamageFromEnemy(animations, harmfulEnemy, touchPos, collisionLayer);
-//					}
+
+				if (damageType == "enemy") {
+					takingDamageFromEnemy(animations, harmfulEnemy, touchPos, collisionLayer);
 				}
-				if(damageType == "lackOfOxygen"){
-					currentFrame = animations.get(State.STANDARD).doComplexAnimation(104, 0.2f, Gdx.graphics.getDeltaTime()/2, Animation.NORMAL);
-					
+				if (damageType == "lackOfOxygen") {
+					currentFrame = animations.get(State.STANDARD)
+							.doComplexAnimation(104, 0.2f,
+									Gdx.graphics.getDeltaTime() / 2,
+									Animation.NORMAL);
+
 					sprite.setRegion(animations.get(state).getCurrentFrame());
 					sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
-				}else if(time > 39){
+				} else if (time > 39) {
 					hurt = false;
 					time = 0;
 				}
@@ -322,6 +321,21 @@ public class Player extends AbstractGameObject{
 			if (p != null) {
 				p.update();
 			}
+		}
+		
+		switch (positiveEffectsState){
+		case FADE:
+			this.sprite.setColor(sprite.getColor().r,sprite.getColor().g,sprite.getColor().b,0.5f);
+			break;
+		case NONE:
+			break;
+		case RADIOACTIVE_AURA:
+			break;
+		case SPEED_BOOST:
+			break;
+		default:
+			break;
+			
 		}
 	}
 	

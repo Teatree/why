@@ -17,6 +17,7 @@ import com.me.swampmonster.AI.Pathfinder;
 import com.me.swampmonster.animations.AnimationControl;
 import com.me.swampmonster.game.collision.Collidable;
 import com.me.swampmonster.game.collision.CollisionHelper;
+import com.me.swampmonster.models.AbstractGameObject.PositiveEffectsState;
 import com.me.swampmonster.utils.AssetsMainManager;
 import com.me.swampmonster.utils.CameraHelper;
 import com.me.swampmonster.utils.EnemyGenerator.Toughness;
@@ -141,7 +142,9 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 		}
 		if (projectiles != null)
 		for (Projectile projectile : projectiles) {
-			if (projectile != null && Intersector.overlaps(projectile.getCircle(), rectanlge)
+			if (projectile != null  && 
+					player.positiveEffectsState != PositiveEffectsState.FADE 
+					&& Intersector.overlaps(projectile.getCircle(), rectanlge)
 					&& !hurt) {
 				hurt = true;
 				damageType = "player";
