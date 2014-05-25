@@ -13,6 +13,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.me.swampmonster.GUI.GUI;
 import com.me.swampmonster.game.collision.CollisionHelper;
+import com.me.swampmonster.models.AbstractGameObject.NegativeEffectsState;
 import com.me.swampmonster.models.AbstractGameObject.PositiveEffectsState;
 import com.me.swampmonster.models.AbstractGameObject.State;
 import com.me.swampmonster.models.Enemy;
@@ -294,6 +295,18 @@ public class TheController extends InputAdapter{
 		// Camera Controls (zoom)
 		float camZoomSpeed = 0.1f * deltaTime;
 		float camZoomSpeedAccelerationFactor = 50;
+		
+		//Pos effects
+		if (Gdx.input.isKeyPressed(Keys.T)) level1.player.setPositiveEffect(PositiveEffectsState.NONE);
+		if (Gdx.input.isKeyPressed(Keys.Y)) level1.player.setPositiveEffect(PositiveEffectsState.FADE);
+		if (Gdx.input.isKeyPressed(Keys.U)) level1.player.setPositiveEffect(PositiveEffectsState.RADIOACTIVE_AURA);
+		if (Gdx.input.isKeyPressed(Keys.I)) level1.player.setPositiveEffect(PositiveEffectsState.SPEED_BOOST);
+		//Neg effects
+		if (Gdx.input.isKeyPressed(Keys.G)) level1.player.setNegativeEffect(NegativeEffectsState.NONE);
+		if (Gdx.input.isKeyPressed(Keys.H)) level1.player.setNegativeEffect(NegativeEffectsState.FEAR);
+		if (Gdx.input.isKeyPressed(Keys.J)) level1.player.setNegativeEffect(NegativeEffectsState.FROZEN);
+		if (Gdx.input.isKeyPressed(Keys.K)) level1.player.setNegativeEffect(NegativeEffectsState.POISONED);
+		
 		if (Gdx.input.isKeyPressed(Keys.SHIFT_LEFT)) camZoomSpeed *= camZoomSpeedAccelerationFactor;
 		if (Gdx.input.isKeyPressed(Keys.Q))
 		cameraHelper.addZoom(camZoomSpeed);

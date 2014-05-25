@@ -54,8 +54,8 @@ public class Item extends AbstractGameObject{
 				state = State.DESPAWNING;
 				deadAnimTimer = 0;
 			}
-			
-			if(pendingTimer>180){
+
+			if (pendingTimer > 180) {
 				if(animTimer2<32){
 					currentFrame = doItemAnimation(0, 0.9f, 0.03f, Animation.NORMAL);
 					animTimer2++;

@@ -18,6 +18,7 @@ import com.me.swampmonster.models.AbstractGameObject.State;
 import com.me.swampmonster.models.Projectile;
 import com.me.swampmonster.utils.Constants;
 import com.me.swampmonster.utils.EnemyGenerator.Toughness;
+import com.sun.media.sound.EmergencySoundbank;
 
 public class L1Renderer {
 	private OrthographicCamera cam;
@@ -94,7 +95,7 @@ public class L1Renderer {
 		batch.begin();
 		for (Enemy enemy : theController.level1.enemiesOnStage) {
 			if (enemy.hurt) {
-				if (enemy.toughness != Toughness.ANGRY_GUY) {
+				if (enemy.toughness == null) {
 					if (enemy.time == 4 || enemy.time == 24) {
 						enemy.getSprite().setColor(
 								enemy.getSprite().getColor().r,
@@ -112,16 +113,16 @@ public class L1Renderer {
 				} else {
 					if (enemy.time == 4 || enemy.time == 24) {
 						enemy.getSprite().setColor(
-								enemy.getSprite().getColor().r - Toughness.ANGRY_GUY.red,
-								enemy.getSprite().getColor().g - Toughness.ANGRY_GUY.green,
-								enemy.getSprite().getColor().b - Toughness.ANGRY_GUY.blue,
+								enemy.getSprite().getColor().r - enemy.toughness.red + 1,
+								enemy.getSprite().getColor().g - enemy.toughness.green,
+								enemy.getSprite().getColor().b -enemy.toughness.blue,
 								enemy.getSprite().getColor().a);
 					}
 					if (enemy.time == 14 || enemy.time == 34) {
 						enemy.getSprite().setColor(
-								enemy.getSprite().getColor().r + Toughness.ANGRY_GUY.red,
-								enemy.getSprite().getColor().g + Toughness.ANGRY_GUY.green,
-								enemy.getSprite().getColor().b + Toughness.ANGRY_GUY.blue,
+								enemy.getSprite().getColor().r + enemy.toughness.red - 1,
+								enemy.getSprite().getColor().g + enemy.toughness.green,
+								enemy.getSprite().getColor().b + enemy.toughness.blue,
 								enemy.getSprite().getColor().a);
 					}
 				}

@@ -20,9 +20,10 @@ import com.me.swampmonster.utils.AssetsMainManager;
 
 public class Player extends AbstractGameObject{
 	
-	private static final float FROZEN_MOVEMENT = 0.666f;
+	private static final float FROZEN_MOVEMENT = 0.16f;
 	private static final int RADIOACTIVE_RADIUS = 57;
 	private static final float SPEED_BOOST_EFFECT = 1.1f;
+	private static final float STANDART_MOVEMENT_SPEED = 0.5f;
 	
 	int time = 0;
 	int timeDead = 0;
@@ -54,7 +55,7 @@ public class Player extends AbstractGameObject{
 	public Player(Vector2 position){
 		state = State.STANDARD;
 		setPositiveEffect(PositiveEffectsState.FADE);
-//		setNegativeEffect(NegativeEffectsState.FROZEN);
+		setNegativeEffect(NegativeEffectsState.FROZEN);
 		this.position = position;
 		
 		points = 0;
@@ -103,6 +104,7 @@ public class Player extends AbstractGameObject{
 		damage = 1;
 		//:TODO IN ORDER TO CHANGE THIS, YOU GOT TO GET DOWN TO WHERE SHOOTIGN IS HAPPENING!
 		shotCoolDown = 90;
+		movementSpeed = STANDART_MOVEMENT_SPEED;
 	}
 	
 	public void update(boolean aiming, Vector3 touchPos, Vector3 V3point, TiledMapTileLayer collisionLayer, float dx, float dy) {
@@ -346,6 +348,7 @@ public class Player extends AbstractGameObject{
 			movementSpeed = SPEED_BOOST_EFFECT;
 			break;
 		default:
+			movementSpeed = STANDART_MOVEMENT_SPEED;
 			break;
 		}
 		
@@ -356,21 +359,20 @@ public class Player extends AbstractGameObject{
 			this.sprite.setColor(4/255f, 180/255f, 1f, 1f);
 			movementSpeed = FROZEN_MOVEMENT;
 			break;
-		case NONE:
-			break;
 		case POISONED:
 			break;
 		default:
+			movementSpeed = STANDART_MOVEMENT_SPEED;
 			break;
 		}
 	}
 	
-	private void setPositiveEffect(PositiveEffectsState positiveEffect){
+	public void setPositiveEffect(PositiveEffectsState positiveEffect){
 		positiveEffectsState = positiveEffect;
 		positiveEffectCounter = positiveEffect.lifetime;
 	}
 
-	private void setNegativeEffect (NegativeEffectsState negativeEffect){
+	public void setNegativeEffect (NegativeEffectsState negativeEffect){
 		negativeEffectsState = negativeEffect;
 		negativeEffectCounter = negativeEffect.lifetime;
 	}
@@ -578,12 +580,6 @@ public class Player extends AbstractGameObject{
 	//Collision reaction
 	public void contact(Collidable collidable, TiledMapTileLayer collisionLayer){
 		collidable.doCollide(this, collisionLayer);
-	}
-	public float getPlayerMovementSpeedX() {
-		return movementSpeed;
-	}
-	public void setPlayerMovementSpeedX(float playerMovementSpeedX) {
-		this.movementSpeed = playerMovementSpeedX;
 	}
 	
 	

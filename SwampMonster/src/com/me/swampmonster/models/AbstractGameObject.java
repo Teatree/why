@@ -18,7 +18,7 @@ public abstract class AbstractGameObject {
 		ATTACKING, PURSUIT, GUNMOVEMENT, SPAWNING, DESPAWNING;
 	}
 	public enum NegativeEffectsState {
-		POISONED(90), FEAR(120), FROZEN(130), NONE(0);
+		POISONED(90), FEAR(120), FROZEN(930), NONE(0);
 		
 		public int lifetime;
 		
@@ -27,7 +27,7 @@ public abstract class AbstractGameObject {
 		}
 	}
 	public enum PositiveEffectsState {
-		FADE(350), SPEED_BOOST(212), RADIOACTIVE_AURA(1890), NONE(0);
+		FADE(900), SPEED_BOOST(212), RADIOACTIVE_AURA(1890), NONE(0);
 		
 		public int lifetime;
 		

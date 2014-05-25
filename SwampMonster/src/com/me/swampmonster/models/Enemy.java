@@ -806,7 +806,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 	public void enemyHurt(Player player) {
 		state = State.STANDARD;
 		if (health >= 0) {
-			if (player.positiveEffectsState != PositiveEffectsState.RADIOACTIVE_AURA){
+			if (player.positiveEffectsState == PositiveEffectsState.RADIOACTIVE_AURA){
 				health -= player.radioactiveDamage;
 			}
 			health -= player.damage;
