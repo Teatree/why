@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
@@ -16,7 +17,9 @@ import com.badlogic.gdx.math.Vector3;
 import com.me.swampmonster.animations.AnimationControl;
 import com.me.swampmonster.game.collision.Collidable;
 import com.me.swampmonster.game.collision.CollisionHelper;
+import com.me.swampmonster.models.AbstractGameObject.State;
 import com.me.swampmonster.utils.AssetsMainManager;
+import com.me.swampmonster.utils.Constants;
 
 public class Player extends AbstractGameObject{
 	
@@ -26,6 +29,8 @@ public class Player extends AbstractGameObject{
 	private static final float STANDART_MOVEMENT_SPEED = 0.5f;
 	
 	int time = 0;
+	int timer3hurt = 0;
+	int timerPoisoned = 0;
 	int timeDead = 0;
 	private int timeShooting = 0;
 	String nastyaSpriteStandard;
@@ -54,8 +59,8 @@ public class Player extends AbstractGameObject{
 	
 	public Player(Vector2 position){
 		state = State.STANDARD;
-		setPositiveEffect(PositiveEffectsState.FADE);
-		setNegativeEffect(NegativeEffectsState.FROZEN);
+		setPositiveEffect(PositiveEffectsState.NONE);
+		setNegativeEffect(NegativeEffectsState.NONE);
 		this.position = position;
 		
 		points = 0;
@@ -89,7 +94,7 @@ public class Player extends AbstractGameObject{
 		characterStatsBoard();
 		// ***Character stats board***
 		sprite = new Sprite(animationsStandard.get(State.STANDARD).getCurrentFrame());
-		sprite.setColor(1,1,1,0.39f);
+		sprite.setColor(1,1,1,1);
 		shotDir = new Vector3();
 		
 		allowedToShoot = true;
@@ -168,7 +173,6 @@ public class Player extends AbstractGameObject{
 		
 	//STANDARD
 		if(state.equals(State.STANDARD)){
-			sprite = new Sprite(animations.get(State.STANDARD).getCurrentFrame());
 			sprite.setRegion(animations.get(state).getCurrentFrame());
 			sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
 			
@@ -181,7 +185,6 @@ public class Player extends AbstractGameObject{
 	//GUN MOVEMENT
 		if(state.equals(State.GUNMOVEMENT)){
 //			// System.out.println(" (PLAYER): I'm currently in GUNMOVEMENT state");
-			sprite = new Sprite(animations.get(State.GUNMOVEMENT).getCurrentFrame());
 			sprite.setRegion(animations.get(state).getCurrentFrame());
 			sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
 			
@@ -231,7 +234,6 @@ public class Player extends AbstractGameObject{
 		if(state.equals(State.DEAD)){
 //			// System.out.println(" (PLAYER): I'm DEAD :(");
 			if(timeDead < 89){
-				sprite = new Sprite(animations.get(State.ANIMATING).getCurrentFrame());
 				currentFrame = animations.get(state).doComplexAnimation(112, 1.6f, 0.018f, Animation.NORMAL);
 				
 				sprite.setRegion(animations.get(state).getCurrentFrame());
@@ -246,7 +248,6 @@ public class Player extends AbstractGameObject{
 		if (hurt && !positiveEffectsState.equals(PositiveEffectsState.FADE)) {
 			// // System.out.println(" (PLAYER): I'm currently in HURT state");
 			if (time < 40) {
-				sprite = new Sprite(animations.get(State.STANDARD).getCurrentFrame());
 				
 				time++;
 
@@ -254,13 +255,13 @@ public class Player extends AbstractGameObject{
 					takingDamageFromEnemy(animations, harmfulEnemy, touchPos, collisionLayer);
 				}
 				if (damageType == "lackOfOxygen") {
-					currentFrame = animations.get(State.STANDARD)
-							.doComplexAnimation(104, 0.2f,
-									Gdx.graphics.getDeltaTime() / 2,
-									Animation.NORMAL);
-
-					sprite.setRegion(animations.get(state).getCurrentFrame());
-					sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
+//					currentFrame = animations.get(State.STANDARD)
+//							.doComplexAnimation(104, 0.2f,
+//									Gdx.graphics.getDeltaTime() / 2,
+//									Animation.NORMAL);
+//
+//					sprite.setRegion(animations.get(state).getCurrentFrame());
+//					sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
 				} else if (time > 39) {
 					hurt = false;
 					time = 0;
@@ -334,39 +335,60 @@ public class Player extends AbstractGameObject{
 				p.update();
 			}
 		}
-
-		switch (positiveEffectsState) {
-		case FADE:
-			this.sprite.setColor(sprite.getColor().r, sprite.getColor().g,
-					sprite.getColor().b, 0.5f);
-			break;
-		case RADIOACTIVE_AURA:
-			radioactiveAura = new Circle(position.x + sprite.getWidth()/2, position.y + sprite.getHeight()/2, RADIOACTIVE_RADIUS);
-			break;
-		case SPEED_BOOST:
-			this.sprite.setColor(1f, 1f, 0f, 1f);
-			movementSpeed = SPEED_BOOST_EFFECT;
-			break;
-		default:
-			movementSpeed = STANDART_MOVEMENT_SPEED;
-			break;
-		}
 		
-		switch (negativeEffectsState){
-		case FEAR:
-			break;
-		case FROZEN:
-			this.sprite.setColor(4/255f, 180/255f, 1f, 1f);
-			movementSpeed = FROZEN_MOVEMENT;
-			break;
-		case POISONED:
-			break;
-		default:
+		if (negativeEffectsState != null
+				&& negativeEffectsState != NegativeEffectsState.NONE
+				&& positiveEffectsState != null
+				&& positiveEffectsState != PositiveEffectsState.NONE) {
 			movementSpeed = STANDART_MOVEMENT_SPEED;
-			break;
+			sprite.setColor(1, 1, 1, 1);
+		} else {
+			switch (positiveEffectsState) {
+			case FADE:
+				this.sprite.setColor(sprite.getColor().r, sprite.getColor().g,
+						sprite.getColor().b, 0.5f);
+				break;
+			case RADIOACTIVE_AURA:
+				radioactiveAura = new Circle(
+						position.x + sprite.getWidth() / 2, position.y
+								+ sprite.getHeight() / 2, RADIOACTIVE_RADIUS);
+				break;
+			case SPEED_BOOST:
+				this.sprite.setColor(1f, 1f, 0f, 1f);
+				movementSpeed = SPEED_BOOST_EFFECT;
+				break;
+			default:
+				
+				break;
+			}
+
+			switch (negativeEffectsState) {
+			case FEAR:
+				break;
+			case FROZEN:
+				this.sprite.setColor(4 / 255f, 180 / 255f, 1f, 1f);
+				movementSpeed = FROZEN_MOVEMENT;
+				break;
+			case POISONED:
+				damageType = "Poisoned";
+				if(timerPoisoned == 0){
+					this.sprite.setColor(Color.GREEN);
+				}
+				if (timerPoisoned < 50) {
+					timerPoisoned++;
+					if(health>1){
+						hurt();
+					}
+				}
+				if (timerPoisoned == 50) {
+					timerPoisoned = 0;
+				}
+				break;
+			default:
+				break;
+			}
 		}
 	}
-	
 	public void setPositiveEffect(PositiveEffectsState positiveEffect){
 		positiveEffectsState = positiveEffect;
 		positiveEffectCounter = positiveEffect.lifetime;
@@ -582,6 +604,25 @@ public class Player extends AbstractGameObject{
 		collidable.doCollide(this, collisionLayer);
 	}
 	
+	public void hurt() {
+		if (state != State.DEAD) {
+			if (timer3hurt < 50) {
+				timer3hurt++;
+				if (timer3hurt == 25) {
+					sprite.setColor(sprite.getColor().r, sprite.getColor().g - 1,
+							sprite.getColor().b - 1, sprite.getColor().a);
+				}
+				if (timer3hurt == 45) {
+					sprite.setColor(sprite.getColor().r, sprite.getColor().g + 1,
+							sprite.getColor().b + 1, sprite.getColor().a);
+				}
+			}
+			if (timer3hurt == 50) {
+				health--;
+				timer3hurt = 0;
+			}
+		}
+	}
 	
 //	public void getPerkEffect(Perks perk){
 //		this.movementSpeed += perk.speed;

@@ -108,6 +108,7 @@ public class GShape extends Group {
 						theController.gui.getWeaponizer().circle.y,
 						theController.gui.getWeaponizer().circle.radius);
 			}
+			
 			sr.end();
 			
 			//hhjkl
@@ -137,7 +138,7 @@ public class GShape extends Group {
 
 			sr.setColor(Color.PINK);
 			sr.rect(theController.pointRect.x, theController.pointRect.y, 2, 2);
-
+			
 			sr.end();
 			
 			sr.setProjectionMatrix(batch.getProjectionMatrix());

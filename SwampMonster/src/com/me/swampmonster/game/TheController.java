@@ -6,6 +6,8 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
@@ -22,6 +24,7 @@ import com.me.swampmonster.models.L1;
 import com.me.swampmonster.models.Projectile;
 import com.me.swampmonster.screens.SlotMachineScreen;
 import com.me.swampmonster.utils.CameraHelper;
+import com.me.swampmonster.utils.Constants;
 import com.me.swampmonster.utils.MisterItemSpawner;
 
 public class TheController extends InputAdapter{
@@ -33,6 +36,7 @@ public class TheController extends InputAdapter{
 	public Vector3 touchPos;
 	int timer;
 	int timer2;
+	int timer3hurt;
 	public Vector2 point;
 	public Vector3 V3point;
 	public Vector3 V3playerPos;
@@ -83,6 +87,8 @@ public class TheController extends InputAdapter{
 		V3point = new Vector3();
 		V3playerPos = new Vector3();
 		
+		timer3hurt=0;
+		
 		// debug feature!!!
 		debugRect = new Rectangle();
 		debugRect.x = 780;
@@ -103,6 +109,9 @@ public class TheController extends InputAdapter{
 	
 	public void update(float deltaTime, Game game){
 		restarter();
+		
+//		System.out.println("Height: " + Constants.VIEWPORT_HEIGHT);
+//		System.out.println("Width: " + Constants.VIEWPORT_WIDTH);
 		
 		pointRectV3.x = touchPos.x;
 		pointRectV3.y = touchPos.y;
@@ -378,27 +387,25 @@ public class TheController extends InputAdapter{
 //			timer = 0;
 //		}
 //	}
-	
+
 	private void painLogic() {
 		if (timer2 > 0) {
-			if (timer2 == 79) {
-				level1.player.setDamageType("lackOfOxygen");
-				hurt();
-			}
+			level1.player.setDamageType("lackOfOxygen");
+			hurt(level1.player.sprite);
 			timer2--;
-		} 
+		}
 		if (timer2 <= 0 && level1.player.oxygen <= 0 && !level1.player.hurt) {
 			timer2 = 80;
 		}
-		
-		if(level1.player.health <= 0){
+
+		if (level1.player.health <= 0) {
 			level1.player.state = State.DEAD;
 		}
-		if(level1.player.state == State.DEAD){
+		if (level1.player.state == State.DEAD) {
 			for (Enemy enemy : level1.enemiesOnStage)
 				enemy.state = State.STANDARD;
 		}
-		
+
 	}
 	
 	private void restarter(){
@@ -427,10 +434,23 @@ public class TheController extends InputAdapter{
 		return false;
 	}
 	
-	public void hurt(){
-		level1.player.state = State.STANDARD;
-		if(level1.player.health>=0){
-			level1.player.health--;
+	public void hurt(Sprite s) {
+		if (level1.player.state != State.DEAD) {
+			if (timer3hurt < 50) {
+				timer3hurt++;
+				if (timer3hurt == 25) {
+					s.setColor(s.getColor().r, s.getColor().g - 1,
+							s.getColor().b - 1, s.getColor().a);
+				}
+				if (timer3hurt == 45) {
+					s.setColor(s.getColor().r, s.getColor().g + 1,
+							s.getColor().b + 1, s.getColor().a);
+				}
+			}
+			if (timer3hurt == 50) {
+				level1.player.health--;
+				timer3hurt = 0;
+			}
 		}
 	}
 	private void decreaseOxygen() {
