@@ -17,13 +17,10 @@ import com.me.swampmonster.models.AbstractGameObject.NegativeEffectsState;
 import com.me.swampmonster.models.AbstractGameObject.PositiveEffectsState;
 import com.me.swampmonster.models.AbstractGameObject.State;
 import com.me.swampmonster.models.Enemy;
-import com.me.swampmonster.models.Item;
 import com.me.swampmonster.models.L1;
 import com.me.swampmonster.models.Projectile;
 import com.me.swampmonster.screens.SlotMachineScreen;
 import com.me.swampmonster.utils.CameraHelper;
-import com.me.swampmonster.utils.EnemyGenerator.Toughness;
-import com.me.swampmonster.utils.MisterItemSpawner;
 
 public class TheController extends InputAdapter{
 	public CameraHelper cameraHelper;  
@@ -55,7 +52,6 @@ public class TheController extends InputAdapter{
 	// temp
 	
 	public TiledMapTileLayer collisionLayer;
-	MisterItemSpawner misterItemSpawner = new MisterItemSpawner();
 	
 	public TheController(Game game){
 		init();
@@ -70,7 +66,6 @@ public class TheController extends InputAdapter{
 		level1.player.setPosition(new Vector2 (756f,659f));		
 		collisionHandler = new CollisionHelper();
 		collisionLayer = (TiledMapTileLayer) level1.bunker.getMap().getLayers().get(0);
-		misterItemSpawner.setCollisionLayer(collisionLayer);
 		gui = new GUI();
 		gui.getCroshair().setPosition(new Vector2 (330f,100f));
 		
@@ -111,7 +106,6 @@ public class TheController extends InputAdapter{
 		
 		level1.update(gui.getCroshair().isAiming(), touchPos, V3point,
 				collisionLayer, level1.player.projectiles, cameraHelper, dx, dy);
-		updateEnemies();
 		projectileCollisionDetection();
 
 		// I don't fucking know if thsi is better, I just spent 2 hours on this
@@ -152,42 +146,6 @@ public class TheController extends InputAdapter{
 
 	}
 
-	private void updateEnemies() {
-		Iterator<Enemy> itr = level1.enemiesOnStage.iterator();
-		while (itr.hasNext()) {
-			Enemy e = (Enemy) itr.next();
-			if (!e.isDead()) {
-				if (level1.player.radioactiveAura != null
-						&& Intersector.overlaps(level1.player.radioactiveAura,
-								e.rectanlge)) {
-
-				}
-				Iterator<Projectile> prj = level1.player.projectiles.iterator();
-				while (prj.hasNext()) {
-					Projectile p = (Projectile) prj.next();
-					if (Intersector.overlaps(p.circle, e.rectanlge)) {
-						prj.remove();
-						break;
-					}
-				}
-			}
-
-			if (e.isDead()) {
-				if (e.timeRemove < 180) {
-					e.timeRemove++;
-				} else if (e.timeRemove > 179) {
-					itr.remove();
-					e.timeRemove = 0;
-				}
-				if (e.timeRemove == 1) {
-					Item i = misterItemSpawner.spawnItem(level1.player, e);
-					if (i != null) {
-						level1.items.add(i);
-					}
-				}
-			}
-		}
-	}
 	
 	private void projectileCollisionDetection() {
 		for (Enemy e : level1.enemiesOnStage) {
@@ -220,7 +178,6 @@ public class TheController extends InputAdapter{
 		}
 	}
 	
-
 	private void handleDebugInput(float deltaTime) {
 		float camMoveSpeed = 50 * deltaTime;
 		float camMoveSpeedAccelerationFactor = 10;

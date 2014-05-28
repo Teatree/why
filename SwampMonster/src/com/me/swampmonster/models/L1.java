@@ -12,6 +12,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.me.swampmonster.models.AbstractGameObject.State;
 import com.me.swampmonster.utils.CameraHelper;
 import com.me.swampmonster.utils.Constants;
+import com.me.swampmonster.utils.MisterItemSpawner;
 import com.me.swampmonster.utils.MisterSpawner;
 import com.me.swampmonster.utils.WaveGenerator;
 
@@ -33,6 +34,7 @@ public class L1 {
 	private int pendingPeriodBetweedWavesCounter;
 	private WaveGenerator waveGenerator = new WaveGenerator();
 	private MisterSpawner misterSpawner = new MisterSpawner();
+	private MisterItemSpawner misterItemSpawner = new MisterItemSpawner();
 
 	public L1() {
 		create();
@@ -53,7 +55,7 @@ public class L1 {
 			CameraHelper cameraHelper, float dx, float dy) {
 		this.player.update(aiming, touchPos, V3point, collisionLayer, dx, dy);
 		misterSpawner.setCollisionLayer(collisionLayer);
-		
+		misterItemSpawner.setCollisionLayer(collisionLayer);
 		updateWave();
 		
 		for (Enemy enemy : enemiesOnStage) {
@@ -64,6 +66,7 @@ public class L1 {
 						cameraHelper, enemiesOnStage);
 		}
 
+		updateEnemies();
 		updateItems();
 		bunker.update();
 	}
@@ -142,5 +145,43 @@ public class L1 {
 			item.update();
 		}
 	}
+	
+	private void updateEnemies() {
+		Iterator<Enemy> itr = enemiesOnStage.iterator();
+		while (itr.hasNext()) {
+			Enemy e = (Enemy) itr.next();
+			if (!e.isDead()) {
+				if (player.radioactiveAura != null
+						&& Intersector.overlaps(player.radioactiveAura,
+								e.rectanlge)) {
+
+				}
+				Iterator<Projectile> prj = player.projectiles.iterator();
+				while (prj.hasNext()) {
+					Projectile p = (Projectile) prj.next();
+					if (Intersector.overlaps(p.circle, e.rectanlge)) {
+						prj.remove();
+						break;
+					}
+				}
+			}
+
+			if (e.isDead()) {
+				if (e.timeRemove < 180) {
+					e.timeRemove++;
+				} else if (e.timeRemove > 179) {
+					itr.remove();
+					e.timeRemove = 0;
+				}
+				if (e.timeRemove == 1) {
+					Item i = misterItemSpawner .spawnItem(player, e);
+					if (i != null) {
+						items.add(i);
+					}
+				}
+			}
+		}
+	}
+	
 	
 }
