@@ -54,6 +54,21 @@ public class L1 {
 		this.player.update(aiming, touchPos, V3point, collisionLayer, dx, dy);
 		misterSpawner.setCollisionLayer(collisionLayer);
 		
+		updateWave();
+		
+		for (Enemy enemy : enemiesOnStage) {
+			if (player.state == State.DEAD) {
+				enemy.state = State.STANDARD;
+			} 
+			enemy.update(collisionLayer, projectiles, this.player,
+						cameraHelper, enemiesOnStage);
+		}
+
+		updateItems();
+		bunker.update();
+	}
+
+	private void updateWave() {
 		if (wave.enemies.empty()) {
 			needTogenerateNewWave = true;
 		}
@@ -94,8 +109,6 @@ public class L1 {
 				&& !wave.enemies.empty() && enemySpawnRateCounter <= 0) {
 			Enemy enemy = wave.enemies.pop();
 			misterSpawner.spawnEnemy(this, enemy);
-//			System.err.println("(L1)enemy posX: " + enemy.getPosition().x
-//					+ " posY: " + enemy.getPosition().y);
 			while (enemy.position.x < 1f || enemy.position.y < 1f) {
 				System.out.print("");
 			}
@@ -108,22 +121,13 @@ public class L1 {
 		}else {
 			enemySpawnRateCounter--;
 		}
+	}
 
-		for (Enemy enemy : enemiesOnStage) {
-			enemy.update(collisionLayer, projectiles, this.player,
-					cameraHelper, enemiesOnStage);
-		}
-		
-//		if(itemSpawnRate<=0){
-//		}else{
-//			itemSpawnRate--;
-//		}
-		
+	private void updateItems() {
 		Iterator<Item> itm = items.iterator();
 		while(itm.hasNext()){
 			Item item = itm.next();
 			if(item.state == State.DEAD){
-				System.out.println("Remove item ");
 				itm.remove();
 			}
 			if(Intersector.overlaps(item.circle, player.rectanlge)){
@@ -137,7 +141,6 @@ public class L1 {
 			}
 			item.update();
 		}
-		
-		bunker.update();
 	}
+	
 }

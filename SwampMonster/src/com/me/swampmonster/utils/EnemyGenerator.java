@@ -58,7 +58,6 @@ public class EnemyGenerator {
 		int currentEnemyType = random.nextInt(enemyMax - enemyMin) + enemyMin;
 		Enemy enemy = null;
 		try {
-			// System.out.println(currentEnemyType);			
 			enemy = enemyTypes.get(currentEnemyType).getConstructor(Vector2.class).newInstance(new Vector2());
 			enemy.sprite.setSize(enemy.sprite.getWidth()/2, enemy.sprite.getHeight()/2);
 		} catch (Exception e) {

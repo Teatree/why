@@ -151,7 +151,6 @@ public class Pathfinder {
 	private static Node getNodeAt(float x, float y, TiledMapTileLayer nodeLayer, Node [][] nodes) {
 		int cellx = (int)x / (int)nodeLayer.getTileWidth();
 		int celly = (int)y / (int)nodeLayer.getTileHeight();
-//		// System.out.println(cellx + " and " + celly);
 		return getNodeAt(cellx, celly, nodes);
 	}
 	

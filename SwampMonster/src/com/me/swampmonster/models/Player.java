@@ -1,5 +1,6 @@
 package com.me.swampmonster.models;
 
+import java.lang.ProcessBuilder.Redirect;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -17,9 +18,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.me.swampmonster.animations.AnimationControl;
 import com.me.swampmonster.game.collision.Collidable;
 import com.me.swampmonster.game.collision.CollisionHelper;
-import com.me.swampmonster.models.AbstractGameObject.State;
 import com.me.swampmonster.utils.AssetsMainManager;
-import com.me.swampmonster.utils.Constants;
 
 public class Player extends AbstractGameObject{
 	
@@ -56,6 +55,7 @@ public class Player extends AbstractGameObject{
 	
 	public Circle radioactiveAura = null;
 	public int radioactiveDamage = 1;
+	public int timer2;
 	
 	public Player(Vector2 position){
 		state = State.STANDARD;
@@ -64,6 +64,7 @@ public class Player extends AbstractGameObject{
 		this.position = position;
 		
 		points = 0;
+		hurt = false;
 		aimingArea = new Circle();
 		aimingArea.radius = 8;
 		invalidSpawnArea = new Circle();
@@ -96,8 +97,8 @@ public class Player extends AbstractGameObject{
 		sprite = new Sprite(animationsStandard.get(State.STANDARD).getCurrentFrame());
 		sprite.setColor(1,1,1,1);
 		shotDir = new Vector3();
-		
-		allowedToShoot = true;
+		sprite.setSize(sprite.getWidth()/2, sprite.getHeight()/2);
+//		allowedToShoot = true;
 	}
 	
 	public void characterStatsBoard(){
@@ -108,7 +109,7 @@ public class Player extends AbstractGameObject{
 		oxygen = maxOxygen;
 		damage = 1;
 		//:TODO IN ORDER TO CHANGE THIS, YOU GOT TO GET DOWN TO WHERE SHOOTIGN IS HAPPENING!
-		shotCoolDown = 90;
+//		shotCoolDown = 90;
 		movementSpeed = STANDART_MOVEMENT_SPEED;
 	}
 	
@@ -138,144 +139,67 @@ public class Player extends AbstractGameObject{
 		
 		oxygen -= 0.05f;
 		
-		HashMap<State, AnimationControl> animations = new HashMap<AbstractGameObject.State, AnimationControl>();
-		
-		animations = animationsStandard;
-		
 		if(Gdx.input.justTouched()){
 			justSpawned = false;
 		}
 		
-		if(positiveEffectCounter<=0){
-			positiveEffectsState = PositiveEffectsState.NONE;
-			radioactiveAura = null;
-		}else{
-			positiveEffectCounter--;
+		painLogic();
+
+		if (state.equals(State.STANDARD)) {
+			standart(touchPos, collisionLayer, dx, dy);
 		}
-		
-		if(negativeEffectCounter<=0){
-			negativeEffectsState = NegativeEffectsState.NONE;
-		}else{
-			negativeEffectCounter--;
+
+		if (state.equals(State.GUNMOVEMENT)) {
+			gunMovement(aiming, touchPos, V3point);
 		}
-		
-		
-	//ANIMATINGLARGE
-		if(state.equals(State.ANIMATINGLARGE)){
-			
-		}
-	//ANIMATING
-		if(state.equals(State.ANIMATING)){
-//			// System.out.println(" (PLAYER): I'm currently in ANIMATING state");
-			
-		}
-		
-		
-	//STANDARD
-		if(state.equals(State.STANDARD)){
-			sprite.setRegion(animations.get(state).getCurrentFrame());
-			sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
-			
-			//movement
-			if(!hurt){
-			 	movementCollisionAndAnimation(movementSpeed, animations, touchPos, collisionLayer, dx, dy);
-			}
-		}
-		
-	//GUN MOVEMENT
-		if(state.equals(State.GUNMOVEMENT)){
-//			// System.out.println(" (PLAYER): I'm currently in GUNMOVEMENT state");
-			sprite.setRegion(animations.get(state).getCurrentFrame());
-			sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
-			
-//			
-//			if (!aiming && Gdx.input.justTouched() && !theController.doesIntersect(new Vector2(400,255), circle.radius*2)) {
-//		        inputNav();
-//		    }	
-				
-				if(!aiming){
-					currentFrame = animations.get(state).doComplexAnimation(0, 0.5f, Gdx.graphics.getDeltaTime(), Animation.NORMAL);
-				}
-				
-				if(aiming){
-					touchPos.x = position.x+9;
-					touchPos.y = position.y+4;
-				}
-				if(aiming && V3point.y > position.y+8 && V3point.x < position.x+32 &&
-						V3point.x > position.x){
-					currentFrame = animations.get(state).doComplexAnimation(24, 0.5f, Gdx.graphics.getDeltaTime(), Animation.NORMAL);
-				}
-				else if(aiming && V3point.y < position.y+8 && V3point.x < position.x+32 &&
-						V3point.x > position.x){
-					currentFrame = animations.get(state).doComplexAnimation(0, 0.5f, Gdx.graphics.getDeltaTime(), Animation.NORMAL);
-				}
-				if(aiming && V3point.x < position.x){
-					currentFrame = animations.get(state).doComplexAnimation(8, 0.5f, Gdx.graphics.getDeltaTime(), Animation.NORMAL);
-				}
-				else if(aiming && V3point.x > position.x+32){
-					currentFrame = animations.get(state).doComplexAnimation(16, 0.5f, Gdx.graphics.getDeltaTime(), Animation.NORMAL);
-				}
-				
-			if(!Gdx.input.isTouched() && aiming && allowedToShoot){
-				shooting = true;
-				allowedToShoot = false;
-			}
-			if(!aiming && timeShooting == 0){
-				shooting = false;
-				state = State.STANDARD;
-			}
-			if(shooting){
-				aiming=false;
-			}
-			
-		}
-		
-	//DEAD
-		if(state.equals(State.DEAD)){
-//			// System.out.println(" (PLAYER): I'm DEAD :(");
-			if(timeDead < 89){
-				currentFrame = animations.get(state).doComplexAnimation(112, 1.6f, 0.018f, Animation.NORMAL);
-				
-				sprite.setRegion(animations.get(state).getCurrentFrame());
-				sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
-				timeDead++;
-			}
-			
-			dead = true;
+
+		if (state.equals(State.DEAD)) {
+			dying();
 		}
 		
 		//Hurt
 		if (hurt && !positiveEffectsState.equals(PositiveEffectsState.FADE)) {
-			// // System.out.println(" (PLAYER): I'm currently in HURT state");
 			if (time < 40) {
-				
 				time++;
-
 				if (damageType == "enemy") {
-					takingDamageFromEnemy(animations, harmfulEnemy, touchPos, collisionLayer);
+					takingDamageFromEnemy(harmfulEnemy, touchPos, collisionLayer);
 				}
-				if (damageType == "lackOfOxygen") {
-//					currentFrame = animations.get(State.STANDARD)
-//							.doComplexAnimation(104, 0.2f,
-//									Gdx.graphics.getDeltaTime() / 2,
-//									Animation.NORMAL);
-//
-//					sprite.setRegion(animations.get(state).getCurrentFrame());
-//					sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
-				} else if (time > 39) {
+				if (damageType != "lackOfOxygen" && time > 39) {
 					hurt = false;
 					time = 0;
 				}
 			}
 		}
 		
-		// Shooting
+		shooting(V3point);
+		
+		updateProjectiles(collisionLayer);
+		
+		checkEffects();
+		
+	}
+
+	private void updateProjectiles(TiledMapTileLayer collisionLayer) {
+		Iterator<Projectile> prj = projectiles.iterator();
+		while (prj.hasNext()) {
+			Projectile p = (Projectile) prj.next();
+			if (p != null && p.isCollision(collisionLayer)) {
+				prj.remove();
+				break;
+			}
+			if (p != null) {
+				p.update();
+			}
+		}
+	}
+
+	private void shooting(Vector3 V3point) {
 		if(shooting && timeShooting < 30){
 			if (positiveEffectsState == PositiveEffectsState.FADE){
 				positiveEffectsState = PositiveEffectsState.NONE;
 			}
-			currentFrame = animations.get(state).doComplexAnimation(32, 0.5f, 0.001f, Animation.NORMAL);
-			sprite.setRegion(animations.get(state).getCurrentFrame());
+			currentFrame = animationsStandard.get(state).doComplexAnimation(32, 0.5f, 0.001f, Animation.NORMAL);
+			sprite.setRegion(animationsStandard.get(state).getCurrentFrame());
 			sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
 			
 			timeShooting++;
@@ -284,22 +208,21 @@ public class Player extends AbstractGameObject{
 		if(shooting && timeShooting < 2){
 			shotDir.x = V3point.x;
 			shotDir.y = V3point.y;
-//			theController.projectile.setPosition(new Vector2(position.x, position.y));
 		}
 		if(shooting && timeShooting > 29){
-			animations.get(state).setCurrentFrame(currentFrame);
+			animationsStandard.get(state).setCurrentFrame(currentFrame);
 			shooting=false;
 			timeShooting = 0;
 		}
-		if(!allowedToShoot){
-			shotCoolDown--;
-		}
-		if(!allowedToShoot && shotCoolDown<2){
-			allowedToShoot=true;
+//		if(!allowedToShoot){
+//			shotCoolDown--;
+//		}
+//		if(!allowedToShoot && shotCoolDown<2){
+//			allowedToShoot=true;
 			// THIS IS WERID, BUT EVERY TIME YOU WANT TO CAHNGE YOUR 
 			// SHOOTING COOLDOWN SPEED, YOU GOTTA GET DOWN HERE
-			shotCoolDown = 90;
-		}
+//			shotCoolDown = 90;
+//		}
 		
 		
 		// PROJECTILE
@@ -309,7 +232,6 @@ public class Player extends AbstractGameObject{
 			
 			//: TODO This look terrible, make it better bro...
 			Projectile p = new Projectile(new Vector2(aimingArea.x+direction_x/100-8, aimingArea.y+direction_y/100-8), getRotation());
-			// System.out.println("direction_x and aimingArea.x" + direction_x + aimingArea.x);
 			
 			p.setPosition(new Vector2(aimingArea.x+direction_x/100-8, aimingArea.y+direction_y/100-8));
 			
@@ -322,20 +244,36 @@ public class Player extends AbstractGameObject{
 			projectiles.add(p);
 			
 		}
-		
-		
-		Iterator<Projectile> prj = projectiles.iterator();
-		while (prj.hasNext()) {
-			Projectile p = (Projectile) prj.next();
-			if (p != null && p.isCollision(collisionLayer)) {
-				prj.remove();
-				break;
-			}
-			if (p != null) {
-				p.update();
-			}
+	}
+
+	private void dying() {
+		if (timeDead < 89) {
+			currentFrame = animationsStandard.get(state).doComplexAnimation(112,
+					1.6f, 0.018f, Animation.NORMAL);
+			sprite.setRegion(animationsStandard.get(state).getCurrentFrame());
+			sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
+			timeDead++;
 		}
-		
+		dead = true;
+	}
+
+	private void checkEffects() {
+		if (positiveEffectCounter <= 0) {
+			positiveEffectsState = PositiveEffectsState.NONE;
+			if (radioactiveAura != null){
+				radioactiveAura.radius = 0;
+			}
+			
+		} else {
+			positiveEffectCounter--;
+		}
+
+		if (negativeEffectCounter <= 0) {
+			negativeEffectsState = NegativeEffectsState.NONE;
+		} else {
+			negativeEffectCounter--;
+		}
+
 		if (negativeEffectsState != null
 				&& negativeEffectsState != NegativeEffectsState.NONE
 				&& positiveEffectsState != null
@@ -357,9 +295,6 @@ public class Player extends AbstractGameObject{
 				this.sprite.setColor(1f, 1f, 0f, 1f);
 				movementSpeed = SPEED_BOOST_EFFECT;
 				break;
-			default:
-				
-				break;
 			}
 
 			switch (negativeEffectsState) {
@@ -371,12 +306,12 @@ public class Player extends AbstractGameObject{
 				break;
 			case POISONED:
 				damageType = "Poisoned";
-				if(timerPoisoned == 0){
+				if (timerPoisoned == 0) {
 					this.sprite.setColor(Color.GREEN);
 				}
 				if (timerPoisoned < 50) {
 					timerPoisoned++;
-					if(health>1){
+					if (health > 1) {
 						hurt();
 					}
 				}
@@ -384,11 +319,63 @@ public class Player extends AbstractGameObject{
 					timerPoisoned = 0;
 				}
 				break;
-			default:
-				break;
 			}
 		}
 	}
+
+	private void standart(Vector3 touchPos, TiledMapTileLayer collisionLayer,
+			float dx, float dy) {
+		sprite.setRegion(animationsStandard.get(state).getCurrentFrame());
+		sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
+		
+		if(!hurt){
+		 	movementCollisionAndAnimation(movementSpeed, touchPos, collisionLayer, dx, dy);
+		}
+	}
+
+	private void gunMovement(boolean aiming, Vector3 touchPos, Vector3 V3point) {
+		sprite.setRegion(animationsStandard.get(state).getCurrentFrame());
+		sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
+
+		if (!aiming) {
+			currentFrame = animationsStandard.get(state).doComplexAnimation(0,
+					0.5f, Gdx.graphics.getDeltaTime(), Animation.NORMAL);
+		}
+
+		if (aiming) {
+			touchPos.x = position.x + 9;
+			touchPos.y = position.y + 4;
+		}
+		if (aiming && V3point.y > position.y + 8
+				&& V3point.x < position.x + 32 && V3point.x > position.x) {
+			currentFrame = animationsStandard.get(state).doComplexAnimation(24,
+					0.5f, Gdx.graphics.getDeltaTime(), Animation.NORMAL);
+		} else if (aiming && V3point.y < position.y + 8
+				&& V3point.x < position.x + 32 && V3point.x > position.x) {
+			currentFrame = animationsStandard.get(state).doComplexAnimation(0,
+					0.5f, Gdx.graphics.getDeltaTime(), Animation.NORMAL);
+		}
+		if (aiming && V3point.x < position.x) {
+			currentFrame = animationsStandard.get(state).doComplexAnimation(8,
+					0.5f, Gdx.graphics.getDeltaTime(), Animation.NORMAL);
+		} else if (aiming && V3point.x > position.x + 32) {
+			currentFrame = animationsStandard.get(state).doComplexAnimation(16,
+					0.5f, Gdx.graphics.getDeltaTime(), Animation.NORMAL);
+		}
+
+		if(!Gdx.input.isTouched() && aiming /*&& allowedToShoot*/){
+			shooting = true;
+//			allowedToShoot = false;
+		}
+		if(!aiming && timeShooting == 0){
+			shooting = false;
+			state = State.STANDARD;
+		}
+		if(shooting){
+			aiming=false;
+		}
+	}
+	
 	public void setPositiveEffect(PositiveEffectsState positiveEffect){
 		positiveEffectsState = positiveEffect;
 		positiveEffectCounter = positiveEffect.lifetime;
@@ -399,78 +386,89 @@ public class Player extends AbstractGameObject{
 		negativeEffectCounter = negativeEffect.lifetime;
 	}
 	
-	private void takingDamageFromEnemy(HashMap<State, AnimationControl> animations, 
-			AbstractGameObject enemy, Vector3 touchPos, TiledMapTileLayer collisionLayer) {
-//		// System.out.println(enemy.getPlayerMovementDirection());
+	private void takingDamageFromEnemy(Enemy enemy, Vector3 touchPos, TiledMapTileLayer collisionLayer) {
+		
+		if (enemy.toughness != null){
+			switch(enemy.toughness){
+			case FREEZER_GUY:
+				setNegativeEffect(NegativeEffectsState.FROZEN);
+			break;
+			case POISONOUS_GUY:
+				setNegativeEffect(NegativeEffectsState.POISONED);
+			break;
+			}
+		}
 		Collidable collidableUp = null;
 		
-		damagedFromTop(collidableUp, animations, enemy, touchPos);
+		damagedFromTop(collidableUp, enemy, touchPos);
 		collidableUp = collisionCheckerUp(collisionLayer);
 		collisionCheck(collidableUp, collisionLayer);
 		
 		Collidable collidableDown = null;
 		
-		damageFromBottom(collidableDown, animations, enemy, touchPos);
+		damageFromBottom(collidableDown, enemy, touchPos);
 		collidableDown = collisionCheckerDown(collisionLayer);
 		collisionCheck(collidableDown, collisionLayer);
 		
 		Collidable collidableLeft = null;
 		
-		damageFromLeft(collidableLeft, animations, enemy, touchPos);
+		damageFromLeft(collidableLeft, enemy, touchPos);
 		collidableLeft = collisionCheckerLeft(collisionLayer);
 		collisionCheck(collidableLeft, collisionLayer);
 		
 		Collidable collidableRight = null;
 		
-		damageFromRight(collidableRight, animations, enemy, touchPos);
+		damageFromRight(collidableRight, enemy, touchPos);
 		collidableRight = collisionCheckerRight(collisionLayer);
 		collisionCheck(collidableRight, collisionLayer);
 	}
 	
 	private void damageFromRight(Collidable collidableUp,
-			HashMap<State, AnimationControl> animations,
 			AbstractGameObject enemy, Vector3 touchPos) {
 		if (enemy.playerMovementDirection == "right" && collidableUp == null) {
-			currentFrame = animations.get(State.STANDARD).
+			currentFrame = animationsStandard.get(State.STANDARD).
 					doComplexAnimation(108, 0.2f, Gdx.graphics.getDeltaTime() / 2,
 					Animation.NORMAL);
 
-			sprite.setRegion(animations.get(state).getCurrentFrame());
+			sprite.setRegion(animationsStandard.get(state).getCurrentFrame());
 			sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
 			position.x += movementSpeed / 2;
 			touchPos.x += movementSpeed / 2;
 			sprite.translateY(movementSpeed / 2);
 		}
 	}
-	private void damageFromLeft(Collidable collidableUp, HashMap<State, AnimationControl> animations, AbstractGameObject enemy, Vector3 touchPos) {
+	private void damageFromLeft(Collidable collidableUp, 
+			AbstractGameObject enemy, Vector3 touchPos) {
 		if (enemy.playerMovementDirection == "left" && collidableUp == null) { 
-			currentFrame = animations.get(State.STANDARD).doComplexAnimation(106, 0.2f, Gdx.graphics.getDeltaTime()/2, Animation.NORMAL);
+			currentFrame = animationsStandard.get(State.STANDARD).doComplexAnimation(106, 0.2f, 
+					Gdx.graphics.getDeltaTime()/2, Animation.NORMAL);
 			
-			sprite.setRegion(animations.get(state).getCurrentFrame());
+			sprite.setRegion(animationsStandard.get(state).getCurrentFrame());
 			sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
 			position.x -= movementSpeed/2;
 			touchPos.x -= movementSpeed/2;
 			sprite.translateY(movementSpeed/2);
 		}
 	}
-	private void damageFromBottom(Collidable collidableUp, HashMap<State, AnimationControl> animations, 
+	private void damageFromBottom(Collidable collidableUp, 
 			AbstractGameObject enemy, Vector3 touchPos) {
 		if (enemy.playerMovementDirection == "down" && collidableUp == null) { 
-			currentFrame = animations.get(State.STANDARD).doComplexAnimation
+			currentFrame = animationsStandard.get(State.STANDARD).doComplexAnimation
 					(110, 0.2f, Gdx.graphics.getDeltaTime()/2, Animation.NORMAL);
 			
-			sprite.setRegion(animations.get(state).getCurrentFrame());
+			sprite.setRegion(animationsStandard.get(state).getCurrentFrame());
 			sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
 			position.y -= movementSpeed/2;
 			touchPos.y -= movementSpeed/2;
 			sprite.translateY(movementSpeed/2);
 		}
 	}
-	private void damagedFromTop(Collidable collidableUp, HashMap<State, AnimationControl> animations, AbstractGameObject enemy, Vector3 touchPos) {
+	private void damagedFromTop(Collidable collidableUp, 
+			AbstractGameObject enemy, Vector3 touchPos) {
 		if (enemy.playerMovementDirection == "up" && collidableUp == null) { 
-			currentFrame = animations.get(State.STANDARD).doComplexAnimation(104, 0.2f, Gdx.graphics.getDeltaTime()/2, Animation.NORMAL);
+			currentFrame = animationsStandard.get(State.STANDARD).doComplexAnimation(104, 0.2f, Gdx.graphics.getDeltaTime()/2, Animation.NORMAL);
 			
-			sprite.setRegion(animations.get(state).getCurrentFrame());
+			sprite.setRegion(animationsStandard.get(state).getCurrentFrame());
 			sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
 			
 			position.y += movementSpeed/2;
@@ -480,7 +478,7 @@ public class Player extends AbstractGameObject{
 	}
 	
 	
-	private void movementCollisionAndAnimation(float speed, HashMap<State, AnimationControl> animations, 
+	private void movementCollisionAndAnimation(float speed,
 			Vector3 touchPos, TiledMapTileLayer collisionLayer, float dx, float dy) {
 		// ---------------------movement, just, movement------------------------ //
 		Collidable collidableLeft = null;
@@ -488,7 +486,7 @@ public class Player extends AbstractGameObject{
 		Collidable collidableDown = null;
 		Collidable collidableUp = null;
 		
-		move(collidableLeft, collidableRight, collidableUp, collidableDown, speed, animations, touchPos, dx, dy);
+		move(collidableLeft, collidableRight, collidableUp, collidableDown, speed, touchPos, dx, dy);
 		collidableLeft = collisionCheckerLeft(collisionLayer);
 		collisionCheck(collidableLeft, collisionLayer);
 		collidableRight = collisionCheckerRight(collisionLayer);
@@ -498,7 +496,7 @@ public class Player extends AbstractGameObject{
 		collidableUp = collisionCheckerUp(collisionLayer);
 		collisionCheck(collidableUp, collisionLayer);
 		
-		standingAnimation(animations);
+		standingAnimation(animationsStandard);
 	}
 	private Collidable collisionCheckerUp(TiledMapTileLayer collisionLayer) {
 		Collidable collidableUp;
@@ -540,11 +538,10 @@ public class Player extends AbstractGameObject{
 		return collidableLeft;
 	}
 	private void move(Collidable collidableLeft, Collidable collidableRight, Collidable collidableUp, 
-			Collidable collidableDown, float speeds, HashMap<State, AnimationControl> animations, Vector3 touchPos, float dx, float dy) {
+			Collidable collidableDown, float speeds, Vector3 touchPos, float dx, float dy) {
 		if (position.x > touchPos.x-4 || position.x < touchPos.x-14 || position.y > touchPos.y-4 || position.y < touchPos.y-14) {
 			if(collidableLeft == null || collidableRight == null){
 				position.x += dx*movementSpeed;
-//				// System.out.println("dx*playerMovementSpeed: " + dx*playerMovementSpeed + " position.x: " + position.x);
 			}
 			if(collidableUp == null || collidableDown == null){
 				position.y += dy*movementSpeed;
@@ -624,19 +621,30 @@ public class Player extends AbstractGameObject{
 		}
 	}
 	
-//	public void getPerkEffect(Perks perk){
-//		this.movementSpeed += perk.speed;
-//		this.reloadSpeed += perk.reloadSpeed;
-//		this.damage += perk.damage;
-//		this.health += perk.health;
-//		this.points += perk.points;
-//	}
-
 	private float getRotation(){
-		double angle1 = Math.atan2(V3playerPos.y - position.y,
-				V3playerPos.x - 0);
-		double angle2 = Math.atan2(V3playerPos.y - shotDir.y,
-				V3playerPos.x - shotDir.x);
+		double angle1 = Math.atan2(V3playerPos.y - position.y, V3playerPos.x - 0);
+		double angle2 = Math.atan2(V3playerPos.y - shotDir.y, V3playerPos.x - shotDir.x);
 		return (float)(angle2-angle1);
 	}
+	
+	private void painLogic() {
+		if (timer2 > 0) {
+			damageType = "lackOfOxygen";
+			hurt();
+			timer2--;
+		}
+		if (timer2 <= 0 && oxygen <= 0 && !hurt) {
+			timer2 = 80;
+		}
+
+		if (health <= 0) {
+			state = State.DEAD;
+		}
+	}
+	
+	public void decreaseOxygen() {
+	if(oxygen>=0){
+		oxygen--;
+	}
+}
 }
