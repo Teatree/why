@@ -1,6 +1,5 @@
 package com.me.swampmonster.game;
 
-import java.util.Iterator;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -172,6 +171,7 @@ public class TheController extends InputAdapter{
 				touchPos.x = Gdx.input.getX();
 				l1Renderer.getCam().unproject(touchPos);
 				touchPos.z = 0;
+				level1.player.pointGathered = true;
 			}else if(Intersector.intersectSegmentCircle(point, point, gui.getWeaponizer().getPosition(), 
 					gui.getWeaponizer().circle.radius*gui.getWeaponizer().circle.radius)){
 			}

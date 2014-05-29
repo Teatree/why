@@ -49,6 +49,10 @@ public class GShape extends Group {
 		sr.setTransformMatrix(batch.getTransformMatrix());
 		sr.translate(getX(), getY(), 0);
 		sr.begin(ShapeType.Filled);
+		if (theController.level1.player.fearRectangle != null){
+			sr.setColor(new Color(84/255f,84/255f,84/255f, 0.5f));
+			sr.rect(0, 0, Constants.VIEWPORT_WIDTH, Constants.VIEWPORT_HEIGHT);
+		}
 		sr.setColor(Color.RED);
 		
 		if (theController != null) {
@@ -145,7 +149,6 @@ public class GShape extends Group {
 			sr.setTransformMatrix(batch.getTransformMatrix());
 			sr.translate(getX(), getY(), 0);
 			sr.begin(ShapeType.Filled);
-			
 			if (theController.level1.player.isDead()) {
 				sr.setColor(new Color(200, 0, 0, assRevert));
 				sr.rect(theController.gui.getGameoverGUI().rectanlge.x,
@@ -182,6 +185,7 @@ public class GShape extends Group {
 			sr.rect(theController.debugRect.x, theController.debugRect.y,
 					theController.debugRect.width,
 					theController.debugRect.height);
+			
 			sr.end();
 		}
 		batch.begin();

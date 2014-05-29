@@ -1,10 +1,10 @@
 package com.me.swampmonster.models;
 
-import java.lang.ProcessBuilder.Redirect;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -40,6 +40,7 @@ public class Player extends AbstractGameObject{
 	public boolean maskOn;
 	public boolean justSpawned;
 	public boolean shooting;
+	public boolean pointGathered;
 	public List<Projectile> projectiles;
 	public Vector3 shotDir;
 	Vector3 V3playerPos;
@@ -47,6 +48,8 @@ public class Player extends AbstractGameObject{
 	public float maxOxygen;
 	public int positiveEffectCounter;
 	public int negativeEffectCounter;
+	private Random random;
+	public Rectangle fearRectangle;
 	
 	public Circle aimingArea;
 	public Circle invalidSpawnArea;
@@ -63,6 +66,7 @@ public class Player extends AbstractGameObject{
 		setNegativeEffect(NegativeEffectsState.NONE);
 		this.position = position;
 		
+		random = new Random();
 		points = 0;
 		hurt = false;
 		aimingArea = new Circle();
@@ -144,15 +148,18 @@ public class Player extends AbstractGameObject{
 		}
 		
 		painLogic();
-
+		
+		// STANDARD
 		if (state.equals(State.STANDARD)) {
 			standart(touchPos, collisionLayer, dx, dy);
 		}
-
+		
+		// GUN 
 		if (state.equals(State.GUNMOVEMENT)) {
 			gunMovement(aiming, touchPos, V3point);
 		}
-
+		
+		// DEAD
 		if (state.equals(State.DEAD)) {
 			dying();
 		}
@@ -175,7 +182,7 @@ public class Player extends AbstractGameObject{
 		
 		updateProjectiles(collisionLayer);
 		
-		checkEffects();
+		checkEffects(touchPos);
 		
 	}
 
@@ -257,7 +264,7 @@ public class Player extends AbstractGameObject{
 		dead = true;
 	}
 
-	private void checkEffects() {
+	private void checkEffects(Vector3 touchPos) {
 		if (positiveEffectCounter <= 0) {
 			positiveEffectsState = PositiveEffectsState.NONE;
 			if (radioactiveAura != null){
@@ -299,6 +306,12 @@ public class Player extends AbstractGameObject{
 
 			switch (negativeEffectsState) {
 			case FEAR:
+				fearRectangle = new Rectangle();
+				if(pointGathered){
+					touchPos.x = random.nextInt(300) + touchPos.x - 150;
+					touchPos.y = random.nextInt(300) + touchPos.y - 150;
+					pointGathered = false;
+				}
 				break;
 			case FROZEN:
 				this.sprite.setColor(4 / 255f, 180 / 255f, 1f, 1f);
