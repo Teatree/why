@@ -281,19 +281,15 @@ public class Player extends AbstractGameObject{
 			negativeEffectCounter--;
 		}
 
-		if (negativeEffectsState != null
-				&& negativeEffectsState != NegativeEffectsState.NONE
-				&& positiveEffectsState != null
-				&& positiveEffectsState != PositiveEffectsState.NONE) {
-			movementSpeed = STANDART_MOVEMENT_SPEED;
-			sprite.setColor(1, 1, 1, 1);
-		} else {
 			switch (positiveEffectsState) {
 			case FADE:
+				movementSpeed = STANDART_MOVEMENT_SPEED;
 				this.sprite.setColor(sprite.getColor().r, sprite.getColor().g,
 						sprite.getColor().b, 0.5f);
+				radioactiveAura = null;
 				break;
 			case RADIOACTIVE_AURA:
+				movementSpeed = STANDART_MOVEMENT_SPEED;
 				radioactiveAura = new Circle(
 						position.x + sprite.getWidth() / 2, position.y
 								+ sprite.getHeight() / 2, RADIOACTIVE_RADIUS);
@@ -301,12 +297,20 @@ public class Player extends AbstractGameObject{
 			case SPEED_BOOST:
 				this.sprite.setColor(1f, 1f, 0f, 1f);
 				movementSpeed = SPEED_BOOST_EFFECT;
+				radioactiveAura = null;
 				break;
+			case NONE:
+				if(negativeEffectsState == NegativeEffectsState.NONE || negativeEffectsState == null){
+					sprite.setColor(1,1,1,1);
+					movementSpeed = STANDART_MOVEMENT_SPEED;
+				}
+				radioactiveAura = null;
 			}
 
 			switch (negativeEffectsState) {
 			case FEAR:
 				fearRectangle = new Rectangle();
+				movementSpeed = STANDART_MOVEMENT_SPEED;
 				if(pointGathered){
 					touchPos.x = random.nextInt(300) + touchPos.x - 150;
 					touchPos.y = random.nextInt(300) + touchPos.y - 150;
@@ -316,9 +320,14 @@ public class Player extends AbstractGameObject{
 			case FROZEN:
 				this.sprite.setColor(4 / 255f, 180 / 255f, 1f, 1f);
 				movementSpeed = FROZEN_MOVEMENT;
+				fearRectangle = null;
 				break;
 			case POISONED:
 				damageType = "Poisoned";
+				fearRectangle = null;
+				if (positiveEffectsState != PositiveEffectsState.SPEED_BOOST){
+					movementSpeed = STANDART_MOVEMENT_SPEED;
+				}
 				if (timerPoisoned == 0) {
 					this.sprite.setColor(Color.GREEN);
 				}
@@ -332,8 +341,13 @@ public class Player extends AbstractGameObject{
 					timerPoisoned = 0;
 				}
 				break;
+			case NONE:
+				if(positiveEffectsState == PositiveEffectsState.NONE || positiveEffectsState == null){
+					sprite.setColor(1,1,1,1);
+					movementSpeed = STANDART_MOVEMENT_SPEED;
+				}
+				fearRectangle = null;
 			}
-		}
 	}
 
 	private void standart(Vector3 touchPos, TiledMapTileLayer collisionLayer,
@@ -390,13 +404,24 @@ public class Player extends AbstractGameObject{
 	}
 	
 	public void setPositiveEffect(PositiveEffectsState positiveEffect){
+		if (positiveEffect == PositiveEffectsState.FADE){
+			setNegativeEffect(NegativeEffectsState.NONE);
+		}
+		if (positiveEffect == PositiveEffectsState.SPEED_BOOST && negativeEffectsState == NegativeEffectsState.FROZEN){
+			setNegativeEffect(NegativeEffectsState.NONE);
+		}
 		positiveEffectsState = positiveEffect;
 		positiveEffectCounter = positiveEffect.lifetime;
 	}
 
 	public void setNegativeEffect (NegativeEffectsState negativeEffect){
-		negativeEffectsState = negativeEffect;
-		negativeEffectCounter = negativeEffect.lifetime;
+		if (positiveEffectsState != PositiveEffectsState.FADE){
+			if (positiveEffectsState == PositiveEffectsState.SPEED_BOOST && negativeEffectsState == NegativeEffectsState.FROZEN){
+				setPositiveEffect(PositiveEffectsState.NONE);
+			}
+			negativeEffectsState = negativeEffect;
+			negativeEffectCounter = negativeEffect.lifetime;
+		}
 	}
 	
 	private void takingDamageFromEnemy(Enemy enemy, Vector3 touchPos, TiledMapTileLayer collisionLayer) {
