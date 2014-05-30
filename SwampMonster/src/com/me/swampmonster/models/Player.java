@@ -62,8 +62,8 @@ public class Player extends AbstractGameObject{
 	
 	public Player(Vector2 position){
 		state = State.STANDARD;
-		setPositiveEffect(PositiveEffectsState.NONE);
-		setNegativeEffect(NegativeEffectsState.NONE);
+		positiveEffectsState = PositiveEffects.NONE;
+		negativeEffectsState = NegativeEffects.NONE;
 		this.position = position;
 		
 		random = new Random();
@@ -165,7 +165,7 @@ public class Player extends AbstractGameObject{
 		}
 		
 		//Hurt
-		if (hurt && !positiveEffectsState.equals(PositiveEffectsState.FADE)) {
+		if (hurt && !positiveEffectsState.equals(PositiveEffects.FADE)) {
 			if (time < 40) {
 				time++;
 				if (damageType == "enemy") {
@@ -202,8 +202,8 @@ public class Player extends AbstractGameObject{
 
 	private void shooting(Vector3 V3point) {
 		if(shooting && timeShooting < 30){
-			if (positiveEffectsState == PositiveEffectsState.FADE){
-				positiveEffectsState = PositiveEffectsState.NONE;
+			if (positiveEffectsState == PositiveEffects.FADE){
+				positiveEffectsState = PositiveEffects.NONE;
 			}
 			currentFrame = animationsStandard.get(state).doComplexAnimation(32, 0.5f, 0.001f, Animation.NORMAL);
 			sprite.setRegion(animationsStandard.get(state).getCurrentFrame());
@@ -221,16 +221,6 @@ public class Player extends AbstractGameObject{
 			shooting=false;
 			timeShooting = 0;
 		}
-//		if(!allowedToShoot){
-//			shotCoolDown--;
-//		}
-//		if(!allowedToShoot && shotCoolDown<2){
-//			allowedToShoot=true;
-			// THIS IS WERID, BUT EVERY TIME YOU WANT TO CAHNGE YOUR 
-			// SHOOTING COOLDOWN SPEED, YOU GOTTA GET DOWN HERE
-//			shotCoolDown = 90;
-//		}
-		
 		
 		// PROJECTILE
 		if(shooting && timeShooting < 2){
@@ -265,8 +255,9 @@ public class Player extends AbstractGameObject{
 	}
 
 	private void checkEffects(Vector3 touchPos) {
+		System.out.println("I am " + positiveEffectsState);
 		if (positiveEffectCounter <= 0) {
-			positiveEffectsState = PositiveEffectsState.NONE;
+			positiveEffectsState = PositiveEffects.NONE;
 			if (radioactiveAura != null){
 				radioactiveAura.radius = 0;
 			}
@@ -276,78 +267,84 @@ public class Player extends AbstractGameObject{
 		}
 
 		if (negativeEffectCounter <= 0) {
-			negativeEffectsState = NegativeEffectsState.NONE;
+			negativeEffectsState = NegativeEffects.NONE;
 		} else {
 			negativeEffectCounter--;
 		}
 
-			switch (positiveEffectsState) {
-			case FADE:
-				movementSpeed = STANDART_MOVEMENT_SPEED;
-				this.sprite.setColor(sprite.getColor().r, sprite.getColor().g,
-						sprite.getColor().b, 0.5f);
-				radioactiveAura = null;
-				break;
-			case RADIOACTIVE_AURA:
-				movementSpeed = STANDART_MOVEMENT_SPEED;
-				radioactiveAura = new Circle(
-						position.x + sprite.getWidth() / 2, position.y
-								+ sprite.getHeight() / 2, RADIOACTIVE_RADIUS);
-				break;
-			case SPEED_BOOST:
-				this.sprite.setColor(1f, 1f, 0f, 1f);
-				movementSpeed = SPEED_BOOST_EFFECT;
-				radioactiveAura = null;
-				break;
-			case NONE:
-				if(negativeEffectsState == NegativeEffectsState.NONE || negativeEffectsState == null){
-					sprite.setColor(1,1,1,1);
-					movementSpeed = STANDART_MOVEMENT_SPEED;
-				}
-				radioactiveAura = null;
-			}
-
-			switch (negativeEffectsState) {
-			case FEAR:
-				fearRectangle = new Rectangle();
-				movementSpeed = STANDART_MOVEMENT_SPEED;
-				if(pointGathered){
-					touchPos.x = random.nextInt(300) + touchPos.x - 150;
-					touchPos.y = random.nextInt(300) + touchPos.y - 150;
-					pointGathered = false;
-				}
-				break;
-			case FROZEN:
-				this.sprite.setColor(4 / 255f, 180 / 255f, 1f, 1f);
-				movementSpeed = FROZEN_MOVEMENT;
-				fearRectangle = null;
-				break;
-			case POISONED:
-				damageType = "Poisoned";
-				fearRectangle = null;
-				if (positiveEffectsState != PositiveEffectsState.SPEED_BOOST){
-					movementSpeed = STANDART_MOVEMENT_SPEED;
-				}
-				if (timerPoisoned == 0) {
-					this.sprite.setColor(Color.GREEN);
-				}
-				if (timerPoisoned < 50) {
-					timerPoisoned++;
-					if (health > 1) {
-						hurt();
-					}
-				}
-				if (timerPoisoned == 50) {
-					timerPoisoned = 0;
-				}
-				break;
-			case NONE:
-				if(positiveEffectsState == PositiveEffectsState.NONE || positiveEffectsState == null){
-					sprite.setColor(1,1,1,1);
-					movementSpeed = STANDART_MOVEMENT_SPEED;
-				}
-				fearRectangle = null;
-			}
+		if (negativeEffectsState == NegativeEffects.FEAR && pointGathered){
+				touchPos.x = random.nextInt(300) + touchPos.x - 150;
+				touchPos.y = random.nextInt(300) + touchPos.y - 150;
+				pointGathered = false;
+		}
+			
+//			switch (positiveEffectsState) {
+//			case FADE:
+//				movementSpeed = STANDART_MOVEMENT_SPEED;
+//				this.sprite.setColor(sprite.getColor().r, sprite.getColor().g,
+//						sprite.getColor().b, 0.5f);
+//				radioactiveAura = null;
+//				break;
+//			case RADIOACTIVE_AURA:
+//				movementSpeed = STANDART_MOVEMENT_SPEED;
+//				radioactiveAura = new Circle(
+//						position.x + sprite.getWidth() / 2, position.y
+//								+ sprite.getHeight() / 2, RADIOACTIVE_RADIUS);
+//				break;
+//			case SPEED_BOOST:
+//				this.sprite.setColor(1f, 1f, 0f, 1f);
+//				movementSpeed = SPEED_BOOST_EFFECT;
+//				radioactiveAura = null;
+//				break;
+//			case NONE:
+//				if(negativeEffectsState == NegativeEffects.NONE || negativeEffectsState == null){
+//					sprite.setColor(1,1,1,1);
+//					movementSpeed = STANDART_MOVEMENT_SPEED;
+//				}
+//				radioactiveAura = null;
+//			}
+//
+//			switch (negativeEffectsState) {
+//			case FEAR:
+//				fearRectangle = new Rectangle();
+//				movementSpeed = STANDART_MOVEMENT_SPEED;
+////				if(pointGathered){
+////					touchPos.x = random.nextInt(300) + touchPos.x - 150;
+////					touchPos.y = random.nextInt(300) + touchPos.y - 150;
+////					pointGathered = false;
+////				}
+//				break;
+//			case FROZEN:
+//				this.sprite.setColor(4 / 255f, 180 / 255f, 1f, 1f);
+//				movementSpeed = FROZEN_MOVEMENT;
+//				fearRectangle = null;
+//				break;
+//			case POISONED:
+//				damageType = "Poisoned";
+//				fearRectangle = null;
+//				if (positiveEffectsState != PositiveEffects.SPEED_BOOST){
+//					movementSpeed = STANDART_MOVEMENT_SPEED;
+//				}
+//				if (timerPoisoned == 0) {
+//					this.sprite.setColor(Color.GREEN);
+//				}
+//				if (timerPoisoned < 50) {
+//					timerPoisoned++;
+//					if (health > 1) {
+//						hurt();
+//					}
+//				}
+//				if (timerPoisoned == 50) {
+//					timerPoisoned = 0;
+//				}
+//				break;
+//			case NONE:
+//				if(positiveEffectsState == PositiveEffects.NONE || positiveEffectsState == null){
+//					sprite.setColor(1,1,1,1);
+//					movementSpeed = STANDART_MOVEMENT_SPEED;
+//				}
+//				fearRectangle = null;
+//			}
 	}
 
 	private void standart(Vector3 touchPos, TiledMapTileLayer collisionLayer,
@@ -390,9 +387,8 @@ public class Player extends AbstractGameObject{
 					0.5f, Gdx.graphics.getDeltaTime(), Animation.NORMAL);
 		}
 
-		if(!Gdx.input.isTouched() && aiming /*&& allowedToShoot*/){
+		if(!Gdx.input.isTouched() && aiming){
 			shooting = true;
-//			allowedToShoot = false;
 		}
 		if(!aiming && timeShooting == 0){
 			shooting = false;
@@ -403,24 +399,100 @@ public class Player extends AbstractGameObject{
 		}
 	}
 	
-	public void setPositiveEffect(PositiveEffectsState positiveEffect){
-		if (positiveEffect == PositiveEffectsState.FADE){
-			setNegativeEffect(NegativeEffectsState.NONE);
+	public void setPositiveEffect(PositiveEffects positiveEffect){
+		switch (positiveEffect) {
+		case FADE:
+			setNegativeEffect(NegativeEffects.NONE);
+			movementSpeed = STANDART_MOVEMENT_SPEED;
+			this.sprite.setColor(sprite.getColor().r, sprite.getColor().g,
+					sprite.getColor().b, 0.5f);
+			radioactiveAura = null;
+			positiveEffectsState = positiveEffect;
+			positiveEffectCounter = positiveEffect.lifetime;
+			break;
+		case RADIOACTIVE_AURA:
+			movementSpeed = STANDART_MOVEMENT_SPEED;
+			radioactiveAura = new Circle(
+					position.x + sprite.getWidth() / 2, position.y
+							+ sprite.getHeight() / 2, RADIOACTIVE_RADIUS);
+			positiveEffectsState = positiveEffect;
+			positiveEffectCounter = positiveEffect.lifetime;
+			break;
+		case SPEED_BOOST:
+			if (negativeEffectsState == NegativeEffects.FROZEN){
+				setNegativeEffect(NegativeEffects.NONE);				
+			}
+			this.sprite.setColor(1f, 1f, 0f, 1f);
+			movementSpeed = SPEED_BOOST_EFFECT;
+			radioactiveAura = null;
+			positiveEffectsState = positiveEffect;
+			positiveEffectCounter = positiveEffect.lifetime;
+			break;
+		case NONE:
+			if(negativeEffectsState == NegativeEffects.NONE || negativeEffectsState == null){
+				sprite.setColor(1,1,1,1);
+				movementSpeed = STANDART_MOVEMENT_SPEED;
+			}
+			radioactiveAura = null;
+			positiveEffectsState = positiveEffect;
 		}
-		if (positiveEffect == PositiveEffectsState.SPEED_BOOST && negativeEffectsState == NegativeEffectsState.FROZEN){
-			setNegativeEffect(NegativeEffectsState.NONE);
-		}
-		positiveEffectsState = positiveEffect;
-		positiveEffectCounter = positiveEffect.lifetime;
+
+
 	}
 
-	public void setNegativeEffect (NegativeEffectsState negativeEffect){
-		if (positiveEffectsState != PositiveEffectsState.FADE){
-			if (positiveEffectsState == PositiveEffectsState.SPEED_BOOST && negativeEffectsState == NegativeEffectsState.FROZEN){
-				setPositiveEffect(PositiveEffectsState.NONE);
+	public void setNegativeEffect (NegativeEffects negativeEffect){
+		if (positiveEffectsState != PositiveEffects.FADE){
+			switch (negativeEffect) {
+			case FEAR:
+				fearRectangle = new Rectangle();
+				movementSpeed = STANDART_MOVEMENT_SPEED;
+				negativeEffectsState = negativeEffect;
+				negativeEffectCounter = negativeEffect.lifetime;
+				break;
+			case FROZEN:
+				if (positiveEffectsState == PositiveEffects.SPEED_BOOST){
+					setPositiveEffect(PositiveEffects.NONE);
+				}
+				this.sprite.setColor(4 / 255f, 180 / 255f, 1f, 1f);
+				movementSpeed = FROZEN_MOVEMENT;
+				fearRectangle = null;
+				negativeEffectsState = negativeEffect;
+				negativeEffectCounter = negativeEffect.lifetime;
+				break;
+			case POISONED:
+				poisoning();
+				negativeEffectsState = negativeEffect;
+				negativeEffectCounter = negativeEffect.lifetime;
+				break;
+			case NONE:
+				if(positiveEffectsState == PositiveEffects.NONE || positiveEffectsState == null){
+					sprite.setColor(1,1,1,1);
+					movementSpeed = STANDART_MOVEMENT_SPEED;
+				}
+				fearRectangle = null;
+				negativeEffectsState = negativeEffect;
 			}
-			negativeEffectsState = negativeEffect;
-			negativeEffectCounter = negativeEffect.lifetime;
+
+		}
+	}
+
+	private void poisoning() {
+		damageType = "Poisoned";
+		fearRectangle = null;
+		if (positiveEffectsState != PositiveEffects.SPEED_BOOST){
+			movementSpeed = STANDART_MOVEMENT_SPEED;
+		}
+		if (timerPoisoned == 0) {
+			this.sprite.setColor(Color.GREEN);
+		}
+		if (timerPoisoned < 50) {
+			timerPoisoned++;
+			if (health > 1) {
+				hurt();
+			}
+		}
+		if (timerPoisoned == 50) {
+			timerPoisoned = 0;
 		}
 	}
 	
@@ -429,10 +501,10 @@ public class Player extends AbstractGameObject{
 		if (enemy.toughness != null){
 			switch(enemy.toughness){
 			case FREEZER_GUY:
-				setNegativeEffect(NegativeEffectsState.FROZEN);
+				setNegativeEffect(NegativeEffects.FROZEN);
 			break;
 			case POISONOUS_GUY:
-				setNegativeEffect(NegativeEffectsState.POISONED);
+				setNegativeEffect(NegativeEffects.POISONED);
 			break;
 			}
 		}

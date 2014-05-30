@@ -447,7 +447,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 					// And may be inflict different hurts, direction/ kinds of
 					// hurts/ etc.
 					if (oRangeAura.overlaps(player.circle) && !player.hurt && 
-							player.positiveEffectsState != PositiveEffectsState.FADE) {
+							player.positiveEffectsState != PositiveEffects.FADE) {
 						player.setDamageType("enemy");
 						player.harmfulEnemy = this;
 						player.hurt = true;
@@ -806,7 +806,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 	public void enemyHurt(Player player) {
 		state = State.STANDARD;
 		if (health >= 0) {
-			if (player.positiveEffectsState == PositiveEffectsState.RADIOACTIVE_AURA){
+			if (player.positiveEffectsState == PositiveEffects.RADIOACTIVE_AURA){
 				health -= player.radioactiveDamage;
 			}
 			health -= player.damage;

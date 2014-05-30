@@ -17,21 +17,21 @@ public abstract class AbstractGameObject {
 		STANDARD, DEAD, ANIMATING, ANIMATINGLARGE, ACTIVATING, 
 		ATTACKING, PURSUIT, GUNMOVEMENT, SPAWNING, DESPAWNING;
 	}
-	public enum NegativeEffectsState {
+	public enum NegativeEffects {
 		POISONED(900), FEAR(900), FROZEN(930), NONE(0);
 		
 		public int lifetime;
 		
-		NegativeEffectsState(int lifeTime){
+		NegativeEffects(int lifeTime){
 			this.lifetime = lifeTime;
 		}
 	}
-	public enum PositiveEffectsState {
+	public enum PositiveEffects {
 		FADE(900), SPEED_BOOST(212), RADIOACTIVE_AURA(1890), NONE(0);
 		
 		public int lifetime;
 		
-		PositiveEffectsState(int lifeTime){
+		PositiveEffects(int lifeTime){
 			this.lifetime = lifeTime;
 		}
 	}
@@ -40,8 +40,8 @@ public abstract class AbstractGameObject {
 	protected HashMap<State, AnimationControl> animationsStandard = new HashMap<State, AnimationControl>();   
 	
 	public State state;
-	public NegativeEffectsState negativeEffectsState;
-	public PositiveEffectsState positiveEffectsState;
+	public NegativeEffects negativeEffectsState;
+	public PositiveEffects positiveEffectsState;
 	public Vector2 position;
 	public Sprite sprite;
 	public boolean dead;

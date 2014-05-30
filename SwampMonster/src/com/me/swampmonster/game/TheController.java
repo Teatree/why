@@ -1,7 +1,6 @@
 package com.me.swampmonster.game;
 
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputAdapter;
@@ -12,8 +11,8 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.me.swampmonster.GUI.GUI;
 import com.me.swampmonster.game.collision.CollisionHelper;
-import com.me.swampmonster.models.AbstractGameObject.NegativeEffectsState;
-import com.me.swampmonster.models.AbstractGameObject.PositiveEffectsState;
+import com.me.swampmonster.models.AbstractGameObject.NegativeEffects;
+import com.me.swampmonster.models.AbstractGameObject.PositiveEffects;
 import com.me.swampmonster.models.AbstractGameObject.State;
 import com.me.swampmonster.models.Enemy;
 import com.me.swampmonster.models.L1;
@@ -152,7 +151,7 @@ public class TheController extends InputAdapter{
 				if (p.circle.overlaps(level1.player.aimingArea)
 						&& !level1.player.hurt
 						&& level1.player.state != State.DEAD
-						&& level1.player.positiveEffectsState != PositiveEffectsState.FADE) {
+						&& level1.player.positiveEffectsState != PositiveEffects.FADE) {
 					cameraHelper.setShakeAmt(25);
 					cameraHelper.cameraShake();
 
@@ -203,15 +202,15 @@ public class TheController extends InputAdapter{
 		float camZoomSpeedAccelerationFactor = 50;
 		
 		//Pos effects
-		if (Gdx.input.isKeyPressed(Keys.T)) level1.player.setPositiveEffect(PositiveEffectsState.NONE);
-		if (Gdx.input.isKeyPressed(Keys.Y)) level1.player.setPositiveEffect(PositiveEffectsState.FADE);
-		if (Gdx.input.isKeyPressed(Keys.U)) level1.player.setPositiveEffect(PositiveEffectsState.RADIOACTIVE_AURA);
-		if (Gdx.input.isKeyPressed(Keys.I)) level1.player.setPositiveEffect(PositiveEffectsState.SPEED_BOOST);
+		if (Gdx.input.isKeyPressed(Keys.T)) level1.player.setPositiveEffect(PositiveEffects.NONE);
+		if (Gdx.input.isKeyPressed(Keys.Y)) level1.player.setPositiveEffect(PositiveEffects.FADE);
+		if (Gdx.input.isKeyPressed(Keys.U)) level1.player.setPositiveEffect(PositiveEffects.RADIOACTIVE_AURA);
+		if (Gdx.input.isKeyPressed(Keys.I)) level1.player.setPositiveEffect(PositiveEffects.SPEED_BOOST);
 		//Neg effects
-		if (Gdx.input.isKeyPressed(Keys.G)) level1.player.setNegativeEffect(NegativeEffectsState.NONE);
-		if (Gdx.input.isKeyPressed(Keys.H)) level1.player.setNegativeEffect(NegativeEffectsState.FEAR);
-		if (Gdx.input.isKeyPressed(Keys.J)) level1.player.setNegativeEffect(NegativeEffectsState.FROZEN);
-		if (Gdx.input.isKeyPressed(Keys.K)) level1.player.setNegativeEffect(NegativeEffectsState.POISONED);
+		if (Gdx.input.isKeyPressed(Keys.G)) level1.player.setNegativeEffect(NegativeEffects.NONE);
+		if (Gdx.input.isKeyPressed(Keys.H)) level1.player.setNegativeEffect(NegativeEffects.FEAR);
+		if (Gdx.input.isKeyPressed(Keys.J)) level1.player.setNegativeEffect(NegativeEffects.FROZEN);
+		if (Gdx.input.isKeyPressed(Keys.K)) level1.player.setNegativeEffect(NegativeEffects.POISONED);
 		
 		if (Gdx.input.isKeyPressed(Keys.SHIFT_LEFT)) camZoomSpeed *= camZoomSpeedAccelerationFactor;
 		if (Gdx.input.isKeyPressed(Keys.Q))
