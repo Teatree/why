@@ -255,7 +255,6 @@ public class Player extends AbstractGameObject{
 	}
 
 	private void checkEffects(Vector3 touchPos) {
-		System.out.println("I am " + positiveEffectsState);
 		if (positiveEffectCounter <= 0) {
 			positiveEffectsState = PositiveEffects.NONE;
 			if (radioactiveAura != null){
