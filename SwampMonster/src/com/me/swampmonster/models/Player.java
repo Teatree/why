@@ -505,6 +505,9 @@ public class Player extends AbstractGameObject{
 			case POISONOUS_GUY:
 				setNegativeEffect(NegativeEffects.POISONED);
 			break;
+			case PLASMA_GUY:
+				setNegativeEffect(NegativeEffects.FEAR);
+				break;
 			}
 		}
 		Collidable collidableUp = null;

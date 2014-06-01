@@ -13,7 +13,6 @@ import com.me.swampmonster.utils.Constants;
 public class SlotMachineScreen extends AbstractGameScreen {
 	SpriteBatch batch;
 	public Player player;
-	private BitmapFont font;
 	private Stage stage;
 	private SlotMachineTextures slotMachineTextures;
 	

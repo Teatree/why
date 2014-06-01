@@ -20,6 +20,7 @@ import com.me.swampmonster.models.L1;
 import com.me.swampmonster.models.Projectile;
 import com.me.swampmonster.screens.SlotMachineScreen;
 import com.me.swampmonster.utils.CameraHelper;
+import com.me.swampmonster.utils.EffectsGenerator;
 
 public class TheController extends InputAdapter{
 	public CameraHelper cameraHelper;  
@@ -51,6 +52,7 @@ public class TheController extends InputAdapter{
 	// temp
 	
 	public TiledMapTileLayer collisionLayer;
+	private PositiveEffects positiveEffect;
 	
 	public TheController(Game game){
 		init();
@@ -89,7 +91,7 @@ public class TheController extends InputAdapter{
 		pointRect = new Rectangle();
 		pointRect.width = 1;
 		pointRect.height = 1;
-		
+		positiveEffect = EffectsGenerator.getEffectGenerator().getPositiveEffect(0, 3);
 	}
 	
 	public void update(float deltaTime, Game game) {
@@ -174,6 +176,7 @@ public class TheController extends InputAdapter{
 				level1.player.pointGathered = true;
 			}else if(Intersector.intersectSegmentCircle(point, point, gui.getWeaponizer().getPosition(), 
 					gui.getWeaponizer().circle.radius*gui.getWeaponizer().circle.radius)){
+				level1.player.setPositiveEffect(positiveEffect);
 			}
 		}
 	}
