@@ -19,6 +19,7 @@ import com.me.swampmonster.animations.AnimationControl;
 import com.me.swampmonster.game.collision.Collidable;
 import com.me.swampmonster.game.collision.CollisionHelper;
 import com.me.swampmonster.models.enemies.Enemy;
+import com.me.swampmonster.models.slots.PositiveEffects;
 import com.me.swampmonster.utils.AssetsMainManager;
 
 public class Player extends AbstractGameObject{
@@ -184,7 +185,14 @@ public class Player extends AbstractGameObject{
 		updateProjectiles(collisionLayer);
 		
 		checkEffects(touchPos);
+		if (radioactiveAura != null){
+			radioactiveAura.x = position.x + sprite.getWidth()/2;
+			radioactiveAura.y = position.y + sprite.getHeight()/2;
+		}
 		
+		if (negativeEffectsState == NegativeEffects.POISONED){
+			poisoning();
+		}
 	}
 
 	private void updateProjectiles(TiledMapTileLayer collisionLayer) {
@@ -278,73 +286,7 @@ public class Player extends AbstractGameObject{
 				pointGathered = false;
 		}
 			
-//			switch (positiveEffectsState) {
-//			case FADE:
-//				movementSpeed = STANDART_MOVEMENT_SPEED;
-//				this.sprite.setColor(sprite.getColor().r, sprite.getColor().g,
-//						sprite.getColor().b, 0.5f);
-//				radioactiveAura = null;
-//				break;
-//			case RADIOACTIVE_AURA:
-//				movementSpeed = STANDART_MOVEMENT_SPEED;
-//				radioactiveAura = new Circle(
-//						position.x + sprite.getWidth() / 2, position.y
-//								+ sprite.getHeight() / 2, RADIOACTIVE_RADIUS);
-//				break;
-//			case SPEED_BOOST:
-//				this.sprite.setColor(1f, 1f, 0f, 1f);
-//				movementSpeed = SPEED_BOOST_EFFECT;
-//				radioactiveAura = null;
-//				break;
-//			case NONE:
-//				if(negativeEffectsState == NegativeEffects.NONE || negativeEffectsState == null){
-//					sprite.setColor(1,1,1,1);
-//					movementSpeed = STANDART_MOVEMENT_SPEED;
-//				}
-//				radioactiveAura = null;
-//			}
-//
-//			switch (negativeEffectsState) {
-//			case FEAR:
-//				fearRectangle = new Rectangle();
-//				movementSpeed = STANDART_MOVEMENT_SPEED;
-////				if(pointGathered){
-////					touchPos.x = random.nextInt(300) + touchPos.x - 150;
-////					touchPos.y = random.nextInt(300) + touchPos.y - 150;
-////					pointGathered = false;
-////				}
-//				break;
-//			case FROZEN:
-//				this.sprite.setColor(4 / 255f, 180 / 255f, 1f, 1f);
-//				movementSpeed = FROZEN_MOVEMENT;
-//				fearRectangle = null;
-//				break;
-//			case POISONED:
-//				damageType = "Poisoned";
-//				fearRectangle = null;
-//				if (positiveEffectsState != PositiveEffects.SPEED_BOOST){
-//					movementSpeed = STANDART_MOVEMENT_SPEED;
-//				}
-//				if (timerPoisoned == 0) {
-//					this.sprite.setColor(Color.GREEN);
-//				}
-//				if (timerPoisoned < 50) {
-//					timerPoisoned++;
-//					if (health > 1) {
-//						hurt();
-//					}
-//				}
-//				if (timerPoisoned == 50) {
-//					timerPoisoned = 0;
-//				}
-//				break;
-//			case NONE:
-//				if(positiveEffectsState == PositiveEffects.NONE || positiveEffectsState == null){
-//					sprite.setColor(1,1,1,1);
-//					movementSpeed = STANDART_MOVEMENT_SPEED;
-//				}
-//				fearRectangle = null;
-//			}
+
 	}
 
 	private void standart(Vector3 touchPos, TiledMapTileLayer collisionLayer,
@@ -476,26 +418,6 @@ public class Player extends AbstractGameObject{
 		}
 	}
 
-	private void poisoning() {
-		damageType = "Poisoned";
-		fearRectangle = null;
-		if (positiveEffectsState != PositiveEffects.SPEED_BOOST){
-			movementSpeed = STANDART_MOVEMENT_SPEED;
-		}
-		if (timerPoisoned == 0) {
-			this.sprite.setColor(Color.GREEN);
-		}
-		if (timerPoisoned < 50) {
-			timerPoisoned++;
-			if (health > 1) {
-				hurt();
-			}
-		}
-		if (timerPoisoned == 50) {
-			timerPoisoned = 0;
-		}
-	}
-	
 	private void takingDamageFromEnemy(Enemy enemy, Vector3 touchPos, TiledMapTileLayer collisionLayer) {
 		
 		if (enemy.toughness != null){
@@ -755,6 +677,25 @@ public class Player extends AbstractGameObject{
 		}
 	}
 	
+	private void poisoning() {
+		damageType = "Poisoned";
+		fearRectangle = null;
+		if (positiveEffectsState != PositiveEffects.SPEED_BOOST){
+			movementSpeed = STANDART_MOVEMENT_SPEED;
+		}
+		if (timerPoisoned == 0) {
+			this.sprite.setColor(Color.GREEN);
+		}
+		if (timerPoisoned < 50) {
+			timerPoisoned++;
+			if (health > 1) {
+				hurt();
+			}
+		}
+		if (timerPoisoned == 50) {
+			timerPoisoned = 0;
+		}
+	}
 	public void decreaseOxygen() {
 	if(oxygen>=0){
 		oxygen--;

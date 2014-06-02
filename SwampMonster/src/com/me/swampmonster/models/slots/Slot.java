@@ -1,7 +1,12 @@
 package com.me.swampmonster.models.slots;
 
-import com.me.swampmonster.models.AbstractGameObject;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.me.swampmonster.models.Player;
 
-public interface Slot {
-	public void execute (AbstractGameObject target);
+public class Slot {
+	
+	public Sprite sprite;
+	
+	public void execute (Player target){};
+	
 }

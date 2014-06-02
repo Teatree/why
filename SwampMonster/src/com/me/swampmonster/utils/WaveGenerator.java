@@ -7,7 +7,7 @@ import com.me.swampmonster.models.Wave;
 import com.me.swampmonster.models.enemies.Enemy;
 
 public class WaveGenerator {
-	SlotsGenerator enemyGenerator = new SlotsGenerator();
+	EnemyGenerator enemyGenerator = new EnemyGenerator();
 	WaveParams waveParams;
 	private Random random = new Random();
 	

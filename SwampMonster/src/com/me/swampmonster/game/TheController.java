@@ -1,8 +1,8 @@
 package com.me.swampmonster.game;
 
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
@@ -13,14 +13,15 @@ import com.badlogic.gdx.math.Vector3;
 import com.me.swampmonster.GUI.GUI;
 import com.me.swampmonster.game.collision.CollisionHelper;
 import com.me.swampmonster.models.AbstractGameObject.NegativeEffects;
-import com.me.swampmonster.models.PositiveEffects;
 import com.me.swampmonster.models.AbstractGameObject.State;
-import com.me.swampmonster.models.enemies.Enemy;
 import com.me.swampmonster.models.L1;
+import com.me.swampmonster.models.slots.PositiveEffects;
 import com.me.swampmonster.models.Projectile;
+import com.me.swampmonster.models.enemies.Enemy;
+import com.me.swampmonster.models.slots.Slot;
 import com.me.swampmonster.screens.SlotMachineScreen;
 import com.me.swampmonster.utils.CameraHelper;
-import com.me.swampmonster.utils.EffectsGenerator;
+import com.me.swampmonster.utils.SlotsGenerator;
 
 public class TheController extends InputAdapter{
 	public CameraHelper cameraHelper;  
@@ -52,7 +53,7 @@ public class TheController extends InputAdapter{
 	// temp
 	
 	public TiledMapTileLayer collisionLayer;
-	private PositiveEffects positiveEffect;
+	private Slot skill;
 	
 	public TheController(Game game){
 		init();
@@ -91,7 +92,7 @@ public class TheController extends InputAdapter{
 		pointRect = new Rectangle();
 		pointRect.width = 1;
 		pointRect.height = 1;
-		positiveEffect = EffectsGenerator.getEffectGenerator().getPositiveEffect(0, 3);
+		skill = SlotsGenerator.getSlotGenerator().getSlot(0, 3);
 	}
 	
 	public void update(float deltaTime, Game game) {
@@ -176,7 +177,9 @@ public class TheController extends InputAdapter{
 				level1.player.pointGathered = true;
 			}else if(Intersector.intersectSegmentCircle(point, point, gui.getWeaponizer().getPosition(), 
 					gui.getWeaponizer().circle.radius*gui.getWeaponizer().circle.radius)){
-				level1.player.setPositiveEffect(positiveEffect);
+				if (skill != null){
+					skill.execute(level1.player);
+				}
 			}
 		}
 	}
