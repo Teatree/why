@@ -26,15 +26,6 @@ public abstract class AbstractGameObject {
 			this.lifetime = lifeTime;
 		}
 	}
-	public enum PositiveEffects {
-		FADE(900), SPEED_BOOST(212), RADIOACTIVE_AURA(1890), NONE(0);
-		
-		public int lifetime;
-		
-		PositiveEffects(int lifeTime){
-			this.lifetime = lifeTime;
-		}
-	}
 	
 	protected TextureRegion currentFrame;
 	protected HashMap<State, AnimationControl> animationsStandard = new HashMap<State, AnimationControl>();   
@@ -59,7 +50,7 @@ public abstract class AbstractGameObject {
 	protected String playerMovementDirection; 
 	protected String playerMovementDirectionLR; 
 	protected String playerMovementDirectionUD; 
-	protected float movementSpeed = 0.5f; 
+	public float movementSpeed = 0.5f; 
 	
 	public int health;
 	public int maxHealth;

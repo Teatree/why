@@ -18,6 +18,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.me.swampmonster.animations.AnimationControl;
 import com.me.swampmonster.game.collision.Collidable;
 import com.me.swampmonster.game.collision.CollisionHelper;
+import com.me.swampmonster.models.enemies.Enemy;
 import com.me.swampmonster.utils.AssetsMainManager;
 
 public class Player extends AbstractGameObject{

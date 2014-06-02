@@ -1,8 +1,9 @@
-package com.me.swampmonster.models;
+package com.me.swampmonster.models.enemies;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.me.swampmonster.animations.AnimationControl;
+import com.me.swampmonster.models.AbstractGameObject.State;
 import com.me.swampmonster.utils.AssetsMainManager;
 
 public class EnemyZombie extends Enemy{

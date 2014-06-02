@@ -5,19 +5,19 @@ import java.util.Map;
 import java.util.Random;
 
 import com.badlogic.gdx.math.Vector2;
-import com.me.swampmonster.models.Enemy;
-import com.me.swampmonster.models.EnemyBreather;
-import com.me.swampmonster.models.EnemyLeech;
-import com.me.swampmonster.models.EnemyMaggot;
-import com.me.swampmonster.models.EnemySofa;
-import com.me.swampmonster.models.EnemyZombie;
+import com.me.swampmonster.models.enemies.Enemy;
+import com.me.swampmonster.models.enemies.EnemyBreather;
+import com.me.swampmonster.models.enemies.EnemyLeech;
+import com.me.swampmonster.models.enemies.EnemyMaggot;
+import com.me.swampmonster.models.enemies.EnemySofa;
+import com.me.swampmonster.models.enemies.EnemyZombie;
 
-public class EnemyGenerator {
+public class SlotsGenerator {
 	private Map <Integer, Class<? extends Enemy>> enemyTypes;
 	private Random random;
 	private Map <Integer, Toughness> toughtnessParams;
 	
-	public EnemyGenerator () {
+	public SlotsGenerator () {
 		
 		enemyTypes = new HashMap<Integer, Class<? extends Enemy>>();
 		enemyTypes.put(0, EnemyZombie.class);

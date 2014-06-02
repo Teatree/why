@@ -1,4 +1,4 @@
-package com.me.swampmonster.models;
+package com.me.swampmonster.models.enemies;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -17,9 +17,14 @@ import com.me.swampmonster.AI.Pathfinder;
 import com.me.swampmonster.animations.AnimationControl;
 import com.me.swampmonster.game.collision.Collidable;
 import com.me.swampmonster.game.collision.CollisionHelper;
+import com.me.swampmonster.models.AbstractGameObject;
+import com.me.swampmonster.models.Player;
+import com.me.swampmonster.models.Projectile;
+import com.me.swampmonster.models.PositiveEffects;
+import com.me.swampmonster.models.AbstractGameObject.State;
 import com.me.swampmonster.utils.AssetsMainManager;
 import com.me.swampmonster.utils.CameraHelper;
-import com.me.swampmonster.utils.EnemyGenerator.Toughness;
+import com.me.swampmonster.utils.SlotsGenerator.Toughness;
 import com.badlogic.gdx.math.Intersector;
 
 public class Enemy extends AbstractGameObject implements Cloneable, Collidable {

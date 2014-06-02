@@ -11,9 +11,9 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.me.swampmonster.AI.Node;
-import com.me.swampmonster.models.Enemy;
 import com.me.swampmonster.models.Item;
 import com.me.swampmonster.models.AbstractGameObject.State;
+import com.me.swampmonster.models.enemies.Enemy;
 import com.me.swampmonster.models.Projectile;
 import com.me.swampmonster.utils.Constants;
 

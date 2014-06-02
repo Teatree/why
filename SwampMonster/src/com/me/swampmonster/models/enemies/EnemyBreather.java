@@ -1,4 +1,4 @@
-package com.me.swampmonster.models;
+package com.me.swampmonster.models.enemies;
 
 import com.badlogic.gdx.math.Vector2;
 

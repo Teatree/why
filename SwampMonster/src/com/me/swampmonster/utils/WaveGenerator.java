@@ -3,11 +3,11 @@ package com.me.swampmonster.utils;
 import java.util.Random;
 import java.util.Stack;
 
-import com.me.swampmonster.models.Enemy;
 import com.me.swampmonster.models.Wave;
+import com.me.swampmonster.models.enemies.Enemy;
 
 public class WaveGenerator {
-	EnemyGenerator enemyGenerator = new EnemyGenerator();
+	SlotsGenerator enemyGenerator = new SlotsGenerator();
 	WaveParams waveParams;
 	private Random random = new Random();
 	

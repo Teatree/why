@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
-import com.me.swampmonster.models.AbstractGameObject.PositiveEffects;
+import com.me.swampmonster.models.PositiveEffects;
 
 public class EffectsGenerator {
 
