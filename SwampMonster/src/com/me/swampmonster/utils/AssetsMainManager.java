@@ -24,6 +24,9 @@ public class AssetsMainManager {
 	public static final AssetDescriptor<Texture> croshair = new AssetDescriptor<Texture>("data\\Croshair.png", Texture.class);
 	public static final AssetDescriptor<Texture> slotMachineCase = new AssetDescriptor<Texture>("data\\slotMachineCase.png", Texture.class);
 	public static final AssetDescriptor<Texture> slotMachineNextButton = new AssetDescriptor<Texture>("data\\slotMachineNextButton.png", Texture.class);
+	public static final AssetDescriptor<Texture> FADE_ICON = new AssetDescriptor<Texture>("data\\FADE_ICON.png", Texture.class);
+	public static final AssetDescriptor<Texture> RADIOACTIVE_AURA_ICON = new AssetDescriptor<Texture>("data\\RADIOACTIVE_AURA_ICON.png", Texture.class);
+	public static final AssetDescriptor<Texture> SPEED_BOOST_ICON = new AssetDescriptor<Texture>("data\\SPEED_BOOST_ICON.png", Texture.class);
 	public static final AssetDescriptor<TiledMap> map = new AssetDescriptor<TiledMap>("data\\Map.tmx", TiledMap.class);
 	public static final AssetDescriptor<BitmapFont> font = new AssetDescriptor<BitmapFont>("data\\font.fnt", BitmapFont.class);
 	
@@ -41,6 +44,9 @@ public class AssetsMainManager {
 		manager.load(croshair);
 		manager.load(slotMachineCase);
 		manager.load(slotMachineNextButton);
+		manager.load(FADE_ICON);
+		manager.load(RADIOACTIVE_AURA_ICON);
+		manager.load(SPEED_BOOST_ICON);
 		manager.setLoader(BitmapFont.class, new BitmapFontLoader(new InternalFileHandleResolver()));
 		manager.load(font);
 		manager.setLoader(TiledMap.class, new TmxMapLoader());
