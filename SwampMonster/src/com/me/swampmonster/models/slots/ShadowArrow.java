@@ -4,13 +4,13 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.me.swampmonster.models.Player;
 import com.me.swampmonster.utils.AssetsMainManager;
 
-public class Arrows3 extends Slot{
+public class ShadowArrow extends Slot{
 	
-	public Arrows3() {
-		sprite = new Sprite(AssetsMainManager.manager.get(AssetsMainManager.THREEARROW_ICON));
+	public ShadowArrow() {
+		sprite = new Sprite(AssetsMainManager.manager.get(AssetsMainManager.SHADOW_ARROW_ICON));
 	}
 	
 	public void execute(Player player){
-		// Not doing anything!
+		// I am a spooky arrow
 	}
 }

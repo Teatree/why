@@ -1,17 +1,19 @@
 package com.me.swampmonster.models.slots;
 
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.me.swampmonster.models.AbstractGameObject.NegativeEffects;
+import com.me.swampmonster.models.Player;
 import com.me.swampmonster.models.enemies.Enemy;
+import com.me.swampmonster.utils.AssetsMainManager;
 
 public class FrostTrap extends Slot implements Trap{
 
 	public int lifetime = 112;
 	
-	public void execute (Enemy enemy){
-		enemy.health = 0;
+	public FrostTrap() {
+		sprite = new Sprite(AssetsMainManager.manager.get(AssetsMainManager.FROST_TRAP_ICON));
 	}
 
-	@Override
 	public void catchEnemy(Enemy enemy) {
 		enemy.setNegativeEffect(NegativeEffects.FROZEN);
 	}

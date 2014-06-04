@@ -22,9 +22,9 @@ public class SlotMachineTextures extends Group {
 		this.p = player;
 		font = AssetsMainManager.manager.get(AssetsMainManager.font);
 		slotsGen = SlotsGenerator.getSlotGenerator();
-		spriteSlot1 =  slotsGen.getSlot(0, 3).sprite;
-		spriteSlot2 =  slotsGen.getSlot(0, 3).sprite;
-		spriteSlot3 =  slotsGen.getSlot(0, 3).sprite;
+		spriteSlot1 =  slotsGen.getSlot(0, 15).sprite;
+		spriteSlot2 =  slotsGen.getSlot(0, 15).sprite;
+		spriteSlot3 =  slotsGen.getSlot(0, 15).sprite;
 	}
 
 	@Override
