@@ -20,6 +20,7 @@ import com.me.swampmonster.game.collision.Collidable;
 import com.me.swampmonster.game.collision.CollisionHelper;
 import com.me.swampmonster.models.enemies.Enemy;
 import com.me.swampmonster.models.slots.PositiveEffects;
+import com.me.swampmonster.models.slots.Trap;
 import com.me.swampmonster.utils.AssetsMainManager;
 
 public class Player extends AbstractGameObject{
@@ -27,7 +28,7 @@ public class Player extends AbstractGameObject{
 	private static final float FROZEN_MOVEMENT = 0.16f;
 	private static final int RADIOACTIVE_RADIUS = 57;
 	private static final float SPEED_BOOST_EFFECT = 1.1f;
-	private static final float STANDART_MOVEMENT_SPEED = 0.5f;
+//	private static final float STANDART_MOVEMENT_SPEED = 0.5f;
 	
 	int time = 0;
 	int timer3hurt = 0;
@@ -45,7 +46,7 @@ public class Player extends AbstractGameObject{
 	public boolean pointGathered;
 	public List<Projectile> projectiles;
 	public Vector3 shotDir;
-	Vector3 V3playerPos;
+	public Vector3 V3playerPos;
 	public float oxygen;
 	public float maxOxygen;
 	public int positiveEffectCounter;
@@ -62,12 +63,14 @@ public class Player extends AbstractGameObject{
 	public int radioactiveDamage = 1;
 	public int timer2;
 	
+	public Trap trap;
+	
 	public Player(Vector2 position){
 		state = State.STANDARD;
 		positiveEffectsState = PositiveEffects.NONE;
 		negativeEffectsState = NegativeEffects.NONE;
 		this.position = position;
-		
+		movementSpeed = 0.5f;
 		random = new Random();
 		points = 0;
 		hurt = false;
@@ -696,6 +699,7 @@ public class Player extends AbstractGameObject{
 			timerPoisoned = 0;
 		}
 	}
+	
 	public void decreaseOxygen() {
 	if(oxygen>=0){
 		oxygen--;

@@ -7,7 +7,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.me.swampmonster.animations.AnimationControl;
 import com.me.swampmonster.models.Player;
 import com.me.swampmonster.models.Projectile;
-import com.me.swampmonster.models.AbstractGameObject.State;
 import com.me.swampmonster.utils.AssetsMainManager;
 import com.me.swampmonster.utils.CameraHelper;
 
@@ -26,6 +25,7 @@ public class EnemyLeech extends Enemy{
 		damage = 1;
 		points = 200;
 		attackSpeed = 150;
+		STANDART_MOVEMENT_SPEED = movementSpeed;
 	}
 	
 	@Override

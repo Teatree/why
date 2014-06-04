@@ -60,6 +60,7 @@ public abstract class AbstractGameObject {
 	public int reloadSpeed;
 	public int attackSpeed;
 	public int shotCoolDown;
+	public float STANDART_MOVEMENT_SPEED = movementSpeed;
 	
 	public Vector2 getPosition() {
 		return position;
@@ -103,11 +104,12 @@ public abstract class AbstractGameObject {
 	public void setPlayerMovementDirectionUD(String playerMovementDirectionUD) {
 		this.playerMovementDirectionUD = playerMovementDirectionUD;
 	}
-	public float getPlayerMovementSpeedX() {
+	public float getPlayerMovementSpeed() {
 		return movementSpeed;
 	}
-	public void setPlayerMovementSpeedX(float playerMovementSpeedX) {
+	public void setPlayerMovementSpeed(float playerMovementSpeedX) {
 		this.movementSpeed = playerMovementSpeedX;
+		STANDART_MOVEMENT_SPEED = movementSpeed;
 	}
 	public int getMaxHealth() {
 		return maxHealth;

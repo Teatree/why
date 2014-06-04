@@ -36,7 +36,6 @@ public class SlotsGenerator {
 		int slotCode = random.nextInt(slotMax - slotMin) + slotMin;
 		Slot slot = null;
 		try {
-			System.out.println(slots.get(slotCode));
 			slot = slots.get(slotCode).getConstructor().newInstance();
 		} catch (Exception e) {
 			e.printStackTrace();

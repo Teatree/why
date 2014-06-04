@@ -69,7 +69,7 @@ public class EnemyGenerator {
 	public void setToughtness (Toughness toughtness, Enemy enemy) {
 		if(toughtness != null){
 			enemy.toughness = toughtness;
-			enemy.setPlayerMovementSpeedX((float)(enemy.getPlayerMovementSpeedX() + toughtness.speed));
+			enemy.setPlayerMovementSpeed((float)(enemy.getPlayerMovementSpeed() + toughtness.speed));
 			enemy.points +=toughtness.points;
 			enemy.damage += toughtness.damage;
 			enemy.health += toughtness.health;

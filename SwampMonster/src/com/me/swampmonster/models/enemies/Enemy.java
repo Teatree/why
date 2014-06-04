@@ -1,11 +1,13 @@
 package com.me.swampmonster.models.enemies;
 
+import java.awt.peer.SystemTrayPeer;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
@@ -20,8 +22,9 @@ import com.me.swampmonster.game.collision.CollisionHelper;
 import com.me.swampmonster.models.AbstractGameObject;
 import com.me.swampmonster.models.Player;
 import com.me.swampmonster.models.Projectile;
-import com.me.swampmonster.models.slots.PositiveEffects;
+import com.me.swampmonster.models.AbstractGameObject.NegativeEffects;
 import com.me.swampmonster.models.AbstractGameObject.State;
+import com.me.swampmonster.models.slots.PositiveEffects;
 import com.me.swampmonster.utils.AssetsMainManager;
 import com.me.swampmonster.utils.CameraHelper;
 import com.me.swampmonster.utils.EnemyGenerator.Toughness;
@@ -56,6 +59,13 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 
 	public Node[] path;
 
+	public NegativeEffects negativeEffect;
+	private int negativeEffectTimer;
+//	private float FROZEN_MOVEMENT;
+	private int timerPoisoned;
+private int timer3hurt;
+	
+	
 	public Enemy(Vector2 position) {
 		this.position = position;
 		rectanlge = new Rectangle();
@@ -92,6 +102,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 
 		sprite = new Sprite(animationsStandard.get(State.STANDARD)
 				.getCurrentFrame());
+		
 	}
 
 	public void characterStatsBoard() {
@@ -231,9 +242,6 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 						&& !yellowAura.overlaps(player.circle)
 						&& player.state != State.DEAD) {
 
-					// // System.out.println("move is active... and overlpas is: "
-					// + getoRangeAura().overlaps(player.circle));
-
 					Collidable collidableLeft = null;
 					Collidable collidableRight = null;
 					Collidable collidableDown = null;
@@ -260,7 +268,6 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 					// // System.out.println("yes!1");
 					timer = 0;
 					timer2 = 0;
-					// // System.out.println("condition oldPos.x != position.x || oldPos.y != position.y && timer>0 && timer2>0 is true!");
 				}
 
 				if (yellowAura.overlaps(player.circle)
@@ -269,8 +276,6 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 				}
 
 				if (attackSequenceStarted) {
-					// // System.out.println("yes!2 and overlpas is: " +
-					// getoRangeAura().overlaps(player.circle));
 					if (playerMovementDirection == "right") {
 						inflictOnThe(88, 56, player, cameraHelper, attackSpeed);
 					}
@@ -284,16 +289,10 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 						inflictOnThe(64, 32, player, cameraHelper, attackSpeed);
 					}
 				}
-				// if(!getoRangeAura().overlaps(player.circle)){
-				// // System.out.println("yes!3");
-				// timer = 0;
-				// timer2 = 0;
-				// }
 			}
 		}
 		// ANIMATING
 		if (state.equals(State.ANIMATING)) {
-			// // System.out.println(" (PLAYER): I'm currently in ANIMATING state");
 
 		}
 		// DEAD
@@ -373,6 +372,10 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 				}
 				p.update();
 			}
+		}
+		
+		if (negativeEffectsState == NegativeEffects.POISONED){
+			poisoning();
 		}
 	}
 
@@ -926,5 +929,62 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 			}
 		}
 		return false;
+	}
+	
+	public void setNegativeEffect(NegativeEffects negativeEffect) {
+		switch (negativeEffect) {
+		case FROZEN:
+			this.sprite.setColor(4 / 255f, 180 / 255f, 1f, 1f);
+			movementSpeed = movementSpeed - 0.3f;
+			negativeEffectsState = negativeEffect;
+			negativeEffectTimer = negativeEffect.lifetime;
+			break;
+		case POISONED:
+			poisoning();
+			movementSpeed = STANDART_MOVEMENT_SPEED;
+			negativeEffectsState = negativeEffect;
+			negativeEffectTimer = negativeEffect.lifetime;
+			break;
+		case NONE:
+			sprite.setColor(1, 1, 1, 1);
+			movementSpeed = STANDART_MOVEMENT_SPEED;
+			negativeEffectsState = negativeEffect;
+		}
+	}
+	
+	private void poisoning() {
+		damageType = "Poisoned";
+		if (timerPoisoned == 0) {
+			this.sprite.setColor(Color.GREEN);
+		}
+		if (timerPoisoned < 50) {
+			timerPoisoned++;
+			if (health > 1) {
+				hurt();
+			}
+		}
+		if (timerPoisoned == 50) {
+			timerPoisoned = 0;
+		}
+	}
+	
+	public void hurt() {
+		if (state != State.DEAD) {
+			if (timer3hurt < 50) {
+				timer3hurt++;
+				if (timer3hurt == 25) {
+					sprite.setColor(sprite.getColor().r, sprite.getColor().g - 1,
+							sprite.getColor().b - 1, sprite.getColor().a);
+				}
+				if (timer3hurt == 45) {
+					sprite.setColor(sprite.getColor().r, sprite.getColor().g + 1,
+							sprite.getColor().b + 1, sprite.getColor().a);
+				}
+			}
+			if (timer3hurt == 50) {
+				health--;
+				timer3hurt = 0;
+			}
+		}
 	}
 }
