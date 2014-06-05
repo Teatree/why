@@ -6,7 +6,7 @@ import com.me.swampmonster.models.Player;
 public class Slot {
 	
 	public Sprite sprite;
-	
+	public int lifeTime;
 	public void execute (Player target){};
 	
 }

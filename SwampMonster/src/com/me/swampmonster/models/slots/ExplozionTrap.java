@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.me.swampmonster.models.enemies.Enemy;
 import com.me.swampmonster.utils.AssetsMainManager;
 
-public class ExplozionTrap extends Slot implements Trap{
+public class ExplozionTrap extends Trap{
 	public int lifetime = 112;
 	
 	public ExplozionTrap() {

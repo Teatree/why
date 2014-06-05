@@ -137,6 +137,15 @@ public class L1Renderer {
 			}
 		}
 		
+		if (theController.level1.player.trap != null){
+			theController.level1.player.trap.trapSprite.setPosition(theController.level1.player.trap.position.x,
+					theController.level1.player.trap.position.y);
+
+			batch.draw(theController.level1.player.trap.trapSprite, theController.level1.player.trap.position.x,
+					theController.level1.player.trap.position.y, theController.level1.player.trap.trapSprite.getWidth(),
+					theController.level1.player.trap.trapSprite.getHeight());
+		}
+		
 		for (Enemy enemy : theController.level1.enemiesOnStage){
 			if(enemy.getPosition().y+42 > theController.level1.player.getPosition().y+42){
 				enemy.getSprite().setPosition(enemy.getPosition().x, enemy.getPosition().y);

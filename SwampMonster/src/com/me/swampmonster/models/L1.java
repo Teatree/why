@@ -165,6 +165,12 @@ public class L1 {
 						break;
 					}
 				}
+				
+				if (player.trap != null && player.trap.sprite.getBoundingRectangle().overlaps(e.rectanlge)){
+					System.out.println("Overlapps!");
+					player.trap.catchEnemy(e);
+					System.out.println("L1"+ e.negativeEffect); 
+				}
 			}
 
 			if (e.isDead()) {

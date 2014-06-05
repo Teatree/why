@@ -2,11 +2,10 @@ package com.me.swampmonster.models.slots;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.me.swampmonster.models.AbstractGameObject.NegativeEffects;
-import com.me.swampmonster.models.Player;
 import com.me.swampmonster.models.enemies.Enemy;
 import com.me.swampmonster.utils.AssetsMainManager;
 
-public class FrostTrap extends Slot implements Trap{
+public class FrostTrap extends Trap{
 
 	public int lifetime = 112;
 	

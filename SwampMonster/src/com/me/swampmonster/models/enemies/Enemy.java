@@ -1,6 +1,5 @@
 package com.me.swampmonster.models.enemies;
 
-import java.awt.peer.SystemTrayPeer;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -22,8 +21,6 @@ import com.me.swampmonster.game.collision.CollisionHelper;
 import com.me.swampmonster.models.AbstractGameObject;
 import com.me.swampmonster.models.Player;
 import com.me.swampmonster.models.Projectile;
-import com.me.swampmonster.models.AbstractGameObject.NegativeEffects;
-import com.me.swampmonster.models.AbstractGameObject.State;
 import com.me.swampmonster.models.slots.PositiveEffects;
 import com.me.swampmonster.utils.AssetsMainManager;
 import com.me.swampmonster.utils.CameraHelper;
@@ -138,8 +135,7 @@ private int timer3hurt;
 		enemyDx = player.getPosition().x - position.x;
 		enemyDy = player.getPosition().y - position.y;
 
-		float enemyLength = (float) Math.sqrt(enemyDx * enemyDx + enemyDy
-				* enemyDy);
+		float enemyLength = (float) Math.sqrt(enemyDx * enemyDx + enemyDy * enemyDy);
 		enemyDx /= enemyLength;
 		enemyDy /= enemyLength;
 
@@ -150,8 +146,7 @@ private int timer3hurt;
 			enemyPathDx = path[cunter].x * 16 - position.x;
 			enemyPathDy = path[cunter].y * 16 - position.y;
 
-			float enemyPathLength = (float) Math.sqrt(enemyPathDx * enemyPathDx
-					+ enemyPathDy * enemyPathDy);
+			float enemyPathLength = (float) Math.sqrt(enemyPathDx * enemyPathDx + enemyPathDy * enemyPathDy);
 			enemyPathDx /= enemyPathLength;
 			enemyPathDy /= enemyPathLength;
 		}
@@ -940,9 +935,10 @@ private int timer3hurt;
 			negativeEffectTimer = negativeEffect.lifetime;
 			break;
 		case POISONED:
+			System.out.println("Poisoned");
 			poisoning();
 			movementSpeed = STANDART_MOVEMENT_SPEED;
-			negativeEffectsState = negativeEffect;
+			negativeEffectsState = NegativeEffects.POISONED;
 			negativeEffectTimer = negativeEffect.lifetime;
 			break;
 		case NONE:
@@ -954,14 +950,12 @@ private int timer3hurt;
 	
 	private void poisoning() {
 		damageType = "Poisoned";
-		if (timerPoisoned == 0) {
-			this.sprite.setColor(Color.GREEN);
-		}
+		this.sprite.setColor(Color.GREEN);
 		if (timerPoisoned < 50) {
 			timerPoisoned++;
-			if (health > 1) {
+//			if (health > 1) {
 				hurt();
-			}
+//			}
 		}
 		if (timerPoisoned == 50) {
 			timerPoisoned = 0;
@@ -969,22 +963,23 @@ private int timer3hurt;
 	}
 	
 	public void hurt() {
-		if (state != State.DEAD) {
-			if (timer3hurt < 50) {
-				timer3hurt++;
-				if (timer3hurt == 25) {
-					sprite.setColor(sprite.getColor().r, sprite.getColor().g - 1,
-							sprite.getColor().b - 1, sprite.getColor().a);
-				}
-				if (timer3hurt == 45) {
-					sprite.setColor(sprite.getColor().r, sprite.getColor().g + 1,
-							sprite.getColor().b + 1, sprite.getColor().a);
-				}
-			}
-			if (timer3hurt == 50) {
-				health--;
+//		if (state != State.DEAD) {
+//			if (timer3hurt < 50) {
+//				timer3hurt++;
+//				if (timer3hurt == 25) {
+//					sprite.setColor(sprite.getColor().r, sprite.getColor().g - 1,
+//							sprite.getColor().b - 1, sprite.getColor().a);
+//				}
+//				if (timer3hurt == 45) {
+//					sprite.setColor(sprite.getColor().r, sprite.getColor().g + 1,
+//							sprite.getColor().b + 1, sprite.getColor().a);
+//				}
+//			}
+//			if (timer3hurt == 50) {
+				health = 0;
+				state = State.DEAD;
 				timer3hurt = 0;
-			}
-		}
+//			}
+//		}
 	}
 }

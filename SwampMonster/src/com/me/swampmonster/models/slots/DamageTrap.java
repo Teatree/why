@@ -5,7 +5,7 @@ import com.me.swampmonster.models.Player;
 import com.me.swampmonster.models.enemies.Enemy;
 import com.me.swampmonster.utils.AssetsMainManager;
 
-public class DamageTrap extends Slot implements Trap{
+public class DamageTrap extends Trap{
 	public int lifetime = 112;
 
 	public DamageTrap() {

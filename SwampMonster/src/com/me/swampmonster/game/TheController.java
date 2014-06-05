@@ -15,13 +15,13 @@ import com.me.swampmonster.game.collision.CollisionHelper;
 import com.me.swampmonster.models.AbstractGameObject.NegativeEffects;
 import com.me.swampmonster.models.AbstractGameObject.State;
 import com.me.swampmonster.models.L1;
+import com.me.swampmonster.models.slots.PoisonTrap;
 import com.me.swampmonster.models.slots.PositiveEffects;
 import com.me.swampmonster.models.Projectile;
 import com.me.swampmonster.models.enemies.Enemy;
 import com.me.swampmonster.models.slots.Slot;
 import com.me.swampmonster.screens.SlotMachineScreen;
 import com.me.swampmonster.utils.CameraHelper;
-import com.me.swampmonster.utils.SlotsGenerator;
 
 public class TheController extends InputAdapter{
 	public CameraHelper cameraHelper;  
@@ -92,7 +92,7 @@ public class TheController extends InputAdapter{
 		pointRect = new Rectangle();
 		pointRect.width = 1;
 		pointRect.height = 1;
-		skill = SlotsGenerator.getSlotGenerator().getSlot(0, 3);
+		skill = new PoisonTrap();
 	}
 	
 	public void update(float deltaTime, Game game) {
@@ -179,6 +179,7 @@ public class TheController extends InputAdapter{
 					gui.getWeaponizer().circle.radius*gui.getWeaponizer().circle.radius)){
 				if (skill != null){
 					skill.execute(level1.player);
+					level1.player.trap.position = new Vector2(level1.player.position);
 				}
 			}
 		}

@@ -19,6 +19,7 @@ import com.me.swampmonster.animations.AnimationControl;
 import com.me.swampmonster.game.collision.Collidable;
 import com.me.swampmonster.game.collision.CollisionHelper;
 import com.me.swampmonster.models.enemies.Enemy;
+import com.me.swampmonster.models.slots.PoisonTrap;
 import com.me.swampmonster.models.slots.PositiveEffects;
 import com.me.swampmonster.models.slots.Trap;
 import com.me.swampmonster.utils.AssetsMainManager;
