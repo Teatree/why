@@ -65,7 +65,7 @@ public class GShape extends Group {
 			if (theController.level1.player.hurt) {
 				int j = 0;
 				if (theController.level1.player.health > 1) {
-					j = theController.level1.player.health - 1;
+					j = (int)theController.level1.player.health - 1;
 				}
 				theController.level1.player.hurt = true;
 				sr.setColor(new Color(200, 0, 0, ass));

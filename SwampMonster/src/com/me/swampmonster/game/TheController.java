@@ -179,7 +179,6 @@ public class TheController extends InputAdapter{
 					gui.getWeaponizer().circle.radius*gui.getWeaponizer().circle.radius)){
 				if (skill != null){
 					skill.execute(level1.player);
-					level1.player.trap.position = new Vector2(level1.player.position);
 				}
 			}
 		}

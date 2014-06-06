@@ -3,7 +3,6 @@ package com.me.swampmonster.models.enemies;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.me.swampmonster.animations.AnimationControl;
-import com.me.swampmonster.models.AbstractGameObject.State;
 import com.me.swampmonster.utils.AssetsMainManager;
 
 public class EnemyMaggot extends Enemy {
@@ -15,7 +14,6 @@ public class EnemyMaggot extends Enemy {
 		animationsStandard.put(State.PURSUIT, new AnimationControl(AssetsMainManager.manager.get(AssetsMainManager.enemyMaggot), 8, 16, 7)); 
 		animationsStandard.put(State.DEAD, new AnimationControl(AssetsMainManager.manager.get(AssetsMainManager.enemyMaggot), 8, 16, 4)); 
 		sprite = new Sprite(animationsStandard.get(state).getCurrentFrame());
-//		sprite.setColor(0, 1, 0, 0.7f);
 		movementSpeed = 0.6f;
 		health = 1;
 		damage = 1;

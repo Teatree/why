@@ -45,12 +45,4 @@ public class Projectile extends AbstractGameObject{
 		this.direction_y = direction_y;
 	}
 
-	public String getProjectileTypeLoc() {
-		return projectileTypeLoc;
-	}
-
-	public void setProjectileTypeLoc(String projectileTypeLoc) {
-		this.projectileTypeLoc = projectileTypeLoc;
-	}
-	
 }

@@ -56,9 +56,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 
 	public Node[] path;
 
-	public NegativeEffects negativeEffect;
 	private int negativeEffectTimer;
-//	private float FROZEN_MOVEMENT;
 	private int timerPoisoned;
 private int timer3hurt;
 	
@@ -290,6 +288,21 @@ private int timer3hurt;
 		if (state.equals(State.ANIMATING)) {
 
 		}
+		if (negativeEffectsState == NegativeEffects.POISONED){
+			if (negativeEffectTimer > 0){
+				sprite.setColor(Color.GREEN);
+				negativeEffectTimer--;
+				if (timerPoisoned == 35){
+					health -= 0.17f;
+					System.out.println("decrease health " + health);
+					timerPoisoned = 0;
+				} else {
+					timerPoisoned++;
+				}
+			} else {
+				negativeEffectsState = NegativeEffects.NONE;
+			}
+		}
 		// DEAD
 		if (state.equals(State.DEAD)) {
 			if (timeDead < 65) {
@@ -369,9 +382,6 @@ private int timer3hurt;
 			}
 		}
 		
-		if (negativeEffectsState == NegativeEffects.POISONED){
-			poisoning();
-		}
 	}
 
 	private String getProjectileLocationRelativeToSprite(
@@ -777,7 +787,6 @@ private int timer3hurt;
 	private void damageFromBottom(Collidable collidableUp,
 			HashMap<State, AnimationControl> animationsStandard) {
 		if (projectileLocation == "bottom" && collidableUp == null) {
-			// // System.out.println("supposed to be animating... Bottom");
 			currentFrame = animationsStandard.get(State.STANDARD)
 					.doComplexAnimation(104, 0.6f,
 							Gdx.graphics.getDeltaTime() / 2, Animation.NORMAL);
@@ -889,7 +898,6 @@ private int timer3hurt;
 
 	public void doCollide(AbstractGameObject abstractGameObject,
 			TiledMapTileLayer collisionLayer) {
-
 	}
 
 	public void doCollideAbstactObject(AbstractGameObject abstractGameObject) {
@@ -929,17 +937,17 @@ private int timer3hurt;
 	public void setNegativeEffect(NegativeEffects negativeEffect) {
 		switch (negativeEffect) {
 		case FROZEN:
-			this.sprite.setColor(4 / 255f, 180 / 255f, 1f, 1f);
+			sprite.setColor(4 / 255f, 180 / 255f, 1f, 1f);
 			movementSpeed = movementSpeed - 0.3f;
 			negativeEffectsState = negativeEffect;
 			negativeEffectTimer = negativeEffect.lifetime;
 			break;
 		case POISONED:
-			System.out.println("Poisoned");
-			poisoning();
+			if (negativeEffectsState != NegativeEffects.POISONED){
 			movementSpeed = STANDART_MOVEMENT_SPEED;
 			negativeEffectsState = NegativeEffects.POISONED;
 			negativeEffectTimer = negativeEffect.lifetime;
+			}
 			break;
 		case NONE:
 			sprite.setColor(1, 1, 1, 1);
@@ -947,39 +955,5 @@ private int timer3hurt;
 			negativeEffectsState = negativeEffect;
 		}
 	}
-	
-	private void poisoning() {
-		damageType = "Poisoned";
-		this.sprite.setColor(Color.GREEN);
-		if (timerPoisoned < 50) {
-			timerPoisoned++;
-//			if (health > 1) {
-				hurt();
-//			}
-		}
-		if (timerPoisoned == 50) {
-			timerPoisoned = 0;
-		}
-	}
-	
-	public void hurt() {
-//		if (state != State.DEAD) {
-//			if (timer3hurt < 50) {
-//				timer3hurt++;
-//				if (timer3hurt == 25) {
-//					sprite.setColor(sprite.getColor().r, sprite.getColor().g - 1,
-//							sprite.getColor().b - 1, sprite.getColor().a);
-//				}
-//				if (timer3hurt == 45) {
-//					sprite.setColor(sprite.getColor().r, sprite.getColor().g + 1,
-//							sprite.getColor().b + 1, sprite.getColor().a);
-//				}
-//			}
-//			if (timer3hurt == 50) {
-				health = 0;
-				state = State.DEAD;
-				timer3hurt = 0;
-//			}
-//		}
-	}
+
 }

@@ -93,37 +93,45 @@ public class L1Renderer {
 		for (Enemy enemy : theController.level1.enemiesOnStage) {
 			if (enemy.hurt) {
 				if (enemy.toughness == null) {
-					if (enemy.time == 4 || enemy.time == 24) {
-						enemy.getSprite().setColor(
-								enemy.getSprite().getColor().r,
-								enemy.getSprite().getColor().g - 1,
-								enemy.getSprite().getColor().b - 1,
-								enemy.getSprite().getColor().a);
-					}
-					if (enemy.time == 14 || enemy.time == 34) {
-						enemy.getSprite().setColor(
-								enemy.getSprite().getColor().r,
-								enemy.getSprite().getColor().g + 1,
-								enemy.getSprite().getColor().b + 1,
-								enemy.getSprite().getColor().a);
-					}
+//					if (enemy.time == 4 || enemy.time == 24) {
+//						enemy.getSprite().setColor(
+//								enemy.getSprite().getColor().r,
+//								enemy.getSprite().getColor().g - 1,
+//								enemy.getSprite().getColor().b - 1,
+//								enemy.getSprite().getColor().a);
+//					}
+//					if (enemy.time == 14 || enemy.time == 34) {
+//						enemy.getSprite().setColor(
+//								enemy.getSprite().getColor().r,
+//								enemy.getSprite().getColor().g + 1,
+//								enemy.getSprite().getColor().b + 1,
+//								enemy.getSprite().getColor().a);
+//					}
 				} else {
-					if (enemy.time == 4 || enemy.time == 24) {
-						enemy.getSprite().setColor(
-								enemy.getSprite().getColor().r - enemy.toughness.red + 1,
-								enemy.getSprite().getColor().g - enemy.toughness.green,
-								enemy.getSprite().getColor().b -enemy.toughness.blue,
-								enemy.getSprite().getColor().a);
-					}
-					if (enemy.time == 14 || enemy.time == 34) {
-						enemy.getSprite().setColor(
-								enemy.getSprite().getColor().r + enemy.toughness.red - 1,
-								enemy.getSprite().getColor().g + enemy.toughness.green,
-								enemy.getSprite().getColor().b + enemy.toughness.blue,
-								enemy.getSprite().getColor().a);
-					}
+//					if (enemy.time == 4 || enemy.time == 24) {
+//						enemy.getSprite().setColor(
+//								enemy.getSprite().getColor().r - enemy.toughness.red + 1,
+//								enemy.getSprite().getColor().g - enemy.toughness.green,
+//								enemy.getSprite().getColor().b -enemy.toughness.blue,
+//								enemy.getSprite().getColor().a);
+//					}
+//					if (enemy.time == 14 || enemy.time == 34) {
+//						enemy.getSprite().setColor(
+//								enemy.getSprite().getColor().r + enemy.toughness.red - 1,
+//								enemy.getSprite().getColor().g + enemy.toughness.green,
+//								enemy.getSprite().getColor().b + enemy.toughness.blue,
+//								enemy.getSprite().getColor().a);
+//					}
 				}
 			}
+		}
+		if (theController.level1.player.trap != null){
+			theController.level1.player.trap.trapSprite.setPosition(theController.level1.player.trap.position.x,
+					theController.level1.player.trap.position.y);
+			
+			batch.draw(theController.level1.player.trap.trapSprite, theController.level1.player.trap.position.x,
+					theController.level1.player.trap.position.y, theController.level1.player.trap.trapSprite.getWidth(),
+					theController.level1.player.trap.trapSprite.getHeight());
 		}
 
 		for (Item item : theController.level1.items) {
@@ -137,14 +145,6 @@ public class L1Renderer {
 			}
 		}
 		
-		if (theController.level1.player.trap != null){
-			theController.level1.player.trap.trapSprite.setPosition(theController.level1.player.trap.position.x,
-					theController.level1.player.trap.position.y);
-
-			batch.draw(theController.level1.player.trap.trapSprite, theController.level1.player.trap.position.x,
-					theController.level1.player.trap.position.y, theController.level1.player.trap.trapSprite.getWidth(),
-					theController.level1.player.trap.trapSprite.getHeight());
-		}
 		
 		for (Enemy enemy : theController.level1.enemiesOnStage){
 			if(enemy.getPosition().y+42 > theController.level1.player.getPosition().y+42){
@@ -272,7 +272,14 @@ public class L1Renderer {
 					theController.level1.player.radioactiveAura.y,
 					theController.level1.player.radioactiveAura.radius);
 		} 
+		
+		sr.setColor(0, 1, 0, 0.8f);
+		if (theController.level1.player.trap != null){
+		sr.circle(theController.level1.player.trap.circle.x, theController.level1.player.trap.circle.x,
+				theController.level1.player.trap.circle.radius);
+		}
 		sr.end();
+		
 		
 		stage.draw();
 	}

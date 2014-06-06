@@ -166,10 +166,9 @@ public class L1 {
 					}
 				}
 				
-				if (player.trap != null && player.trap.sprite.getBoundingRectangle().overlaps(e.rectanlge)){
+				if (player.trap != null && Intersector.overlaps(player.trap.circle, e.rectanlge)){
 					System.out.println("Overlapps!");
 					player.trap.catchEnemy(e);
-					System.out.println("L1"+ e.negativeEffect); 
 				}
 			}
 
