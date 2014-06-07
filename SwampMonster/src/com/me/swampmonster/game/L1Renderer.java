@@ -93,35 +93,35 @@ public class L1Renderer {
 		for (Enemy enemy : theController.level1.enemiesOnStage) {
 			if (enemy.hurt) {
 				if (enemy.toughness == null) {
-//					if (enemy.time == 4 || enemy.time == 24) {
-//						enemy.getSprite().setColor(
-//								enemy.getSprite().getColor().r,
-//								enemy.getSprite().getColor().g - 1,
-//								enemy.getSprite().getColor().b - 1,
-//								enemy.getSprite().getColor().a);
-//					}
-//					if (enemy.time == 14 || enemy.time == 34) {
-//						enemy.getSprite().setColor(
-//								enemy.getSprite().getColor().r,
-//								enemy.getSprite().getColor().g + 1,
-//								enemy.getSprite().getColor().b + 1,
-//								enemy.getSprite().getColor().a);
-//					}
+					if (enemy.time == 4 || enemy.time == 24) {
+						enemy.getSprite().setColor(
+								enemy.getSprite().getColor().r,
+								enemy.getSprite().getColor().g - 1,
+								enemy.getSprite().getColor().b - 1,
+								enemy.getSprite().getColor().a);
+					}
+					if (enemy.time == 14 || enemy.time == 34) {
+						enemy.getSprite().setColor(
+								enemy.getSprite().getColor().r,
+								enemy.getSprite().getColor().g + 1,
+								enemy.getSprite().getColor().b + 1,
+								enemy.getSprite().getColor().a);
+					}
 				} else {
-//					if (enemy.time == 4 || enemy.time == 24) {
-//						enemy.getSprite().setColor(
-//								enemy.getSprite().getColor().r - enemy.toughness.red + 1,
-//								enemy.getSprite().getColor().g - enemy.toughness.green,
-//								enemy.getSprite().getColor().b -enemy.toughness.blue,
-//								enemy.getSprite().getColor().a);
-//					}
-//					if (enemy.time == 14 || enemy.time == 34) {
-//						enemy.getSprite().setColor(
-//								enemy.getSprite().getColor().r + enemy.toughness.red - 1,
-//								enemy.getSprite().getColor().g + enemy.toughness.green,
-//								enemy.getSprite().getColor().b + enemy.toughness.blue,
-//								enemy.getSprite().getColor().a);
-//					}
+					if (enemy.time == 4 || enemy.time == 24) {
+						enemy.getSprite().setColor(
+								enemy.getSprite().getColor().r - enemy.toughness.red + 1,
+								enemy.getSprite().getColor().g - enemy.toughness.green,
+								enemy.getSprite().getColor().b -enemy.toughness.blue,
+								enemy.getSprite().getColor().a);
+					}
+					if (enemy.time == 14 || enemy.time == 34) {
+						enemy.getSprite().setColor(
+								enemy.getSprite().getColor().r + enemy.toughness.red - 1,
+								enemy.getSprite().getColor().g + enemy.toughness.green,
+								enemy.getSprite().getColor().b + enemy.toughness.blue,
+								enemy.getSprite().getColor().a);
+					}
 				}
 			}
 		}

@@ -179,6 +179,7 @@ public class TheController extends InputAdapter{
 					gui.getWeaponizer().circle.radius*gui.getWeaponizer().circle.radius)){
 				if (skill != null){
 					skill.execute(level1.player);
+					skill = null;
 				}
 			}
 		}
