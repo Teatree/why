@@ -58,8 +58,6 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 
 	private int negativeEffectTimer;
 	private int timerPoisoned;
-private int timer3hurt;
-	
 	
 	public Enemy(Vector2 position) {
 		this.position = position;
@@ -207,11 +205,6 @@ private int timer3hurt;
 				}
 
 				if (path[0] != null) {
-					// System.out.println("it's not null");
-					// System.out.println("pathX: " + path[0].x * 16 + "pathY:"
-//							+ path[0].y * 16);
-					// System.out.println("playerX: " + player.position.x
-//							+ "playerY:" + player.position.y);
 					if (player.position.x > path[0].x * 16 + 120
 							|| player.position.x < path[0].x * 16 - 120
 							|| player.position.y > path[0].y * 16 + 120
@@ -288,21 +281,23 @@ private int timer3hurt;
 		if (state.equals(State.ANIMATING)) {
 
 		}
-		if (negativeEffectsState == NegativeEffects.POISONED){
-			if (negativeEffectTimer > 0){
+		
+		if (negativeEffectsState != NegativeEffects.NONE
+				&& negativeEffectTimer > 0) {
+			if (negativeEffectsState == NegativeEffects.POISONED) {
 				sprite.setColor(Color.GREEN);
-				negativeEffectTimer--;
-				if (timerPoisoned == 35){
-					health -= 0.17f;
-					System.out.println("decrease health " + health);
+				if (timerPoisoned == 45) {
+					health -= 0.03f;
 					timerPoisoned = 0;
 				} else {
 					timerPoisoned++;
 				}
-			} else {
-				negativeEffectsState = NegativeEffects.NONE;
 			}
+			negativeEffectTimer--;
+		} else {
+			negativeEffectsState = NegativeEffects.NONE;
 		}
+		
 		// DEAD
 		if (state.equals(State.DEAD)) {
 			if (timeDead < 65) {
@@ -325,17 +320,9 @@ private int timer3hurt;
 			if (projectiles != null) {
 				getProjectileLocationRelativeToSprite(projectiles);
 			}
-			// // System.out.println(" (PLAYER): I'm currently in HURT state");
 			if (time < 40) {
 				time++;
-				// // System.out.println("projectileLocationRelativeTo: " +
-				// projectileLocation);
-
 				if (damageType == "player" && state != State.DEAD) {
-					// private void takingDamageFromEnemy(HashMap<State,
-					// AnimationControl> animations, AbstractGameObject enemy,
-					// Vector3 touchPos, TiledMapTileLayer collisionLayer) {
-					// // System.out.println(enemy.getPlayerMovementDirection());
 					Collidable collidableUp = null;
 
 					damagedFromTop(collidableUp, animationsStandard);
@@ -937,16 +924,18 @@ private int timer3hurt;
 	public void setNegativeEffect(NegativeEffects negativeEffect) {
 		switch (negativeEffect) {
 		case FROZEN:
-			sprite.setColor(4 / 255f, 180 / 255f, 1f, 1f);
-			movementSpeed = movementSpeed - 0.3f;
-			negativeEffectsState = negativeEffect;
-			negativeEffectTimer = negativeEffect.lifetime;
+			if (negativeEffectsState != NegativeEffects.FROZEN){
+				sprite.setColor(4 / 255f, 180 / 255f, 1f, 1f);
+				movementSpeed *= 0.4f;
+				negativeEffectsState = negativeEffect;
+				negativeEffectTimer = negativeEffect.lifetime;
+			}
 			break;
 		case POISONED:
 			if (negativeEffectsState != NegativeEffects.POISONED){
-			movementSpeed = STANDART_MOVEMENT_SPEED;
-			negativeEffectsState = NegativeEffects.POISONED;
-			negativeEffectTimer = negativeEffect.lifetime;
+				movementSpeed = STANDART_MOVEMENT_SPEED;
+				negativeEffectsState = NegativeEffects.POISONED;
+				negativeEffectTimer = negativeEffect.lifetime;
 			}
 			break;
 		case NONE:

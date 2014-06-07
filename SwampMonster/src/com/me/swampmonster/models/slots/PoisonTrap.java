@@ -9,7 +9,6 @@ import com.me.swampmonster.models.enemies.Enemy;
 import com.me.swampmonster.utils.AssetsMainManager;
 
 public class PoisonTrap extends Trap{
-	public Vector2 position;
 	
 	public PoisonTrap() {
 		lifeTime = 112;

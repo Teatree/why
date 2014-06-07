@@ -255,7 +255,6 @@ public class L1Renderer {
 		Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
 		sr.begin(ShapeType.Filled);
 		sr.setColor(Color.RED);
-//		sr.circle(theController.projectile.circle.x, theController.projectile.circle.y, theController.projectile.circle.radius);
 		for (Enemy enemy : theController.level1.enemiesOnStage)
 			if(enemy.getPath() != null){
 				for(Node n : enemy.getPath()){
@@ -272,15 +271,8 @@ public class L1Renderer {
 					theController.level1.player.radioactiveAura.y,
 					theController.level1.player.radioactiveAura.radius);
 		} 
-		
-		sr.setColor(0, 1, 0, 0.8f);
-		if (theController.level1.player.trap != null){
-		sr.circle(theController.level1.player.trap.circle.x, theController.level1.player.trap.circle.x,
-				theController.level1.player.trap.circle.radius);
-		}
 		sr.end();
-		
-		
+				
 		stage.draw();
 	}
 	

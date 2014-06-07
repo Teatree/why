@@ -19,7 +19,7 @@ public abstract class AbstractGameObject {
 		ATTACKING, PURSUIT, GUNMOVEMENT, SPAWNING, DESPAWNING;
 	}
 	public enum NegativeEffects {
-		POISONED(900), FEAR(900), FROZEN(930), NONE(0);
+		POISONED(900), FEAR(900), FROZEN(130), NONE(0);
 		
 		public int lifetime;
 		

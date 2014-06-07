@@ -80,8 +80,6 @@ public class L1 {
 		if (waveTemp == null && needTogenerateNewWave) {
 			needTogenerateNewWave = false;
 			waveTemp = waveGenerator.generateWave(player.points);
-			System.err.println("enemiesOnBattlefield WAVE TEMP : "
-					+ waveTemp.enemiesOnBattleField);
 		}
 
 		if (enemiesOnStage.empty() && waveTemp != null
@@ -92,7 +90,6 @@ public class L1 {
 			needTogenerateNewWave = true;
 			currentWave++;
 			pendingPeriodBetweedWavesCounter = Constants.pendingPeriodBetweedWaves;
-			// System.out.println("NEXT WAVE!");
 			}else{
 				pendingPeriodBetweedWavesCounter--;
 			}
@@ -167,7 +164,6 @@ public class L1 {
 				}
 				
 				if (player.trap != null && Intersector.overlaps(player.trap.circle, e.rectanlge)){
-					System.out.println("Overlapps!");
 					player.trap.catchEnemy(e);
 				}
 			}
