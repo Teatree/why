@@ -713,14 +713,22 @@ public class Player extends AbstractGameObject {
 			if (timer3hurt < 50) {
 				timer3hurt++;
 				if (timer3hurt == 25) {
-					sprite.setColor(sprite.getColor().r,
-							sprite.getColor().g - 1, sprite.getColor().b - 1,
-							sprite.getColor().a);
+//					sprite.setColor(sprite.getColor().r,
+//							sprite.getColor().g - 1, sprite.getColor().b - 1,
+//							sprite.getColor().a);
+					sprite.setColor(Color.RED);
 				}
 				if (timer3hurt == 45) {
-					sprite.setColor(sprite.getColor().r,
-							sprite.getColor().g + 1, sprite.getColor().b + 1,
-							sprite.getColor().a);
+					if (negativeEffectsState == NegativeEffects.FROZEN){
+						this.sprite.setColor(4 / 255f, 180 / 255f, 1f, 1f);
+					} else if (negativeEffectsState == NegativeEffects.POISONED){
+						sprite.setColor(Color.GREEN);
+					} else {
+						sprite.setColor(1,1,1,1);
+					}
+//					sprite.setColor(sprite.getColor().r,
+//							sprite.getColor().g + 1, sprite.getColor().b + 1,
+//							sprite.getColor().a);
 				}
 			}
 			if (timer3hurt == 50) {
@@ -764,12 +772,14 @@ public class Player extends AbstractGameObject {
 		}
 		if (timerPoisoned < 50) {
 			timerPoisoned++;
-			if (health > 1) {
-				hurt();
-			}
+			
+//			if (health > 1) {
+//				hurt();
+//			}
 		}
 		if (timerPoisoned == 50) {
 			timerPoisoned = 0;
+			health *= 0.8;
 		}
 	}
 

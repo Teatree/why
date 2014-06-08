@@ -29,7 +29,7 @@ public class SlotMachineScreen extends AbstractGameScreen {
 
 	public void render(float deltaTime) {
 		Gdx.gl.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 		stage.draw();
 		if (Gdx.input.isTouched()) {
