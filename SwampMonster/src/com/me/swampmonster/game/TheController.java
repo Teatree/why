@@ -22,6 +22,7 @@ import com.me.swampmonster.models.enemies.Enemy;
 import com.me.swampmonster.models.slots.Slot;
 import com.me.swampmonster.screens.SlotMachineScreen;
 import com.me.swampmonster.utils.CameraHelper;
+import com.me.swampmonster.utils.SlotsGenerator;
 
 public class TheController extends InputAdapter{
 	public CameraHelper cameraHelper;  
@@ -92,7 +93,7 @@ public class TheController extends InputAdapter{
 		pointRect = new Rectangle();
 		pointRect.width = 1;
 		pointRect.height = 1;
-		skill = new FrostTrap();
+		skill = SlotsGenerator.getSlotGenerator().getSlot(1, 6);
 	}
 	
 	public void update(float deltaTime, Game game) {

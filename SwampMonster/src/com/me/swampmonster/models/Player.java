@@ -779,7 +779,7 @@ public class Player extends AbstractGameObject {
 		}
 		if (timerPoisoned == 50) {
 			timerPoisoned = 0;
-			health *= 0.8;
+			if (health > 1) health--;
 		}
 	}
 

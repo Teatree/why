@@ -19,13 +19,12 @@ public class PoisonTrap extends Trap{
 		sprite = new Sprite(AssetsMainManager.manager.get(AssetsMainManager.POISONED_TRAP_ICON));
 	}
 	
-	public void execute (Player player){
-		player.trap = new PoisonTrap();
-		player.trap.position = new Vector2(player.position.x, player.position.y);
-		player.trap.circle.x = player.trap.position.x+8;
-		player.trap.circle.y = player.trap.position.y+4;
-		
-	}
+//	public void execute (Player player){
+//		player.trap = this;
+//		player.trap.position = new Vector2(player.position.x, player.position.y);
+//		player.trap.circle.x = player.trap.position.x+8;
+//		player.trap.circle.y = player.trap.position.y+4;
+//	}
 
 	public void catchEnemy(Enemy enemy) {
 		enemy.setNegativeEffect(NegativeEffects.POISONED);

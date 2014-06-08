@@ -23,11 +23,4 @@ public class FrostTrap extends Trap{
 	public void catchEnemy(Enemy enemy) {
 		enemy.setNegativeEffect(NegativeEffects.FROZEN);
 	}
-	
-	public void execute (Player player){
-		player.trap = this;
-		player.trap.position = new Vector2(player.position.x, player.position.y);
-		player.trap.circle.x = player.trap.position.x+16;
-		player.trap.circle.y = player.trap.position.y+16;
-	}
 }
