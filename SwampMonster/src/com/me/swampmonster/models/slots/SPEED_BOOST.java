@@ -11,6 +11,7 @@ public class SPEED_BOOST extends Slot{
 
 	public SPEED_BOOST() {
 		sprite = new Sprite(AssetsMainManager.manager.get(AssetsMainManager.SPEED_BOOST_ICON));
+		
+		description = "Makes player move faster for a certain amount of time";
 	}
-	
 }

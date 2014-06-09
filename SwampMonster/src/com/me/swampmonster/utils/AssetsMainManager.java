@@ -44,7 +44,7 @@ public class AssetsMainManager {
 	public static final AssetDescriptor<Texture> POISON_TRAP = new AssetDescriptor<Texture>("data\\googleSaysItIsAPool.png", Texture.class);
 	public static final AssetDescriptor<Texture> FROZEN_TRAP = new AssetDescriptor<Texture>("data\\Frozen.png", Texture.class);
 	public static final AssetDescriptor<Texture> DAMAGE_TRAP = new AssetDescriptor<Texture>("data\\appleTrap.png", Texture.class);
-	public static final AssetDescriptor<ParticleEffect> explosiveEffect = new AssetDescriptor<ParticleEffect>("effects\\FlameEffectTemp.p", ParticleEffect.class);
+//	public static final AssetDescriptor<ParticleEffect> explosiveEffect = new AssetDescriptor<ParticleEffect>("effects\\FlameEffectTemp.p", ParticleEffect.class);
 	public static final AssetDescriptor<TiledMap> map = new AssetDescriptor<TiledMap>("data\\Map.tmx", TiledMap.class);
 	public static final AssetDescriptor<BitmapFont> font = new AssetDescriptor<BitmapFont>("data\\font.fnt", BitmapFont.class);
 	
@@ -81,7 +81,7 @@ public class AssetsMainManager {
 		manager.load(POISON_TRAP);
 		manager.load(FROZEN_TRAP);
 		manager.load(DAMAGE_TRAP);
-		manager.load(explosiveEffect);
+//		manager.load(explosiveEffect);
 		manager.setLoader(BitmapFont.class, new BitmapFontLoader(new InternalFileHandleResolver()));
 		manager.load(font);
 		manager.setLoader(TiledMap.class, new TmxMapLoader());

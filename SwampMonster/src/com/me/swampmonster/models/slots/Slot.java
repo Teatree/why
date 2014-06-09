@@ -7,6 +7,7 @@ public class Slot {
 	
 	public Sprite sprite;
 	public int lifeTime;
+	public String description = "desc";
 	public void execute (Player target){};
 	
 }
