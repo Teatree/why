@@ -55,7 +55,7 @@ public class TheController extends InputAdapter{
 	// temp
 	
 	public TiledMapTileLayer collisionLayer;
-	private Slot skill;
+	public static Slot skill;
 	
 	public TheController(Game game){
 		init();
@@ -94,7 +94,6 @@ public class TheController extends InputAdapter{
 		pointRect = new Rectangle();
 		pointRect.width = 1;
 		pointRect.height = 1;
-		skill = new DamageTrap();//SlotsGenerator.getSlotGenerator().getSlot(1, 6);
 	}
 	
 	public void update(float deltaTime, Game game) {

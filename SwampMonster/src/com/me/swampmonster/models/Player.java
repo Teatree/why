@@ -406,7 +406,7 @@ public class Player extends AbstractGameObject {
 				movementSpeed = STANDART_MOVEMENT_SPEED;
 			}
 			radioactiveAura = null;
-			positiveEffectsState = positiveEffect;
+			positiveEffectsState = PositiveEffects.NONE;
 		}
 
 	}

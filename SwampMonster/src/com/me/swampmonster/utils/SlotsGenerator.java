@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
-import com.me.swampmonster.models.Player;
 import com.me.swampmonster.models.slots.Arrows3;
 import com.me.swampmonster.models.slots.DamageTrap;
 import com.me.swampmonster.models.slots.ExplosiveArrow;
@@ -18,7 +17,6 @@ import com.me.swampmonster.models.slots.ImproveMaxOxygen;
 import com.me.swampmonster.models.slots.ImproveMovementSpeed;
 import com.me.swampmonster.models.slots.PoisonArrow;
 import com.me.swampmonster.models.slots.PoisonTrap;
-import com.me.swampmonster.models.slots.PositiveEffects;
 import com.me.swampmonster.models.slots.RADIOACTIVE;
 import com.me.swampmonster.models.slots.SPEED_BOOST;
 import com.me.swampmonster.models.slots.ShadowArrow;

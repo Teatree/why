@@ -4,16 +4,22 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Intersector;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.me.swampmonster.game.TheController;
 import com.me.swampmonster.models.Player;
 import com.me.swampmonster.slotMachineStuff.SlotMachineTextures;
 import com.me.swampmonster.utils.Constants;
+import com.me.swampmonster.utils.SlotsGenerator;
+import com.sun.xml.internal.bind.v2.runtime.unmarshaller.Intercepter;
 
 public class SlotMachineScreen extends AbstractGameScreen {
 	SpriteBatch batch;
 	public Player player;
 	private Stage stage;
 	private SlotMachineTextures slotMachineTextures;
+	public Vector2 victor;
 	
 	public SlotMachineScreen(Game game) {
 		super(game);
@@ -24,6 +30,7 @@ public class SlotMachineScreen extends AbstractGameScreen {
 		stage = new Stage(Constants.VIEWPORT_WIDTH, Constants.VIEWPORT_HEIGHT, true, batch);
 		
 		slotMachineTextures = new SlotMachineTextures(player);
+		
 		stage.addActor(slotMachineTextures);
 	}
 
@@ -31,13 +38,37 @@ public class SlotMachineScreen extends AbstractGameScreen {
 		Gdx.gl.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
+		victor = new Vector2(Gdx.input.getX(), Constants.VIEWPORT_HEIGHT-Gdx.input.getY());
 		
-		
-		stage.draw();
-		if (Gdx.input.isTouched()) {
-			game.setScreen(new SwampScreen(game));
+		for (int i = 0; i < slotMachineTextures.slots.length; i++) {
+			if (Gdx.input.justTouched()
+					&& slotMachineTextures.slots[i].sprite
+							.getBoundingRectangle().contains(victor)) {
+				if (!slotMachineTextures.peru) {
+					// game.setScreen(new SwampScreen(game));
+					slotMachineTextures.peru = true;
+					slotMachineTextures.selectedSlotNumber = i;
+					// break;
+				}
+			} else if (Gdx.input.justTouched() && slotMachineTextures.slotMachineWindowNo
+					.getBoundingRectangle().contains(victor)) {
+
+				slotMachineTextures.peru = false;
+			} else if (Gdx.input.justTouched() && slotMachineTextures.slotMachineWindowYes
+					.getBoundingRectangle().contains(victor)) {
+				TheController.skill = slotMachineTextures.slots[slotMachineTextures.selectedSlotNumber];
+				slotMachineTextures.peru = false;
+				game.setScreen(new SwampScreen(game));
+			}
+
+
 		}
-		
+		stage.draw();
+//		System.out.println("yes rect = " + slotMachineTextures.yes);
+//		}else if(Gdx.input.isTouched() && slotMachineTextures.peru) {
+////			game.setScreen(new SwampScreen(game));
+//			slotMachineTextures.peru = false;
+//		}
 	}
 
 	public void resize(int width, int height) {
