@@ -27,7 +27,7 @@ public class L1Renderer {
 	// Temporary debug feature
 	
 	private SpriteBatch batch;
-	private ParticleEffect effect;
+//	private ParticleEffect effect;
 	private OrthogonalTiledMapRenderer mapRenderer;
 	private int timer;
 	private Stage stage;
@@ -63,10 +63,10 @@ public class L1Renderer {
 		
 		timer = 60;
 		
-		effect = new ParticleEffect();
-		effect.load(Gdx.files.local("effects/FlameEffectTemp.p"), Gdx.files.local("effects"));
-		effect.setPosition(theController.level1.player.position.x, theController.level1.player.position.y);
-		effect.start();
+//		effect = new ParticleEffect();
+//		effect.load(Gdx.files.local("effects/FlameEffectTemp.p"), Gdx.files.local("effects"));
+//		effect.setPosition(theController.level1.player.position.x, theController.level1.player.position.y);
+//		effect.start();
 	}	
 	
 	public void render() {
@@ -221,8 +221,12 @@ public class L1Renderer {
 			}
 		}
 		
-		effect.draw(batch);
-		effect.update(Gdx.graphics.getDeltaTime());
+		if (theController.level1.player.trap != null && theController.level1.player.trap.showEffect){
+			theController.level1.player.trap.effect.draw(batch);
+			theController.level1.player.trap.effect.update(Gdx.graphics.getDeltaTime());
+		}
+//		effect.draw(batch);
+//		effect.update(Gdx.graphics.getDeltaTime());
 		batch.end();
 		
 		

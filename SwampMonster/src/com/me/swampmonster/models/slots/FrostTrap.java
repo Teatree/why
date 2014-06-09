@@ -2,8 +2,6 @@ package com.me.swampmonster.models.slots;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Circle;
-import com.badlogic.gdx.math.Vector2;
-import com.me.swampmonster.models.Player;
 import com.me.swampmonster.models.AbstractGameObject.NegativeEffects;
 import com.me.swampmonster.models.enemies.Enemy;
 import com.me.swampmonster.utils.AssetsMainManager;
