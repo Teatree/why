@@ -17,6 +17,7 @@ import com.me.swampmonster.models.AbstractGameObject.State;
 import com.me.swampmonster.models.L1;
 import com.me.swampmonster.models.slots.DamageTrap;
 import com.me.swampmonster.models.slots.FrostTrap;
+import com.me.swampmonster.models.slots.PositiveEffectInterface;
 import com.me.swampmonster.models.slots.PositiveEffects;
 import com.me.swampmonster.models.Projectile;
 import com.me.swampmonster.models.enemies.Enemy;
@@ -180,6 +181,12 @@ public class TheController extends InputAdapter{
 					gui.getWeaponizer().circle.radius*gui.getWeaponizer().circle.radius)){
 				if (skill != null){
 					skill.execute(level1.player);
+					System.out.println("is it istanceof? " + (skill instanceof PositiveEffectInterface));
+					if (skill instanceof PositiveEffectInterface){
+						System.out.println("skills sprite: " + skill.sprite);
+						level1.player.positiveEffectSprite = skill.sprite; 
+						System.out.println("positiveEffectSprite sprite " + level1.player.positiveEffectSprite);
+					}
 					skill = null;
 				}
 			}

@@ -41,6 +41,9 @@ public class AssetsMainManager {
 	public static final AssetDescriptor<Texture> IMPROVEARROWDAMAGE_ICON = new AssetDescriptor<Texture>("data\\slotIcons\\IMPROVEARROWDAMAGE_ICON.png", Texture.class);
 	public static final AssetDescriptor<Texture> IMPROVEARROWSPEED_ICON = new AssetDescriptor<Texture>("data\\slotIcons\\IMPROVEARROWSPEED_ICON.png", Texture.class);
 	public static final AssetDescriptor<Texture> IMPROVEMOVEMENTSPEED_ICON = new AssetDescriptor<Texture>("data\\slotIcons\\IMPROVE_MOVEMENT_SPEED_ICON.png", Texture.class);
+	public static final AssetDescriptor<Texture> FROZENNEGATIVEEFFECT_ICON = new AssetDescriptor<Texture>("data\\slotIcons\\FROZEN_NEGATIVE_EFFECT_ICON.png", Texture.class);
+	public static final AssetDescriptor<Texture> POISONEDNEGATIVEEFFECT_ICON = new AssetDescriptor<Texture>("data\\slotIcons\\POISONED_NEGATIVE_EFFECT_ICON.png", Texture.class);
+	public static final AssetDescriptor<Texture> SCAREDNEGATIVEEFFECT_ICON = new AssetDescriptor<Texture>("data\\slotIcons\\SCARED_NEGATIVE_EFFECT_ICON.png", Texture.class);
 	public static final AssetDescriptor<Texture> POISON_TRAP = new AssetDescriptor<Texture>("data\\googleSaysItIsAPool.png", Texture.class);
 	public static final AssetDescriptor<Texture> FROZEN_TRAP = new AssetDescriptor<Texture>("data\\Frozen.png", Texture.class);
 	public static final AssetDescriptor<Texture> DAMAGE_TRAP = new AssetDescriptor<Texture>("data\\appleTrap.png", Texture.class);
@@ -81,6 +84,9 @@ public class AssetsMainManager {
 		manager.load(IMPROVEARROWDAMAGE_ICON);
 		manager.load(IMPROVEARROWSPEED_ICON);
 		manager.load(IMPROVEMOVEMENTSPEED_ICON);
+		manager.load(FROZENNEGATIVEEFFECT_ICON);
+		manager.load(POISONEDNEGATIVEEFFECT_ICON);
+		manager.load(SCAREDNEGATIVEEFFECT_ICON);
 		manager.load(POISON_TRAP);
 		manager.load(FROZEN_TRAP);
 		manager.load(DAMAGE_TRAP);

@@ -48,18 +48,19 @@ public class L1Renderer {
 		sr = new ShapeRenderer();
 		mapRenderer = new OrthogonalTiledMapRenderer(theController.level1.bunker.getMap());
 		
-		Image healthBarImage = new Image(theController.gui.getHealthBar().getSprite()); 
-		healthBarImage.setPosition(theController.gui.getHealthBar().getPosition().x, theController.gui.getHealthBar().getPosition().y);
-		Image weaponizerImage = new Image(theController.gui.getWeaponizer().getSprite()); 
-		Image oxygenBarImage = new Image(theController.gui.getOxygenBar().getSprite());
-		oxygenBarImage.setPosition(theController.gui.getOxygenBar().getPosition().x, theController.gui.getOxygenBar().getPosition().y);
+//		Image healthBarImage = new Image(theController.gui.getHealthBar().getSprite()); 
+//		healthBarImage.setPosition(theController.gui.getHealthBar().getPosition().x, theController.gui.getHealthBar().getPosition().y);
+//		Image weaponizerImage = new Image(theController.gui.getWeaponizer().getSprite()); 
+//		Image oxygenBarImage = new Image(theController.gui.getOxygenBar().getSprite());
+//		oxygenBarImage.setPosition(theController.gui.getOxygenBar().getPosition().x, theController.gui.getOxygenBar().getPosition().y);
 		
 		gshape = new GShape(theController);
+		
 		stage.addActor(gshape);
 		
-		stage.addActor(healthBarImage);
-		stage.addActor(weaponizerImage);
-		stage.addActor(oxygenBarImage);
+//		stage.addActor(healthBarImage);
+//		stage.addActor(weaponizerImage);
+//		stage.addActor(oxygenBarImage);
 		
 		timer = 60;
 		
@@ -142,7 +143,8 @@ public class L1Renderer {
 					theController.level1.player.trap.position.y, theController.level1.player.trap.trapSprite.getWidth(),
 					theController.level1.player.trap.trapSprite.getHeight());
 		}
-
+		
+		
 		for (Item item : theController.level1.items) {
 			if (item.sprite != null) {
 				item.getSprite().setPosition(item.getPosition().x,
@@ -227,6 +229,8 @@ public class L1Renderer {
 		}
 //		effect.draw(batch);
 //		effect.update(Gdx.graphics.getDeltaTime());
+		
+		
 		batch.end();
 		
 		

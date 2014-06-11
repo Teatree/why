@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.me.swampmonster.models.Player;
 import com.me.swampmonster.utils.AssetsMainManager;
 
-public class FADE extends Slot {
+public class FADE extends Slot implements PositiveEffectInterface{
 		public void execute(Player target) {
 			target.setPositiveEffect(PositiveEffects.FADE);
 		}

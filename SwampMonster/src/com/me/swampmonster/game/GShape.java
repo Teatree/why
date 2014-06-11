@@ -11,6 +11,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.me.swampmonster.models.AbstractGameObject.State;
+import com.me.swampmonster.models.slots.Perks;
 import com.me.swampmonster.utils.AssetsMainManager;
 import com.me.swampmonster.utils.Constants;
 
@@ -103,7 +104,7 @@ public class GShape extends Group {
 			}
 			if (theController.level1.player.state != State.DEAD) {
 				if (theController.gui.getWeaponizer().isOn() == false) {
-					sr.setColor(Color.LIGHT_GRAY);
+					sr.setColor(Color.WHITE);
 				} else if (theController.gui.getWeaponizer().isOn() == true) {
 					sr.setColor(Color.WHITE);
 				}
@@ -189,6 +190,41 @@ public class GShape extends Group {
 			sr.end();
 		}
 		batch.begin();
+		batch.draw(theController.gui.getHealthBar().sprite, theController.gui.getHealthBar().getPosition().x, theController.gui.getHealthBar().getPosition().y);
+		batch.draw(theController.gui.getWeaponizer().sprite, 0, 0);
+		batch.draw(theController.gui.getOxygenBar().sprite, theController.gui.getOxygenBar().getPosition().x, theController.gui.getOxygenBar().getPosition().y);
+		
+		if (theController.level1.player.positiveEffectsState != null
+				&& theController.level1.player.positiveEffectsState != theController.level1.player.positiveEffectsState.NONE) {
+			batch.draw(theController.level1.player.positiveEffectSprite,
+					Constants.VIEWPORT_WIDTH - 64,
+					Constants.VIEWPORT_HEIGHT - 100, 64, 64);
+			font.draw(batch, theController.level1.player.positiveEffectCounter
+					.toString(), Constants.VIEWPORT_WIDTH - 64,
+					Constants.VIEWPORT_HEIGHT - 110);
+		}
+		if (theController.level1.player.negativeEffectsState != null
+				&& theController.level1.player.negativeEffectsState != theController.level1.player.negativeEffectsState.NONE) {
+			batch.draw(theController.level1.player.negativeEffectsState.sprite,
+					Constants.VIEWPORT_WIDTH - 64,
+					Constants.VIEWPORT_HEIGHT - 174, 64, 64);
+			font.draw(batch, theController.level1.player.negativeEffectCounter
+					.toString(), Constants.VIEWPORT_WIDTH - 64,
+					Constants.VIEWPORT_HEIGHT - 184);
+		}
+		if (theController.skill != null && !(theController.skill instanceof Perks)) {
+			batch.draw(
+					theController.skill.sprite,
+					theController.gui.getWeaponizer().sprite.getX()
+							+ theController.gui.getWeaponizer().sprite
+									.getWidth() / 4,
+					theController.gui.getWeaponizer().sprite.getY()
+							+ theController.gui.getWeaponizer().sprite
+									.getHeight() / 4, 64, 64);
+			
+		}
+		
+		
 		font.setColor(1.0f, 1.0f, 1.0f, 1.0f);
 		font.draw(batch, str, 580, 460);
 		font.draw(batch, str2, 580, 420);

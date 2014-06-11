@@ -14,6 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 import com.me.swampmonster.models.Player;
 import com.me.swampmonster.models.slots.Slot;
 import com.me.swampmonster.utils.AssetsMainManager;
+import com.me.swampmonster.utils.Constants;
 import com.me.swampmonster.utils.SlotsGenerator;
 
 public class SlotMachineTextures extends Group {
@@ -82,15 +83,15 @@ public class SlotMachineTextures extends Group {
 		batch.begin();
 		
 //		batch.draw(slots[0].sprite, 250, 300, 100, 100);
-		slots[0].sprite.setPosition(250, 300);
+		slots[0].sprite.setPosition(285, 250);
 		slots[0].sprite.setSize(100, 100);
 		slots[0].sprite.draw(batch);
 //		batch.draw(slots[1].sprite, 350, 300, 100, 100);
-		slots[1].sprite.setPosition(350, 300);
+		slots[1].sprite.setPosition(415, 250);
 		slots[1].sprite.setSize(100, 100);
 		slots[1].sprite.draw(batch);
 //		batch.draw(slots[2].sprite, 580, 300, 100, 100);
-		slots[2].sprite.setPosition(580, 300);
+		slots[2].sprite.setPosition(540, 250);
 		slots[2].sprite.setSize(100, 100);
 		slots[2].sprite.draw(batch);
 		
@@ -105,12 +106,12 @@ public class SlotMachineTextures extends Group {
 		if (peru) {
 //			game.setScreen(new SwampScreen(game));
 			slotMachineWindow.draw(batch);
-			slotMachineWindow.setPosition(300, 200);
+			slotMachineWindow.setPosition(Constants.VIEWPORT_WIDTH/3, Constants.VIEWPORT_GUI_HEIGHT/3);
 			slotMachineWindowYes.draw(batch);
-			slotMachineWindowYes.setPosition(300, 200);			
+			slotMachineWindowYes.setPosition(Constants.VIEWPORT_WIDTH/3, Constants.VIEWPORT_GUI_HEIGHT/3);			
 			yes.setPosition(new Vector2(slotMachineWindowYes.getX(), slotMachineWindowYes.getY()));
 			slotMachineWindowNo.draw(batch);
-			slotMachineWindowNo.setPosition(400, 200);
+			slotMachineWindowNo.setPosition(Constants.VIEWPORT_WIDTH/3+192, Constants.VIEWPORT_GUI_HEIGHT/3);
 			no.setPosition(new Vector2(slotMachineWindowNo.getX(), slotMachineWindowNo.getY()));
 			font.draw(batch, slots[selectedSlotNumber].description, slotMachineWindow.getBoundingRectangle().x+25, slotMachineWindow.getBoundingRectangle().y+100);
 			

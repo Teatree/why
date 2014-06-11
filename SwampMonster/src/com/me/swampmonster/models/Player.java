@@ -29,6 +29,7 @@ public class Player extends AbstractGameObject {
 	private static final int RADIOACTIVE_RADIUS = 57;
 	private static final float SPEED_BOOST_EFFECT = 1.1f;
 
+	public Sprite positiveEffectSprite;
 	int time = 0;
 	int timer3hurt = 0;
 	int timerPoisoned = 0;
@@ -50,8 +51,8 @@ public class Player extends AbstractGameObject {
 	public Vector3 V3playerPos;
 	public float oxygen;
 	public float maxOxygen;
-	public int positiveEffectCounter;
-	public int negativeEffectCounter;
+	public Integer positiveEffectCounter;
+	public Integer negativeEffectCounter;
 	private Random random;
 	public Rectangle fearRectangle;
 
@@ -71,6 +72,8 @@ public class Player extends AbstractGameObject {
 		state = State.STANDARD;
 		positiveEffectsState = PositiveEffects.NONE;
 		negativeEffectsState = NegativeEffects.NONE;
+		positiveEffectCounter = new Integer(0);
+		negativeEffectCounter = new Integer(0);
 		this.position = position;
 		movementSpeed = 0.5f;
 		random = new Random();
@@ -240,7 +243,7 @@ public class Player extends AbstractGameObject {
 	private void shooting(Vector3 V3point) {
 		if (shooting && timeShooting < 30) {
 			if (positiveEffectsState == PositiveEffects.FADE) {
-				positiveEffectsState = PositiveEffects.NONE;
+				setPositiveEffect(PositiveEffects.NONE);
 			}
 			currentFrame = animationsStandard.get(state).doComplexAnimation(32,
 					0.5f, 0.001f, Animation.NORMAL);
@@ -295,7 +298,7 @@ public class Player extends AbstractGameObject {
 
 	private void checkEffects(Vector3 touchPos) {
 		if (positiveEffectCounter <= 0) {
-			positiveEffectsState = PositiveEffects.NONE;
+			setPositiveEffect(PositiveEffects.NONE);
 			if (radioactiveAura != null) {
 				radioactiveAura.radius = 0;
 			}

@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.me.swampmonster.models.Player;
 import com.me.swampmonster.utils.AssetsMainManager;
 
-public class RADIOACTIVE extends Slot{
+public class RADIOACTIVE extends Slot implements PositiveEffectInterface{
 	public void execute(Player target) {
 		target.setPositiveEffect(PositiveEffects.RADIOACTIVE_AURA);
 	}
