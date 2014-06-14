@@ -4,15 +4,12 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.me.swampmonster.game.TheController;
 import com.me.swampmonster.models.Player;
 import com.me.swampmonster.slotMachineStuff.SlotMachineTextures;
 import com.me.swampmonster.utils.Constants;
-import com.me.swampmonster.utils.SlotsGenerator;
-import com.sun.xml.internal.bind.v2.runtime.unmarshaller.Intercepter;
 
 public class SlotMachineScreen extends AbstractGameScreen {
 	SpriteBatch batch;

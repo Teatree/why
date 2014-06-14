@@ -2,7 +2,6 @@ package com.me.swampmonster.slotMachineStuff;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -86,11 +85,9 @@ public class SlotMachineTextures extends Group {
 		slots[0].sprite.setPosition(285, 250);
 		slots[0].sprite.setSize(100, 100);
 		slots[0].sprite.draw(batch);
-//		batch.draw(slots[1].sprite, 350, 300, 100, 100);
 		slots[1].sprite.setPosition(415, 250);
 		slots[1].sprite.setSize(100, 100);
 		slots[1].sprite.draw(batch);
-//		batch.draw(slots[2].sprite, 580, 300, 100, 100);
 		slots[2].sprite.setPosition(540, 250);
 		slots[2].sprite.setSize(100, 100);
 		slots[2].sprite.draw(batch);
@@ -104,11 +101,10 @@ public class SlotMachineTextures extends Group {
 		font.draw(batch, "Score: " + p.points, 156, 338);
 		
 		if (peru) {
-//			game.setScreen(new SwampScreen(game));
 			slotMachineWindow.draw(batch);
 			slotMachineWindow.setPosition(Constants.VIEWPORT_WIDTH/3, Constants.VIEWPORT_GUI_HEIGHT/3);
 			slotMachineWindowYes.draw(batch);
-			slotMachineWindowYes.setPosition(Constants.VIEWPORT_WIDTH/3, Constants.VIEWPORT_GUI_HEIGHT/3);			
+			slotMachineWindowYes.setPosition(Constants.VIEWPORT_WIDTH/3 + 10, Constants.VIEWPORT_GUI_HEIGHT/3);			
 			yes.setPosition(new Vector2(slotMachineWindowYes.getX(), slotMachineWindowYes.getY()));
 			slotMachineWindowNo.draw(batch);
 			slotMachineWindowNo.setPosition(Constants.VIEWPORT_WIDTH/3+192, Constants.VIEWPORT_GUI_HEIGHT/3);
@@ -126,9 +122,9 @@ public class SlotMachineTextures extends Group {
 		if(smt!=null){
 			smt = new SlotMachineTextures(player);
 		}else{
-			smt.slots[0] =  slotsGen.getSlot(0, 3);
-			smt.slots[1] =  slotsGen.getSlot(0, 3);
-			smt.slots[2] =  slotsGen.getSlot(0, 3);
+			smt.slots[0] =  slotsGen.getSlot(0, 15);
+			smt.slots[1] =  slotsGen.getSlot(0, 15);
+			smt.slots[2] =  slotsGen.getSlot(0, 15);
 		}
 		return smt;
 	}
