@@ -109,7 +109,7 @@ public class TheController extends InputAdapter{
 		cameraHelper.upadate(V3playerPos.x, V3playerPos.y, 5);
 		
 		level1.update(gui.getCroshair().isAiming(), touchPos, V3point,
-				collisionLayer, level1.player.projectiles, cameraHelper, dx, dy);
+				collisionLayer, cameraHelper, dx, dy);
 		projectileCollisionDetection();
 
 		// I don't fucking know if thsi is better, I just spent 2 hours on this

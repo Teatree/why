@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.me.swampmonster.animations.AnimationControl;
 import com.me.swampmonster.models.Player;
 import com.me.swampmonster.models.Projectile;
+import com.me.swampmonster.models.Projectile.EffectCarriers;
 import com.me.swampmonster.utils.AssetsMainManager;
 import com.me.swampmonster.utils.CameraHelper;
 
@@ -48,7 +49,7 @@ public class EnemyLeech extends Enemy{
 					float direction_x = player.position.x - position.x;
 					float direction_y = player.position.y - position.y;
 					
-					Projectile p = new Projectile(new Vector2(100, 100), getRotation(player));
+					Projectile p = new Projectile(new Vector2(100, 100), getRotation(player), EffectCarriers.NONE);
 					p.setPosition(new Vector2(oRangeAura.x+direction_x/100-8, oRangeAura.y+direction_y/100-8));
 					
 					float length =(float) Math.sqrt(direction_x*direction_x + direction_y*direction_y);

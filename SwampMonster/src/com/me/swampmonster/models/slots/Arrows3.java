@@ -2,6 +2,7 @@ package com.me.swampmonster.models.slots;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.me.swampmonster.models.Player;
+import com.me.swampmonster.models.Projectile.EffectCarriers;
 import com.me.swampmonster.utils.AssetsMainManager;
 
 public class Arrows3 extends Slot{
@@ -12,6 +13,6 @@ public class Arrows3 extends Slot{
 	}
 	
 	public void execute(Player player){
-		// Not doing anything!
+//		player.arrowEffectCarrier = EffectCarriers.;	
 	}
 }

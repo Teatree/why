@@ -18,6 +18,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.me.swampmonster.animations.AnimationControl;
 import com.me.swampmonster.game.collision.Collidable;
 import com.me.swampmonster.game.collision.CollisionHelper;
+import com.me.swampmonster.models.Projectile.EffectCarriers;
 import com.me.swampmonster.models.enemies.Enemy;
 import com.me.swampmonster.models.slots.PositiveEffects;
 import com.me.swampmonster.models.slots.Trap;
@@ -69,6 +70,8 @@ public class Player extends AbstractGameObject {
 	public Trap trap;
 	public int trapTimer;
 
+	public EffectCarriers arrowEffectCarrier;
+	
 	public Player(Vector2 position) {
 		state = State.STANDARD;
 		positiveEffectsState = PositiveEffects.NONE;
@@ -91,10 +94,18 @@ public class Player extends AbstractGameObject {
 		projectiles = new LinkedList<Projectile>();
 		aimLineHead = new Vector3();
 
-		animationsStandard.put(State.STANDARD,
-						new AnimationControl(AssetsMainManager.manager.get(AssetsMainManager.nastyaSpriteStandard),8, 32, 7));
-		animationsStandard.put(State.ANIMATING,
-						new AnimationControl(AssetsMainManager.manager.get(AssetsMainManager.nastyaSpriteStandard),8, 32, 8));
+		arrowEffectCarrier = EffectCarriers.NONE;
+		
+		animationsStandard
+				.put(State.STANDARD,
+						new AnimationControl(AssetsMainManager.manager
+								.get(AssetsMainManager.nastyaSpriteStandard),
+								8, 32, 7));
+		animationsStandard
+				.put(State.ANIMATING,
+						new AnimationControl(AssetsMainManager.manager
+								.get(AssetsMainManager.nastyaSpriteStandard),
+								8, 32, 8));
 		animationsStandard
 				.put(State.ANIMATINGLARGE,
 						new AnimationControl(AssetsMainManager.manager
@@ -139,10 +150,8 @@ public class Player extends AbstractGameObject {
 		health = maxHealth;
 		maxOxygen = 96;
 		oxygen = maxOxygen;
-		for(Projectile p : projectiles){
-			p.damage = 1f;
-		}
-		
+		damage = 1f;
+
 		// :TODO IN ORDER TO CHANGE THIS, YOU GOT TO GET DOWN TO WHERE SHOOTIGN
 		// IS HAPPENING!
 		// shotCoolDown = 90;
@@ -211,9 +220,9 @@ public class Player extends AbstractGameObject {
 				}
 			}
 		}
-		
-		//TODO tried to fix when player stuck in shooting
-// 		if (!rectanlge.contains(V3point.x, V3point.y))
+
+		// TODO tried to fix when player stuck in shooting
+		// if (!rectanlge.contains(V3point.x, V3point.y))
 		shooting(V3point);
 
 		updateProjectiles(collisionLayer);
@@ -227,7 +236,7 @@ public class Player extends AbstractGameObject {
 		if (negativeEffectsState == NegativeEffects.POISONED) {
 			poisoning();
 		}
-		
+
 		updateTrap();
 	}
 
@@ -238,6 +247,9 @@ public class Player extends AbstractGameObject {
 			if (p != null && p.isCollision(collisionLayer)) {
 				prj.remove();
 				break;
+			}
+			if (p != null && p.state == State.DEAD) {
+				prj.remove();
 			}
 			if (p != null) {
 				p.update();
@@ -259,8 +271,9 @@ public class Player extends AbstractGameObject {
 
 		}
 		if (shooting && timeShooting < 2) {
-			shotDir.x = (position.x+sprite.getWidth()/2)*2 - V3point.x;
-			shotDir.y = (position.y+sprite.getHeight()/2)*2 - V3point.y;
+			shotDir.x = (position.x + sprite.getWidth() / 2) * 2 - V3point.x;
+			shotDir.y = (position.y + sprite.getHeight() / 2) * 2 - V3point.y;
+
 		}
 		if (shooting && timeShooting > 29) {
 			animationsStandard.get(state).setCurrentFrame(currentFrame);
@@ -276,10 +289,14 @@ public class Player extends AbstractGameObject {
 			// : TODO This look terrible, make it better bro...
 			Projectile p = new Projectile(new Vector2(aimingArea.x
 					+ direction_x / 100 - 8, aimingArea.y + direction_y / 100
-					- 8), getRotation());
+					- 8), getRotation(), arrowEffectCarrier);
 
 			p.setPosition(new Vector2(aimingArea.x + direction_x / 100 - 8,
 					aimingArea.y + direction_y / 100 - 8));
+
+			p.force = (float) Math.sqrt(Math.pow((V3point.x - position.x), 2)
+					+ Math.pow((V3point.y - position.y), 2)) / 50;
+			System.out.println(p.force);
 
 			float length = (float) Math.sqrt(direction_x * direction_x
 					+ direction_y * direction_y);
@@ -289,6 +306,7 @@ public class Player extends AbstractGameObject {
 			p.setDirection(direction_x, direction_y);
 
 			projectiles.add(p);
+			arrowEffectCarrier = EffectCarriers.NONE;
 		}
 	}
 
@@ -351,9 +369,11 @@ public class Player extends AbstractGameObject {
 		if (aiming) {
 			touchPos.x = position.x + 9;
 			touchPos.y = position.y + 4;
-			aimLineHead.x = (position.x+sprite.getWidth()/2)*2 - V3point.x;
-			aimLineHead.y = (position.y+sprite.getHeight()/2)*2 - V3point.y;
-			
+			aimLineHead.x = (position.x + sprite.getWidth() / 2) * 2
+					- V3point.x;
+			aimLineHead.y = (position.y + sprite.getHeight() / 2) * 2
+					- V3point.y;
+
 		}
 		if (aiming && V3point.y > position.y + 8 && V3point.x < position.x + 32
 				&& V3point.x > position.x) {
@@ -726,22 +746,22 @@ public class Player extends AbstractGameObject {
 			if (timer3hurt < 50) {
 				timer3hurt++;
 				if (timer3hurt == 25) {
-//					sprite.setColor(sprite.getColor().r,
-//							sprite.getColor().g - 1, sprite.getColor().b - 1,
-//							sprite.getColor().a);
+					// sprite.setColor(sprite.getColor().r,
+					// sprite.getColor().g - 1, sprite.getColor().b - 1,
+					// sprite.getColor().a);
 					sprite.setColor(Color.RED);
 				}
 				if (timer3hurt == 45) {
-					if (negativeEffectsState == NegativeEffects.FROZEN){
+					if (negativeEffectsState == NegativeEffects.FROZEN) {
 						this.sprite.setColor(4 / 255f, 180 / 255f, 1f, 1f);
-					} else if (negativeEffectsState == NegativeEffects.POISONED){
+					} else if (negativeEffectsState == NegativeEffects.POISONED) {
 						sprite.setColor(Color.GREEN);
 					} else {
-						sprite.setColor(1,1,1,1);
+						sprite.setColor(1, 1, 1, 1);
 					}
-//					sprite.setColor(sprite.getColor().r,
-//							sprite.getColor().g + 1, sprite.getColor().b + 1,
-//							sprite.getColor().a);
+					// sprite.setColor(sprite.getColor().r,
+					// sprite.getColor().g + 1, sprite.getColor().b + 1,
+					// sprite.getColor().a);
 				}
 			}
 			if (timer3hurt == 50) {
@@ -785,14 +805,15 @@ public class Player extends AbstractGameObject {
 		}
 		if (timerPoisoned < 50) {
 			timerPoisoned++;
-			
-//			if (health > 1) {
-//				hurt();
-//			}
+
+			// if (health > 1) {
+			// hurt();
+			// }
 		}
 		if (timerPoisoned == 50) {
 			timerPoisoned = 0;
-			if (health > 1) health--;
+			if (health > 1)
+				health--;
 		}
 	}
 
