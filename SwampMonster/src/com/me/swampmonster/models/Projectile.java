@@ -20,6 +20,7 @@ public class Projectile extends AbstractGameObject{
 		sprite.setRotation(rot*57.29f);
 		circle = new Circle();
 		circle.radius = 8;
+		damage = 1f;
 		
 		movementSpeed = 1.8f;
 		

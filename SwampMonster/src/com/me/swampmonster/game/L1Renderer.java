@@ -263,6 +263,9 @@ public class L1Renderer {
 		if(theController.level1.player.state == State.GUNMOVEMENT){
 			sr.line(theController.V3playerPos, theController.level1.player.shotDir);
 		}
+		if(theController.gui.getCroshair().isAiming()){
+			sr.line(theController.V3playerPos, theController.level1.player.aimLineHead);
+		}
 		sr.circle(theController.level1.player.circle.x, theController.level1.player.circle.y, theController.level1.player.circle.radius);
 		sr.setColor(Color.YELLOW);
 		sr.circle(theController.level1.player.aimingArea.x, theController.level1.player.aimingArea.y, theController.level1.player.aimingArea.radius);

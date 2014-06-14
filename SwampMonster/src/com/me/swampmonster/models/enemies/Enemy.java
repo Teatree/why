@@ -107,8 +107,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 		movementSpeed = 0.3f;
 	}
 
-	public void update(TiledMapTileLayer collisionLayer,
-			List<Projectile> projectiles, Player player,
+	public void update(TiledMapTileLayer collisionLayer, Player player,
 			CameraHelper cameraHelper, List<Enemy> enemies) {
 		
 		iAmWaiting = souldIWait(enemies);
@@ -154,8 +153,8 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 			enemyHurt(player);
 		}
 		
-		if (projectiles != null)
-		for (Projectile projectile : projectiles) {
+		if (player.projectiles != null)
+		for (Projectile projectile : player.projectiles) {
 			if (projectile != null  
 					&& Intersector.overlaps(projectile.circle, rectanlge)
 					&& !hurt) {
@@ -317,8 +316,8 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 			}
 		}
 		if (hurt) {
-			if (projectiles != null) {
-				getProjectileLocationRelativeToSprite(projectiles);
+			if (player.projectiles != null) {
+				getProjectileLocationRelativeToSprite(player.projectiles);
 			}
 			if (time < 40) {
 				time++;

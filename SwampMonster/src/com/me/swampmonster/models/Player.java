@@ -49,6 +49,7 @@ public class Player extends AbstractGameObject {
 	public List<Projectile> projectiles;
 	public Vector3 shotDir;
 	public Vector3 V3playerPos;
+	public Vector3 aimLineHead;
 	public float oxygen;
 	public float maxOxygen;
 	public Integer positiveEffectCounter;
@@ -88,6 +89,7 @@ public class Player extends AbstractGameObject {
 		V3playerPos = new Vector3();
 		rectanlge = new Rectangle();
 		projectiles = new LinkedList<Projectile>();
+		aimLineHead = new Vector3();
 
 		animationsStandard.put(State.STANDARD,
 						new AnimationControl(AssetsMainManager.manager.get(AssetsMainManager.nastyaSpriteStandard),8, 32, 7));
@@ -137,7 +139,10 @@ public class Player extends AbstractGameObject {
 		health = maxHealth;
 		maxOxygen = 96;
 		oxygen = maxOxygen;
-		damage = 1;
+		for(Projectile p : projectiles){
+			p.damage = 1f;
+		}
+		
 		// :TODO IN ORDER TO CHANGE THIS, YOU GOT TO GET DOWN TO WHERE SHOOTIGN
 		// IS HAPPENING!
 		// shotCoolDown = 90;
@@ -254,8 +259,8 @@ public class Player extends AbstractGameObject {
 
 		}
 		if (shooting && timeShooting < 2) {
-			shotDir.x = V3point.x;
-			shotDir.y = V3point.y;
+			shotDir.x = (position.x+sprite.getWidth()/2)*2 - V3point.x;
+			shotDir.y = (position.y+sprite.getHeight()/2)*2 - V3point.y;
 		}
 		if (shooting && timeShooting > 29) {
 			animationsStandard.get(state).setCurrentFrame(currentFrame);
@@ -269,7 +274,9 @@ public class Player extends AbstractGameObject {
 			float direction_y = shotDir.y - V3playerPos.y;
 
 			// : TODO This look terrible, make it better bro...
-			Projectile p = new Projectile(new Vector2(aimingArea.x + direction_x/100 - 8, aimingArea.y + direction_y/100 - 8), getRotation());
+			Projectile p = new Projectile(new Vector2(aimingArea.x
+					+ direction_x / 100 - 8, aimingArea.y + direction_y / 100
+					- 8), getRotation());
 
 			p.setPosition(new Vector2(aimingArea.x + direction_x / 100 - 8,
 					aimingArea.y + direction_y / 100 - 8));
@@ -344,6 +351,9 @@ public class Player extends AbstractGameObject {
 		if (aiming) {
 			touchPos.x = position.x + 9;
 			touchPos.y = position.y + 4;
+			aimLineHead.x = (position.x+sprite.getWidth()/2)*2 - V3point.x;
+			aimLineHead.y = (position.y+sprite.getHeight()/2)*2 - V3point.y;
+			
 		}
 		if (aiming && V3point.y > position.y + 8 && V3point.x < position.x + 32
 				&& V3point.x > position.x) {
