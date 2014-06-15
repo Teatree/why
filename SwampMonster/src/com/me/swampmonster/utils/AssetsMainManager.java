@@ -22,6 +22,10 @@ public class AssetsMainManager {
 	public static final AssetDescriptor<Texture> HealthBarTail = new AssetDescriptor<Texture>("data\\HealthBarTail.png", Texture.class);
 	public static final AssetDescriptor<Texture> HealthBarMiddle = new AssetDescriptor<Texture>("data\\HealthBarMiddle.png", Texture.class);
 	public static final AssetDescriptor<Texture> HealthBarHead = new AssetDescriptor<Texture>("data\\HealthBarHead.png", Texture.class);
+	public static final AssetDescriptor<Texture> OxygenBarIcon = new AssetDescriptor<Texture>("data\\OxygenBarIcon.png", Texture.class);
+	public static final AssetDescriptor<Texture> OxygenBarTail = new AssetDescriptor<Texture>("data\\OxygenBarTail.png", Texture.class);
+	public static final AssetDescriptor<Texture> OxygenBarMiddle = new AssetDescriptor<Texture>("data\\OxygenBarMiddle.png", Texture.class);
+	public static final AssetDescriptor<Texture> OxygenBarHead = new AssetDescriptor<Texture>("data\\OxygenBarHead.png", Texture.class);
 	public static final AssetDescriptor<Texture> arrow = new AssetDescriptor<Texture>("data\\arrrrow.png", Texture.class);
 	public static final AssetDescriptor<Texture> arrowPoisoned = new AssetDescriptor<Texture>("data\\arrrrowPoisoned.png", Texture.class);
 	public static final AssetDescriptor<Texture> arrowExplosive = new AssetDescriptor<Texture>("data\\arrrrowExplosive.png", Texture.class);
@@ -73,6 +77,10 @@ public class AssetsMainManager {
 		manager.load(HealthBarTail);
 		manager.load(HealthBarMiddle);
 		manager.load(HealthBarHead);
+		manager.load(OxygenBarIcon);
+		manager.load(OxygenBarTail);
+		manager.load(OxygenBarMiddle);
+		manager.load(OxygenBarHead);
 		manager.load(items);
 		manager.load(weaponizerButton);
 		manager.load(tiles);

@@ -15,9 +15,6 @@ import com.me.swampmonster.game.collision.CollisionHelper;
 import com.me.swampmonster.models.AbstractGameObject.NegativeEffects;
 import com.me.swampmonster.models.AbstractGameObject.State;
 import com.me.swampmonster.models.L1;
-import com.me.swampmonster.models.Player;
-import com.me.swampmonster.models.slots.DamageTrap;
-import com.me.swampmonster.models.slots.FrostTrap;
 import com.me.swampmonster.models.slots.PositiveEffectInterface;
 import com.me.swampmonster.models.slots.PositiveEffects;
 import com.me.swampmonster.models.Projectile;
@@ -25,7 +22,6 @@ import com.me.swampmonster.models.enemies.Enemy;
 import com.me.swampmonster.models.slots.Slot;
 import com.me.swampmonster.screens.SlotMachineScreen;
 import com.me.swampmonster.utils.CameraHelper;
-import com.me.swampmonster.utils.SlotsGenerator;
 
 public class TheController extends InputAdapter{
 	public CameraHelper cameraHelper;  

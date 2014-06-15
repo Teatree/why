@@ -2,7 +2,6 @@ package com.me.swampmonster.GUI;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
-import com.me.swampmonster.models.AbstractGameObject;
 import com.me.swampmonster.models.Player;
 
 
@@ -16,7 +15,7 @@ public class GUI {
 	
 	public GUI(Player player){
 		gameoverGUI = new GameOverGUI();
-		oxygenBar = new OxygenBar();
+		oxygenBar = new OxygenBar(player);
 		healthBar = new HealthBar(player);
 		weaponizer = new Weaponizer();
 		croshair = new Croshair(new Vector2());

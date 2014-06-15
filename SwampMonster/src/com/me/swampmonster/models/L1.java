@@ -136,7 +136,11 @@ public class L1 {
 					player.health++;
 					itm.remove();
 				}else if(item.itemType == "O2" && player.oxygen < player.maxOxygen){
-					player.oxygen = player.oxygen+50;
+					if(player.oxygen+50 < player.maxOxygen){
+						player.oxygen = player.oxygen+50;
+					}else{
+						player.oxygen = player.maxOxygen;
+					}
 					itm.remove();
 				}
 			}

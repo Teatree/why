@@ -11,8 +11,10 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Group;
+import com.me.swampmonster.models.AbstractGameObject.NegativeEffects;
 import com.me.swampmonster.models.AbstractGameObject.State;
 import com.me.swampmonster.models.slots.Perks;
+import com.me.swampmonster.models.slots.PositiveEffects;
 import com.me.swampmonster.utils.AssetsMainManager;
 import com.me.swampmonster.utils.Constants;
 
@@ -72,7 +74,7 @@ public class GShape extends Group {
 				theController.level1.player.hurt = true;
 				sr.setColor(new Color(200, 0, 0, ass));
 				if (theController.gui.getHealthBar().getHealthBarRect()[j] != null) {
-					sr.rect(theController.gui.getHealthBar().getHealthBarRect()[j].x + 16,
+					sr.rect(theController.gui.getHealthBar().getHealthBarRect()[j].x,
 							theController.gui.getHealthBar().getHealthBarRect()[j].y,
 							theController.gui.getHealthBar().getHealthBarRect()[j].width,
 							theController.gui.getHealthBar().getHealthBarRect()[j].height);
@@ -90,18 +92,18 @@ public class GShape extends Group {
 			if (theController.level1.player.oxygen <= 0 && timer >= 10) {
 				// System.out.println(timer);
 				sr.setColor(new Color(0, 200, 20, 0.5f));
-				sr.rect(30, 422, 96, 22);
+				sr.rect(16, 422, 96, 22);
 			}
 			if (theController.level1.player.maskOn) {
 				if (theController.level1.player.oxygen > 0) {
-					sr.rect(30, 422, theController.level1.player.oxygen,
+					sr.rect(16, 422, theController.level1.player.oxygen,
 							22);
 				}
 			}
 			sr.setColor(Color.BLUE);
 			if (theController.level1.player.maskOn
 					&& theController.level1.player.oxygen == 0) {
-				sr.rect(30, 422, 96, 22);
+				sr.rect(16, 422, 96, 22);
 			}
 			if (theController.level1.player.state != State.DEAD) {
 				if (theController.gui.getWeaponizer().isOn() == false) {
@@ -192,13 +194,15 @@ public class GShape extends Group {
 		}
 		batch.begin();
 		for (Sprite s: theController.gui.getHealthBar().sprites){
-			batch.draw(s, s.getX(), s.getY());
+			batch.draw(s, s.getX(), s.getY(), s.getWidth(), s.getHeight()+6);
+		}
+		for (Sprite s: theController.gui.getOxygenBar().sprites){
+			batch.draw(s, s.getX(), s.getY(), s.getWidth(), s.getHeight()+6);
 		}
 		batch.draw(theController.gui.getWeaponizer().sprite, 0, 0);
-		batch.draw(theController.gui.getOxygenBar().sprite, theController.gui.getOxygenBar().getPosition().x, theController.gui.getOxygenBar().getPosition().y);
 		
 		if (theController.level1.player.positiveEffectsState != null
-				&& theController.level1.player.positiveEffectsState != theController.level1.player.positiveEffectsState.NONE) {
+				&& theController.level1.player.positiveEffectsState != PositiveEffects.NONE) {
 			batch.draw(theController.level1.player.positiveEffectSprite,
 					Constants.VIEWPORT_WIDTH - 64,
 					Constants.VIEWPORT_HEIGHT - 100, 64, 64);
@@ -207,7 +211,7 @@ public class GShape extends Group {
 					Constants.VIEWPORT_HEIGHT - 110);
 		}
 		if (theController.level1.player.negativeEffectsState != null
-				&& theController.level1.player.negativeEffectsState != theController.level1.player.negativeEffectsState.NONE) {
+				&& theController.level1.player.negativeEffectsState != NegativeEffects.NONE) {
 			batch.draw(theController.level1.player.negativeEffectsState.sprite,
 					Constants.VIEWPORT_WIDTH - 64,
 					Constants.VIEWPORT_HEIGHT - 174, 64, 64);
@@ -215,9 +219,9 @@ public class GShape extends Group {
 					.toString(), Constants.VIEWPORT_WIDTH - 64,
 					Constants.VIEWPORT_HEIGHT - 184);
 		}
-		if (theController.skill != null && !(theController.skill instanceof Perks)) {
+		if (TheController.skill != null && !(TheController.skill instanceof Perks)) {
 			batch.draw(
-					theController.skill.sprite,
+					TheController.skill.sprite,
 					theController.gui.getWeaponizer().sprite.getX()
 							+ theController.gui.getWeaponizer().sprite
 									.getWidth() / 4,

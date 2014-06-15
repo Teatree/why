@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.me.swampmonster.models.AbstractGameObject;
@@ -42,11 +41,12 @@ public class HealthBar extends AbstractGameObject{
 			r[cunter] = new Rectangle();
 			r[cunter].setHeight(22);
 			r[cunter].setWidth(16);
-			r[cunter].x = 30+cunter*r[cunter].getWidth();
+			r[cunter].x = 16+cunter*r[cunter].getWidth();
 			r[cunter].y = HealthBarYPosition;
 			cunter++;
 		}
 	}
+	
 	private void setCasingPos(int maxHP){
 		int cunter = 0;
 		spriteIcon.setPosition(0, HealthBarYPosition);
