@@ -146,7 +146,7 @@ public class Player extends AbstractGameObject {
 
 	public void characterStatsBoard() {
 		// HEALTH, DAMAGE, OXYGEN, TYPE, TOUGHGUY, COLORSCHEME, ETC.
-		maxHealth = 6;
+		maxHealth = 16;
 		health = maxHealth;
 		maxOxygen = 96;
 		oxygen = maxOxygen;

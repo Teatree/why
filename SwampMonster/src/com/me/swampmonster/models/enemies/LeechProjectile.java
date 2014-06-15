@@ -1,5 +1,8 @@
 package com.me.swampmonster.models.enemies;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector2;
@@ -30,13 +33,4 @@ public class LeechProjectile extends Projectile{
 		position.x += direction_x*movementSpeed;
 		position.y += direction_y*movementSpeed;
 	}
-	
-//	public boolean isCollision(TiledMapTileLayer collisionLayer){
-//		return CollisionHelper.isCollidable(position.x+sprite.getWidth()/2, position.y+sprite.getHeight()/2, collisionLayer) != null;
-//	}
-//	
-//	public void setDirection(float direction_x, float direction_y){
-//		this.direction_x = direction_x;
-//		this.direction_y = direction_y;
-//	}
 }

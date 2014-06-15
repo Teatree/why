@@ -1,6 +1,7 @@
 package com.me.swampmonster.models.enemies;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
@@ -51,6 +52,10 @@ public class EnemyLeech extends Enemy{
 					
 					Projectile p = new LeechProjectile(new Vector2(100, 100), getRotation(player));
 					p.setPosition(new Vector2(oRangeAura.x+direction_x/100-8, oRangeAura.y+direction_y/100-8));
+					if(toughness != null){
+						System.out.println("Yes we are tough!");
+//						p.sprite.setColor(this.toughness.red, this.toughness.green, this.toughness.blue, this.toughness.alpha);
+					}
 					
 					float length =(float) Math.sqrt(direction_x*direction_x + direction_y*direction_y);
 					direction_x /= length;

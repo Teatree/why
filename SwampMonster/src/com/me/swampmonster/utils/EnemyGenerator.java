@@ -75,6 +75,7 @@ public class EnemyGenerator {
 			enemy.health += toughtness.health;
 			enemy.attackSpeed += toughtness.attackSpeed;
 			enemy.setColour(toughtness.red, toughtness.green, toughtness.blue, toughtness.alpha);
+			
 		}
 	}
 

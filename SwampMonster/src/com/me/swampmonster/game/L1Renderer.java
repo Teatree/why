@@ -48,19 +48,11 @@ public class L1Renderer {
 		sr = new ShapeRenderer();
 		mapRenderer = new OrthogonalTiledMapRenderer(theController.level1.bunker.getMap());
 		
-//		Image healthBarImage = new Image(theController.gui.getHealthBar().getSprite()); 
-//		healthBarImage.setPosition(theController.gui.getHealthBar().getPosition().x, theController.gui.getHealthBar().getPosition().y);
-//		Image weaponizerImage = new Image(theController.gui.getWeaponizer().getSprite()); 
-//		Image oxygenBarImage = new Image(theController.gui.getOxygenBar().getSprite());
-//		oxygenBarImage.setPosition(theController.gui.getOxygenBar().getPosition().x, theController.gui.getOxygenBar().getPosition().y);
 		
 		gshape = new GShape(theController);
 		
 		stage.addActor(gshape);
 		
-//		stage.addActor(healthBarImage);
-//		stage.addActor(weaponizerImage);
-//		stage.addActor(oxygenBarImage);
 		
 		timer = 60;
 		
@@ -88,6 +80,8 @@ public class L1Renderer {
 		mapRenderer.setView(cam);
 		mapRenderer.render(background);
 		
+		Gdx.gl.glEnable(GL20.GL_BLEND);
+		Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
 		batch.begin();
 		if(Gdx.input.isTouched() && theController.level1.player.state == State.GUNMOVEMENT && theController.gui.getCroshair().isAiming()){
 			batch.draw(theController.gui.getCroshair().getSprite(), theController.getV3point().x-16, theController.getV3point().y-16, 
@@ -95,11 +89,7 @@ public class L1Renderer {
 					theController.gui.getCroshair().getSprite().getHeight());
 		}
 		// temporary drawing of a projectile
-		batch.end();
 		
-		Gdx.gl.glEnable(GL20.GL_BLEND);
-		Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
-		batch.begin();
 		for (Enemy enemy : theController.level1.enemiesOnStage) {
 			if (enemy.hurt) {
 				if (enemy.toughness == null) {
@@ -214,6 +204,7 @@ public class L1Renderer {
 		for(Enemy enemy : theController.level1.enemiesOnStage){
 			for(Projectile p : enemy.enemyProjectiles){
 				if(p != null){
+					p.sprite.setColor(Color.GREEN);
 					batch.draw(p.getSprite(), p.getPosition().x, p.getPosition().y, 
 							p.getSprite().getOriginX(), p.getSprite().getOriginY(),
 							p.getSprite().getWidth(), p.getSprite().getHeight(), 

@@ -15,6 +15,7 @@ import com.me.swampmonster.game.collision.CollisionHelper;
 import com.me.swampmonster.models.AbstractGameObject.NegativeEffects;
 import com.me.swampmonster.models.AbstractGameObject.State;
 import com.me.swampmonster.models.L1;
+import com.me.swampmonster.models.Player;
 import com.me.swampmonster.models.slots.DamageTrap;
 import com.me.swampmonster.models.slots.FrostTrap;
 import com.me.swampmonster.models.slots.PositiveEffectInterface;
@@ -71,7 +72,7 @@ public class TheController extends InputAdapter{
 		level1.player.setPosition(new Vector2 (756f,659f));		
 		collisionHandler = new CollisionHelper();
 		collisionLayer = (TiledMapTileLayer) level1.bunker.getMap().getLayers().get(0);
-		gui = new GUI();
+		gui = new GUI(level1.player);
 		gui.getCroshair().setPosition(new Vector2 (330f,100f));
 		
 		touchPos = new Vector3(level1.player.getPosition().x+10, level1.player.getPosition().y, 0);

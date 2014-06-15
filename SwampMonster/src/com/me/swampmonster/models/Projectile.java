@@ -36,10 +36,10 @@ public class Projectile extends AbstractGameObject{
 		
 		this.position = position;
 		sprite = new Sprite(effect.sprite);
-		sprite.setSize(25, 25);
+		sprite.setSize(32, 32);
 		sprite.setRotation(rot*57.29f);
 		circle = new Circle();
-		circle.radius = 8;
+		circle.radius = 6;
 		damage = 1f;
 		this.effect = effect;
 		
@@ -56,11 +56,9 @@ public class Projectile extends AbstractGameObject{
 	// git is great !
 	
 	public void update(){
-		circle.x = position.x+8;
-		circle.y = position.y+8;
 		if(state == State.STANDARD) {
-				position.x += direction_x * g/3;
-				position.y += direction_y * g/3;
+				position.x += direction_x * force/(g/30);
+				position.y += direction_y * force/(g/30);
 			if(force > 0){
 				force -= resistance;
 			}else{
@@ -68,6 +66,8 @@ public class Projectile extends AbstractGameObject{
 				state = State.DEAD;
 			}
 		}
+		circle.x = position.x+sprite.getWidth()/2;
+		circle.y = position.y+sprite.getHeight()/2;
 	}
 	
 	public boolean isCollision(TiledMapTileLayer collisionLayer){

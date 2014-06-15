@@ -11,12 +11,17 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 public class AssetsMainManager {
 
 	public static final AssetManager manager = new AssetManager();
+	
 	public static final AssetDescriptor<Texture> nastyaSpriteStandard = new AssetDescriptor<Texture>("data\\NastyaOxygenSheet.png", Texture.class);
 	public static final AssetDescriptor<Texture> nastyaSpriteGun = new AssetDescriptor<Texture>("data\\NastyaGunSheet.png", Texture.class);
 	public static final AssetDescriptor<Texture> enemyLeech = new AssetDescriptor<Texture>("data\\EnemyLeech.png", Texture.class);
 	public static final AssetDescriptor<Texture> enemyZombie = new AssetDescriptor<Texture>("data\\EnemyZombie.png", Texture.class);
 	public static final AssetDescriptor<Texture> enemyMaggot = new AssetDescriptor<Texture>("data\\EnemyMaggot.png", Texture.class);
 	public static final AssetDescriptor<Texture> enemy = new AssetDescriptor<Texture>("data\\Skelenten.png", Texture.class);
+	public static final AssetDescriptor<Texture> HealthBarIcon = new AssetDescriptor<Texture>("data\\HealthBarIcon.png", Texture.class);
+	public static final AssetDescriptor<Texture> HealthBarTail = new AssetDescriptor<Texture>("data\\HealthBarTail.png", Texture.class);
+	public static final AssetDescriptor<Texture> HealthBarMiddle = new AssetDescriptor<Texture>("data\\HealthBarMiddle.png", Texture.class);
+	public static final AssetDescriptor<Texture> HealthBarHead = new AssetDescriptor<Texture>("data\\HealthBarHead.png", Texture.class);
 	public static final AssetDescriptor<Texture> arrow = new AssetDescriptor<Texture>("data\\arrrrow.png", Texture.class);
 	public static final AssetDescriptor<Texture> arrowPoisoned = new AssetDescriptor<Texture>("data\\arrrrowPoisoned.png", Texture.class);
 	public static final AssetDescriptor<Texture> arrowExplosive = new AssetDescriptor<Texture>("data\\arrrrowExplosive.png", Texture.class);
@@ -64,6 +69,10 @@ public class AssetsMainManager {
 		manager.load(enemyZombie);
 		manager.load(enemyMaggot);
 		manager.load(arrow);
+		manager.load(HealthBarIcon);
+		manager.load(HealthBarTail);
+		manager.load(HealthBarMiddle);
+		manager.load(HealthBarHead);
 		manager.load(items);
 		manager.load(weaponizerButton);
 		manager.load(tiles);

@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
@@ -190,7 +191,9 @@ public class GShape extends Group {
 			sr.end();
 		}
 		batch.begin();
-		batch.draw(theController.gui.getHealthBar().sprite, theController.gui.getHealthBar().getPosition().x, theController.gui.getHealthBar().getPosition().y);
+		for (Sprite s: theController.gui.getHealthBar().sprites){
+			batch.draw(s, s.getX(), s.getY());
+		}
 		batch.draw(theController.gui.getWeaponizer().sprite, 0, 0);
 		batch.draw(theController.gui.getOxygenBar().sprite, theController.gui.getOxygenBar().getPosition().x, theController.gui.getOxygenBar().getPosition().y);
 		
