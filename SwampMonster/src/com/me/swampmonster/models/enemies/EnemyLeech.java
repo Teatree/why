@@ -49,7 +49,7 @@ public class EnemyLeech extends Enemy{
 					float direction_x = player.position.x - position.x;
 					float direction_y = player.position.y - position.y;
 					
-					Projectile p = new Projectile(new Vector2(100, 100), getRotation(player), EffectCarriers.NONE);
+					Projectile p = new LeechProjectile(new Vector2(100, 100), getRotation(player));
 					p.setPosition(new Vector2(oRangeAura.x+direction_x/100-8, oRangeAura.y+direction_y/100-8));
 					
 					float length =(float) Math.sqrt(direction_x*direction_x + direction_y*direction_y);

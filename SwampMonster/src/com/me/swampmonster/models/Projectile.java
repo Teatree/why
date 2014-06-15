@@ -9,36 +9,39 @@ import com.me.swampmonster.utils.AssetsMainManager;
 
 public class Projectile extends AbstractGameObject{
 	
+	public static float resistance;
+	public static float g = 9.8f;
 	public float direction_x;
 	public float direction_y;
-	private String projectileTypeLoc;
 	public float force;
-	public static float resistance;
+	public float damage;
+	public EffectCarriers effect;
+	public int forceCounter;
+	
 	
 	public enum EffectCarriers{
-		POISONED(new Sprite(AssetsMainManager.manager.get(AssetsMainManager.POISONED_ARROW_ICON))),
+		POISONED(new Sprite(AssetsMainManager.manager.get(AssetsMainManager.arrowPoisoned))),
 		SHADOW(new Sprite(AssetsMainManager.manager.get(AssetsMainManager.SHADOW_ARROW_ICON))),
-		EXPLOSIVE(new Sprite(AssetsMainManager.manager.get(AssetsMainManager.EXPLOSIVE_ARROW_ICON))),
-		NONE(new Sprite(AssetsMainManager.manager.get(AssetsMainManager.projectile)));
+		EXPLOSIVE(new Sprite(AssetsMainManager.manager.get(AssetsMainManager.arrowExplosive))),
+		NONE(new Sprite(AssetsMainManager.manager.get(AssetsMainManager.arrow)));
 
 		Sprite sprite;
 		
 		EffectCarriers(Sprite sprite){
 			this.sprite = sprite;
-			
 		}
-	}
-	
-	
+	}	
 	
 	public Projectile(Vector2 position, float rot, EffectCarriers effect){
 		
 		this.position = position;
 		sprite = new Sprite(effect.sprite);
+		sprite.setSize(25, 25);
 		sprite.setRotation(rot*57.29f);
 		circle = new Circle();
 		circle.radius = 8;
 		damage = 1f;
+		this.effect = effect;
 		
 		state = State.STANDARD;
 		
@@ -48,18 +51,16 @@ public class Projectile extends AbstractGameObject{
 		direction_y = 0;
 		
 		force = 1.8f;
-		resistance = 0.02f;
+		resistance = 0.07f;
 	}
 	// git is great !
 	
 	public void update(){
 		circle.x = position.x+8;
 		circle.y = position.y+8;
-		
-		if(state == State.STANDARD){
-			position.x += direction_x*force;
-			position.y += direction_y*force;
-			
+		if(state == State.STANDARD) {
+				position.x += direction_x * g/3;
+				position.y += direction_y * g/3;
 			if(force > 0){
 				force -= resistance;
 			}else{
@@ -70,7 +71,8 @@ public class Projectile extends AbstractGameObject{
 	}
 	
 	public boolean isCollision(TiledMapTileLayer collisionLayer){
-		return CollisionHelper.isCollidable(position.x+sprite.getWidth()/2, position.y+sprite.getHeight()/2, collisionLayer) != null;
+		return CollisionHelper.isCollidable(position.x+sprite.getWidth()/2, 
+				position.y+sprite.getHeight()/2, collisionLayer) != null;
 	}
 	
 	public void setDirection(float direction_x, float direction_y){
@@ -78,4 +80,7 @@ public class Projectile extends AbstractGameObject{
 		this.direction_y = direction_y;
 	}
 
+	public Projectile() {
+		
+	}
 }

@@ -17,7 +17,9 @@ public class AssetsMainManager {
 	public static final AssetDescriptor<Texture> enemyZombie = new AssetDescriptor<Texture>("data\\EnemyZombie.png", Texture.class);
 	public static final AssetDescriptor<Texture> enemyMaggot = new AssetDescriptor<Texture>("data\\EnemyMaggot.png", Texture.class);
 	public static final AssetDescriptor<Texture> enemy = new AssetDescriptor<Texture>("data\\Skelenten.png", Texture.class);
-	public static final AssetDescriptor<Texture> projectile = new AssetDescriptor<Texture>("data\\arrrrow.png", Texture.class);
+	public static final AssetDescriptor<Texture> arrow = new AssetDescriptor<Texture>("data\\arrrrow.png", Texture.class);
+	public static final AssetDescriptor<Texture> arrowPoisoned = new AssetDescriptor<Texture>("data\\arrrrowPoisoned.png", Texture.class);
+	public static final AssetDescriptor<Texture> arrowExplosive = new AssetDescriptor<Texture>("data\\arrrrowExplosive.png", Texture.class);
 	public static final AssetDescriptor<Texture> items = new AssetDescriptor<Texture>("data\\Items.png", Texture.class);
 	public static final AssetDescriptor<Texture> weaponizerButton = new AssetDescriptor<Texture>("data\\Weaponizer.png", Texture.class);
 	public static final AssetDescriptor<Texture> tiles = new AssetDescriptor<Texture>("data\\Tiles.png", Texture.class);
@@ -32,7 +34,8 @@ public class AssetsMainManager {
 	public static final AssetDescriptor<Texture> SHADOW_ARROW_ICON = new AssetDescriptor<Texture>("data\\slotIcons\\SHADOW_ARROW_ICON.png", Texture.class);
 	public static final AssetDescriptor<Texture> POISONED_ARROW_ICON = new AssetDescriptor<Texture>("data\\slotIcons\\poisonedArrow.png", Texture.class);
 	public static final AssetDescriptor<Texture> DAMAGE_TRAP_ICON = new AssetDescriptor<Texture>("data\\slotIcons\\DAMAGE_TRAP_ICON.png", Texture.class);
-	public static final AssetDescriptor<Texture> EXPLOSIVE_TRAP_ICON = new AssetDescriptor<Texture>("data\\slotIcons\\explosive_icon.png", Texture.class);
+	public static final AssetDescriptor<Texture> slotBackGround = new AssetDescriptor<Texture>("data\\slotIcons\\slotBackGround.png", Texture.class);
+	public static final AssetDescriptor<Texture> EXPLOSIVE_TRAP_ICON = new AssetDescriptor<Texture>("data\\slotIcons\\explosive_icon2.png", Texture.class);
 	public static final AssetDescriptor<Texture> POISONED_TRAP_ICON = new AssetDescriptor<Texture>("data\\slotIcons\\poison.png", Texture.class);
 	public static final AssetDescriptor<Texture> FROST_TRAP_ICON = new AssetDescriptor<Texture>("data\\slotIcons\\Frozen.png", Texture.class);
 	public static final AssetDescriptor<Texture> IMPROVEMAXHEALTH_ICON = new AssetDescriptor<Texture>("data\\slotIcons\\IMPROVEMAXHEALTH_ICON.png", Texture.class);
@@ -49,6 +52,7 @@ public class AssetsMainManager {
 	public static final AssetDescriptor<Texture> slotMachineWindow = new AssetDescriptor<Texture>("data\\slotMachineUI\\slotMachineWindow.png", Texture.class);
 	public static final AssetDescriptor<Texture> slotMachineWindowYes = new AssetDescriptor<Texture>("data\\slotMachineUI\\slotMachineWindowYES.png", Texture.class);
 	public static final AssetDescriptor<Texture> slotMachineWindowNo = new AssetDescriptor<Texture>("data\\slotMachineUI\\slotMachineWindowNO.png", Texture.class);
+	public static final AssetDescriptor<Texture> leachProjectile = new AssetDescriptor<Texture>("data\\leechProjectile.png", Texture.class);
 	public static final AssetDescriptor<TiledMap> map = new AssetDescriptor<TiledMap>("data\\Map.tmx", TiledMap.class);
 	public static final AssetDescriptor<BitmapFont> font = new AssetDescriptor<BitmapFont>("data\\font.fnt", BitmapFont.class);
 	
@@ -59,7 +63,7 @@ public class AssetsMainManager {
 		manager.load(enemyLeech);
 		manager.load(enemyZombie);
 		manager.load(enemyMaggot);
-		manager.load(projectile);
+		manager.load(arrow);
 		manager.load(items);
 		manager.load(weaponizerButton);
 		manager.load(tiles);
@@ -91,7 +95,10 @@ public class AssetsMainManager {
 		manager.load(slotMachineWindow);
 		manager.load(slotMachineWindowYes);
 		manager.load(slotMachineWindowNo);
-//		manager.load(explosiveEffect);
+		manager.load(slotBackGround);
+		manager.load(arrowPoisoned);
+		manager.load(arrowExplosive);
+		manager.load(leachProjectile);
 		manager.setLoader(BitmapFont.class, new BitmapFontLoader(new InternalFileHandleResolver()));
 		manager.load(font);
 		manager.setLoader(TiledMap.class, new TmxMapLoader());

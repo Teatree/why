@@ -21,6 +21,7 @@ import com.me.swampmonster.game.collision.CollisionHelper;
 import com.me.swampmonster.models.AbstractGameObject;
 import com.me.swampmonster.models.Player;
 import com.me.swampmonster.models.Projectile;
+import com.me.swampmonster.models.Projectile.EffectCarriers;
 import com.me.swampmonster.models.slots.PositiveEffects;
 import com.me.swampmonster.utils.AssetsMainManager;
 import com.me.swampmonster.utils.CameraHelper;
@@ -161,6 +162,9 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 				hurt = true;
 				damageType = "player";
 				enemyHurt(player);
+				if (projectile.effect == EffectCarriers.POISONED){
+					this.setNegativeEffect(NegativeEffects.POISONED);
+				}
 			}
 		}
 

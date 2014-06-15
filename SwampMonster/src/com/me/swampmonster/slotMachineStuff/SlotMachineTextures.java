@@ -29,7 +29,7 @@ public class SlotMachineTextures extends Group {
 	public Rectangle no;
 	public boolean peru;
 	public int selectedSlotNumber;
-	
+	public Sprite backGround = new Sprite(AssetsMainManager.manager.get(AssetsMainManager.slotBackGround));
 	public SlotMachineTextures(Player player) {
 		this.p = player;
 		font = AssetsMainManager.manager.get(AssetsMainManager.font);
@@ -65,11 +65,14 @@ public class SlotMachineTextures extends Group {
 						.getHeight());
 		batch.end();
 		
+		
 		sr.begin(ShapeType.Filled);
+		sr.setColor(Color.WHITE);
 		sr.rect(slots[0].sprite.getBoundingRectangle().x,
 				slots[0].sprite.getBoundingRectangle().y,
 				slots[0].sprite.getBoundingRectangle().width,
 				slots[0].sprite.getBoundingRectangle().height);
+
 		sr.rect(slots[1].sprite.getBoundingRectangle().x,
 				slots[1].sprite.getBoundingRectangle().y,
 				slots[1].sprite.getBoundingRectangle().width,
@@ -80,6 +83,22 @@ public class SlotMachineTextures extends Group {
 				slots[2].sprite.getBoundingRectangle().height);
 		sr.end();
 		batch.begin();
+		
+		batch.draw(backGround,
+		slots[0].sprite.getBoundingRectangle().x, 
+		slots[0].sprite.getBoundingRectangle().y, 
+		slots[0].sprite.getBoundingRectangle().width, 
+		slots[0].sprite.getBoundingRectangle().height);	
+		batch.draw(backGround,
+				slots[1].sprite.getBoundingRectangle().x, 
+				slots[1].sprite.getBoundingRectangle().y, 
+				slots[1].sprite.getBoundingRectangle().width, 
+				slots[1].sprite.getBoundingRectangle().height);
+		batch.draw(backGround,
+				slots[2].sprite.getBoundingRectangle().x, 
+				slots[2].sprite.getBoundingRectangle().y, 
+				slots[2].sprite.getBoundingRectangle().width, 
+				slots[2].sprite.getBoundingRectangle().height);
 		
 //		batch.draw(slots[0].sprite, 250, 300, 100, 100);
 		slots[0].sprite.setPosition(285, 250);

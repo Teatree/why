@@ -243,11 +243,10 @@ public class Player extends AbstractGameObject {
 	private void updateProjectiles(TiledMapTileLayer collisionLayer) {
 		Iterator<Projectile> prj = projectiles.iterator();
 		while (prj.hasNext()) {
-			Projectile p = (Projectile) prj.next();
-			if (p != null && p.isCollision(collisionLayer)) {
+			Projectile p = prj.next();
+			if (p != null && p.isCollision(collisionLayer) && p.effect != EffectCarriers.SHADOW){
 				prj.remove();
-				break;
-			}
+			} 
 			if (p != null && p.state == State.DEAD) {
 				prj.remove();
 			}
