@@ -85,8 +85,8 @@ public class L1Renderer {
 				&& theController.level1.player.state == State.GUNMOVEMENT
 				&& theController.gui.getCroshair().isAiming()) {
 			batch.draw(theController.gui.getCroshair().getSprite(),
-					theController.getV3point().x - 16,
-					theController.getV3point().y - 16,
+					theController.level1.player.aimLineHead.x,
+					theController.level1.player.aimLineHead.y,
 					theController.gui.getCroshair().getSprite().getOriginX(),
 					theController.gui.getCroshair().getSprite().getOriginY(),
 					theController.gui.getCroshair().getSprite().getWidth(),
