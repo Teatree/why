@@ -21,10 +21,10 @@ public class GUI {
 		croshair = new Croshair(new Vector2());
 	}
 	
-	public void update(Player player, Vector2 point, Vector3 V3point){
+	public void update(Player player, Vector2 point, Vector3 V3point, float rot){
 		healthBar.update(player);
 		weaponizer.update(player, point);
-		croshair.update(player, point, V3point);
+		croshair.update(player, point, V3point, rot);
 		gameoverGUI.update(player);
 	}
 

@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.me.swampmonster.models.AbstractGameObject;
+import com.me.swampmonster.utils.AssetsMainManager;
 
 public class Croshair extends AbstractGameObject{
 	
@@ -16,12 +17,14 @@ public class Croshair extends AbstractGameObject{
 	public Croshair(Vector2 position){
 		this.position = position;
 		
-		sprite = new Sprite(new Texture("data/Croshair.png"));
+		sprite = new Sprite(AssetsMainManager.manager.get(AssetsMainManager.PointerHead));
 		aiming = false;
 	}
-	public void update(AbstractGameObject player, Vector2 point, Vector3 V3point){
+	public void update(AbstractGameObject player, Vector2 point, Vector3 V3point, float rot){
 		position.x = player.getPosition().x;
 		position.y = player.getPosition().y;
+		
+		sprite.setRotation(rot*57.29f);
 		
 //		// System.out.println("aiming " + aiming);
 		if(doesIntersect(new Vector2(player.circle.x, player.circle.y), player.circle.radius*2, new Vector2(V3point.x, V3point.y))

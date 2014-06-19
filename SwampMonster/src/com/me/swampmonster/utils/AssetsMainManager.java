@@ -26,13 +26,14 @@ public class AssetsMainManager {
 	public static final AssetDescriptor<Texture> OxygenBarTail = new AssetDescriptor<Texture>("data\\OxygenBarTail.png", Texture.class);
 	public static final AssetDescriptor<Texture> OxygenBarMiddle = new AssetDescriptor<Texture>("data\\OxygenBarMiddle.png", Texture.class);
 	public static final AssetDescriptor<Texture> OxygenBarHead = new AssetDescriptor<Texture>("data\\OxygenBarHead.png", Texture.class);
+	public static final AssetDescriptor<Texture> PointerHead = new AssetDescriptor<Texture>("data\\PointerHead.png", Texture.class);
+	public static final AssetDescriptor<Texture> PointerMiddle = new AssetDescriptor<Texture>("data\\PointerMiddle.png", Texture.class);
 	public static final AssetDescriptor<Texture> arrow = new AssetDescriptor<Texture>("data\\arrrrow.png", Texture.class);
 	public static final AssetDescriptor<Texture> arrowPoisoned = new AssetDescriptor<Texture>("data\\arrrrowPoisoned.png", Texture.class);
 	public static final AssetDescriptor<Texture> arrowExplosive = new AssetDescriptor<Texture>("data\\arrrrowExplosive.png", Texture.class);
 	public static final AssetDescriptor<Texture> items = new AssetDescriptor<Texture>("data\\Items.png", Texture.class);
 	public static final AssetDescriptor<Texture> weaponizerButton = new AssetDescriptor<Texture>("data\\Weaponizer.png", Texture.class);
 	public static final AssetDescriptor<Texture> tiles = new AssetDescriptor<Texture>("data\\Tiles.png", Texture.class);
-	public static final AssetDescriptor<Texture> croshair = new AssetDescriptor<Texture>("data\\Croshair.png", Texture.class);
 	public static final AssetDescriptor<Texture> slotMachineCase = new AssetDescriptor<Texture>("data\\slotMachineUI\\slotMachineCase.png", Texture.class);
 	public static final AssetDescriptor<Texture> slotMachineNextButton = new AssetDescriptor<Texture>("data\\slotMachineUI\\slotMachineNextButton.png", Texture.class);
 	public static final AssetDescriptor<Texture> FADE_ICON = new AssetDescriptor<Texture>("data\\slotIcons\\shield.png", Texture.class);
@@ -81,10 +82,11 @@ public class AssetsMainManager {
 		manager.load(OxygenBarTail);
 		manager.load(OxygenBarMiddle);
 		manager.load(OxygenBarHead);
+		manager.load(PointerHead);
+		manager.load(PointerMiddle);
 		manager.load(items);
 		manager.load(weaponizerButton);
 		manager.load(tiles);
-		manager.load(croshair);
 		manager.load(slotMachineCase);
 		manager.load(slotMachineNextButton);
 		manager.load(FADE_ICON);

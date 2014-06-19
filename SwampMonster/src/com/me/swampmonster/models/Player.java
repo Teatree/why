@@ -770,7 +770,7 @@ public class Player extends AbstractGameObject {
 		}
 	}
 
-	private float getRotation() {
+	public float getRotation() {
 		double angle1 = Math.atan2(V3playerPos.y - position.y,
 				V3playerPos.x - 0);
 		double angle2 = Math.atan2(V3playerPos.y - shotDir.y, V3playerPos.x

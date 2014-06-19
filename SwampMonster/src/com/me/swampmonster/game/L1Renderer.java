@@ -81,10 +81,18 @@ public class L1Renderer {
 		Gdx.gl.glEnable(GL20.GL_BLEND);
 		Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
 		batch.begin();
-		if(Gdx.input.isTouched() && theController.level1.player.state == State.GUNMOVEMENT && theController.gui.getCroshair().isAiming()){
-			batch.draw(theController.gui.getCroshair().getSprite(), theController.getV3point().x-16, theController.getV3point().y-16, 
-					theController.gui.getCroshair().getSprite().getWidth(), 
-					theController.gui.getCroshair().getSprite().getHeight());
+		if (Gdx.input.isTouched()
+				&& theController.level1.player.state == State.GUNMOVEMENT
+				&& theController.gui.getCroshair().isAiming()) {
+			batch.draw(theController.gui.getCroshair().getSprite(),
+					theController.getV3point().x - 16,
+					theController.getV3point().y - 16,
+					theController.gui.getCroshair().getSprite().getOriginX(),
+					theController.gui.getCroshair().getSprite().getOriginY(),
+					theController.gui.getCroshair().getSprite().getWidth(),
+					theController.gui.getCroshair().getSprite().getHeight(),
+					1,1,
+					theController.gui.getCroshair().getSprite().getRotation());
 		}
 		// temporary drawing of a projectile
 		
