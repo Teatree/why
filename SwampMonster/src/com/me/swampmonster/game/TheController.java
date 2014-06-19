@@ -115,7 +115,7 @@ public class TheController extends InputAdapter{
 			inputNav();
 		}
 
-		gui.update(level1.player, point, V3point, level1.player.getRotation());
+		gui.update(level1.player, point, V3point);
 		handleDebugInput(deltaTime);
 		point.x = Gdx.input.getX();
 		point.y = 480 - Gdx.input.getY();

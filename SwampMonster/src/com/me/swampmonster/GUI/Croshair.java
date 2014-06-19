@@ -2,12 +2,12 @@ package com.me.swampmonster.GUI;
 
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.me.swampmonster.models.AbstractGameObject;
+import com.me.swampmonster.models.Player;
 import com.me.swampmonster.utils.AssetsMainManager;
 
 public class Croshair extends AbstractGameObject{
@@ -20,11 +20,14 @@ public class Croshair extends AbstractGameObject{
 		sprite = new Sprite(AssetsMainManager.manager.get(AssetsMainManager.PointerHead));
 		aiming = false;
 	}
-	public void update(AbstractGameObject player, Vector2 point, Vector3 V3point, float rot){
+	public void update(Player player, Vector2 point, Vector3 V3point){
 		position.x = player.getPosition().x;
 		position.y = player.getPosition().y;
 		
-		sprite.setRotation(rot*57.29f);
+		player.shotDir.x = (position.x + sprite.getWidth() / 2) * 2 - V3point.x;
+		player.shotDir.y = (position.y + sprite.getHeight() / 2) * 2 - V3point.y;
+		
+		sprite.setRotation(player.getRotation()*57.29f);
 		
 //		// System.out.println("aiming " + aiming);
 		if(doesIntersect(new Vector2(player.circle.x, player.circle.y), player.circle.radius*2, new Vector2(V3point.x, V3point.y))
