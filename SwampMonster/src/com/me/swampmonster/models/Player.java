@@ -22,7 +22,7 @@ import com.me.swampmonster.models.Projectile.EffectCarriers;
 import com.me.swampmonster.models.enemies.Enemy;
 import com.me.swampmonster.models.slots.PositiveEffects;
 import com.me.swampmonster.models.slots.Trap;
-import com.me.swampmonster.utils.AssetsMainManager;
+import com.me.swampmonster.utils.Assets;
 
 public class Player extends AbstractGameObject {
 
@@ -98,32 +98,32 @@ public class Player extends AbstractGameObject {
 		
 		animationsStandard
 				.put(State.STANDARD,
-						new AnimationControl(AssetsMainManager.manager
-								.get(AssetsMainManager.nastyaSpriteStandard),
+						new AnimationControl(Assets.manager
+								.get(Assets.nastyaSpriteStandard),
 								8, 32, 7));
 		animationsStandard
 				.put(State.ANIMATING,
-						new AnimationControl(AssetsMainManager.manager
-								.get(AssetsMainManager.nastyaSpriteStandard),
+						new AnimationControl(Assets.manager
+								.get(Assets.nastyaSpriteStandard),
 								8, 32, 8));
 		animationsStandard
 				.put(State.ANIMATINGLARGE,
-						new AnimationControl(AssetsMainManager.manager
-								.get(AssetsMainManager.nastyaSpriteStandard),
+						new AnimationControl(Assets.manager
+								.get(Assets.nastyaSpriteStandard),
 								8, 32, 8));
 		animationsStandard
 				.put(State.ACTIVATING,
-						new AnimationControl(AssetsMainManager.manager
-								.get(AssetsMainManager.nastyaSpriteStandard),
+						new AnimationControl(Assets.manager
+								.get(Assets.nastyaSpriteStandard),
 								8, 32, 8));
 		animationsStandard.put(
 				State.GUNMOVEMENT,
-				new AnimationControl(AssetsMainManager.manager
-						.get(AssetsMainManager.nastyaSpriteGun), 8, 16, 7));
+				new AnimationControl(Assets.manager
+						.get(Assets.nastyaSpriteGun), 8, 16, 7));
 		animationsStandard
 				.put(State.DEAD,
-						new AnimationControl(AssetsMainManager.manager
-								.get(AssetsMainManager.nastyaSpriteStandard),
+						new AnimationControl(Assets.manager
+								.get(Assets.nastyaSpriteStandard),
 								8, 32, 8));
 
 		oldPos = position;

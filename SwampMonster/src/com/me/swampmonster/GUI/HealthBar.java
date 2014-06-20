@@ -8,7 +8,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.me.swampmonster.models.AbstractGameObject;
 import com.me.swampmonster.models.Player;
-import com.me.swampmonster.utils.AssetsMainManager;
+import com.me.swampmonster.utils.Assets;
 
 public class HealthBar extends AbstractGameObject{
 	
@@ -21,10 +21,10 @@ public class HealthBar extends AbstractGameObject{
 	public List<Sprite> sprites;
 	
 	public HealthBar(Player player){
-		spriteIcon = new Sprite(AssetsMainManager.manager.get(AssetsMainManager.HealthBarIcon));
-		spriteTail = new Sprite(AssetsMainManager.manager.get(AssetsMainManager.HealthBarTail));
-		spriteMiddle = new Sprite(AssetsMainManager.manager.get(AssetsMainManager.HealthBarMiddle));
-		spriteHead = new Sprite(AssetsMainManager.manager.get(AssetsMainManager.HealthBarHead));
+		spriteIcon = new Sprite(Assets.manager.get(Assets.HealthBarIcon));
+		spriteTail = new Sprite(Assets.manager.get(Assets.HealthBarTail));
+		spriteMiddle = new Sprite(Assets.manager.get(Assets.HealthBarMiddle));
+		spriteHead = new Sprite(Assets.manager.get(Assets.HealthBarHead));
 		sprites = new ArrayList<Sprite>();
 		position = new Vector2();
 		position.x = 0;

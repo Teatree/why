@@ -2,11 +2,9 @@ package com.me.swampmonster.models.slots;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Circle;
-import com.badlogic.gdx.math.Vector2;
 import com.me.swampmonster.models.AbstractGameObject.NegativeEffects;
-import com.me.swampmonster.models.Player;
 import com.me.swampmonster.models.enemies.Enemy;
-import com.me.swampmonster.utils.AssetsMainManager;
+import com.me.swampmonster.utils.Assets;
 
 public class PoisonTrap extends Trap{
 	
@@ -15,8 +13,8 @@ public class PoisonTrap extends Trap{
 		circle = new Circle();
 		circle.radius = 16;
 		
-		trapSprite = new Sprite(AssetsMainManager.manager.get(AssetsMainManager.POISON_TRAP));
-		sprite = new Sprite(AssetsMainManager.manager.get(AssetsMainManager.POISONED_TRAP_ICON));
+		trapSprite = new Sprite(Assets.manager.get(Assets.POISON_TRAP));
+		sprite = new Sprite(Assets.manager.get(Assets.POISONED_TRAP_ICON));
 	}
 	
 //	public void execute (Player player){

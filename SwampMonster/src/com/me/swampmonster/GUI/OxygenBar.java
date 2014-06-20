@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.me.swampmonster.models.AbstractGameObject;
 import com.me.swampmonster.models.Player;
-import com.me.swampmonster.utils.AssetsMainManager;
+import com.me.swampmonster.utils.Assets;
 
 public class OxygenBar extends AbstractGameObject{
 	
@@ -18,10 +18,10 @@ public class OxygenBar extends AbstractGameObject{
 	public List<Sprite> sprites;
 	
 	public OxygenBar(Player player){
-		spriteIcon = new Sprite(AssetsMainManager.manager.get(AssetsMainManager.OxygenBarIcon));
-		spriteTail = new Sprite(AssetsMainManager.manager.get(AssetsMainManager.OxygenBarTail));
-		spriteMiddle = new Sprite(AssetsMainManager.manager.get(AssetsMainManager.OxygenBarMiddle));
-		spriteHead = new Sprite(AssetsMainManager.manager.get(AssetsMainManager.OxygenBarHead));
+		spriteIcon = new Sprite(Assets.manager.get(Assets.OxygenBarIcon));
+		spriteTail = new Sprite(Assets.manager.get(Assets.OxygenBarTail));
+		spriteMiddle = new Sprite(Assets.manager.get(Assets.OxygenBarMiddle));
+		spriteHead = new Sprite(Assets.manager.get(Assets.OxygenBarHead));
 		sprites = new ArrayList<Sprite>();
 		position = new Vector2();
 		position.x = 0;

@@ -7,14 +7,14 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector2;
 import com.me.swampmonster.models.Projectile;
-import com.me.swampmonster.utils.AssetsMainManager;
+import com.me.swampmonster.utils.Assets;
 
 public class LeechProjectile extends Projectile{
 
 	public LeechProjectile(Vector2 position, float rot){
 		
 		this.position = position;
-		sprite = new Sprite(AssetsMainManager.manager.get(AssetsMainManager.leachProjectile));
+		sprite = new Sprite(Assets.manager.get(Assets.leachProjectile));
 		sprite.setRotation(rot*57.29f);
 		circle = new Circle();
 		circle.radius = 8;

@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-public class AssetsMainManager {
+public class Assets {
 
 	public static final AssetManager manager = new AssetManager();
 	
@@ -43,7 +43,7 @@ public class AssetsMainManager {
 	public static final AssetDescriptor<Texture> EXPLOSIVE_ARROW_ICON = new AssetDescriptor<Texture>("data\\slotIcons\\explosiveArrow.png", Texture.class);
 	public static final AssetDescriptor<Texture> SHADOW_ARROW_ICON = new AssetDescriptor<Texture>("data\\slotIcons\\SHADOW_ARROW_ICON.png", Texture.class);
 	public static final AssetDescriptor<Texture> POISONED_ARROW_ICON = new AssetDescriptor<Texture>("data\\slotIcons\\poisonedArrow.png", Texture.class);
-	public static final AssetDescriptor<Texture> DAMAGE_TRAP_ICON = new AssetDescriptor<Texture>("data\\slotIcons\\DAMAGE_TRAP_ICON.png", Texture.class);
+	public static final AssetDescriptor<Texture> DAMAGE_TRAP_ICON = new AssetDescriptor<Texture>("data\\slotIcons\\trap.png", Texture.class);
 	public static final AssetDescriptor<Texture> slotBackGround = new AssetDescriptor<Texture>("data\\slotIcons\\slotBackGround.png", Texture.class);
 	public static final AssetDescriptor<Texture> EXPLOSIVE_TRAP_ICON = new AssetDescriptor<Texture>("data\\slotIcons\\explosive_icon2.png", Texture.class);
 	public static final AssetDescriptor<Texture> POISONED_TRAP_ICON = new AssetDescriptor<Texture>("data\\slotIcons\\poison.png", Texture.class);
@@ -65,7 +65,7 @@ public class AssetsMainManager {
 	public static final AssetDescriptor<Texture> leachProjectile = new AssetDescriptor<Texture>("data\\leechProjectile.png", Texture.class);
 	public static final AssetDescriptor<TiledMap> map = new AssetDescriptor<TiledMap>("data\\Map.tmx", TiledMap.class);
 	public static final AssetDescriptor<BitmapFont> font = new AssetDescriptor<BitmapFont>("data\\font.fnt", BitmapFont.class);
-	
+	public static final AssetDescriptor<Texture> explosiveTrap = new AssetDescriptor<Texture>("data\\explosiveTrap.png", Texture.class); 
 	public static void load(){
 		manager.load(nastyaSpriteStandard);
 		manager.load(nastyaSpriteGun);
@@ -118,6 +118,7 @@ public class AssetsMainManager {
 		manager.load(arrowPoisoned);
 		manager.load(arrowExplosive);
 		manager.load(leachProjectile);
+		manager.load(explosiveTrap);
 		manager.setLoader(BitmapFont.class, new BitmapFontLoader(new InternalFileHandleResolver()));
 		manager.load(font);
 		manager.setLoader(TiledMap.class, new TmxMapLoader());

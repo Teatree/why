@@ -15,7 +15,7 @@ import com.me.swampmonster.models.AbstractGameObject.NegativeEffects;
 import com.me.swampmonster.models.AbstractGameObject.State;
 import com.me.swampmonster.models.slots.Perks;
 import com.me.swampmonster.models.slots.PositiveEffects;
-import com.me.swampmonster.utils.AssetsMainManager;
+import com.me.swampmonster.utils.Assets;
 import com.me.swampmonster.utils.Constants;
 
 public class GShape extends Group {
@@ -40,7 +40,7 @@ public class GShape extends Group {
 	public void draw(SpriteBatch batch, float parentAlpha) {
 		super.draw(batch, parentAlpha);
 		
-		font = AssetsMainManager.manager.get(AssetsMainManager.font);
+		font = Assets.manager.get(Assets.font);
 		
 		str = "points: " + theController.level1.player.points;
 		str2 = "Wave:" + theController.level1.currentWave + "/" + theController.level1.wavesAmount;

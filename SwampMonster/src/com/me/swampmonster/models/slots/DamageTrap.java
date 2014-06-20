@@ -5,7 +5,7 @@ package com.me.swampmonster.models.slots;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Circle;
 import com.me.swampmonster.models.enemies.Enemy;
-import com.me.swampmonster.utils.AssetsMainManager;
+import com.me.swampmonster.utils.Assets;
 
 public class DamageTrap extends Trap{
 	public int lifetime = 112;
@@ -16,8 +16,8 @@ public class DamageTrap extends Trap{
 //		effect.load(Gdx.files.local("effects\\FlameEffectTemp.p"), Gdx.files.local("effects"));
 		circle = new Circle();
 		circle.radius = 8;
-		sprite = new Sprite(AssetsMainManager.manager.get(AssetsMainManager.DAMAGE_TRAP_ICON));
-		trapSprite = new Sprite (AssetsMainManager.manager.get(AssetsMainManager.DAMAGE_TRAP));
+		sprite = new Sprite(Assets.manager.get(Assets.DAMAGE_TRAP_ICON));
+		trapSprite = new Sprite (Assets.manager.get(Assets.DAMAGE_TRAP));
 	}
 
 	public void catchEnemy(Enemy enemy) {

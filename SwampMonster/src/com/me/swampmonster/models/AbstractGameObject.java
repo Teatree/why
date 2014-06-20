@@ -11,7 +11,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.me.swampmonster.animations.AnimationControl;
 import com.me.swampmonster.models.slots.PositiveEffects;
-import com.me.swampmonster.utils.AssetsMainManager;
+import com.me.swampmonster.utils.Assets;
 
 public abstract class AbstractGameObject {
 
@@ -20,9 +20,9 @@ public abstract class AbstractGameObject {
 		ATTACKING, PURSUIT, GUNMOVEMENT, SPAWNING, DESPAWNING;
 	}
 	public enum NegativeEffects {
-		POISONED(900, new Sprite(AssetsMainManager.manager.get(AssetsMainManager.POISONEDNEGATIVEEFFECT_ICON))),
-				FEAR(900, new Sprite(AssetsMainManager.manager.get(AssetsMainManager.SCAREDNEGATIVEEFFECT_ICON))),
-				FROZEN(830, new Sprite(AssetsMainManager.manager.get(AssetsMainManager.FROZENNEGATIVEEFFECT_ICON))),
+		POISONED(900, new Sprite(Assets.manager.get(Assets.POISONEDNEGATIVEEFFECT_ICON))),
+				FEAR(900, new Sprite(Assets.manager.get(Assets.SCAREDNEGATIVEEFFECT_ICON))),
+				FROZEN(830, new Sprite(Assets.manager.get(Assets.FROZENNEGATIVEEFFECT_ICON))),
 				NONE(0, null);
 		
 		public int lifetime;

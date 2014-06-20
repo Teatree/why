@@ -12,7 +12,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.me.swampmonster.models.Player;
 import com.me.swampmonster.models.slots.Slot;
-import com.me.swampmonster.utils.AssetsMainManager;
+import com.me.swampmonster.utils.Assets;
 import com.me.swampmonster.utils.Constants;
 import com.me.swampmonster.utils.SlotsGenerator;
 
@@ -29,15 +29,15 @@ public class SlotMachineTextures extends Group {
 	public Rectangle no;
 	public boolean peru;
 	public int selectedSlotNumber;
-	public Sprite backGround = new Sprite(AssetsMainManager.manager.get(AssetsMainManager.slotBackGround));
+	public Sprite backGround = new Sprite(Assets.manager.get(Assets.slotBackGround));
 	public SlotMachineTextures(Player player) {
 		this.p = player;
-		font = AssetsMainManager.manager.get(AssetsMainManager.font);
+		font = Assets.manager.get(Assets.font);
 		slotsGen = SlotsGenerator.getSlotGenerator();
 		
-		slotMachineWindow = new Sprite(AssetsMainManager.manager.get(AssetsMainManager.slotMachineWindow));
-		slotMachineWindowYes = new Sprite(AssetsMainManager.manager.get(AssetsMainManager.slotMachineWindowYes));
-		slotMachineWindowNo = new Sprite(AssetsMainManager.manager.get(AssetsMainManager.slotMachineWindowNo));
+		slotMachineWindow = new Sprite(Assets.manager.get(Assets.slotMachineWindow));
+		slotMachineWindowYes = new Sprite(Assets.manager.get(Assets.slotMachineWindowYes));
+		slotMachineWindowNo = new Sprite(Assets.manager.get(Assets.slotMachineWindowNo));
 		yes = new Rectangle();
 		yes.width = slotMachineWindowYes.getWidth();
 		yes.height = slotMachineWindowYes.getHeight();
@@ -57,10 +57,10 @@ public class SlotMachineTextures extends Group {
 	@Override
 	public void draw(SpriteBatch batch, float parentAlpha) {
 		super.draw(batch, parentAlpha);
-		batch.draw(AssetsMainManager.manager
-				.get(AssetsMainManager.slotMachineCase), 144, 112);
-		batch.draw(AssetsMainManager.manager
-				.get(AssetsMainManager.slotMachineNextButton), 535, 125,
+		batch.draw(Assets.manager
+				.get(Assets.slotMachineCase), 144, 112);
+		batch.draw(Assets.manager
+				.get(Assets.slotMachineNextButton), 535, 125,
 				0.10f * Gdx.graphics.getWidth(), 0.20f * Gdx.graphics
 						.getHeight());
 		batch.end();

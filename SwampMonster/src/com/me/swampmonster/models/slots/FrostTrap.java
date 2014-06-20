@@ -4,18 +4,18 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Circle;
 import com.me.swampmonster.models.AbstractGameObject.NegativeEffects;
 import com.me.swampmonster.models.enemies.Enemy;
-import com.me.swampmonster.utils.AssetsMainManager;
+import com.me.swampmonster.utils.Assets;
 
 public class FrostTrap extends Trap{
 
 	public FrostTrap() {
 		lifeTime = 600;
-		sprite = new Sprite(AssetsMainManager.manager.get(AssetsMainManager.FROST_TRAP_ICON));
+		sprite = new Sprite(Assets.manager.get(Assets.FROST_TRAP_ICON));
 		
 		circle = new Circle();
 		circle.radius = 16;
 		
-		trapSprite = new Sprite(AssetsMainManager.manager.get(AssetsMainManager.FROZEN_TRAP));
+		trapSprite = new Sprite(Assets.manager.get(Assets.FROZEN_TRAP));
 	}
 
 	public void catchEnemy(Enemy enemy) {

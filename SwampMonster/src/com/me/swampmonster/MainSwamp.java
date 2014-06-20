@@ -2,13 +2,13 @@ package com.me.swampmonster;
 
 import com.badlogic.gdx.Game;
 import com.me.swampmonster.screens.SlotMachineScreen;
-import com.me.swampmonster.utils.AssetsMainManager;
+import com.me.swampmonster.utils.Assets;
 
 public class MainSwamp extends Game {
 
 	public void create() {		
-		AssetsMainManager.load();
-		while (!AssetsMainManager.manager.update()){
+		Assets.load();
+		while (!Assets.manager.update()){
 		}
 		setScreen(new SlotMachineScreen(this));
 	}

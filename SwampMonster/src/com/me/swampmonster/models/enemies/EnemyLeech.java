@@ -9,7 +9,7 @@ import com.me.swampmonster.animations.AnimationControl;
 import com.me.swampmonster.models.Player;
 import com.me.swampmonster.models.Projectile;
 import com.me.swampmonster.models.Projectile.EffectCarriers;
-import com.me.swampmonster.utils.AssetsMainManager;
+import com.me.swampmonster.utils.Assets;
 import com.me.swampmonster.utils.CameraHelper;
 
 public class EnemyLeech extends Enemy{
@@ -17,8 +17,8 @@ public class EnemyLeech extends Enemy{
 	public EnemyLeech(Vector2 position) {
 		super(position);
 		
-		animationsStandard.put(State.STANDARD, new AnimationControl(AssetsMainManager.manager.get(AssetsMainManager.enemyLeech), 8, 16, 7)); 
-		animationsStandard.put(State.PURSUIT, new AnimationControl(AssetsMainManager.manager.get(AssetsMainManager.enemyLeech), 8, 16, 7)); 
+		animationsStandard.put(State.STANDARD, new AnimationControl(Assets.manager.get(Assets.enemyLeech), 8, 16, 7)); 
+		animationsStandard.put(State.PURSUIT, new AnimationControl(Assets.manager.get(Assets.enemyLeech), 8, 16, 7)); 
 		
 		yellowAura.radius = yellowAura.radius*14;
 		sprite = new Sprite(animationsStandard.get(state).getCurrentFrame());

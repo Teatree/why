@@ -5,7 +5,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector2;
 import com.me.swampmonster.game.collision.CollisionHelper;
-import com.me.swampmonster.utils.AssetsMainManager;
+import com.me.swampmonster.utils.Assets;
 
 public class Projectile extends AbstractGameObject{
 	
@@ -20,10 +20,10 @@ public class Projectile extends AbstractGameObject{
 	
 	
 	public enum EffectCarriers{
-		POISONED(new Sprite(AssetsMainManager.manager.get(AssetsMainManager.arrowPoisoned))),
-		SHADOW(new Sprite(AssetsMainManager.manager.get(AssetsMainManager.SHADOW_ARROW_ICON))),
-		EXPLOSIVE(new Sprite(AssetsMainManager.manager.get(AssetsMainManager.arrowExplosive))),
-		NONE(new Sprite(AssetsMainManager.manager.get(AssetsMainManager.arrow)));
+		POISONED(new Sprite(Assets.manager.get(Assets.arrowPoisoned))),
+		SHADOW(new Sprite(Assets.manager.get(Assets.SHADOW_ARROW_ICON))),
+		EXPLOSIVE(new Sprite(Assets.manager.get(Assets.arrowExplosive))),
+		NONE(new Sprite(Assets.manager.get(Assets.arrow)));
 
 		Sprite sprite;
 		

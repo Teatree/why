@@ -23,7 +23,7 @@ import com.me.swampmonster.models.Player;
 import com.me.swampmonster.models.Projectile;
 import com.me.swampmonster.models.Projectile.EffectCarriers;
 import com.me.swampmonster.models.slots.PositiveEffects;
-import com.me.swampmonster.utils.AssetsMainManager;
+import com.me.swampmonster.utils.Assets;
 import com.me.swampmonster.utils.CameraHelper;
 import com.me.swampmonster.utils.EnemyGenerator.Toughness;
 import com.badlogic.gdx.math.Intersector;
@@ -71,15 +71,15 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 		yellowAura.radius = 8;
 		state = State.STANDARD;
 		animationsStandard.put(State.PURSUIT, new AnimationControl(
-				AssetsMainManager.manager.get(AssetsMainManager.enemy), 8, 16, 8));
+				Assets.manager.get(Assets.enemy), 8, 16, 8));
 		animationsStandard.put(State.STANDARD, new AnimationControl(
-				AssetsMainManager.manager.get(AssetsMainManager.enemy), 8, 16, 8));
+				Assets.manager.get(Assets.enemy), 8, 16, 8));
 		animationsStandard.put(State.ATTACKING, new AnimationControl(
-				AssetsMainManager.manager.get(AssetsMainManager.enemy), 8, 16, 8));
+				Assets.manager.get(Assets.enemy), 8, 16, 8));
 		animationsStandard.put(State.ANIMATING, new AnimationControl(
-				AssetsMainManager.manager.get(AssetsMainManager.enemy), 8, 16, 8));
+				Assets.manager.get(Assets.enemy), 8, 16, 8));
 		animationsStandard.put(State.DEAD, new AnimationControl(
-				AssetsMainManager.manager.get(AssetsMainManager.enemy), 8, 16, 4));
+				Assets.manager.get(Assets.enemy), 8, 16, 4));
 		oldPos = position;
 		// Timer is for the length of the actual animation
 		// Timer2 is for the waiting period

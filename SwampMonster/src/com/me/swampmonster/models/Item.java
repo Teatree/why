@@ -8,7 +8,7 @@ import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector2;
 import com.me.swampmonster.animations.AnimationControl;
 import com.me.swampmonster.game.collision.CollisionHelper;
-import com.me.swampmonster.utils.AssetsMainManager;
+import com.me.swampmonster.utils.Assets;
 
 public class Item extends AbstractGameObject{
 	public String itemType;
@@ -31,10 +31,10 @@ public class Item extends AbstractGameObject{
 		circle.radius = 16;
 		
 		
-		animationsStandard.put(State.SPAWNING, new AnimationControl(AssetsMainManager.manager.get(AssetsMainManager.items), 4, 4, 4));
-		animationsStandard.put(State.STANDARD, new AnimationControl(AssetsMainManager.manager.get(AssetsMainManager.items), 4, 4, 4));
-		animationsStandard.put(State.DEAD, new AnimationControl(AssetsMainManager.manager.get(AssetsMainManager.items), 4, 4, 4));
-		animationsStandard.put(State.DESPAWNING, new AnimationControl(AssetsMainManager.manager.get(AssetsMainManager.items), 4, 4, 4));
+		animationsStandard.put(State.SPAWNING, new AnimationControl(Assets.manager.get(Assets.items), 4, 4, 4));
+		animationsStandard.put(State.STANDARD, new AnimationControl(Assets.manager.get(Assets.items), 4, 4, 4));
+		animationsStandard.put(State.DEAD, new AnimationControl(Assets.manager.get(Assets.items), 4, 4, 4));
+		animationsStandard.put(State.DESPAWNING, new AnimationControl(Assets.manager.get(Assets.items), 4, 4, 4));
 		
 		sprite = new Sprite(animationsStandard.get(state).getCurrentFrame());
 		

@@ -8,7 +8,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.me.swampmonster.models.AbstractGameObject;
 import com.me.swampmonster.models.Player;
-import com.me.swampmonster.utils.AssetsMainManager;
+import com.me.swampmonster.utils.Assets;
 
 public class Croshair extends AbstractGameObject{
 	
@@ -17,7 +17,7 @@ public class Croshair extends AbstractGameObject{
 	public Croshair(Vector2 position){
 		this.position = position;
 		
-		sprite = new Sprite(AssetsMainManager.manager.get(AssetsMainManager.PointerHead));
+		sprite = new Sprite(Assets.manager.get(Assets.PointerHead));
 		aiming = false;
 	}
 	public void update(Player player, Vector2 point, Vector3 V3point){
