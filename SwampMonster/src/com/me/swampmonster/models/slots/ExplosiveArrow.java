@@ -9,6 +9,7 @@ public class ExplosiveArrow extends Slot{
 	
 	public ExplosiveArrow() {
 		sprite = new Sprite(Assets.manager.get(Assets.EXPLOSIVE_ARROW_ICON));
+		coolDown = 200;
 	}
 	
 	public void execute(Player player){

@@ -16,6 +16,7 @@ public class FrostTrap extends Trap{
 		circle.radius = 16;
 		
 		trapSprite = new Sprite(Assets.manager.get(Assets.FROZEN_TRAP));
+		coolDown = 1600;
 	}
 
 	public void catchEnemy(Enemy enemy) {

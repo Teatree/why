@@ -29,9 +29,12 @@ public class TheController extends InputAdapter{
 	public CollisionHelper collisionHandler;
 	public L1 level1;
 	public GUI gui;
-	public Vector3 touchPos;
+	public static Vector3 touchPos;
 	int timer;
 	int timer3hurt;
+	int coolDownCounter;
+	float coolDownStep;
+	float coolDownAngle;
 	public Vector2 point;
 	public Vector3 V3point;
 	public Vector3 V3playerPos;
@@ -144,7 +147,13 @@ public class TheController extends InputAdapter{
 		float length1 = (float) Math.sqrt(dx * dx + dy * dy);
 		dx /= length1;
 		dy /= length1;
-
+		
+		if(coolDownCounter>0){
+			coolDownAngle = coolDownAngle - coolDownStep;
+//			c -= coolDownStep;
+			coolDownCounter--;
+			System.out.println(coolDownStep);
+		}
 	}
 
 	
@@ -176,15 +185,17 @@ public class TheController extends InputAdapter{
 				level1.player.pointGathered = true;
 			}else if(Intersector.intersectSegmentCircle(point, point, gui.getWeaponizer().getPosition(), 
 					gui.getWeaponizer().circle.radius*gui.getWeaponizer().circle.radius)){
-				if (skill != null){
+				if (skill != null && coolDownCounter == 0){
 					skill.execute(level1.player);
 					System.out.println("is it istanceof? " + (skill instanceof PositiveEffectInterface));
+					coolDownAngle = 360;
+					coolDownStep = 360f/skill.coolDown;
+					coolDownCounter = skill.coolDown;
 					if (skill instanceof PositiveEffectInterface){
 						System.out.println("skills sprite: " + skill.sprite);
 						level1.player.positiveEffectSprite = skill.sprite; 
 						System.out.println("positiveEffectSprite sprite " + level1.player.positiveEffectSprite);
 					}
-					skill = null;
 				}
 			}
 		}

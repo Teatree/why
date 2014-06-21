@@ -10,6 +10,7 @@ public class Arrows3 extends Slot{
 	public Arrows3() {
 		sprite = new Sprite(Assets.manager.get(Assets.THREEARROW_ICON));
 		description = "I shoot 3 arrows at thee";
+		coolDown = 900;
 	}
 	
 	public void execute(Player player){

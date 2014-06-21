@@ -9,6 +9,7 @@ public class PoisonArrow extends Slot{
 	
 	public PoisonArrow() {
 		sprite = new Sprite(Assets.manager.get(Assets.POISONED_ARROW_ICON));
+		coolDown = 2200;
 	}
 	
 	public void execute(Player player){

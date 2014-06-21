@@ -43,7 +43,7 @@ public class Assets {
 	public static final AssetDescriptor<Texture> EXPLOSIVE_ARROW_ICON = new AssetDescriptor<Texture>("data\\slotIcons\\explosiveArrow.png", Texture.class);
 	public static final AssetDescriptor<Texture> SHADOW_ARROW_ICON = new AssetDescriptor<Texture>("data\\slotIcons\\SHADOW_ARROW_ICON.png", Texture.class);
 	public static final AssetDescriptor<Texture> POISONED_ARROW_ICON = new AssetDescriptor<Texture>("data\\slotIcons\\poisonedArrow.png", Texture.class);
-	public static final AssetDescriptor<Texture> DAMAGE_TRAP_ICON = new AssetDescriptor<Texture>("data\\slotIcons\\trap.png", Texture.class);
+	public static final AssetDescriptor<Texture> DAMAGE_TRAP_ICON = new AssetDescriptor<Texture>("data\\slotIcons\\DAMAGE_TRAP_ICON.png", Texture.class);
 	public static final AssetDescriptor<Texture> slotBackGround = new AssetDescriptor<Texture>("data\\slotIcons\\slotBackGround.png", Texture.class);
 	public static final AssetDescriptor<Texture> EXPLOSIVE_TRAP_ICON = new AssetDescriptor<Texture>("data\\slotIcons\\explosive_icon2.png", Texture.class);
 	public static final AssetDescriptor<Texture> POISONED_TRAP_ICON = new AssetDescriptor<Texture>("data\\slotIcons\\poison.png", Texture.class);

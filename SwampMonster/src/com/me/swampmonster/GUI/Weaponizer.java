@@ -11,6 +11,7 @@ import com.me.swampmonster.models.AbstractGameObject;
 public class Weaponizer extends AbstractGameObject{
 	
 	private boolean on; 
+	public float coolDownFill;
 	
 	public Weaponizer(){
 		sprite = new Sprite(new Texture("data/Weaponizer.png"));
@@ -22,6 +23,7 @@ public class Weaponizer extends AbstractGameObject{
 		circle.x = position.x;
 		circle.y = position.y;
 		circle.radius = 56;
+		coolDownFill = 360f;
 	}
 	public void update(AbstractGameObject player, Vector2 point){
 		if(Gdx.input.justTouched() && doesIntersect(new Vector2(circle.x, circle.y), circle.radius,
