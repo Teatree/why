@@ -10,5 +10,6 @@ public class Slot {
 	public int lifeTime;
 	public String description = this.getClass().getSimpleName() + "desc";
 	public void execute (Player target){};
+	public int coolDown = 600;
 	
 }

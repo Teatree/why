@@ -175,10 +175,15 @@ public class GShape extends Group {
 						theController.gui.getGameoverGUI().circle.y,
 						theController.gui.getGameoverGUI().circle.radius);
 			}
+			
+			
+
 			sr.end();
 			Gdx.gl.glDisable(GL20.GL_BLEND);
 
+			
 			sr.begin(ShapeType.Line);
+			
 			if (assRevert >= 0.45f
 					&& theController.level1.player.state == State.DEAD) {
 				sr.setColor(Color.BLACK);
@@ -190,7 +195,10 @@ public class GShape extends Group {
 					theController.debugRect.width,
 					theController.debugRect.height);
 			
+			
+			
 			sr.end();
+			
 		}
 		batch.begin();
 		for (Sprite s: theController.gui.getHealthBar().sprites){
@@ -232,6 +240,8 @@ public class GShape extends Group {
 		}
 		
 		
+		
+		
 		font.setColor(1.0f, 1.0f, 1.0f, 1.0f);
 		font.draw(batch, str, 580, 460);
 		font.draw(batch, str2, 580, 420);
@@ -248,6 +258,20 @@ public class GShape extends Group {
 			font.setScale(1);
 			font.draw(batch, theController.gui.getGameoverGUI().getRestartString(), 361, 170);
 		}
+		
+		batch.end();
+		
+		sr.begin(ShapeType.Filled);
+		Gdx.gl.glEnable(GL20.GL_BLEND);
+		Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
+		sr.setColor(new Color(1,0,1,0.4f));
+		sr.arc(theController.gui.getWeaponizer().position.x,
+				theController.gui.getWeaponizer().position.y,
+				theController.gui.getWeaponizer().circle.radius, 90, theController.coolDownAngle);
+		sr.end();
+		Gdx.gl.glDisable(GL20.GL_BLEND);
+		
+		batch.begin();
 	}
 
 	public void warningFlicker(ShapeRenderer Sr) {

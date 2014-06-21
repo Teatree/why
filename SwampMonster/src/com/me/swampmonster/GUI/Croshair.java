@@ -1,33 +1,61 @@
 package com.me.swampmonster.GUI;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import com.me.swampmonster.game.TheController;
 import com.me.swampmonster.models.AbstractGameObject;
 import com.me.swampmonster.models.Player;
 import com.me.swampmonster.utils.Assets;
+import com.me.swampmonster.utils.Constants;
 
 public class Croshair extends AbstractGameObject{
 	
 	private boolean aiming = false;
+	public Sprite pointerMiddle;
+	public List<Sprite> pointers;
+	private float getRot;
 	
 	public Croshair(Vector2 position){
 		this.position = position;
 		
 		sprite = new Sprite(Assets.manager.get(Assets.PointerHead));
+		pointerMiddle = new Sprite(Assets.manager.get(Assets.PointerMiddle));
+		pointers = new ArrayList<Sprite>();
+		
 		aiming = false;
 	}
 	public void update(Player player, Vector2 point, Vector3 V3point){
-		position.x = player.getPosition().x;
-		position.y = player.getPosition().y;
+		getRot = player.getRotation()*57.29f;
 		
-		player.shotDir.x = (position.x + sprite.getWidth() / 2) * 2 - V3point.x;
-		player.shotDir.y = (position.y + sprite.getHeight() / 2) * 2 - V3point.y;
+		position.x = player.aimLineHead.x;
+		position.y = player.aimLineHead.y;
 		
-		sprite.setRotation(player.getRotation()*57.29f);
+		player.shotDir.x = (player.getPosition().x + sprite.getWidth() / 2) * 2 - V3point.x;
+		player.shotDir.y = (player.getPosition().y + sprite.getHeight() / 2) * 2 - V3point.y;
+		
+		sprite.setRotation(getRot);
+		
+		double pointerLength = Math.sqrt(Math.pow(this.position.x - player.position.x, 2)+Math.pow(this.position.y - player.position.y, 2));
+		int pointsCount = (int) (pointerLength/(pointerMiddle.getHeight()+4));
+		int cunter = 0;
+		pointers.clear();
+		while(cunter < pointsCount){
+			double c = (pointerMiddle.getHeight()+4)*cunter;
+			double a = c*Math.cos(Math.toRadians(getRot));
+			Sprite temp = new Sprite(pointerMiddle);
+			temp.setRotation(getRot);
+			double x = player.position.x + a;
+			temp.setPosition((float)x, (float) (Math.tan(Math.toRadians(getRot))*(x-TheController.touchPos.x)+TheController.touchPos.y));
+			pointers.add(temp);
+			cunter++;
+		}
 		
 //		// System.out.println("aiming " + aiming);
 		if(doesIntersect(new Vector2(player.circle.x, player.circle.y), player.circle.radius*2, new Vector2(V3point.x, V3point.y))
@@ -39,6 +67,8 @@ public class Croshair extends AbstractGameObject{
 			aiming = false;
 		}
 	}
+	
+	
 	
 	public boolean doesIntersect(Vector2 v2, float radius, Vector2 point){
 		boolean questionMark;

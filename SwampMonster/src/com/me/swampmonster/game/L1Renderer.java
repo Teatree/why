@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
@@ -85,14 +86,17 @@ public class L1Renderer {
 				&& theController.level1.player.state == State.GUNMOVEMENT
 				&& theController.gui.getCroshair().isAiming()) {
 			batch.draw(theController.gui.getCroshair().getSprite(),
-					theController.level1.player.aimLineHead.x,
-					theController.level1.player.aimLineHead.y,
+					theController.gui.getCroshair().position.x,
+					theController.gui.getCroshair().position.y,
 					theController.gui.getCroshair().getSprite().getOriginX(),
 					theController.gui.getCroshair().getSprite().getOriginY(),
 					theController.gui.getCroshair().getSprite().getWidth(),
 					theController.gui.getCroshair().getSprite().getHeight(),
 					1,1,
 					theController.gui.getCroshair().getSprite().getRotation());
+			for(Sprite s : theController.gui.getCroshair().pointers){
+				s.draw(batch);
+			}
 		}
 		// temporary drawing of a projectile
 		
