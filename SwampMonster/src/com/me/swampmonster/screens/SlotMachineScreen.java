@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.me.swampmonster.game.TheController;
 import com.me.swampmonster.models.Player;
+import com.me.swampmonster.models.slots.Slot;
 import com.me.swampmonster.slotMachineStuff.SlotMachineTextures;
 import com.me.swampmonster.utils.Constants;
 
@@ -36,16 +37,13 @@ public class SlotMachineScreen extends AbstractGameScreen {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
 		victor = new Vector2(Gdx.input.getX(), Constants.VIEWPORT_HEIGHT-Gdx.input.getY());
-		
-		for (int i = 0; i < slotMachineTextures.slots.length; i++) {
+		for ( Slot slot : slotMachineTextures.slots) {
 			if (Gdx.input.justTouched()
-					&& slotMachineTextures.slots[i].sprite
+					&& slot.sprite
 							.getBoundingRectangle().contains(victor)) {
 				if (!slotMachineTextures.peru) {
-					// game.setScreen(new SwampScreen(game));
 					slotMachineTextures.peru = true;
-					slotMachineTextures.selectedSlotNumber = i;
-					// break;
+					slotMachineTextures.selectedSlotDescription = slot.description;
 				}
 			} else if (Gdx.input.justTouched() && slotMachineTextures.slotMachineWindowNo
 					.getBoundingRectangle().contains(victor)) {
@@ -53,19 +51,12 @@ public class SlotMachineScreen extends AbstractGameScreen {
 				slotMachineTextures.peru = false;
 			} else if (Gdx.input.justTouched() && slotMachineTextures.slotMachineWindowYes
 					.getBoundingRectangle().contains(victor)) {
-				TheController.skill = slotMachineTextures.slots[slotMachineTextures.selectedSlotNumber];
+				TheController.skill = slot;
 				slotMachineTextures.peru = false;
 				game.setScreen(new SwampScreen(game));
 			}
-
-
 		}
 		stage.draw();
-//		System.out.println("yes rect = " + slotMachineTextures.yes);
-//		}else if(Gdx.input.isTouched() && slotMachineTextures.peru) {
-////			game.setScreen(new SwampScreen(game));
-//			slotMachineTextures.peru = false;
-//		}
 	}
 
 	public void resize(int width, int height) {

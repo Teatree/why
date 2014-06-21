@@ -1,5 +1,8 @@
 package com.me.swampmonster.slotMachineStuff;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -21,13 +24,16 @@ public class SlotMachineTextures extends Group {
 	private ShapeRenderer sr;
 	private Player p;
 	private static SlotsGenerator slotsGen;
-	public Slot[] slots;
+	public Set<Slot> slots;
+	int [] slotPositionsX = {285, 415, 540};
+	int slotPositionY = 250;
 	public Sprite slotMachineWindow;
 	public Sprite slotMachineWindowYes;
 	public Sprite slotMachineWindowNo;
 	public Rectangle yes;
 	public Rectangle no;
 	public boolean peru;
+	public String selectedSlotDescription;
 	public int selectedSlotNumber;
 	public Sprite backGround = new Sprite(Assets.manager.get(Assets.slotBackGround));
 	public SlotMachineTextures(Player player) {
@@ -47,11 +53,11 @@ public class SlotMachineTextures extends Group {
 		
 		sr = new ShapeRenderer();
 		
-		slots = new Slot[3];
-		slots[0] =  slotsGen.getSlot(0, 15);
-		slots[1] =  slotsGen.getSlot(0, 15);
-		slots[2] =  slotsGen.getSlot(0, 15);
-		
+		slots = new HashSet<Slot>();
+		while (slots.size() < 2){
+			slots.add(slotsGen.getSlot(0, 10));
+		}
+			slots.add(slotsGen.getSlot(11, 15));
 	}
 
 	@Override
@@ -68,49 +74,30 @@ public class SlotMachineTextures extends Group {
 		
 		sr.begin(ShapeType.Filled);
 		sr.setColor(Color.WHITE);
-		sr.rect(slots[0].sprite.getBoundingRectangle().x,
-				slots[0].sprite.getBoundingRectangle().y,
-				slots[0].sprite.getBoundingRectangle().width,
-				slots[0].sprite.getBoundingRectangle().height);
-
-		sr.rect(slots[1].sprite.getBoundingRectangle().x,
-				slots[1].sprite.getBoundingRectangle().y,
-				slots[1].sprite.getBoundingRectangle().width,
-				slots[1].sprite.getBoundingRectangle().height);
-		sr.rect(slots[2].sprite.getBoundingRectangle().x,
-				slots[2].sprite.getBoundingRectangle().y,
-				slots[2].sprite.getBoundingRectangle().width,
-				slots[2].sprite.getBoundingRectangle().height);
+		for (Slot slot : slots){
+			sr.rect(slot.sprite.getBoundingRectangle().x,
+					slot.sprite.getBoundingRectangle().y,
+					slot.sprite.getBoundingRectangle().width,
+					slot.sprite.getBoundingRectangle().height);
+		}
 		sr.end();
 		batch.begin();
 		
-		batch.draw(backGround,
-		slots[0].sprite.getBoundingRectangle().x, 
-		slots[0].sprite.getBoundingRectangle().y, 
-		slots[0].sprite.getBoundingRectangle().width, 
-		slots[0].sprite.getBoundingRectangle().height);	
-		batch.draw(backGround,
-				slots[1].sprite.getBoundingRectangle().x, 
-				slots[1].sprite.getBoundingRectangle().y, 
-				slots[1].sprite.getBoundingRectangle().width, 
-				slots[1].sprite.getBoundingRectangle().height);
-		batch.draw(backGround,
-				slots[2].sprite.getBoundingRectangle().x, 
-				slots[2].sprite.getBoundingRectangle().y, 
-				slots[2].sprite.getBoundingRectangle().width, 
-				slots[2].sprite.getBoundingRectangle().height);
-		
-//		batch.draw(slots[0].sprite, 250, 300, 100, 100);
-		slots[0].sprite.setPosition(285, 250);
-		slots[0].sprite.setSize(100, 100);
-		slots[0].sprite.draw(batch);
-		slots[1].sprite.setPosition(415, 250);
-		slots[1].sprite.setSize(100, 100);
-		slots[1].sprite.draw(batch);
-		slots[2].sprite.setPosition(540, 250);
-		slots[2].sprite.setSize(100, 100);
-		slots[2].sprite.draw(batch);
-		
+		for(Slot slot : slots){
+			batch.draw(backGround,
+			slot.sprite.getBoundingRectangle().x, 
+			slot.sprite.getBoundingRectangle().y, 
+			slot.sprite.getBoundingRectangle().width, 
+			slot.sprite.getBoundingRectangle().height);	
+		}
+
+		int i = 0;
+		for (Slot slot : slots){
+			slot.sprite.setPosition(slotPositionsX[i], slotPositionY);
+			i++;
+			slot.sprite.setSize(100, 100);
+			slot.sprite.draw(batch);
+		}
 		font.setColor(Color.BLACK);
 		font.setScale(0.5f, 0.5f);
 		font.draw(batch, "MaxHP: " + p.getMaxHealth(), 284, 215);
@@ -128,7 +115,7 @@ public class SlotMachineTextures extends Group {
 			slotMachineWindowNo.draw(batch);
 			slotMachineWindowNo.setPosition(Constants.VIEWPORT_WIDTH/3+192, Constants.VIEWPORT_GUI_HEIGHT/3);
 			no.setPosition(new Vector2(slotMachineWindowNo.getX(), slotMachineWindowNo.getY()));
-			font.draw(batch, slots[selectedSlotNumber].description, slotMachineWindow.getBoundingRectangle().x+25, slotMachineWindow.getBoundingRectangle().y+100);
+			font.draw(batch, selectedSlotDescription, slotMachineWindow.getBoundingRectangle().x+25, slotMachineWindow.getBoundingRectangle().y+100);
 			
 		}
 		
@@ -140,10 +127,6 @@ public class SlotMachineTextures extends Group {
 	public static SlotMachineTextures getSlotMachine(Player player){
 		if(smt!=null){
 			smt = new SlotMachineTextures(player);
-		}else{
-			smt.slots[0] =  slotsGen.getSlot(0, 15);
-			smt.slots[1] =  slotsGen.getSlot(0, 15);
-			smt.slots[2] =  slotsGen.getSlot(0, 15);
 		}
 		return smt;
 	}
