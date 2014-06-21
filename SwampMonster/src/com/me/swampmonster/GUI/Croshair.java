@@ -9,11 +9,9 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
-import com.me.swampmonster.game.TheController;
 import com.me.swampmonster.models.AbstractGameObject;
 import com.me.swampmonster.models.Player;
 import com.me.swampmonster.utils.Assets;
-import com.me.swampmonster.utils.Constants;
 
 public class Croshair extends AbstractGameObject{
 	
@@ -51,8 +49,8 @@ public class Croshair extends AbstractGameObject{
 			double a = c*Math.cos(Math.toRadians(getRot));
 			Sprite temp = new Sprite(pointerMiddle);
 			temp.setRotation(getRot);
-			double x = player.position.x + a;
-			temp.setPosition((float)x, (float) (Math.tan(Math.toRadians(getRot))*(x-TheController.touchPos.x)+TheController.touchPos.y));
+			double x = player.position.x - a;
+			temp.setPosition((float)x, (float) (Math.tan(Math.toRadians(getRot))*(x-this.position.x/*TheController.touchPos.x*/)+this.position.y/*TheController.touchPos.y*/));
 			pointers.add(temp);
 			cunter++;
 		}
