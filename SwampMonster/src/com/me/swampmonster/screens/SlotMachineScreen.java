@@ -18,40 +18,43 @@ public class SlotMachineScreen extends AbstractGameScreen {
 	private Stage stage;
 	private SlotMachineTextures slotMachineTextures;
 	public Vector2 victor;
-	
+
 	public SlotMachineScreen(Game game) {
 		super(game);
-		
+
 		player = new Player(null);
-		
+
 		batch = new SpriteBatch();
-		stage = new Stage(Constants.VIEWPORT_WIDTH, Constants.VIEWPORT_HEIGHT, true, batch);
-		
+		stage = new Stage(Constants.VIEWPORT_WIDTH, Constants.VIEWPORT_HEIGHT,
+				true, batch);
+
 		slotMachineTextures = new SlotMachineTextures(player);
-		
+
 		stage.addActor(slotMachineTextures);
 	}
 
 	public void render(float deltaTime) {
 		Gdx.gl.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		
-		victor = new Vector2(Gdx.input.getX(), Constants.VIEWPORT_HEIGHT-Gdx.input.getY());
-		for ( Slot slot : slotMachineTextures.slots) {
+
+		victor = new Vector2(Gdx.input.getX(), Constants.VIEWPORT_HEIGHT
+				- Gdx.input.getY());
+		for (Slot slot : slotMachineTextures.slots) {
 			if (Gdx.input.justTouched()
-					&& slot.sprite
-							.getBoundingRectangle().contains(victor)) {
+					&& slot.sprite.getBoundingRectangle().contains(victor)) {
 				if (!slotMachineTextures.peru) {
 					slotMachineTextures.peru = true;
-					slotMachineTextures.selectedSlotDescription = slot.description;
+					slotMachineTextures.selectedSlot = slot;
+					TheController.skill = slot;
 				}
-			} else if (Gdx.input.justTouched() && slotMachineTextures.slotMachineWindowNo
-					.getBoundingRectangle().contains(victor)) {
+			} else if (Gdx.input.justTouched()
+					&& slotMachineTextures.slotMachineWindowNo
+							.getBoundingRectangle().contains(victor)) {
 
 				slotMachineTextures.peru = false;
-			} else if (Gdx.input.justTouched() && slotMachineTextures.slotMachineWindowYes
-					.getBoundingRectangle().contains(victor)) {
-				TheController.skill = slot;
+			} else if (Gdx.input.justTouched()
+					&& slotMachineTextures.slotMachineWindowYes
+							.getBoundingRectangle().contains(victor)) {
 				slotMachineTextures.peru = false;
 				game.setScreen(new SwampScreen(game));
 			}

@@ -50,7 +50,22 @@ public class Croshair extends AbstractGameObject{
 			Sprite temp = new Sprite(pointerMiddle);
 			temp.setRotation(getRot);
 			double x = player.position.x - a;
-			temp.setPosition((float)x, (float) (Math.tan(Math.toRadians(getRot))*(x-this.position.x/*TheController.touchPos.x*/)+this.position.y/*TheController.touchPos.y*/));
+			double lineRotation=  getRot;
+			if (Math.abs(getRot) <= 87 && Math.abs(getRot) >= 93){
+				lineRotation = getRot;
+			} else {
+				if (getRot >= 86 && getRot <= 90){
+					lineRotation = 85;
+				} else if (getRot > 90 && getRot <= 93){
+					lineRotation = 94;
+				} else if (getRot > -93 && getRot <= -90){
+					lineRotation = -94;
+				} else if (getRot <= -86 && getRot > -90){
+					lineRotation = -85;
+				}
+			}
+			System.out.println("Roatation = " + getRot + ", tan " + Math.tan(Math.toRadians(lineRotation)));
+			temp.setPosition((float)x, (float) (Math.tan(Math.toRadians(lineRotation))*(x-this.position.x/*TheController.touchPos.x*/)+this.position.y/*TheController.touchPos.y*/));
 			pointers.add(temp);
 			cunter++;
 		}
@@ -81,6 +96,7 @@ public class Croshair extends AbstractGameObject{
 	public boolean isAiming() {
 		return aiming;
 	}
+	
 	public void setAiming(boolean aiming) {
 		this.aiming = aiming;
 	}

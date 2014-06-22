@@ -33,7 +33,7 @@ public class SlotMachineTextures extends Group {
 	public Rectangle yes;
 	public Rectangle no;
 	public boolean peru;
-	public String selectedSlotDescription;
+	public Slot selectedSlot;
 	public int selectedSlotNumber;
 	public Sprite backGround = new Sprite(Assets.manager.get(Assets.slotBackGround));
 	public SlotMachineTextures(Player player) {
@@ -115,7 +115,7 @@ public class SlotMachineTextures extends Group {
 			slotMachineWindowNo.draw(batch);
 			slotMachineWindowNo.setPosition(Constants.VIEWPORT_WIDTH/3+192, Constants.VIEWPORT_GUI_HEIGHT/3);
 			no.setPosition(new Vector2(slotMachineWindowNo.getX(), slotMachineWindowNo.getY()));
-			font.draw(batch, selectedSlotDescription, slotMachineWindow.getBoundingRectangle().x+25, slotMachineWindow.getBoundingRectangle().y+100);
+			font.draw(batch, selectedSlot.description, slotMachineWindow.getBoundingRectangle().x+25, slotMachineWindow.getBoundingRectangle().y+100);
 			
 		}
 		
