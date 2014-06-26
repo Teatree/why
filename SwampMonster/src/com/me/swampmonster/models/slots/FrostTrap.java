@@ -8,6 +8,8 @@ import com.me.swampmonster.utils.Assets;
 
 public class FrostTrap extends Trap{
 
+	public static int level;
+	
 	public FrostTrap() {
 		lifeTime = 600;
 		sprite = new Sprite(Assets.manager.get(Assets.FROST_TRAP_ICON));

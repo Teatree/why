@@ -56,6 +56,11 @@ public class Assets {
 	public static final AssetDescriptor<Texture> FROZENNEGATIVEEFFECT_ICON = new AssetDescriptor<Texture>("data\\slotIcons\\FROZEN_NEGATIVE_EFFECT_ICON.png", Texture.class);
 	public static final AssetDescriptor<Texture> POISONEDNEGATIVEEFFECT_ICON = new AssetDescriptor<Texture>("data\\slotIcons\\POISONED_NEGATIVE_EFFECT_ICON.png", Texture.class);
 	public static final AssetDescriptor<Texture> SCAREDNEGATIVEEFFECT_ICON = new AssetDescriptor<Texture>("data\\slotIcons\\fear.png", Texture.class);
+	public static final AssetDescriptor<Texture> slotLevel1 = new AssetDescriptor<Texture>("data\\slotIcons\\slotLevel1.png", Texture.class);
+	public static final AssetDescriptor<Texture> slotLevel2 = new AssetDescriptor<Texture>("data\\slotIcons\\slotLevel2.png", Texture.class);
+	public static final AssetDescriptor<Texture> slotLevel3 = new AssetDescriptor<Texture>("data\\slotIcons\\slotLevel3.png", Texture.class);
+	public static final AssetDescriptor<Texture> slotLevel4 = new AssetDescriptor<Texture>("data\\slotIcons\\slotLevel4.png", Texture.class);
+	public static final AssetDescriptor<Texture> slotLevel5 = new AssetDescriptor<Texture>("data\\slotIcons\\slotLevel5.png", Texture.class);
 	public static final AssetDescriptor<Texture> POISON_TRAP = new AssetDescriptor<Texture>("data\\googleSaysItIsAPool.png", Texture.class);
 	public static final AssetDescriptor<Texture> FROZEN_TRAP = new AssetDescriptor<Texture>("data\\Frozen.png", Texture.class);
 	public static final AssetDescriptor<Texture> DAMAGE_TRAP = new AssetDescriptor<Texture>("data\\appleTrap.png", Texture.class);
@@ -66,6 +71,7 @@ public class Assets {
 	public static final AssetDescriptor<TiledMap> map = new AssetDescriptor<TiledMap>("data\\Map.tmx", TiledMap.class);
 	public static final AssetDescriptor<BitmapFont> font = new AssetDescriptor<BitmapFont>("data\\font.fnt", BitmapFont.class);
 	public static final AssetDescriptor<Texture> explosiveTrap = new AssetDescriptor<Texture>("data\\explosiveTrap.png", Texture.class); 
+	
 	public static void load(){
 		manager.load(nastyaSpriteStandard);
 		manager.load(nastyaSpriteGun);
@@ -108,6 +114,11 @@ public class Assets {
 		manager.load(FROZENNEGATIVEEFFECT_ICON);
 		manager.load(POISONEDNEGATIVEEFFECT_ICON);
 		manager.load(SCAREDNEGATIVEEFFECT_ICON);
+		manager.load(slotLevel1);
+		manager.load(slotLevel2);
+		manager.load(slotLevel3);
+		manager.load(slotLevel4);
+		manager.load(slotLevel5);
 		manager.load(POISON_TRAP);
 		manager.load(FROZEN_TRAP);
 		manager.load(DAMAGE_TRAP);

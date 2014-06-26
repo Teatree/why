@@ -44,6 +44,7 @@ public class TheController extends InputAdapter{
 	float dx;
 	float dy;
 	
+
 	float enemyDx;
 	float enemyDy;
 	
@@ -187,14 +188,11 @@ public class TheController extends InputAdapter{
 					gui.getWeaponizer().circle.radius*gui.getWeaponizer().circle.radius)){
 				if (skill != null && coolDownCounter == 0){
 					skill.execute(level1.player);
-					System.out.println("is it istanceof? " + (skill instanceof PositiveEffectInterface));
 					coolDownAngle = 360;
 					coolDownStep = 360f/skill.coolDown;
 					coolDownCounter = skill.coolDown;
 					if (skill instanceof PositiveEffectInterface){
-						System.out.println("skills sprite: " + skill.sprite);
 						level1.player.positiveEffectSprite = skill.sprite; 
-						System.out.println("positiveEffectSprite sprite " + level1.player.positiveEffectSprite);
 					}
 				}
 			}

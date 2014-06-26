@@ -7,6 +7,8 @@ import com.me.swampmonster.utils.Assets;
 
 public class Arrows3 extends Slot{
 	
+	public static int level;
+	
 	public Arrows3() {
 		sprite = new Sprite(Assets.manager.get(Assets.THREEARROW_ICON));
 		description = "I shoot 3 arrows at thee";

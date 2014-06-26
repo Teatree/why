@@ -12,11 +12,13 @@ public class Trap extends Slot{
 	public Sprite trapSprite;
 	public Vector2 position;
 	public boolean showEffect;
+	public int lifeTimeMax;
 	
 	public ParticleEffect effect;
 	public void catchEnemy(Enemy enemy){};
 
 	public void execute (Player player){
+		this.lifeTime = lifeTimeMax;
 		player.trap = this;
 		player.trap.position = new Vector2(player.position.x, player.position.y);
 		player.trap.circle.x = player.trap.position.x + trapSprite.getWidth()/2;

@@ -46,6 +46,7 @@ public class SlotMachineScreen extends AbstractGameScreen {
 					slotMachineTextures.peru = true;
 					slotMachineTextures.selectedSlot = slot;
 					TheController.skill = slot;
+						
 				}
 			} else if (Gdx.input.justTouched()
 					&& slotMachineTextures.slotMachineWindowNo
@@ -55,6 +56,19 @@ public class SlotMachineScreen extends AbstractGameScreen {
 			} else if (Gdx.input.justTouched()
 					&& slotMachineTextures.slotMachineWindowYes
 							.getBoundingRectangle().contains(victor)) {
+				
+				if (slot == TheController.skill) {
+					System.out.println("beep");
+					try {
+						int i = TheController.skill.getClass()
+								.getField("level").getInt(null);
+						i++;
+						TheController.skill.getClass().getField("level")
+								.setInt(null, i);
+					} catch (Exception e) {
+
+					}
+				}
 				slotMachineTextures.peru = false;
 				game.setScreen(new SwampScreen(game));
 			}

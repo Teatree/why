@@ -7,6 +7,8 @@ import com.me.swampmonster.utils.Assets;
 
 public class ExplosiveArrow extends Slot{
 	
+	public static int level;
+	
 	public ExplosiveArrow() {
 		sprite = new Sprite(Assets.manager.get(Assets.EXPLOSIVE_ARROW_ICON));
 		coolDown = 200;

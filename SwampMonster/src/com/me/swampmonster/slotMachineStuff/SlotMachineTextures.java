@@ -1,6 +1,8 @@
 package com.me.swampmonster.slotMachineStuff;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import com.badlogic.gdx.Gdx;
@@ -25,17 +27,24 @@ public class SlotMachineTextures extends Group {
 	private Player p;
 	private static SlotsGenerator slotsGen;
 	public Set<Slot> slots;
+	public Map<Integer, Sprite> slotLevelPic;
 	int [] slotPositionsX = {285, 415, 540};
 	int slotPositionY = 250;
 	public Sprite slotMachineWindow;
 	public Sprite slotMachineWindowYes;
 	public Sprite slotMachineWindowNo;
+	public Sprite slotLevel1;
+	public Sprite slotLevel2;
+	public Sprite slotLevel3;
+	public Sprite slotLevel4;
+	public Sprite slotLevel5;
 	public Rectangle yes;
 	public Rectangle no;
 	public boolean peru;
 	public Slot selectedSlot;
 	public int selectedSlotNumber;
 	public Sprite backGround = new Sprite(Assets.manager.get(Assets.slotBackGround));
+	
 	public SlotMachineTextures(Player player) {
 		this.p = player;
 		font = Assets.manager.get(Assets.font);
@@ -44,6 +53,20 @@ public class SlotMachineTextures extends Group {
 		slotMachineWindow = new Sprite(Assets.manager.get(Assets.slotMachineWindow));
 		slotMachineWindowYes = new Sprite(Assets.manager.get(Assets.slotMachineWindowYes));
 		slotMachineWindowNo = new Sprite(Assets.manager.get(Assets.slotMachineWindowNo));
+		
+		slotLevel1 = new Sprite(Assets.manager.get(Assets.slotLevel1));
+		slotLevel2 = new Sprite(Assets.manager.get(Assets.slotLevel2));
+		slotLevel3 = new Sprite(Assets.manager.get(Assets.slotLevel3));
+		slotLevel4 = new Sprite(Assets.manager.get(Assets.slotLevel4));
+		slotLevel5 = new Sprite(Assets.manager.get(Assets.slotLevel5));
+		
+		slotLevelPic = new HashMap<Integer, Sprite>();
+		slotLevelPic.put(0, slotLevel1);
+		slotLevelPic.put(1, slotLevel2);
+		slotLevelPic.put(2, slotLevel3);
+		slotLevelPic.put(3, slotLevel4);
+		slotLevelPic.put(4, slotLevel5);
+		
 		yes = new Rectangle();
 		yes.width = slotMachineWindowYes.getWidth();
 		yes.height = slotMachineWindowYes.getHeight();
@@ -97,6 +120,15 @@ public class SlotMachineTextures extends Group {
 			i++;
 			slot.sprite.setSize(100, 100);
 			slot.sprite.draw(batch);
+			try {
+				Sprite s = new Sprite(slotLevelPic.get(slot.getClass().getField("level").getInt(null)));
+				s.setPosition(slot.sprite.getX(), slot.sprite.getY());
+				s.setSize(16, 16);
+				s.draw(batch);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
 		}
 		font.setColor(Color.BLACK);
 		font.setScale(0.5f, 0.5f);

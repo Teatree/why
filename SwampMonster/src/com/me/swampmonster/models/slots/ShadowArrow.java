@@ -6,7 +6,7 @@ import com.me.swampmonster.models.Projectile.EffectCarriers;
 import com.me.swampmonster.utils.Assets;
 
 public class ShadowArrow extends Slot{
-	
+	public static int level;
 	public ShadowArrow() {
 		sprite = new Sprite(Assets.manager.get(Assets.SHADOW_ARROW_ICON));
 	}

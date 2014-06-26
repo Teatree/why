@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -26,7 +27,7 @@ public class L1Renderer {
 	// Temporary debug feature
 	
 	private SpriteBatch batch;
-//	private ParticleEffect effect;
+	private ParticleEffect effect;
 	private OrthogonalTiledMapRenderer mapRenderer;
 	private int timer;
 	private Stage stage;
@@ -55,10 +56,10 @@ public class L1Renderer {
 		
 		timer = 60;
 		
-//		effect = new ParticleEffect();
-//		effect.load(Gdx.files.local("effects/FlameEffectTemp.p"), Gdx.files.local("effects"));
-//		effect.setPosition(theController.level1.player.position.x, theController.level1.player.position.y);
-//		effect.start();
+		effect = new ParticleEffect();
+		effect.load(Gdx.files.local("effects/FlameEffectTemp.p"), Gdx.files.local("effects"));
+		effect.setPosition(theController.level1.player.position.x, theController.level1.player.position.y);
+		effect.start();
 	}	
 	
 	public void render() {
@@ -135,7 +136,7 @@ public class L1Renderer {
 				}
 			}
 		}
-		if (theController.level1.player.trap != null){
+		if (theController.level1.player.trap != null && theController.level1.player.trap.position != null){
 			theController.level1.player.trap.trapSprite.setPosition(theController.level1.player.trap.position.x,
 					theController.level1.player.trap.position.y);
 			
@@ -228,8 +229,8 @@ public class L1Renderer {
 			theController.level1.player.trap.effect.draw(batch);
 			theController.level1.player.trap.effect.update(Gdx.graphics.getDeltaTime());
 		}
-//		effect.draw(batch);
-//		effect.update(Gdx.graphics.getDeltaTime());
+		effect.draw(batch);
+		effect.update(Gdx.graphics.getDeltaTime());
 		
 		
 		batch.end();

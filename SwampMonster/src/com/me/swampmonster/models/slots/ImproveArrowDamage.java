@@ -6,6 +6,8 @@ import com.me.swampmonster.utils.Assets;
 
 public class ImproveArrowDamage extends Slot implements Perks{
 
+	public static int level;
+	
 	public ImproveArrowDamage() {
 		sprite = new Sprite(Assets.manager.get(Assets.IMPROVEARROWDAMAGE_ICON));
 	}

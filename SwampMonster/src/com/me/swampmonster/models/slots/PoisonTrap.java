@@ -7,7 +7,7 @@ import com.me.swampmonster.models.enemies.Enemy;
 import com.me.swampmonster.utils.Assets;
 
 public class PoisonTrap extends Trap{
-	
+	public static int level;
 	public PoisonTrap() {
 		lifeTime = 112;
 		circle = new Circle();

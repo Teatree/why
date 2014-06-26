@@ -5,7 +5,7 @@ import com.me.swampmonster.models.Player;
 import com.me.swampmonster.utils.Assets;
 
 public class ImproveMaxOxygen extends Slot implements Perks{
-	
+	public static int level;
 	public ImproveMaxOxygen() {
 		sprite = new Sprite(Assets.manager.get(Assets.IMPROVEMAXOXYGEN_ICON));
 	}

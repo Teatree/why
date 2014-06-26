@@ -7,6 +7,7 @@ import com.me.swampmonster.utils.Assets;
 
 public class ExplozionTrap extends Trap{
 	public int lifetime = 112;
+	public static int level;
 	
 	public ExplozionTrap() {
 		lifeTime = 112;
