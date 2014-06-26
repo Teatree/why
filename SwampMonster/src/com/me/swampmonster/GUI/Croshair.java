@@ -44,6 +44,7 @@ public class Croshair extends AbstractGameObject{
 		int pointsCount = (int) (pointerLength/(pointerMiddle.getHeight()+4));
 		int cunter = 0;
 		pointers.clear();
+		if (aiming){
 		while(cunter < pointsCount){
 			double c = (pointerMiddle.getHeight()+4)*cunter;
 			double a = c*Math.cos(Math.toRadians(getRot));
@@ -51,23 +52,25 @@ public class Croshair extends AbstractGameObject{
 			temp.setRotation(getRot);
 			double x = player.position.x - a;
 			double lineRotation=  getRot;
-			if (Math.abs(getRot) <= 87 && Math.abs(getRot) >= 93){
+			if (Math.abs(getRot) <= 71 || Math.abs(getRot) >= 113){
 				lineRotation = getRot;
+			System.out.println("Roatation = " + getRot + ", y =  " + (Math.tan(Math.toRadians(lineRotation))*(x-this.position.x/*TheController.touchPos.x*/)+this.position.y/*TheController.touchPos.y*/));
+			temp.setPosition((float)x, (float) (Math.tan(Math.toRadians(lineRotation))*(x-this.position.x)+this.position.y));
 			} else {
-				if (getRot >= 86 && getRot <= 90){
-					lineRotation = 85;
-				} else if (getRot > 90 && getRot <= 93){
-					lineRotation = 94;
-				} else if (getRot > -93 && getRot <= -90){
-					lineRotation = -94;
-				} else if (getRot <= -86 && getRot > -90){
-					lineRotation = -85;
-				}
+//				if (getRot >= 86 && getRot <= 90){
+//					lineRotation = 85;
+//				} else if (getRot > 90 && getRot <= 93){
+//					lineRotation = 94;
+//				} else if (getRot > -93 && getRot <= -90){
+//					lineRotation = -94;
+//				} else if (getRot <= -86 && getRot > -90){
+//					lineRotation = -85;
+//				}
+				temp.setPosition((float)x, (float)(this.position.y - c));
 			}
-			System.out.println("Roatation = " + getRot + ", tan " + Math.tan(Math.toRadians(lineRotation)));
-			temp.setPosition((float)x, (float) (Math.tan(Math.toRadians(lineRotation))*(x-this.position.x/*TheController.touchPos.x*/)+this.position.y/*TheController.touchPos.y*/));
 			pointers.add(temp);
 			cunter++;
+		}
 		}
 		
 //		// System.out.println("aiming " + aiming);

@@ -168,7 +168,7 @@ public class TheController extends InputAdapter{
 					cameraHelper.cameraShake();
 
 					level1.player.hurt = true;
-					level1.player.setDamageType("enemy");
+					level1.player.damageType = "enemy";
 					level1.player.health -= e.damage;
 				}
 			}

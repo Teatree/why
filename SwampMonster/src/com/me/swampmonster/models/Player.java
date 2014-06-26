@@ -214,7 +214,7 @@ public class Player extends AbstractGameObject {
 					takingDamageFromEnemy(harmfulEnemy, touchPos,
 							collisionLayer);
 				}
-				if (damageType != "lackOfOxygen" && time > 39) {
+				if (/*damageType != "lackOfOxygen" && */time > 39) {
 					hurt = false;
 					time = 0;
 				}
@@ -780,7 +780,7 @@ public class Player extends AbstractGameObject {
 
 	private void painLogic() {
 		if (timer2 > 0) {
-			damageType = "lackOfOxygen";
+			damageTypeOxygen = "lackOfOxygen";
 			hurt();
 			timer2--;
 		}

@@ -24,8 +24,9 @@ public class GUI {
 	public void update(Player player, Vector2 point, Vector3 V3point){
 		healthBar.update(player);
 		weaponizer.update(player, point);
-		croshair.update(player, point, V3point);
 		gameoverGUI.update(player);
+//		if(croshair.isAiming())
+		croshair.update(player, point, V3point);
 	}
 
 	public OxygenBar getOxygenBar() {

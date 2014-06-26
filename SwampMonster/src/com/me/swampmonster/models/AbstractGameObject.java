@@ -48,7 +48,8 @@ public abstract class AbstractGameObject {
 	protected Line2D line;
 	protected TiledMap map;
 	protected TiledMap map_inside_bunker;
-	protected String damageType;
+	public String damageType;
+	public String damageTypeOxygen;
 	public boolean hurt;
 	protected boolean allowedToShoot;
 	
@@ -135,12 +136,7 @@ public abstract class AbstractGameObject {
 	public void setLine(Line2D line) {
 		this.line = line;
 	}
-	public String getDamageType() {
-		return damageType;
-	}
-	public void setDamageType(String damageType) {
-		this.damageType = damageType;
-	}
+	
 	public TiledMap getMap_inside_bunker() {
 		return map_inside_bunker;
 	}

@@ -48,13 +48,11 @@ public class GameOverGUI extends AbstractGameObject {
 	}
 
 	public void update(AbstractGameObject player) {
-		if (player.getDamageType() == "lackOfOxygen") {
+		if (player.damageTypeOxygen == "lackOfOxygen") {
 			WittyMessage = WittySuffocationMessages[i];
-		}
-		if (player.getDamageType() == "enemy") {
+		} else if (player.damageType == "enemy") {
 			WittyMessage = WittyEnemyMessages[i];
-		}
-		if (player.getDamageType() == "Poisoned") {
+		} else if (player.damageType == "Poisoned") {
 			WittyMessage = WittyPoisonMessages[i];
 		}
 	}
