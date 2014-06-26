@@ -10,7 +10,7 @@ import com.me.swampmonster.models.AbstractGameObject;
 
 public class Weaponizer extends AbstractGameObject{
 	
-	private boolean on; 
+	public boolean on; 
 	public float coolDownFill;
 	
 	public Weaponizer(){
@@ -29,18 +29,10 @@ public class Weaponizer extends AbstractGameObject{
 		if(Gdx.input.justTouched() && doesIntersect(new Vector2(circle.x, circle.y), circle.radius,
 				new Vector2(point.x+player.getPosition().x, point.y+player.getPosition().y)) && !on){
 			on = true;
-//			// System.out.println(on);
 		}else if(Gdx.input.justTouched() && doesIntersect(new Vector2(circle.x, circle.y), circle.radius, 
 				new Vector2(point.x+player.getPosition().x, point.y+player.getPosition().y)) && on){
 			on = false;
-//			// System.out.println(on);
 		}
-	}
-	public boolean isOn() {
-		return on;
-	}
-	public void setOn(boolean on) {
-		this.on = on;
 	}
 	
 	public boolean doesIntersect(Vector2 center, float radius, Vector2 point){

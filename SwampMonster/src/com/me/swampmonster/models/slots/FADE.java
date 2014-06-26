@@ -5,12 +5,17 @@ import com.me.swampmonster.models.Player;
 import com.me.swampmonster.utils.Assets;
 
 public class FADE extends Slot implements PositiveEffectInterface{
-		public void execute(Player target) {
-			target.setPositiveEffect(PositiveEffects.FADE);
-		}
+	
+	public static int level;
+		
+	public void execute(Player target) {
+		target.setPositiveEffect(PositiveEffects.FADE);
+	}
 
-		public FADE() {
-			sprite = new Sprite(Assets.manager.get(Assets.FADE_ICON));
-			coolDown = 800;
-		}
+	public FADE() {
+		
+		
+		sprite = new Sprite(Assets.manager.get(Assets.FADE_ICON));
+		coolDown = 800;
+	}
 }

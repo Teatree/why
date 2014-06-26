@@ -106,9 +106,9 @@ public class GShape extends Group {
 				sr.rect(16, 422, 96, 22);
 			}
 			if (theController.level1.player.state != State.DEAD) {
-				if (theController.gui.getWeaponizer().isOn() == false) {
+				if (theController.gui.getWeaponizer().on == false) {
 					sr.setColor(Color.WHITE);
-				} else if (theController.gui.getWeaponizer().isOn() == true) {
+				} else if (theController.gui.getWeaponizer().on == true) {
 					sr.setColor(Color.WHITE);
 				}
 
@@ -264,7 +264,7 @@ public class GShape extends Group {
 		sr.begin(ShapeType.Filled);
 		Gdx.gl.glEnable(GL20.GL_BLEND);
 		Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
-		sr.setColor(new Color(1,0,1,0.4f));
+		sr.setColor(new Color(0.1f,  0.1f, 0.1f, 0.57f));
 		sr.arc(theController.gui.getWeaponizer().position.x,
 				theController.gui.getWeaponizer().position.y,
 				theController.gui.getWeaponizer().circle.radius, 90, theController.coolDownAngle);
