@@ -17,11 +17,11 @@ public class Bunker extends AbstractGameObject{
 	TiledMapTileLayer tLayer;
 	
 	public Bunker(){
-		map = new TmxMapLoader().load("data/Map.tmx");
+		map = new TmxMapLoader().load("data/testLevel.tmx");
 		
 		Array<StaticTiledMapTile> frameTiles = new Array<StaticTiledMapTile>(2);
 		
-		Iterator<TiledMapTile> tiles = map.getTileSets().getTileSet("tiles").iterator();
+		Iterator<TiledMapTile> tiles = map.getTileSets().getTileSet("asfa").iterator();
 		while(tiles.hasNext()){
 			TiledMapTile tile = tiles.next();
 			if(tile.getProperties().containsKey("animation") && tile.getProperties().get("animation", String.class).equals("console"))
@@ -35,9 +35,9 @@ public class Bunker extends AbstractGameObject{
 		for(int x = 0; x < tLayer.getWidth(); x++){
 			for(int y = 0; y < tLayer.getHeight(); y++){
 				Cell cell = tLayer.getCell(x, y);
-				if(cell.getTile().getProperties().containsKey("animation") && cell.getTile().getProperties().get("animation", String.class).equals("console")){
-					cell.setTile(animatedTile);
-				}
+//				if(cell.getTile().getProperties().containsKey("animation") && cell.getTile().getProperties().get("animation", String.class).equals("console")){
+//					cell.setTile(animatedTile);
+//				}
 			}
 		}
 	}

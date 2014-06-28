@@ -107,6 +107,7 @@ public class Pathfinder {
 				}
 			}
 		}
+		System.out.println("3");
 		
 		return null;
 	}
@@ -151,6 +152,7 @@ public class Pathfinder {
 	private static Node getNodeAt(float x, float y, TiledMapTileLayer nodeLayer, Node [][] nodes) {
 		int cellx = (int)x / (int)nodeLayer.getTileWidth();
 		int celly = (int)y / (int)nodeLayer.getTileHeight();
+		System.out.println("tileWidth:" + (int)nodeLayer.getTileWidth());
 		return getNodeAt(cellx, celly, nodes);
 	}
 	
