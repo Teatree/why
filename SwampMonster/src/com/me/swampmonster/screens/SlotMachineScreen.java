@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.me.swampmonster.game.TheController;
 import com.me.swampmonster.models.Player;
+import com.me.swampmonster.models.slots.Perks;
 import com.me.swampmonster.models.slots.Slot;
 import com.me.swampmonster.slotMachineStuff.SlotMachineTextures;
 import com.me.swampmonster.utils.Constants;
@@ -45,20 +46,51 @@ public class SlotMachineScreen extends AbstractGameScreen {
 				if (!slotMachineTextures.peru) {
 					slotMachineTextures.peru = true;
 					slotMachineTextures.selectedSlot = slot;
-					TheController.skill = slot;
+//					if (!(slot instanceof Perks)){
+//						slot.execute(player);
+//						int i;
+//						try {
+//							i = slot.getClass()
+//									.getField("level").getInt(null);
+//							i++;
+//							slot.getClass().getField("level")
+//							.setInt(null, i);
+//						} catch (Exception e){
+//							
+//						}
+//					}else {
+//						TheController.skill = slot;
+//					}
+					slot.selected = true;
 						
 				}
 			} else if (Gdx.input.justTouched()
 					&& slotMachineTextures.slotMachineWindowNo
 							.getBoundingRectangle().contains(victor)) {
+				for(Slot s : slotMachineTextures.slots){
+					s.selected = false;
+				}
 
 				slotMachineTextures.peru = false;
 			} else if (Gdx.input.justTouched()
 					&& slotMachineTextures.slotMachineWindowYes
 							.getBoundingRectangle().contains(victor)) {
 				
-				if (slot == TheController.skill) {
-					System.out.println("beep");
+				if (slot.selected) {
+					
+				if (slot instanceof Perks) {
+					slot.execute(player);
+					try {
+						int i = slot.getClass().getField("level").getInt(null);
+						i++;
+						slot.getClass().getField("level").setInt(null, i);
+					} catch (Exception e) {
+
+					}
+
+				} else {
+					TheController.skill = slot;
+				
 					try {
 						int i = TheController.skill.getClass()
 								.getField("level").getInt(null);
@@ -69,6 +101,8 @@ public class SlotMachineScreen extends AbstractGameScreen {
 
 					}
 				}
+				}
+
 				slotMachineTextures.peru = false;
 				game.setScreen(new SwampScreen(game));
 			}

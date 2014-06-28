@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
+import com.me.swampmonster.models.Player;
 import com.me.swampmonster.models.slots.Arrows3;
 import com.me.swampmonster.models.slots.DamageTrap;
 import com.me.swampmonster.models.slots.ExplosiveArrow;
@@ -27,10 +28,33 @@ public class SlotsGenerator {
 	private static SlotsGenerator effectsGenerator;
 	private Random random;
 	Map<Integer, Class<? extends Slot>> slots;
-
+	SlotParams slotParams;
+	
+	private static enum SlotParams{
+		p0_500(0, 5, 11, 14),
+		p500_1000(0, 7, 11, 14),
+		p1000_2000(0, 9, 11, 14),
+		p2000_4000(0, 10, 11, 14);
+		
+		public final int minRandActiveSkillValue;
+		public final int maxRandActiveSkillValue;
+		public final int minRandPerkValue;
+		public final int maxRandPerkValue;
+		
+		
+		private SlotParams(int minRandActiveSkillValue, int maxRandActiveSkillValue, int minRandPerkValue,
+				int maxRandPerkValue) {
+			this.minRandActiveSkillValue = minRandActiveSkillValue;
+			this.maxRandActiveSkillValue = maxRandActiveSkillValue;
+			this.minRandPerkValue = minRandPerkValue;
+			this.maxRandPerkValue = maxRandPerkValue;
+		}
+	}
+	
 	private SlotsGenerator() {
 		random = new Random();
 		slots = new HashMap<Integer, Class<? extends Slot>>();
+		//:TODO Dmitriy, order is essential in this biatch, it determines what the player will receive.
 		slots.put(0, SPEED_BOOST.class);
 		slots.put(1, FADE.class);
 		slots.put(2, RADIOACTIVE.class);
@@ -56,17 +80,46 @@ public class SlotsGenerator {
 		return effectsGenerator;
 	}
 
-	public Slot getSlot(int slotMin, int slotMax) {
-		int slotCode = random.nextInt(slotMax - slotMin) + slotMin;
+	public Slot getActiveSkillSlot(Player player) {
+		setDemParams(player.points);
+		int activeSkillCode = random.nextInt(slotParams.maxRandActiveSkillValue - slotParams.minRandActiveSkillValue) + slotParams.minRandActiveSkillValue;
 		Slot slot = null;
 		try {
-			slot = slots.get(slotCode).getConstructor().newInstance();
+			slot = slots.get(activeSkillCode).getConstructor().newInstance();
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
 		}
 		return slot;
-	}	
+	}
+	
+	public Slot getPerkSlot(Player player) {
+		setDemParams(player.points);
+		int perkCode = random.nextInt(slotParams.maxRandPerkValue - slotParams.minRandPerkValue) + slotParams.minRandPerkValue ;
+		Slot slot = null;
+		try {
+			slot = slots.get(perkCode).getConstructor().newInstance();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+		return slot;
+	}
+	
+	private void setDemParams(int playersScore) {
+		if(playersScore>=0 && playersScore<500){
+			slotParams = SlotParams.p0_500;
+		}
+		else if(playersScore>100 && playersScore<1000){
+			slotParams = SlotParams.p500_1000;
+		}
+		else if(playersScore>1000 && playersScore<2000){
+			slotParams = SlotParams.p1000_2000;
+		}
+		else if(playersScore>2000 && playersScore<4000){
+			slotParams = SlotParams.p2000_4000;
+		}
+	}
 }
 
 

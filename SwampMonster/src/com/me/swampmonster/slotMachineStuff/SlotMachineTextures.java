@@ -2,7 +2,9 @@ package com.me.swampmonster.slotMachineStuff;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.Random;
 import java.util.Set;
 
 import com.badlogic.gdx.Gdx;
@@ -77,10 +79,30 @@ public class SlotMachineTextures extends Group {
 		sr = new ShapeRenderer();
 		
 		slots = new HashSet<Slot>();
-		while (slots.size() < 2){
-			slots.add(slotsGen.getSlot(0, 10));
+		
+		boolean argentina = false;
+		Random r = new Random();
+		Slot temp;
+		while (slots.size() < 3){
+			if(r.nextBoolean() && !argentina)
+			{
+				temp = slotsGen.getPerkSlot(player);
+				argentina = true;
+			}
+			else if (slots.size() == 2 && !argentina){
+				temp = slotsGen.getPerkSlot(player);
+			} else 
+			{
+				temp = slotsGen.getActiveSkillSlot(player);
+			}
+			try {
+				if(temp.getClass().getField("level").getInt(null) < 4 ){
+					slots.add(temp);
+				}
+			} catch (Exception e) {
+				
+			}
 		}
-			slots.add(slotsGen.getSlot(11, 15));
 	}
 
 	@Override
@@ -115,7 +137,9 @@ public class SlotMachineTextures extends Group {
 		}
 
 		int i = 0;
-		for (Slot slot : slots){
+		Iterator<Slot> itr = slots.iterator();
+		while (itr.hasNext()){
+			Slot slot = itr.next();
 			slot.sprite.setPosition(slotPositionsX[i], slotPositionY);
 			i++;
 			slot.sprite.setSize(100, 100);
@@ -125,6 +149,7 @@ public class SlotMachineTextures extends Group {
 				s.setPosition(slot.sprite.getX(), slot.sprite.getY());
 				s.setSize(16, 16);
 				s.draw(batch);
+				
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

@@ -14,5 +14,6 @@ public class ImproveArrowSpeed extends Slot implements Perks{
 	
 	public void execute (Player player){
 		//
+		System.err.println("FUCK YEA!");
 	}
 }

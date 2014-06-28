@@ -10,6 +10,7 @@ public class Slot {
 	public String description = this.getClass().getSimpleName() + "desc";
 	public void execute (Player target){};
 	public int coolDown = 600;
+	public boolean selected;
 	
 	@Override
 	public boolean equals (Object slot){

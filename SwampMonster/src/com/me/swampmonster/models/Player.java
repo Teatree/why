@@ -71,7 +71,7 @@ public class Player extends AbstractGameObject {
 	public int trapTimer;
 
 	public EffectCarriers arrowEffectCarrier;
-	
+
 	public Player(Vector2 position) {
 		state = State.STANDARD;
 		positiveEffectsState = PositiveEffects.NONE;
@@ -95,36 +95,21 @@ public class Player extends AbstractGameObject {
 		aimLineHead = new Vector3();
 
 		arrowEffectCarrier = EffectCarriers.NONE;
-		
-		animationsStandard
-				.put(State.STANDARD,
-						new AnimationControl(Assets.manager
-								.get(Assets.nastyaSpriteStandard),
-								8, 32, 7));
-		animationsStandard
-				.put(State.ANIMATING,
-						new AnimationControl(Assets.manager
-								.get(Assets.nastyaSpriteStandard),
-								8, 32, 8));
-		animationsStandard
-				.put(State.ANIMATINGLARGE,
-						new AnimationControl(Assets.manager
-								.get(Assets.nastyaSpriteStandard),
-								8, 32, 8));
-		animationsStandard
-				.put(State.ACTIVATING,
-						new AnimationControl(Assets.manager
-								.get(Assets.nastyaSpriteStandard),
-								8, 32, 8));
+
+		animationsStandard.put(State.STANDARD, new AnimationControl(
+				Assets.manager.get(Assets.nastyaSpriteStandard), 8, 32, 7));
+		animationsStandard.put(State.ANIMATING, new AnimationControl(
+				Assets.manager.get(Assets.nastyaSpriteStandard), 8, 32, 8));
+		animationsStandard.put(State.ANIMATINGLARGE, new AnimationControl(
+				Assets.manager.get(Assets.nastyaSpriteStandard), 8, 32, 8));
+		animationsStandard.put(State.ACTIVATING, new AnimationControl(
+				Assets.manager.get(Assets.nastyaSpriteStandard), 8, 32, 8));
+		animationsStandard.put(State.GUNMOVEMENT, new AnimationControl(
+				Assets.manager.get(Assets.nastyaSpriteGun), 8, 16, 7));
 		animationsStandard.put(
-				State.GUNMOVEMENT,
+				State.DEAD,
 				new AnimationControl(Assets.manager
-						.get(Assets.nastyaSpriteGun), 8, 16, 7));
-		animationsStandard
-				.put(State.DEAD,
-						new AnimationControl(Assets.manager
-								.get(Assets.nastyaSpriteStandard),
-								8, 32, 8));
+						.get(Assets.nastyaSpriteStandard), 8, 32, 8));
 
 		oldPos = position;
 
@@ -214,7 +199,7 @@ public class Player extends AbstractGameObject {
 					takingDamageFromEnemy(harmfulEnemy, touchPos,
 							collisionLayer);
 				}
-				if (/*damageType != "lackOfOxygen" && */time > 39) {
+				if (/* damageType != "lackOfOxygen" && */time > 39) {
 					hurt = false;
 					time = 0;
 				}
@@ -244,9 +229,10 @@ public class Player extends AbstractGameObject {
 		Iterator<Projectile> prj = projectiles.iterator();
 		while (prj.hasNext()) {
 			Projectile p = prj.next();
-			if (p != null && p.isCollision(collisionLayer) && p.effect != EffectCarriers.SHADOW){
+			if (p != null && p.isCollision(collisionLayer)
+					&& p.effect != EffectCarriers.SHADOW) {
 				prj.remove();
-			} 
+			}
 			if (p != null && p.state == State.DEAD) {
 				prj.remove();
 			}
@@ -828,7 +814,7 @@ public class Player extends AbstractGameObject {
 				trapTimer++;
 			} else {
 				trap.position = null;
-				trapTimer=0;
+				trapTimer = 0;
 			}
 		}
 	}
