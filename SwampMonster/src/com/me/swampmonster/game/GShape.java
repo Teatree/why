@@ -13,6 +13,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.me.swampmonster.models.AbstractGameObject.NegativeEffects;
 import com.me.swampmonster.models.AbstractGameObject.State;
+import com.me.swampmonster.models.Player;
 import com.me.swampmonster.models.slots.Perks;
 import com.me.swampmonster.models.slots.PositiveEffects;
 import com.me.swampmonster.utils.Assets;
@@ -42,7 +43,7 @@ public class GShape extends Group {
 		
 		font = Assets.manager.get(Assets.font);
 		
-		str = "points: " + theController.level1.player.points;
+		str = "points: " + Player.score;
 		str2 = "Wave:" + theController.level1.currentWave + "/" + theController.level1.wavesAmount;
 		
 		batch.end();
@@ -92,7 +93,7 @@ public class GShape extends Group {
 			if (theController.level1.player.oxygen <= 0 && timer >= 10) {
 				// System.out.println(timer);
 				sr.setColor(new Color(0, 200, 20, 0.5f));
-				sr.rect(16, 422, 96, 22);
+				sr.rect(16, 422, Player.maxOxygen, 22);
 			}
 			if (theController.level1.player.maskOn) {
 				if (theController.level1.player.oxygen > 0) {
@@ -103,7 +104,8 @@ public class GShape extends Group {
 			sr.setColor(Color.BLUE);
 			if (theController.level1.player.maskOn
 					&& theController.level1.player.oxygen == 0) {
-				sr.rect(16, 422, 96, 22);
+				sr.rect(16, 422, Player.maxOxygen, 22);
+				System.out.println("Gshape thinks Maxoxygen is: " + Player.maxOxygen);
 			}
 			if (theController.level1.player.state != State.DEAD) {
 				if (theController.gui.getWeaponizer().on == false) {
@@ -201,6 +203,7 @@ public class GShape extends Group {
 			
 		}
 		batch.begin();
+		//:TODO Oxygen and health Bars
 		for (Sprite s: theController.gui.getHealthBar().sprites){
 			batch.draw(s, s.getX(), s.getY(), s.getWidth(), s.getHeight()+6);
 		}

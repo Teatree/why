@@ -81,7 +81,7 @@ public class SlotsGenerator {
 	}
 
 	public Slot getActiveSkillSlot(Player player) {
-		setDemParams(player.points);
+		setDemParams(Player.score);
 		int activeSkillCode = random.nextInt(slotParams.maxRandActiveSkillValue - slotParams.minRandActiveSkillValue) + slotParams.minRandActiveSkillValue;
 		Slot slot = null;
 		try {
@@ -94,7 +94,7 @@ public class SlotsGenerator {
 	}
 	
 	public Slot getPerkSlot(Player player) {
-		setDemParams(player.points);
+		setDemParams(Player.score);
 		int perkCode = random.nextInt(slotParams.maxRandPerkValue - slotParams.minRandPerkValue) + slotParams.minRandPerkValue ;
 		Slot slot = null;
 		try {

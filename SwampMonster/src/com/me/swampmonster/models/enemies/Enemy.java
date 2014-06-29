@@ -314,7 +314,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 			}
 			if (timeDead == 1) {
 				rewardPlayer(player);
-				// "points: " + player.points);
+				// "points: " + Player.score);
 			}
 			if (timeDead > 64) {
 				dead = true;
@@ -409,7 +409,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 	}
 
 	private void rewardPlayer(AbstractGameObject player) {
-		player.points += this.points;
+		Player.score += this.points;
 
 	}
 

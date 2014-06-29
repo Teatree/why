@@ -15,15 +15,12 @@ import com.me.swampmonster.utils.Constants;
 
 public class SlotMachineScreen extends AbstractGameScreen {
 	SpriteBatch batch;
-	public Player player;
 	private Stage stage;
 	private SlotMachineTextures slotMachineTextures;
 	public Vector2 victor;
 
 	public SlotMachineScreen(Game game) {
 		super(game);
-
-		player = new Player(null);
 
 		batch = new SpriteBatch();
 		stage = new Stage(Constants.VIEWPORT_WIDTH, Constants.VIEWPORT_HEIGHT,

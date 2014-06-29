@@ -37,15 +37,17 @@ public class L1 {
 	private MisterSpawner misterSpawner = new MisterSpawner();
 	private MisterItemSpawner misterItemSpawner = new MisterItemSpawner();
 
-	public L1() {
-		create();
+	public L1(Player player) {
+		create(player);
 	}
 
-	public void create() {
-		player = new Player(new Vector2());
-		wavesAmount = waveGenerator.getWavesAmount(player.points);
+	public void create(Player player) {
+		this.player = player;
+		this.player.position = new Vector2();
+		System.out.println("player " + player);
+		wavesAmount = waveGenerator.getWavesAmount(Player.score);
 		currentWave = 1;
-		wave = waveGenerator.generateWave(player.points);
+		wave = waveGenerator.generateWave(Player.score);
 		enemiesOnStage = new Stack<Enemy>();
 		bunker = new Bunker();
 		items = new LinkedList<Item>();
@@ -54,7 +56,7 @@ public class L1 {
 	public void update(boolean aiming, Vector3 touchPos, Vector3 V3point,
 			TiledMapTileLayer collisionLayer,
 			CameraHelper cameraHelper, float dx, float dy) {
-		this.player.update(aiming, touchPos, V3point, collisionLayer, dx, dy);
+		player.update(aiming, touchPos, V3point, collisionLayer, dx, dy);
 		misterSpawner.setCollisionLayer(collisionLayer);
 		misterItemSpawner.setCollisionLayer(collisionLayer);
 		updateWave();
@@ -79,7 +81,7 @@ public class L1 {
 		
 		if (waveTemp == null && needTogenerateNewWave) {
 			needTogenerateNewWave = false;
-			waveTemp = waveGenerator.generateWave(player.points);
+			waveTemp = waveGenerator.generateWave(Player.score);
 		}
 
 		if (enemiesOnStage.empty() && waveTemp != null

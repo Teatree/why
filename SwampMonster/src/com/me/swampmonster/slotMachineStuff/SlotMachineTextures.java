@@ -152,13 +152,13 @@ public class SlotMachineTextures extends Group {
 				batch.draw(animantionCtlr.getCurrentFrame(), slotPositionsX[i], slotPositionY, 146, 146);
 				animCounter++;
 				
-				if(animCounter == 100){
+				if(animCounter == 25){
 					notAnimating[i] = true;
 				}
-				if(animCounter == 250){
+				if(animCounter == 50){
 					notAnimating[i] = true;
 				}
-				if(animCounter == 200){
+				if(animCounter == 75){
 					notAnimating[i] = true;
 				}
 				i++;

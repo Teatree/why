@@ -52,7 +52,9 @@ public class Player extends AbstractGameObject {
 	public Vector3 V3playerPos;
 	public Vector3 aimLineHead;
 	public float oxygen;
-	public float maxOxygen;
+	public static float maxOxygen = 96;
+	public static int playerMaxHealth = 8;
+	public static int score = 0;
 	public Integer positiveEffectCounter;
 	public Integer negativeEffectCounter;
 	private Random random;
@@ -131,9 +133,9 @@ public class Player extends AbstractGameObject {
 
 	public void characterStatsBoard() {
 		// HEALTH, DAMAGE, OXYGEN, TYPE, TOUGHGUY, COLORSCHEME, ETC.
-		maxHealth = 16;
-		health = maxHealth;
-		maxOxygen = 96;
+//		playerMaxHealth = 16;
+		health = playerMaxHealth;
+//		maxOxygen = 96;
 		oxygen = maxOxygen;
 		System.out.println( "cob " + maxOxygen);
 		damage = 1f;

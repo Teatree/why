@@ -18,7 +18,7 @@ public class SwampScreen extends AbstractGameScreen {
 	}
 	
 	public void show() {
-		theController = new TheController(game);
+		theController = new TheController(game, this.player);
 		renderer = new L1Renderer(theController);
 		theController.l1Renderer = renderer;
 	}

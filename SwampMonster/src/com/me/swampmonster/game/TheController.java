@@ -15,6 +15,7 @@ import com.me.swampmonster.game.collision.CollisionHelper;
 import com.me.swampmonster.models.AbstractGameObject.NegativeEffects;
 import com.me.swampmonster.models.AbstractGameObject.State;
 import com.me.swampmonster.models.L1;
+import com.me.swampmonster.models.Player;
 import com.me.swampmonster.models.slots.PositiveEffectInterface;
 import com.me.swampmonster.models.slots.PositiveEffects;
 import com.me.swampmonster.models.Projectile;
@@ -59,23 +60,23 @@ public class TheController extends InputAdapter{
 	public TiledMapTileLayer collisionLayer;
 	public static Slot skill;
 	
-	public TheController(Game game){
-		init();
+	public TheController(Game game, Player player){
+		init(player);
 	}
 	
 	// INIT METHOD! 
-	public void init(){
+	public void init(Player player){
 		Gdx.input.setInputProcessor(this);
 		cameraHelper = new CameraHelper();
 		randVector2 = new Vector2();
-		level1 = new L1();
-		level1.player.setPosition(new Vector2 (756f,659f));		
+		level1 = new L1(player);
+		player.setPosition(new Vector2 (756f,659f));		
 		collisionHandler = new CollisionHelper();
 		collisionLayer = (TiledMapTileLayer) level1.bunker.getMap().getLayers().get(0);
-		gui = new GUI(level1.player);
+		gui = new GUI(player);
 		gui.getCroshair().setPosition(new Vector2 (330f,100f));
 		
-		touchPos = new Vector3(level1.player.getPosition().x+10, level1.player.getPosition().y, 0);
+		touchPos = new Vector3(player.getPosition().x+10, player.getPosition().y, 0);
 		point = new Vector2();
 		V3point = new Vector3();
 		V3playerPos = new Vector3();
@@ -99,8 +100,6 @@ public class TheController extends InputAdapter{
 	}
 	
 	public void update(float deltaTime, Game game) {
-		restarter();
-
 		pointRectV3.x = touchPos.x;
 		pointRectV3.y = touchPos.y;
 
@@ -251,13 +250,6 @@ public class TheController extends InputAdapter{
 		}
 	}
 	
-	private void restarter(){
-		if(level1.player.state == State.DEAD && Gdx.input.justTouched() && doesIntersect(point, new Vector2(400, 140), 60)){
-			init();
-			level1.player.justSpawned = true;
-		}
-	}
-	
 	private void moveCamera (float x, float y) {
 		x += cameraHelper.getPosition().x;
 		y += cameraHelper.getPosition().y;
@@ -266,7 +258,7 @@ public class TheController extends InputAdapter{
 	
 	public boolean keyUp (int keycode) {
 		if (keycode == Keys.R) {
-			init();
+			init(level1.player);
 			}
 		
 		if (keycode == Keys.ENTER && cameraHelper.hasTarget) {

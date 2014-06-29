@@ -25,7 +25,7 @@ public class MisterItemSpawner {
 	
 	
 	public Item spawnItem(Player player, Enemy enmy) {
-		spawnRate = itemGenerator.generateSpawnRate(player.points);
+		spawnRate = itemGenerator.generateSpawnRate(Player.score);
 
 		int haveIitem;
 
@@ -37,9 +37,9 @@ public class MisterItemSpawner {
 
 		if (haveIitem < 100) {
 			if (player.oxygen <= 13) {
-				item = itemGenerator.getMoreLikelyOxugenItem(player.points);
+				item = itemGenerator.getMoreLikelyOxugenItem(Player.score);
 			} else {
-				item = itemGenerator.getItem(player.points);
+				item = itemGenerator.getItem(Player.score);
 			}
 		} else {
 			return null;
