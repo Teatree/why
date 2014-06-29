@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Circle;
 import com.me.swampmonster.models.enemies.Enemy;
 import com.me.swampmonster.utils.Assets;
+import com.me.swampmonster.utils.Constants;
 
 public class DamageTrap extends Trap {
 	public int lifetime = 9000;
@@ -16,9 +17,9 @@ public class DamageTrap extends Trap {
 	public DamageTrap() {
 		switch (level) {
 		case 0:
-			lifeTimeMax = 500;
-			damage = 0;
-			coolDown = 3000;
+			lifeTimeMax = Constants.DamageTrap_LifeTimeMax_L1;
+			damage = Constants.DamageTrap_Damage_L1;
+			coolDown = Constants.DamageTrap_CoolDown_L1;
 			break;
 		case 1:
 			lifeTimeMax = 1000;

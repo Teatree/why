@@ -247,7 +247,7 @@ public class GShape extends Group {
 		
 		try {
 			Sprite s = new Sprite(SlotMachineTextures.slotLevelPic.get(TheController.skill.getClass()
-					.getField("level").getInt(null)));
+					.getField("level").getInt(null)-1));
 			s.setPosition(theController.gui.getWeaponizer().position.x-35, theController.gui.getWeaponizer().position.y-35);
 			s.setSize(27, 27);
 			s.draw(batch);

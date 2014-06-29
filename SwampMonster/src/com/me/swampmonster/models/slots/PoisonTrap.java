@@ -5,13 +5,14 @@ import com.badlogic.gdx.math.Circle;
 import com.me.swampmonster.models.AbstractGameObject.NegativeEffects;
 import com.me.swampmonster.models.enemies.Enemy;
 import com.me.swampmonster.utils.Assets;
+import com.me.swampmonster.utils.Constants;
 
 public class PoisonTrap extends Trap{
 	public static int level;
 	public PoisonTrap() {
-		lifeTime = 112;
+		lifeTime = Constants.PoisonTrap_LifeTime_L1;
 		circle = new Circle();
-		circle.radius = 16;
+		circle.radius = Constants.PoisonTrap_Radius_L1;
 		
 		trapSprite = new Sprite(Assets.manager.get(Assets.POISON_TRAP));
 		sprite = new Sprite(Assets.manager.get(Assets.POISONED_TRAP_ICON));
