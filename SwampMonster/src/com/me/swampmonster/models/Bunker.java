@@ -7,7 +7,6 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import com.badlogic.gdx.maps.tiled.tiles.AnimatedTiledMapTile;
 import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
 import com.badlogic.gdx.utils.Array;
@@ -28,17 +27,17 @@ public class Bunker extends AbstractGameObject{
 					frameTiles.add((StaticTiledMapTile) tile);
 		}
 		
-		AnimatedTiledMapTile animatedTile = new AnimatedTiledMapTile(1, frameTiles);
+//		AnimatedTiledMapTile animatedTile = new AnimatedTiledMapTile(1, frameTiles);
 		
 		tLayer = (TiledMapTileLayer) map.getLayers().get("background");
 		
 		for(int x = 0; x < tLayer.getWidth(); x++){
-			for(int y = 0; y < tLayer.getHeight(); y++){
-				Cell cell = tLayer.getCell(x, y);
+//			for(int y = 0; y < tLayer.getHeight(); y++){
+//				Cell cell = tLayer.getCell(x, y);
 //				if(cell.getTile().getProperties().containsKey("animation") && cell.getTile().getProperties().get("animation", String.class).equals("console")){
 //					cell.setTile(animatedTile);
 //				}
-			}
+//			}
 		}
 	}
 

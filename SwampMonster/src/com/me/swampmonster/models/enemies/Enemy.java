@@ -25,12 +25,12 @@ import com.me.swampmonster.models.Projectile.EffectCarriers;
 import com.me.swampmonster.models.slots.PositiveEffects;
 import com.me.swampmonster.utils.Assets;
 import com.me.swampmonster.utils.CameraHelper;
+import com.me.swampmonster.utils.Constants;
 import com.me.swampmonster.utils.EnemyGenerator.Toughness;
 import com.badlogic.gdx.math.Intersector;
 
 public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 
-	private static final int NodeSize = 32;
 	public int cunter;
 	int timer;
 	public int time;
@@ -140,8 +140,8 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 
 		// Direction for the pursuit state
 		if (cunter != -1 && path != null && path[cunter] != null) {
-			enemyPathDx = path[cunter].x * NodeSize - position.x;
-			enemyPathDy = path[cunter].y * NodeSize - position.y;
+			enemyPathDx = path[cunter].x * Constants.NodeSize - position.x;
+			enemyPathDy = path[cunter].y * Constants.NodeSize - position.y;
 
 			float enemyPathLength = (float) Math.sqrt(enemyPathDx * enemyPathDx + enemyPathDy * enemyPathDy);
 			enemyPathDx /= enemyPathLength;
@@ -209,10 +209,10 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 				}
 
 				if (path[0] != null) {
-					if (player.position.x > path[0].x * NodeSize + 120
-							|| player.position.x < path[0].x * NodeSize - 120
-							|| player.position.y > path[0].y * NodeSize + 120
-							|| player.position.y < path[0].y * NodeSize - 120) {
+					if (player.position.x > path[0].x * Constants.NodeSize + 120
+							|| player.position.x < path[0].x * Constants.NodeSize - 120
+							|| player.position.y > path[0].y * Constants.NodeSize + 120
+							|| player.position.y < path[0].y * Constants.NodeSize - 120) {
 						System.out
 								.println("You are officially outside the last seen zone!");
 						state = State.STANDARD;
@@ -627,10 +627,10 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 		currentlyMovingOnPath = true;
 		if (!iAmWaiting) {
 			if (path != null && path[cunter] != null) {
-				if (position.x > (path[cunter].x * NodeSize) - 4
-						|| position.x < (path[cunter].x * NodeSize) - 10
-						|| position.y > (path[cunter].y * NodeSize) - 4
-						|| position.y < (path[cunter].y * NodeSize) - 10) {
+				if (position.x > (path[cunter].x * Constants.NodeSize) - 4
+						|| position.x < (path[cunter].x * Constants.NodeSize) - 10
+						|| position.y > (path[cunter].y * Constants.NodeSize) - 4
+						|| position.y < (path[cunter].y * Constants.NodeSize) - 10) {
 
 					if (collidableLeft == null || collidableRight == null) {
 						position.x += enemyPathDx * playerMovementSpeed;
@@ -640,16 +640,16 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 					}
 					sprite.translateX(-playerMovementSpeed);
 				}
-				if (position.x > (path[cunter].x * NodeSize) - 10) {
+				if (position.x > (path[cunter].x * Constants.NodeSize) - 10) {
 					playerMovementDirectionLR = "left";
 				}
-				if (position.x < (path[cunter].x * NodeSize) - 10) {
+				if (position.x < (path[cunter].x * Constants.NodeSize) - 10) {
 					playerMovementDirectionLR = "right";
 				}
-				if (position.y > (path[cunter].x * NodeSize) - 10) {
+				if (position.y > (path[cunter].x * Constants.NodeSize) - 10) {
 					playerMovementDirectionUD = "down";
 				}
-				if (position.y < (path[cunter].x * NodeSize) - 10) {
+				if (position.y < (path[cunter].x * Constants.NodeSize) - 10) {
 					playerMovementDirectionUD = "up";
 				}
 			}
@@ -703,10 +703,10 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 
 	private void orientOnPath() {
 		if (path != null && cunter >= 0 && path[cunter] != null
-				&& position.x >= (path[cunter].x * 16) - 1
-				&& position.x <= (path[cunter].x * 16) + 1
-				&& position.y <= (path[cunter].y * 16) + 1
-				&& position.y >= (path[cunter].y * 16) - 1) {
+				&& position.x >= (path[cunter].x * Constants.NodeSize) - 1
+				&& position.x <= (path[cunter].x * Constants.NodeSize) + 1
+				&& position.y <= (path[cunter].y * Constants.NodeSize) + 1
+				&& position.y >= (path[cunter].y * Constants.NodeSize) - 1) {
 			path[cunter] = null;
 			// // System.out.println("taking of one Node from the path of Nodes, there was: "
 			// + cunter + " Nodes and now there are: ");

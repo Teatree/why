@@ -286,7 +286,7 @@ public class L1Renderer {
 			if(enemy.getPath() != null){
 				for(Node n : enemy.getPath()){
 					if(n != null){
-						sr.rect((n.x*16)+6, (n.y*16)+6, 4, 4);
+						sr.rect((n.x*Constants.NodeSize)+14, (n.y*Constants.NodeSize)+14, 4, 4);
 					}
 				}
 			}
@@ -299,10 +299,7 @@ public class L1Renderer {
 					theController.level1.player.radioactiveAura.radius);
 		} 
 		sr.end();
-				
 		stage.draw();
-		
-		
 	}
 	
 	public void warningFlicker(ShapeRenderer Sr){
