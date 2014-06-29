@@ -11,6 +11,6 @@ public class ImproveMovementSpeed extends Slot implements Perks{
 	}
 	
 	public void execute (Player player){
-		//
+		player.movementSpeed += 1;
 	}
 }

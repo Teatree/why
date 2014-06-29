@@ -58,10 +58,10 @@ public class L1Renderer {
 		
 		timer = 60;
 		
-		effect = new ParticleEffect();
-		effect.load(Gdx.files.local("effects/FlameEffectTemp.p"), Gdx.files.local("effects"));
-		effect.setPosition(theController.level1.player.position.x, theController.level1.player.position.y);
-		effect.start();
+//		effect = new ParticleEffect();
+//		effect.load(Gdx.files.local("effects/FlameEffectTemp.p"), Gdx.files.local("effects"));
+//		effect.setPosition(theController.level1.player.position.x, theController.level1.player.position.y);
+//		effect.start();
 	}	
 	
 	public void render() {
@@ -233,12 +233,9 @@ public class L1Renderer {
 			theController.level1.player.trap.effect.draw(batch);
 			theController.level1.player.trap.effect.update(Gdx.graphics.getDeltaTime());
 		}
-		effect.draw(batch);
-		effect.update(Gdx.graphics.getDeltaTime());
-		
-		
+//		effect.draw(batch);
+//		effect.update(Gdx.graphics.getDeltaTime());
 		batch.end();
-		
 		
 		// Temporary deBug feature
 		sr.begin(ShapeType.Line);

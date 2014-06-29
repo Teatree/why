@@ -11,6 +11,6 @@ public class ImproveMaxHealth extends Slot implements Perks{
 	}
 	
 	public void execute (Player player){
-		//
+		player.maxHealth += 2;
 	}
 }
