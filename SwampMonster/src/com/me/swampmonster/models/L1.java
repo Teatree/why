@@ -44,7 +44,6 @@ public class L1 {
 	public void create(Player player) {
 		this.player = player;
 		this.player.position = new Vector2();
-		System.out.println("player " + player);
 		wavesAmount = waveGenerator.getWavesAmount(Player.score);
 		currentWave = 1;
 		wave = waveGenerator.generateWave(Player.score);

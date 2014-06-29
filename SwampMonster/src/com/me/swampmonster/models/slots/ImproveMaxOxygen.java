@@ -23,7 +23,6 @@ public class ImproveMaxOxygen extends Slot implements Perks{
 	
 	public void execute (Player player){
 		System.out.println("level "+ level);
-		player.maxOxygen += valuesByLevel.get(level);
-		System.out.println("player.maxOxygen " + player.maxOxygen);
+		Player.maxOxygen += valuesByLevel.get(level);
 	}
 }

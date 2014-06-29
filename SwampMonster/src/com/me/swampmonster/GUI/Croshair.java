@@ -44,36 +44,36 @@ public class Croshair extends AbstractGameObject{
 		int pointsCount = (int) (pointerLength/(pointerMiddle.getHeight()+4));
 		int cunter = 0;
 		pointers.clear();
-		if (aiming){
-		while(cunter < pointsCount){
-			double c = (pointerMiddle.getHeight()+4)*cunter;
-			double a = c*Math.cos(Math.toRadians(getRot));
-			Sprite temp = new Sprite(pointerMiddle);
-			temp.setRotation(getRot);
-			double x = player.position.x - a;
-			double lineRotation=  getRot;
-			if (Math.abs(getRot) <= 71 || Math.abs(getRot) >= 113){
-				lineRotation = getRot;
-			System.out.println("Roatation = " + getRot + ", y =  " + (Math.tan(Math.toRadians(lineRotation))*(x-this.position.x/*TheController.touchPos.x*/)+this.position.y/*TheController.touchPos.y*/));
-			temp.setPosition((float)x, (float) (Math.tan(Math.toRadians(lineRotation))*(x-this.position.x)+this.position.y));
-			} else {
-//				if (getRot >= 86 && getRot <= 90){
-//					lineRotation = 85;
-//				} else if (getRot > 90 && getRot <= 93){
-//					lineRotation = 94;
-//				} else if (getRot > -93 && getRot <= -90){
-//					lineRotation = -94;
-//				} else if (getRot <= -86 && getRot > -90){
-//					lineRotation = -85;
-//				}
-				temp.setPosition((float)x, (float)(this.position.y - c));
+		if (aiming) {
+			while (cunter < pointsCount) {
+				double c = (pointerMiddle.getHeight() + 4) * cunter;
+				double a = c * Math.cos(Math.toRadians(getRot));
+				Sprite temp = new Sprite(pointerMiddle);
+				temp.setRotation(getRot);
+				double x = player.position.x - a;
+				double lineRotation = getRot;
+				if (Math.abs(getRot) <= 71 || Math.abs(getRot) >= 113) {
+					lineRotation = getRot;
+					temp.setPosition((float) x,
+							(float) (Math.tan(Math.toRadians(lineRotation))
+									* (x - this.position.x) + this.position.y));
+				} else {
+					// if (getRot >= 86 && getRot <= 90){
+					// lineRotation = 85;
+					// } else if (getRot > 90 && getRot <= 93){
+					// lineRotation = 94;
+					// } else if (getRot > -93 && getRot <= -90){
+					// lineRotation = -94;
+					// } else if (getRot <= -86 && getRot > -90){
+					// lineRotation = -85;
+					// }
+					temp.setPosition((float) x, (float) (this.position.y - c));
+				}
+				pointers.add(temp);
+				cunter++;
 			}
-			pointers.add(temp);
-			cunter++;
-		}
 		}
 		
-//		// System.out.println("aiming " + aiming);
 		if(doesIntersect(new Vector2(player.circle.x, player.circle.y), player.circle.radius*2, new Vector2(V3point.x, V3point.y))
 				&& !aiming && Gdx.input.isTouched()){
 			player.state = State.GUNMOVEMENT;

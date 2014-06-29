@@ -26,8 +26,7 @@ public class OxygenBar extends AbstractGameObject{
 		position = new Vector2();
 		position.x = 0;
 		position.y = 448;
-		System.out.println(" OB player.maxOxygen " + player.maxOxygen);
-		setCasingPos(player.maxOxygen);
+		setCasingPos(Player.maxOxygen);
 	}
 	
 	private void setCasingPos(float maxOxygen){
