@@ -19,6 +19,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.me.swampmonster.animations.AnimationControl;
+import com.me.swampmonster.game.TheController;
 import com.me.swampmonster.models.Player;
 import com.me.swampmonster.models.slots.Slot;
 import com.me.swampmonster.utils.Assets;
@@ -31,7 +32,7 @@ public class SlotMachineTextures extends Group {
 	private Player p;
 	private static SlotsGenerator slotsGen;
 	public Set<Slot> slots;
-	public Map<Integer, Sprite> slotLevelPic;
+	public static Map<Integer, Sprite> slotLevelPic;
 	int [] slotPositionsX = {159, 328, 497};
 	int slotPositionY = 174;
 	public Sprite slotMachineWindow;
@@ -103,7 +104,10 @@ public class SlotMachineTextures extends Group {
 				temp = slotsGen.getActiveSkillSlot(player);
 			}
 			try {
-				if(temp.getClass().getField("level").getInt(null) < 4 ){
+				System.out.println("tempclass: " + temp.getClass() + " TTheController.skill: " + TheController.skill);
+//				System.out.println("instanceof: " + temp instanceof TheController.skill.class);
+//				if(temp.getClass() != TheController.skill.getClass()){
+				if(TheController.skill == null || temp.getClass() != TheController.skill.getClass()){
 					slots.add(temp);
 				}
 			} catch (Exception e) {

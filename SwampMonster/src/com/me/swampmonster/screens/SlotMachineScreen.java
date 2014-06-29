@@ -14,6 +14,7 @@ import com.me.swampmonster.slotMachineStuff.SlotMachineTextures;
 import com.me.swampmonster.utils.Constants;
 
 public class SlotMachineScreen extends AbstractGameScreen {
+	private static final int Max_slot_level = 4;
 	SpriteBatch batch;
 	private Stage stage;
 	private SlotMachineTextures slotMachineTextures;
@@ -75,29 +76,35 @@ public class SlotMachineScreen extends AbstractGameScreen {
 				
 				if (slot.selected) {
 					
-				if (slot instanceof Perks) {
-					slot.execute(player);
-					try {
-						int i = slot.getClass().getField("level").getInt(null);
-						i++;
-						slot.getClass().getField("level").setInt(null, i);
-					} catch (Exception e) {
+					if (slot instanceof Perks) {
+						slot.execute(player);
+						try {
+							int i = slot.getClass().getField("level")
+									.getInt(null);
+							if (i < Max_slot_level) {
+								i++;
+								slot.getClass().getField("level")
+										.setInt(null, i);
+							}
+						} catch (Exception e) {
 
+						}
+
+					} else {
+						TheController.skill = slot;
+
+						try {
+							int i = TheController.skill.getClass()
+									.getField("level").getInt(null);
+							if (i < Max_slot_level) {
+								i++;
+								TheController.skill.getClass()
+										.getField("level").setInt(null, i);
+							}
+						} catch (Exception e) {
+
+						}
 					}
-
-				} else {
-					TheController.skill = slot;
-				
-					try {
-						int i = TheController.skill.getClass()
-								.getField("level").getInt(null);
-						i++;
-						TheController.skill.getClass().getField("level")
-								.setInt(null, i);
-					} catch (Exception e) {
-
-					}
-				}
 				}
 
 				slotMachineTextures.peru = false;

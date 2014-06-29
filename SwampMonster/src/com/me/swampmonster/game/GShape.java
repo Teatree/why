@@ -16,6 +16,7 @@ import com.me.swampmonster.models.AbstractGameObject.State;
 import com.me.swampmonster.models.Player;
 import com.me.swampmonster.models.slots.Perks;
 import com.me.swampmonster.models.slots.PositiveEffects;
+import com.me.swampmonster.slotMachineStuff.SlotMachineTextures;
 import com.me.swampmonster.utils.Assets;
 import com.me.swampmonster.utils.Constants;
 
@@ -120,6 +121,8 @@ public class GShape extends Group {
 			}
 			
 			sr.end();
+			
+			
 			
 			//hhjkl
 			
@@ -242,7 +245,16 @@ public class GShape extends Group {
 			
 		}
 		
-		
+		try {
+			Sprite s = new Sprite(SlotMachineTextures.slotLevelPic.get(TheController.skill.getClass()
+					.getField("level").getInt(null)));
+			s.setPosition(theController.gui.getWeaponizer().position.x-35, theController.gui.getWeaponizer().position.y-35);
+			s.setSize(27, 27);
+			s.draw(batch);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 		
 		font.setColor(1.0f, 1.0f, 1.0f, 1.0f);

@@ -33,6 +33,7 @@ public class Weaponizer extends AbstractGameObject{
 				new Vector2(point.x+player.getPosition().x, point.y+player.getPosition().y)) && on){
 			on = false;
 		}
+		
 	}
 	
 	public boolean doesIntersect(Vector2 center, float radius, Vector2 point){
