@@ -35,7 +35,6 @@ public class Assets {
 	public static final AssetDescriptor<Texture> weaponizerButton = new AssetDescriptor<Texture>("data\\Weaponizer.png", Texture.class);
 	public static final AssetDescriptor<Texture> tiles = new AssetDescriptor<Texture>("data\\Tiles.png", Texture.class);
 	public static final AssetDescriptor<Texture> slotMachineCase = new AssetDescriptor<Texture>("data\\slotMachineUI\\slotMachineCase.png", Texture.class);
-	public static final AssetDescriptor<Texture> slotMachineNextButton = new AssetDescriptor<Texture>("data\\slotMachineUI\\slotMachineNextButton.png", Texture.class);
 	public static final AssetDescriptor<Texture> FADE_ICON = new AssetDescriptor<Texture>("data\\slotIcons\\shield.png", Texture.class);
 	public static final AssetDescriptor<Texture> RADIOACTIVE_AURA_ICON = new AssetDescriptor<Texture>("data\\slotIcons\\RADIOACTIVE_AURA_ICON.png", Texture.class);
 	public static final AssetDescriptor<Texture> SPEED_BOOST_ICON = new AssetDescriptor<Texture>("data\\slotIcons\\SPEED_BOOST_ICON.png", Texture.class);
@@ -44,7 +43,6 @@ public class Assets {
 	public static final AssetDescriptor<Texture> SHADOW_ARROW_ICON = new AssetDescriptor<Texture>("data\\slotIcons\\SHADOW_ARROW_ICON.png", Texture.class);
 	public static final AssetDescriptor<Texture> POISONED_ARROW_ICON = new AssetDescriptor<Texture>("data\\slotIcons\\poisonedArrow.png", Texture.class);
 	public static final AssetDescriptor<Texture> DAMAGE_TRAP_ICON = new AssetDescriptor<Texture>("data\\slotIcons\\DAMAGE_TRAP_ICON.png", Texture.class);
-	public static final AssetDescriptor<Texture> slotBackGround = new AssetDescriptor<Texture>("data\\slotIcons\\slotBackGround.png", Texture.class);
 	public static final AssetDescriptor<Texture> EXPLOSIVE_TRAP_ICON = new AssetDescriptor<Texture>("data\\slotIcons\\explosive_icon2.png", Texture.class);
 	public static final AssetDescriptor<Texture> POISONED_TRAP_ICON = new AssetDescriptor<Texture>("data\\slotIcons\\poison.png", Texture.class);
 	public static final AssetDescriptor<Texture> FROST_TRAP_ICON = new AssetDescriptor<Texture>("data\\slotIcons\\FROST_TRAP_ICON.png", Texture.class);
@@ -61,6 +59,7 @@ public class Assets {
 	public static final AssetDescriptor<Texture> slotLevel3 = new AssetDescriptor<Texture>("data\\slotIcons\\slotLevel3.png", Texture.class);
 	public static final AssetDescriptor<Texture> slotLevel4 = new AssetDescriptor<Texture>("data\\slotIcons\\slotLevel4.png", Texture.class);
 	public static final AssetDescriptor<Texture> slotLevel5 = new AssetDescriptor<Texture>("data\\slotIcons\\slotLevel5.png", Texture.class);
+	public static final AssetDescriptor<Texture> slotAnimation = new AssetDescriptor<Texture>("data\\slotMachineUI\\slotAnimation.png", Texture.class);
 	public static final AssetDescriptor<Texture> POISON_TRAP = new AssetDescriptor<Texture>("data\\googleSaysItIsAPool.png", Texture.class);
 	public static final AssetDescriptor<Texture> FROZEN_TRAP = new AssetDescriptor<Texture>("data\\Frozen.png", Texture.class);
 	public static final AssetDescriptor<Texture> DAMAGE_TRAP = new AssetDescriptor<Texture>("data\\appleTrap.png", Texture.class);
@@ -94,7 +93,6 @@ public class Assets {
 		manager.load(weaponizerButton);
 		manager.load(tiles);
 		manager.load(slotMachineCase);
-		manager.load(slotMachineNextButton);
 		manager.load(FADE_ICON);
 		manager.load(RADIOACTIVE_AURA_ICON);
 		manager.load(SPEED_BOOST_ICON);
@@ -119,13 +117,13 @@ public class Assets {
 		manager.load(slotLevel3);
 		manager.load(slotLevel4);
 		manager.load(slotLevel5);
+		manager.load(slotAnimation);
 		manager.load(POISON_TRAP);
 		manager.load(FROZEN_TRAP);
 		manager.load(DAMAGE_TRAP);
 		manager.load(slotMachineWindow);
 		manager.load(slotMachineWindowYes);
 		manager.load(slotMachineWindowNo);
-		manager.load(slotBackGround);
 		manager.load(arrowPoisoned);
 		manager.load(arrowExplosive);
 		manager.load(leachProjectile);

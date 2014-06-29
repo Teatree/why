@@ -133,7 +133,7 @@ public class Player extends AbstractGameObject {
 		// HEALTH, DAMAGE, OXYGEN, TYPE, TOUGHGUY, COLORSCHEME, ETC.
 		maxHealth = 16;
 		health = maxHealth;
-//		maxOxygen = 96;
+		maxOxygen = 96;
 		oxygen = maxOxygen;
 		System.out.println( "cob " + maxOxygen);
 		damage = 1f;

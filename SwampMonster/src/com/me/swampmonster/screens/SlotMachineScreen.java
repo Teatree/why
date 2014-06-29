@@ -42,7 +42,7 @@ public class SlotMachineScreen extends AbstractGameScreen {
 				- Gdx.input.getY());
 		for (Slot slot : slotMachineTextures.slots) {
 			if (Gdx.input.justTouched()
-					&& slot.sprite.getBoundingRectangle().contains(victor)) {
+					&& slot.sprite.getBoundingRectangle().contains(victor) && slotMachineTextures.notAnimating[0] && slotMachineTextures.notAnimating[1] && slotMachineTextures.notAnimating[2]) {
 				if (!slotMachineTextures.peru) {
 					slotMachineTextures.peru = true;
 					slotMachineTextures.selectedSlot = slot;
