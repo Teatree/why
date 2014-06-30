@@ -22,8 +22,6 @@ public class Constants {
 	public static final int NodeSize = 32;
 	//
 	
-	
-	
 	//:TODO THE AWESOME SLOT DATA!
 //  Arrows3:
 	public static final int Arrows3_CoolDown_L1 = 600;
@@ -39,14 +37,44 @@ public class Constants {
 	public static final String Arrows3_Description_L5 = "I shoot 3 arrows at thee l4 "; 
 	
 //  DamageTrap:
-	public static final int DamageTrap_CoolDown_L1 = 3000;
-	public static final int DamageTrap_Damage_L1 = 0;
-	public static final int DamageTrap_LifeTimeMax_L1 = 500;
-	public static final String DamageTrap_Description_L1 = "I shoot 3 arrows at thee";
+	public static final int DamageTrap_CoolDown_L1 = 1000;
+	public static final int DamageTrap_CoolDown_L2 = 2000;
+	public static final int DamageTrap_CoolDown_L3 = 3000;
+	public static final int DamageTrap_CoolDown_L4 = 4000;
+	public static final int DamageTrap_CoolDown_L5 = 5000;
+	public static final float DamageTrap_Damage_L1 = 0f;
+	public static final float DamageTrap_Damage_L2 = 1f;
+	public static final float DamageTrap_Damage_L3 = 2f;
+	public static final float DamageTrap_Damage_L4 = 3f;
+	public static final float DamageTrap_Damage_L5 = 4f;
+	public static final int DamageTrap_CircleRadius_L1 = 10;
+	public static final int DamageTrap_CircleRadius_L2 = 20;
+	public static final int DamageTrap_CircleRadius_L3 = 30;
+	public static final int DamageTrap_CircleRadius_L4 = 40;
+	public static final int DamageTrap_CircleRadius_L5 = 50;
+	public static final int DamageTrap_LifeTimeMax_L1 = 300;
+	public static final int DamageTrap_LifeTimeMax_L2 = 400;
+	public static final int DamageTrap_LifeTimeMax_L3 = 500;
+	public static final int DamageTrap_LifeTimeMax_L4 = 600;
+	public static final int DamageTrap_LifeTimeMax_L5 = 700;
+	
+	public static final String DamageTrap_Description_L1 = "Cause " + DamageTrap_Damage_L1 +" damage  to enemy " ;
+	public static final String DamageTrap_Description_L2 = "Cause " + DamageTrap_Damage_L2 +" damage  to enemy ";
+	public static final String DamageTrap_Description_L3 = "Cause " + DamageTrap_Damage_L3 +" damage  to enemy ";
+	public static final String DamageTrap_Description_L4 = "Cause " + DamageTrap_Damage_L4 +" damage  to enemy ";
+	public static final String DamageTrap_Description_L5 = "Cause " + DamageTrap_Damage_L5 +" damage  to enemy ";
 	
 //	ExplosiveArrow:
 	public static final int ExplosiveArrow_CoolDown_L1 = 200;
-	public static final String ExplosiveArrow_Description_L1 = "I shoot 3 arrows at thee";
+	public static final int ExplosiveArrow_CoolDown_L2 = 300;
+	public static final int ExplosiveArrow_CoolDown_L3 = 400;
+	public static final int ExplosiveArrow_CoolDown_L4 = 500;
+	public static final int ExplosiveArrow_CoolDown_L5 = 600;
+	public static final String ExplosiveArrow_Description_L1 = "I am explosive arrow l1";
+	public static final String ExplosiveArrow_Description_L2 = "I am explosive arrow l2";
+	public static final String ExplosiveArrow_Description_L3 = "I am explosive arrow l3";
+	public static final String ExplosiveArrow_Description_L4 = "I am explosive arrow l4";
+	public static final String ExplosiveArrow_Description_L5 = "I am explosive arrow l5";
 	
 //	ExplozionTrap:
 	public static final int ExplozionTrap_CircleRadius_L1 = 16;
@@ -64,19 +92,28 @@ public class Constants {
 	public static final int FrostTrap_CircleRadius_L1 = 16;
 	
 //	ImproveArrowDamage:
-	
+	public static final float ImproveArrowDamage_value_L1 = 1;
+	public static final float ImproveArrowDamage_value_L2 = 2;
+	public static final float ImproveArrowDamage_value_L3 = 3;
+	public static final float ImproveArrowDamage_value_L4 = 4;
+	public static final float ImproveArrowDamage_value_L5 = 5;
+	public static final String ImproveArrowDamage_Description_l1 = "Increase Arrow Damage by " + ImproveArrowDamage_value_L1;
+	public static final String ImproveArrowDamage_Description_l2 = "Increase Arrow Damage by " + ImproveArrowDamage_value_L2;
+	public static final String ImproveArrowDamage_Description_l3 = "Increase Arrow Damage by " + ImproveArrowDamage_value_L3;
+	public static final String ImproveArrowDamage_Description_l4 = "Increase Arrow Damage by " + ImproveArrowDamage_value_L4;
+	public static final String ImproveArrowDamage_Description_l5 = "Increase Arrow Damage by " + ImproveArrowDamage_value_L5;
+
 //	ImproveArrowSpeed:
 	public static final float ImproveArrowSpeed_value_L1 = 1;
 	public static final float ImproveArrowSpeed_value_L2 = 2;
-	public static final float ImproveArrowSpeed_valueL3 = 3;
+	public static final float ImproveArrowSpeed_value_L3 = 3;
 	public static final float ImproveArrowSpeed_value_L4 = 4;
 	public static final float ImproveArrowSpeed_value_L5 = 5;
-	
 	public static final String ImproveArrowSpeed_Description_l1 = "Increase Arrow Speed by " + ImproveArrowSpeed_value_L1;
 	public static final String ImproveArrowSpeed_Description_l2 = "Increase Arrow Speed by " + ImproveArrowSpeed_value_L2;
-	public static final String ImproveArrowSpeed_Description_l3 = "Increase Arrow Speed by "+ ImproveArrowSpeed_valueL3;
-	public static final String ImproveArrowSpeed_Description_l4 = "Increase Arrow Speed by "+ ImproveArrowSpeed_value_L4;
-	public static final String ImproveArrowSpeed_Description_l5 = "Increase Arrow Speed by "+ ImproveArrowSpeed_value_L5;
+	public static final String ImproveArrowSpeed_Description_l3 = "Increase Arrow Speed by " + ImproveArrowSpeed_value_L3;
+	public static final String ImproveArrowSpeed_Description_l4 = "Increase Arrow Speed by " + ImproveArrowSpeed_value_L4;
+	public static final String ImproveArrowSpeed_Description_l5 = "Increase Arrow Speed by " + ImproveArrowSpeed_value_L5;
 
 	//	ImproveMaxHealth:
 	public static final int ImproveMaxHealth_HealthValue_L1 = 1;
@@ -104,7 +141,17 @@ public class Constants {
 	public static final String ImproveMaxOxygen_Description_l5 = "Increase max oxygen value by " + ImproveMaxOxygen_OxygenValue_L5;
 
 	//	ImproveMaxSpeed:
-	public static final int ImproveMaxSpeed_SpeedValue_L1 = 1;
+	public static final float ImproveMaxSpeed_SpeedValue_L1 = 1;
+	public static final float ImproveMaxSpeed_SpeedValue_L2 = 2f;
+	public static final float ImproveMaxSpeed_SpeedValue_L3 = 3f;
+	public static final float ImproveMaxSpeed_SpeedValue_L4 = 4f;
+	public static final float ImproveMaxSpeed_SpeedValue_L5 = 5f;
+	public static final String ImproveMaxSpeed_Description_l1 = "Increase max Speed by " + ImproveMaxSpeed_SpeedValue_L1;
+	public static final String ImproveMaxSpeed_Description_l2 = "Increase max Speed by " + ImproveMaxSpeed_SpeedValue_L2;
+	public static final String ImproveMaxSpeed_Description_l3 = "Increase max Speed by " + ImproveMaxSpeed_SpeedValue_L3;
+	public static final String ImproveMaxSpeed_Description_l4 = "Increase max Speed by " + ImproveMaxSpeed_SpeedValue_L4;
+	public static final String ImproveMaxSpeed_Description_l5 = "Increase max Speed by " + ImproveMaxSpeed_SpeedValue_L5;
+
 	
 //	PoisonArrow:
 	public static final int PoisonArrow_CoolDown_L1 = 2200;
@@ -123,5 +170,4 @@ public class Constants {
 	public static final String SPEED_BOOST_Description_L1 = "Makes player move faster for a certain amount of time";
 	public static final int SPEED_BOOST_LifeTime_L1 = 0;
 	public static final int SPEED_BOOST_CoolDown_L1 = 0;
-	
 }

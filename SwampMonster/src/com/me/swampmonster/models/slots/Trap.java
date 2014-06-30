@@ -7,7 +7,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.me.swampmonster.models.Player;
 import com.me.swampmonster.models.enemies.Enemy;
 
-public class Trap extends Slot{
+public abstract class Trap extends Slot{
 	public Circle circle;
 	public Sprite trapSprite;
 	public Vector2 position;
@@ -26,7 +26,5 @@ public class Trap extends Slot{
 	}
 
 	@Override
-	public String getDescription() {
-		return "";
-	}
+	public abstract String getDescription();
 }

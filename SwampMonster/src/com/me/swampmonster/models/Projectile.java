@@ -15,9 +15,9 @@ public class Projectile extends AbstractGameObject{
 	public float direction_y;
 	public float force;
 	public float damage;
+	public static float arrowMovementSpeed;
 	public EffectCarriers effect;
-	public int forceCounter;
-	
+//	public int forceCounter;
 	
 	public enum EffectCarriers{
 		POISONED(new Sprite(Assets.manager.get(Assets.arrowPoisoned))),
@@ -45,7 +45,7 @@ public class Projectile extends AbstractGameObject{
 		
 		state = State.STANDARD;
 		
-		movementSpeed = 1.8f;
+		arrowMovementSpeed = 1.8f;
 		
 		direction_x = 0;
 		direction_y = 0;
