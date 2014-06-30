@@ -23,6 +23,7 @@ import com.me.swampmonster.models.Player;
 import com.me.swampmonster.models.Projectile;
 import com.me.swampmonster.models.Projectile.EffectCarriers;
 import com.me.swampmonster.models.slots.PositiveEffects;
+import com.me.swampmonster.models.slots.RADIOACTIVE;
 import com.me.swampmonster.utils.Assets;
 import com.me.swampmonster.utils.CameraHelper;
 import com.me.swampmonster.utils.Constants;
@@ -810,7 +811,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 		state = State.STANDARD;
 		if (health >= 0) {
 			if (player.positiveEffectsState == PositiveEffects.RADIOACTIVE_AURA){
-				health -= player.radioactiveDamage;
+				health -= RADIOACTIVE.RADIOACTIVE_Damage;
 			}
 			health -= Player.damage;
 		}

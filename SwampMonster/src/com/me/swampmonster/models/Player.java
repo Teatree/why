@@ -21,13 +21,13 @@ import com.me.swampmonster.game.collision.CollisionHelper;
 import com.me.swampmonster.models.Projectile.EffectCarriers;
 import com.me.swampmonster.models.enemies.Enemy;
 import com.me.swampmonster.models.slots.PositiveEffects;
+import com.me.swampmonster.models.slots.RADIOACTIVE;
 import com.me.swampmonster.models.slots.Trap;
 import com.me.swampmonster.utils.Assets;
 
 public class Player extends AbstractGameObject {
 
 	private static final float FROZEN_MOVEMENT = 0.16f;
-	private static final int RADIOACTIVE_RADIUS = 57;
 	private static final float SPEED_BOOST_EFFECT = 1.1f;
 
 	public Sprite positiveEffectSprite;
@@ -66,7 +66,6 @@ public class Player extends AbstractGameObject {
 	public Enemy harmfulEnemy;
 
 	public Circle radioactiveAura = null;
-	public int radioactiveDamage = 1;
 	public int timer2;
 
 	public Trap trap;
@@ -405,7 +404,7 @@ public class Player extends AbstractGameObject {
 		case RADIOACTIVE_AURA:
 			movementSpeed = STANDART_MOVEMENT_SPEED;
 			radioactiveAura = new Circle(position.x + sprite.getWidth() / 2,
-					position.y + sprite.getHeight() / 2, RADIOACTIVE_RADIUS);
+					position.y + sprite.getHeight() / 2, RADIOACTIVE.RADIOACTIVE_Radius);
 			positiveEffectsState = positiveEffect;
 			positiveEffectCounter = positiveEffect.lifetime;
 			break;
