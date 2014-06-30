@@ -16,4 +16,9 @@ public class RADIOACTIVE extends Slot implements PositiveEffectInterface{
 		sprite = new Sprite(Assets.manager.get(Assets.RADIOACTIVE_AURA_ICON));
 		coolDown = Constants.RADIOACTIVE_CoolDown_L1;
 	}
+
+	@Override
+	public String getDescription() {
+		return "";
+	}
 }

@@ -24,4 +24,9 @@ public class Trap extends Slot{
 		player.trap.circle.x = player.trap.position.x + trapSprite.getWidth()/2;
 		player.trap.circle.y = player.trap.position.y + trapSprite.getHeight()/2; 
 	}
+
+	@Override
+	public String getDescription() {
+		return "";
+	}
 }

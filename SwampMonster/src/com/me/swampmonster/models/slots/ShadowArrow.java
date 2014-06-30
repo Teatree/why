@@ -14,4 +14,10 @@ public class ShadowArrow extends Slot{
 	public void execute(Player player){
 		player.arrowEffectCarrier = EffectCarriers.SHADOW;
 	}
+	
+	@Override
+	public String getDescription() {
+		return "";
+	}
 }
+

@@ -18,4 +18,9 @@ public class SPEED_BOOST extends Slot implements PositiveEffectInterface{
 		coolDown = Constants.SPEED_BOOST_CoolDown_L1;
 		description = Constants.SPEED_BOOST_Description_L1;
 	}
+	
+	@Override
+	public String getDescription() {
+		return "";
+	}
 }

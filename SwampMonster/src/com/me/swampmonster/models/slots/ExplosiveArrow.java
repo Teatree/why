@@ -18,4 +18,9 @@ public class ExplosiveArrow extends Slot{
 	public void execute(Player player){
 		player.arrowEffectCarrier = EffectCarriers.EXPLOSIVE;
 	}
+
+	@Override
+	public String getDescription() {
+		return "";
+	}
 }

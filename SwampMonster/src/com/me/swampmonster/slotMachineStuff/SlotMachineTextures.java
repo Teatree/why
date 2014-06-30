@@ -2,7 +2,6 @@ package com.me.swampmonster.slotMachineStuff;
 
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.Random;
 import java.util.Set;
@@ -13,8 +12,6 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Group;
@@ -28,8 +25,6 @@ import com.me.swampmonster.utils.SlotsGenerator;
 
 public class SlotMachineTextures extends Group {
 	private BitmapFont font;
-	private ShapeRenderer sr;
-	private Player p;
 	private static SlotsGenerator slotsGen;
 	public Set<Slot> slots;
 	public static Map<Integer, Sprite> slotLevelPic;
@@ -53,7 +48,6 @@ public class SlotMachineTextures extends Group {
 	public int animCounter;
 	
 	public SlotMachineTextures(Player player) {
-		this.p = player;
 		font = Assets.manager.get(Assets.font);
 		slotsGen = SlotsGenerator.getSlotGenerator();
 		
@@ -84,8 +78,6 @@ public class SlotMachineTextures extends Group {
 		no.width = slotMachineWindowNo.getWidth();
 		no.height = slotMachineWindowNo.getHeight();
 		
-		sr = new ShapeRenderer();
-		
 		slots = new HashSet<Slot>();
 		
 		boolean argentina = false;
@@ -104,9 +96,6 @@ public class SlotMachineTextures extends Group {
 				temp = slotsGen.getActiveSkillSlot(player);
 			}
 			try {
-				System.out.println("tempclass: " + temp.getClass() + " TTheController.skill: " + TheController.skill);
-//				System.out.println("instanceof: " + temp instanceof TheController.skill.class);
-//				if(temp.getClass() != TheController.skill.getClass()){
 				if(TheController.skill == null || temp.getClass() != TheController.skill.getClass()){
 					slots.add(temp);
 				}
@@ -189,7 +178,7 @@ public class SlotMachineTextures extends Group {
 			slotMachineWindowNo.draw(batch);
 			slotMachineWindowNo.setPosition(Constants.VIEWPORT_WIDTH/1.575f, Constants.VIEWPORT_GUI_HEIGHT/6.5f);
 			no.setPosition(new Vector2(slotMachineWindowNo.getX(), slotMachineWindowNo.getY()));
-			font.draw(batch, selectedSlot.description, slotMachineWindow.getBoundingRectangle().x+25, slotMachineWindow.getBoundingRectangle().y+200);
+			font.draw(batch, selectedSlot.getDescription(), slotMachineWindow.getBoundingRectangle().x+25, slotMachineWindow.getBoundingRectangle().y+200);
 			
 		}
 		

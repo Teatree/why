@@ -11,19 +11,35 @@ import com.me.swampmonster.utils.Constants;
 public class ImproveMaxOxygen extends Slot implements Perks{
 	public static int level;
 	
-	private Map <Integer, Float> valuesByLevel; 
-	public ImproveMaxOxygen() {
+	private static Map <Integer, Float> valuesByLevel; 
+	private static Map <Integer, String> descriptionByLevel;
+	
+	static {
 		valuesByLevel = new HashMap<Integer, Float>();
-		valuesByLevel.put(0, Constants.ImpoveMaxOxygen_OxygenValue_L1);
-		valuesByLevel.put(1, Constants.ImpoveMaxOxygen_OxygenValue_L2);
-		valuesByLevel.put(2, Constants.ImpoveMaxOxygen_OxygenValue_L3);
-		valuesByLevel.put(3, Constants.ImpoveMaxOxygen_OxygenValue_L4);
-		valuesByLevel.put(4, Constants.ImpoveMaxOxygen_OxygenValue_L5);
+		valuesByLevel.put(0, Constants.ImproveMaxOxygen_OxygenValue_L1);
+		valuesByLevel.put(1, Constants.ImproveMaxOxygen_OxygenValue_L2);
+		valuesByLevel.put(2, Constants.ImproveMaxOxygen_OxygenValue_L3);
+		valuesByLevel.put(3, Constants.ImproveMaxOxygen_OxygenValue_L4);
+		valuesByLevel.put(4, Constants.ImproveMaxOxygen_OxygenValue_L5);
+		
+		descriptionByLevel = new HashMap<Integer, String>();
+		descriptionByLevel.put(0, Constants.ImproveMaxOxygen_Description_l1);
+		descriptionByLevel.put(1, Constants.ImproveMaxOxygen_Description_l2);
+		descriptionByLevel.put(2, Constants.ImproveMaxOxygen_Description_l3);
+		descriptionByLevel.put(3, Constants.ImproveMaxOxygen_Description_l4);
+		descriptionByLevel.put(4, Constants.ImproveMaxOxygen_Description_l5);
+	}
+	
+	public ImproveMaxOxygen() {
 		sprite = new Sprite(Assets.manager.get(Assets.IMPROVEMAXOXYGEN_ICON));
 	}
 	
 	public void execute (Player player){
 		System.out.println("level "+ level);
 		Player.maxOxygen += valuesByLevel.get(level);
+	}
+	
+	public String getDescription() {
+		return descriptionByLevel.get(level);
 	}
 }

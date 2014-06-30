@@ -2,13 +2,12 @@ package com.me.swampmonster.models.slots;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.me.swampmonster.models.Player;
-import com.me.swampmonster.utils.Constants;
 
-public class Slot {
+public abstract class Slot {
 	
 	public Sprite sprite;
 	public int lifeTime;
-	public String description = this.getClass().getSimpleName() + "desc";
+	protected String description;
 	public void execute (Player target){};
 	public int coolDown;
 	public boolean selected;
@@ -22,4 +21,6 @@ public class Slot {
 	public int hashCode(){
 		return this.getClass().getCanonicalName().length();
 	}
+	
+	public abstract String getDescription();
 }

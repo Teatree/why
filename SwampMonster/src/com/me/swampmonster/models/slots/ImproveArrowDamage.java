@@ -15,4 +15,9 @@ public class ImproveArrowDamage extends Slot implements Perks{
 	public void execute (Player player){
 		//
 	}
+
+	@Override
+	public String getDescription() {
+		return "";
+	}
 }

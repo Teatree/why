@@ -20,4 +20,9 @@ public class FADE extends Slot implements PositiveEffectInterface{
 		sprite = new Sprite(Assets.manager.get(Assets.FADE_ICON));
 		coolDown = Constants.FADE_CoolDown_L1;
 	}
+
+	@Override
+	public String getDescription() {
+		return "";
+	}
 }

@@ -16,4 +16,9 @@ public class PoisonArrow extends Slot{
 	public void execute(Player player){
 		player.arrowEffectCarrier = EffectCarriers.POISONED;
 	}
+	
+	@Override
+	public String getDescription() {
+		return "";
+	}
 }

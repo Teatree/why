@@ -27,7 +27,16 @@ public class Constants {
 	//:TODO THE AWESOME SLOT DATA!
 //  Arrows3:
 	public static final int Arrows3_CoolDown_L1 = 600;
-	public static final String Arrows3_Description_L1 = "I shoot 3 arrows at thee";
+	public static final int Arrows3_CoolDown_L2 = 700;
+	public static final int Arrows3_CoolDown_L3 = 800;
+	public static final int Arrows3_CoolDown_L4 = 900;
+	public static final int Arrows3_CoolDown_L5 = 1000;
+	
+	public static final String Arrows3_Description_L1 = "I shoot 3 arrows at thee l1 ";
+	public static final String Arrows3_Description_L2 = "I shoot 3 arrows at thee l2 ";
+	public static final String Arrows3_Description_L3 = "I shoot 3 arrows at thee l3 ";
+	public static final String Arrows3_Description_L4 = "I shoot 3 arrows at thee l4 ";
+	public static final String Arrows3_Description_L5 = "I shoot 3 arrows at thee l4 "; 
 	
 //  DamageTrap:
 	public static final int DamageTrap_CoolDown_L1 = 3000;
@@ -57,18 +66,44 @@ public class Constants {
 //	ImproveArrowDamage:
 	
 //	ImproveArrowSpeed:
+	public static final float ImproveArrowSpeed_value_L1 = 1;
+	public static final float ImproveArrowSpeed_value_L2 = 2;
+	public static final float ImproveArrowSpeed_valueL3 = 3;
+	public static final float ImproveArrowSpeed_value_L4 = 4;
+	public static final float ImproveArrowSpeed_value_L5 = 5;
 	
-//	ImproveMaxHealth:
-	public static final int ImproveMaxHealth_HealthValue_L1 = 2;
+	public static final String ImproveArrowSpeed_Description_l1 = "Increase Arrow Speed by " + ImproveArrowSpeed_value_L1;
+	public static final String ImproveArrowSpeed_Description_l2 = "Increase Arrow Speed by " + ImproveArrowSpeed_value_L2;
+	public static final String ImproveArrowSpeed_Description_l3 = "Increase Arrow Speed by "+ ImproveArrowSpeed_valueL3;
+	public static final String ImproveArrowSpeed_Description_l4 = "Increase Arrow Speed by "+ ImproveArrowSpeed_value_L4;
+	public static final String ImproveArrowSpeed_Description_l5 = "Increase Arrow Speed by "+ ImproveArrowSpeed_value_L5;
+
+	//	ImproveMaxHealth:
+	public static final int ImproveMaxHealth_HealthValue_L1 = 1;
+	public static final int ImproveMaxHealth_HealthValue_L2 = 2;
+	public static final int ImproveMaxHealth_HealthValue_L3 = 3;
+	public static final int ImproveMaxHealth_HealthValue_L4 = 4;
+	public static final int ImproveMaxHealth_HealthValue_L5 = 5;
+	public static final String ImproveMaxHealth_Description_l1 = "Increase max health value by " + ImproveMaxHealth_HealthValue_L1;
+	public static final String ImproveMaxHealth_Description_l2 = "Increase max health value by "  + ImproveMaxHealth_HealthValue_L2;
+	public static final String ImproveMaxHealth_Description_l3 = "Increase max health value by " + ImproveMaxHealth_HealthValue_L3;
+	public static final String ImproveMaxHealth_Description_l4 = "Increase max health value by " + ImproveMaxHealth_HealthValue_L4;
+	public static final String ImproveMaxHealth_Description_l5 = "Increase max health value by " + ImproveMaxHealth_HealthValue_L5;
+	
 	
 //	ImproveMaxOxygen:
-	public static final float ImpoveMaxOxygen_OxygenValue_L1 = 90.5f;
-	public static final float ImpoveMaxOxygen_OxygenValue_L2 = 90.5f;
-	public static final float ImpoveMaxOxygen_OxygenValue_L3 = 90.5f;
-	public static final float ImpoveMaxOxygen_OxygenValue_L4 = 90.5f;
-	public static final float ImpoveMaxOxygen_OxygenValue_L5 = 90.5f;
-	
-//	ImproveMaxSpeed:
+	public static final float ImproveMaxOxygen_OxygenValue_L1 = 10f;
+	public static final float ImproveMaxOxygen_OxygenValue_L2 = 15f;
+	public static final float ImproveMaxOxygen_OxygenValue_L3 = 20f;
+	public static final float ImproveMaxOxygen_OxygenValue_L4 = 25f;
+	public static final float ImproveMaxOxygen_OxygenValue_L5 = 30f;
+	public static final String ImproveMaxOxygen_Description_l1 = "Increase max oxygen value by " + ImproveMaxOxygen_OxygenValue_L1;
+	public static final String ImproveMaxOxygen_Description_l2 = "Increase max oxygen value by "  + ImproveMaxOxygen_OxygenValue_L2;
+	public static final String ImproveMaxOxygen_Description_l3 = "Increase max oxygen value by " + ImproveMaxOxygen_OxygenValue_L3;
+	public static final String ImproveMaxOxygen_Description_l4 = "Increase max oxygen value by " + ImproveMaxOxygen_OxygenValue_L4;
+	public static final String ImproveMaxOxygen_Description_l5 = "Increase max oxygen value by " + ImproveMaxOxygen_OxygenValue_L5;
+
+	//	ImproveMaxSpeed:
 	public static final int ImproveMaxSpeed_SpeedValue_L1 = 1;
 	
 //	PoisonArrow:
@@ -88,13 +123,5 @@ public class Constants {
 	public static final String SPEED_BOOST_Description_L1 = "Makes player move faster for a certain amount of time";
 	public static final int SPEED_BOOST_LifeTime_L1 = 0;
 	public static final int SPEED_BOOST_CoolDown_L1 = 0;
-	
-	
-	
-	
-	
-	
-	
-	
 	
 }

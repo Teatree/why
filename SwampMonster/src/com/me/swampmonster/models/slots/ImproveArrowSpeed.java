@@ -16,4 +16,9 @@ public class ImproveArrowSpeed extends Slot implements Perks{
 		//
 		System.err.println("FUCK YEA!");
 	}
+	
+	@Override
+	public String getDescription() {
+		return "";
+	}
 }
