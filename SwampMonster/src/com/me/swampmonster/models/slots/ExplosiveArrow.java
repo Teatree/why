@@ -37,9 +37,6 @@ public class ExplosiveArrow extends Slot{
 		case 3:
 			coolDown = 
 			Constants.ExplosiveArrow_CoolDown_L4;
-			
-			
-			
 			break;
 		case 4:
 			coolDown = Constants.ExplosiveArrow_CoolDown_L5;
