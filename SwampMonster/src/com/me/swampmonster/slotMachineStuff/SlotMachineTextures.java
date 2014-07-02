@@ -96,11 +96,13 @@ public class SlotMachineTextures extends Group {
 				temp = slotsGen.getActiveSkillSlot(player);
 			}
 			try {
-				if(TheController.skill == null || temp.getClass() != TheController.skill.getClass()){
+				if (TheController.skill == null
+						|| !(temp.getClass() == TheController.skill.getClass() && TheController.skill
+								.getClass().getField("level").getInt(null) == 4)) {
 					slots.add(temp);
 				}
 			} catch (Exception e) {
-				
+
 			}
 		}
 	}

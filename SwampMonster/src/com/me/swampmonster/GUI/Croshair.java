@@ -30,7 +30,7 @@ public class Croshair extends AbstractGameObject{
 		aiming = false;
 	}
 	public void update(Player player, Vector2 point, Vector3 V3point){
-		getRot = player.getRotation()*57.29f;
+		getRot = player.getRotation(player.shotDir)*57.29f;
 		
 		position.x = player.aimLineHead.x;
 		position.y = player.aimLineHead.y;

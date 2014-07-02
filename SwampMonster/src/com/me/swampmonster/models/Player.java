@@ -47,6 +47,7 @@ public class Player extends AbstractGameObject {
 	public boolean justSpawned;
 	public boolean shooting;
 	public boolean pointGathered;
+	public boolean ThreeArrowsFlag;
 	public List<Projectile> projectiles;
 	public Vector3 shotDir;
 	public Vector3 V3playerPos;
@@ -275,7 +276,7 @@ public class Player extends AbstractGameObject {
 			// : TODO This look terrible, make it better bro...
 			Projectile p = new Projectile(new Vector2(aimingArea.x
 					+ direction_x / 100 - 8, aimingArea.y + direction_y / 100
-					- 8), getRotation(), arrowEffectCarrier);
+					- 8), getRotation(shotDir), arrowEffectCarrier);
 
 			p.setPosition(new Vector2(aimingArea.x + direction_x / 100 - 8,
 					aimingArea.y + direction_y / 100 - 8));
@@ -292,6 +293,45 @@ public class Player extends AbstractGameObject {
 			p.setDirection(direction_x, direction_y);
 
 			projectiles.add(p);
+			if(ThreeArrowsFlag){
+				float direction_x2 = shotDir.x - 40 - V3playerPos.x;
+				float direction_y2 = shotDir.y - 40 - V3playerPos.y;
+				float direction_x3 = shotDir.x + 48 - V3playerPos.x;
+				float direction_y3 = shotDir.y + 48 - V3playerPos.y;
+				
+				Projectile p2 = new Projectile(new Vector2(aimingArea.x
+						+ direction_x2 / 100 - 8, aimingArea.y + direction_y2 / 100
+						- 8), getRotation(new Vector3(shotDir.x - 40, shotDir.y - 40, 0)), arrowEffectCarrier);
+				Projectile p3 = new Projectile(new Vector2(aimingArea.x
+						+ direction_x3 / 100 - 8, aimingArea.y + direction_y3 / 100
+						- 8), getRotation(new Vector3(shotDir.x + 48, shotDir.y + 48, 0)), arrowEffectCarrier);
+
+				p2.setPosition(new Vector2(aimingArea.x + direction_x2 / 100 - 8,
+						aimingArea.y + direction_y2 / 100 - 8));
+				p3.setPosition(new Vector2(aimingArea.x + direction_x3 / 100 - 8,
+						aimingArea.y + direction_y3 / 100 - 8));
+
+				p2.force = (float) Math.sqrt(Math.pow((V3point.x - position.x), 2)
+						+ Math.pow((V3point.y - position.y), 2)) / 50;
+				p3.force = (float) Math.sqrt(Math.pow((V3point.x - position.x), 2)
+						+ Math.pow((V3point.y - position.y), 2)) / 50;
+
+				float length2 = (float) Math.sqrt(direction_x2 * direction_x2
+						+ direction_y2 * direction_y2);
+				direction_x2 /= length2;
+				direction_y2 /= length2;
+				float length3 = (float) Math.sqrt(direction_x3 * direction_x3
+						+ direction_y3 * direction_y3);
+				direction_x3 /= length3;
+				direction_y3 /= length3;
+
+				p2.setDirection(direction_x2, direction_y2);
+				p3.setDirection(direction_x3, direction_y3);
+
+				projectiles.add(p2);
+				projectiles.add(p3);
+				ThreeArrowsFlag = false;
+			}
 			arrowEffectCarrier = EffectCarriers.NONE;
 		}
 	}
@@ -757,7 +797,7 @@ public class Player extends AbstractGameObject {
 		}
 	}
 
-	public float getRotation() {
+	public float getRotation(Vector3 shotDir) {
 		double angle1 = Math.atan2(V3playerPos.y - position.y,
 				V3playerPos.x - 0);
 		double angle2 = Math.atan2(V3playerPos.y - shotDir.y, V3playerPos.x
