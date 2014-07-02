@@ -275,6 +275,7 @@ public class TheController extends InputAdapter{
 		return i - 1;
 	}
 	
+	
 	// User log:
 	// v2 is the position at which the circle is situated
 	// radius is the circles radius

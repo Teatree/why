@@ -805,7 +805,7 @@ public class Player extends AbstractGameObject {
 
 	public void decreaseOxygen() {
 		if (oxygen >= 0) {
-			oxygen--;
+			oxygen-=0.2f;
 		}
 	}
 
