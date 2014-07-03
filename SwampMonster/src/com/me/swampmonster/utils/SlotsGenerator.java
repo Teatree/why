@@ -31,10 +31,10 @@ public class SlotsGenerator {
 	SlotParams slotParams;
 	
 	private static enum SlotParams{
-		p0_500(0, 10, 11, 15),
-		p500_1000(0, 10, 11, 15),
-		p1000_2000(0, 10, 11, 15),
-		p2000_4000(0, 10, 11, 15);
+		p0_500(0, 11, 11, 16),
+		p500_1000(0, 11, 11, 16),
+		p1000_2000(0, 11, 11, 16),
+		p2000_4000(0, 11, 11, 16);
 		
 		public final int minRandActiveSkillValue;
 		public final int maxRandActiveSkillValue;

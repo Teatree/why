@@ -19,7 +19,7 @@ public class Constants {
 	public static final String poisionedMessage3 = "Tyrion did it!";
 	
 	public static final int pendingPeriodBetweedWaves = 2800;
-	public static final int NodeSize = 32;
+	public static final int NodeSize = 16;
 	//
 	
 	//:TODO THE AWESOME SLOT DATA!

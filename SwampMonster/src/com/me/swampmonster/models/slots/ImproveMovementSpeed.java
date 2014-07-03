@@ -39,7 +39,7 @@ public class ImproveMovementSpeed extends Slot implements Perks{
 	
 	@Override
 	public String getDescription() {
-		return "";
+		return descriptionByLevel.get(level);
 	}
 }
 

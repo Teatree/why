@@ -114,10 +114,12 @@ public class GShape extends Group {
 				} else if (theController.gui.getWeaponizer().on == true) {
 					sr.setColor(Color.WHITE);
 				}
-
-				sr.circle(theController.gui.getWeaponizer().circle.x,
-						theController.gui.getWeaponizer().circle.y,
-						theController.gui.getWeaponizer().circle.radius);
+				
+				if (TheController.skill != null){
+					sr.circle(theController.gui.getWeaponizer().circle.x,
+							theController.gui.getWeaponizer().circle.y,
+							theController.gui.getWeaponizer().circle.radius);
+				}
 			}
 			
 			sr.end();
@@ -213,7 +215,9 @@ public class GShape extends Group {
 		for (Sprite s: theController.gui.getOxygenBar().sprites){
 			batch.draw(s, s.getX(), s.getY(), s.getWidth(), s.getHeight()+6);
 		}
-		batch.draw(theController.gui.getWeaponizer().sprite, 0, 0);
+		if (TheController.skill != null){
+			batch.draw(theController.gui.getWeaponizer().sprite, 0, 0);
+		}
 		
 		if (theController.level1.player.positiveEffectsState != null
 				&& theController.level1.player.positiveEffectsState != PositiveEffects.NONE) {
@@ -246,18 +250,22 @@ public class GShape extends Group {
 		}
 		
 		try {
-			//:TODO NPE
-			Sprite s = new Sprite(SlotMachineTextures.slotLevelPic.get(TheController.skill.getClass()
-					.getField("level").getInt(null)-1));
-			s.setPosition(theController.gui.getWeaponizer().position.x-35, theController.gui.getWeaponizer().position.y-35);
-			s.setSize(27, 27);
-			s.draw(batch);
+			if (TheController.skill != null) {
+				Sprite s = new Sprite(
+						SlotMachineTextures.slotLevelPic
+								.get(TheController.skill.getClass()
+										.getField("level").getInt(null) - 1));
+				s.setPosition(
+						theController.gui.getWeaponizer().position.x - 35,
+						theController.gui.getWeaponizer().position.y - 35);
+				s.setSize(27, 27);
+				s.draw(batch);
+			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		
+
 		font.setColor(1.0f, 1.0f, 1.0f, 1.0f);
 		font.draw(batch, str, 580, 460);
 		font.draw(batch, str2, 580, 420);
@@ -281,9 +289,12 @@ public class GShape extends Group {
 		Gdx.gl.glEnable(GL20.GL_BLEND);
 		Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
 		sr.setColor(new Color(0.1f,  0.1f, 0.1f, 0.57f));
-		sr.arc(theController.gui.getWeaponizer().position.x,
-				theController.gui.getWeaponizer().position.y,
-				theController.gui.getWeaponizer().circle.radius, 90, theController.coolDownAngle);
+		if (TheController.skill != null) {
+			sr.arc(theController.gui.getWeaponizer().position.x,
+					theController.gui.getWeaponizer().position.y,
+					theController.gui.getWeaponizer().circle.radius, 90,
+					theController.coolDownAngle);
+		}
 		sr.end();
 		Gdx.gl.glDisable(GL20.GL_BLEND);
 		
