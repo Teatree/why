@@ -133,7 +133,7 @@ public class L1 {
 				itm.remove();
 			}
 			if(Intersector.overlaps(item.circle, player.rectanlge)){
-				if(item.itemType=="hp" && player.health < player.getMaxHealth()){
+				if(item.itemType=="hp" && player.health < player.playerMaxHealth){
 					player.health++;
 					itm.remove();
 				}else if(item.itemType == "O2" && player.oxygen < player.maxOxygen){

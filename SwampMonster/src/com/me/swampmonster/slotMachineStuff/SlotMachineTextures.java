@@ -18,6 +18,11 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 import com.me.swampmonster.animations.AnimationControl;
 import com.me.swampmonster.game.TheController;
 import com.me.swampmonster.models.Player;
+import com.me.swampmonster.models.slots.ImproveArrowDamage;
+import com.me.swampmonster.models.slots.ImproveMaxHealth;
+import com.me.swampmonster.models.slots.ImproveMaxOxygen;
+import com.me.swampmonster.models.slots.ImproveMovementSpeed;
+import com.me.swampmonster.models.slots.Perks;
 import com.me.swampmonster.models.slots.Slot;
 import com.me.swampmonster.utils.Assets;
 import com.me.swampmonster.utils.Constants;
@@ -83,24 +88,50 @@ public class SlotMachineTextures extends Group {
 		boolean argentina = false;
 		Random r = new Random();
 		Slot temp;
-		while (slots.size() < 3){
-			if(r.nextBoolean() && !argentina)
+		boolean madagascar = false;
+		if (ImproveArrowDamage.level == 4 
+				&& ImproveArrowDamage.level == 4
+				&& ImproveMaxHealth.level == 4 
+				&& ImproveMaxOxygen.level == 4
+				&& ImproveMovementSpeed.level == 4){
+			madagascar = true;
+		}
+			while (slots.size() < 3){
+			if(r.nextBoolean() && !argentina && !madagascar)
 			{
 				temp = slotsGen.getPerkSlot(player);
-				argentina = true;
+				try{
+				if(temp.getClass().getField("level").getInt(null) < 4){
+					argentina = true;
+				}
+				}catch(Exception e){
+					
+				}
 			}
-			else if (slots.size() == 2 && !argentina){
+			else if (slots.size() == 2 && !argentina && !madagascar){
 				temp = slotsGen.getPerkSlot(player);
-			} else 
+			} 
+			else 
 			{
 				temp = slotsGen.getActiveSkillSlot(player);
 			}
 			try {
-				if(TheController.skill == null || temp.getClass() != TheController.skill.getClass()){
-					slots.add(temp);
+				if (TheController.skill == null
+						|| !(temp.getClass() == TheController.skill.getClass() && TheController.skill
+								.getClass().getField("level").getInt(null) == 4)) {
+					if (temp instanceof Perks){
+						if (temp.getClass().getField("level").getInt(null) < 4){
+							slots.add(temp);
+						}
+					}else{
+						slots.add(temp);
+					}
+					
 				}
-			} catch (Exception e) {
 				
+				
+			} catch (Exception e) {
+
 			}
 		}
 	}

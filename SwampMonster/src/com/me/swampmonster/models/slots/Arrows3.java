@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.me.swampmonster.game.TheController;
 import com.me.swampmonster.models.Player;
 import com.me.swampmonster.utils.Assets;
 import com.me.swampmonster.utils.Constants;
@@ -37,6 +38,7 @@ public class Arrows3 extends Slot{
 	}
 	
 	public void execute(Player player){
+		player.ThreeArrowsFlag = true;
 	}
 
 	@Override
