@@ -98,8 +98,17 @@ public class L1Renderer {
 					theController.gui.getCroshair().getSprite().getWidth(),
 					theController.gui.getCroshair().getSprite().getHeight(),
 					1,1,
-					theController.gui.getCroshair().getSprite().getRotation());
-			for(Sprite s : theController.gui.getCroshair().pointers){
+ theController.gui.getCroshair().getSprite()
+							.getRotation());
+			batch.draw(theController.level1.player.bow,
+					theController.level1.player.bow.getX(),
+					theController.level1.player.bow.getY(),
+					theController.level1.player.bow.getOriginX(),
+					theController.level1.player.bow.getOriginY(),
+					theController.level1.player.bow.getWidth(),
+					theController.level1.player.bow.getHeight(), 1, 1,
+					theController.level1.player.bow.getRotation());
+			for (Sprite s : theController.gui.getCroshair().pointers){
 				s.draw(batch);
 			}
 		}
@@ -199,7 +208,22 @@ public class L1Renderer {
 //					theController.level1.player.getSprite().getWidth(), theController.level1.player.getSprite().getHeight());
 //			theController.level1.drawEnemy(batch);
 			
-
+			if (Gdx.input.isTouched()
+					&& theController.level1.player.state == State.GUNMOVEMENT
+					&& theController.gui.getCroshair().isAiming()
+					&& theController.level1.player.bow.getRotation() > 0
+					&& theController.level1.player.bow.getRotation() < 180) {
+				
+				batch.draw(theController.level1.player.bow,
+						theController.level1.player.bow.getX(),
+						theController.level1.player.bow.getY(),
+						theController.level1.player.bow.getOriginX(),
+						theController.level1.player.bow.getOriginY(),
+						theController.level1.player.bow.getWidth(),
+						theController.level1.player.bow.getHeight(), 1, 1,
+						theController.level1.player.bow.getRotation());
+			}
+			
 		for(Enemy enemy : theController.level1.enemiesOnStage){
 			if(enemy.getPosition().y+42 < theController.level1.player.getPosition().y+42){
 				enemy.getSprite().setPosition(enemy.getPosition().x, enemy.getPosition().y);

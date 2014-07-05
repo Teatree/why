@@ -14,6 +14,7 @@ public class Assets {
 	
 	public static final AssetDescriptor<Texture> nastyaSpriteStandard = new AssetDescriptor<Texture>("data\\NastyaOxygenSheet.png", Texture.class);
 	public static final AssetDescriptor<Texture> nastyaSpriteGun = new AssetDescriptor<Texture>("data\\NastyaGunSheet.png", Texture.class);
+	public static final AssetDescriptor<Texture> bow = new AssetDescriptor<Texture>("data\\BowNArrow.png", Texture.class);
 	public static final AssetDescriptor<Texture> enemyLeech = new AssetDescriptor<Texture>("data\\EnemyLeech.png", Texture.class);
 	public static final AssetDescriptor<Texture> enemyZombie = new AssetDescriptor<Texture>("data\\EnemyZombie.png", Texture.class);
 	public static final AssetDescriptor<Texture> enemyMaggot = new AssetDescriptor<Texture>("data\\EnemyMaggot.png", Texture.class);
@@ -74,6 +75,7 @@ public class Assets {
 	public static void load(){
 		manager.load(nastyaSpriteStandard);
 		manager.load(nastyaSpriteGun);
+		manager.load(bow);
 		manager.load(enemy);
 		manager.load(enemyLeech);
 		manager.load(enemyZombie);

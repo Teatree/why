@@ -10,6 +10,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Rectangle;
@@ -38,6 +39,8 @@ public class Player extends AbstractGameObject {
 	private int timeShooting = 0;
 	String nastyaSpriteStandard;
 	String nastyaSpriteGun;
+	public Sprite bow;
+	public TextureRegion[][] bowFrames;
 	// responsible for what kind of animation are to be played in the Animating
 	// State
 	String doing;
@@ -83,6 +86,8 @@ public class Player extends AbstractGameObject {
 		this.position = position;
 		movementSpeed = 0.5f;
 		random = new Random();
+		bowFrames = TextureRegion.split((Assets.manager.get(Assets.bow)), 32, 32);
+		bow = new Sprite(bowFrames[0][0]);
 		points = 0;
 		hurt = false;
 		aimingArea = new Circle();
@@ -383,9 +388,25 @@ public class Player extends AbstractGameObject {
 		}
 	}
 
+	//:TODO GUNMOVEMENT
 	private void gunMovement(boolean aiming, Vector3 touchPos, Vector3 V3point) {
+		double aimingLength = Math.sqrt(Math.pow(aimLineHead.x - position.x, 2)+Math.pow(aimLineHead.y - position.y, 2));
+		
 		sprite.setRegion(animationsStandard.get(state).getCurrentFrame());
 		sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
+		System.out.println(bowFrames.length);
+		if(aimingLength<50){
+			bow = new Sprite(bowFrames[0][0]);
+		}else if(aimingLength < 100){
+			bow = new Sprite(bowFrames[1][0]);
+		}else{
+			bow = new Sprite(bowFrames[2][0]);
+		}
+		bow.setPosition(position.x-10, position.y);
+		bow.setRotation(getRotation(shotDir)*57.29f);
+		
+//		System.out.println(bow.getRotation());
+		System.out.println(aimingLength);
 
 		if (!aiming) {
 			currentFrame = animationsStandard.get(state).doComplexAnimation(0,
@@ -399,10 +420,11 @@ public class Player extends AbstractGameObject {
 					- V3point.x;
 			aimLineHead.y = (position.y + sprite.getHeight() / 2) * 2
 					- V3point.y;
-
+			
 		}
 		if (aiming && V3point.y > position.y + 8 && V3point.x < position.x + 32
 				&& V3point.x > position.x) {
+			
 			currentFrame = animationsStandard.get(state).doComplexAnimation(24,
 					0.5f, Gdx.graphics.getDeltaTime(), Animation.NORMAL);
 		} else if (aiming && V3point.y < position.y + 8
