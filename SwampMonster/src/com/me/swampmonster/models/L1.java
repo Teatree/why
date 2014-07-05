@@ -10,6 +10,7 @@ import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.me.swampmonster.models.AbstractGameObject.State;
+import com.me.swampmonster.models.Projectile.EffectCarriers;
 import com.me.swampmonster.models.enemies.Enemy;
 import com.me.swampmonster.utils.CameraHelper;
 import com.me.swampmonster.utils.Constants;
@@ -162,7 +163,7 @@ public class L1 {
 				Iterator<Projectile> prj = player.projectiles.iterator();
 				while (prj.hasNext()) {
 					Projectile p = (Projectile) prj.next();
-					if (Intersector.overlaps(p.circle, e.rectanlge)) {
+					if (p.effect != EffectCarriers.SHADOW && Intersector.overlaps(p.circle, e.rectanlge)) {
 						prj.remove();
 						break;
 					}
