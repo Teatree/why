@@ -18,6 +18,7 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 import com.me.swampmonster.animations.AnimationControl;
 import com.me.swampmonster.game.TheController;
 import com.me.swampmonster.models.Player;
+import com.me.swampmonster.models.enemies.Enemy;
 import com.me.swampmonster.models.slots.ImproveArrowDamage;
 import com.me.swampmonster.models.slots.ImproveMaxHealth;
 import com.me.swampmonster.models.slots.ImproveMaxOxygen;
@@ -31,7 +32,7 @@ import com.me.swampmonster.utils.SlotsGenerator;
 public class SlotMachineTextures extends Group {
 	private BitmapFont font;
 	private static SlotsGenerator slotsGen;
-	public Set<Slot> slots;
+	public Slot[] slots;
 	public static Map<Integer, Sprite> slotLevelPic;
 	int [] slotPositionsX = {159, 328, 497};
 	int slotPositionY = 174;
@@ -83,12 +84,15 @@ public class SlotMachineTextures extends Group {
 		no.width = slotMachineWindowNo.getWidth();
 		no.height = slotMachineWindowNo.getHeight();
 		
-		slots = new HashSet<Slot>();
+		slots = new Slot[3];
 		
 		boolean argentina = false;
 		Random r = new Random();
 		Slot temp;
 		boolean madagascar = false;
+		
+		Set<Slot>slotsSet = new HashSet<Slot>();
+		
 		if (ImproveArrowDamage.level == 4 
 				&& ImproveArrowDamage.level == 4
 				&& ImproveMaxHealth.level == 4 
@@ -96,9 +100,11 @@ public class SlotMachineTextures extends Group {
 				&& ImproveMovementSpeed.level == 4){
 			madagascar = true;
 		}
-			while (slots.size() < 3){
+			while (slotsSet.size() < 3){
+			System.out.println("nextBoolean:" + r.nextBoolean());
 			if(r.nextBoolean() && !argentina && !madagascar)
 			{
+				System.out.println("Yes you are here!");
 				temp = slotsGen.getPerkSlot(player);
 				try{
 				if(temp.getClass().getField("level").getInt(null) < 4){
@@ -108,7 +114,8 @@ public class SlotMachineTextures extends Group {
 					
 				}
 			}
-			else if (slots.size() == 2 && !argentina && !madagascar){
+			else if (slotsSet.size() == 2 && !argentina && !madagascar){
+				System.out.println("");
 				temp = slotsGen.getPerkSlot(player);
 			} 
 			else 
@@ -121,10 +128,10 @@ public class SlotMachineTextures extends Group {
 								.getClass().getField("level").getInt(null) == 4)) {
 					if (temp instanceof Perks){
 						if (temp.getClass().getField("level").getInt(null) < 4){
-							slots.add(temp);
+							slotsSet.add(temp);
 						}
 					}else{
-						slots.add(temp);
+						slotsSet.add(temp);
 					}
 					
 				}
@@ -134,6 +141,8 @@ public class SlotMachineTextures extends Group {
 
 			}
 		}
+			slots = slotsSet.toArray(slots); 
+			shuffle(slots);
 	}
 
 	@Override
@@ -149,13 +158,12 @@ public class SlotMachineTextures extends Group {
 
 		int i = 0;
 //		Iterator<Slot> itr = slots.iterator();
-		Slot[] temps = new Slot[3]; 
-		temps = slots.toArray(temps); 
+		
 		while (i<3) {
 			if (notAnimating[i]) {
 				
 				
-				Slot slot = temps[i];
+				Slot slot = slots[i];
 				slot.sprite.setPosition(slotPositionsX[i], slotPositionY);
 				i++;
 				slot.sprite.setSize(146, 146);
@@ -223,5 +231,16 @@ public class SlotMachineTextures extends Group {
 			smt = new SlotMachineTextures(player);
 		}
 		return smt;
+	}
+	private void shuffle(Slot[] slots)
+	{
+		Random rand = new Random();
+	    for (int i = 0; i < slots.length; i++)
+	    {
+	        int swap = rand.nextInt(i + 1);
+	        Slot temp = slots[swap];
+	        slots[swap] = slots[i];
+	        slots[i] = temp;
+	    }
 	}
 }
