@@ -391,7 +391,7 @@ public class Player extends AbstractGameObject {
 	//:TODO GUNMOVEMENT
 	private void gunMovement(boolean aiming, Vector3 touchPos, Vector3 V3point) {
 		double aimingLength = Math.sqrt(Math.pow(aimLineHead.x - position.x, 2)+Math.pow(aimLineHead.y - position.y, 2));
-		
+		 
 		sprite.setRegion(animationsStandard.get(state).getCurrentFrame());
 		sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
 		System.out.println(bowFrames.length);
