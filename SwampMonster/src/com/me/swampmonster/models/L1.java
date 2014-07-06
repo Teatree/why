@@ -173,6 +173,7 @@ public class L1 {
 				
 				if (player.trap != null && Intersector.overlaps(player.trap.circle, e.yellowAura)){
 					player.trap.catchEnemy(e);
+					player.circle.radius = 0;
 				}
 			}
 
