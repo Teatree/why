@@ -64,11 +64,12 @@ public class DamageTrap extends Trap {
 	}
 
 	public void catchEnemy(Enemy enemy) {
-		effect.load(Gdx.files.local("effects/explosionEffect.p"), Gdx.files.local("effects"));
-		effect.setPosition(position.x, position.y);
-		effect.start();
-		showEffect = true;
+//		effect.load(Gdx.files.local("effects/explosionEffect.p"), Gdx.files.local("effects"));
+//		effect.setPosition(position.x, position.y);
+//		effect.start();
+//		showEffect = true;
 		enemy.health -= damage;
+		position = null;
 	}
 
 	@Override

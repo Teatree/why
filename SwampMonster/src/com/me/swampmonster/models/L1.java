@@ -12,6 +12,8 @@ import com.badlogic.gdx.math.Vector3;
 import com.me.swampmonster.models.AbstractGameObject.State;
 import com.me.swampmonster.models.Projectile.EffectCarriers;
 import com.me.swampmonster.models.enemies.Enemy;
+import com.me.swampmonster.models.slots.DamageTrap;
+import com.me.swampmonster.models.slots.PoisonTrap;
 import com.me.swampmonster.utils.CameraHelper;
 import com.me.swampmonster.utils.Constants;
 import com.me.swampmonster.utils.MisterItemSpawner;

@@ -3,6 +3,7 @@ package com.me.swampmonster.models.slots;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Circle;
 import com.me.swampmonster.models.AbstractGameObject.NegativeEffects;
@@ -60,6 +61,7 @@ public class FrostTrap extends Trap{
 	}
 
 	public void catchEnemy(Enemy enemy) {
+		effect = new ParticleEffect();
 		enemy.setNegativeEffect(NegativeEffects.FROZEN);
 	}
 

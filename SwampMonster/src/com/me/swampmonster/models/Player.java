@@ -872,9 +872,11 @@ public class Player extends AbstractGameObject {
 		if (trap != null) {
 			if (trapTimer < trap.lifeTime) {
 				trapTimer++;
+				if(trap.effect != null && trap.effect.isComplete()){
+					trap.position = null;
+				}
 			} else {
 				trap.position = null;
-//				trap.effect = null;
 				trapTimer = 0;
 			}
 		}

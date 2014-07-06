@@ -20,7 +20,7 @@ public abstract class Trap extends Slot{
 
 	public void execute (Player player){
 		this.lifeTime = lifeTimeMax;
-		effect = new ParticleEffect();
+//		effect = new ParticleEffect();
 		player.trap = this;
 		player.trapTimer = 0;
 		player.trap.position = new Vector2(player.position.x, player.position.y);
