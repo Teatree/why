@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector2;
+import com.me.swampmonster.models.Explosion;
 import com.me.swampmonster.models.Player;
 import com.me.swampmonster.models.enemies.Enemy;
 
@@ -13,6 +14,7 @@ public abstract class Trap extends Slot{
 	public Vector2 position;
 	public boolean showEffect;
 	public int lifeTimeMax;
+	public Explosion explosion;
 	
 	public ParticleEffect effect;
 	

@@ -1,5 +1,6 @@
 package com.me.swampmonster.models;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -9,11 +10,11 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import com.me.swampmonster.models.AbstractGameObject.NegativeEffects;
 import com.me.swampmonster.models.AbstractGameObject.State;
 import com.me.swampmonster.models.Projectile.EffectCarriers;
 import com.me.swampmonster.models.enemies.Enemy;
-import com.me.swampmonster.models.slots.DamageTrap;
-import com.me.swampmonster.models.slots.PoisonTrap;
+import com.me.swampmonster.models.slots.FrostTrap;
 import com.me.swampmonster.utils.CameraHelper;
 import com.me.swampmonster.utils.Constants;
 import com.me.swampmonster.utils.MisterItemSpawner;
@@ -39,6 +40,8 @@ public class L1 {
 	private WaveGenerator waveGenerator = new WaveGenerator();
 	private MisterSpawner misterSpawner = new MisterSpawner();
 	private MisterItemSpawner misterItemSpawner = new MisterItemSpawner();
+	
+	public static List<Explosion> explosions;
 
 	public L1(Player player) {
 		create(player);
@@ -53,6 +56,7 @@ public class L1 {
 		enemiesOnStage = new Stack<Enemy>();
 		bunker = new Bunker();
 		items = new LinkedList<Item>();
+		explosions = new ArrayList<Explosion>();
 	}
 
 	public void update(boolean aiming, Vector3 touchPos, Vector3 V3point,
@@ -73,6 +77,10 @@ public class L1 {
 
 		updateEnemies();
 		updateItems();
+		
+		for (Explosion e : explosions){
+			e.update();
+		}
 		bunker.update();
 	}
 
@@ -136,14 +144,14 @@ public class L1 {
 				itm.remove();
 			}
 			if(Intersector.overlaps(item.circle, player.rectanlge)){
-				if(item.itemType=="hp" && player.health < player.playerMaxHealth){
+				if(item.itemType=="hp" && player.health < Player.playerMaxHealth){
 					player.health++;
 					itm.remove();
-				}else if(item.itemType == "O2" && player.oxygen < player.maxOxygen){
-					if(player.oxygen+50 < player.maxOxygen){
+				}else if(item.itemType == "O2" && player.oxygen < Player.maxOxygen){
+					if(player.oxygen+50 < Player.maxOxygen){
 						player.oxygen = player.oxygen+50;
 					}else{
-						player.oxygen = player.maxOxygen;
+						player.oxygen = Player.maxOxygen;
 					}
 					itm.remove();
 				}
@@ -174,6 +182,11 @@ public class L1 {
 				if (player.trap != null && Intersector.overlaps(player.trap.circle, e.yellowAura)){
 					player.trap.catchEnemy(e);
 					player.circle.radius = 0;
+				}
+				if (player.trap instanceof FrostTrap && 
+						player.trap.explosion != null && 
+								Intersector.overlaps(player.trap.explosion.explCircle, e.rectanlge) ){
+					e.setNegativeEffect(NegativeEffects.FROZEN);
 				}
 			}
 

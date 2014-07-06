@@ -14,7 +14,7 @@ public abstract class Slot {
 	
 	@Override
 	public boolean equals (Object slot){
-		return (slot.getClass() == this.getClass());
+		return slot != null && (slot.getClass() == this.getClass());
 	}
 	
 	@Override

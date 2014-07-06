@@ -84,7 +84,7 @@ public class WaveGenerator {
 		for (int i = waveSize - maxAmountOfToughGuysInAWave; i < waveSize; i++){
 			tempEnemies [i] = enemyGenerator.getToughEnemy(minEnemy, maxEnemy, minTough, maxTough);
 		}
-		shuffle(tempEnemies);
+		GeneralUtils.shuffle(tempEnemies);
 		for (Enemy e : tempEnemies){
 			wave.enemies.push(e);
 		}
@@ -119,17 +119,5 @@ public class WaveGenerator {
 	
 	private int calcEnemiesOnBattleField(int playersScore){
 		return random.nextInt(waveParams.enemiesOnBattleFieldMax - waveParams.enemiesOnBattleFieldMin) + waveParams.enemiesOnBattleFieldMin;
-	}
-	
-	private void shuffle(Enemy[] enemies)
-	{
-		Random rand = new Random();
-	    for (int i = 0; i < enemies.length; i++)
-	    {
-	        int swap = rand.nextInt(i + 1);
-	        Enemy temp = enemies[swap];
-	        enemies[swap] = enemies[i];
-	        enemies[i] = temp;
-	    }
 	}
 }

@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.math.Circle;
 import com.me.swampmonster.models.Player;
 import com.me.swampmonster.utils.Assets;
 import com.me.swampmonster.utils.Constants;

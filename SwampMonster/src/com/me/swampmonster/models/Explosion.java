@@ -1,6 +1,5 @@
 package com.me.swampmonster.models;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector2;
@@ -20,15 +19,12 @@ public class Explosion {
 		incrementalDamageValue = 0.6f;
 		explCircle = new Circle();
 		explCircle.radius = 1;
-	
-		
 	}
 	
 	public void update(){
 		if (explosionEffect != null && !explosionEffect.isComplete()){
 			explCircle.radius += incrementalCircleValue;
 			damage += incrementalDamageValue;
-			
 		}
 	}
 }

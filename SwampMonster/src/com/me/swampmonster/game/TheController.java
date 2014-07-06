@@ -1,6 +1,5 @@
 package com.me.swampmonster.game;
 
-
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
@@ -18,7 +17,6 @@ import com.me.swampmonster.models.AbstractGameObject.State;
 import com.me.swampmonster.models.Explosion;
 import com.me.swampmonster.models.L1;
 import com.me.swampmonster.models.Player;
-import com.me.swampmonster.models.slots.Arrows3;
 import com.me.swampmonster.models.slots.PositiveEffectInterface;
 import com.me.swampmonster.models.slots.PositiveEffects;
 import com.me.swampmonster.models.Projectile;
@@ -48,7 +46,6 @@ public class TheController extends InputAdapter{
 	
 	float dx;
 	float dy;
-	
 
 	float enemyDx;
 	float enemyDy;
@@ -102,6 +99,7 @@ public class TheController extends InputAdapter{
 		pointRect = new Rectangle();
 		pointRect.width = 1;
 		pointRect.height = 1;
+		
 	}
 	
 	public void update(float deltaTime, Game game) {

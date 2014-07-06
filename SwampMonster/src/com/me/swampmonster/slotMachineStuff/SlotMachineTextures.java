@@ -18,7 +18,6 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 import com.me.swampmonster.animations.AnimationControl;
 import com.me.swampmonster.game.TheController;
 import com.me.swampmonster.models.Player;
-import com.me.swampmonster.models.enemies.Enemy;
 import com.me.swampmonster.models.slots.ImproveArrowDamage;
 import com.me.swampmonster.models.slots.ImproveMaxHealth;
 import com.me.swampmonster.models.slots.ImproveMaxOxygen;
@@ -27,6 +26,7 @@ import com.me.swampmonster.models.slots.Perks;
 import com.me.swampmonster.models.slots.Slot;
 import com.me.swampmonster.utils.Assets;
 import com.me.swampmonster.utils.Constants;
+import com.me.swampmonster.utils.GeneralUtils;
 import com.me.swampmonster.utils.SlotsGenerator;
 
 public class SlotMachineTextures extends Group {
@@ -94,7 +94,6 @@ public class SlotMachineTextures extends Group {
 		Set<Slot>slotsSet = new HashSet<Slot>();
 		
 		if (ImproveArrowDamage.level == 4 
-				&& ImproveArrowDamage.level == 4
 				&& ImproveMaxHealth.level == 4 
 				&& ImproveMaxOxygen.level == 4
 				&& ImproveMovementSpeed.level == 4){
@@ -139,7 +138,7 @@ public class SlotMachineTextures extends Group {
 			}
 		}
 			slots = slotsSet.toArray(slots); 
-			shuffle(slots);
+			GeneralUtils.shuffle(slots);
 	}
 
 	@Override
@@ -228,16 +227,5 @@ public class SlotMachineTextures extends Group {
 			smt = new SlotMachineTextures(player);
 		}
 		return smt;
-	}
-	private void shuffle(Slot[] slots)
-	{
-		Random rand = new Random();
-	    for (int i = 0; i < slots.length; i++)
-	    {
-	        int swap = rand.nextInt(i + 1);
-	        Slot temp = slots[swap];
-	        slots[swap] = slots[i];
-	        slots[i] = temp;
-	    }
 	}
 }

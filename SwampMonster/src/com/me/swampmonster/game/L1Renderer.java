@@ -15,6 +15,7 @@ import com.me.swampmonster.AI.Node;
 import com.me.swampmonster.models.Explosion;
 import com.me.swampmonster.models.Item;
 import com.me.swampmonster.models.AbstractGameObject.State;
+import com.me.swampmonster.models.L1;
 import com.me.swampmonster.models.enemies.Enemy;
 import com.me.swampmonster.models.Projectile;
 import com.me.swampmonster.utils.Constants;
@@ -89,7 +90,12 @@ public class L1Renderer {
 		batch.begin();
 		if(theController.explosion.explosionEffect != null){
 			theController.explosion.explosionEffect.draw(batch);
-			theController.explosion.explosionEffect.update(Gdx.graphics.getDeltaTime());;
+			theController.explosion.explosionEffect.update(Gdx.graphics.getDeltaTime());
+		}
+		
+		for (Explosion e : L1.explosions){
+			e.explosionEffect.draw(batch);
+			e.explosionEffect.update(Gdx.graphics.getDeltaTime());
 		}
 		if (Gdx.input.isTouched()
 				&& theController.level1.player.state == State.GUNMOVEMENT
@@ -278,6 +284,10 @@ public class L1Renderer {
 			sr.setColor(Color.BLACK);
 			sr.circle(theController.explosion.position.x, theController.explosion.position.y, theController.explosion.explCircle.radius);
 		}	
+		sr.setColor(Color.CYAN);
+		for (Explosion e : L1.explosions){
+			sr.circle(e.position.x, e.position.y, e.explCircle.radius);
+		}
 		sr.setColor(Color.WHITE);
 		for(Projectile p: theController.level1.player.projectiles){
 			if(p!=null){

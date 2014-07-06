@@ -71,6 +71,7 @@ public class EnemyGenerator {
 			enemy.toughness = toughtness;
 			enemy.setPlayerMovementSpeed((float)(enemy.getPlayerMovementSpeed() + toughtness.speed));
 			enemy.points +=toughtness.points;
+			//: TODO enemy.damag is static
 			enemy.damage += toughtness.damage;
 			enemy.health += toughtness.health;
 			enemy.attackSpeed += toughtness.attackSpeed;
