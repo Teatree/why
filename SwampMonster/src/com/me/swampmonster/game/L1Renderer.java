@@ -12,6 +12,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.me.swampmonster.AI.Node;
+import com.me.swampmonster.models.Explosion;
 import com.me.swampmonster.models.Item;
 import com.me.swampmonster.models.AbstractGameObject.State;
 import com.me.swampmonster.models.enemies.Enemy;
@@ -39,7 +40,6 @@ public class L1Renderer {
 	
 	public L1Renderer(TheController theController){
 		this.theController = theController;
-		
 		this.cam = new OrthographicCamera(Constants.VIEWPORT_WIDTH, Constants.VIEWPORT_HEIGHT);
 //		stage.setViewport(Constants.VIEWPORT_WIDTH, Constants.VIEWPORT_WIDTH, true);
 		// Temporary debug feature
@@ -49,7 +49,6 @@ public class L1Renderer {
 		stage = new Stage(Constants.VIEWPORT_WIDTH, Constants.VIEWPORT_HEIGHT, false, batch);
 		sr = new ShapeRenderer();
 		mapRenderer = new OrthogonalTiledMapRenderer(theController.level1.bunker.getMap());
-		
 		
 		gshape = new GShape(theController);
 		
@@ -62,6 +61,7 @@ public class L1Renderer {
 		effect.load(Gdx.files.local("effects/FlameEffectTemp.p"), Gdx.files.local("effects"));
 		effect.setPosition(theController.level1.player.position.x, theController.level1.player.position.y);
 		effect.start();
+		
 	}	
 	
 	public void render() {
@@ -87,6 +87,10 @@ public class L1Renderer {
 		Gdx.gl.glEnable(GL20.GL_BLEND);
 		Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
 		batch.begin();
+		if(theController.explosion.explosionEffect != null){
+			theController.explosion.explosionEffect.draw(batch);
+			theController.explosion.explosionEffect.update(Gdx.graphics.getDeltaTime());;
+		}
 		if (Gdx.input.isTouched()
 				&& theController.level1.player.state == State.GUNMOVEMENT
 				&& theController.gui.getCroshair().isAiming()) {
@@ -271,6 +275,8 @@ public class L1Renderer {
 			sr.circle(enemy.getoRangeAura().x, enemy.getoRangeAura().y, enemy.getoRangeAura().radius);
 			sr.setColor(Color.YELLOW);
 			sr.circle(enemy.yellowAura.x, enemy.yellowAura.y, enemy.yellowAura.radius);
+			sr.setColor(Color.BLACK);
+			sr.circle(theController.explosion.position.x, theController.explosion.position.y, theController.explosion.explCircle.radius);
 		}	
 		sr.setColor(Color.WHITE);
 		for(Projectile p: theController.level1.player.projectiles){

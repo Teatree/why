@@ -5,6 +5,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
@@ -14,6 +15,7 @@ import com.me.swampmonster.GUI.GUI;
 import com.me.swampmonster.game.collision.CollisionHelper;
 import com.me.swampmonster.models.AbstractGameObject.NegativeEffects;
 import com.me.swampmonster.models.AbstractGameObject.State;
+import com.me.swampmonster.models.Explosion;
 import com.me.swampmonster.models.L1;
 import com.me.swampmonster.models.Player;
 import com.me.swampmonster.models.slots.Arrows3;
@@ -31,6 +33,7 @@ public class TheController extends InputAdapter{
 	public CollisionHelper collisionHandler;
 	public L1 level1;
 	public GUI gui;
+	public Explosion explosion;
 	public static Vector3 touchPos;
 	int timer;
 	int timer3hurt;
@@ -76,6 +79,7 @@ public class TheController extends InputAdapter{
 		collisionLayer = (TiledMapTileLayer) level1.bunker.getMap().getLayers().get(0);
 		gui = new GUI(player);
 		gui.getCroshair().setPosition(new Vector2 (330f,100f));
+		explosion = new Explosion(player.position);
 		
 		touchPos = new Vector3(player.getPosition().x+10, player.getPosition().y, 0);
 		point = new Vector2();
@@ -118,7 +122,9 @@ public class TheController extends InputAdapter{
 		if (Gdx.input.justTouched() && !level1.player.justSpawned) {
 			inputNav();
 		}
-
+		explosion.update();
+		
+		
 		gui.update(level1.player, point, V3point);
 		handleDebugInput(deltaTime);
 		point.x = Gdx.input.getX();
@@ -209,8 +215,13 @@ public class TheController extends InputAdapter{
 		if (Gdx.input.isKeyPressed(Keys.S) && !cameraHelper.hasTarget) moveCamera(0,-camMoveSpeed);
 		
 		if (Gdx.input.isKeyPressed(Keys.O)){
-			for (Enemy enemy : level1.enemiesOnStage)
+			for (Enemy enemy : level1.enemiesOnStage){
 				enemy.state = State.DEAD;
+			}
+			explosion.explosionEffect = new ParticleEffect();
+			explosion.explosionEffect.load(Gdx.files.local("effects/explosionEffect.p"), Gdx.files.local("effects"));
+			explosion.explosionEffect.setPosition(level1.player.position.x, level1.player.position.y);
+			explosion.explosionEffect.start();
 		}
 		if (Gdx.input.isKeyPressed(Keys.P)){
 			level1.player.state = State.DEAD;
