@@ -11,7 +11,6 @@ import com.me.swampmonster.utils.Assets;
 import com.me.swampmonster.utils.Constants;
 
 public class DamageTrap extends Trap {
-	public int lifetime = 9000;
 	public float damage;
 	public static int level;
 	
@@ -65,7 +64,7 @@ public class DamageTrap extends Trap {
 	}
 
 	public void catchEnemy(Enemy enemy) {
-		effect.load(Gdx.files.local("effects/FlameEffectTemp.p"), Gdx.files.local("effects"));
+		effect.load(Gdx.files.local("effects/explosionEffect.p"), Gdx.files.local("effects"));
 		effect.setPosition(position.x, position.y);
 		effect.start();
 		showEffect = true;

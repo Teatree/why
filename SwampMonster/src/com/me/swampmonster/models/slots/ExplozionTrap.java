@@ -3,6 +3,7 @@ package com.me.swampmonster.models.slots;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Circle;
 import com.me.swampmonster.models.enemies.Enemy;
@@ -58,7 +59,10 @@ public class ExplozionTrap extends Trap{
 	}
 	
 	public void catchEnemy(Enemy enemy) {
-		// Play explosion effect, and kill all life forms
+		effect.load(Gdx.files.local("effects/explosionEffect.p"), Gdx.files.local("effects"));
+		effect.setPosition(position.x, position.y);
+		effect.start();
+		showEffect = true;
 	}
 
 	public String getDescription() {

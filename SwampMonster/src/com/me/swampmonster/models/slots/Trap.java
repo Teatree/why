@@ -15,11 +15,14 @@ public abstract class Trap extends Slot{
 	public int lifeTimeMax;
 	
 	public ParticleEffect effect;
+	
 	public void catchEnemy(Enemy enemy){};
 
 	public void execute (Player player){
 		this.lifeTime = lifeTimeMax;
+		effect = new ParticleEffect();
 		player.trap = this;
+		player.trapTimer = 0;
 		player.trap.position = new Vector2(player.position.x, player.position.y);
 		player.trap.circle.x = player.trap.position.x + trapSprite.getWidth()/2;
 		player.trap.circle.y = player.trap.position.y + trapSprite.getHeight()/2; 

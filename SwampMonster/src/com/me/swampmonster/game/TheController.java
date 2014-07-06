@@ -153,7 +153,7 @@ public class TheController extends InputAdapter{
 			coolDownAngle = coolDownAngle - coolDownStep;
 //			c -= coolDownStep;
 			coolDownCounter--;
-			System.out.println(coolDownStep);
+//			System.out.println(coolDownStep);
 		}
 	}
 

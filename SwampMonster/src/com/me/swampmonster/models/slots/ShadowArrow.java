@@ -14,11 +14,11 @@ public class ShadowArrow extends Slot{
 	private static Map <Integer, String> descriptionByLevel;
 	static {
 		descriptionByLevel = new HashMap<Integer, String>();
-		descriptionByLevel.put(0, Constants.FrostTrap_Description_L1);
-		descriptionByLevel.put(1, Constants.FrostTrap_Description_L2);
-		descriptionByLevel.put(2, Constants.FrostTrap_Description_L3);
-		descriptionByLevel.put(3, Constants.FrostTrap_Description_L4);
-		descriptionByLevel.put(4, Constants.FrostTrap_Description_L5);
+		descriptionByLevel.put(0, Constants.ShadowArrow_Description_L1);
+		descriptionByLevel.put(1, Constants.ShadowArrow_Description_L2);
+		descriptionByLevel.put(2, Constants.ShadowArrow_Description_L3);
+		descriptionByLevel.put(3, Constants.ShadowArrow_Description_L4);
+		descriptionByLevel.put(4, Constants.ShadowArrow_Description_L5);
 	}
 	public ShadowArrow() {
 		sprite = new Sprite(Assets.manager.get(Assets.SHADOW_ARROW_ICON));

@@ -101,10 +101,8 @@ public class SlotMachineTextures extends Group {
 			madagascar = true;
 		}
 			while (slotsSet.size() < 3){
-			System.out.println("nextBoolean:" + r.nextBoolean());
 			if(r.nextBoolean() && !argentina && !madagascar)
 			{
-				System.out.println("Yes you are here!");
 				temp = slotsGen.getPerkSlot(player);
 				try{
 				if(temp.getClass().getField("level").getInt(null) < 4){
@@ -115,7 +113,6 @@ public class SlotMachineTextures extends Group {
 				}
 			}
 			else if (slotsSet.size() == 2 && !argentina && !madagascar){
-				System.out.println("");
 				temp = slotsGen.getPerkSlot(player);
 			} 
 			else 

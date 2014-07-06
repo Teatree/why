@@ -29,27 +29,27 @@ public class FrostTrap extends Trap{
 		
 		switch (level) {
 		case 0:
-			lifeTime = Constants.FrostTrap_LifeTime_L1;
+			lifeTimeMax = Constants.FrostTrap_LifeTime_L1;
 			coolDown = Constants.FrostTrap_CoolDown_L1;
 			circle.radius = Constants.FrostTrap_CircleRadius_L1;
 			break;
 		case 1:
-			lifeTime = Constants.FrostTrap_LifeTime_L2;
+			lifeTimeMax = Constants.FrostTrap_LifeTime_L2;
 			coolDown = Constants.FrostTrap_CoolDown_L2;
 			circle.radius = Constants.FrostTrap_CircleRadius_L2;
 			break;
 		case 2:
-			lifeTime = Constants.FrostTrap_LifeTime_L3;
+			lifeTimeMax = Constants.FrostTrap_LifeTime_L3;
 			coolDown = Constants.FrostTrap_CoolDown_L3;
 			circle.radius = Constants.FrostTrap_CircleRadius_L3;
 			break;
 		case 3:
-			lifeTime = Constants.FrostTrap_LifeTime_L4;
+			lifeTimeMax = Constants.FrostTrap_LifeTime_L4;
 			coolDown = Constants.FrostTrap_CoolDown_L4;
 			circle.radius = Constants.FrostTrap_CircleRadius_L4;
 			break;
 		case 4:
-			lifeTime = Constants.FrostTrap_LifeTime_L5;
+			lifeTimeMax = Constants.FrostTrap_LifeTime_L5;
 			coolDown = Constants.FrostTrap_CoolDown_L5;
 			circle.radius = Constants.FrostTrap_CircleRadius_L5;
 			break;

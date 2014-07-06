@@ -58,10 +58,10 @@ public class L1Renderer {
 		
 		timer = 60;
 		
-//		effect = new ParticleEffect();
-//		effect.load(Gdx.files.local("effects/FlameEffectTemp.p"), Gdx.files.local("effects"));
-//		effect.setPosition(theController.level1.player.position.x, theController.level1.player.position.y);
-//		effect.start();
+		effect = new ParticleEffect();
+		effect.load(Gdx.files.local("effects/FlameEffectTemp.p"), Gdx.files.local("effects"));
+		effect.setPosition(theController.level1.player.position.x, theController.level1.player.position.y);
+		effect.start();
 	}	
 	
 	public void render() {
@@ -150,6 +150,7 @@ public class L1Renderer {
 			}
 		}
 		if (theController.level1.player.trap != null && theController.level1.player.trap.position != null){
+			
 			theController.level1.player.trap.trapSprite.setPosition(theController.level1.player.trap.position.x,
 					theController.level1.player.trap.position.y);
 			

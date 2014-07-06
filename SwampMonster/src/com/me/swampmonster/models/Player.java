@@ -288,7 +288,6 @@ public class Player extends AbstractGameObject {
 
 			p.force = (float) Math.sqrt(Math.pow((V3point.x - position.x), 2)
 					+ Math.pow((V3point.y - position.y), 2)) / 50;
-			System.out.println(p.force);
 
 			float length = (float) Math.sqrt(direction_x * direction_x
 					+ direction_y * direction_y);
@@ -394,7 +393,6 @@ public class Player extends AbstractGameObject {
 		 
 		sprite.setRegion(animationsStandard.get(state).getCurrentFrame());
 		sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
-		System.out.println(bowFrames.length);
 		if(aimingLength<50){
 			bow = new Sprite(bowFrames[0][0]);
 		}else if(aimingLength < 100){
@@ -406,7 +404,6 @@ public class Player extends AbstractGameObject {
 		bow.setRotation(getRotation(shotDir)*57.29f);
 		
 //		System.out.println(bow.getRotation());
-		System.out.println(aimingLength);
 
 		if (!aiming) {
 			currentFrame = animationsStandard.get(state).doComplexAnimation(0,
@@ -877,6 +874,7 @@ public class Player extends AbstractGameObject {
 				trapTimer++;
 			} else {
 				trap.position = null;
+//				trap.effect = null;
 				trapTimer = 0;
 			}
 		}

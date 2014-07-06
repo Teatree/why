@@ -106,7 +106,6 @@ public class GShape extends Group {
 			if (theController.level1.player.maskOn
 					&& theController.level1.player.oxygen == 0) {
 				sr.rect(16, 422, Player.maxOxygen, 22);
-				System.out.println("Gshape thinks Maxoxygen is: " + Player.maxOxygen);
 			}
 			if (theController.level1.player.state != State.DEAD) {
 				if (theController.gui.getWeaponizer().on == false) {
@@ -123,10 +122,6 @@ public class GShape extends Group {
 			}
 			
 			sr.end();
-			
-			
-			
-			//hhjkl
 			
 			sr.setProjectionMatrix(batch.getProjectionMatrix());
 			sr.setTransformMatrix(batch.getTransformMatrix());
@@ -175,7 +170,6 @@ public class GShape extends Group {
 					&& theController.level1.player.state == State.DEAD) {
 				sr.setColor(Color.GREEN);
 				if (theController.gui.getGameoverGUI().circle.contains(point)){
-					System.out.println("X: " + point.x + " Y: " + point.y);
 					sr.setColor(new Color(0, 200, 0.5f, 100));
 				}
 				sr.circle(theController.gui.getGameoverGUI().circle.x,
