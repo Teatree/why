@@ -17,6 +17,7 @@ public class FrostTrap extends Trap{
 
 	public static int level;
 	private static Map <Integer, String> descriptionByLevel;
+	private boolean cuba;
 	
 	static {
 		descriptionByLevel = new HashMap<Integer, String>();
@@ -63,23 +64,24 @@ public class FrostTrap extends Trap{
 	}
 
 	public void catchEnemy(Enemy enemy) {
-		explosion = new Explosion(this.position);
-		explosion.damage = 0;
-		explosion.incrementalDamageValue = 0;
-		explosion.incrementalCircleValue = 6;
-		
-		explosion.explosionEffect = new ParticleEffect();
-		explosion.explosionEffect.load(Gdx.files.local("effects/explosionEffect.p"), Gdx.files.local("effects"));
-		explosion.explosionEffect.setPosition(this.position.x, this.position.y);
-		explosion.explosionEffect.start();
-		L1.explosions.add(explosion);
-		
-		System.out.println(" catchEnemy ");
-//		enemy.setNegativeEffect(NegativeEffects.FROZEN);
+		if (!cuba) {
+			explosion = new Explosion(this.position);
+			explosion.damage = 0;
+			explosion.incrementalDamageValue = 0;
+			explosion.incrementalCircleValue = 6;
+
+			explosion.explosionEffect = new ParticleEffect();
+			explosion.explosionEffect.load(Gdx.files.local("effects/explosionEffect.p"),Gdx.files.local("effects"));
+			explosion.explosionEffect.setPosition(this.position.x,this.position.y);
+			explosion.explosionEffect.start();
+			L1.explosions.add(explosion);
+			cuba = true;
+		} else {
+			this.position = null;
+		}
 	}
 
 	public String getDescription() {
 		return descriptionByLevel.get(level);
-
 	}
 }

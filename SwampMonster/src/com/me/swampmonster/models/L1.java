@@ -168,7 +168,6 @@ public class L1 {
 				if (player.radioactiveAura != null
 						&& Intersector.overlaps(player.radioactiveAura,
 								e.rectanlge)) {
-
 				}
 				Iterator<Projectile> prj = player.projectiles.iterator();
 				while (prj.hasNext()) {
@@ -181,12 +180,15 @@ public class L1 {
 				
 				if (player.trap != null && Intersector.overlaps(player.trap.circle, e.yellowAura)){
 					player.trap.catchEnemy(e);
+					
+					player.trap.position = null;
 					player.circle.radius = 0;
 				}
 				if (player.trap instanceof FrostTrap && 
 						player.trap.explosion != null && 
-								Intersector.overlaps(player.trap.explosion.explCircle, e.rectanlge) ){
+								Intersector.overlaps(explosions.get(0).explCircle, e.rectanlge) ){
 					e.setNegativeEffect(NegativeEffects.FROZEN);
+					System.out.println("ENES " + e.negativeEffectsState);
 				}
 			}
 

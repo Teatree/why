@@ -930,6 +930,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 		switch (negativeEffect) {
 		case FROZEN:
 			if (negativeEffectsState != NegativeEffects.FROZEN){
+				System.out.println(" ");
 				sprite.setColor(4 / 255f, 180 / 255f, 1f, 1f);
 				movementSpeed *= 0.4f;
 				negativeEffectsState = negativeEffect;
