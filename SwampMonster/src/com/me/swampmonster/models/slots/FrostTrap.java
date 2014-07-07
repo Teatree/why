@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Circle;
 import com.me.swampmonster.models.Explosion;
 import com.me.swampmonster.models.L1;
+import com.me.swampmonster.models.Player;
 import com.me.swampmonster.models.enemies.Enemy;
 import com.me.swampmonster.utils.Assets;
 import com.me.swampmonster.utils.Constants;
@@ -66,9 +67,12 @@ public class FrostTrap extends Trap{
 	public void catchEnemy(Enemy enemy) {
 		if (!cuba) {
 			explosion = new Explosion(this.position);
+			explosion.explCircle = new Circle();
 			explosion.damage = 0;
 			explosion.incrementalDamageValue = 0;
 			explosion.incrementalCircleValue = 6;
+			explosion.explCircle.setPosition(this.position.x, this.position.y);
+			explosion.explCircle.radius = 1f;
 
 			explosion.explosionEffect = new ParticleEffect();
 			explosion.explosionEffect.load(Gdx.files.local("effects/explosionEffect.p"),Gdx.files.local("effects"));
@@ -79,6 +83,14 @@ public class FrostTrap extends Trap{
 		} else {
 			this.position = null;
 		}
+	}
+	
+	public void execute(Player player){
+		super.execute(player);
+		cuba = false;
+		
+		
+		
 	}
 
 	public String getDescription() {

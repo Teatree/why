@@ -182,13 +182,19 @@ public class L1 {
 					player.trap.catchEnemy(e);
 					
 					player.trap.position = null;
-					player.circle.radius = 0;
+//					player.trap.circle.radius = 0;
 				}
-				if (player.trap instanceof FrostTrap && 
-						player.trap.explosion != null && 
-								Intersector.overlaps(explosions.get(0).explCircle, e.rectanlge) ){
-					e.setNegativeEffect(NegativeEffects.FROZEN);
-					System.out.println("ENES " + e.negativeEffectsState);
+				for (Explosion expl : explosions) {
+					if (Intersector.overlaps(expl.explCircle, e.rectanlge)) {
+						// e.setNegativeEffect(NegativeEffects.FROZEN);
+						expl.cause(e);
+//						System.out.println("penis face");
+//						e.position.x = e.position.x + 90.4f;
+//						e.position.y = e.position.y + 90.4f;
+//						e.health = e.health - 1;
+					
+					}
+//					System.out.println("ENES " + e.negativeEffectsState);
 				}
 			}
 
