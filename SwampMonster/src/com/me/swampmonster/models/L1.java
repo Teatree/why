@@ -66,17 +66,17 @@ public class L1 {
 		misterSpawner.setCollisionLayer(collisionLayer);
 		misterItemSpawner.setCollisionLayer(collisionLayer);
 		updateWave();
-		
+
 		for (Enemy enemy : enemiesOnStage) {
 			if (player.state == State.DEAD) {
 				enemy.state = State.STANDARD;
 			} 
 			enemy.update(collisionLayer, this.player,
-						cameraHelper, enemiesOnStage);
+					cameraHelper, enemiesOnStage);
 		}
-
-		updateEnemies();
+		updateEnemies(collisionLayer);
 		updateItems();
+		
 		
 		for (Explosion e : explosions){
 			e.update();
@@ -160,7 +160,7 @@ public class L1 {
 		}
 	}
 	
-	private void updateEnemies() {
+	private void updateEnemies(TiledMapTileLayer collisionLayer) {
 		Iterator<Enemy> itr = enemiesOnStage.iterator();
 		while (itr.hasNext()) {
 			Enemy e = (Enemy) itr.next();
@@ -184,10 +184,15 @@ public class L1 {
 					player.trap.position = null;
 //					player.trap.circle.radius = 0;
 				}
+//				List<Enemy> eNeMes = new ArrayList<Enemy>();
+//				for(Enemy x : enemiesOnStage){
+//					eNeMes.add(x);
+//				}
+				
 				for (Explosion expl : explosions) {
 					if (Intersector.overlaps(expl.explCircle, e.rectanlge)) {
 						// e.setNegativeEffect(NegativeEffects.FROZEN);
-						expl.cause(e);
+						expl.cause(e/* collisionLayer, eNeMes*/);
 //						System.out.println("penis face");
 //						e.position.x = e.position.x + 90.4f;
 //						e.position.y = e.position.y + 90.4f;

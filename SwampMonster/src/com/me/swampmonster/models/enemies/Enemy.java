@@ -43,6 +43,11 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 	public List<Projectile> enemyProjectiles;
 	public Toughness toughness;
 	
+	public Collidable collidableRight;
+	public Collidable collidableLeft;
+	public Collidable collidableUp;
+	public Collidable collidableDown;
+	
 	float enemyDx;
 	float enemyDy;
 
@@ -233,10 +238,10 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 						&& !yellowAura.overlaps(player.circle)
 						&& player.state != State.DEAD) {
 
-					Collidable collidableLeft = null;
-					Collidable collidableRight = null;
-					Collidable collidableDown = null;
-					Collidable collidableUp = null;
+					collidableLeft = null;
+					collidableRight = null;
+					collidableDown = null;
+					collidableUp = null;
 
 					move(player, collidableLeft, collidableRight,
 							collidableDown, collidableUp, enemyDx, enemyDy,
@@ -564,9 +569,6 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 				// // System.out.println("yes it is !");
 				if (collidableLeft == null || collidableRight == null) {
 					position.x += enemyDx * playerMovementSpeed;
-					// // System.out.println("enemyDx*playerMovementSpeed: " +
-					// enemyDx*playerMovementSpeed + " position.x: " +
-					// position.x);
 				}
 				if (collidableUp == null || collidableDown == null) {
 					position.y += enemyDy * playerMovementSpeed;
