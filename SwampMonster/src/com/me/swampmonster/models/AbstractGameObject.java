@@ -51,6 +51,7 @@ public abstract class AbstractGameObject {
 	public String damageType;
 	public String damageTypeOxygen;
 	public boolean hurt;
+	public boolean exploding;
 	protected boolean allowedToShoot;
 	
 	protected Vector2 oldPos;

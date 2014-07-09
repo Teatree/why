@@ -275,14 +275,14 @@ public class L1Renderer {
 		// Temporary deBug feature
 		sr.begin(ShapeType.Line);
 		for (Enemy enemy : theController.level1.enemiesOnStage){
-			sr.setColor(Color.GREEN);
-			sr.circle(enemy.getgReenAura().x, enemy.getgReenAura().y, enemy.getgReenAura().radius);
-			sr.setColor(Color.BLUE);
-			sr.circle(enemy.getoRangeAura().x, enemy.getoRangeAura().y, enemy.getoRangeAura().radius);
-			sr.setColor(Color.YELLOW);
-			sr.circle(enemy.yellowAura.x, enemy.yellowAura.y, enemy.yellowAura.radius);
-			sr.setColor(Color.BLACK);
-			sr.circle(theController.explosion.position.x, theController.explosion.position.y, theController.explosion.explCircle.radius);
+//			sr.setColor(Color.GREEN);
+//			sr.circle(enemy.getgReenAura().x, enemy.getgReenAura().y, enemy.getgReenAura().radius);
+//			sr.setColor(Color.BLUE);
+//			sr.circle(enemy.getoRangeAura().x, enemy.getoRangeAura().y, enemy.getoRangeAura().radius);
+//			sr.setColor(Color.YELLOW);
+//			sr.circle(enemy.yellowAura.x, enemy.yellowAura.y, enemy.yellowAura.radius);
+//			sr.setColor(Color.BLACK);
+//			sr.circle(theController.explosion.position.x, theController.explosion.position.y, theController.explosion.explCircle.radius);
 		}	
 		sr.setColor(Color.CYAN);
 		for (Explosion e : L1.explosions){
@@ -298,7 +298,7 @@ public class L1Renderer {
 		sr.rect(theController.point.x, theController.point.y, 32, 32);
 		sr.rect(theController.level1.player.getPosition().x, theController.level1.player.getPosition().y,
 				theController.level1.player.rectanlge.width, theController.level1.player.rectanlge.height);
-		sr.circle(theController.level1.player.invalidSpawnArea.x, theController.level1.player.invalidSpawnArea.y, theController.level1.player.invalidSpawnArea.radius);
+//		sr.circle(theController.level1.player.invalidSpawnArea.x, theController.level1.player.invalidSpawnArea.y, theController.level1.player.invalidSpawnArea.radius);
 		for(Enemy enemy:theController.level1.enemiesOnStage){
 			sr.rect(enemy.rectanlge.x, enemy.rectanlge.y,
 					enemy.rectanlge.width, enemy.rectanlge.height);
@@ -310,9 +310,9 @@ public class L1Renderer {
 		if(theController.gui.getCroshair().isAiming()){
 			sr.line(theController.V3playerPos, theController.level1.player.aimLineHead);
 		}
-		sr.circle(theController.level1.player.circle.x, theController.level1.player.circle.y, theController.level1.player.circle.radius);
+//		sr.circle(theController.level1.player.circle.x, theController.level1.player.circle.y, theController.level1.player.circle.radius);
 		sr.setColor(Color.YELLOW);
-		sr.circle(theController.level1.player.aimingArea.x, theController.level1.player.aimingArea.y, theController.level1.player.aimingArea.radius);
+//		sr.circle(theController.level1.player.aimingArea.x, theController.level1.player.aimingArea.y, theController.level1.player.aimingArea.radius);
 		sr.end();
 		
 		
@@ -324,7 +324,7 @@ public class L1Renderer {
 			if(enemy.getPath() != null){
 				for(Node n : enemy.getPath()){
 					if(n != null){
-						sr.rect((n.x*Constants.NodeSize)+14, (n.y*Constants.NodeSize)+14, 4, 4);
+						sr.rect((n.x*Constants.NodeSize)+8, (n.y*Constants.NodeSize)+8, 4, 4);
 					}
 				}
 			}

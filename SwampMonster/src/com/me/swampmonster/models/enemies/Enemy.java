@@ -326,7 +326,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 				dead = true;
 			}
 		}
-		if (hurt) {
+		if (hurt && !exploding) {
 			if (player.projectiles != null) {
 				getProjectileLocationRelativeToSprite(player.projectiles);
 			}
@@ -489,7 +489,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 		collidableUp = collisionCheckerTop(collisionLayer, enemies);
 	}
 
-	private Collidable collisionCheckerTop(TiledMapTileLayer collisionLayer,
+	public Collidable collisionCheckerTop(TiledMapTileLayer collisionLayer,
 			List<Enemy> enemies) {
 		Collidable collidable;
 		collidable = CollisionHelper.isCollidable(
@@ -507,7 +507,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 		return collidable;
 	}
 
-	private Collidable collisionCheckerBottom(TiledMapTileLayer collisionLayer,
+	public Collidable collisionCheckerBottom(TiledMapTileLayer collisionLayer,
 			List<Enemy> enemies) {
 		Collidable collidable;
 		collidable = CollisionHelper.isCollidable(
@@ -524,7 +524,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 		return collidable;
 	}
 
-	private Collidable collisionCheckerRight(TiledMapTileLayer collisionLayer,
+	public Collidable collisionCheckerRight(TiledMapTileLayer collisionLayer,
 			List<Enemy> enemies) {
 		Collidable collidable;
 		collidable = CollisionHelper.isCollidable(
@@ -542,7 +542,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 		return collidable;
 	}
 
-	private Collidable collisionCheckerLeft(TiledMapTileLayer collisionLayer,
+	public Collidable collisionCheckerLeft(TiledMapTileLayer collisionLayer,
 			List<Enemy> enemies) {
 		Collidable collidable = CollisionHelper.isCollidable(position.x,
 				position.y + (sprite.getHeight() / 2) - 1, collisionLayer);
@@ -557,7 +557,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 		return collidable;
 	}
 
-	private void move(AbstractGameObject player, Collidable collidableLeft,
+	public void move(AbstractGameObject player, Collidable collidableLeft,
 			Collidable collidableRight, Collidable collidableDown,
 			Collidable collidableUp, float enemyDx, float enemyDy,
 			float playerMovementSpeed, List<Enemy> enemies) {

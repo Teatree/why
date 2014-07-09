@@ -6,6 +6,7 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
@@ -248,6 +249,21 @@ public class TheController extends InputAdapter{
 		cameraHelper.addZoom(camZoomSpeed);
 		if (Gdx.input.isKeyPressed(Keys.E)) cameraHelper.addZoom(-camZoomSpeed);
 		if (Gdx.input.isKeyPressed(Keys.F)) cameraHelper.setZoom(1);
+		if (Gdx.input.isKeyPressed(Keys.L) && Gdx.input.justTouched()){
+			explosion = new Explosion(new Vector2(pointRectV3.x, pointRectV3.y));
+			explosion.explCircle = new Circle();
+			explosion.damage = 0;
+			explosion.incrementalDamageValue = 0;
+			explosion.incrementalCircleValue = 6;
+			explosion.explCircle.setPosition(new Vector2(pointRectV3.x, pointRectV3.y));
+			explosion.explCircle.radius = 1f;
+
+			explosion.explosionEffect = new ParticleEffect();
+			explosion.explosionEffect.load(Gdx.files.local("effects/explosionEffect.p"),Gdx.files.local("effects"));
+			explosion.explosionEffect.setPosition(pointRectV3.x, pointRectV3.y);
+			explosion.explosionEffect.start();
+			L1.explosions.add(explosion);
+		}
 		if (Gdx.input.isKeyPressed(Keys.N) && !NalreadyPressed){
 			level1.player.hurt = true;
 			level1.player.timer2=80; // Remember that this one is supposed to be the same as the pending time of hurt state animation

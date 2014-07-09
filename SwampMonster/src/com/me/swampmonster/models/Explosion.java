@@ -19,6 +19,8 @@ public class Explosion {
 	public float incrementalCircleValue;
 	public Vector2 position;
 	
+	
+	
 	float explosion_dx;
 	float explosion_dy;
 	
@@ -44,8 +46,10 @@ public class Explosion {
 		}
 	}
 	
-	public void cause(Enemy ago/*, TiledMapTileLayer collisionLayer, List<Enemy> enemies*/){
+	public void cause(Enemy ago, TiledMapTileLayer collisionLayer, List<Enemy> enemies){
 		System.out.println("penis face");
+		ago.hurt = true;
+		ago.exploding = true;
 		
 		explosion_dx = ago.position.x - position.x;
 		explosion_dy = ago.position.y - position.y;
@@ -54,9 +58,19 @@ public class Explosion {
 		explosion_dx /= length1;
 		explosion_dy /= length1;
 		
-		ago.position.x = ago.position.x + 0.4f;
-		ago.position.y = ago.position.y + 0.4f;
+//		ago.position.x = ago.position.x + 0.4f;
+//		ago.position.y = ago.position.y + 0.4f;
 		ago.health = ago.health - damage;
+		
+		System.out.println("collidableLeft = " + ago.collidableLeft);
+		System.out.println("collidableRight = " + ago.collidableRight);
+		System.out.println("collidableUp = " + ago.collidableUp);
+		System.out.println("collidableDown = " + ago.collidableDown);
+		
+//		ago.collidableLeft = null;
+//		ago.collidableRight = null;
+//		ago.collidableDown = null;
+//		ago.collidableUp = null;
 		
 		if (ago.collidableLeft == null || ago.collidableRight == null) {
 			ago.position.x += explosion_dx * EXPLOSION_PUSH_FORCE;
@@ -65,10 +79,10 @@ public class Explosion {
 			ago.position.y += explosion_dy * EXPLOSION_PUSH_FORCE;
 		}
 		
-//		ago.collidableLeft = ago.collisionCheckerLeft(collisionLayer, enemies);
-//		ago.collidableRight = ago.collisionCheckerRight(collisionLayer, enemies);
-//		ago.collidableDown = ago.collisionCheckerBottom(collisionLayer, enemies);
-//		ago.collidableUp = ago.collisionCheckerTop(collisionLayer, enemies);
+		ago.collidableLeft = ago.collisionCheckerLeft(collisionLayer, enemies);
+		ago.collidableRight = ago.collisionCheckerRight(collisionLayer, enemies);
+		ago.collidableDown = ago.collisionCheckerBottom(collisionLayer, enemies);
+		ago.collidableUp = ago.collisionCheckerTop(collisionLayer, enemies);
 		
 //		ago.path = new Node[99];
 	}
