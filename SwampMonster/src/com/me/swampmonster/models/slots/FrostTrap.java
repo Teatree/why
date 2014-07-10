@@ -88,9 +88,6 @@ public class FrostTrap extends Trap{
 	public void execute(Player player){
 		super.execute(player);
 		cuba = false;
-		
-		
-		
 	}
 
 	public String getDescription() {
