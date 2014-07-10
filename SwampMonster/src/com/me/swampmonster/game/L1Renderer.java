@@ -83,7 +83,7 @@ public class L1Renderer {
 		mapRenderer.setView(cam);
 		mapRenderer.render(background);
 		mapRenderer.render(foreground);
-		mapRenderer.render(fiveground);
+		
 		
 		Gdx.gl.glEnable(GL20.GL_BLEND);
 		Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
@@ -270,6 +270,8 @@ public class L1Renderer {
 		}
 //		effect.draw(batch);
 //		effect.update(Gdx.graphics.getDeltaTime());
+		
+		
 		batch.end();
 		
 		// Temporary deBug feature
@@ -338,6 +340,7 @@ public class L1Renderer {
 		} 
 		sr.end();
 		stage.draw();
+		mapRenderer.render(fiveground);
 	}
 	
 	public void warningFlicker(ShapeRenderer Sr){
