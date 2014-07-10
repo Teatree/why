@@ -6,10 +6,13 @@ import java.util.HashMap;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.me.swampmonster.animations.AnimationControl;
+import com.me.swampmonster.game.collision.Collidable;
+import com.me.swampmonster.models.AbstractGameObject.NegativeEffects;
 import com.me.swampmonster.models.slots.PositiveEffects;
 import com.me.swampmonster.utils.Assets;
 
@@ -69,6 +72,11 @@ public abstract class AbstractGameObject {
 	public int attackSpeed;
 	public int shotCoolDown;
 	public float STANDART_MOVEMENT_SPEED = movementSpeed;
+	
+	public Collidable collidableRight;
+	public Collidable collidableLeft;
+	public Collidable collidableUp;
+	public Collidable collidableDown;
 	
 	public Vector2 getPosition() {
 		return position;
@@ -143,5 +151,21 @@ public abstract class AbstractGameObject {
 	}
 	public void setMap_inside_bunker(TiledMap map_inside_bunker) {
 		this.map_inside_bunker = map_inside_bunker;
+	}
+	
+	public void setNegativeEffect(NegativeEffects frozen) {
+	}
+	
+	public Collidable collisionCheckerRight(TiledMapTileLayer collisionLayer){
+		return null;
+	}
+	public Collidable collisionCheckerLeft(TiledMapTileLayer collisionLayer){
+		return null;
+	}
+	public Collidable collisionCheckerTop(TiledMapTileLayer collisionLayer){
+		return null;
+	}
+	public Collidable collisionCheckerBottom(TiledMapTileLayer collisionLayer){
+		return null;
 	}
 }

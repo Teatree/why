@@ -1,17 +1,17 @@
 package com.me.swampmonster.models;
 
-import java.util.List;
-
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
+import com.badlogic.gdx.graphics.g3d.model.Node;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector2;
-import com.me.swampmonster.AI.Node;
+import com.me.swampmonster.models.AbstractGameObject.NegativeEffects;
 import com.me.swampmonster.models.enemies.Enemy;
 
 public class Explosion {
-	private static final String EXPLOSION_TYPE_STANDART = "standart";
-	public static final float EXPLOSION_PUSH_FORCE = 2.2f;
+	public static final String EXPLOSION_TYPE_STANDART = "standart";
+	public static final String EXPLOSION_TYPE_FROST = "frost";
+	private static final float EXPLOSION_PUSH_FORCE = 2.2f;
 	
 	public Circle explCircle;
 	public float damage;
@@ -19,7 +19,7 @@ public class Explosion {
 	public float incrementalDamageValue;
 	public float incrementalCircleValue;
 	public Vector2 position;
-	String type = EXPLOSION_TYPE_STANDART;
+	public String type = EXPLOSION_TYPE_STANDART;
 	
 	float explosion_dx;
 	float explosion_dy;
@@ -34,34 +34,40 @@ public class Explosion {
 	}
 	
 	public void update(){
-		
 		if (explosionEffect != null && !explosionEffect.isComplete()){
 			explCircle.radius += incrementalCircleValue;
 			damage += incrementalDamageValue;
-			
 		}else if(explosionEffect != null && explosionEffect.isComplete()){
 			explCircle.radius = 0;
 		}
 	}
 	
-	public void cause(Enemy ago, TiledMapTileLayer collisionLayer, List<Enemy> enemies){
-		System.out.println("penis face");
+	public void cause(AbstractGameObject ago, TiledMapTileLayer collisionLayer/*, Stack<Enemy> enemies*/){
+//		System.out.println("penis face");
 		ago.hurt = true;
 		ago.exploding = true;
-		ago.path = new Node[99];
+		if (ago instanceof Enemy){
+			try {
+				ago.getClass().getField("path").set(ago, new Node[99]); 
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 		explosion_dx = ago.position.x - position.x;
 		explosion_dy = ago.position.y - position.y;
 
 		float length1 = (float) Math.sqrt(explosion_dx * explosion_dx + explosion_dy * explosion_dy);
 		explosion_dx /= length1;
 		explosion_dy /= length1;
-		
-		ago.health = ago.health - damage;
-		
-		ago.collidableLeft = ago.collisionCheckerRight(collisionLayer, enemies);
-		ago.collidableRight = ago.collisionCheckerLeft(collisionLayer, enemies);
-		ago.collidableDown = ago.collisionCheckerTop(collisionLayer, enemies);
-		ago.collidableUp = ago.collisionCheckerBottom(collisionLayer, enemies);
+		if (type != EXPLOSION_TYPE_FROST){
+			ago.health = ago.health - damage;
+		} else {
+			ago.setNegativeEffect(NegativeEffects.FROZEN);
+		}
+		ago.collidableLeft = ago.collisionCheckerRight(collisionLayer);
+		ago.collidableRight = ago.collisionCheckerLeft(collisionLayer);
+		ago.collidableDown = ago.collisionCheckerTop(collisionLayer);
+		ago.collidableUp = ago.collisionCheckerBottom(collisionLayer);
 		
 //		System.out.println("collidableLeft = " + ago.collidableLeft);
 //		System.out.println("collidableRight = " + ago.collidableRight);

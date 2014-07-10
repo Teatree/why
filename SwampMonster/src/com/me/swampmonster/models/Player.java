@@ -651,7 +651,7 @@ public class Player extends AbstractGameObject {
 		standingAnimation(animationsStandard);
 	}
 
-	private Collidable collisionCheckerUp(TiledMapTileLayer collisionLayer) {
+	public Collidable collisionCheckerUp(TiledMapTileLayer collisionLayer) {
 		Collidable collidableUp;
 		collidableUp = CollisionHelper.isCollidable(
 				position.x + (sprite.getWidth() / 2),
@@ -666,7 +666,7 @@ public class Player extends AbstractGameObject {
 		return collidableUp;
 	}
 
-	private Collidable collisionCheckerDown(TiledMapTileLayer collisionLayer) {
+	public Collidable collisionCheckerDown(TiledMapTileLayer collisionLayer) {
 		Collidable collidableDown;
 		collidableDown = CollisionHelper.isCollidable(
 				position.x + sprite.getWidth(), position.y, collisionLayer);
@@ -680,7 +680,7 @@ public class Player extends AbstractGameObject {
 		return collidableDown;
 	}
 
-	private Collidable collisionCheckerRight(TiledMapTileLayer collisionLayer) {
+	public Collidable collisionCheckerRight(TiledMapTileLayer collisionLayer) {
 		Collidable collidableRight;
 		collidableRight = CollisionHelper.isCollidable(
 				position.x + sprite.getWidth(),
@@ -702,7 +702,7 @@ public class Player extends AbstractGameObject {
 		}
 	}
 
-	private Collidable collisionCheckerLeft(TiledMapTileLayer collisionLayer) {
+	public Collidable collisionCheckerLeft(TiledMapTileLayer collisionLayer) {
 		Collidable collidableLeft;
 		collidableLeft = CollisionHelper.isCollidable(position.x, position.y
 				+ (sprite.getHeight() / 2), collisionLayer);

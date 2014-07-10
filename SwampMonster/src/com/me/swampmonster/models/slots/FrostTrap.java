@@ -69,6 +69,7 @@ public class FrostTrap extends Trap{
 			explosion = new Explosion(this.position);
 			explosion.explCircle = new Circle();
 			explosion.damage = 0;
+			explosion.type = Explosion.EXPLOSION_TYPE_FROST;
 			explosion.incrementalDamageValue = 0;
 			explosion.incrementalCircleValue = 6;
 			explosion.explCircle.setPosition(this.position.x, this.position.y);

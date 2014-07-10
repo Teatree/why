@@ -19,6 +19,7 @@ import com.me.swampmonster.animations.AnimationControl;
 import com.me.swampmonster.game.collision.Collidable;
 import com.me.swampmonster.game.collision.CollisionHelper;
 import com.me.swampmonster.models.AbstractGameObject;
+import com.me.swampmonster.models.L1;
 import com.me.swampmonster.models.Player;
 import com.me.swampmonster.models.Projectile;
 import com.me.swampmonster.models.Projectile.EffectCarriers;
@@ -42,11 +43,6 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 	public String projectileLocation;
 	public List<Projectile> enemyProjectiles;
 	public Toughness toughness;
-	
-	public Collidable collidableRight;
-	public Collidable collidableLeft;
-	public Collidable collidableUp;
-	public Collidable collidableDown;
 	
 	float enemyDx;
 	float enemyDy;
@@ -489,6 +485,19 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 		collidableUp = collisionCheckerTop(collisionLayer, enemies);
 	}
 
+	
+	public Collidable collisionCheckerRight(TiledMapTileLayer collisionLayer){
+		return  collisionCheckerRight(collisionLayer, L1.enemiesOnStage);
+	}
+	public Collidable collisionCheckerLeft(TiledMapTileLayer collisionLayer){
+		return collisionCheckerLeft(collisionLayer, L1.enemiesOnStage);
+	}
+	public Collidable collisionCheckerTop(TiledMapTileLayer collisionLayer){
+		return collisionCheckerTop(collisionLayer, L1.enemiesOnStage);
+	}
+	public Collidable collisionCheckerBottom(TiledMapTileLayer collisionLayer){
+		return collisionCheckerBottom(collisionLayer, L1.enemiesOnStage);
+	}
 	public Collidable collisionCheckerTop(TiledMapTileLayer collisionLayer,
 			List<Enemy> enemies) {
 		Collidable collidable;

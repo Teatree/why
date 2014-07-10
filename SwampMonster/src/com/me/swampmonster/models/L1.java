@@ -25,7 +25,7 @@ public class L1 {
 
 	public Player player;
 	public List<Item> items;
-	public Stack<Enemy> enemiesOnStage;
+	public static Stack<Enemy> enemiesOnStage;
 	public Wave wave;
 	public int wavesAmount;
 	public int currentWave;
@@ -62,7 +62,14 @@ public class L1 {
 	public void update(boolean aiming, Vector3 touchPos, Vector3 V3point,
 			TiledMapTileLayer collisionLayer,
 			CameraHelper cameraHelper, float dx, float dy) {
+		for (Explosion expl : explosions) {
+			if (Intersector.overlaps(expl.explCircle, player.rectanlge)) {
+				expl.cause(player, collisionLayer);
+			}
+		}
+		
 		player.update(aiming, touchPos, V3point, collisionLayer, dx, dy);
+		
 		misterSpawner.setCollisionLayer(collisionLayer);
 		misterItemSpawner.setCollisionLayer(collisionLayer);
 		updateWave();
@@ -184,22 +191,17 @@ public class L1 {
 					player.trap.position = null;
 //					player.trap.circle.radius = 0;
 				}
-				List<Enemy> eNeMes = new ArrayList<Enemy>();
-				for(Enemy x : enemiesOnStage){
-					eNeMes.add(x);
-				}
+				
+				
+//				List<Enemy> eNeMes = new ArrayList<Enemy>();
+//				for(Enemy x : enemiesOnStage){
+//					eNeMes.add(x);
+//				}
 				
 				for (Explosion expl : explosions) {
 					if (Intersector.overlaps(expl.explCircle, e.rectanlge)) {
-						// e.setNegativeEffect(NegativeEffects.FROZEN);
-						expl.cause(e, collisionLayer, eNeMes);
-//						System.out.println("penis face");
-//						e.position.x = e.position.x + 90.4f;
-//						e.position.y = e.position.y + 90.4f;
-//						e.health = e.health - 1;
-					
+						expl.cause(e, collisionLayer);
 					}
-//					System.out.println("ENES " + e.negativeEffectsState);
 				}
 			}
 
