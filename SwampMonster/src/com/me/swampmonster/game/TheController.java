@@ -164,7 +164,7 @@ public class TheController extends InputAdapter{
 
 	
 	private void projectileCollisionDetection() {
-		for (Enemy e : level1.enemiesOnStage) {
+		for (Enemy e : L1.enemiesOnStage) {
 			for (Projectile p : e.enemyProjectiles) {
 				if (p.circle.overlaps(level1.player.aimingArea)
 						&& !level1.player.hurt

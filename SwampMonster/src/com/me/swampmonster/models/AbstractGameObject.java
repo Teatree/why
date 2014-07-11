@@ -12,7 +12,6 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.me.swampmonster.animations.AnimationControl;
 import com.me.swampmonster.game.collision.Collidable;
-import com.me.swampmonster.models.AbstractGameObject.NegativeEffects;
 import com.me.swampmonster.models.slots.PositiveEffects;
 import com.me.swampmonster.utils.Assets;
 
@@ -66,7 +65,7 @@ public abstract class AbstractGameObject {
 	
 	public float health;
 	public int maxHealth;
-	public static float damage;
+	public float damage;
 	public int points;
 	public int reloadSpeed;
 	public int attackSpeed;
@@ -168,4 +167,9 @@ public abstract class AbstractGameObject {
 	public Collidable collisionCheckerBottom(TiledMapTileLayer collisionLayer){
 		return null;
 	}
+	
+	public void setColour(float red, float green, float blue, float alpha) {
+		sprite.setColor(red, green, blue, alpha);
+	}
+
 }

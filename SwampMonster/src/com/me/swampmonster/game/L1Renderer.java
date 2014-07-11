@@ -108,7 +108,7 @@ public class L1Renderer {
 					theController.gui.getCroshair().getSprite().getWidth(),
 					theController.gui.getCroshair().getSprite().getHeight(),
 					1,1,
- theController.gui.getCroshair().getSprite()
+					theController.gui.getCroshair().getSprite()
 							.getRotation());
 			batch.draw(theController.level1.player.bow,
 					theController.level1.player.bow.getX(),
@@ -124,7 +124,7 @@ public class L1Renderer {
 		}
 		// temporary drawing of a projectile
 		
-		for (Enemy enemy : theController.level1.enemiesOnStage) {
+		for (Enemy enemy : L1.enemiesOnStage) {
 			if (enemy.hurt) {
 				if (enemy.toughness == null) {
 					if (enemy.time == 4 || enemy.time == 24) {
@@ -158,7 +158,24 @@ public class L1Renderer {
 					}
 				}
 			}
+
+			for (Projectile p : enemy.enemyProjectiles) {
+				if (p != null) {
+					if (enemy.toughness != null) {
+						batch.setColor(new Color(enemy.toughness.red,
+								enemy.toughness.green, enemy.toughness.blue,
+								enemy.toughness.alpha));
+					}
+					batch.draw(p.getSprite(), p.getPosition().x, p
+							.getPosition().y, p.getSprite().getOriginX(), p
+							.getSprite().getOriginY(),
+							p.getSprite().getWidth(),
+							p.getSprite().getHeight(), 1, 1, p.getSprite()
+									.getRotation());
+				}
+			}
 		}
+		
 		if (theController.level1.player.trap != null && theController.level1.player.trap.position != null){
 			
 			theController.level1.player.trap.trapSprite.setPosition(theController.level1.player.trap.position.x,
@@ -182,7 +199,7 @@ public class L1Renderer {
 		}
 		
 		
-		for (Enemy enemy : theController.level1.enemiesOnStage){
+		for (Enemy enemy : L1.enemiesOnStage){
 			if(enemy.getPosition().y+42 > theController.level1.player.getPosition().y+42){
 				enemy.getSprite().setPosition(enemy.getPosition().x, enemy.getPosition().y);
 				if(enemy.timeRemove<110){
@@ -235,7 +252,7 @@ public class L1Renderer {
 						theController.level1.player.bow.getRotation());
 			}
 			
-		for(Enemy enemy : theController.level1.enemiesOnStage){
+		for(Enemy enemy : L1.enemiesOnStage){
 			if(enemy.getPosition().y+42 < theController.level1.player.getPosition().y+42){
 				enemy.getSprite().setPosition(enemy.getPosition().x, enemy.getPosition().y);
 				enemy.getSprite().draw(batch);
@@ -251,18 +268,6 @@ public class L1Renderer {
 						p.getSprite().getRotation());
 			}
 		}
-		for(Enemy enemy : theController.level1.enemiesOnStage){
-			for(Projectile p : enemy.enemyProjectiles){
-				if(p != null){
-					p.sprite.setColor(Color.GREEN);
-					batch.draw(p.getSprite(), p.getPosition().x, p.getPosition().y, 
-							p.getSprite().getOriginX(), p.getSprite().getOriginY(),
-							p.getSprite().getWidth(), p.getSprite().getHeight(), 
-							1,1,
-							p.getSprite().getRotation());
-				}
-			}
-		}
 		
 		if (theController.level1.player.trap != null && theController.level1.player.trap.showEffect){
 			theController.level1.player.trap.effect.draw(batch);
@@ -276,7 +281,7 @@ public class L1Renderer {
 		
 		// Temporary deBug feature
 		sr.begin(ShapeType.Line);
-		for (Enemy enemy : theController.level1.enemiesOnStage){
+		for (Enemy enemy : L1.enemiesOnStage){
 //			sr.setColor(Color.GREEN);
 //			sr.circle(enemy.getgReenAura().x, enemy.getgReenAura().y, enemy.getgReenAura().radius);
 //			sr.setColor(Color.BLUE);
@@ -301,7 +306,7 @@ public class L1Renderer {
 		sr.rect(theController.level1.player.getPosition().x, theController.level1.player.getPosition().y,
 				theController.level1.player.rectanlge.width, theController.level1.player.rectanlge.height);
 //		sr.circle(theController.level1.player.invalidSpawnArea.x, theController.level1.player.invalidSpawnArea.y, theController.level1.player.invalidSpawnArea.radius);
-		for(Enemy enemy:theController.level1.enemiesOnStage){
+		for(Enemy enemy: L1.enemiesOnStage){
 			sr.rect(enemy.rectanlge.x, enemy.rectanlge.y,
 					enemy.rectanlge.width, enemy.rectanlge.height);
 		}
@@ -322,7 +327,7 @@ public class L1Renderer {
 		Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
 		sr.begin(ShapeType.Filled);
 		sr.setColor(Color.RED);
-		for (Enemy enemy : theController.level1.enemiesOnStage)
+		for (Enemy enemy : L1.enemiesOnStage)
 			if(enemy.getPath() != null){
 				for(Node n : enemy.getPath()){
 					if(n != null){

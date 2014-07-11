@@ -14,10 +14,9 @@ public class Projectile extends AbstractGameObject{
 	public float direction_x;
 	public float direction_y;
 	public float force;
-	public float damage;
+//	public float damage;
 	public static float arrowMovementSpeed;
 	public EffectCarriers effect;
-//	public int forceCounter;
 	
 	public enum EffectCarriers{
 		POISONED(new Sprite(Assets.manager.get(Assets.arrowPoisoned))),

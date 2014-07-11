@@ -48,12 +48,11 @@ public class EnemyLeech extends Enemy{
 					float direction_x = player.position.x - position.x;
 					float direction_y = player.position.y - position.y;
 					
-					Projectile p = new LeechProjectile(new Vector2(100, 100), getRotation(player));
-					p.setPosition(new Vector2(oRangeAura.x+direction_x/100-8, oRangeAura.y+direction_y/100-8));
-					if(toughness != null){
-						System.out.println("Yes we are tough!");
-//						p.sprite.setColor(this.toughness.red, this.toughness.green, this.toughness.blue, this.toughness.alpha);
+					LeechProjectile p = new LeechProjectile(new Vector2(100, 100), getRotation(player));
+					if(this.toughness != null){
+						p.setColour(this.toughness.red, this.toughness.green, this.toughness.blue, this.toughness.alpha);
 					}
+					p.setPosition(new Vector2(oRangeAura.x+direction_x/100-8, oRangeAura.y+direction_y/100-8));
 					
 					float length =(float) Math.sqrt(direction_x*direction_x + direction_y*direction_y);
 					direction_x /= length;
@@ -61,7 +60,7 @@ public class EnemyLeech extends Enemy{
 					
 					p.setDirection(direction_x, direction_y);
 					
-					enemyProjectiles.add(p);
+					this.enemyProjectiles.add(p);
 					
 					currentFrame = animationsStandard.get(state).animate(standing);
 					// And may be inflict different hurts, direction/ kinds of hurts/ etc.

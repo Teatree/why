@@ -14,7 +14,6 @@ import com.me.swampmonster.models.AbstractGameObject.NegativeEffects;
 import com.me.swampmonster.models.AbstractGameObject.State;
 import com.me.swampmonster.models.Projectile.EffectCarriers;
 import com.me.swampmonster.models.enemies.Enemy;
-import com.me.swampmonster.models.slots.FrostTrap;
 import com.me.swampmonster.utils.CameraHelper;
 import com.me.swampmonster.utils.Constants;
 import com.me.swampmonster.utils.MisterItemSpawner;
@@ -153,6 +152,9 @@ public class L1 {
 			if(Intersector.overlaps(item.circle, player.rectanlge)){
 				if(item.itemType=="hp" && player.health < Player.playerMaxHealth){
 					player.health++;
+					if (player.negativeEffectsState == NegativeEffects.POISONED){
+						player.setNegativeEffect(NegativeEffects.NONE);
+					}
 					itm.remove();
 				}else if(item.itemType == "O2" && player.oxygen < Player.maxOxygen){
 					if(player.oxygen+50 < Player.maxOxygen){

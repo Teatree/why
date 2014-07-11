@@ -824,24 +824,11 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 			if (player.positiveEffectsState == PositiveEffects.RADIOACTIVE_AURA){
 				health -= RADIOACTIVE.RADIOACTIVE_Damage;
 			}
-			health -= Player.damage;
+			health -= player.damage;
 		}
 	}
 
 	// temporary look
-
-	public Vector2 getOldPos() {
-		return oldPos;
-	}
-
-	public void setOldPos(Vector2 oldPos) {
-		this.oldPos = oldPos;
-	}
-
-	public String getPlayerMovementDirection() {
-		return playerMovementDirectionLR;
-	}
-
 	public void setPlayerMovementDirection(String playerMovementDirection) {
 		this.playerMovementDirectionLR = playerMovementDirection;
 	}
@@ -855,40 +842,12 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 		return i - 1;
 	}
 
-	public int getCunter() {
-		return cunter;
-	}
-
-	public void setCunter(int cunter) {
-		this.cunter = cunter;
-	}
-
-	public Circle getgReenAura() {
-		return gReenAura;
-	}
-
-	public void setgReenAura(Circle gReenAura) {
-		this.gReenAura = gReenAura;
-	}
-
-	public Circle getoRangeAura() {
-		return oRangeAura;
-	}
-
-	public void setoRangeAura(Circle oRangeAura) {
-		this.oRangeAura = oRangeAura;
-	}
-
 	public Node[] getPath() {
 		return path;
 	}
 
 	public void setPath(Node[] path) {
 		this.path = path;
-	}
-
-	public void setColour(float red, float green, float blue, float alpha) {
-		sprite.setColor(red, green, blue, alpha);
 	}
 
 	public int getTimereskin() {
