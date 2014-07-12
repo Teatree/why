@@ -17,6 +17,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.me.swampmonster.animations.AnimationControl;
+import com.me.swampmonster.game.TheController;
 import com.me.swampmonster.game.collision.Collidable;
 import com.me.swampmonster.game.collision.CollisionHelper;
 import com.me.swampmonster.models.Projectile.EffectCarriers;
@@ -238,6 +239,9 @@ public class Player extends AbstractGameObject {
 			Projectile p = prj.next();
 			if (p != null && p.isCollision(collisionLayer)
 					&& p.effect != EffectCarriers.SHADOW) {
+				if (p.effect == EffectCarriers.EXPLOSIVE){
+					TheController.skill.explode(p.position);
+				}
 				prj.remove();
 			}
 			if (p != null && p.state == State.DEAD) {

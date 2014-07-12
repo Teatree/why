@@ -82,6 +82,31 @@ public class Constants {
 	public static final String ExplosiveArrow_Description_L4 = "I am explosive arrow l4";
 	public static final String ExplosiveArrow_Description_L5 = "I am explosive arrow l5";
 	
+	public static final float ExplosiveArrow_explCircleRadius_L1 = 10;
+	public static final float ExplosiveArrow_explCircleRadius_L2 = 12;
+	public static final float ExplosiveArrow_explCircleRadius_L3 = 14;
+	public static final float ExplosiveArrow_explCircleRadius_L4 = 16;
+	public static final float ExplosiveArrow_explCircleRadius_L5 = 18;
+	
+	public static final float ExplosiveArrow_damage_L1 = 1f;
+	public static final float ExplosiveArrow_damage_L2 = 1.3f;
+	public static final float ExplosiveArrow_damage_L3 = 1.5f;
+	public static final float ExplosiveArrow_damage_L4 = 1.7f;
+	public static final float ExplosiveArrow_damage_L5 = 1.9f;
+	
+	public static final float ExplosiveArrow_incrementExplosionRadius_L1 = 3f;
+	public static final float ExplosiveArrow_incrementExplosionRadius_L2 = 4f;
+	public static final float ExplosiveArrow_incrementExplosionRadius_L3 = 5f;
+	public static final float ExplosiveArrow_incrementExplosionRadius_L4 = 6f;
+	public static final float ExplosiveArrow_incrementExplosionRadius_L5 = 7f;
+	
+	public static final float ExplosiveArrow_incrementDamage_L1 = 0.013f;
+	public static final float ExplosiveArrow_incrementDamage_L2 = 0.011f;
+	public static final float ExplosiveArrow_incrementDamage_L3 = 0.010f;
+	public static final float ExplosiveArrow_incrementDamage_L4 = 0.09f;
+	public static final float ExplosiveArrow_incrementDamage_L5 = 0.08f;
+	
+	
 	
 //	ExplozionTrap:
 	public static final int ExplozionTrap_CoolDown_L1 = 1000;
@@ -107,6 +132,30 @@ public class Constants {
 	public static final String ExplozionTrap_Description_L3 = "ExplosionTrap Level 3";
 	public static final String ExplozionTrap_Description_L4 = "ExplosionTrap Level 4";
 	public static final String ExplozionTrap_Description_L5 = "ExplosionTrap Level 5";
+	
+	public static final float ExplozionTrap_explCircleRadius_L1 = 10;
+	public static final float ExplozionTrap_explCircleRadius_L2 = 12;
+	public static final float ExplozionTrap_explCircleRadius_L3 = 14;
+	public static final float ExplozionTrap_explCircleRadius_L4 = 16;
+	public static final float ExplozionTrap_explCircleRadius_L5 = 18;
+	
+	public static final float ExplozionTrap_damage_L1 = 1;
+	public static final float ExplozionTrap_damage_L2 = 1.3f;
+	public static final float ExplozionTrap_damage_L3 = 1.5f;
+	public static final float ExplozionTrap_damage_L4 = 1.7f;
+	public static final float ExplozionTrap_damage_L5 = 1.9f;
+	
+	public static final float ExplozionTrap_incrementExplosionRadius_L1 = 3f;
+	public static final float ExplozionTrap_incrementExplosionRadius_L2 = 4f;
+	public static final float ExplozionTrap_incrementExplosionRadius_L3 = 5f;
+	public static final float ExplozionTrap_incrementExplosionRadius_L4 = 6f;
+	public static final float ExplozionTrap_incrementExplosionRadius_L5 = 7f;
+	
+	public static final float ExplozionTrap_incrementDamage_L1 = 0.13f;
+	public static final float ExplozionTrap_incrementDamage_L2 = 0.11f;
+	public static final float ExplozionTrap_incrementDamage_L3 = 0.10f;
+	public static final float ExplozionTrap_incrementDamage_L4 = 0.09f;
+	public static final float ExplozionTrap_incrementDamage_L5 = 0.08f;
 	
 	
 //	FADE:
@@ -328,5 +377,4 @@ public class Constants {
 	public static final int SPEED_BOOST_LifeTime_L3 = 800;
 	public static final int SPEED_BOOST_LifeTime_L4 = 1200;
 	public static final int SPEED_BOOST_LifeTime_L5 = 1600;
-
 }

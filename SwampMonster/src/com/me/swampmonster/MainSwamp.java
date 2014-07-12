@@ -1,7 +1,6 @@
 package com.me.swampmonster;
 
 import com.badlogic.gdx.Game;
-import com.me.swampmonster.screens.SlotMachineScreen;
 import com.me.swampmonster.screens.SwampScreen;
 import com.me.swampmonster.utils.Assets;
 

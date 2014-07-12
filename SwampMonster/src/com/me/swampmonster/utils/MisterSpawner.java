@@ -32,6 +32,7 @@ public class MisterSpawner {
 						- (int) l.player.getSprite().getHeight();
 				v2 = calculateEnemiesPosition(l.player);
 				while (!isValidPosition(v2)) {
+					System.out.println("73");
 					v2 = calculateEnemiesPosition(l.player);
 				}
 //				// System.out.println("Spawn enemy x=" + v2.x + " y=" + v2.y);
@@ -98,15 +99,15 @@ public class MisterSpawner {
 		if (minPosX >= mapWith - player.getSprite().getWidth()) {
 			maxPosX = (int) (player.getPosition().x - Constants.VIEWPORT_GUI_WIDTH / 2);
 			minPosX = 1;
-			System.out
-					.println("minPosX >= mapWith - player.getSprite().getWidth()");
+//			System.out
+//					.println("minPosX >= mapWith - player.getSprite().getWidth()");
 		}
 
 		if (minPosY >= mapHeight - player.getSprite().getHeight()) {
 			maxPosY = (int) (player.getPosition().y - Constants.VIEWPORT_GUI_HEIGHT / 2);
 			minPosY = 1;
-			System.out
-					.println("minPosY >= mapHeight - player.getSprite().getHeight()");
+//			System.out
+//					.println("minPosY >= mapHeight - player.getSprite().getHeight()");
 		}
 
 		vector2.x = random.nextInt(maxPosX - minPosX) + minPosX;

@@ -282,7 +282,7 @@ public class L1Renderer {
 		
 		// Temporary deBug feature
 		sr.begin(ShapeType.Line);
-		for (Enemy enemy : L1.enemiesOnStage){
+//		for (Enemy enemy : L1.enemiesOnStage){
 //			sr.setColor(Color.GREEN);
 //			sr.circle(enemy.getgReenAura().x, enemy.getgReenAura().y, enemy.getgReenAura().radius);
 //			sr.setColor(Color.BLUE);
@@ -291,7 +291,7 @@ public class L1Renderer {
 //			sr.circle(enemy.yellowAura.x, enemy.yellowAura.y, enemy.yellowAura.radius);
 //			sr.setColor(Color.BLACK);
 //			sr.circle(theController.explosion.position.x, theController.explosion.position.y, theController.explosion.explCircle.radius);
-		}	
+//		}	
 		sr.setColor(Color.CYAN);
 		for (Explosion e : L1.explosions){
 			sr.circle(e.position.x, e.position.y, e.explCircle.radius);

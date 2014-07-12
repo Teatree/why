@@ -13,6 +13,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.me.swampmonster.models.AbstractGameObject.NegativeEffects;
 import com.me.swampmonster.models.AbstractGameObject.State;
+import com.me.swampmonster.models.L1;
 import com.me.swampmonster.models.Player;
 import com.me.swampmonster.models.slots.Perks;
 import com.me.swampmonster.models.slots.PositiveEffects;
@@ -261,7 +262,7 @@ public class GShape extends Group {
 		font.setColor(1.0f, 0f, 1.0f, 1.0f);
 		font.draw(batch, str, 580, 460);
 		font.draw(batch, str2, 580, 420);
-		if(theController.level1.enemiesOnStage.empty() && theController.level1.waveTemp != null
+		if(L1.enemiesOnStage.empty() && theController.level1.waveTemp != null
 				&& theController.level1.currentWave < theController.level1.wavesAmount && theController.level1.pendingPeriodBetweedWavesCounter == 0){
 			waveNotificationAnimationCounter=240;
 		} else {

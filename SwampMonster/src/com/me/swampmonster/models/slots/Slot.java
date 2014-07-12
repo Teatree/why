@@ -1,6 +1,7 @@
 package com.me.swampmonster.models.slots;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.math.Vector2;
 import com.me.swampmonster.models.Player;
 
 public abstract class Slot {
@@ -23,4 +24,9 @@ public abstract class Slot {
 	}
 	
 	public abstract String getDescription();
+
+	public void explode(Vector2 position) {
+		// TODO Auto-generated method stub
+		
+	}
 }

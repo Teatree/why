@@ -14,7 +14,6 @@ public class Projectile extends AbstractGameObject{
 	public float direction_x;
 	public float direction_y;
 	public float force;
-//	public float damage;
 	public static float arrowMovementSpeed;
 	public EffectCarriers effect;
 	
@@ -78,8 +77,6 @@ public class Projectile extends AbstractGameObject{
 		this.direction_x = direction_x;
 		this.direction_y = direction_y;
 	}
-
-	public Projectile() {
-		
-	}
+	
+	public Projectile (){}
 }

@@ -15,7 +15,6 @@ import com.me.swampmonster.models.AbstractGameObject.NegativeEffects;
 import com.me.swampmonster.models.AbstractGameObject.State;
 import com.me.swampmonster.models.Projectile.EffectCarriers;
 import com.me.swampmonster.models.enemies.Enemy;
-import com.me.swampmonster.screens.SlotMachineScreen;
 import com.me.swampmonster.utils.CameraHelper;
 import com.me.swampmonster.utils.Constants;
 import com.me.swampmonster.utils.MisterItemSpawner;
@@ -69,6 +68,9 @@ public class L1 {
 			}
 		}
 		
+		for (Explosion e : explosions){
+			e.update();
+		}
 		player.update(aiming, touchPos, V3point, collisionLayer, dx, dy);
 		
 		misterSpawner.setCollisionLayer(collisionLayer);
@@ -84,11 +86,6 @@ public class L1 {
 		}
 		updateEnemies(collisionLayer);
 		updateItems();
-		
-		
-		for (Explosion e : explosions){
-			e.update();
-		}
 		bunker.update();
 	}
 
@@ -187,6 +184,9 @@ public class L1 {
 				while (prj.hasNext()) {
 					Projectile p = (Projectile) prj.next();
 					if (p.effect != EffectCarriers.SHADOW && Intersector.overlaps(p.circle, e.rectanlge)) {
+						if (p.effect == EffectCarriers.EXPLOSIVE){
+							TheController.skill.explode(p.position);
+						}
 						prj.remove();
 						break;
 					}
@@ -194,9 +194,7 @@ public class L1 {
 				
 				if (player.trap != null && Intersector.overlaps(player.trap.circle, e.yellowAura)){
 					player.trap.catchEnemy(e);
-					
 					player.trap.position = null;
-//					player.trap.circle.radius = 0;
 				}
 				
 				

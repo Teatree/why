@@ -27,7 +27,6 @@ import com.me.swampmonster.models.enemies.Enemy;
 import com.me.swampmonster.models.slots.Slot;
 import com.me.swampmonster.screens.SlotMachineScreen;
 import com.me.swampmonster.utils.CameraHelper;
-import com.me.swampmonster.utils.Constants;
 
 public class TheController extends InputAdapter{
 	public CameraHelper cameraHelper;  
@@ -131,8 +130,6 @@ public class TheController extends InputAdapter{
 		if (Gdx.input.justTouched() && !level1.player.justSpawned) {
 			inputNav();
 		}
-		explosion.update();
-		
 		
 		gui.update(level1.player, point, V3point);
 		handleDebugInput(deltaTime);
@@ -168,7 +165,6 @@ public class TheController extends InputAdapter{
 			coolDownAngle = coolDownAngle - coolDownStep;
 //			c -= coolDownStep;
 			coolDownCounter--;
-//			System.out.println(coolDownStep);
 		}
 	}
 
@@ -224,13 +220,9 @@ public class TheController extends InputAdapter{
 		if (Gdx.input.isKeyPressed(Keys.S) && !cameraHelper.hasTarget) moveCamera(0,-camMoveSpeed);
 		
 		if (Gdx.input.isKeyPressed(Keys.O)){
-			for (Enemy enemy : level1.enemiesOnStage){
+			for (Enemy enemy : L1.enemiesOnStage){
 				enemy.state = State.DEAD;
 			}
-			explosion.explosionEffect = new ParticleEffect();
-			explosion.explosionEffect.load(Gdx.files.local("effects/explosionEffect.p"), Gdx.files.local("effects"));
-			explosion.explosionEffect.setPosition(level1.player.position.x, level1.player.position.y);
-			explosion.explosionEffect.start();
 		}
 		if (Gdx.input.isKeyPressed(Keys.P)){
 			level1.player.state = State.DEAD;
@@ -262,7 +254,6 @@ public class TheController extends InputAdapter{
 		if (Gdx.input.isKeyPressed(Keys.L) && Gdx.input.justTouched()){
 			explosion = new Explosion(new Vector2(pointRectV3.x, pointRectV3.y));
 			explosion.explCircle = new Circle();
-			explosion.damage = 0;
 			explosion.incrementalDamageValue = 0;
 			explosion.incrementalCircleValue = 6;
 			explosion.explCircle.setPosition(new Vector2(pointRectV3.x, pointRectV3.y));
@@ -320,29 +311,15 @@ public class TheController extends InputAdapter{
 	
 	public Vector2 calculateRandomPlayerPos(){
 		Vector2 vector2 = new Vector2();
-		int minPosX = 30;
-		int maxPosX = (int) (collisionLayer.getWidth()*16-level1.player.sprite.getWidth());
-		int minPosY = 30;
-		int maxPosY = (int) (collisionLayer.getHeight()*16-level1.player.sprite.getHeight());
-
+		int minPosX = 130;
+		int maxPosX = (int) (collisionLayer.getWidth()*16-level1.player.sprite.getWidth()-100);
+		int minPosY = 130;
+		int maxPosY = (int) (collisionLayer.getHeight()*16-level1.player.sprite.getHeight()-100);
 		
-		if (minPosX >= collisionLayer.getWidth() - level1.player.getSprite().getWidth()) {
-			maxPosX = (int) (level1.player.getPosition().x - Constants.VIEWPORT_GUI_WIDTH / 2);
-			minPosX = 1;
-			System.out
-					.println("minPosX >= mapWith - player.getSprite().getWidth()");
-		}
-	
-		if (minPosY >= collisionLayer.getHeight() - level1.player.getSprite().getHeight()) {
-			maxPosY = (int) (level1.player.getPosition().y - Constants.VIEWPORT_GUI_HEIGHT / 2);
-			minPosY = 1;
-			System.out
-					.println("minPosY >= mapHeight - player.getSprite().getHeight()");
-		}
-	
 		vector2.x = random.nextInt(maxPosX - minPosX) + minPosX;
 		vector2.y = random.nextInt(maxPosY - minPosY) + minPosY;
 		while (vector2.x < 1f || vector2.y < 1f) {
+			System.out.println("8989");
 			vector2.x = random.nextInt(maxPosX - minPosX) + minPosX;
 			vector2.y = random.nextInt(maxPosY - minPosY) + minPosY;
 		}
