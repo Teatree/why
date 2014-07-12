@@ -175,7 +175,7 @@ public class Player extends AbstractGameObject {
 		rectanlge.width = sprite.getWidth();
 		rectanlge.height = sprite.getHeight();
 
-		oxygen -= 0.05f;
+		oxygen -= 0.00005f;
 
 		if (Gdx.input.justTouched()) {
 			justSpawned = false;

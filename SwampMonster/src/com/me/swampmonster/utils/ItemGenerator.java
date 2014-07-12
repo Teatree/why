@@ -74,7 +74,7 @@ public class ItemGenerator {
 		else if(playersScore>1000 && playersScore<2000){
 			itemParams = ItemParams.p1000_2000;
 		}
-		else if(playersScore>2000 && playersScore<4000){
+		else if(playersScore>2000){
 			itemParams = ItemParams.p2000_4000;
 		}
 	}

@@ -1,5 +1,7 @@
 package com.me.swampmonster.game;
 
+import java.util.Random;
+
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
@@ -25,6 +27,7 @@ import com.me.swampmonster.models.enemies.Enemy;
 import com.me.swampmonster.models.slots.Slot;
 import com.me.swampmonster.screens.SlotMachineScreen;
 import com.me.swampmonster.utils.CameraHelper;
+import com.me.swampmonster.utils.Constants;
 
 public class TheController extends InputAdapter{
 	public CameraHelper cameraHelper;  
@@ -44,6 +47,7 @@ public class TheController extends InputAdapter{
 	public Vector3 V3playerPos;
 	public Vector3 V3enemyPos;
 	public Vector2 randVector2;
+	public Random random;
 	
 	float dx;
 	float dy;
@@ -61,6 +65,7 @@ public class TheController extends InputAdapter{
 	
 	public TiledMapTileLayer collisionLayer;
 	public static Slot skill;
+	public static boolean germany;
 	
 	public TheController(Game game, Player player){
 		init(player);
@@ -69,12 +74,16 @@ public class TheController extends InputAdapter{
 	// INIT METHOD! 
 	public void init(Player player){
 		Gdx.input.setInputProcessor(this);
+		random = new Random();
+		level1 = new L1(player);
+		collisionLayer = (TiledMapTileLayer) level1.bunker.getMap().getLayers().get(0);
+		Vector2 v2 = new Vector2();
+		while (!isValidPosition(v2)) {
+			v2 = calculateRandomPlayerPos();
+		}
 		cameraHelper = new CameraHelper();
 		randVector2 = new Vector2();
-		level1 = new L1(player);
-		player.setPosition(new Vector2 (756f,659f));		
-		collisionHandler = new CollisionHelper();
-		collisionLayer = (TiledMapTileLayer) level1.bunker.getMap().getLayers().get(0);
+		player.setPosition(v2);		
 		gui = new GUI(player);
 		gui.getCroshair().setPosition(new Vector2 (330f,100f));
 		explosion = new Explosion(player.position);
@@ -83,6 +92,7 @@ public class TheController extends InputAdapter{
 		point = new Vector2();
 		V3point = new Vector3();
 		V3playerPos = new Vector3();
+		
 		
 		timer3hurt=0;
 		
@@ -138,11 +148,11 @@ public class TheController extends InputAdapter{
 		V3playerPos.y = level1.player.getPosition().y + level1.player.circle.radius / 2;
 		V3playerPos.z = 0;
 
-		if (Intersector.overlaps(debugRect, pointRect)) {
+		if (Intersector.overlaps(debugRect, pointRect) || germany) {
 			SlotMachineScreen sl = new SlotMachineScreen(game);
 			sl.player = level1.player;
+			germany = false;
 			game.setScreen(sl);
-
 		}
 
 		// This bit is responsible for calculating where exactly the projective
@@ -301,7 +311,43 @@ public class TheController extends InputAdapter{
 		return i - 1;
 	}
 	
+	private boolean isValidPosition(Vector2 v2) {
+		if (CollisionHelper.isCollidable(v2.x, v2.y, collisionLayer) == null) {
+			return true;
+		}
+		return false;
+	}
 	
+	public Vector2 calculateRandomPlayerPos(){
+		Vector2 vector2 = new Vector2();
+		int minPosX = 30;
+		int maxPosX = (int) (collisionLayer.getWidth()*16-level1.player.sprite.getWidth());
+		int minPosY = 30;
+		int maxPosY = (int) (collisionLayer.getHeight()*16-level1.player.sprite.getHeight());
+
+		
+		if (minPosX >= collisionLayer.getWidth() - level1.player.getSprite().getWidth()) {
+			maxPosX = (int) (level1.player.getPosition().x - Constants.VIEWPORT_GUI_WIDTH / 2);
+			minPosX = 1;
+			System.out
+					.println("minPosX >= mapWith - player.getSprite().getWidth()");
+		}
+	
+		if (minPosY >= collisionLayer.getHeight() - level1.player.getSprite().getHeight()) {
+			maxPosY = (int) (level1.player.getPosition().y - Constants.VIEWPORT_GUI_HEIGHT / 2);
+			minPosY = 1;
+			System.out
+					.println("minPosY >= mapHeight - player.getSprite().getHeight()");
+		}
+	
+		vector2.x = random.nextInt(maxPosX - minPosX) + minPosX;
+		vector2.y = random.nextInt(maxPosY - minPosY) + minPosY;
+		while (vector2.x < 1f || vector2.y < 1f) {
+			vector2.x = random.nextInt(maxPosX - minPosX) + minPosX;
+			vector2.y = random.nextInt(maxPosY - minPosY) + minPosY;
+		}
+		return vector2;
+	}
 	// User log:
 	// v2 is the position at which the circle is situated
 	// radius is the circles radius

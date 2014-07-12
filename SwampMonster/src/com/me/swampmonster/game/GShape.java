@@ -27,14 +27,17 @@ public class GShape extends Group {
 	float assRevert = 0f;
 	private int timer;
 	private BitmapFont font;
+	private int waveNotificationAnimationCounter;
 	
 	private CharSequence str;
 	private CharSequence str2;
+	private CharSequence str3;
 
 	public GShape(TheController theController) {
 		super();
 		sr = new ShapeRenderer();
 		this.theController = theController;
+		waveNotificationAnimationCounter = 240;
 	}
 	
 	
@@ -46,6 +49,7 @@ public class GShape extends Group {
 		
 		str = "points: " + Player.score;
 		str2 = "Wave:" + theController.level1.currentWave + "/" + theController.level1.wavesAmount;
+		str3 = "Wave:" + theController.level1.currentWave;
 		
 		batch.end();
 		
@@ -253,10 +257,22 @@ public class GShape extends Group {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
-		font.setColor(1.0f, 1.0f, 1.0f, 1.0f);
+		
+		font.setColor(1.0f, 0f, 1.0f, 1.0f);
 		font.draw(batch, str, 580, 460);
 		font.draw(batch, str2, 580, 420);
+		if(theController.level1.enemiesOnStage.empty() && theController.level1.waveTemp != null
+				&& theController.level1.currentWave < theController.level1.wavesAmount && theController.level1.pendingPeriodBetweedWavesCounter == 0){
+			waveNotificationAnimationCounter=240;
+		} else {
+			waveNotificationAnimationCounter--;
+		}
+		if(waveNotificationAnimationCounter>0){
+			font.setColor(1.0f, 0f, 1.0f, 0.5f);
+//			font.setScale(waveNotificationAnimationCounter/10);
+			font.draw(batch, str3, 350, 350);
+		}
+		
 		font.setColor(Color.YELLOW);
 		font.setScale(1);
 		if(assRevert >= 0.4f && theController.level1.player.state == State.DEAD){

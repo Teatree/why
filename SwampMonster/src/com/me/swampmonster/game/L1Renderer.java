@@ -172,6 +172,7 @@ public class L1Renderer {
 							p.getSprite().getWidth(),
 							p.getSprite().getHeight(), 1, 1, p.getSprite()
 									.getRotation());
+					batch.setColor(new Color(1,1,1,1));
 				}
 			}
 		}
@@ -344,8 +345,9 @@ public class L1Renderer {
 					theController.level1.player.radioactiveAura.radius);
 		} 
 		sr.end();
-		stage.draw();
 		mapRenderer.render(fiveground);
+		stage.draw();
+		
 	}
 	
 	public void warningFlicker(ShapeRenderer Sr){

@@ -10,10 +10,12 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import com.me.swampmonster.game.TheController;
 import com.me.swampmonster.models.AbstractGameObject.NegativeEffects;
 import com.me.swampmonster.models.AbstractGameObject.State;
 import com.me.swampmonster.models.Projectile.EffectCarriers;
 import com.me.swampmonster.models.enemies.Enemy;
+import com.me.swampmonster.screens.SlotMachineScreen;
 import com.me.swampmonster.utils.CameraHelper;
 import com.me.swampmonster.utils.Constants;
 import com.me.swampmonster.utils.MisterItemSpawner;
@@ -31,11 +33,11 @@ public class L1 {
 	public Bunker bunker;
 	public boolean korea;
 
-	private Wave waveTemp;
+	public Wave waveTemp;
 	private boolean needTogenerateNewWave = false;
 	private int enemySpawnRateCounter;
 	private int enemyEnemyPendingCoounter;
-	private int pendingPeriodBetweedWavesCounter;
+	public int pendingPeriodBetweedWavesCounter;
 	private WaveGenerator waveGenerator = new WaveGenerator();
 	private MisterSpawner misterSpawner = new MisterSpawner();
 	private MisterItemSpawner misterItemSpawner = new MisterItemSpawner();
@@ -111,6 +113,9 @@ public class L1 {
 			}else{
 				pendingPeriodBetweedWavesCounter--;
 			}
+		}else if(enemiesOnStage.empty() && currentWave == wavesAmount){
+			TheController.germany = true;
+			System.out.println("germany = " + TheController.germany);
 		}
 		
 		if (!korea && enemiesOnStage.size() == wave.enemiesOnBattleField) {

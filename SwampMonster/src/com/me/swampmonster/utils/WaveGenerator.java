@@ -13,10 +13,10 @@ public class WaveGenerator {
 	
 	private enum WaveParams{
 		
-		p0_500(2, 3, 1, 5, 15, 27, 12, 14, 10, 13, 3.0f, 550, 3, 4),
-		p500_1000(1, 3, 0, 7, 18, 20, 6, 8, 10, 12, 2.5f, 500, 6, 8),
-		p1000_2000(0, 3, 0, 5, 20, 22, 6, 8, 11, 13, 2.0f, 450, 5, 6),
-		p2000_4000(0, 4, 0, 5, 22, 24, 6, 9, 12, 14, 150.0f, 400, 5, 7);
+		p0_500(2, 3, 1, 5, 10, 12, 5, 7, 8, 10, 3.0f, 550, 3, 4),
+		p500_1000(1, 3, 0, 7, 12, 14, 6, 8, 9, 11, 2.5f, 500, 6, 8),
+		p1000_2000(0, 3, 0, 5, 14, 16, 6, 8, 10, 12, 2.0f, 450, 5, 6),
+		p2000_4000(0, 4, 0, 5, 16, 18, 6, 9, 12, 14, 1.0f, 400, 5, 7);
 			
 		public final int minEnemyType;
 		public final int maxEnemyType;
@@ -104,7 +104,7 @@ public class WaveGenerator {
 		else if(playersScore>1000 && playersScore<2000){
 			waveParams = WaveParams.p1000_2000;
 		}
-		else if(playersScore>2000 && playersScore<4000){
+		else if(playersScore>2000){
 			waveParams = WaveParams.p2000_4000;
 		}
 	}
