@@ -206,7 +206,7 @@ public class GShape extends Group {
 		
 		if (theController.unlockNotificationSprite != null && unlockNotificationCounter > 0){
 			System.out.println("unlockNotification " + theController.unlockNotificationSprite);
-			batch.draw(theController.unlockNotificationSprite, 350, 350);
+			batch.draw(theController.unlockNotificationSprite, 700, 100);
 			unlockNotificationCounter--;
 		}
 		

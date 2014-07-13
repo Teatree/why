@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.maps.tiled.tiles.AnimatedTiledMapTile;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.me.swampmonster.AI.Node;
 import com.me.swampmonster.models.Explosion;
@@ -70,11 +71,13 @@ public class L1Renderer {
 		
 		theController.cameraHelper.applyTo(cam);
 		
+		theController.level1.bunker.animatedTile.updateAnimationBaseTime();
 		
 		stage.act();
 		
 //		cam.unproject(theController.touchPos);
 //		// System.out.println("MY X IS: " + theController.touchPos.x + " MY Y IS: " + theController.touchPos.y + " AND MY Z IS: " + theController.touchPos.z); 
+		
 		
 		batch.setProjectionMatrix(cam.combined);
 		sr.setProjectionMatrix(cam.combined);

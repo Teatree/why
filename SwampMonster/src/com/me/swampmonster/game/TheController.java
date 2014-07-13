@@ -15,6 +15,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.maps.tiled.tiles.AnimatedTiledMapTile;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
@@ -140,6 +141,7 @@ public class TheController extends InputAdapter{
 				collisionLayer, cameraHelper, dx, dy);
 		projectileCollisionDetection();
 
+		
 		// I don't fucking know if thsi is better, I just spent 2 hours on this
 		// solution, so deal with it!
 		if (Gdx.input.justTouched() && !level1.player.justSpawned) {
