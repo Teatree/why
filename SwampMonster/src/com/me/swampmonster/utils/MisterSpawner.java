@@ -22,6 +22,7 @@ public class MisterSpawner {
 	static ExecutorService threadPool = Executors.newCachedThreadPool();
 
 	public void spawnEnemy(final L1 l, final Enemy enemy) {
+//		System.out.println("number of threads " + Runtime.getRuntime().availableProcessors());
 		threadPool.submit(new Runnable() {
 			public void run() {
 				mapWith = (int) collisionLayer.getTileWidth()
@@ -32,7 +33,7 @@ public class MisterSpawner {
 						- (int) l.player.getSprite().getHeight();
 				v2 = calculateEnemiesPosition(l.player);
 				while (!isValidPosition(v2)) {
-					System.out.println("73");
+//					System.out.println("73");
 					v2 = calculateEnemiesPosition(l.player);
 				}
 //				// System.out.println("Spawn enemy x=" + v2.x + " y=" + v2.y);
@@ -113,6 +114,7 @@ public class MisterSpawner {
 		vector2.x = random.nextInt(maxPosX - minPosX) + minPosX;
 		vector2.y = random.nextInt(maxPosY - minPosY) + minPosY;
 		while (vector2.x < 1f || vector2.y < 1f) {
+			System.out.println("loopty loop ");
 			vector2.x = random.nextInt(maxPosX - minPosX) + minPosX;
 			vector2.y = random.nextInt(maxPosY - minPosY) + minPosY;
 		}

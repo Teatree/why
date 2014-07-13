@@ -33,7 +33,7 @@ public class Explosion {
 	}
 	
 	public void update(){
-		if (explosionEffect != null && !explosionEffect.isComplete()){
+		if (explosionEffect != null && !explosionEffect.isComplete() && damage > incrementalDamageValue){
 			explCircle.radius += incrementalCircleValue;
 			this.damage -= incrementalDamageValue;
 		}else if(explosionEffect != null && explosionEffect.isComplete()){
@@ -59,7 +59,7 @@ public class Explosion {
 		explosion_dy /= length1;
 		causeDamageCounter++;
 		if (type != EXPLOSION_TYPE_FROST){
-			if (causeDamageCounter % 15 == 0){
+			if (causeDamageCounter % 15 == 0 && ago.health > 0){
 				ago.health -= this.damage;
 			}
 		} else {

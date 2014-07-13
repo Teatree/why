@@ -1,12 +1,19 @@
 package com.me.swampmonster.game;
 
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map.Entry;
 import java.util.Random;
+
+import sun.reflect.generics.tree.BottomSignature;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Intersector;
@@ -26,7 +33,9 @@ import com.me.swampmonster.models.Projectile;
 import com.me.swampmonster.models.enemies.Enemy;
 import com.me.swampmonster.models.slots.Slot;
 import com.me.swampmonster.screens.SlotMachineScreen;
+import com.me.swampmonster.utils.Assets;
 import com.me.swampmonster.utils.CameraHelper;
+import com.me.swampmonster.utils.SlotsGenerator;
 
 public class TheController extends InputAdapter{
 	public CameraHelper cameraHelper;  
@@ -47,6 +56,9 @@ public class TheController extends InputAdapter{
 	public Vector3 V3enemyPos;
 	public Vector2 randVector2;
 	public Random random;
+	
+	public HashMap<Integer, Sprite> unlockNotifications;
+	public Sprite unlockNotificationSprite;
 	
 	float dx;
 	float dy;
@@ -79,9 +91,10 @@ public class TheController extends InputAdapter{
 		Vector2 v2 = new Vector2();
 		while (!isValidPosition(v2)) {
 			v2 = calculateRandomPlayerPos();
+			System.out.println("v2.x = " + v2.x);
+			System.out.println("v2.y = " + v2.y);
 		}
 		cameraHelper = new CameraHelper();
-		randVector2 = new Vector2();
 		player.setPosition(v2);		
 		gui = new GUI(player);
 		gui.getCroshair().setPosition(new Vector2 (330f,100f));
@@ -92,6 +105,8 @@ public class TheController extends InputAdapter{
 		V3point = new Vector3();
 		V3playerPos = new Vector3();
 		
+		unlockNotifications = new HashMap<Integer, Sprite>();
+		fillNotifications();
 		
 		timer3hurt=0;
 		
@@ -165,6 +180,23 @@ public class TheController extends InputAdapter{
 			coolDownAngle = coolDownAngle - coolDownStep;
 //			c -= coolDownStep;
 			coolDownCounter--;
+		}
+		//:TODO Ckeck this out
+		
+		Iterator<Entry<Integer, Sprite>> itr = unlockNotifications.entrySet().iterator();
+		
+		while(itr.hasNext()){
+			Entry<Integer, Sprite> e = (Entry) itr.next();
+			System.err.println("notification: " + e);
+			System.err.println("points: " + Player.score);
+			System.err.println("getKey: " + e.getKey());
+			
+			if(e != null && e.getKey()<= Player.score){
+				System.out.println("in da if");
+				unlockNotificationSprite = e.getValue();
+				GShape.unlockNotificationCounter = 240;
+				itr.remove();
+			}
 		}
 	}
 
@@ -310,11 +342,12 @@ public class TheController extends InputAdapter{
 	}
 	
 	public Vector2 calculateRandomPlayerPos(){
+		System.err.println("89");
 		Vector2 vector2 = new Vector2();
-		int minPosX = 130;
-		int maxPosX = (int) (collisionLayer.getWidth()*16-level1.player.sprite.getWidth()-100);
-		int minPosY = 130;
-		int maxPosY = (int) (collisionLayer.getHeight()*16-level1.player.sprite.getHeight()-100);
+		int minPosX = 230;
+		int maxPosX = (int) (collisionLayer.getWidth()*16-level1.player.sprite.getWidth()-200);
+		int minPosY = 230;
+		int maxPosY = (int) (collisionLayer.getHeight()*16-level1.player.sprite.getHeight()-200);
 		
 		vector2.x = random.nextInt(maxPosX - minPosX) + minPosX;
 		vector2.y = random.nextInt(maxPosY - minPosY) + minPosY;
@@ -337,6 +370,13 @@ public class TheController extends InputAdapter{
 			questionMark = false;
 		}
 		return questionMark;
+	}
+	
+	public void fillNotifications(){
+		unlockNotifications.put(500, new Sprite(Assets.manager.get(Assets.SHADOW_ARROW_ICON)));
+		unlockNotifications.put(1000, new Sprite(Assets.manager.get(Assets.POISONED_ARROW_ICON)));
+		unlockNotifications.put(2000, new Sprite(Assets.manager.get(Assets.EXPLOSIVE_ARROW_ICON)));
+		
 	}
 
 	public Vector2 getPoint() {

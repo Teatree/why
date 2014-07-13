@@ -29,6 +29,7 @@ public class GShape extends Group {
 	private int timer;
 	private BitmapFont font;
 	private int waveNotificationAnimationCounter;
+	public static int unlockNotificationCounter;
 	
 	private CharSequence str;
 	private CharSequence str2;
@@ -39,6 +40,7 @@ public class GShape extends Group {
 		sr = new ShapeRenderer();
 		this.theController = theController;
 		waveNotificationAnimationCounter = 240;
+		
 	}
 	
 	
@@ -202,6 +204,12 @@ public class GShape extends Group {
 			
 		batch.begin();
 		
+		if (theController.unlockNotificationSprite != null && unlockNotificationCounter > 0){
+			System.out.println("unlockNotification " + theController.unlockNotificationSprite);
+			batch.draw(theController.unlockNotificationSprite, 350, 350);
+			unlockNotificationCounter--;
+		}
+		
 		for (Sprite s: theController.gui.getHealthBar().sprites){
 			batch.draw(s, s.getX(), s.getY(), s.getWidth(), s.getHeight()+6);
 		}
@@ -304,6 +312,7 @@ public class GShape extends Group {
 		Gdx.gl.glDisable(GL20.GL_BLEND);
 		
 		batch.begin();
+		
 	}
 
 	public void warningFlicker(ShapeRenderer Sr) {

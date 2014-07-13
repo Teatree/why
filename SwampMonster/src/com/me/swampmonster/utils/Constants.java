@@ -20,6 +20,8 @@ public class Constants {
 	
 	public static final int pendingPeriodBetweedWaves = 2800;
 	public static final int NodeSize = 16;
+	
+	
 	//
 	
 	//:TODO THE AWESOME SLOT DATA!

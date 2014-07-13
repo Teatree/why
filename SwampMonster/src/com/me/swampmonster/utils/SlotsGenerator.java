@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.me.swampmonster.game.TheController;
 import com.me.swampmonster.models.Player;
 import com.me.swampmonster.models.slots.Arrows3;
 import com.me.swampmonster.models.slots.DamageTrap;
@@ -31,16 +33,15 @@ public class SlotsGenerator {
 	SlotParams slotParams;
 	
 	private static enum SlotParams{
-		p0_500(0, 11, 11, 16),
-		p500_1000(0, 11, 11, 16),
-		p1000_2000(0, 11, 11, 16),
+		p0_500(0, 8, 11, 16),
+		p500_1000(0, 9, 11, 16),
+		p1000_2000(0, 10, 11, 16),
 		p2000_4000(0, 11, 11, 16);
 		
 		public final int minRandActiveSkillValue;
 		public final int maxRandActiveSkillValue;
 		public final int minRandPerkValue;
 		public final int maxRandPerkValue;
-		
 		
 		private SlotParams(int minRandActiveSkillValue, int maxRandActiveSkillValue, int minRandPerkValue,
 				int maxRandPerkValue) {

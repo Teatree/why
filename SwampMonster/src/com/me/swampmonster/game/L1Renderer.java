@@ -55,7 +55,6 @@ public class L1Renderer {
 		
 		stage.addActor(gshape);
 		
-		
 		timer = 60;
 		
 		effect = new ParticleEffect();
@@ -276,7 +275,6 @@ public class L1Renderer {
 		}
 //		effect.draw(batch);
 //		effect.update(Gdx.graphics.getDeltaTime());
-		
 		
 		batch.end();
 		

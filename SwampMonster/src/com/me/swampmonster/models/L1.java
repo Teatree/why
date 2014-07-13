@@ -112,7 +112,7 @@ public class L1 {
 			}
 		}else if(enemiesOnStage.empty() && currentWave == wavesAmount){
 			TheController.germany = true;
-			System.out.println("germany = " + TheController.germany);
+//			System.out.println("germany = " + TheController.germany);
 		}
 		
 		if (!korea && enemiesOnStage.size() == wave.enemiesOnBattleField) {
