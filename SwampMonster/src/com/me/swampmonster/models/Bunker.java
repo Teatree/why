@@ -14,15 +14,17 @@ import com.badlogic.gdx.utils.Array;
 
 public class Bunker extends AbstractGameObject{
 	
+	TiledMap map;
 	TiledMapTileLayer tLayer;
 	public AnimatedTiledMapTile animatedTile;
 	
-	public Bunker(){
-		map = new TmxMapLoader().load("data/Map.tmx");
+	public Bunker(String tileSet, String tileMap){
+		System.out.println("tileMap I should be using: " + tileMap);
+		map = new TmxMapLoader().load(tileMap);
 		
 		Array<StaticTiledMapTile> frameTiles = new Array<StaticTiledMapTile>(14);
 		
-		Iterator<TiledMapTile> tiles = map.getTileSets().getTileSet("MarsDesertTileset").iterator();
+		Iterator<TiledMapTile> tiles = map.getTileSets().getTileSet(tileSet).iterator();
 		while(tiles.hasNext()){
 			TiledMapTile tile = tiles.next();
 			if(tile.getProperties().containsKey("animated") && tile.getProperties().get("animated", String.class).equals("console"))

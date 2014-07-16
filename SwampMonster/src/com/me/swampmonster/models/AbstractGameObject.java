@@ -48,8 +48,6 @@ public abstract class AbstractGameObject {
 	public Rectangle rectanlge;
 	public Circle circle;
 	protected Line2D line;
-	protected TiledMap map;
-	protected TiledMap map_inside_bunker;
 	public String damageType;
 	public String damageTypeOxygen;
 	public boolean hurt;
@@ -64,7 +62,7 @@ public abstract class AbstractGameObject {
 	public float movementSpeed = 0.5f; 
 	
 	public float health;
-	public int maxHealth;
+	public static int maxHealth;
 	public float damage;
 	public int points;
 	public int reloadSpeed;
@@ -88,12 +86,6 @@ public abstract class AbstractGameObject {
 	}
 	public void setSprite(Sprite sprite) {
 		this.sprite = sprite;
-	}
-	public TiledMap getMap() {
-		return map;
-	}
-	public void setMap(TiledMap map) {
-		this.map = map;
 	}
 	public Vector2 getOldPos() {
 		return oldPos;
@@ -141,15 +133,9 @@ public abstract class AbstractGameObject {
 	public Line2D getLine() {
 		return line;
 	}
-	public void setLine(Line2D line) {
+	public void setLine(Line2D line) 
+	{
 		this.line = line;
-	}
-	
-	public TiledMap getMap_inside_bunker() {
-		return map_inside_bunker;
-	}
-	public void setMap_inside_bunker(TiledMap map_inside_bunker) {
-		this.map_inside_bunker = map_inside_bunker;
 	}
 	
 	public void setNegativeEffect(NegativeEffects frozen) {

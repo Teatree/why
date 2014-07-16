@@ -9,7 +9,7 @@ import com.me.swampmonster.game.TheController;
 public class SwampScreen extends AbstractGameScreen {
 
 	private L1Renderer renderer;
-	private TheController theController;
+	private static TheController theController;
 	
 	private boolean paused;
 	
@@ -18,7 +18,11 @@ public class SwampScreen extends AbstractGameScreen {
 	}
 	
 	public void show() {
-		theController = new TheController(game, this.player);
+		if(theController == null){
+			theController = new TheController(game, this.player);
+		}else{
+			TheController.reloadLevel(this.player);
+		}
 		renderer = new L1Renderer(theController);
 		theController.l1Renderer = renderer;
 	}

@@ -43,18 +43,18 @@ public class L1 {
 	
 	public static List<Explosion> explosions;
 
-	public L1(Player player) {
-		create(player);
+	public L1(Player player, String tileSet, String tileMap) {
+		create(player, tileSet, tileMap);
 	}
 
-	public void create(Player player) {
+	public void create(Player player, String tileSet, String tileMap) {
 		this.player = player;
 		this.player.position = new Vector2();
 		wavesAmount = waveGenerator.getWavesAmount(Player.score);
 		currentWave = 1;
 		wave = waveGenerator.generateWave(Player.score);
 		enemiesOnStage = new Stack<Enemy>();
-		bunker = new Bunker();
+		bunker = new Bunker(tileSet, tileMap);
 		items = new LinkedList<Item>();
 		explosions = new ArrayList<Explosion>();
 	}

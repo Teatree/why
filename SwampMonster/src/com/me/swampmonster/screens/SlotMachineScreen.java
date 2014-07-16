@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.me.swampmonster.game.TheController;
+import com.me.swampmonster.models.L1;
 import com.me.swampmonster.models.slots.Perks;
 import com.me.swampmonster.models.slots.Slot;
 import com.me.swampmonster.slotMachineStuff.SlotMachineTextures;
@@ -105,10 +106,11 @@ public class SlotMachineScreen extends AbstractGameScreen {
 
 						}
 					}
+					
+					slotMachineTextures.peru = false;
+					game.setScreen(new SwampScreen(game));
 				}
 
-				slotMachineTextures.peru = false;
-				game.setScreen(new SwampScreen(game));
 			}
 		}
 		stage.draw();
