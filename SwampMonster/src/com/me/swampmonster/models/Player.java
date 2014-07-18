@@ -32,6 +32,11 @@ public class Player extends AbstractGameObject {
 	private static final float FROZEN_MOVEMENT = 0.16f;
 	private static final float SPEED_BOOST_EFFECT = 1.1f;
 
+//	feedback
+	public static int enemiesKilled;
+	public static int playerKilled;
+	public static int shotArrows;
+	
 	public Sprite positiveEffectSprite;
 	int time = 0;
 	int timer3hurt = 0;
@@ -89,7 +94,6 @@ public class Player extends AbstractGameObject {
 		random = new Random();
 		bowFrames = TextureRegion.split((Assets.manager.get(Assets.bow)), 32, 32);
 		bow = new Sprite(bowFrames[0][0]);
-		points = 0;
 		hurt = false;
 		aimingArea = new Circle();
 		aimingArea.radius = 8;
@@ -286,6 +290,7 @@ public class Player extends AbstractGameObject {
 			Projectile p = new Projectile(new Vector2(aimingArea.x
 					+ direction_x / 100 - 8, aimingArea.y + direction_y / 100
 					- 8), getRotation(shotDir), arrowEffectCarrier);
+			shotArrows++;
 
 			p.setPosition(new Vector2(aimingArea.x + direction_x / 100 - 8,
 					aimingArea.y + direction_y / 100 - 8));
@@ -352,6 +357,7 @@ public class Player extends AbstractGameObject {
 			sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
 			timeDead++;
 		}
+		playerKilled++;
 		dead = true;
 	}
 

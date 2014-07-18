@@ -379,4 +379,11 @@ public class Constants {
 	public static final int SPEED_BOOST_LifeTime_L3 = 800;
 	public static final int SPEED_BOOST_LifeTime_L4 = 1200;
 	public static final int SPEED_BOOST_LifeTime_L5 = 1600;
+	
+	//feedback
+	public static final String SHOT_ARROWS = "Shot arrows: ";
+	public static final String ENEMIES_KILLED = "Enemies killed: ";
+	public static final String SCORE = "Score: ";
+	public static final String ONE_MORE_WORLD_CONQUERED = "One More World conquered!";
+	public static final CharSequence GET_REWARD = "Get reward!";
 }

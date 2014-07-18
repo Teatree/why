@@ -5,17 +5,13 @@ import java.util.Iterator;
 import java.util.Map.Entry;
 import java.util.Random;
 
-import sun.reflect.generics.tree.BottomSignature;
-
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputAdapter;
-import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.badlogic.gdx.maps.tiled.tiles.AnimatedTiledMapTile;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
@@ -25,7 +21,6 @@ import com.me.swampmonster.GUI.GUI;
 import com.me.swampmonster.game.collision.CollisionHelper;
 import com.me.swampmonster.models.AbstractGameObject.NegativeEffects;
 import com.me.swampmonster.models.AbstractGameObject.State;
-import com.me.swampmonster.models.Bunker;
 import com.me.swampmonster.models.Explosion;
 import com.me.swampmonster.models.L1;
 import com.me.swampmonster.models.Player;
@@ -37,7 +32,6 @@ import com.me.swampmonster.models.slots.Slot;
 import com.me.swampmonster.screens.SlotMachineScreen;
 import com.me.swampmonster.utils.Assets;
 import com.me.swampmonster.utils.CameraHelper;
-import com.me.swampmonster.utils.SlotsGenerator;
 
 public class TheController extends InputAdapter {
 	public CameraHelper cameraHelper;
@@ -79,6 +73,7 @@ public class TheController extends InputAdapter {
 	public static TiledMapTileLayer collisionLayer;
 	public static Slot skill;
 	public static boolean germany;
+	public static boolean showFeedback;
 
 	public TheController(Game game, Player player) {
 		init(player);
@@ -165,7 +160,7 @@ public class TheController extends InputAdapter {
 		V3playerPos.y = level1.player.getPosition().y
 				+ level1.player.circle.radius / 2;
 		V3playerPos.z = 0;
-
+		
 		if (Intersector.overlaps(debugRect, pointRect) || germany) {
 			SlotMachineScreen sl = new SlotMachineScreen(game);
 			sl.player = level1.player;
@@ -193,7 +188,7 @@ public class TheController extends InputAdapter {
 				.iterator();
 
 		while (itr.hasNext()) {
-			Entry<Integer, Sprite> e = (Entry) itr.next();
+			Entry<Integer, Sprite> e = itr.next();
 			// System.err.println("notification: " + e);
 			// System.err.println("points: " + Player.score);
 			// System.err.println("getKey: " + e.getKey());

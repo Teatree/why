@@ -22,6 +22,7 @@ import com.me.swampmonster.utils.Assets;
 import com.me.swampmonster.utils.Constants;
 
 public class GShape extends Group {
+	
 	private ShapeRenderer sr;
 	private TheController theController;
 	float ass = 1f;
@@ -30,17 +31,21 @@ public class GShape extends Group {
 	private BitmapFont font;
 	private int waveNotificationAnimationCounter;
 	public static int unlockNotificationCounter;
-	
+
 	private CharSequence str;
 	private CharSequence str2;
 	private CharSequence str3;
 
+	public Sprite feedbackWindow;
+	public Sprite feedbackWindowYes;
+	
 	public GShape(TheController theController) {
 		super();
 		sr = new ShapeRenderer();
 		this.theController = theController;
 		waveNotificationAnimationCounter = 240;
-		
+		feedbackWindow = new Sprite(Assets.manager.get(Assets.slotMachineWindow));
+		feedbackWindowYes = new Sprite(Assets.manager.get(Assets.slotMachineWindowYes));
 	}
 	
 	
@@ -218,6 +223,32 @@ public class GShape extends Group {
 		}
 		if (TheController.skill != null){
 			batch.draw(theController.gui.getWeaponizer().sprite, 0, 0);
+		}
+		
+		if(TheController.showFeedback){
+			
+			feedbackWindow.setSize(Constants.VIEWPORT_WIDTH/2.1f, Constants.VIEWPORT_HEIGHT/1.4f);
+			feedbackWindow.setPosition(Constants.VIEWPORT_WIDTH/4f, Constants.VIEWPORT_HEIGHT/5f);
+			feedbackWindow.draw(batch);
+			font.setColor(Color.RED);
+			font.draw(batch, Constants.ONE_MORE_WORLD_CONQUERED, feedbackWindow.getBoundingRectangle().x+20, feedbackWindow.getBoundingRectangle().y+280);
+			font.setColor(Color.BLACK);
+			font.setScale(0.75f);
+			font.draw(batch, Constants.SCORE + Player.score, feedbackWindow.getBoundingRectangle().x+25, feedbackWindow.getBoundingRectangle().y+240);
+			font.draw(batch, Constants.ENEMIES_KILLED + Player.enemiesKilled, feedbackWindow.getBoundingRectangle().x+25, feedbackWindow.getBoundingRectangle().y+215);
+			font.draw(batch, Constants.SHOT_ARROWS + Player.shotArrows, feedbackWindow.getBoundingRectangle().x+25, feedbackWindow.getBoundingRectangle().y+190);
+			font.setColor(Color.GREEN);
+			font.setScale(1f);
+			font.draw(batch, Constants.GET_REWARD, feedbackWindow.getBoundingRectangle().x+25, feedbackWindow.getBoundingRectangle().y+50);
+			feedbackWindowYes.setPosition(feedbackWindow.getBoundingRectangle().x+190, feedbackWindow.getBoundingRectangle().y+20);
+			feedbackWindowYes.draw(batch);
+			Vector2 victor = new Vector2(Gdx.input.getX(), Constants.VIEWPORT_HEIGHT
+					- Gdx.input.getY());
+			if (Gdx.input.justTouched()
+					&& feedbackWindowYes.getBoundingRectangle().contains(victor)){
+				TheController.germany = true;
+				TheController.showFeedback = false;
+			}
 		}
 		
 		if (theController.level1.player.positiveEffectsState != null

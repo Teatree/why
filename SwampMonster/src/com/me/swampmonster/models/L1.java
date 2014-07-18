@@ -111,7 +111,8 @@ public class L1 {
 				pendingPeriodBetweedWavesCounter--;
 			}
 		}else if(enemiesOnStage.empty() && currentWave == wavesAmount){
-			TheController.germany = true;
+			TheController.showFeedback = true;
+//			TheController.germany = true;
 //			System.out.println("germany = " + TheController.germany);
 		}
 		

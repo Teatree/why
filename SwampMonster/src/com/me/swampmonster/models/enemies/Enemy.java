@@ -172,6 +172,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 		}
 
 		if (health <= 0) {
+			Player.enemiesKilled++;
 			state = State.DEAD;
 		}
 		// this little thing is not done!

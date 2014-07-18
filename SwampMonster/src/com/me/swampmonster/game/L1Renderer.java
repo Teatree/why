@@ -10,7 +10,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.badlogic.gdx.maps.tiled.tiles.AnimatedTiledMapTile;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.me.swampmonster.AI.Node;
 import com.me.swampmonster.models.Explosion;
@@ -19,6 +19,7 @@ import com.me.swampmonster.models.AbstractGameObject.State;
 import com.me.swampmonster.models.L1;
 import com.me.swampmonster.models.enemies.Enemy;
 import com.me.swampmonster.models.Projectile;
+import com.me.swampmonster.utils.Assets;
 import com.me.swampmonster.utils.Constants;
 
 public class L1Renderer {
@@ -33,6 +34,7 @@ public class L1Renderer {
 	private ParticleEffect effect;
 	private OrthogonalTiledMapRenderer mapRenderer;
 	private int timer;
+	
 	private Stage stage;
 	private GShape gshape;
 	
@@ -53,7 +55,6 @@ public class L1Renderer {
 		mapRenderer = new OrthogonalTiledMapRenderer(theController.level1.bunker.getMap());
 		
 		gshape = new GShape(theController);
-		
 		stage.addActor(gshape);
 		
 		timer = 60;
