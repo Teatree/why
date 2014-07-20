@@ -133,6 +133,7 @@ public class L1 {
 			misterSpawner.spawnEnemy(this, enemy);
 			while (enemy.position.x < 1f || enemy.position.y < 1f) {
 				System.out.print("");
+				System.err.println("L1 1");
 			}
 			try {
 				enemiesOnStage.push(enemy);
@@ -148,6 +149,7 @@ public class L1 {
 	private void updateItems() {
 		Iterator<Item> itm = items.iterator();
 		while(itm.hasNext()){
+			System.err.println("L1 2");
 			Item item = itm.next();
 			if(item.state == State.DEAD){
 				itm.remove();

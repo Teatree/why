@@ -9,6 +9,7 @@ public class MainSwamp extends Game {
 	public void create() {		
 		Assets.load();
 		while (!Assets.manager.update()){
+			System.err.println("MainSwamp");
 		}
 		setScreen(new SwampScreen(this));
 	}

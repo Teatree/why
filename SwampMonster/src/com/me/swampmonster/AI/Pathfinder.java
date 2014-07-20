@@ -51,6 +51,7 @@ public class Pathfinder {
 		
 		while (openList.size() > 0) {
 			Node currentNode = openList.poll();
+			System.err.println("pathfinder1");
 //			// System.out.println("iteration");
 			
 //			// System.out.println("CurrentNode! ==== " + currentNode);
@@ -66,6 +67,7 @@ public class Pathfinder {
 					return new Node[99];
 				}else {
 					while(node.getParentNode() != null /*&& !node.getParentNode().equals(startingPosition)*/){
+						System.err.println("pathfinder2");
 						path[cuntar] = node;
 						node = node.getParentNode();
 						cuntar++;

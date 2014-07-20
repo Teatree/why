@@ -191,6 +191,9 @@ public class Player extends AbstractGameObject {
 		}
 
 		painLogic();
+		
+		shotDir.x = (position.x + sprite.getWidth() / 2) * 2 - V3point.x;
+		shotDir.y = (position.y + sprite.getHeight() / 2) * 2 - V3point.y;
 
 		// STANDARD
 		if (state.equals(State.STANDARD)) {
@@ -244,6 +247,7 @@ public class Player extends AbstractGameObject {
 	private void updateProjectiles(TiledMapTileLayer collisionLayer) {
 		Iterator<Projectile> prj = projectiles.iterator();
 		while (prj.hasNext()) {
+			System.err.println("player");
 			Projectile p = prj.next();
 			if (p != null && p.isCollision(collisionLayer)
 					&& p.effect != EffectCarriers.SHADOW) {
@@ -274,11 +278,11 @@ public class Player extends AbstractGameObject {
 			timeShooting++;
 
 		}
-		if (shooting && timeShooting < 2) {
-			shotDir.x = (position.x + sprite.getWidth() / 2) * 2 - V3point.x;
-			shotDir.y = (position.y + sprite.getHeight() / 2) * 2 - V3point.y;
-
-		}
+//		if (shooting && timeShooting < 2) {
+//			shotDir.x = (position.x + sprite.getWidth() / 2) * 2 - V3point.x;
+//			shotDir.y = (position.y + sprite.getHeight() / 2) * 2 - V3point.y;
+//
+//		}
 		if (shooting && timeShooting > 29) {
 			animationsStandard.get(state).setCurrentFrame(currentFrame);
 			shooting = false;
@@ -409,6 +413,7 @@ public class Player extends AbstractGameObject {
 		sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
 		if(aimingLength<50){
 			bow = new Sprite(bowFrames[0][0]);
+			
 		}else if(aimingLength < 100){
 			bow = new Sprite(bowFrames[1][0]);
 		}else{

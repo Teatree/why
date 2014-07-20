@@ -54,6 +54,7 @@ public class MisterItemSpawner {
 
 		while (!isValidTargetPosition(item, player)) {
 			setItemTargetPos(item, player, enmy);
+			System.err.println("MisterItemSpawner");
 		}
 		return item;
 	}

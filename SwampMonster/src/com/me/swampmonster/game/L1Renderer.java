@@ -119,9 +119,6 @@ public class L1Renderer {
 					theController.level1.player.bow.getWidth(),
 					theController.level1.player.bow.getHeight(), 1, 1,
 					theController.level1.player.bow.getRotation());
-			for (Sprite s : theController.gui.getCroshair().pointers){
-				s.draw(batch);
-			}
 		}
 		// temporary drawing of a projectile
 		
