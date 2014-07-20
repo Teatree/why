@@ -55,6 +55,7 @@ public class GameOverGUI extends AbstractGameObject {
 		} else if (player.damageType == "Poisoned") {
 			WittyMessage = WittyPoisonMessages[i];
 		}
+		
 	}
 
 	public void generateRandomWittyMessage() {

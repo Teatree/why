@@ -29,7 +29,9 @@ import com.me.swampmonster.models.slots.PositiveEffects;
 import com.me.swampmonster.models.Projectile;
 import com.me.swampmonster.models.enemies.Enemy;
 import com.me.swampmonster.models.slots.Slot;
+import com.me.swampmonster.screens.AbstractGameScreen;
 import com.me.swampmonster.screens.SlotMachineScreen;
+import com.me.swampmonster.screens.SwampScreen;
 import com.me.swampmonster.utils.Assets;
 import com.me.swampmonster.utils.CameraHelper;
 
@@ -162,11 +164,17 @@ public class TheController extends InputAdapter {
 		V3playerPos.z = 0;
 		
 		if (Intersector.overlaps(debugRect, pointRect) || germany) {
-			SlotMachineScreen sl = new SlotMachineScreen(game);
+			AbstractGameScreen sl;
+			if (germany && level1.player.state == State.DEAD){
+				sl = new SwampScreen(game);
+				reloadLevel(level1.player);
+			} else {
+				sl = new SlotMachineScreen(game);
+			}
 			sl.player = level1.player;
 			germany = false;
 			game.setScreen(sl);
-		}
+		} 
 
 		// This bit is responsible for calculating where exactly the projective
 		// has to go when shot.
@@ -194,7 +202,7 @@ public class TheController extends InputAdapter {
 			// System.err.println("getKey: " + e.getKey());
 
 			if (e != null && e.getKey() <= Player.score) {
-				System.out.println("in da if");
+//				System.out.println("in da if");
 				unlockNotificationSprite = e.getValue();
 				GShape.unlockNotificationCounter = 240;
 				itr.remove();
@@ -368,7 +376,7 @@ public class TheController extends InputAdapter {
 	}
 
 	public static Vector2 calculateRandomPlayerPos() {
-		System.err.println("89");
+//		System.err.println("89");
 		Vector2 vector2 = new Vector2();
 		int minPosX = 230;
 		int maxPosX = (int) (collisionLayer.getWidth() * 16
@@ -380,7 +388,6 @@ public class TheController extends InputAdapter {
 		vector2.x = random.nextInt(maxPosX - minPosX) + minPosX;
 		vector2.y = random.nextInt(maxPosY - minPosY) + minPosY;
 		while (vector2.x < 1f || vector2.y < 1f) {
-			System.out.println("8989");
 			vector2.x = random.nextInt(maxPosX - minPosX) + minPosX;
 			vector2.y = random.nextInt(maxPosY - minPosY) + minPosY;
 		}
@@ -413,12 +420,13 @@ public class TheController extends InputAdapter {
 	}
 
 	public static void reloadLevel(Player player) {
-		System.out.println("Yes it happened");
+//		System.out.println("Yes it happened");
 		debugRect.x = player.position.x;
 		debugRect.y = player.position.y;
 		level1 = new L1(player, "MarsDesertTileset2", "data/Map2.tmx");
-		player.oxygen = Player.maxOxygen;
-		player.health = Player.playerMaxHealth;
+//		player.oxygen = Player.maxOxygen;
+//		player.health = Player.playerMaxHealth;
+		player.characterStatsBoard();
 		collisionLayer = (TiledMapTileLayer) level1.bunker.getMap().getLayers()
 				.get(0);
 		Vector2 v2 = new Vector2();

@@ -74,7 +74,5 @@ public class GUI {
 	public void setGameoverGUI(GameOverGUI gameoverGUI) {
 		this.gameoverGUI = gameoverGUI;
 	}
-	
-	
 }
 

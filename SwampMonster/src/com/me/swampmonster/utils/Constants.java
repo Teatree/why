@@ -385,5 +385,6 @@ public class Constants {
 	public static final String ENEMIES_KILLED = "Enemies killed: ";
 	public static final String SCORE = "Score: ";
 	public static final String ONE_MORE_WORLD_CONQUERED = "One More World conquered!";
-	public static final CharSequence GET_REWARD = "Get reward!";
+	public static final String GET_REWARD = "Get reward!";
+	public static final String TRY_AGAIN = "Next time I'll be better!";
 }

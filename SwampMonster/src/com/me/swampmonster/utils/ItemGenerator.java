@@ -61,6 +61,7 @@ public class ItemGenerator {
 	
 	public int generateSpawnRate(int playersScore){
 		setItemParams(playersScore);
+		//:TODO NPE
 		return random.nextInt(itemParams.maxSpawnRate - itemParams.minSpawnRate) + itemParams.minSpawnRate;
 	}
 	
@@ -68,13 +69,13 @@ public class ItemGenerator {
 		if(playersScore>=0 && playersScore<500){
 			itemParams = ItemParams.p0_500;
 		}
-		else if(playersScore>100 && playersScore<1000){
+		else if(playersScore>=100 && playersScore<1000){
 			itemParams = ItemParams.p500_1000;
 		}
-		else if(playersScore>1000 && playersScore<2000){
+		else if(playersScore>=1000 && playersScore<2000){
 			itemParams = ItemParams.p1000_2000;
 		}
-		else if(playersScore>2000){
+		else if(playersScore>=2000){
 			itemParams = ItemParams.p2000_4000;
 		}
 	}

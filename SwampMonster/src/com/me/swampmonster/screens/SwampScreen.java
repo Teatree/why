@@ -10,7 +10,6 @@ public class SwampScreen extends AbstractGameScreen {
 
 	private L1Renderer renderer;
 	private static TheController theController;
-	
 	private boolean paused;
 	
 	public SwampScreen(Game game){
@@ -26,6 +25,7 @@ public class SwampScreen extends AbstractGameScreen {
 		renderer = new L1Renderer(theController);
 		theController.l1Renderer = renderer;
 	}
+	
 	public void render(float delta) {
 		Gdx.gl.glClearColor(0.1f, 0.1f, 0.1f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);

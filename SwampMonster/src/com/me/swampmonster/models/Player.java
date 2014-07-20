@@ -133,11 +133,11 @@ public class Player extends AbstractGameObject {
 		// ***Character stats board***
 		characterStatsBoard();
 		// ***Character stats board***
-		sprite = new Sprite(animationsStandard.get(State.STANDARD)
-				.getCurrentFrame());
-		sprite.setColor(1, 1, 1, 1);
-		shotDir = new Vector3();
-		sprite.setSize(sprite.getWidth() / 2, sprite.getHeight() / 2);
+//		sprite = new Sprite(animationsStandard.get(State.STANDARD)
+//				.getCurrentFrame());
+//		sprite.setColor(1, 1, 1, 1);
+//		shotDir = new Vector3();
+//		sprite.setSize(sprite.getWidth() / 2, sprite.getHeight() / 2);
 		// allowedToShoot = true;
 	}
 
@@ -145,13 +145,17 @@ public class Player extends AbstractGameObject {
 		// HEALTH, DAMAGE, OXYGEN, TYPE, TOUGHGUY, COLORSCHEME, ETC.
 //		playerMaxHealth = 16;
 		health = playerMaxHealth;
-//		maxOxygen = 96;
 		oxygen = maxOxygen;
 		damage = 1f;
-
+		sprite = new Sprite(animationsStandard.get(State.STANDARD)
+				.getCurrentFrame());
+		sprite.setColor(1, 1, 1, 1);
+		shotDir = new Vector3();
+		sprite.setSize(sprite.getWidth() / 2, sprite.getHeight() / 2);
 		// :TODO IN ORDER TO CHANGE THIS, YOU GOT TO GET DOWN TO WHERE SHOOTIGN
 		// IS HAPPENING!
 		// shotCoolDown = 90;
+		state = State.STANDARD;
 		movementSpeed = STANDART_MOVEMENT_SPEED;
 	}
 
