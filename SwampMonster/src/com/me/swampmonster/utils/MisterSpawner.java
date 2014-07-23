@@ -118,7 +118,20 @@ public class MisterSpawner {
 			maxPosY = (int) (player.getPosition().y - Constants.VIEWPORT_GUI_HEIGHT / 2);
 			minPosY = 1;
 //			System.out
-//					.println("minPosY >= mapHeight - player.getSprite().getHeight()");
+			// .println("minPosY >= mapHeight - player.getSprite().getHeight()");
+		}
+		if (maxPosX >= mapWith - player.getSprite().getWidth()) {
+			maxPosX = (int) (player.getPosition().x - Constants.VIEWPORT_GUI_WIDTH / 2);
+			minPosX = 22;
+			// System.out
+			// .println("minPosX >= mapWith - player.getSprite().getWidth()");
+		}
+
+		if (maxPosY >= mapHeight - player.getSprite().getHeight()) {
+			maxPosY = (int) (player.getPosition().y - Constants.VIEWPORT_GUI_HEIGHT / 2);
+			minPosY = 22;
+			// System.out
+			// .println("minPosY >= mapHeight - player.getSprite().getHeight()");
 		}
 
 		vector2.x = random.nextInt(maxPosX - minPosX) + minPosX;

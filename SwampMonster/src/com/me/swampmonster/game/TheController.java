@@ -1,5 +1,8 @@
 package com.me.swampmonster.game;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map.Entry;
@@ -76,6 +79,7 @@ public class TheController extends InputAdapter {
 	public static Slot skill;
 	public static boolean germany;
 	public static boolean showFeedback;
+	String br;
 
 	public TheController(Game game, Player player) {
 		init(player);
@@ -126,7 +130,9 @@ public class TheController extends InputAdapter {
 		pointRect = new Rectangle();
 		pointRect.width = 1;
 		pointRect.height = 1;
-
+		
+		br = null;
+		 
 	}
 
 	public void update(float deltaTime, Game game) {
@@ -176,6 +182,22 @@ public class TheController extends InputAdapter {
 			germany = false;
 			game.setScreen(sl);
 		} 
+		
+		String cr;	 
+		
+		br = Gdx.files.local("data\\Map.tmx").readString();
+		cr = "MarsDesertTileset.png";
+
+		if (br != null) {
+			if (br.contains(cr)){
+				System.out.println(cr);
+				br = br.replaceAll(cr, "MarsDesertTileset3.png");
+				System.out.println("new:    " + br);
+				Gdx.files.local("data\\Map.tmx").writeString(br, false);
+				br = Gdx.files.local("data\\Map.tmx").readString();
+			}
+		}
+ 
 
 		// This bit is responsible for calculating where exactly the projective
 		// has to go when shot.
