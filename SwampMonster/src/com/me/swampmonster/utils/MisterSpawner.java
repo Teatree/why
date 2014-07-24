@@ -13,6 +13,8 @@ import com.me.swampmonster.models.enemies.Enemy;
 
 public class MisterSpawner {
 
+	private static final int SPAWN_RADIUS = 570;
+	private static final int MIN_SPAWN_POS = 17;
 	Random random = new Random();
 	int mapWith;
 	int mapHeight;
@@ -67,7 +69,7 @@ public class MisterSpawner {
 		int minPosY;
 		int maxPosY;
 		
-		System.out.println("[ " + Constants.VIEWPORT_GUI_WIDTH / 2 + " x " + Constants.VIEWPORT_GUI_HEIGHT / 2 + " ]");
+//		System.out.println("[ " + Constants.VIEWPORT_GUI_WIDTH / 2 + " x " + Constants.VIEWPORT_GUI_HEIGHT / 2 + " ]");
 
 		switch (spawnRegion) {
 		case 0: {
@@ -75,8 +77,8 @@ public class MisterSpawner {
 			maxPosX = (int) (player.position.x+570 >= mapWith - 17 ? mapWith - 17 : player.position.x+570);
 			minPosY = (int) (player.getPosition().y + Constants.VIEWPORT_GUI_HEIGHT / 2);
 			maxPosY = (int) (player.position.y+570 >= mapHeight - 17 ? mapHeight - 17 : player.position.y+570)/*(mapHeight - player.getSprite().getHeight())*/;
-			 System.out.println("case 0 minX=" + minPosX + " maxX =" + maxPosX
-					+ " minY=" + minPosY + " maxY=" + maxPosY);
+//			 System.out.println("case 0 minX=" + minPosX + " maxX =" + maxPosX
+//					+ " minY=" + minPosY + " maxY=" + maxPosY);
 			break;
 		}
 		case 1: {
@@ -84,8 +86,8 @@ public class MisterSpawner {
 			maxPosX = (int) player.position.x + 570/*(mapWith - player.getSprite().getWidth())*/;
 			minPosY = (int) (player.position.y-570 < 17 ? 17 : player.position.y-570);
 			maxPosY = (int) (player.position.x+570 >= mapWith - 17 ? mapWith - 17 : player.position.x+570);
-			 System.out.println("case 1 minX=" + minPosX + " maxX =" + maxPosX
-					+ " minY=" + minPosY + " maxY=" + maxPosY);
+//			 System.out.println("case 1 minX=" + minPosX + " maxX =" + maxPosX
+//					+ " minY=" + minPosY + " maxY=" + maxPosY);
 			break;
 		}
 		case 2: {
@@ -93,17 +95,17 @@ public class MisterSpawner {
 			maxPosX = (int) (player.position.x+570 >= mapWith - 17 ? mapWith - 17 : player.position.x+570);
 			minPosY = (int) (player.position.y-570 < 17 ? 17 : player.position.y-570);
 			maxPosY = (int) (player.getPosition().y - Constants.VIEWPORT_GUI_HEIGHT / 2);
-			 System.out.println("case 2 minX=" + minPosX + " maxX =" + maxPosX
-					+ " minY=" + minPosY + " maxY=" + maxPosY);
+//			 System.out.println("case 2 minX=" + minPosX + " maxX =" + maxPosX
+//					+ " minY=" + minPosY + " maxY=" + maxPosY);
 			break;
 		}
 		default: {
-			minPosX = (int) (player.position.x-570 < 17 ? 17 : player.position.x-570);
+			minPosX = (int) (player.position.x-SPAWN_RADIUS < 17 ? 17 : player.position.x-570);
 			maxPosX = (int) (player.getPosition().x - Constants.VIEWPORT_GUI_HEIGHT / 2);
-			minPosY = (int) (player.position.y+570 >= mapWith - 17 ? mapWith - 17 : player.position.y+570);
+			minPosY = (int) (player.position.y+570 >= mapWith - 17 ? mapWith - MIN_SPAWN_POS : player.position.y+570);
 			maxPosY = (int) (/*mapHeight - player.getSprite().getHeight()*/(player.position.y+570 >= mapWith - 17 ? mapWith - 17 : player.position.y+570));
-			 System.out.println("case 3 minX=" + minPosX + " maxX =" + maxPosX
-					+ " minY=" + minPosY + " maxY=" + maxPosY);
+//			 System.out.println("case 3 minX=" + minPosX + " maxX =" + maxPosX
+//					+ " minY=" + minPosY + " maxY=" + maxPosY);
 		}
 		}
 
@@ -111,27 +113,27 @@ public class MisterSpawner {
 		if (maxPosX >= mapWith - player.getSprite().getWidth()-18) {
 			maxPosX = (int) (mapWith - player.getSprite().getWidth()-18);
 			minPosX = (int) (player.getPosition().x + Constants.VIEWPORT_GUI_WIDTH / 2);
-			System.out
-			.println("maxPosX >= mapWith - player.getSprite().getWidth() == " + player.position.x );
+//			System.out
+//			.println("maxPosX >= mapWith - player.getSprite().getWidth() == " + player.position.x );
 		}
 		
 		if (maxPosY >= mapHeight - player.getSprite().getHeight()-18) {
 			maxPosY = (int) (mapHeight - player.getSprite().getHeight()-18);
 			minPosY = (int) (player.position.y - player.getPosition().y + Constants.VIEWPORT_GUI_HEIGHT / 2/* - 570*/);
-			System.out
-			.println("maxPosY >= mapHeight - player.getSprite().getHeight() == " + player.position.y);
+//			System.out
+//			.println("maxPosY >= mapHeight - player.getSprite().getHeight() == " + player.position.y);
 		}
 		
 		if (minPosX >= mapWith - player.getSprite().getWidth()) {
 			maxPosX = (int) (player.getPosition().x - Constants.VIEWPORT_GUI_WIDTH / 2);
 			minPosX = 17;
-			System.out.println("minPosX >= mapWith - player.getSprite().getWidth()");
+//			System.out.println("minPosX >= mapWith - player.getSprite().getWidth()");
 		}
 
 		if (minPosY >= mapHeight - player.getSprite().getHeight()) {
 			maxPosY = (int) (player.getPosition().y - Constants.VIEWPORT_GUI_HEIGHT / 2);
 			minPosY = 17;
-			System.out.println("minPosY >= mapHeight - player.getSprite().getHeight()");
+//			System.out.println("minPosY >= mapHeight - player.getSprite().getHeight()");
 		}
 
 		int temp;
@@ -145,8 +147,8 @@ public class MisterSpawner {
 			minPosY = maxPosY;
 			maxPosY = temp;
 		}
-		System.out.println("maxPosX = " + maxPosX + " minPosX = " + minPosX);
-		System.out.println("maxPosY = " + maxPosY + " minPosY = " + minPosY);
+//		System.out.println("maxPosX = " + maxPosX + " minPosX = " + minPosX);
+//		System.out.println("maxPosY = " + maxPosY + " minPosY = " + minPosY);
 		vector2.x = random.nextInt(maxPosX - minPosX) + minPosX;
 		vector2.y = random.nextInt(maxPosY - minPosY) + minPosY;
 		while (vector2.x < 1f || vector2.y < 1f) {
