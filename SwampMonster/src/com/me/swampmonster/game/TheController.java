@@ -95,7 +95,6 @@ public class TheController extends InputAdapter {
 		Vector2 v2 = new Vector2();
 		while (!isValidPosition(v2)) {
 			v2 = calculateRandomPlayerPos();
-			System.err.println("theChontrollet1");
 			// System.out.println("v2.x = " + v2.x);
 			// System.out.println("v2.y = " + v2.y);
 		}
@@ -220,7 +219,6 @@ public class TheController extends InputAdapter {
 
 		while (itr.hasNext()) {
 			Entry<Integer, Sprite> e = itr.next();
-			System.err.println("theChontrollet1");
 			// System.err.println("notification: " + e);
 			// System.err.println("points: " + Player.score);
 			// System.err.println("getKey: " + e.getKey());
@@ -387,7 +385,6 @@ public class TheController extends InputAdapter {
 	public int findLastNotNullInArray() {
 		int i = 0;
 		while (gui.getHealthBar().getHealthBarRect()[i] != null) {
-			System.err.println("theChontrollet1");
 			i++;
 		}
 		return i - 1;
@@ -413,7 +410,6 @@ public class TheController extends InputAdapter {
 		vector2.x = random.nextInt(maxPosX - minPosX) + minPosX;
 		vector2.y = random.nextInt(maxPosY - minPosY) + minPosY;
 		while (vector2.x < 1f || vector2.y < 1f) {
-			System.err.println("theChontrollet1");
 			vector2.x = random.nextInt(maxPosX - minPosX) + minPosX;
 			vector2.y = random.nextInt(maxPosY - minPosY) + minPosY;
 		}
@@ -457,9 +453,7 @@ public class TheController extends InputAdapter {
 				.get(0);
 		Vector2 v2 = new Vector2();
 		while (!isValidPosition(v2)) {
-			System.err.println("theChontrollet1");
 			v2 = calculateRandomPlayerPos();
-			System.err.println("theChontroller1");
 			// System.out.println("v2.x = " + v2.x);
 			// System.out.println("v2.y = " + v2.y);
 		}

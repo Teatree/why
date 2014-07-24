@@ -131,15 +131,15 @@ public class L1 {
 				&& !wave.enemies.empty() && enemySpawnRateCounter <= 0) {
 			Enemy enemy = wave.enemies.pop();
 			misterSpawner.spawnEnemy(this, enemy);
-			while (enemy.position.x < 1f || enemy.position.y < 1f) {
-				System.out.print("");
-				System.err.println("L1 1");
-			}
-			try {
-				enemiesOnStage.push(enemy);
-			} catch (Exception e) {
-				
-			}
+//			while (enemy.position.x < 1f || enemy.position.y < 1f) {
+//				System.out.print("");
+//				System.err.println("L1 1");
+//			}
+//			try {
+			enemiesOnStage.push(enemy);
+//			} catch (Exception e) {
+//				
+//			}
 			enemySpawnRateCounter = (int) wave.rate;
 		}else {
 			enemySpawnRateCounter--;
@@ -149,7 +149,6 @@ public class L1 {
 	private void updateItems() {
 		Iterator<Item> itm = items.iterator();
 		while(itm.hasNext()){
-			System.err.println("L1 2");
 			Item item = itm.next();
 			if(item.state == State.DEAD){
 				itm.remove();
