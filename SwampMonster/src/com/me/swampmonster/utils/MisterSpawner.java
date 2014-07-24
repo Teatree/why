@@ -32,7 +32,7 @@ public class MisterSpawner {
 				mapHeight = (int) collisionLayer.getTileHeight()
 						* collisionLayer.getHeight()
 						- (int) l.player.getSprite().getHeight();
-				v2 = calculateEnemiesPosition(l.player);
+				v2 = calculateEnemiesPosition(l.player, enemy);
 				while (!isValidPosition(v2)) {
 //					System.err.println("enemy posX: " + enemy.getPosition().x
 //							+ " posY: " + enemy.getPosition().y);
@@ -40,7 +40,7 @@ public class MisterSpawner {
 //					System.err.println("CollisionLayer TileWidth = " +collisionLayer.getTileWidth());
 //					System.err.println("CollisionLayer TileHeight = " +collisionLayer.getTileHeight());
 //					System.err.println("CollisionLayer Width = " + collisionLayer.getWidth() + " CollisionLayer Height = " + collisionLayer.getHeight());
-					v2 = calculateEnemiesPosition(l.player);
+					v2 = calculateEnemiesPosition(l.player, enemy);
 				}
 //				// System.out.println("Spawn enemy x=" + v2.x + " y=" + v2.y);
 				enemy.position = v2;
@@ -61,7 +61,7 @@ public class MisterSpawner {
 		return false;
 	}
 
-	public Vector2 calculateEnemiesPosition(Player player) {
+	public Vector2 calculateEnemiesPosition(Player player, Enemy enemy) {
 		Vector2 vector2 = new Vector2();
 		int spawnRegion = random.nextInt(3); // 0=north, 1=east, 2=south, 3=west
 		int minPosX;
@@ -94,14 +94,14 @@ public class MisterSpawner {
 			minPosX = (int) (player.position.x-SPAWN_RADIUS < MIN_SPAWN_POS ? MIN_SPAWN_POS : player.position.x-SPAWN_RADIUS);
 			maxPosX = (int) (player.position.x+SPAWN_RADIUS >= mapWith - MIN_SPAWN_POS ? mapWith - MIN_SPAWN_POS : player.position.x+SPAWN_RADIUS);
 			minPosY = (int) (player.position.y-SPAWN_RADIUS < MIN_SPAWN_POS ? MIN_SPAWN_POS : player.position.y-SPAWN_RADIUS);
-			maxPosY = (int) (player.getPosition().y - Constants.VIEWPORT_GUI_HEIGHT / 2);
+			maxPosY = (int) (player.getPosition().y - Constants.VIEWPORT_GUI_HEIGHT / 2 - enemy.sprite.getHeight());
 			 System.out.println("case 2 minX=" + minPosX + " maxX =" + maxPosX
 					+ " minY=" + minPosY + " maxY=" + maxPosY);
 			break;
 		}
 		default: {
 			minPosX = (int) (player.position.x-SPAWN_RADIUS < MIN_SPAWN_POS ? MIN_SPAWN_POS : player.position.x-SPAWN_RADIUS);
-			maxPosX = (int) (player.getPosition().x - Constants.VIEWPORT_GUI_HEIGHT / 2);
+			maxPosX = (int) (player.getPosition().x - Constants.VIEWPORT_GUI_HEIGHT / 2-enemy.sprite.getWidth());
 			minPosY = (int) (player.position.y+SPAWN_RADIUS >= mapWith - MIN_SPAWN_POS ? mapWith - MIN_SPAWN_POS : player.position.y+SPAWN_RADIUS);
 			maxPosY = (int) (/*mapHeight - player.getSprite().getHeight()*/(player.position.y+SPAWN_RADIUS >= mapWith - MIN_SPAWN_POS ? mapWith - MIN_SPAWN_POS : player.position.y+SPAWN_RADIUS));
 			 System.out.println("case 3 minX=" + minPosX + " maxX =" + maxPosX
