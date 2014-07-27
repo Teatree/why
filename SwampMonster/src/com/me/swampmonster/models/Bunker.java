@@ -34,14 +34,14 @@ public class Bunker extends AbstractGameObject{
 		
 		tLayer = (TiledMapTileLayer) map.getLayers().get("background");
 		
-		for(int x = 0; x < tLayer.getWidth(); x++){
-			for(int y = 0; y < tLayer.getHeight(); y++){
-				Cell cell = tLayer.getCell(x, y);
-				if(cell.getTile().getProperties().containsKey("animated") && cell.getTile().getProperties().get("animated", String.class).equals("console")){
-					cell.setTile(animatedTile);
-				}
-			}
-		}
+//		for(int x = 0; x < tLayer.getWidth(); x++){
+//			for(int y = 0; y < tLayer.getHeight(); y++){
+//				Cell cell = tLayer.getCell(x, y);
+//				if(cell.getTile().getProperties().containsKey("animated") && cell.getTile().getProperties().get("animated", String.class).equals("console")){
+//					cell.setTile(animatedTile);
+//				}
+//			}
+//		}
 	}
 
 	public TiledMap getMap() {

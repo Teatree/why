@@ -29,15 +29,15 @@ public class LGenerator {
 		
 		maps.put(0, "Map.tmx");
 		maps.put(1, "Map.tmx");
-		maps.put(2, "Map2.tmx");
-		maps.put(3, "Map2.tmx");
-		maps.put(4, "Map2.tmx");
+		maps.put(2, "Map.tmx");
+		maps.put(3, "Map.tmx");
+		maps.put(4, "Map.tmx");
 		
 		tileSets.put(0, "MarsDesertTileset");
 		tileSets.put(1, "MarsDesertTileset2");
-		tileSets.put(2, "MarsDesertTileset2");
-		tileSets.put(3, "MarsDesertTileset3");
-		tileSets.put(4, "MarsDesertTileset3");
+		tileSets.put(2, "MarsDesertTileset3");
+		tileSets.put(3, "MarsDesertTileset");
+		tileSets.put(4, "MarsDesertTileset2");
 	}
 	
 	public L1 createLevel(Player player){
@@ -58,7 +58,7 @@ public class LGenerator {
 		}
 			
 
-		L1 level = new L1(player, "MarsDesertTileset", map/*"data/Map2.tmx"*/);
+		L1 level = new L1(player, "MarsDesertTileset", "data/" + map/*"data/Map2.tmx"*/);
 		player.oxygen = Player.maxOxygen;
 		player.health = Player.playerMaxHealth;
 		player.characterStatsBoard();

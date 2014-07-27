@@ -403,22 +403,19 @@
    </properties>
   </tile>
  </tileset>
- <tileset firstgid="4097" name="MarsDesertTileset" tilewidth="16" tileheight="16" spacing="1">
-  <image source="MarsDesertTileset.png" width="512" height="512"/>
- </tileset>
  <layer name="background" width="68" height="74">
   <data encoding="base64" compression="zlib">
-   eJzt3LENAjEUREFLRBdTHf03QgVISLbXyzHBi72an/saY1ySFOr1/NzpbTt6/Ek8ePDgwYMHDx48eDTFgwcPHjx48ODBg0dTpzxa75Dc9e1bJ11+xSNlktoya5Ey4ZH3WGWRsLuzR5s1Dx48eDR5tLjPeKzcOrtj1U4ePHbvaLdIe8zYJCxOerTGgwcPHjx48ODBg0dTPHjw4MGDBw8ePHg0xYMHDx48sh6StKs7/6f0Blq8aaM=
+   eJzt0UEKwzAMRFFDV7n/hXuDEJA9Uton+GsPz9da65KkUHfXve1Enz+JBw8ePHjw4MGDB49J8eDBgwcPHjx48OAxqS6Pqf+Q3PX0rU6Xt3ikTFJbqhYpEx55j10WCbtf9phmzYMHDx6TPKa4Vzx2bq3u2LWTB4/TO6ZbpD0qNgmLTo+p8eDBgwcPHjx48OAxKR48ePDgwYMHDx48JsWDBw8ePLIeknSqu+veVu0LAhNjuw==
   </data>
  </layer>
  <layer name="foreground" width="68" height="74">
   <data encoding="base64" compression="zlib">
-   eJzt1kmqwkAYReGMbWsNNhDbNdhAbNdgs2nX480g4A9GDGiqkpwPzuQNNHWpJ4kiAAAAVFnLRVFbdVRX9VRfOef3s3yJ9awTNVUzNVcLtcw5Q3rmvHPXYY9Ez7pTe3VQR3VS55wzxB/OXXTbOkhy9kj/VnTbunh3R+IG75HdkdeaukUmdram75E4W5O3+IeBthuqkRqXvGOI7wkrffdabdS25OcI8T3hou++qpu6l/wcv/x/93nPQ+Tznofo23se4m+WTyH+ZvnEOwoAAAAAAAAAAACA0DxcseqOPSz2sNjDYg+LPSz2sNjDYg+LPSz2sNjDYg+LPSz2AAAAVfcELLXNYg==
+   eJztwQEBAAAAgJD+r+4ICgAAAAAAAAAAAAAAAAAAAAAAAABqTqAAAQ==
   </data>
  </layer>
  <layer name="fiveground" width="68" height="74">
   <data encoding="base64" compression="zlib">
-   eJzt2rkNwzAMAECN4GSEPHUyQp498uy/RFgFUBWosUDmDmBti6JJFm4NACCH3dLaPuIQcVxmv818l8jBNeIWcZeP9ogcPCNeEe8J+djEM7fu4esUuTgnykf1+xs9X7b7GzXzfNVrbVT1WgPIwnzqmU8AQAV2vJ4dDwBgHrtpz24KZDfS1/9hBoz0dTMgv+o17R+zXvXz8Vv1b36Ub2Jd6q+n/uC/6Yk9PREAAIC1fQDbcA5v
+   eJztwQEBAAAAgJD+r+4ICgAAAAAAAAAAAAAAAAAAAAAAAABqTqAAAQ==
   </data>
  </layer>
 </map>
