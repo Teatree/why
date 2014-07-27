@@ -1,12 +1,8 @@
 package com.me.swampmonster.game;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map.Entry;
-import java.util.Random;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -37,6 +33,7 @@ import com.me.swampmonster.screens.SlotMachineScreen;
 import com.me.swampmonster.screens.SwampScreen;
 import com.me.swampmonster.utils.Assets;
 import com.me.swampmonster.utils.CameraHelper;
+import com.me.swampmonster.utils.LGenerator;
 
 public class TheController extends InputAdapter {
 	public CameraHelper cameraHelper;
@@ -56,7 +53,7 @@ public class TheController extends InputAdapter {
 	public Vector3 V3playerPos;
 	public Vector3 V3enemyPos;
 	public Vector2 randVector2;
-	public static Random random;
+//	public static Random random;
 
 	public HashMap<Integer, Sprite> unlockNotifications;
 	public Sprite unlockNotificationSprite;
@@ -79,7 +76,9 @@ public class TheController extends InputAdapter {
 	public static Slot skill;
 	public static boolean germany;
 	public static boolean showFeedback;
-	String br;
+//	String br;
+	
+	private static LGenerator levelGenerator;
 
 	public TheController(Game game, Player player) {
 		init(player);
@@ -88,18 +87,20 @@ public class TheController extends InputAdapter {
 	// INIT METHOD!
 	public void init(Player player) {
 		Gdx.input.setInputProcessor(this);
-		random = new Random();
-		level1 = new L1(player, "MarsDesertTileset", "data/Map.tmx");
-		collisionLayer = (TiledMapTileLayer) level1.bunker.getMap().getLayers()
-				.get(0);
-		Vector2 v2 = new Vector2();
-		while (!isValidPosition(v2)) {
-			v2 = calculateRandomPlayerPos();
-			// System.out.println("v2.x = " + v2.x);
-			// System.out.println("v2.y = " + v2.y);
-		}
+//		random = new Random();
+		levelGenerator = new LGenerator();
+		level1 = levelGenerator.createLevel(player);
+//		level1 = new L1(player, "MarsDesertTileset", "data/Map.tmx");
+//		collisionLayer = (TiledMapTileLayer) level1.bunker.getMap().getLayers()
+//				.get(0);
+//		Vector2 v2 = new Vector2();
+//		while (!isValidPosition(v2)) {
+//			v2 = calculateRandomPlayerPos();
+//			// System.out.println("v2.x = " + v2.x);
+//			// System.out.println("v2.y = " + v2.y);
+//		}
 		cameraHelper = new CameraHelper();
-		player.setPosition(v2);
+//		player.setPosition(v2);
 		gui = new GUI(player);
 		gui.getCroshair().setPosition(new Vector2(330f, 100f));
 		explosion = new Explosion(player.position);
@@ -129,9 +130,6 @@ public class TheController extends InputAdapter {
 		pointRect = new Rectangle();
 		pointRect.width = 1;
 		pointRect.height = 1;
-		
-		br = null;
-		 
 	}
 
 	public void update(float deltaTime, Game game) {
@@ -182,21 +180,19 @@ public class TheController extends InputAdapter {
 			game.setScreen(sl);
 		} 
 		
-		String cr;	 
-		
-		br = Gdx.files.local("data\\Map.tmx").readString();
-		cr = "MarsDesertTileset.png";
-
-		if (br != null) {
-			if (br.contains(cr)){
-				System.out.println(cr);
-				br = br.replaceAll(cr, "MarsDesertTileset3.png");
-				System.out.println("new:    " + br);
-				Gdx.files.local("data\\Map.tmx").writeString(br, false);
-				br = Gdx.files.local("data\\Map.tmx").readString();
-			}
-		}
- 
+//		br = Gdx.files.local("data\\Map.tmx").readString();
+//		String cr = "MarsDesertTileset.png";
+//
+//		if (br != null) {
+//			if (br.contains(cr)){
+//				System.out.println(cr);
+//				br = br.replaceAll(cr, "MarsDesertTileset3.png");
+//				System.out.println("new:    " + br);
+//				Gdx.files.local("data\\Map.tmx").writeString(br, false);
+//				br = Gdx.files.local("data\\Map.tmx").readString();
+//			}
+//		}
+// 
 
 		// This bit is responsible for calculating where exactly the projective
 		// has to go when shot.
@@ -390,31 +386,24 @@ public class TheController extends InputAdapter {
 		return i - 1;
 	}
 
-	private static boolean isValidPosition(Vector2 v2) {
-		if (CollisionHelper.isCollidable(v2.x, v2.y, collisionLayer) == null) {
-			return true;
-		}
-		return false;
-	}
-
-	public static Vector2 calculateRandomPlayerPos() {
-//		System.err.println("89");
-		Vector2 vector2 = new Vector2();
-		int minPosX = 230;
-		int maxPosX = (int) (collisionLayer.getWidth() * 16
-				- level1.player.sprite.getWidth() - 200);
-		int minPosY = 230;
-		int maxPosY = (int) (collisionLayer.getHeight() * 16
-				- level1.player.sprite.getHeight() - 200);
-
-		vector2.x = random.nextInt(maxPosX - minPosX) + minPosX;
-		vector2.y = random.nextInt(maxPosY - minPosY) + minPosY;
-		while (vector2.x < 1f || vector2.y < 1f) {
-			vector2.x = random.nextInt(maxPosX - minPosX) + minPosX;
-			vector2.y = random.nextInt(maxPosY - minPosY) + minPosY;
-		}
-		return vector2;
-	}
+//	public static Vector2 calculateRandomPlayerPos() {
+////		System.err.println("89");
+//		Vector2 vector2 = new Vector2();
+//		int minPosX = 230;
+//		int maxPosX = (int) (collisionLayer.getWidth() * 16
+//				- level1.player.sprite.getWidth() - 200);
+//		int minPosY = 230;
+//		int maxPosY = (int) (collisionLayer.getHeight() * 16
+//				- level1.player.sprite.getHeight() - 200);
+//
+//		vector2.x = random.nextInt(maxPosX - minPosX) + minPosX;
+//		vector2.y = random.nextInt(maxPosY - minPosY) + minPosY;
+//		while (vector2.x < 1f || vector2.y < 1f) {
+//			vector2.x = random.nextInt(maxPosX - minPosX) + minPosX;
+//			vector2.y = random.nextInt(maxPosY - minPosY) + minPosY;
+//		}
+//		return vector2;
+//	}
 
 	// User log:
 	// v2 is the position at which the circle is situated
@@ -443,21 +432,22 @@ public class TheController extends InputAdapter {
 
 	public static void reloadLevel(Player player) {
 //		System.out.println("Yes it happened");
-		debugRect.x = player.position.x;
-		debugRect.y = player.position.y;
-		level1 = new L1(player, "MarsDesertTileset2", "data/Map2.tmx");
-//		player.oxygen = Player.maxOxygen;
-//		player.health = Player.playerMaxHealth;
-		player.characterStatsBoard();
-		collisionLayer = (TiledMapTileLayer) level1.bunker.getMap().getLayers()
-				.get(0);
-		Vector2 v2 = new Vector2();
-		while (!isValidPosition(v2)) {
-			v2 = calculateRandomPlayerPos();
-			// System.out.println("v2.x = " + v2.x);
-			// System.out.println("v2.y = " + v2.y);
-		}
-		player.setPosition(v2);
+//		debugRect.x = player.position.x;
+//		debugRect.y = player.position.y;
+//		level1 = new L1(player, "MarsDesertTileset2", "data/Map2.tmx");
+////		player.oxygen = Player.maxOxygen;
+////		player.health = Player.playerMaxHealth;
+//		player.characterStatsBoard();
+//		collisionLayer = (TiledMapTileLayer) level1.bunker.getMap().getLayers()
+//				.get(0);
+//		Vector2 v2 = new Vector2();
+//		while (!isValidPosition(v2)) {
+//			v2 = calculateRandomPlayerPos();
+//			// System.out.println("v2.x = " + v2.x);
+//			// System.out.println("v2.y = " + v2.y);
+//		}
+//		player.setPosition(v2);
+		level1 = levelGenerator.createLevel(player);
 	}
 
 	public Vector2 getPoint() {

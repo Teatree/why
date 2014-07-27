@@ -4,8 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.me.swampmonster.game.TheController;
 import com.me.swampmonster.models.Player;
 import com.me.swampmonster.models.slots.Arrows3;
 import com.me.swampmonster.models.slots.DamageTrap;

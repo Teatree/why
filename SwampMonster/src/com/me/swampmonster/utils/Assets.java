@@ -68,7 +68,7 @@ public class Assets {
 	public static final AssetDescriptor<Texture> slotMachineWindowYes = new AssetDescriptor<Texture>("data\\slotMachineUI\\slotMachineWindowYES.png", Texture.class);
 	public static final AssetDescriptor<Texture> slotMachineWindowNo = new AssetDescriptor<Texture>("data\\slotMachineUI\\slotMachineWindowNO.png", Texture.class);
 	public static final AssetDescriptor<Texture> leachProjectile = new AssetDescriptor<Texture>("data\\leechProjectile.png", Texture.class);
-	public static final AssetDescriptor<TiledMap> map = new AssetDescriptor<TiledMap>("data\\Map.tmx", TiledMap.class);
+//	public static final AssetDescriptor<TiledMap> map = new AssetDescriptor<TiledMap>("data\\Map.tmx", TiledMap.class);
 	public static final AssetDescriptor<BitmapFont> font = new AssetDescriptor<BitmapFont>("data\\font.fnt", BitmapFont.class);
 	public static final AssetDescriptor<Texture> explosiveTrap = new AssetDescriptor<Texture>("data\\explosiveTrap.png", Texture.class); 
 	
@@ -133,7 +133,7 @@ public class Assets {
 		manager.setLoader(BitmapFont.class, new BitmapFontLoader(new InternalFileHandleResolver()));
 		manager.load(font);
 		manager.setLoader(TiledMap.class, new TmxMapLoader());
-		manager.load(map);
+//		manager.load(map);
 	}
 
 	public static void dispose(){

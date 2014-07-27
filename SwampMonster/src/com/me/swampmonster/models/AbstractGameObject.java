@@ -5,7 +5,6 @@ import java.util.HashMap;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Rectangle;
@@ -118,12 +117,7 @@ public abstract class AbstractGameObject {
 		this.movementSpeed = playerMovementSpeedX;
 		STANDART_MOVEMENT_SPEED = movementSpeed;
 	}
-	public int getMaxHealth() {
-		return maxHealth;
-	}
-	public void setMaxHealth(int maxHealth) {
-		this.maxHealth = maxHealth;
-	}
+	
 	public boolean isDead() {
 		return dead;
 	}

@@ -403,8 +403,8 @@
    </properties>
   </tile>
  </tileset>
- <tileset firstgid="4997" name="MarsDesertTileset2" tilewidth="16" tileheight="16" spacing="1">
-  <image source="MarsDesertTileset2.png" width="512" height="512"/>
+ <tileset firstgid="4097" name="MarsDesertTileset" tilewidth="16" tileheight="16" spacing="1">
+  <image source="MarsDesertTileset.png" width="512" height="512"/>
  </tileset>
  <layer name="background" width="68" height="74">
   <data encoding="base64" compression="zlib">

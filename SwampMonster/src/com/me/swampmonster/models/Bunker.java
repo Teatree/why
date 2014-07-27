@@ -19,11 +19,10 @@ public class Bunker extends AbstractGameObject{
 	public AnimatedTiledMapTile animatedTile;
 	
 	public Bunker(String tileSet, String tileMap){
-		System.out.println("tileMap I should be using: " + tileMap);
 		map = new TmxMapLoader().load(tileMap);
 		
+		System.out.println("map = " + map );
 		Array<StaticTiledMapTile> frameTiles = new Array<StaticTiledMapTile>(14);
-		
 		Iterator<TiledMapTile> tiles = map.getTileSets().getTileSet(tileSet).iterator();
 		while(tiles.hasNext()){
 			TiledMapTile tile = tiles.next();
