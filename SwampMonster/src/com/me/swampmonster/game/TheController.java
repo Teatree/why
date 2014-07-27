@@ -110,6 +110,7 @@ public class TheController extends InputAdapter {
 		V3point = new Vector3();
 		V3playerPos = new Vector3();
 
+		//vqwe
 		unlockNotifications = new HashMap<Integer, Sprite>();
 		fillNotifications();
 
