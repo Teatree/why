@@ -13,7 +13,7 @@ import com.me.swampmonster.models.L1;
 import com.me.swampmonster.models.Player;
 
 public class LGenerator {
-	private static final String DEFAULT_TILESET = "MarsDesertTileset.png";
+	private static String DEFAULT_TILESET = "MarsDesertTileset.png";
 	private static final int PLAYER_SPRITE_HEIGHT = 64;
 	private static final int PLAYER_SPRITE_WIDTH = 32;
 	public static final int TILE_SIZE = 16;
@@ -29,15 +29,15 @@ public class LGenerator {
 		
 		maps.put(0, "Map.tmx");
 		maps.put(1, "Map.tmx");
-		maps.put(2, "Map.tmx");
-		maps.put(3, "Map.tmx");
-		maps.put(4, "Map.tmx");
+		maps.put(2, "Map2.tmx");
+		maps.put(3, "Map2.tmx");
+		maps.put(4, "Map2.tmx");
 		
 		tileSets.put(0, "MarsDesertTileset");
-		tileSets.put(1, "MarsDesertTileset2");
+		tileSets.put(1, "MarsDesertTileset3");
 		tileSets.put(2, "MarsDesertTileset3");
-		tileSets.put(3, "MarsDesertTileset");
-		tileSets.put(4, "MarsDesertTileset2");
+		tileSets.put(3, "MarsDesertTileset3");
+		tileSets.put(4, "MarsDesertTileset3");
 	}
 	
 	public L1 createLevel(Player player){
@@ -48,17 +48,18 @@ public class LGenerator {
 
 		if (br != null) {
 			if (br.contains(DEFAULT_TILESET)){
-				System.out.println(DEFAULT_TILESET);
+//				System.out.println(DEFAULT_TILESET);
 				br = br.replaceAll(DEFAULT_TILESET, tileSet + ".png");
-				System.out.println("new:    " + br);
 				Gdx.files.local("data\\" + map).writeString(br, false);
 				br = Gdx.files.local("data\\" + map).readString();
-				System.out.println(br);
+				System.err.println(br);
+				DEFAULT_TILESET = tileSet + ".png";
 			}
 		}
 			
 
-		L1 level = new L1(player, "MarsDesertTileset", "data/" + map/*"data/Map2.tmx"*/);
+		System.out.println("tileset" + tileSet + " || deftl = " + DEFAULT_TILESET);
+		L1 level = new L1(player, "MarsDesertTileset", "data/" + map);
 		player.oxygen = Player.maxOxygen;
 		player.health = Player.playerMaxHealth;
 		player.characterStatsBoard();

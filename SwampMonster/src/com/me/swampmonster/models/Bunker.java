@@ -7,6 +7,7 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
+import com.badlogic.gdx.maps.tiled.TiledMapTileSet;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.tiles.AnimatedTiledMapTile;
 import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
@@ -20,8 +21,6 @@ public class Bunker extends AbstractGameObject{
 	
 	public Bunker(String tileSet, String tileMap){
 		map = new TmxMapLoader().load(tileMap);
-		
-		System.out.println("map = " + map );
 		Array<StaticTiledMapTile> frameTiles = new Array<StaticTiledMapTile>(14);
 		Iterator<TiledMapTile> tiles = map.getTileSets().getTileSet(tileSet).iterator();
 		while(tiles.hasNext()){
