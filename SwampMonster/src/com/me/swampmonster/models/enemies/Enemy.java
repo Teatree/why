@@ -57,6 +57,8 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 	public Circle gReenAura;
 	public Circle oRangeAura;
 	public Circle yellowAura;
+	public Circle aimingAura;
+	public Rectangle aimerBot;
 
 	public Node[] path;
 
@@ -72,6 +74,15 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 		oRangeAura.radius = 16;
 		yellowAura = new Circle();
 		yellowAura.radius = 8;
+		aimingAura = new Circle();
+		aimingAura.radius = 140;
+		aimingAura.x = position.x;
+		aimingAura.y = position.y;
+		aimerBot = new Rectangle();
+		aimerBot.x = position.x;
+		aimerBot.y = position.y;
+		aimerBot.width = 10;
+		aimerBot.height = 10;
 		state = State.STANDARD;
 		animationsStandard.put(State.PURSUIT, new AnimationControl(
 				Assets.manager.get(Assets.enemy), 8, 16, 8));
@@ -120,6 +131,8 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 
 		gReenAura.x = position.x;
 		gReenAura.y = position.y;
+		aimingAura.x = position.x + sprite.getWidth() / 2;
+		aimingAura.y = position.y + sprite.getHeight() / 2;
 		oRangeAura.x = position.x + sprite.getWidth() / 2;
 		oRangeAura.y = position.y + sprite.getHeight() / 2;
 		yellowAura.x = position.x + sprite.getWidth() / 2;
@@ -263,25 +276,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 					timer2 = 0;
 				}
 
-				if (yellowAura.overlaps(player.circle)
-						&& player.state != State.DEAD) {
-					attackSequenceStarted = true;
-				}
-
-				if (attackSequenceStarted) {
-					if (playerMovementDirection == "right") {
-						inflictOnThe(88, 56, player, cameraHelper, attackSpeed);
-					}
-					if (playerMovementDirection == "left") {
-						inflictOnThe(72, 40, player, cameraHelper, attackSpeed);
-					}
-					if (playerMovementDirection == "up") {
-						inflictOnThe(80, 48, player, cameraHelper, attackSpeed);
-					}
-					if (playerMovementDirection == "down") {
-						inflictOnThe(64, 32, player, cameraHelper, attackSpeed);
-					}
-				}
+				atackLogic(player, cameraHelper);
 			}
 		}
 		// ANIMATING
@@ -376,6 +371,27 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 			}
 		}
 		
+	}
+
+	public void atackLogic(Player player, CameraHelper cameraHelper) {
+		if (yellowAura.overlaps(player.circle) && player.state != State.DEAD) {
+			attackSequenceStarted = true;
+		}
+
+		if (attackSequenceStarted) {
+			if (playerMovementDirection == "right") {
+				inflictOnThe(88, 56, player, cameraHelper, attackSpeed);
+			}
+			if (playerMovementDirection == "left") {
+				inflictOnThe(72, 40, player, cameraHelper, attackSpeed);
+			}
+			if (playerMovementDirection == "up") {
+				inflictOnThe(80, 48, player, cameraHelper, attackSpeed);
+			}
+			if (playerMovementDirection == "down") {
+				inflictOnThe(64, 32, player, cameraHelper, attackSpeed);
+			}
+		}
 	}
 
 	private String getProjectileLocationRelativeToSprite(

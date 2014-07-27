@@ -278,16 +278,17 @@ public class L1Renderer {
 		
 		// Temporary deBug feature
 		sr.begin(ShapeType.Line);
-//		for (Enemy enemy : L1.enemiesOnStage){
+		for (Enemy enemy : L1.enemiesOnStage){
 //			sr.setColor(Color.GREEN);
 //			sr.circle(enemy.getgReenAura().x, enemy.getgReenAura().y, enemy.getgReenAura().radius);
 //			sr.setColor(Color.BLUE);
 //			sr.circle(enemy.getoRangeAura().x, enemy.getoRangeAura().y, enemy.getoRangeAura().radius);
 //			sr.setColor(Color.YELLOW);
 //			sr.circle(enemy.yellowAura.x, enemy.yellowAura.y, enemy.yellowAura.radius);
-//			sr.setColor(Color.BLACK);
+			sr.setColor(Color.BLACK);
 //			sr.circle(theController.explosion.position.x, theController.explosion.position.y, theController.explosion.explCircle.radius);
-//		}	
+			sr.circle(enemy.aimingAura.x, enemy.aimingAura.y, enemy.aimingAura.radius);
+		}	
 		sr.setColor(Color.CYAN);
 		for (Explosion e : L1.explosions){
 			sr.circle(e.position.x, e.position.y, e.explCircle.radius);
@@ -304,8 +305,7 @@ public class L1Renderer {
 				TheController.level1.player.rectanlge.width, TheController.level1.player.rectanlge.height);
 //		sr.circle(TheController.level1.player.invalidSpawnArea.x, TheController.level1.player.invalidSpawnArea.y, TheController.level1.player.invalidSpawnArea.radius);
 		for(Enemy enemy: L1.enemiesOnStage){
-			sr.rect(enemy.rectanlge.x, enemy.rectanlge.y,
-					enemy.rectanlge.width, enemy.rectanlge.height);
+			sr.rect(enemy.rectanlge.x, enemy.rectanlge.y, enemy.rectanlge.width, enemy.rectanlge.height);
 		}
 		sr.setColor(Color.WHITE);
 		if(TheController.level1.player.state == State.GUNMOVEMENT){
