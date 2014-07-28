@@ -33,11 +33,11 @@ public class LGenerator {
 		maps.put(3, "Map2.tmx");
 		maps.put(4, "Map.tmx");
 
-		tileSets.put(0, "MarsDesertTileset3");
-		tileSets.put(1, "MarsDesertTileset2");
-		tileSets.put(2, "MarsDesertTileset");
-		tileSets.put(3, "MarsDesertTileset2");
-		tileSets.put(4, "MarsDesertTileset3");
+		tileSets.put(0, "tileSet_SAND_WORLD");
+		tileSets.put(1, "tileSet_SAND_WORLD");
+		tileSets.put(2, "tileSet_SAND_WORLD");
+		tileSets.put(3, "tileSet_SAND_WORLD");
+		tileSets.put(4, "tileSet_SAND_WORLD");
 	}
 
 	public L1 createLevel(Player player) {
@@ -52,7 +52,7 @@ public class LGenerator {
 		boolean isLevelElite = random.nextBoolean();
 		boolean hasLevelAtmosphere = random.nextBoolean();
 		
-		L1 level = new L1(player, "MarsDesertTileset", "data/" + map, hasLevelAtmosphere, isLevelElite);
+		L1 level = new L1(player, "tileSet_SAND_WORLD", "data/" + map, hasLevelAtmosphere, isLevelElite);
 		player.oxygen = Player.maxOxygen;
 		player.health = Player.playerMaxHealth;
 		player.characterStatsBoard();

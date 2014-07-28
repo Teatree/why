@@ -35,6 +35,7 @@ public class Assets {
 	public static final AssetDescriptor<Texture> items = new AssetDescriptor<Texture>("data\\Items.png", Texture.class);
 	public static final AssetDescriptor<Texture> weaponizerButton = new AssetDescriptor<Texture>("data\\Weaponizer.png", Texture.class);
 	public static final AssetDescriptor<Texture> tiles = new AssetDescriptor<Texture>("data\\Tiles.png", Texture.class);
+	public static final AssetDescriptor<Texture> tileSet_SAND_WORLD = new AssetDescriptor<Texture>("data\\tileSet_SAND_WORLD.png", Texture.class);
 	public static final AssetDescriptor<Texture> slotMachineCase = new AssetDescriptor<Texture>("data\\slotMachineUI\\slotMachineCase.png", Texture.class);
 	public static final AssetDescriptor<Texture> FADE_ICON = new AssetDescriptor<Texture>("data\\slotIcons\\shield.png", Texture.class);
 	public static final AssetDescriptor<Texture> RADIOACTIVE_AURA_ICON = new AssetDescriptor<Texture>("data\\slotIcons\\RADIOACTIVE_AURA_ICON.png", Texture.class);
@@ -94,6 +95,7 @@ public class Assets {
 		manager.load(items);
 		manager.load(weaponizerButton);
 		manager.load(tiles);
+		manager.load(tileSet_SAND_WORLD);
 		manager.load(slotMachineCase);
 		manager.load(FADE_ICON);
 		manager.load(RADIOACTIVE_AURA_ICON);
