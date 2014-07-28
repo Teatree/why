@@ -3,6 +3,7 @@ package com.me.swampmonster.models.enemies;
 import java.util.List;
 import java.util.Random;
 
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Vector2;
@@ -18,6 +19,7 @@ public class EnemyMaggot extends Enemy {
 	
 	private int randomChargeCounter;
 	private int counter;
+	private int chargeCoutner;
 	private Random rand;
 	
 	public EnemyMaggot(Vector2 position) {
@@ -26,10 +28,11 @@ public class EnemyMaggot extends Enemy {
 		rand = new Random();
 		randomChargeCounter = 600;
 		counter = 0;
+		charging = false;
 		
-		animationsStandard.put(State.STANDARD, new AnimationControl(Assets.manager.get(Assets.enemyMaggot), 8, 16, 7)); 
-		animationsStandard.put(State.PURSUIT, new AnimationControl(Assets.manager.get(Assets.enemyMaggot), 8, 16, 7)); 
-		animationsStandard.put(State.DEAD, new AnimationControl(Assets.manager.get(Assets.enemyMaggot), 8, 16, 4)); 
+		animationsStandard.put(State.STANDARD, new AnimationControl(Assets.manager.get(Assets.enemyMaggot), 8, 32, 7)); 
+		animationsStandard.put(State.PURSUIT, new AnimationControl(Assets.manager.get(Assets.enemyMaggot), 8, 32, 7)); 
+		animationsStandard.put(State.DEAD, new AnimationControl(Assets.manager.get(Assets.enemyMaggot), 8, 32, 4)); 
 		sprite = new Sprite(animationsStandard.get(state).getCurrentFrame());
 		movementSpeed = 0.6f;
 		health = 1;
@@ -68,10 +71,18 @@ public class EnemyMaggot extends Enemy {
 			}
 			
 			if (aimerBot.overlaps(player.rectanlge)){
+				charging = true;
+				chargeCoutner = 200;
 				counter = 0;
+				
 			}
 		}else if(counter==0){
 			aiming = false;
+		}
+		
+		if (chargeCoutner > 0){
+			chargeCoutner--;
+			currentFrame = animationsStandard.get(state).doComplexAnimation(118, 2f,0.03f, Animation.NORMAL);
 		}
 	}
 	

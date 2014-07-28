@@ -35,6 +35,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 
 	public int cunter;
 	public boolean aiming;
+	public boolean charging;
 	int timer;
 	public int time;
 	int timeDead = 0;
