@@ -13,70 +13,62 @@ import com.me.swampmonster.models.L1;
 import com.me.swampmonster.models.Player;
 
 public class LGenerator {
-	private static String DEFAULT_TILESET = "MarsDesertTileset.png";
+	private static String DEFAULT_TILESET = "MarsDesertTileset\\d*.png";
 	private static final int PLAYER_SPRITE_HEIGHT = 64;
 	private static final int PLAYER_SPRITE_WIDTH = 32;
 	public static final int TILE_SIZE = 16;
-	
-	Map <Integer, String> maps;
-	Map <Integer, String> tileSets;
+
+	Map<Integer, String> maps;
+	Map<Integer, String> tileSets;
 	private Random random;
 
-	public LGenerator (){
+	public LGenerator() {
 		maps = new HashMap<Integer, String>();
-		tileSets = new HashMap <Integer, String>();
+		tileSets = new HashMap<Integer, String>();
 		random = new Random();
-		
+
 		maps.put(0, "Map.tmx");
 		maps.put(1, "Map.tmx");
-		maps.put(2, "Map2.tmx");
-		maps.put(3, "Map2.tmx");
-		maps.put(4, "Map2.tmx");
-		
-		tileSets.put(0, "MarsDesertTileset");
-		tileSets.put(1, "MarsDesertTileset3");
-		tileSets.put(2, "MarsDesertTileset3");
-		tileSets.put(3, "MarsDesertTileset3");
+		maps.put(2, "Map.tmx");
+		maps.put(3, "Map.tmx");
+		maps.put(4, "Map.tmx");
+
+		tileSets.put(0, "MarsDesertTileset3");
+		tileSets.put(1, "MarsDesertTileset2");
+		tileSets.put(2, "MarsDesertTileset");
+		tileSets.put(3, "MarsDesertTileset2");
 		tileSets.put(4, "MarsDesertTileset3");
 	}
-	
-	public L1 createLevel(Player player){
-		String map = maps.get(random.nextInt(maps.size()-1));
+
+	public L1 createLevel(Player player) {
+		String map = maps.get(random.nextInt(maps.size() - 1));
 		String tileSet = tileSets.get(random.nextInt(tileSets.size()));
+		System.out.println(tileSet);
+		String br = Gdx.files.local("data\\" + map).readString();
+		br = br.replaceAll(DEFAULT_TILESET, tileSet + ".png");
+		Gdx.files.local("data\\" + map).writeString(br, false);
+		br = Gdx.files.local("data\\" + map).readString();
 		
-		String br = Gdx.files.local("data\\"  + map).readString();
-
-		if (br != null) {
-			if (br.contains(DEFAULT_TILESET)){
-//				System.out.println(DEFAULT_TILESET);
-				br = br.replaceAll(DEFAULT_TILESET, tileSet + ".png");
-				Gdx.files.local("data\\" + map).writeString(br, false);
-				br = Gdx.files.local("data\\" + map).readString();
-				System.err.println(br);
-				DEFAULT_TILESET = tileSet + ".png";
-			}
-		}
-			
-
-		System.out.println("tileset" + tileSet + " || deftl = " + DEFAULT_TILESET);
-		L1 level = new L1(player, "MarsDesertTileset", "data/" + map);
+		boolean isLevelElite = random.nextBoolean();
+		boolean hasLevelAtmosphere = random.nextBoolean();
+		
+		L1 level = new L1(player, "MarsDesertTileset", "data/" + map, hasLevelAtmosphere, isLevelElite);
 		player.oxygen = Player.maxOxygen;
 		player.health = Player.playerMaxHealth;
 		player.characterStatsBoard();
-		TheController.collisionLayer = (TiledMapTileLayer) level.bunker.getMap().getLayers()
-				.get(0);
+		TheController.collisionLayer = (TiledMapTileLayer) level.bunker
+				.getMap().getLayers().get(0);
 		Vector2 v2 = new Vector2();
 		while (!isValidPosition(v2)) {
 			v2 = calculateRandomPlayerPos();
-			// System.out.println("v2.x = " + v2.x);
-			// System.out.println("v2.y = " + v2.y);
 		}
 		player.setPosition(v2);
 		return level;
 	}
-	
+
 	private boolean isValidPosition(Vector2 v2) {
-		if (CollisionHelper.isCollidable(v2.x, v2.y, TheController.collisionLayer) == null) {
+		if (CollisionHelper.isCollidable(v2.x, v2.y,
+				TheController.collisionLayer) == null) {
 			return true;
 		}
 		return false;
@@ -85,11 +77,11 @@ public class LGenerator {
 	public Vector2 calculateRandomPlayerPos() {
 		Vector2 vector2 = new Vector2();
 		int minPosX = 230;
-		int maxPosX = (int) (TheController.collisionLayer.getWidth() * TILE_SIZE
-				- PLAYER_SPRITE_WIDTH - 200);
+		int maxPosX = (int) (TheController.collisionLayer.getWidth()
+				* TILE_SIZE - PLAYER_SPRITE_WIDTH - 200);
 		int minPosY = 230;
-		int maxPosY = (int) (TheController.collisionLayer.getHeight() * TILE_SIZE
-				- PLAYER_SPRITE_HEIGHT - 200);
+		int maxPosY = (int) (TheController.collisionLayer.getHeight()
+				* TILE_SIZE - PLAYER_SPRITE_HEIGHT - 200);
 
 		vector2.x = random.nextInt(maxPosX - minPosX) + minPosX;
 		vector2.y = random.nextInt(maxPosY - minPosY) + minPosY;

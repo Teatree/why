@@ -882,8 +882,8 @@ public class Player extends AbstractGameObject {
 	}
 
 	public void decreaseOxygen() {
-		if (oxygen >= 0) {
-			oxygen-=0.2f;
+		if (oxygen >= 0 && !L1.hasAtmosphere) {
+			oxygen-=0.8f;
 		}
 	}
 

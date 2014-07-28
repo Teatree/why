@@ -13,7 +13,9 @@ public class WaveGenerator {
 	
 	private enum WaveParams{
 		
-		p0_500(1, 2, 1, 5, 40, 42, 5, 7, 38, 40, 3.0f, 150, 3, 4),
+		p0_500(1, 3, 1, 5, 40, 42, 5, 7, 38, 40, 3.0f, 150, 3, 4),
+		p0_500_Elite(1, 2, 1, 5, 40, 42, 5, 7, 38, 40, 3.0f, 150, 3, 4),
+		p0_500_A(1, 4, 1, 5, 40, 42, 5, 7, 38, 40, 3.0f, 150, 3, 4),
 		p500_1000(1, 3, 0, 7, 5, 14, 6, 8, 9, 11, 2.5f, 100, 6, 8),
 		p1000_2000(0, 3, 0, 5, 14, 16, 6, 8, 10, 12, 2.0f, 150, 5, 6),
 		p2000_4000(0, 4, 0, 5, 10, 12, 6, 9, 8, 10, 1.0f, 100, 5, 7);
@@ -56,15 +58,15 @@ public class WaveGenerator {
 		}
 	}
 
-	public int getWavesAmount(int playersScore){
-		setWaveParams(playersScore);	
+	public int getWavesAmount(int playersScore, boolean hasAtmosphere, boolean isElite){
+		setWaveParams(playersScore, hasAtmosphere, isElite);	
 		return random.nextInt(waveParams.waveLimitMax - waveParams.waveLimitMin) + waveParams.waveLimitMin;
 	}
 	
-	public Wave generateWave(int playersScore){
+	public Wave generateWave(int playersScore, boolean hasAtmosphere, boolean isElite){
 		Wave wave = new Wave();
 		
-		setWaveParams(playersScore);	
+		setWaveParams(playersScore, hasAtmosphere, isElite);	
 		
 		wave.enemies = new Stack<Enemy>();
 		wave.pendingPeriod = waveParams.pendingPeriod;
@@ -94,18 +96,36 @@ public class WaveGenerator {
 	
 	
 
-	private void setWaveParams(int playersScore) {
+	private void setWaveParams(int playersScore, boolean hasAtmosphere, boolean isElite) {
 		if(playersScore>=0 && playersScore<100){
-			waveParams = WaveParams.p0_500;
+			if (hasAtmosphere){
+				waveParams = WaveParams.p0_500_A;
+			} else if (isElite){
+				waveParams = WaveParams.p0_500_Elite;
+			} else {
+				waveParams = WaveParams.p0_500;
+			}
 		}
-		else if(playersScore>100 && playersScore<1000){
-			waveParams = WaveParams.p500_1000;
+		if(playersScore>100 && playersScore<1000 && !hasAtmosphere && !isElite){
+			if (hasAtmosphere){
+				waveParams = WaveParams.p0_500_A;
+			} else if (isElite){
+				waveParams = WaveParams.p0_500_Elite;
+			} else {
+				waveParams = WaveParams.p500_1000;
+			}
 		}
-		else if(playersScore>1000 && playersScore<2000){
+		if(playersScore>1000 && playersScore<2000 && !hasAtmosphere && !isElite){
 			waveParams = WaveParams.p1000_2000;
 		}
-		else if(playersScore>2000){
-			waveParams = WaveParams.p2000_4000;
+		if(playersScore>2000 && !hasAtmosphere && !isElite){
+			if (hasAtmosphere){
+				waveParams = WaveParams.p0_500_A;
+			} else if (isElite){
+				waveParams = WaveParams.p0_500_Elite;
+			} else {
+				waveParams = WaveParams.p2000_4000;
+			}
 		}
 	}
 	

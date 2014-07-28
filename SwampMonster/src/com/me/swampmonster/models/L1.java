@@ -43,16 +43,21 @@ public class L1 {
 	
 	public static List<Explosion> explosions;
 
-	public L1(Player player, String tileSet, String tileMap) {
-		create(player, tileSet, tileMap);
+	public boolean isElite;
+	public static boolean hasAtmosphere;
+	
+	public L1(Player player, String tileSet, String tileMap, boolean hasAtmosphere, boolean isElite) {
+		create(player, tileSet, tileMap, hasAtmosphere, isElite);
 	}
 
-	public void create(Player player, String tileSet, String tileMap) {
+	public void create(Player player, String tileSet, String tileMap, boolean hasAtmosphere, boolean isElite) {
 		this.player = player;
 		this.player.position = new Vector2();
-		wavesAmount = waveGenerator.getWavesAmount(Player.score);
+		this.isElite = isElite;
+		L1.hasAtmosphere = hasAtmosphere;
+		wavesAmount = waveGenerator.getWavesAmount(Player.score, hasAtmosphere, isElite);
 		currentWave = 1;
-		wave = waveGenerator.generateWave(Player.score);
+		wave = waveGenerator.generateWave(Player.score, hasAtmosphere, isElite);
 		enemiesOnStage = new Stack<Enemy>();
 		bunker = new Bunker(tileSet, tileMap);
 		items = new LinkedList<Item>();
@@ -96,7 +101,7 @@ public class L1 {
 		
 		if (waveTemp == null && needTogenerateNewWave) {
 			needTogenerateNewWave = false;
-			waveTemp = waveGenerator.generateWave(Player.score);
+			waveTemp = waveGenerator.generateWave(Player.score, hasAtmosphere, isElite);
 		}
 
 		if (enemiesOnStage.empty() && waveTemp != null
