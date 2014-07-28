@@ -7,14 +7,15 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Vector2;
 import com.me.swampmonster.animations.AnimationControl;
+import com.me.swampmonster.game.collision.Collidable;
+import com.me.swampmonster.game.collision.CollisionHelper;
 import com.me.swampmonster.models.Player;
 import com.me.swampmonster.models.AbstractGameObject.State;
 import com.me.swampmonster.utils.Assets;
 import com.me.swampmonster.utils.CameraHelper;
 
 public class EnemyMaggot extends Enemy {
-
-	private boolean aiming;
+	
 	private int randomChargeCounter;
 	private int counter;
 	private Random rand;
@@ -22,7 +23,8 @@ public class EnemyMaggot extends Enemy {
 	public EnemyMaggot(Vector2 position) {
 		super(position);
 		
-		randomChargeCounter = 2;
+		rand = new Random();
+		randomChargeCounter = 600;
 		counter = 0;
 		
 		animationsStandard.put(State.STANDARD, new AnimationControl(Assets.manager.get(Assets.enemyMaggot), 8, 16, 7)); 
@@ -38,20 +40,38 @@ public class EnemyMaggot extends Enemy {
 	
 	public void update(TiledMapTileLayer collisionLayer, Player player, CameraHelper cameraHelper, List<Enemy> enemies) {
 		super.update(collisionLayer, player, cameraHelper, enemies);
+		if(!aiming){
+			aimerBot.x = position.x;
+			aimerBot.y = position.y;
+		}
 		
-		if(aiming){
-//			counter++;
-			if (position.x > player.getPosition().x - 4
-					|| position.x < player.getPosition().x - 10
-					|| position.y > player.getPosition().y - 4
-					|| position.y < player.getPosition().y - 10) {
-				if (collidableLeft == null || collidableRight == null) {
-					position.x += enemyDx * 5;
+		if(counter > 0){
+			aiming = true;
+			counter--;
+			if (aimerBot.x > player.getPosition().x - 4
+					|| aimerBot.x < player.getPosition().x - 10
+					|| aimerBot.y > player.getPosition().y - 4
+					|| aimerBot.y < player.getPosition().y - 10) {
+				Collidable collidable = CollisionHelper.isCollidable(aimerBot.x+5, aimerBot.y+5, collisionLayer);
+				if (collidable == null){
+					aimerBot.x += enemyDx * 5;
 				}
-				if (collidableUp == null || collidableDown == null) {
-					position.y += enemyDy * 5;
+				if (collidable == null){
+					aimerBot.y += enemyDy * 5;
+				}
+				if (collidable != null){
+					System.out.println("can't charge there!");
+					aimerBot.x = position.x;
+					aimerBot.y = position.y;
+					aiming = false;
 				}
 			}
+			
+			if (aimerBot.overlaps(player.rectanlge)){
+				counter = 0;
+			}
+		}else if(counter==0){
+			aiming = false;
 		}
 	}
 	
@@ -61,9 +81,10 @@ public class EnemyMaggot extends Enemy {
 		}
 		
 		if (aimingAura.overlaps(player.circle) && !attackSequenceStarted && player.state != State.DEAD) {
-//			if (rand.nextInt(randomChargeCounter) == randomChargeCounter) {
-//				aiming = true;
-//			}
+			if (rand.nextInt(randomChargeCounter) == randomChargeCounter-1) {
+				aiming = true;
+				counter = 200;
+			}
 		}
 		
 		if (attackSequenceStarted) {

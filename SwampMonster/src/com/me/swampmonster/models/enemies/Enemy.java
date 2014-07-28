@@ -34,6 +34,7 @@ import com.badlogic.gdx.math.Intersector;
 public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 
 	public int cunter;
+	public boolean aiming;
 	int timer;
 	public int time;
 	int timeDead = 0;
@@ -241,7 +242,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 		}
 
 		// THIS IS STANDARD!
-		if (state.equals(State.STANDARD)) {
+		if (state.equals(State.STANDARD) && !aiming) {
 			sprite.setRegion(animations.get(state).getCurrentFrame());
 			if (!hurt) {
 				if (timer == 0 && timer2 == 0
@@ -570,14 +571,11 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 
 	public Collidable collisionCheckerLeft(TiledMapTileLayer collisionLayer,
 			List<Enemy> enemies) {
-		Collidable collidable = CollisionHelper.isCollidable(position.x,
-				position.y + (sprite.getHeight() / 2) - 1, collisionLayer);
+		Collidable collidable = CollisionHelper.isCollidable(position.x, position.y + (sprite.getHeight() / 2) - 1, collisionLayer);
 		if (collidable == null)
-			collidable = CollisionHelper.isCollidable(position.x, position.y,
-					collisionLayer);
+			collidable = CollisionHelper.isCollidable(position.x, position.y,collisionLayer);
 		if (collidable == null)
-			collidable = CollisionHelper.isCollidable(position.x, position.y
-					+ (sprite.getHeight() / 4), collisionLayer);
+			collidable = CollisionHelper.isCollidable(position.x, position.y + (sprite.getHeight() / 4), collisionLayer);
 		// if(collidable == null)collidable =
 		// CollisionHelper.isCollidableEnemy(this, enemies);
 		return collidable;

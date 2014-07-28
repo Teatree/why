@@ -301,7 +301,7 @@ public class L1Renderer {
 		}
 		
 		sr.rect(theController.point.x, theController.point.y, 32, 32);
-		sr.rect(TheController.level1.player.getPosition().x, TheController.level1.player.getPosition().y,
+		sr.rect(TheController.level1.player.rectanlge.x, TheController.level1.player.rectanlge.y,
 				TheController.level1.player.rectanlge.width, TheController.level1.player.rectanlge.height);
 //		sr.circle(TheController.level1.player.invalidSpawnArea.x, TheController.level1.player.invalidSpawnArea.y, TheController.level1.player.invalidSpawnArea.radius);
 		for(Enemy enemy: L1.enemiesOnStage){
@@ -324,7 +324,8 @@ public class L1Renderer {
 		Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
 		sr.begin(ShapeType.Filled);
 		sr.setColor(Color.RED);
-		for (Enemy enemy : L1.enemiesOnStage)
+		for (Enemy enemy : L1.enemiesOnStage){
+			sr.rect(enemy.aimerBot.x, enemy.aimerBot.y, enemy.aimerBot.width, enemy.aimerBot.height);
 			if(enemy.getPath() != null){
 				for(Node n : enemy.getPath()){
 					if(n != null){
@@ -332,6 +333,7 @@ public class L1Renderer {
 					}
 				}
 			}
+		}
 		sr.setColor(Color.BLACK);
 		sr.rect(theController.pointRectV3.x, theController.pointRectV3.y, 1, 1);
 		if (TheController.level1.player.radioactiveAura != null) {

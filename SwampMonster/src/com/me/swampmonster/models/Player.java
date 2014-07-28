@@ -179,8 +179,8 @@ public class Player extends AbstractGameObject {
 		sprite.setX(position.x);
 		sprite.setY(position.y);
 
-		rectanlge.x = sprite.getX();
-		rectanlge.y = sprite.getY();
+		rectanlge.x = position.x;
+		rectanlge.y = position.y;
 		rectanlge.width = sprite.getWidth();
 		rectanlge.height = sprite.getHeight();
 
