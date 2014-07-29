@@ -13,7 +13,7 @@ import com.me.swampmonster.models.L1;
 import com.me.swampmonster.models.Player;
 
 public class LGenerator {
-	private static String DEFAULT_TILESET = "MarsDesertTileset\\d*.png";
+	private static String DEFAULT_TILESET = "tileSet_SAND_WORLD\\d*.png";
 	private static final int PLAYER_SPRITE_HEIGHT = 64;
 	private static final int PLAYER_SPRITE_WIDTH = 32;
 	public static final int TILE_SIZE = 16;
@@ -34,9 +34,9 @@ public class LGenerator {
 		maps.put(4, "Map.tmx");
 
 		tileSets.put(0, "tileSet_SAND_WORLD");
-		tileSets.put(1, "tileSet_SAND_WORLD");
-		tileSets.put(2, "tileSet_SAND_WORLD");
-		tileSets.put(3, "tileSet_SAND_WORLD");
+		tileSets.put(1, "tileSet_SAND_WORLD2");
+		tileSets.put(2, "tileSet_SAND_WORLD3");
+		tileSets.put(3, "tileSet_SAND_WORLD4");
 		tileSets.put(4, "tileSet_SAND_WORLD");
 	}
 

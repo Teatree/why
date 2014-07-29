@@ -35,6 +35,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 
 	public int cunter;
 	public boolean aiming;
+	public boolean preparingToCharge;
 	public boolean charging;
 	int timer;
 	public int time;
@@ -255,9 +256,11 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 					collidableDown = null;
 					collidableUp = null;
 
-					move(player, collidableLeft, collidableRight,
-							collidableDown, collidableUp, enemyDx, enemyDy,
-							movementSpeed, enemies);
+					if(!preparingToCharge && !charging){
+						move(player, collidableLeft, collidableRight,
+								collidableDown, collidableUp, enemyDx, enemyDy,
+								movementSpeed, enemies);
+					}
 					collidableLeft = collisionCheckerLeft(collisionLayer,
 							enemies);
 					collisionCheck(collidableLeft, collisionLayer, player);
@@ -271,14 +274,16 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 					collisionCheck(collidableUp, collisionLayer, player);
 				}
 
-				if (oldPos.x != position.x || oldPos.y != position.y
-						&& timer > 0 && timer2 > 0) {
-					// // System.out.println("yes!1");
-					timer = 0;
-					timer2 = 0;
+				if(!preparingToCharge){
+					if (oldPos.x != position.x || oldPos.y != position.y
+							&& timer > 0 && timer2 > 0) {
+						// // System.out.println("yes!1");
+						timer = 0;
+						timer2 = 0;
+					}
+	
+					atackLogic(player, cameraHelper);
 				}
-
-				atackLogic(player, cameraHelper);
 			}
 		}
 		// ANIMATING

@@ -3,6 +3,7 @@ package com.me.swampmonster.models.enemies;
 import java.util.List;
 import java.util.Random;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
@@ -22,13 +23,16 @@ public class EnemyMaggot extends Enemy {
 	private int chargeCoutner;
 	private Random rand;
 	
+	private float savedPlayerPosX;
+	private float savedPlayerPosY;
+	
 	public EnemyMaggot(Vector2 position) {
 		super(position);
 		
 		rand = new Random();
-		randomChargeCounter = 600;
+		randomChargeCounter = 100;
 		counter = 0;
-		charging = false;
+		preparingToCharge = false;
 		
 		animationsStandard.put(State.STANDARD, new AnimationControl(Assets.manager.get(Assets.enemyMaggot), 8, 32, 7)); 
 		animationsStandard.put(State.PURSUIT, new AnimationControl(Assets.manager.get(Assets.enemyMaggot), 8, 32, 7)); 
@@ -43,7 +47,7 @@ public class EnemyMaggot extends Enemy {
 	
 	public void update(TiledMapTileLayer collisionLayer, Player player, CameraHelper cameraHelper, List<Enemy> enemies) {
 		super.update(collisionLayer, player, cameraHelper, enemies);
-		if(!aiming){
+		if(!aiming && !preparingToCharge){
 			aimerBot.x = position.x;
 			aimerBot.y = position.y;
 		}
@@ -71,18 +75,65 @@ public class EnemyMaggot extends Enemy {
 			}
 			
 			if (aimerBot.overlaps(player.rectanlge)){
-				charging = true;
-				chargeCoutner = 200;
+				chargeCoutner = 60;
 				counter = 0;
-				
+				aiming = false;
+				aimerBot.x = position.x;
+				aimerBot.y = position.y;
 			}
 		}else if(counter==0){
 			aiming = false;
 		}
 		
 		if (chargeCoutner > 0){
+			preparingToCharge = true;
 			chargeCoutner--;
-			currentFrame = animationsStandard.get(state).doComplexAnimation(118, 2f,0.03f, Animation.NORMAL);
+			currentFrame = animationsStandard.get(state).doComplexAnimation(118, 1.8f,Gdx.graphics.getDeltaTime(), Animation.NORMAL);
+			
+			if (aimerBot.x > player.getPosition().x - 4
+					|| aimerBot.x < player.getPosition().x - 10
+					|| aimerBot.y > player.getPosition().y - 4
+					|| aimerBot.y < player.getPosition().y - 10) {
+				Collidable collidable = CollisionHelper.isCollidable(aimerBot.x+5, aimerBot.y+5, collisionLayer);
+				if (collidable == null){
+					aimerBot.x += enemyDx * 5;
+				}
+				if (collidable == null){
+					aimerBot.y += enemyDy * 5;
+				}
+				if (collidable != null){
+					System.out.println("can't charge there!");
+					aimerBot.x = position.x;
+					aimerBot.y = position.y;
+					preparingToCharge = false;
+				}
+			}
+			
+			if (aimerBot.overlaps(player.rectanlge)){
+				aimerBot.x = position.x;
+				aimerBot.y = position.y;
+			}
+		}else if(chargeCoutner==0 && preparingToCharge){
+			savedPlayerPosX = player.position.x;
+			savedPlayerPosY = player.position.y;
+			charging = true;
+			preparingToCharge = false;
+		}
+		
+		if(charging){
+			currentFrame = animationsStandard.get(state).animate(126);
+			if (position.x > player.getPosition().x - 4
+					|| position.x < player.getPosition().x - 10
+					|| position.y > player.getPosition().y - 4
+					|| position.y < player.getPosition().y - 10) {
+				// // System.out.println("yes it is !");
+				if (collidableLeft == null || collidableRight == null) {
+					position.x += enemyDx * 5;
+				}
+				if (collidableUp == null || collidableDown == null) {
+					position.y += enemyDy * 5;
+				}
+			}
 		}
 	}
 	
