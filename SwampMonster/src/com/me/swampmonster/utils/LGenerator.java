@@ -36,28 +36,37 @@ public class LGenerator {
 		tileSets.put(0, "tileSet_SAND_WORLD");
 		tileSets.put(1, "tileSet_SAND_WORLD2");
 		tileSets.put(2, "tileSet_SAND_WORLD3");
-		tileSets.put(3, "tileSet_SAND_WORLD4");
-		tileSets.put(4, "tileSet_SAND_WORLD");
+		tileSets.put(3, "tileSet_SAND_WORLD");
 	}
 
 	public L1 createLevel(Player player) {
 		String map = maps.get(random.nextInt(maps.size() - 1));
 		String tileSet = tileSets.get(random.nextInt(tileSets.size()));
-		System.out.println(tileSet);
+		
+		boolean isLevelElite = random.nextBoolean();
+		
+		boolean hasLevelAtmosphere;
+		if (isLevelElite){
+			hasLevelAtmosphere = false;
+		} else {
+			hasLevelAtmosphere = random.nextBoolean();
+		}
+
 		String br = Gdx.files.local("data\\" + map).readString();
-		br = br.replaceAll(DEFAULT_TILESET, tileSet + ".png");
+		if (L1.hasAtmosphere){
+			br = br.replaceAll(DEFAULT_TILESET, ".png");
+		} else {
+			br = br.replaceAll(DEFAULT_TILESET, tileSet + "tileSet_SAND_WORLD4.png");
+		}
 		Gdx.files.local("data\\" + map).writeString(br, false);
 		br = Gdx.files.local("data\\" + map).readString();
 		
-		boolean isLevelElite = random.nextBoolean();
-		boolean hasLevelAtmosphere = random.nextBoolean();
 		
 		L1 level = new L1(player, "tileSet_SAND_WORLD", "data/" + map, hasLevelAtmosphere, isLevelElite);
 		player.oxygen = Player.maxOxygen;
 		player.health = Player.playerMaxHealth;
 		player.characterStatsBoard();
-		TheController.collisionLayer = (TiledMapTileLayer) level.bunker
-				.getMap().getLayers().get(0);
+		TheController.collisionLayer = (TiledMapTileLayer) level.bunker.getMap().getLayers().get(0);
 		Vector2 v2 = new Vector2();
 		while (!isValidPosition(v2)) {
 			v2 = calculateRandomPlayerPos();

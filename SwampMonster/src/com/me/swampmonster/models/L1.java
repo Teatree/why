@@ -76,6 +76,7 @@ public class L1 {
 		for (Explosion e : explosions){
 			e.update();
 		}
+		
 		player.update(aiming, touchPos, V3point, collisionLayer, dx, dy);
 		
 		misterSpawner.setCollisionLayer(collisionLayer);

@@ -431,22 +431,6 @@ public class TheController extends InputAdapter {
 	}
 
 	public static void reloadLevel(Player player) {
-//		System.out.println("Yes it happened");
-//		debugRect.x = player.position.x;
-//		debugRect.y = player.position.y;
-//		level1 = new L1(player, "MarsDesertTileset2", "data/Map2.tmx");
-////		player.oxygen = Player.maxOxygen;
-////		player.health = Player.playerMaxHealth;
-//		player.characterStatsBoard();
-//		collisionLayer = (TiledMapTileLayer) level1.bunker.getMap().getLayers()
-//				.get(0);
-//		Vector2 v2 = new Vector2();
-//		while (!isValidPosition(v2)) {
-//			v2 = calculateRandomPlayerPos();
-//			// System.out.println("v2.x = " + v2.x);
-//			// System.out.println("v2.y = " + v2.y);
-//		}
-//		player.setPosition(v2);
 		level1 = levelGenerator.createLevel(player);
 	}
 
