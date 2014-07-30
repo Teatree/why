@@ -645,7 +645,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 		}
 	}
 
-	private void collisionCheck(Collidable collidable,
+	protected void collisionCheck(Collidable collidable,
 			TiledMapTileLayer collisionLayer, AbstractGameObject player) {
 		if (collidable != null) {
 			contact(collidable, collisionLayer, player);
@@ -762,18 +762,20 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 
 	private void contact(Collidable collidable,
 			TiledMapTileLayer collisionLayer, AbstractGameObject player) {
-		collidable.doCollide(this, collisionLayer);
-		collidable.doCollideAbstactObject(this);
-		if (!currentlyMovingOnPath && position.x + 200 > player.position.x
-				&& position.x - 200 < player.position.x
-				&& position.y + 200 > player.position.y
-				&& position.y - 200 < player.position.y) {
-			Pathfinder.findPathInThreadPool(position, player.position,
-					collisionLayer, this);
+		if(!charging){
+			collidable.doCollide(this, collisionLayer);
+			collidable.doCollideAbstactObject(this);
+			if (!currentlyMovingOnPath && position.x + 200 > player.position.x
+					&& position.x - 200 < player.position.x
+					&& position.y + 200 > player.position.y
+					&& position.y - 200 < player.position.y) {
+				Pathfinder.findPathInThreadPool(position, player.position,
+						collisionLayer, this);
+			}
+			// // System.out.println(position.x);
+			// // System.out.println(theController.level1.getPlayer().position.x);
+			state = State.PURSUIT;
 		}
-		// // System.out.println(position.x);
-		// // System.out.println(theController.level1.getPlayer().position.x);
-		state = State.PURSUIT;
 	}
 
 	// temporary look

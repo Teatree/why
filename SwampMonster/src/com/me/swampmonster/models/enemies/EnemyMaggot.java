@@ -20,11 +20,15 @@ public class EnemyMaggot extends Enemy {
 	
 	private int randomChargeCounter;
 	private int counter;
+	private int prepareChargeCoutner;
 	private int chargeCoutner;
 	private Random rand;
 	
 	private float savedPlayerPosX;
 	private float savedPlayerPosY;
+	
+	private float savedEnemyDx;
+	private float savedEnemyDy;
 	
 	public EnemyMaggot(Vector2 position) {
 		super(position);
@@ -47,102 +51,144 @@ public class EnemyMaggot extends Enemy {
 	
 	public void update(TiledMapTileLayer collisionLayer, Player player, CameraHelper cameraHelper, List<Enemy> enemies) {
 		super.update(collisionLayer, player, cameraHelper, enemies);
+		
 		if(!aiming && !preparingToCharge){
 			aimerBot.x = position.x;
 			aimerBot.y = position.y;
 		}
-		
-		if(counter > 0){
-			aiming = true;
-			counter--;
-			if (aimerBot.x > player.getPosition().x - 4
-					|| aimerBot.x < player.getPosition().x - 10
-					|| aimerBot.y > player.getPosition().y - 4
-					|| aimerBot.y < player.getPosition().y - 10) {
-				Collidable collidable = CollisionHelper.isCollidable(aimerBot.x+5, aimerBot.y+5, collisionLayer);
-				if (collidable == null){
-					aimerBot.x += enemyDx * 5;
+		if(!charging){
+			if(counter > 0){
+				aiming = true;
+				counter--;
+				if (aimerBot.x > player.getPosition().x - 4
+						|| aimerBot.x < player.getPosition().x - 10
+						|| aimerBot.y > player.getPosition().y - 4
+						|| aimerBot.y < player.getPosition().y - 10) {
+					Collidable collidable = CollisionHelper.isCollidable(aimerBot.x+5, aimerBot.y+5, collisionLayer);
+					if (collidable == null){
+						aimerBot.x += enemyDx * 5;
+					}
+					if (collidable == null){
+						aimerBot.y += enemyDy * 5;
+					}
+					if (collidable != null){
+						System.out.println("can't charge there!");
+						aimerBot.x = position.x;
+						aimerBot.y = position.y;
+						aiming = false;
+					}
 				}
-				if (collidable == null){
-					aimerBot.y += enemyDy * 5;
-				}
-				if (collidable != null){
-					System.out.println("can't charge there!");
-					aimerBot.x = position.x;
-					aimerBot.y = position.y;
+				
+				if (aimerBot.overlaps(player.rectanlge)){
+					prepareChargeCoutner = 60;
+					counter = 0;
 					aiming = false;
-				}
-			}
-			
-			if (aimerBot.overlaps(player.rectanlge)){
-				chargeCoutner = 60;
-				counter = 0;
-				aiming = false;
-				aimerBot.x = position.x;
-				aimerBot.y = position.y;
-			}
-		}else if(counter==0){
-			aiming = false;
-		}
-		
-		if (chargeCoutner > 0){
-			preparingToCharge = true;
-			chargeCoutner--;
-			currentFrame = animationsStandard.get(state).doComplexAnimation(118, 1.8f,Gdx.graphics.getDeltaTime(), Animation.NORMAL);
-			
-			if (aimerBot.x > player.getPosition().x - 4
-					|| aimerBot.x < player.getPosition().x - 10
-					|| aimerBot.y > player.getPosition().y - 4
-					|| aimerBot.y < player.getPosition().y - 10) {
-				Collidable collidable = CollisionHelper.isCollidable(aimerBot.x+5, aimerBot.y+5, collisionLayer);
-				if (collidable == null){
-					aimerBot.x += enemyDx * 5;
-				}
-				if (collidable == null){
-					aimerBot.y += enemyDy * 5;
-				}
-				if (collidable != null){
-					System.out.println("can't charge there!");
 					aimerBot.x = position.x;
 					aimerBot.y = position.y;
-					preparingToCharge = false;
 				}
+			}else if(counter==0){
+				aiming = false;
 			}
 			
-			if (aimerBot.overlaps(player.rectanlge)){
-				aimerBot.x = position.x;
-				aimerBot.y = position.y;
+			if (prepareChargeCoutner > 0){
+				preparingToCharge = true;
+				prepareChargeCoutner--;
+				currentFrame = animationsStandard.get(state).doComplexAnimation(118, 1.8f,Gdx.graphics.getDeltaTime(), Animation.NORMAL);
+				
+				if (aimerBot.x > player.getPosition().x - 4
+						|| aimerBot.x < player.getPosition().x - 10
+						|| aimerBot.y > player.getPosition().y - 4
+						|| aimerBot.y < player.getPosition().y - 10) {
+					Collidable collidable = CollisionHelper.isCollidable(aimerBot.x+5, aimerBot.y+5, collisionLayer);
+					if (collidable == null){
+						aimerBot.x += enemyDx * 5;
+					}
+					if (collidable == null){
+						aimerBot.y += enemyDy * 5;
+					}
+					if (collidable != null){
+						System.out.println("can't charge there!");
+						aimerBot.x = position.x;
+						aimerBot.y = position.y;
+						preparingToCharge = false;
+					}
+				}
+				
+				if (aimerBot.overlaps(player.rectanlge)){
+					aimerBot.x = position.x;
+					aimerBot.y = position.y;
+				}
+			}else if(prepareChargeCoutner==0 && preparingToCharge && !charging){
+				
+				savedPlayerPosX = player.position.x;
+				savedPlayerPosY = player.position.y;
+				
+				savedEnemyDx = savedPlayerPosX - position.x;
+				savedEnemyDy = savedPlayerPosY - position.y;
+				
+				float length = (float) Math.sqrt(savedEnemyDx * savedEnemyDx + savedEnemyDy * savedEnemyDy);
+				savedEnemyDx /= length;
+				savedEnemyDy /= length;
+				
+				charging = true;
+				preparingToCharge = false;
+				
+				chargeCoutner = 120;
 			}
-		}else if(chargeCoutner==0 && preparingToCharge){
-			savedPlayerPosX = player.position.x;
-			savedPlayerPosY = player.position.y;
-			charging = true;
-			preparingToCharge = false;
 		}
-		
 		if(charging){
-			currentFrame = animationsStandard.get(state).animate(126);
-			if (position.x > player.getPosition().x - 4
-					|| position.x < player.getPosition().x - 10
-					|| position.y > player.getPosition().y - 4
-					|| position.y < player.getPosition().y - 10) {
-				// // System.out.println("yes it is !");
-				if (collidableLeft == null || collidableRight == null) {
-					position.x += enemyDx * 5;
+			if(chargeCoutner > 0){
+				chargeCoutner--;
+				currentFrame = animationsStandard.get(state).animate(126);
+				
+				if (position.x > savedPlayerPosX - 4
+						|| position.x < savedPlayerPosX - 10
+						|| position.y > savedPlayerPosY - 4
+						|| position.y < savedPlayerPosY - 10) {
+					// // System.out.println("yes it is !");
+					if (collidableLeft == null || collidableRight == null || collidableUp == null || collidableDown == null) {
+						position.x += savedEnemyDx * movementSpeed*4;
+						position.y += savedEnemyDy * movementSpeed*4;
+						System.out.println("colliding");
+					}
+					if (collidableDown != null){
+						state = State.DEAD;
+					}
+					if (collidableUp != null){
+						state = State.DEAD;
+					}
+					if (collidableRight != null){
+						state = State.DEAD;
+					}
+					if (collidableLeft != null){
+						state = State.DEAD;
+					}
 				}
-				if (collidableUp == null || collidableDown == null) {
-					position.y += enemyDy * 5;
-				}
+				
+				collidableLeft = collisionCheckerLeft(collisionLayer,
+						enemies);
+				collisionCheck(collidableLeft, collisionLayer, player);
+				collidableRight = collisionCheckerRight(collisionLayer,
+						enemies);
+				collisionCheck(collidableRight, collisionLayer, player);
+				collidableDown = collisionCheckerBottom(collisionLayer,
+						enemies);
+				collisionCheck(collidableDown, collisionLayer, player);
+				collidableUp = collisionCheckerTop(collisionLayer, enemies);
+				collisionCheck(collidableUp, collisionLayer, player);
+				
+			}else if(chargeCoutner == 0){
+				charging = false;
 			}
 		}
 	}
 	
 	public void atackLogic(Player player, CameraHelper cameraHelper) {
-		if (yellowAura.overlaps(player.circle) && player.state != State.DEAD) {
+		if (yellowAura.overlaps(player.circle) && player.state != State.DEAD && !charging) {
 			attackSequenceStarted = true;
 		}
 		
-		if (aimingAura.overlaps(player.circle) && !attackSequenceStarted && player.state != State.DEAD) {
+		if (aimingAura.overlaps(player.circle) && !attackSequenceStarted && player.state != State.DEAD && !charging) {
 			if (rand.nextInt(randomChargeCounter) == randomChargeCounter-1) {
 				aiming = true;
 				counter = 200;
