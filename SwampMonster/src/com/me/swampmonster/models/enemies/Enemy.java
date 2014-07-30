@@ -325,7 +325,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 				dead = true;
 			}
 		}
-		if (hurt && !exploding) {
+		if (hurt && !exploding && !charging) {
 			if (player.projectiles != null) {
 				getProjectileLocationRelativeToSprite(player.projectiles);
 			}

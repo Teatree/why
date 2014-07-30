@@ -133,7 +133,7 @@ public class EnemyMaggot extends Enemy {
 				charging = true;
 				preparingToCharge = false;
 				
-				chargeCoutner = 120;
+				chargeCoutner = 322;
 			}
 		}
 		if(charging){
@@ -146,36 +146,39 @@ public class EnemyMaggot extends Enemy {
 						|| position.y > savedPlayerPosY - 4
 						|| position.y < savedPlayerPosY - 10) {
 					// // System.out.println("yes it is !");
-					if (collidableLeft == null || collidableRight == null || collidableUp == null || collidableDown == null) {
-						position.x += savedEnemyDx * movementSpeed*4;
-						position.y += savedEnemyDy * movementSpeed*4;
-						System.out.println("colliding");
+					Collidable cL = null;
+					Collidable cR = null;
+					Collidable cU = null;
+					Collidable cD = null;
+					if (cL == null || cR == null){
+						position.x += savedEnemyDx * movementSpeed;
+						System.out.println("stop");
 					}
-					if (collidableDown != null){
-						state = State.DEAD;
+					if (cU == null || cD == null){ 
+						position.y += savedEnemyDy * movementSpeed;
+						System.out.println("stop");
 					}
-					if (collidableUp != null){
+					cL = CollisionHelper.isCollidable(position.x, position.y+sprite.getHeight()/2, collisionLayer);
+					cR = CollisionHelper.isCollidable(position.x+sprite.getWidth(), position.y+sprite.getHeight()/2, collisionLayer);
+					cU = CollisionHelper.isCollidable(position.x+sprite.getWidth()/2, position.y+sprite.getHeight(), collisionLayer);
+					cD = CollisionHelper.isCollidable(position.x+sprite.getWidth()/2, position.y, collisionLayer);
+					if (cD != null){
 						state = State.DEAD;
+						System.out.println("CD");
 					}
-					if (collidableRight != null){
+					if (cU != null){
 						state = State.DEAD;
+						System.out.println("CU");
 					}
-					if (collidableLeft != null){
+					if (cR != null){
 						state = State.DEAD;
+						System.out.println("CR");
+					}
+					if (cL != null){
+						state = State.DEAD;
+						System.out.println("CL");
 					}
 				}
-				
-				collidableLeft = collisionCheckerLeft(collisionLayer,
-						enemies);
-				collisionCheck(collidableLeft, collisionLayer, player);
-				collidableRight = collisionCheckerRight(collisionLayer,
-						enemies);
-				collisionCheck(collidableRight, collisionLayer, player);
-				collidableDown = collisionCheckerBottom(collisionLayer,
-						enemies);
-				collisionCheck(collidableDown, collisionLayer, player);
-				collidableUp = collisionCheckerTop(collisionLayer, enemies);
-				collisionCheck(collidableUp, collisionLayer, player);
 				
 			}else if(chargeCoutner == 0){
 				charging = false;
