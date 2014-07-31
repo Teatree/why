@@ -52,16 +52,12 @@ public class TheController extends InputAdapter {
 	public Vector3 V3playerPos;
 	public Vector3 V3enemyPos;
 	public Vector2 randVector2;
-//	public static Random random;
 
 	public HashMap<Integer, Sprite> unlockNotifications;
 	public Sprite unlockNotificationSprite;
 
 	float dx;
 	float dy;
-
-	float enemyDx;
-	float enemyDy;
 
 	// temp
 	public boolean restart;
@@ -75,7 +71,6 @@ public class TheController extends InputAdapter {
 	public static Slot skill;
 	public static boolean germany;
 	public static boolean showFeedback;
-//	String br;
 	
 	private static LGenerator levelGenerator;
 
@@ -89,17 +84,7 @@ public class TheController extends InputAdapter {
 //		random = new Random();
 		levelGenerator = new LGenerator();
 		level1 = levelGenerator.createLevel(player);
-//		level1 = new L1(player, "MarsDesertTileset", "data/Map.tmx");
-//		collisionLayer = (TiledMapTileLayer) level1.bunker.getMap().getLayers()
-//				.get(0);
-//		Vector2 v2 = new Vector2();
-//		while (!isValidPosition(v2)) {
-//			v2 = calculateRandomPlayerPos();
-//			// System.out.println("v2.x = " + v2.x);
-//			// System.out.println("v2.y = " + v2.y);
-//		}
 		cameraHelper = new CameraHelper();
-//		player.setPosition(v2);
 		gui = new GUI(player);
 		gui.getCroshair().setPosition(new Vector2(330f, 100f));
 		explosion = new Explosion(player.position);
@@ -180,20 +165,6 @@ public class TheController extends InputAdapter {
 			game.setScreen(sl);
 		} 
 		
-//		br = Gdx.files.local("data\\Map.tmx").readString();
-//		String cr = "MarsDesertTileset.png";
-//
-//		if (br != null) {
-//			if (br.contains(cr)){
-//				System.out.println(cr);
-//				br = br.replaceAll(cr, "MarsDesertTileset3.png");
-//				System.out.println("new:    " + br);
-//				Gdx.files.local("data\\Map.tmx").writeString(br, false);
-//				br = Gdx.files.local("data\\Map.tmx").readString();
-//			}
-//		}
-// 
-
 		// This bit is responsible for calculating where exactly the projective
 		// has to go when shot.
 		dx = touchPos.x - V3playerPos.x;
@@ -202,7 +173,9 @@ public class TheController extends InputAdapter {
 		float length1 = (float) Math.sqrt(dx * dx + dy * dy);
 		dx /= length1;
 		dy /= length1;
-
+		
+		level1.player.setDx(dx);
+		level1.player.setDy(dy);
 		if (coolDownCounter > 0) {
 			coolDownAngle = coolDownAngle - coolDownStep;
 			// c -= coolDownStep;

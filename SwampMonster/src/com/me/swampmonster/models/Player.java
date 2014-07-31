@@ -82,6 +82,8 @@ public class Player extends AbstractGameObject {
 	public int trapTimer;
 
 	public EffectCarriers arrowEffectCarrier;
+	private float playerDy;
+	private float playerDx;
 
 	public Player(Vector2 position) {
 		state = State.STANDARD;
@@ -184,7 +186,9 @@ public class Player extends AbstractGameObject {
 		rectanlge.width = sprite.getWidth();
 		rectanlge.height = sprite.getHeight();
 
-		oxygen -= 0.00005f;
+		if (!L1.hasAtmosphere){
+			oxygen -= 0.00005f;
+		}
 
 		if (Gdx.input.justTouched()) {
 			justSpawned = false;
@@ -899,5 +903,23 @@ public class Player extends AbstractGameObject {
 				trapTimer = 0;
 			}
 		}
+	}
+	
+	@Override
+	public float getDx(){
+		return playerDx;
+	}
+	
+	@Override
+	public float getDy(){
+		return playerDy;
+	}
+	
+	public void setDx(float playerDx){
+		this.playerDx = playerDx;
+	}
+	
+	public void setDy(float playerDy){
+		this.playerDy = playerDy;
 	}
 }

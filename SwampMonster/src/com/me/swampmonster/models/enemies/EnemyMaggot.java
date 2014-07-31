@@ -12,7 +12,6 @@ import com.me.swampmonster.animations.AnimationControl;
 import com.me.swampmonster.game.collision.Collidable;
 import com.me.swampmonster.game.collision.CollisionHelper;
 import com.me.swampmonster.models.Player;
-import com.me.swampmonster.models.AbstractGameObject.State;
 import com.me.swampmonster.utils.Assets;
 import com.me.swampmonster.utils.CameraHelper;
 

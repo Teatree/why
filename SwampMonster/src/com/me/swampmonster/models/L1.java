@@ -8,7 +8,6 @@ import java.util.Stack;
 
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Intersector;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.me.swampmonster.game.TheController;
 import com.me.swampmonster.models.AbstractGameObject.NegativeEffects;

@@ -151,12 +151,11 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 		enemyDx = player.getPosition().x - position.x;
 		enemyDy = player.getPosition().y - position.y;
 
-		float enemyLength = (float) Math.sqrt(enemyDx * enemyDx + enemyDy
-				* enemyDy);
+		float enemyLength = (float) Math.sqrt(enemyDx * enemyDx + enemyDy * enemyDy);
 		enemyDx /= enemyLength;
 		enemyDy /= enemyLength;
 
-		// // System.out.println("currentlyMovingOnPath " +
+		// System.out.println("currentlyMovingOnPath " +
 		// currentlyMovingOnPath);
 
 		// Direction for the pursuit state
@@ -962,5 +961,14 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 			negativeEffectsState = negativeEffect;
 		}
 	}
-
+	
+	@Override
+	public float getDx(){
+		return enemyDx;
+	}
+	
+	@Override
+	public float getDy(){
+		return enemyDy;
+	}
 }

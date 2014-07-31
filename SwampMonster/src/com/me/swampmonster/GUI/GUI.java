@@ -1,14 +1,8 @@
 package com.me.swampmonster.GUI;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
-import com.me.swampmonster.game.TheController;
 import com.me.swampmonster.models.Player;
-import com.me.swampmonster.utils.Assets;
-import com.me.swampmonster.utils.Constants;
-
 
 public class GUI {
 	
