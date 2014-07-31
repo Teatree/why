@@ -89,14 +89,14 @@ public class EnemyMaggot extends Enemy {
 				aiming = false;
 			}
 			
-			if (prepareChargeCoutner > 0){
+			if (prepareChargeCoutner > 0 && !charging && state != State.DEAD){
 				preparingToCharge = true;
 				prepareChargeCoutner--;
-				currentFrame = animationsStandard.get(state).doComplexAnimation(118, 1.8f,Gdx.graphics.getDeltaTime(), Animation.NORMAL);
+				currentFrame = animationsStandard.get(state).doComplexAnimation(120, 1.4f,Gdx.graphics.getDeltaTime(), Animation.NORMAL);
 				
 				if (aimerBot.x > player.getPosition().x - 4
 						|| aimerBot.x < player.getPosition().x - 10
-						|| aimerBot.y > player.getPosition().y - 4
+						&& aimerBot.y > player.getPosition().y - 4
 						|| aimerBot.y < player.getPosition().y - 10) {
 					Collidable collidable = CollisionHelper.isCollidable(aimerBot.x+5, aimerBot.y+5, collisionLayer);
 					if (collidable == null){
@@ -138,7 +138,7 @@ public class EnemyMaggot extends Enemy {
 		if(charging){
 			if(chargeCoutner > 0){
 				chargeCoutner--;
-				currentFrame = animationsStandard.get(state).animate(126);
+				currentFrame = animationsStandard.get(state).animate(128);
 				
 				if (position.x > savedPlayerPosX - 4
 						|| position.x < savedPlayerPosX - 10
@@ -171,6 +171,7 @@ public class EnemyMaggot extends Enemy {
 							cU != null ||
 							cR != null||
 							cL != null ){
+						charging = false;
 						state = State.DEAD;
 					}
 					

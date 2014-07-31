@@ -84,8 +84,8 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 		aimerBot = new Rectangle();
 		aimerBot.x = position.x;
 		aimerBot.y = position.y;
-		aimerBot.width = 10;
-		aimerBot.height = 10;
+		aimerBot.width = 5;
+		aimerBot.height = 5;
 		state = State.STANDARD;
 		animationsStandard.put(State.PURSUIT, new AnimationControl(
 				Assets.manager.get(Assets.enemy), 8, 16, 8));
