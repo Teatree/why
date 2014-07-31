@@ -9,8 +9,10 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Vector2;
 import com.me.swampmonster.game.TheController;
 import com.me.swampmonster.game.collision.CollisionHelper;
+import com.me.swampmonster.models.AbstractGameObject.NegativeEffects;
 import com.me.swampmonster.models.L1;
 import com.me.swampmonster.models.Player;
+import com.me.swampmonster.models.slots.PositiveEffects;
 
 public class LGenerator {
 	private static String DEFAULT_TILESET = "tileSet_SAND_WORLD\\d*.png";
@@ -54,7 +56,7 @@ public class LGenerator {
 
 		String br = Gdx.files.local("data\\" + map).readString();
 		if (L1.hasAtmosphere){
-			br = br.replaceAll(DEFAULT_TILESET, ".png");
+			br = br.replaceAll(DEFAULT_TILESET, tileSet + ".png");
 		} else {
 			br = br.replaceAll(DEFAULT_TILESET,"tileSet_SAND_WORLD4.png");
 		}
@@ -65,6 +67,9 @@ public class LGenerator {
 		L1 level = new L1(player, "tileSet_SAND_WORLD", "data/" + map, hasLevelAtmosphere, isLevelElite);
 		player.oxygen = Player.maxOxygen;
 		player.health = Player.playerMaxHealth;
+		player.setPositiveEffect(PositiveEffects.NONE);
+		player.setNegativeEffect(NegativeEffects.NONE);
+		player.movementSpeed = 1.4f;
 		player.characterStatsBoard();
 		TheController.collisionLayer = (TiledMapTileLayer) level.bunker.getMap().getLayers().get(0);
 		Vector2 v2 = new Vector2();

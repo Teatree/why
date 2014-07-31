@@ -52,7 +52,6 @@ public class L1 {
 
 	public void create(Player player, String tileSet, String tileMap, boolean hasAtmosphere, boolean isElite) {
 		this.player = player;
-		this.player.position = new Vector2();
 		this.isElite = isElite;
 		L1.hasAtmosphere = hasAtmosphere;
 		wavesAmount = waveGenerator.getWavesAmount(Player.score, hasAtmosphere, isElite);

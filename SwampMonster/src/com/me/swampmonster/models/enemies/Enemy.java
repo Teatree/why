@@ -46,7 +46,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 	public String projectileLocation;
 	public List<Projectile> enemyProjectiles;
 	public Toughness toughness;
-	
+
 	float enemyDx;
 	float enemyDy;
 
@@ -67,7 +67,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 
 	private int negativeEffectTimer;
 	private int timerPoisoned;
-	
+
 	public Enemy(Vector2 position) {
 		this.position = position;
 		rectanlge = new Rectangle();
@@ -95,8 +95,10 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 				Assets.manager.get(Assets.enemy), 8, 16, 8));
 		animationsStandard.put(State.ANIMATING, new AnimationControl(
 				Assets.manager.get(Assets.enemy), 8, 16, 8));
-		animationsStandard.put(State.DEAD, new AnimationControl(
-				Assets.manager.get(Assets.enemy), 8, 16, 4));
+		animationsStandard
+				.put(State.DEAD,
+						new AnimationControl(Assets.manager.get(Assets.enemy),
+								8, 16, 4));
 		oldPos = position;
 		// Timer is for the length of the actual animation
 		// Timer2 is for the waiting period
@@ -105,7 +107,6 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 		path = new Node[99];
 
 		enemyProjectiles = new LinkedList<Projectile>();
-		
 
 		// ***Character stats board, probably need to delete this***
 		characterStatsBoard();
@@ -113,7 +114,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 
 		sprite = new Sprite(animationsStandard.get(State.STANDARD)
 				.getCurrentFrame());
-		
+
 	}
 
 	public void characterStatsBoard() {
@@ -127,7 +128,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 
 	public void update(TiledMapTileLayer collisionLayer, Player player,
 			CameraHelper cameraHelper, List<Enemy> enemies) {
-		
+
 		iAmWaiting = souldIWait(enemies);
 		oldPos.x = position.x;
 		oldPos.y = position.y;
@@ -150,42 +151,45 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 		enemyDx = player.getPosition().x - position.x;
 		enemyDy = player.getPosition().y - position.y;
 
-		float enemyLength = (float) Math.sqrt(enemyDx * enemyDx + enemyDy * enemyDy);
+		float enemyLength = (float) Math.sqrt(enemyDx * enemyDx + enemyDy
+				* enemyDy);
 		enemyDx /= enemyLength;
 		enemyDy /= enemyLength;
 
-		// // System.out.println("currentlyMovingOnPath " + currentlyMovingOnPath);
+		// // System.out.println("currentlyMovingOnPath " +
+		// currentlyMovingOnPath);
 
 		// Direction for the pursuit state
 		if (cunter != -1 && path != null && path[cunter] != null) {
 			enemyPathDx = path[cunter].x * Constants.NodeSize - position.x;
 			enemyPathDy = path[cunter].y * Constants.NodeSize - position.y;
 
-			float enemyPathLength = (float) Math.sqrt(enemyPathDx * enemyPathDx + enemyPathDy * enemyPathDy);
+			float enemyPathLength = (float) Math.sqrt(enemyPathDx * enemyPathDx
+					+ enemyPathDy * enemyPathDy);
 			enemyPathDx /= enemyPathLength;
 			enemyPathDy /= enemyPathLength;
 		}
-		
-		if (player.radioactiveAura != null && 
-				Intersector.overlaps(player.radioactiveAura, rectanlge)){
+
+		if (player.radioactiveAura != null
+				&& Intersector.overlaps(player.radioactiveAura, rectanlge)) {
 			hurt = true;
 			damageType = "player";
 			enemyHurt(player);
 		}
-		
+
 		if (player.projectiles != null)
-		for (Projectile projectile : player.projectiles) {
-			if (projectile != null  
-					&& Intersector.overlaps(projectile.circle, rectanlge)
-					&& !hurt) {
-				hurt = true;
-				damageType = "player";
-				enemyHurt(player);
-				if (projectile.effect == EffectCarriers.POISONED){
-					this.setNegativeEffect(NegativeEffects.POISONED);
+			for (Projectile projectile : player.projectiles) {
+				if (projectile != null
+						&& Intersector.overlaps(projectile.circle, rectanlge)
+						&& !hurt) {
+					hurt = true;
+					damageType = "player";
+					enemyHurt(player);
+					if (projectile.effect == EffectCarriers.POISONED) {
+						this.setNegativeEffect(NegativeEffects.POISONED);
+					}
 				}
 			}
-		}
 
 		if (health <= 0) {
 			Player.enemiesKilled++;
@@ -228,10 +232,14 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 				}
 
 				if (path[0] != null) {
-					if (player.position.x > path[0].x * Constants.NodeSize + 120
-							|| player.position.x < path[0].x * Constants.NodeSize - 120
-							|| player.position.y > path[0].y * Constants.NodeSize + 120
-							|| player.position.y < path[0].y * Constants.NodeSize - 120) {
+					if (player.position.x > path[0].x * Constants.NodeSize
+							+ 120
+							|| player.position.x < path[0].x
+									* Constants.NodeSize - 120
+							|| player.position.y > path[0].y
+									* Constants.NodeSize + 120
+							|| player.position.y < path[0].y
+									* Constants.NodeSize - 120) {
 						System.out
 								.println("You are officially outside the last seen zone!");
 						state = State.STANDARD;
@@ -256,7 +264,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 					collidableDown = null;
 					collidableUp = null;
 
-					if(!preparingToCharge && !charging){
+					if (!preparingToCharge && !charging) {
 						move(player, collidableLeft, collidableRight,
 								collidableDown, collidableUp, enemyDx, enemyDy,
 								movementSpeed, enemies);
@@ -274,14 +282,14 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 					collisionCheck(collidableUp, collisionLayer, player);
 				}
 
-				if(!preparingToCharge){
+				if (!preparingToCharge) {
 					if (oldPos.x != position.x || oldPos.y != position.y
 							&& timer > 0 && timer2 > 0) {
 						// // System.out.println("yes!1");
 						timer = 0;
 						timer2 = 0;
 					}
-	
+
 					atackLogic(player, cameraHelper);
 				}
 			}
@@ -290,7 +298,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 		if (state.equals(State.ANIMATING)) {
 
 		}
-		
+
 		if (negativeEffectsState != NegativeEffects.NONE
 				&& negativeEffectTimer > 0) {
 			if (negativeEffectsState == NegativeEffects.POISONED) {
@@ -306,7 +314,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 		} else {
 			negativeEffectsState = NegativeEffects.NONE;
 		}
-		
+
 		// DEAD
 		if (state.equals(State.DEAD)) {
 			if (timeDead < 65) {
@@ -368,16 +376,17 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 		Iterator<Projectile> prj = enemyProjectiles.iterator();
 		while (prj.hasNext()) {
 			Projectile p = (Projectile) prj.next();
-			if (p != null){
+			if (p != null) {
 				p.movementSpeed = 1f;
-				if (p.isCollision(collisionLayer) || Intersector.overlaps(p.circle, player.aimingArea)) {
+				if (p.isCollision(collisionLayer)
+						|| Intersector.overlaps(p.circle, player.aimingArea)) {
 					prj.remove();
 					break;
 				}
 				p.update();
 			}
 		}
-		
+
 	}
 
 	public void atackLogic(Player player, CameraHelper cameraHelper) {
@@ -476,12 +485,13 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 							standing);
 					// And may be inflict different hurts, direction/ kinds of
 					// hurts/ etc.
-					if (oRangeAura.overlaps(player.circle) && !player.hurt && 
-							player.positiveEffectsState != PositiveEffects.FADE) {
+					if (oRangeAura.overlaps(player.circle)
+							&& !player.hurt
+							&& player.positiveEffectsState != PositiveEffects.FADE) {
 						player.damageType = "enemy";
 						player.harmfulEnemy = this;
 						player.hurt = true;
-						player.health-= damage;
+						player.health -= damage;
 					}
 
 					timer = 0;
@@ -509,19 +519,22 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 		collidableUp = collisionCheckerTop(collisionLayer, enemies);
 	}
 
-	
-	public Collidable collisionCheckerRight(TiledMapTileLayer collisionLayer){
-		return  collisionCheckerRight(collisionLayer, L1.enemiesOnStage);
+	public Collidable collisionCheckerRight(TiledMapTileLayer collisionLayer) {
+		return collisionCheckerRight(collisionLayer, L1.enemiesOnStage);
 	}
-	public Collidable collisionCheckerLeft(TiledMapTileLayer collisionLayer){
+
+	public Collidable collisionCheckerLeft(TiledMapTileLayer collisionLayer) {
 		return collisionCheckerLeft(collisionLayer, L1.enemiesOnStage);
 	}
-	public Collidable collisionCheckerTop(TiledMapTileLayer collisionLayer){
+
+	public Collidable collisionCheckerTop(TiledMapTileLayer collisionLayer) {
 		return collisionCheckerTop(collisionLayer, L1.enemiesOnStage);
 	}
-	public Collidable collisionCheckerBottom(TiledMapTileLayer collisionLayer){
+
+	public Collidable collisionCheckerBottom(TiledMapTileLayer collisionLayer) {
 		return collisionCheckerBottom(collisionLayer, L1.enemiesOnStage);
 	}
+
 	public Collidable collisionCheckerTop(TiledMapTileLayer collisionLayer,
 			List<Enemy> enemies) {
 		Collidable collidable;
@@ -577,11 +590,14 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 
 	public Collidable collisionCheckerLeft(TiledMapTileLayer collisionLayer,
 			List<Enemy> enemies) {
-		Collidable collidable = CollisionHelper.isCollidable(position.x, position.y + (sprite.getHeight() / 2) - 1, collisionLayer);
+		Collidable collidable = CollisionHelper.isCollidable(position.x,
+				position.y + (sprite.getHeight() / 2) - 1, collisionLayer);
 		if (collidable == null)
-			collidable = CollisionHelper.isCollidable(position.x, position.y,collisionLayer);
+			collidable = CollisionHelper.isCollidable(position.x, position.y,
+					collisionLayer);
 		if (collidable == null)
-			collidable = CollisionHelper.isCollidable(position.x, position.y + (sprite.getHeight() / 4), collisionLayer);
+			collidable = CollisionHelper.isCollidable(position.x, position.y
+					+ (sprite.getHeight() / 4), collisionLayer);
 		// if(collidable == null)collidable =
 		// CollisionHelper.isCollidableEnemy(this, enemies);
 		return collidable;
@@ -741,7 +757,8 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 				&& position.y <= (path[cunter].y * Constants.NodeSize) + 1
 				&& position.y >= (path[cunter].y * Constants.NodeSize) - 1) {
 			path[cunter] = null;
-			// // System.out.println("taking of one Node from the path of Nodes, there was: "
+			// //
+			// System.out.println("taking of one Node from the path of Nodes, there was: "
 			// + cunter + " Nodes and now there are: ");
 			cunter--;
 			// // System.out.println(cunter);
@@ -753,7 +770,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 			enemyDx = 0;
 			enemyDy = 0;
 			timereskin++;
-//			// System.out.println("stoped: " + timereskin);
+			// // System.out.println("stoped: " + timereskin);
 		} else if (timereskin > secs - 1) {
 			iAmWaiting = false;
 			timereskin = 0;
@@ -762,7 +779,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 
 	private void contact(Collidable collidable,
 			TiledMapTileLayer collisionLayer, AbstractGameObject player) {
-		if(!charging){
+		if (!charging) {
 			collidable.doCollide(this, collisionLayer);
 			collidable.doCollideAbstactObject(this);
 			if (!currentlyMovingOnPath && position.x + 200 > player.position.x
@@ -773,7 +790,8 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 						collisionLayer, this);
 			}
 			// // System.out.println(position.x);
-			// // System.out.println(theController.level1.getPlayer().position.x);
+			// //
+			// System.out.println(theController.level1.getPlayer().position.x);
 			state = State.PURSUIT;
 		}
 	}
@@ -844,7 +862,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 	public void enemyHurt(Player player) {
 		state = State.STANDARD;
 		if (health >= 0) {
-			if (player.positiveEffectsState == PositiveEffects.RADIOACTIVE_AURA){
+			if (player.positiveEffectsState == PositiveEffects.RADIOACTIVE_AURA) {
 				health -= RADIOACTIVE.RADIOACTIVE_Damage;
 			}
 			health -= player.damage;
@@ -908,21 +926,22 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 		}
 
 	}
-	
-	private boolean souldIWait(List <Enemy> enemies){
-		for (Enemy e : enemies){
-			if (e != this && Intersector.overlaps(e.rectanlge, this.rectanlge) && !e.iAmWaiting){
+
+	private boolean souldIWait(List<Enemy> enemies) {
+		for (Enemy e : enemies) {
+			if (e != this && Intersector.overlaps(e.rectanlge, this.rectanlge)
+					&& !e.iAmWaiting) {
 				this.iAmWaiting = true;
 				return true;
 			}
 		}
 		return false;
 	}
-	
+
 	public void setNegativeEffect(NegativeEffects negativeEffect) {
 		switch (negativeEffect) {
 		case FROZEN:
-			if (negativeEffectsState != NegativeEffects.FROZEN){
+			if (negativeEffectsState != NegativeEffects.FROZEN) {
 				System.out.println(" ");
 				sprite.setColor(4 / 255f, 180 / 255f, 1f, 1f);
 				movementSpeed *= 0.4f;
@@ -931,7 +950,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 			}
 			break;
 		case POISONED:
-			if (negativeEffectsState != NegativeEffects.POISONED){
+			if (negativeEffectsState != NegativeEffects.POISONED) {
 				movementSpeed = STANDART_MOVEMENT_SPEED;
 				negativeEffectsState = NegativeEffects.POISONED;
 				negativeEffectTimer = negativeEffect.lifetime;

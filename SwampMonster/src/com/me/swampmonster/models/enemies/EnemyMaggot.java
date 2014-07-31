@@ -145,39 +145,51 @@ public class EnemyMaggot extends Enemy {
 						|| position.x < savedPlayerPosX - 10
 						|| position.y > savedPlayerPosY - 4
 						|| position.y < savedPlayerPosY - 10) {
-					// // System.out.println("yes it is !");
-					Collidable cL = null;
-					Collidable cR = null;
-					Collidable cU = null;
-					Collidable cD = null;
-					if (cL == null || cR == null){
-						position.x += savedEnemyDx * movementSpeed;
-						System.out.println("stop");
-					}
-					if (cU == null || cD == null){ 
-						position.y += savedEnemyDy * movementSpeed;
-						System.out.println("stop");
-					}
-					cL = CollisionHelper.isCollidable(position.x, position.y+sprite.getHeight()/2, collisionLayer);
-					cR = CollisionHelper.isCollidable(position.x+sprite.getWidth(), position.y+sprite.getHeight()/2, collisionLayer);
-					cU = CollisionHelper.isCollidable(position.x+sprite.getWidth()/2, position.y+sprite.getHeight(), collisionLayer);
-					cD = CollisionHelper.isCollidable(position.x+sprite.getWidth()/2, position.y, collisionLayer);
-					if (cD != null){
+
+					Collidable cL = CollisionHelper.isCollidable(position.x, position.y+sprite.getHeight()/2, collisionLayer);
+					Collidable cR = CollisionHelper.isCollidable(position.x+sprite.getWidth(), position.y+sprite.getHeight()/2, collisionLayer);
+					Collidable cU = CollisionHelper.isCollidable(position.x+sprite.getWidth()/2, position.y+sprite.getHeight(), collisionLayer);
+					Collidable cD = CollisionHelper.isCollidable(position.x+sprite.getWidth()/2, position.y, collisionLayer);
+					
+					if (cL == null && savedEnemyDx <= 0 ||
+							cR == null && savedEnemyDx > 0){
+						position.x += savedEnemyDx * movementSpeed*4;
+					} 
+					if (cD == null && savedEnemyDy < 0 
+							|| cU == null && savedEnemyDy >= 0){
+						position.y += savedEnemyDy * movementSpeed*4;
+					} 
+					
+//					if (cU == null && savedEnemyDy >= 0){ 
+//						position.y += savedEnemyDy * movementSpeed*4;
+//					}
+//					
+//					if (cD == null && savedEnemyDy < 0){
+//						position.y += savedEnemyDy * movementSpeed*4;
+//					}
+					
+					if (cD != null || 
+							cU != null ||
+							cR != null||
+							cL != null ){
 						state = State.DEAD;
-						System.out.println("CD");
 					}
-					if (cU != null){
-						state = State.DEAD;
-						System.out.println("CU");
-					}
-					if (cR != null){
-						state = State.DEAD;
-						System.out.println("CR");
-					}
-					if (cL != null){
-						state = State.DEAD;
-						System.out.println("CL");
-					}
+					
+//					if (cU != null){
+//						position = oldPos;
+//						state = State.DEAD;
+//						System.out.println("CU");
+//					}
+//					if (cR != null){
+//						position = oldPos;
+//						state = State.DEAD;
+//						System.out.println("CR");
+//					}
+//					if (cL != null){
+//						position = oldPos;
+//						state = State.DEAD;
+//						System.out.println("CL");
+//					}
 				}
 				
 			}else if(chargeCoutner == 0){
