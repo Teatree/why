@@ -57,6 +57,7 @@ public class Player extends AbstractGameObject {
 	public boolean shooting;
 	public boolean pointGathered;
 	public boolean ThreeArrowsFlag;
+	public boolean stuned;
 	public List<Projectile> projectiles;
 	public Vector3 shotDir;
 	public Vector3 V3playerPos;
@@ -77,13 +78,14 @@ public class Player extends AbstractGameObject {
 
 	public Circle radioactiveAura = null;
 	public int timer2;
+	
+	private float playerDy;
+	private float playerDx;
 
 	public Trap trap;
 	public int trapTimer;
 
 	public EffectCarriers arrowEffectCarrier;
-	private float playerDy;
-	private float playerDx;
 
 	public Player(Vector2 position) {
 		state = State.STANDARD;
@@ -186,7 +188,7 @@ public class Player extends AbstractGameObject {
 		rectanlge.width = sprite.getWidth();
 		rectanlge.height = sprite.getHeight();
 
-		if (!L1.hasAtmosphere){
+		if (!L1.hasAtmosphere) {
 			oxygen -= 0.00005f;
 		}
 
@@ -205,7 +207,7 @@ public class Player extends AbstractGameObject {
 		}
 
 		// GUN
-		if (state.equals(State.GUNMOVEMENT)) {
+		if (state.equals(State.GUNMOVEMENT) && negativeEffectsState != negativeEffectsState.STUN) {
 			gunMovement(aiming, touchPos, V3point);
 		}
 
@@ -403,7 +405,7 @@ public class Player extends AbstractGameObject {
 		sprite.setRegion(animationsStandard.get(state).getCurrentFrame());
 		sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
 
-		if (!hurt) {
+		if (!hurt && negativeEffectsState != negativeEffectsState.STUN) {
 			movementCollisionAndAnimation(movementSpeed, touchPos,
 					collisionLayer, dx, dy);
 		}
@@ -411,6 +413,7 @@ public class Player extends AbstractGameObject {
 
 	//:TODO GUNMOVEMENT
 	private void gunMovement(boolean aiming, Vector3 touchPos, Vector3 V3point) {
+		
 		double aimingLength = Math.sqrt(Math.pow(aimLineHead.x - position.x, 2)+Math.pow(aimLineHead.y - position.y, 2));
 		 
 		sprite.setRegion(animationsStandard.get(state).getCurrentFrame());
@@ -533,6 +536,10 @@ public class Player extends AbstractGameObject {
 				break;
 			case POISONED:
 				poisoning();
+				negativeEffectsState = negativeEffect;
+				negativeEffectCounter = negativeEffect.lifetime;
+				break;
+			case STUN:
 				negativeEffectsState = negativeEffect;
 				negativeEffectCounter = negativeEffect.lifetime;
 				break;
@@ -904,22 +911,20 @@ public class Player extends AbstractGameObject {
 			}
 		}
 	}
-	
-	@Override
-	public float getDx(){
+
+	public float getDx() {
 		return playerDx;
 	}
-	
-	@Override
-	public float getDy(){
+
+	public float getDy() {
 		return playerDy;
 	}
-	
-	public void setDx(float playerDx){
+
+	public void setDx(float playerDx) {
 		this.playerDx = playerDx;
 	}
-	
-	public void setDy(float playerDy){
+
+	public void setDy(float playerDy) {
 		this.playerDy = playerDy;
 	}
 }

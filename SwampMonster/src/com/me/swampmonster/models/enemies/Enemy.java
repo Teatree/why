@@ -37,6 +37,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 	public boolean aiming;
 	public boolean preparingToCharge;
 	public boolean charging;
+	public boolean waiting;
 	int timer;
 	public int time;
 	int timeDead = 0;
@@ -151,11 +152,12 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 		enemyDx = player.getPosition().x - position.x;
 		enemyDy = player.getPosition().y - position.y;
 
-		float enemyLength = (float) Math.sqrt(enemyDx * enemyDx + enemyDy * enemyDy);
+		float enemyLength = (float) Math.sqrt(enemyDx * enemyDx + enemyDy
+				* enemyDy);
 		enemyDx /= enemyLength;
 		enemyDy /= enemyLength;
 
-		// System.out.println("currentlyMovingOnPath " +
+		// // System.out.println("currentlyMovingOnPath " +
 		// currentlyMovingOnPath);
 
 		// Direction for the pursuit state
@@ -263,7 +265,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 					collidableDown = null;
 					collidableUp = null;
 
-					if (!preparingToCharge && !charging) {
+					if (!preparingToCharge && !charging && !waiting) {
 						move(player, collidableLeft, collidableRight,
 								collidableDown, collidableUp, enemyDx, enemyDy,
 								movementSpeed, enemies);
@@ -961,14 +963,5 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 			negativeEffectsState = negativeEffect;
 		}
 	}
-	
-	@Override
-	public float getDx(){
-		return enemyDx;
-	}
-	
-	@Override
-	public float getDy(){
-		return enemyDy;
-	}
+
 }

@@ -12,6 +12,7 @@ import com.me.swampmonster.animations.AnimationControl;
 import com.me.swampmonster.game.collision.Collidable;
 import com.me.swampmonster.game.collision.CollisionHelper;
 import com.me.swampmonster.models.Player;
+import com.me.swampmonster.models.AbstractGameObject.State;
 import com.me.swampmonster.utils.Assets;
 import com.me.swampmonster.utils.CameraHelper;
 
@@ -20,7 +21,9 @@ public class EnemyMaggot extends Enemy {
 	private int randomChargeCounter;
 	private int counter;
 	private int prepareChargeCoutner;
+	private int waitingCounter;
 	private int chargeCoutner;
+	private int reversedAnimationCounter;
 	private Random rand;
 	
 	private float savedPlayerPosX;
@@ -119,6 +122,25 @@ public class EnemyMaggot extends Enemy {
 				}
 			}else if(prepareChargeCoutner==0 && preparingToCharge && !charging){
 				
+				preparingToCharge = false;
+				
+				waiting = true;
+				
+				waitingCounter = 150;
+				
+			}
+			if(waitingCounter > 0 && state != State.DEAD){
+				waitingCounter--;
+				currentFrame = animationsStandard.get(state).animate(136);
+				
+			}
+			else if(waitingCounter==0 && waiting){
+				waiting = false;
+				
+				chargeCoutner = 222;
+				charging = true;
+			}
+			if(waitingCounter==30){
 				savedPlayerPosX = player.position.x;
 				savedPlayerPosY = player.position.y;
 				
@@ -128,11 +150,6 @@ public class EnemyMaggot extends Enemy {
 				float length = (float) Math.sqrt(savedEnemyDx * savedEnemyDx + savedEnemyDy * savedEnemyDy);
 				savedEnemyDx /= length;
 				savedEnemyDy /= length;
-				
-				charging = true;
-				preparingToCharge = false;
-				
-				chargeCoutner = 322;
 			}
 		}
 		if(charging){
@@ -194,6 +211,10 @@ public class EnemyMaggot extends Enemy {
 				
 			}else if(chargeCoutner == 0){
 				charging = false;
+			}
+			
+			if(rectanlge.overlaps(player.rectanlge)){
+				player.setNegativeEffect(negativeEffectsState.STUN);
 			}
 		}
 	}

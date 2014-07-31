@@ -24,6 +24,7 @@ public abstract class AbstractGameObject {
 		POISONED(900, new Sprite(Assets.manager.get(Assets.POISONEDNEGATIVEEFFECT_ICON))),
 				FEAR(900, new Sprite(Assets.manager.get(Assets.SCAREDNEGATIVEEFFECT_ICON))),
 				FROZEN(830, new Sprite(Assets.manager.get(Assets.FROZENNEGATIVEEFFECT_ICON))),
+				STUN(200, new Sprite(Assets.manager.get(Assets.FROZENNEGATIVEEFFECT_ICON))),
 				NONE(0, null);
 		
 		public int lifetime;
@@ -152,11 +153,11 @@ public abstract class AbstractGameObject {
 		sprite.setColor(red, green, blue, alpha);
 	}
 	
-	public float getDx(){
+	public float getDx() {
 		return 0;
 	}
-	
-	public float getDy(){
+
+	public float getDy() {
 		return 0;
 	}
 }

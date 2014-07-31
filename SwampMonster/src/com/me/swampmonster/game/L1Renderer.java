@@ -285,9 +285,9 @@ public class L1Renderer {
 //			sr.circle(enemy.getoRangeAura().x, enemy.getoRangeAura().y, enemy.getoRangeAura().radius);
 //			sr.setColor(Color.YELLOW);
 //			sr.circle(enemy.yellowAura.x, enemy.yellowAura.y, enemy.yellowAura.radius);
-			sr.setColor(Color.BLACK);
+//			sr.setColor(Color.BLACK);
 //			sr.circle(theController.explosion.position.x, theController.explosion.position.y, theController.explosion.explCircle.radius);
-			sr.circle(enemy.aimingAura.x, enemy.aimingAura.y, enemy.aimingAura.radius);
+//			sr.circle(enemy.aimingAura.x, enemy.aimingAura.y, enemy.aimingAura.radius);
 		}	
 		sr.setColor(Color.CYAN);
 		for (Explosion e : L1.explosions){
@@ -325,7 +325,6 @@ public class L1Renderer {
 		sr.begin(ShapeType.Filled);
 		sr.setColor(Color.RED);
 		for (Enemy enemy : L1.enemiesOnStage){
-			sr.rect(enemy.aimerBot.x, enemy.aimerBot.y, enemy.aimerBot.width, enemy.aimerBot.height);
 			if(enemy.getPath() != null){
 				for(Node n : enemy.getPath()){
 					if(n != null){
