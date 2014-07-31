@@ -55,7 +55,7 @@ public class LGenerator {
 		}
 
 		String br = Gdx.files.local("data\\" + map).readString();
-		if (L1.hasAtmosphere){
+		if (!L1.hasAtmosphere){
 			br = br.replaceAll(DEFAULT_TILESET, tileSet + ".png");
 		} else {
 			br = br.replaceAll(DEFAULT_TILESET,"tileSet_SAND_WORLD4.png");
