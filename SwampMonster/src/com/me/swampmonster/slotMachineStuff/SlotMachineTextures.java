@@ -38,6 +38,7 @@ public class SlotMachineTextures extends Group {
 	int slotPositionY = 174;
 	public Sprite slotMachineWindow;
 	public Sprite slotMachineWindowYes;
+	public Sprite reloadButton;
 	public Sprite slotMachineWindowNo;
 	public Sprite slotLevel1;
 	public Sprite slotLevel2;
@@ -60,7 +61,7 @@ public class SlotMachineTextures extends Group {
 		slotMachineWindow = new Sprite(Assets.manager.get(Assets.slotMachineWindow));
 		slotMachineWindowYes = new Sprite(Assets.manager.get(Assets.slotMachineWindowYes));
 		slotMachineWindowNo = new Sprite(Assets.manager.get(Assets.slotMachineWindowNo));
-		
+		reloadButton = new Sprite(Assets.manager.get(Assets.slotMachineWindowYes));
 		animantionCtlr = new AnimationControl(Assets.manager.get(Assets.slotAnimation), 8, 1, 8);
 		notAnimating = new boolean[3];
 		
@@ -86,11 +87,14 @@ public class SlotMachineTextures extends Group {
 		
 		slots = new Slot[3];
 		
-		boolean argentina = false;
-		Random r = new Random();
+		generateSlots(player);
+	}
+
+	public void generateSlots(Player player) {
 		Slot temp;
+		Random r = new Random();
+		boolean argentina = false;
 		boolean madagascar = false;
-		
 		Set<Slot>slotsSet = new HashSet<Slot>();
 		
 		if (ImproveArrowDamage.level == 4 
@@ -131,34 +135,27 @@ public class SlotMachineTextures extends Group {
 					}
 					
 				}
-				
-				
 			} catch (Exception e) {
 
 			}
 		}
-			slots = slotsSet.toArray(slots); 
+			this.slots = slotsSet.toArray(slots); 
 			GeneralUtils.shuffle(slots);
 	}
 
 	@Override
 	public void draw(SpriteBatch batch, float parentAlpha) {
 		super.draw(batch, parentAlpha);
-		batch.draw(Assets.manager
-				.get(Assets.slotMachineCase), 144, 112);
+		batch.draw(Assets.manager.get(Assets.slotMachineCase), 144, 112);
 		
-		
-		animantionCtlr.doComplexAnimation(0,
-				1f, Gdx.graphics.getDeltaTime(), Animation.NORMAL);
-		
-
+		reloadButton.setSize(90, 90);
+		reloadButton.setPosition(Constants.VIEWPORT_GUI_WIDTH*0.88f, Constants.VIEWPORT_GUI_HEIGHT*0.08f);
+		batch.draw(reloadButton, Constants.VIEWPORT_GUI_WIDTH*0.88f, Constants.VIEWPORT_GUI_HEIGHT*0.08f);
+		animantionCtlr.doComplexAnimation(0, 1f, Gdx.graphics.getDeltaTime(), Animation.NORMAL);
 		int i = 0;
-//		Iterator<Slot> itr = slots.iterator();
 		
-		while (i<3) {
+		while (i < 3) {
 			if (notAnimating[i]) {
-				
-				
 				Slot slot = slots[i];
 				slot.sprite.setPosition(slotPositionsX[i], slotPositionY);
 				i++;
@@ -174,49 +171,56 @@ public class SlotMachineTextures extends Group {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-			}
-			else
-			{
-				batch.draw(animantionCtlr.getCurrentFrame(), slotPositionsX[i], slotPositionY, 146, 146);
+			} else {
+				batch.draw(animantionCtlr.getCurrentFrame(), slotPositionsX[i],
+						slotPositionY, 146, 146);
 				animCounter++;
-				
-				if(animCounter == 25){
+
+				if (animCounter == 25) {
 					notAnimating[i] = true;
 				}
-				if(animCounter == 50){
+				if (animCounter == 50) {
 					notAnimating[i] = true;
 				}
-				if(animCounter == 75){
+				if (animCounter == 75) {
 					notAnimating[i] = true;
 				}
 				i++;
 			}
 		}
-		
+
 		font.setColor(Color.BLACK);
 		font.setScale(0.5f, 0.5f);
-//		font.draw(batch, "MaxHP: " + p.getMaxHealth(), 284, 215);
-//		font.draw(batch, "MaxO2: " + p.maxOxygen, 284, 200);
-//		font.draw(batch, "Damage: " + p.damage, 284, 185);
-//		font.draw(batch, "AS: " + p.shotCoolDown, 284, 170);
-//		font.draw(batch, "Score: " + p.points, 156, 338);
-		
+		// font.draw(batch, "MaxHP: " + p.getMaxHealth(), 284, 215);
+		// font.draw(batch, "MaxO2: " + p.maxOxygen, 284, 200);
+		// font.draw(batch, "Damage: " + p.damage, 284, 185);
+		// font.draw(batch, "AS: " + p.shotCoolDown, 284, 170);
+		// font.draw(batch, "Score: " + p.points, 156, 338);
+
 		if (peru) {
-			slotMachineWindow.setSize(Constants.VIEWPORT_WIDTH/2.1f, Constants.VIEWPORT_HEIGHT/1.4f);
+			slotMachineWindow.setSize(Constants.VIEWPORT_WIDTH / 2.1f,
+					Constants.VIEWPORT_HEIGHT / 1.4f);
 			slotMachineWindow.draw(batch);
-			slotMachineWindow.setPosition(Constants.VIEWPORT_WIDTH/3.5f, Constants.VIEWPORT_GUI_HEIGHT/7);
-			slotMachineWindowYes.setSize(90,90);
+			slotMachineWindow.setPosition(Constants.VIEWPORT_WIDTH / 3.5f,
+					Constants.VIEWPORT_GUI_HEIGHT / 7);
+			slotMachineWindowYes.setSize(90, 90);
 			slotMachineWindowYes.draw(batch);
-			slotMachineWindowYes.setPosition(Constants.VIEWPORT_WIDTH/3.5f + 10, Constants.VIEWPORT_GUI_HEIGHT/6.5f);			
-			yes.setPosition(new Vector2(slotMachineWindowYes.getX(), slotMachineWindowYes.getY()));
-			slotMachineWindowNo.setSize(90,90);
+			slotMachineWindowYes.setPosition(
+					Constants.VIEWPORT_WIDTH / 3.5f + 10,
+					Constants.VIEWPORT_GUI_HEIGHT / 6.5f);
+			yes.setPosition(new Vector2(slotMachineWindowYes.getX(),
+					slotMachineWindowYes.getY()));
+			slotMachineWindowNo.setSize(90, 90);
 			slotMachineWindowNo.draw(batch);
-			slotMachineWindowNo.setPosition(Constants.VIEWPORT_WIDTH/1.575f, Constants.VIEWPORT_GUI_HEIGHT/6.5f);
-			no.setPosition(new Vector2(slotMachineWindowNo.getX(), slotMachineWindowNo.getY()));
-			font.draw(batch, selectedSlot.getDescription(), slotMachineWindow.getBoundingRectangle().x+25, slotMachineWindow.getBoundingRectangle().y+200);
-			
+			slotMachineWindowNo.setPosition(Constants.VIEWPORT_WIDTH / 1.575f,
+					Constants.VIEWPORT_GUI_HEIGHT / 6.5f);
+			no.setPosition(new Vector2(slotMachineWindowNo.getX(),
+					slotMachineWindowNo.getY()));
+			font.draw(batch, selectedSlot.getDescription(),
+					slotMachineWindow.getBoundingRectangle().x + 25,
+					slotMachineWindow.getBoundingRectangle().y + 200);
+
 		}
-		
 	}
 	
 	// Method to be used whenever the slot Machine page is to be loaded.

@@ -12,6 +12,7 @@ import com.me.swampmonster.game.collision.CollisionHelper;
 import com.me.swampmonster.models.AbstractGameObject.NegativeEffects;
 import com.me.swampmonster.models.L1;
 import com.me.swampmonster.models.Player;
+import com.me.swampmonster.models.Prop;
 import com.me.swampmonster.models.slots.PositiveEffects;
 
 public class LGenerator {
@@ -23,11 +24,13 @@ public class LGenerator {
 	Map<Integer, String> maps;
 	Map<Integer, String> tileSets;
 	private Random random;
+	PropsSpawnGenerator propsSpawnGenerator;
 
 	public LGenerator() {
 		maps = new HashMap<Integer, String>();
 		tileSets = new HashMap<Integer, String>();
 		random = new Random();
+		propsSpawnGenerator = new PropsSpawnGenerator();
 
 		maps.put(0, "Map.tmx");
 		maps.put(1, "Map.tmx");
@@ -77,6 +80,12 @@ public class LGenerator {
 			v2 = calculateRandomPlayerPos();
 		}
 		player.setPosition(v2);
+		propsSpawnGenerator.collisionLayer = TheController.collisionLayer;
+		level.props.add(propsSpawnGenerator.getSomeProp(player));
+		for (Prop p : level.props){
+			if (p !=null)
+			propsSpawnGenerator.spawnProp(player, p);
+		}
 		return level;
 	}
 

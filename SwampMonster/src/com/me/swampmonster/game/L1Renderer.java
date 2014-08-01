@@ -15,6 +15,7 @@ import com.me.swampmonster.models.Explosion;
 import com.me.swampmonster.models.Item;
 import com.me.swampmonster.models.AbstractGameObject.State;
 import com.me.swampmonster.models.L1;
+import com.me.swampmonster.models.Prop;
 import com.me.swampmonster.models.enemies.Enemy;
 import com.me.swampmonster.models.Projectile;
 import com.me.swampmonster.utils.Constants;
@@ -184,6 +185,17 @@ public class L1Renderer {
 					TheController.level1.player.trap.trapSprite.getHeight());
 		}
 		
+
+		for (Prop p : TheController.level1.props) {
+			if (p.sprite != null) {
+				p.getSprite().setPosition(p.getPosition().x,
+						p.getPosition().y);
+
+				batch.draw(p.sprite, p.getPosition().x,
+					p.getPosition().y, p.sprite.getWidth() / 2,
+					p.sprite.getHeight() / 2);
+			}
+		}
 		
 		for (Item item : TheController.level1.items) {
 			if (item.sprite != null) {
@@ -278,7 +290,7 @@ public class L1Renderer {
 		
 		// Temporary deBug feature
 		sr.begin(ShapeType.Line);
-		for (Enemy enemy : L1.enemiesOnStage){
+//		for (Enemy enemy : L1.enemiesOnStage){
 //			sr.setColor(Color.GREEN);
 //			sr.circle(enemy.getgReenAura().x, enemy.getgReenAura().y, enemy.getgReenAura().radius);
 //			sr.setColor(Color.BLUE);
@@ -288,7 +300,7 @@ public class L1Renderer {
 //			sr.setColor(Color.BLACK);
 //			sr.circle(theController.explosion.position.x, theController.explosion.position.y, theController.explosion.explCircle.radius);
 //			sr.circle(enemy.aimingAura.x, enemy.aimingAura.y, enemy.aimingAura.radius);
-		}	
+//		}	
 		sr.setColor(Color.CYAN);
 		for (Explosion e : L1.explosions){
 			sr.circle(e.position.x, e.position.y, e.explCircle.radius);

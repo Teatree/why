@@ -41,6 +41,7 @@ public class L1 {
 	private MisterItemSpawner misterItemSpawner = new MisterItemSpawner();
 	
 	public static List<Explosion> explosions;
+	public List<Prop> props; 
 
 	public boolean isElite;
 	public static boolean hasAtmosphere;
@@ -60,6 +61,7 @@ public class L1 {
 		bunker = new Bunker(tileSet, tileMap);
 		items = new LinkedList<Item>();
 		explosions = new ArrayList<Explosion>();
+		props = new ArrayList<Prop>();
 	}
 
 	public void update(boolean aiming, Vector3 touchPos, Vector3 V3point,
