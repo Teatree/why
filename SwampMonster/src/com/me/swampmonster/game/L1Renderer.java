@@ -38,7 +38,8 @@ public class L1Renderer {
 	
 	private int[] background = {0};
 	private int[] foreground = {1};
-	private int[] fiveground = {2};
+	private int[] forenahalfground = {2};
+	private int[] fiveground = {3};
 	
 	public L1Renderer(TheController theController){
 		this.theController = theController;
@@ -84,6 +85,7 @@ public class L1Renderer {
 		mapRenderer.setView(cam);
 		mapRenderer.render(background);
 		mapRenderer.render(foreground);
+		mapRenderer.render(forenahalfground);
 		
 		
 		Gdx.gl.glEnable(GL20.GL_BLEND);
