@@ -305,6 +305,13 @@ public class L1Renderer {
 		for (Explosion e : L1.explosions){
 			sr.circle(e.position.x, e.position.y, e.explCircle.radius);
 		}
+		for(Projectile p: TheController.level1.player.projectiles){
+			if(p != null){
+				sr.rect(p.position.x+p.sprite.getWidth()/2, p.position.y+p.sprite.getHeight()/2, 3, 3, 1, 1, p.sprite.getRotation());
+				sr.setColor(Color.RED);
+				sr.rect(p.position.x-p.sprite.getRotation(), p.position.y-p.sprite.getRotation(), 2, 2, 1, 1, p.sprite.getRotation());
+			}
+		}
 		sr.setColor(Color.WHITE);
 		for(Projectile p: TheController.level1.player.projectiles){
 			if(p!=null){

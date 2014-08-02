@@ -71,8 +71,13 @@ public class Projectile extends AbstractGameObject{
 	}
 
 	public void getSurfaceLevelProjectile(TiledMapTileLayer collisionLayer) {
-		currentSurfaceLevel = CollisionHelper.getSurfaceLevel(position.x+sprite.getWidth(), 
-				position.y+sprite.getHeight()/2, collisionLayer);
+		if(sprite.getRotation()<0){
+			currentSurfaceLevel = CollisionHelper.getSurfaceLevel(position.x+sprite.getWidth(), 
+					position.y+sprite.getHeight()/2, collisionLayer);
+		}else{
+			currentSurfaceLevel = CollisionHelper.getSurfaceLevel(position.x,
+					position.y+sprite.getHeight()/2, collisionLayer);
+		}
 	}
 	
 	public boolean isCollision(TiledMapTileLayer collisionLayer){
