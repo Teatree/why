@@ -32,11 +32,11 @@ public class Player extends AbstractGameObject {
 	private static final float FROZEN_MOVEMENT = 0.16f;
 	private static final float SPEED_BOOST_EFFECT = 1.1f;
 
-//	feedback
+	// feedback
 	public static int enemiesKilled;
 	public static int playerKilled;
 	public static int shotArrows;
-	
+
 	public Sprite positiveEffectSprite;
 	int time = 0;
 	int timer3hurt = 0;
@@ -78,7 +78,7 @@ public class Player extends AbstractGameObject {
 
 	public Circle radioactiveAura = null;
 	public int timer2;
-	
+
 	private float playerDy;
 	private float playerDx;
 
@@ -96,7 +96,8 @@ public class Player extends AbstractGameObject {
 		this.position = position;
 		movementSpeed = 0.5f;
 		random = new Random();
-		bowFrames = TextureRegion.split((Assets.manager.get(Assets.bow)), 32, 32);
+		bowFrames = TextureRegion.split((Assets.manager.get(Assets.bow)), 32,
+				32);
 		bow = new Sprite(bowFrames[0][0]);
 		hurt = false;
 		aimingArea = new Circle();
@@ -137,17 +138,17 @@ public class Player extends AbstractGameObject {
 		// ***Character stats board***
 		characterStatsBoard();
 		// ***Character stats board***
-//		sprite = new Sprite(animationsStandard.get(State.STANDARD)
-//				.getCurrentFrame());
-//		sprite.setColor(1, 1, 1, 1);
-//		shotDir = new Vector3();
-//		sprite.setSize(sprite.getWidth() / 2, sprite.getHeight() / 2);
+		// sprite = new Sprite(animationsStandard.get(State.STANDARD)
+		// .getCurrentFrame());
+		// sprite.setColor(1, 1, 1, 1);
+		// shotDir = new Vector3();
+		// sprite.setSize(sprite.getWidth() / 2, sprite.getHeight() / 2);
 		// allowedToShoot = true;
 	}
 
 	public void characterStatsBoard() {
 		// HEALTH, DAMAGE, OXYGEN, TYPE, TOUGHGUY, COLORSCHEME, ETC.
-//		playerMaxHealth = 16;
+		// playerMaxHealth = 16;
 		health = playerMaxHealth;
 		oxygen = maxOxygen;
 		damage = 1f;
@@ -189,7 +190,7 @@ public class Player extends AbstractGameObject {
 		rectanlge.height = sprite.getHeight();
 
 		if (!L1.hasAtmosphere) {
-			oxygen -= 0.00005f;
+			oxygen -= 0.005f;
 		}
 
 		if (Gdx.input.justTouched()) {
@@ -197,7 +198,7 @@ public class Player extends AbstractGameObject {
 		}
 
 		painLogic();
-		
+
 		shotDir.x = (position.x + sprite.getWidth() / 2) * 2 - V3point.x;
 		shotDir.y = (position.y + sprite.getHeight() / 2) * 2 - V3point.y;
 
@@ -207,7 +208,8 @@ public class Player extends AbstractGameObject {
 		}
 
 		// GUN
-		if (state.equals(State.GUNMOVEMENT) && negativeEffectsState != negativeEffectsState.STUN) {
+		if (state.equals(State.GUNMOVEMENT)
+				&& negativeEffectsState != negativeEffectsState.STUN) {
 			gunMovement(aiming, touchPos, V3point);
 		}
 
@@ -253,12 +255,17 @@ public class Player extends AbstractGameObject {
 	private void updateProjectiles(TiledMapTileLayer collisionLayer) {
 		Iterator<Projectile> prj = projectiles.iterator();
 		while (prj.hasNext()) {
-			System.err.println("player");
+			// System.err.println("player");
 			Projectile p = prj.next();
+			p.getSurfaceLevelProjectile(collisionLayer);
 			if (p != null && p.isCollision(collisionLayer)
 					&& p.effect != EffectCarriers.SHADOW) {
-				if (p.effect == EffectCarriers.EXPLOSIVE){
+				if (p.effect == EffectCarriers.EXPLOSIVE) {
 					TheController.skill.explode(p.position);
+				}
+				if (p.isCollisionNBreakable(collisionLayer)) {
+					L1.hasAtmosphere = false;
+					System.out.println("omg, atmosphere gone! oh noes");
 				}
 				prj.remove();
 			}
@@ -284,11 +291,11 @@ public class Player extends AbstractGameObject {
 			timeShooting++;
 
 		}
-//		if (shooting && timeShooting < 2) {
-//			shotDir.x = (position.x + sprite.getWidth() / 2) * 2 - V3point.x;
-//			shotDir.y = (position.y + sprite.getHeight() / 2) * 2 - V3point.y;
-//
-//		}
+		// if (shooting && timeShooting < 2) {
+		// shotDir.x = (position.x + sprite.getWidth() / 2) * 2 - V3point.x;
+		// shotDir.y = (position.y + sprite.getHeight() / 2) * 2 - V3point.y;
+		//
+		// }
 		if (shooting && timeShooting > 29) {
 			animationsStandard.get(state).setCurrentFrame(currentFrame);
 			shooting = false;
@@ -320,28 +327,30 @@ public class Player extends AbstractGameObject {
 			p.setDirection(direction_x, direction_y);
 
 			projectiles.add(p);
-			if(ThreeArrowsFlag){
+			if (ThreeArrowsFlag) {
 				float direction_x2 = shotDir.x - 40 - V3playerPos.x;
 				float direction_y2 = shotDir.y - 40 - V3playerPos.y;
 				float direction_x3 = shotDir.x + 48 - V3playerPos.x;
 				float direction_y3 = shotDir.y + 48 - V3playerPos.y;
-				
+
 				Projectile p2 = new Projectile(new Vector2(aimingArea.x
-						+ direction_x2 / 100 - 8, aimingArea.y + direction_y2 / 100
-						- 8), getRotation(new Vector3(shotDir.x - 40, shotDir.y - 40, 0)), arrowEffectCarrier);
+						+ direction_x2 / 100 - 8, aimingArea.y + direction_y2
+						/ 100 - 8), getRotation(new Vector3(shotDir.x - 40,
+						shotDir.y - 40, 0)), arrowEffectCarrier);
 				Projectile p3 = new Projectile(new Vector2(aimingArea.x
-						+ direction_x3 / 100 - 8, aimingArea.y + direction_y3 / 100
-						- 8), getRotation(new Vector3(shotDir.x + 48, shotDir.y + 48, 0)), arrowEffectCarrier);
+						+ direction_x3 / 100 - 8, aimingArea.y + direction_y3
+						/ 100 - 8), getRotation(new Vector3(shotDir.x + 48,
+						shotDir.y + 48, 0)), arrowEffectCarrier);
 
-				p2.setPosition(new Vector2(aimingArea.x + direction_x2 / 100 - 8,
-						aimingArea.y + direction_y2 / 100 - 8));
-				p3.setPosition(new Vector2(aimingArea.x + direction_x3 / 100 - 8,
-						aimingArea.y + direction_y3 / 100 - 8));
+				p2.setPosition(new Vector2(aimingArea.x + direction_x2 / 100
+						- 8, aimingArea.y + direction_y2 / 100 - 8));
+				p3.setPosition(new Vector2(aimingArea.x + direction_x3 / 100
+						- 8, aimingArea.y + direction_y3 / 100 - 8));
 
-				p2.force = (float) Math.sqrt(Math.pow((V3point.x - position.x), 2)
-						+ Math.pow((V3point.y - position.y), 2)) / 50;
-				p3.force = (float) Math.sqrt(Math.pow((V3point.x - position.x), 2)
-						+ Math.pow((V3point.y - position.y), 2)) / 50;
+				p2.force = (float) Math.sqrt(Math.pow((V3point.x - position.x),
+						2) + Math.pow((V3point.y - position.y), 2)) / 50;
+				p3.force = (float) Math.sqrt(Math.pow((V3point.x - position.x),
+						2) + Math.pow((V3point.y - position.y), 2)) / 50;
 
 				float length2 = (float) Math.sqrt(direction_x2 * direction_x2
 						+ direction_y2 * direction_y2);
@@ -411,25 +420,26 @@ public class Player extends AbstractGameObject {
 		}
 	}
 
-	//:TODO GUNMOVEMENT
+	// :TODO GUNMOVEMENT
 	private void gunMovement(boolean aiming, Vector3 touchPos, Vector3 V3point) {
-		
-		double aimingLength = Math.sqrt(Math.pow(aimLineHead.x - position.x, 2)+Math.pow(aimLineHead.y - position.y, 2));
-		 
+
+		double aimingLength = Math.sqrt(Math.pow(aimLineHead.x - position.x, 2)
+				+ Math.pow(aimLineHead.y - position.y, 2));
+
 		sprite.setRegion(animationsStandard.get(state).getCurrentFrame());
 		sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
-		if(aimingLength<50){
+		if (aimingLength < 50) {
 			bow = new Sprite(bowFrames[0][0]);
-			
-		}else if(aimingLength < 100){
+
+		} else if (aimingLength < 100) {
 			bow = new Sprite(bowFrames[1][0]);
-		}else{
+		} else {
 			bow = new Sprite(bowFrames[2][0]);
 		}
-		bow.setPosition(position.x-10, position.y);
-		bow.setRotation(getRotation(shotDir)*57.29f);
-		
-//		System.out.println(bow.getRotation());
+		bow.setPosition(position.x - 10, position.y);
+		bow.setRotation(getRotation(shotDir) * 57.29f);
+
+		// System.out.println(bow.getRotation());
 
 		if (!aiming) {
 			currentFrame = animationsStandard.get(state).doComplexAnimation(0,
@@ -443,11 +453,11 @@ public class Player extends AbstractGameObject {
 					- V3point.x;
 			aimLineHead.y = (position.y + sprite.getHeight() / 2) * 2
 					- V3point.y;
-			
+
 		}
 		if (aiming && V3point.y > position.y + 8 && V3point.x < position.x + 32
 				&& V3point.x > position.x) {
-			
+
 			currentFrame = animationsStandard.get(state).doComplexAnimation(24,
 					0.5f, Gdx.graphics.getDeltaTime(), Animation.NORMAL);
 		} else if (aiming && V3point.y < position.y + 8
@@ -489,7 +499,8 @@ public class Player extends AbstractGameObject {
 		case RADIOACTIVE_AURA:
 			movementSpeed = STANDART_MOVEMENT_SPEED;
 			radioactiveAura = new Circle(position.x + sprite.getWidth() / 2,
-					position.y + sprite.getHeight() / 2, RADIOACTIVE.RADIOACTIVE_Radius);
+					position.y + sprite.getHeight() / 2,
+					RADIOACTIVE.RADIOACTIVE_Radius);
 			positiveEffectsState = positiveEffect;
 			positiveEffectCounter = positiveEffect.lifetime;
 			break;
@@ -893,16 +904,16 @@ public class Player extends AbstractGameObject {
 	}
 
 	public void decreaseOxygen() {
-		if (oxygen >= 0 && !L1.hasAtmosphere) {
-			oxygen-=0.8f;
-		}
+//		if (oxygen >= 0 && !L1.hasAtmosphere) {
+//			oxygen -= 2.8f;
+//		}
 	}
 
 	private void updateTrap() {
 		if (trap != null) {
 			if (trapTimer < trap.lifeTime) {
 				trapTimer++;
-				if(trap.effect != null && trap.effect.isComplete()){
+				if (trap.effect != null && trap.effect.isComplete()) {
 					trap.position = null;
 				}
 			} else {

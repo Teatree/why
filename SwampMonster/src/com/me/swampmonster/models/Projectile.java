@@ -16,6 +16,7 @@ public class Projectile extends AbstractGameObject{
 	public float force;
 	public static float arrowMovementSpeed;
 	public EffectCarriers effect;
+	public int currentSurfaceLevel;
 	
 	public enum EffectCarriers{
 		POISONED(new Sprite(Assets.manager.get(Assets.arrowPoisoned))),
@@ -64,12 +65,22 @@ public class Projectile extends AbstractGameObject{
 				state = State.DEAD;
 			}
 		}
+		
 		circle.x = position.x+sprite.getWidth()/2;
 		circle.y = position.y+sprite.getHeight()/2;
 	}
+
+	public void getSurfaceLevelProjectile(TiledMapTileLayer collisionLayer) {
+		currentSurfaceLevel = CollisionHelper.getSurfaceLevel(position.x+sprite.getWidth(), 
+				position.y+sprite.getHeight()/2, collisionLayer);
+	}
 	
 	public boolean isCollision(TiledMapTileLayer collisionLayer){
-		return CollisionHelper.isCollidable(position.x+sprite.getWidth()/2, 
+		return CollisionHelper.isCollidableLevel(position.x+sprite.getWidth()/2, 
+				position.y+sprite.getHeight()/2, collisionLayer, this) != null;
+	}
+	public boolean isCollisionNBreakable(TiledMapTileLayer collisionLayer){
+		return CollisionHelper.isCollidableBreakable(position.x+sprite.getWidth()/2, 
 				position.y+sprite.getHeight()/2, collisionLayer) != null;
 	}
 	

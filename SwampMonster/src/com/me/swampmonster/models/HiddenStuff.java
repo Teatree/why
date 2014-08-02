@@ -12,15 +12,5 @@ public class HiddenStuff extends Prop{
 		sprite = new Sprite(Assets.manager.get(Assets.EXPLOSIVE_TRAP_ICON));
 	}
 	
-	@Override
-	public void doCollide(AbstractGameObject abstractGameObject,
-			TiledMapTileLayer collisionLayer) {
-		
-	}
-
-	@Override
-	public void doCollideAbstactObject(AbstractGameObject abstractGameObject) {
-		
-	}
 
 }

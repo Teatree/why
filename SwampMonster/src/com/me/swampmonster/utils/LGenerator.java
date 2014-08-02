@@ -34,8 +34,8 @@ public class LGenerator {
 
 		maps.put(0, "Map.tmx");
 		maps.put(1, "Map.tmx");
-		maps.put(2, "Map2.tmx");
-		maps.put(3, "Map2.tmx");
+		maps.put(2, "Map.tmx");
+		maps.put(3, "Map.tmx");
 		maps.put(4, "Map.tmx");
 
 		tileSets.put(0, "tileSet_SAND_WORLD");
@@ -47,34 +47,36 @@ public class LGenerator {
 	public L1 createLevel(Player player) {
 		String map = maps.get(random.nextInt(maps.size() - 1));
 		String tileSet = tileSets.get(random.nextInt(tileSets.size()));
-		
+
 		boolean isLevelElite = random.nextBoolean();
-		
+
 		boolean hasLevelAtmosphere;
-		if (isLevelElite){
+		if (isLevelElite) {
 			hasLevelAtmosphere = false;
 		} else {
 			hasLevelAtmosphere = random.nextBoolean();
 		}
 
 		String br = Gdx.files.local("data\\" + map).readString();
-		if (!L1.hasAtmosphere){
+		System.out.println("atmosphere: " + L1.hasAtmosphere);
+		if (!hasLevelAtmosphere) {
 			br = br.replaceAll(DEFAULT_TILESET, tileSet + ".png");
 		} else {
-			br = br.replaceAll(DEFAULT_TILESET,"tileSet_SAND_WORLD4.png");
+			br = br.replaceAll(DEFAULT_TILESET, "tileSet_SAND_WORLD4.png");
 		}
 		Gdx.files.local("data\\" + map).writeString(br, false);
 		br = Gdx.files.local("data\\" + map).readString();
-		
-		
-		L1 level = new L1(player, "tileSet_SAND_WORLD", "data/" + map, hasLevelAtmosphere, isLevelElite);
+
+		L1 level = new L1(player, "tileSet_SAND_WORLD", "data/" + map,
+				hasLevelAtmosphere, isLevelElite);
 		player.oxygen = Player.maxOxygen;
 		player.health = Player.playerMaxHealth;
 		player.setPositiveEffect(PositiveEffects.NONE);
 		player.setNegativeEffect(NegativeEffects.NONE);
 		player.movementSpeed = 1.4f;
 		player.characterStatsBoard();
-		TheController.collisionLayer = (TiledMapTileLayer) level.bunker.getMap().getLayers().get(0);
+		TheController.collisionLayer = (TiledMapTileLayer) level.bunker
+				.getMap().getLayers().get(0);
 		Vector2 v2 = new Vector2();
 		while (!isValidPosition(v2)) {
 			v2 = calculateRandomPlayerPos();
@@ -82,9 +84,9 @@ public class LGenerator {
 		player.setPosition(v2);
 		propsSpawnGenerator.collisionLayer = TheController.collisionLayer;
 		level.props.add(propsSpawnGenerator.getSomeProp(player));
-		for (Prop p : level.props){
-			if (p !=null)
-			propsSpawnGenerator.spawnProp(player, p);
+		for (Prop p : level.props) {
+			if (p != null)
+				propsSpawnGenerator.spawnProp(player, p);
 		}
 		return level;
 	}

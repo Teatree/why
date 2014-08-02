@@ -13,16 +13,6 @@ public class ExplosiveProp extends Prop{
 		sprite = new Sprite(Assets.manager.get(Assets.EXPLOSIVE_TRAP_ICON));
 	}
 	
-	@Override
-	public void doCollideAbstactObject(AbstractGameObject abstractGameObject) {
-		explosion = new Explosion(position);
-	}
-	
-	
-	@Override
-	public void doCollide(AbstractGameObject abstractGameObject,
-			TiledMapTileLayer collisionLayer) {
-	}
 
 
 }

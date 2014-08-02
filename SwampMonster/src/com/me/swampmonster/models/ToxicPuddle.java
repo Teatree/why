@@ -16,13 +16,7 @@ public class ToxicPuddle extends Prop{
 		sprite = new Sprite(Assets.manager.get(Assets.POISON_TRAP));
 	}
 	
-	@Override
-	public void doCollide(AbstractGameObject abstractGameObject,
-			TiledMapTileLayer collisionLayer) {		
-	}
-
-	@Override
-	public void doCollideAbstactObject(AbstractGameObject abstractGameObject) {
+	public void catchObject(AbstractGameObject abstractGameObject) {
 		if (abstractGameObject instanceof Enemy || abstractGameObject instanceof Player){
 			try {
 				Method method = abstractGameObject.getClass().getMethod("setNegativeEffect", NegativeEffects.class);
