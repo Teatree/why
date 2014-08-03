@@ -34,8 +34,8 @@ public class LGenerator {
 
 		maps.put(0, "Map.tmx");
 		maps.put(1, "Map.tmx");
-		maps.put(2, "Map.tmx");
-		maps.put(3, "Map.tmx");
+		maps.put(2, "Map3.tmx");
+		maps.put(3, "Map3.tmx");
 		maps.put(4, "Map.tmx");
 
 		tileSets.put(0, "tileSet_SAND_WORLD");

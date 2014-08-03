@@ -79,7 +79,6 @@ public class L1 {
 		player.update(aiming, touchPos, V3point, collisionLayer, dx, dy);
 		
 		misterSpawner.setCollisionLayer(collisionLayer);
-		misterItemSpawner.setCollisionLayer(collisionLayer);
 		updateWave();
 
 		for (Enemy enemy : enemiesOnStage) {

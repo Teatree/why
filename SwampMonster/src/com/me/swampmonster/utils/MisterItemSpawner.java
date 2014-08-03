@@ -5,6 +5,7 @@ import java.util.Random;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector2;
+import com.me.swampmonster.game.TheController;
 import com.me.swampmonster.game.collision.CollisionHelper;
 import com.me.swampmonster.models.AbstractGameObject;
 import com.me.swampmonster.models.Item;
@@ -20,7 +21,7 @@ public class MisterItemSpawner {
 	static Random random = new Random();
 	static int mapWith;
 	static int mapHeight;
-	static TiledMapTileLayer collisionLayer;
+//	static TiledMapTileLayer collisionLayer;
 	ItemGenerator itemGenerator = new ItemGenerator();
 	Item item;
 	int spawnRate;
@@ -47,10 +48,10 @@ public class MisterItemSpawner {
 			return null;
 		}
 		item.position = new Vector2(enmy.position);
-		mapWith = (int) collisionLayer.getTileWidth()
-				* collisionLayer.getWidth();
-		mapHeight = (int) collisionLayer.getTileHeight()
-				* collisionLayer.getHeight();
+		mapWith = (int) TheController.collisionLayer.getTileWidth()
+				* TheController.collisionLayer.getWidth();
+		mapHeight = (int) TheController.collisionLayer.getTileHeight()
+				* TheController.collisionLayer.getHeight();
 
 		setItemTargetPos(item, player, enmy);
 
@@ -86,7 +87,7 @@ public class MisterItemSpawner {
 	}
 	
 	private static boolean isValidTargetPosition(Item item, Player player) {
-		if (CollisionHelper.isCollidable(item.targetPos.x, item.targetPos.y, collisionLayer) == null
+		if (CollisionHelper.isCollidable(item.targetPos.x, item.targetPos.y, TheController.collisionLayer) == null
 				&& !Intersector.overlaps(item.circle, player.rectanlge)) {
 			return true;
 		}
@@ -94,10 +95,10 @@ public class MisterItemSpawner {
 	}
 
 	private static void setItemTargetPos(Item i, Player player, AbstractGameObject enemy) {
-		mapWith = (int) collisionLayer.getTileWidth()
-				* collisionLayer.getWidth();
-		mapHeight = (int) collisionLayer.getTileHeight()
-				* collisionLayer.getHeight();
+		mapWith = (int) TheController.collisionLayer.getTileWidth()
+				* TheController.collisionLayer.getWidth();
+		mapHeight = (int) TheController.collisionLayer.getTileHeight()
+				* TheController.collisionLayer.getHeight();
 		int minX = (int) (enemy.getPosition().x - spavning_distance_x);
 		if (minX <= 0) {
 			minX = 1;
@@ -119,16 +120,9 @@ public class MisterItemSpawner {
 		vector2.x = random.nextInt(maxX - minX) + minX;
 		vector2.y = random.nextInt(maxY - minY) + minY;
 		i.targetPos = vector2;
-		i.collisionLayer = collisionLayer;
+		i.collisionLayer = TheController.collisionLayer;
 		i.spawned = true;
 	}
 
-	public TiledMapTileLayer getCollisionLayer() {
-		return collisionLayer;
-	}
-
-	public void setCollisionLayer(TiledMapTileLayer collisionLayer) {
-		this.collisionLayer = collisionLayer;
-	}
 
 }
