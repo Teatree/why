@@ -89,7 +89,7 @@ public class ExplozionTrap extends Trap{
 			explosion.position = this.position;
 			explosion.explCircle.setPosition(this.position.x, this.position.y);
 			explosion.explosionEffect = new ParticleEffect();
-			explosion.explosionEffect.load(Gdx.files.local("effects/explosionEffect.p"),Gdx.files.local("effects"));
+			explosion.explosionEffect.load(Gdx.files.local("effects/FlameEffectTemp.p"),Gdx.files.local("effects"));
 			explosion.explosionEffect.setPosition(this.position.x,this.position.y);
 			explosion.explosionEffect.start();
 			L1.explosions.add(explosion);

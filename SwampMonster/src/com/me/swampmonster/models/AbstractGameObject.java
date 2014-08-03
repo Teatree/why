@@ -74,6 +74,7 @@ public abstract class AbstractGameObject {
 	public Collidable collidableLeft;
 	public Collidable collidableUp;
 	public Collidable collidableDown;
+	public int oxygen;
 	
 	public Vector2 getPosition() {
 		return position;
@@ -133,9 +134,6 @@ public abstract class AbstractGameObject {
 		this.line = line;
 	}
 	
-	public void setNegativeEffect(NegativeEffects frozen) {
-	}
-	
 	public Collidable collisionCheckerRight(TiledMapTileLayer collisionLayer){
 		return null;
 	}
@@ -159,5 +157,9 @@ public abstract class AbstractGameObject {
 
 	public float getDy() {
 		return 0;
+	}
+	
+	public void setNegativeEffect(NegativeEffects negativeEffects){
+		
 	}
 }

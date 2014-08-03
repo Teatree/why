@@ -22,8 +22,8 @@ import com.me.swampmonster.utils.WaveGenerator;
 
 public class L1 {
 
-	public Player player;
-	public List<Item> items;
+	public static Player player;
+	public static List<Item> items;
 	public static Stack<Enemy> enemiesOnStage;
 	public Wave wave;
 	public int wavesAmount;
@@ -41,7 +41,7 @@ public class L1 {
 	private MisterItemSpawner misterItemSpawner = new MisterItemSpawner();
 	
 	public static List<Explosion> explosions;
-	public List<Prop> props; 
+	public static List<Prop> props =  new ArrayList<Prop>(); 
 
 	public boolean isElite;
 	public static boolean hasAtmosphere;
@@ -61,7 +61,6 @@ public class L1 {
 		bunker = new Bunker(tileSet, tileMap);
 		items = new LinkedList<Item>();
 		explosions = new ArrayList<Explosion>();
-		props = new ArrayList<Prop>();
 	}
 
 	public void update(boolean aiming, Vector3 touchPos, Vector3 V3point,
@@ -71,11 +70,11 @@ public class L1 {
 			if (Intersector.overlaps(expl.explCircle, player.rectanlge)) {
 				expl.cause(player, collisionLayer);
 			}
+			expl.update();
 		}
 		
-		for (Explosion e : explosions){
-			e.update();
-		}
+//		for (Explosion e : explosions){
+//		}
 		
 		player.update(aiming, touchPos, V3point, collisionLayer, dx, dy);
 		
@@ -226,7 +225,7 @@ public class L1 {
 					e.timeRemove = 0;
 				}
 				if (e.timeRemove == 1) {
-					Item i = misterItemSpawner .spawnItem(player, e);
+					Item i = misterItemSpawner.spawnItem(player, e);
 					if (i != null) {
 						items.add(i);
 					}

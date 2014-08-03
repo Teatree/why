@@ -19,9 +19,11 @@ import com.me.swampmonster.animations.AnimationControl;
 import com.me.swampmonster.game.collision.Collidable;
 import com.me.swampmonster.game.collision.CollisionHelper;
 import com.me.swampmonster.models.AbstractGameObject;
+import com.me.swampmonster.models.TreasureBox;
 import com.me.swampmonster.models.L1;
 import com.me.swampmonster.models.Player;
 import com.me.swampmonster.models.Projectile;
+import com.me.swampmonster.models.Prop;
 import com.me.swampmonster.models.Projectile.EffectCarriers;
 import com.me.swampmonster.models.slots.PositiveEffects;
 import com.me.swampmonster.models.slots.RADIOACTIVE;
@@ -387,7 +389,16 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 				p.update();
 			}
 		}
-
+		
+		
+		Iterator<Prop> propItr = L1.props.iterator();
+		while (propItr.hasNext()){
+			Prop prop = propItr.next();
+			if (prop.sprite.getBoundingRectangle().overlaps(this.sprite.getBoundingRectangle()) && 
+					!(prop instanceof TreasureBox)){
+				prop.toDoSomething(this);
+			}
+		}
 	}
 
 	public void atackLogic(Player player, CameraHelper cameraHelper) {

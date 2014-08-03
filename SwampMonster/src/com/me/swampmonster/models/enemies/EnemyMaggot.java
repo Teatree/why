@@ -12,7 +12,6 @@ import com.me.swampmonster.animations.AnimationControl;
 import com.me.swampmonster.game.collision.Collidable;
 import com.me.swampmonster.game.collision.CollisionHelper;
 import com.me.swampmonster.models.Player;
-import com.me.swampmonster.models.AbstractGameObject.State;
 import com.me.swampmonster.utils.Assets;
 import com.me.swampmonster.utils.CameraHelper;
 
@@ -23,7 +22,6 @@ public class EnemyMaggot extends Enemy {
 	private int prepareChargeCoutner;
 	private int waitingCounter;
 	private int chargeCoutner;
-	private int reversedAnimationCounter;
 	private Random rand;
 	
 	private float savedPlayerPosX;
@@ -214,7 +212,7 @@ public class EnemyMaggot extends Enemy {
 			}
 			
 			if(rectanlge.overlaps(player.rectanlge)){
-				player.setNegativeEffect(negativeEffectsState.STUN);
+				player.setNegativeEffect(NegativeEffects.STUN);
 			}
 		}
 	}

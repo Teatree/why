@@ -18,7 +18,7 @@ public class MisterSpawner {
 	Random random = new Random();
 	int mapWith;
 	int mapHeight;
-	TiledMapTileLayer collisionLayer;
+	public TiledMapTileLayer collisionLayer;
 	Vector2 v2;
 
 	static ExecutorService threadPool = Executors.newCachedThreadPool();

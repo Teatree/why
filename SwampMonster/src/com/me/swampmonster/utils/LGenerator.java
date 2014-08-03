@@ -83,8 +83,12 @@ public class LGenerator {
 		}
 		player.setPosition(v2);
 		propsSpawnGenerator.collisionLayer = TheController.collisionLayer;
-		level.props.add(propsSpawnGenerator.getSomeProp(player));
-		for (Prop p : level.props) {
+		
+		int propsInLevelAmount = random.nextInt(15) + 13;
+		for (int i = 0; i < propsInLevelAmount; i++){
+			L1.props.add(propsSpawnGenerator.getSomeProp(player));
+		}
+		for (Prop p : L1.props) {
 			if (p != null)
 				propsSpawnGenerator.spawnProp(player, p);
 		}

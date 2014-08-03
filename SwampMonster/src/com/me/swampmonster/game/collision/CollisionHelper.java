@@ -60,7 +60,7 @@ public class CollisionHelper {
 						.getProperties().get("level"));
 				System.out.println("sufraceLevel: " + p.currentSurfaceLevel
 						+ " i " + i);
-				if (p.currentSurfaceLevel <= i) {
+				if (p.initialSurfaceLevel <= i) {
 					solid = new Solid();
 				} 
 			}

@@ -6,8 +6,10 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector2;
 import com.me.swampmonster.game.collision.CollisionHelper;
+import com.me.swampmonster.models.AbstractGameObject;
 import com.me.swampmonster.models.Item;
 import com.me.swampmonster.models.Player;
+import com.me.swampmonster.models.Prop;
 import com.me.swampmonster.models.enemies.Enemy;
 
 public class MisterItemSpawner {
@@ -15,10 +17,10 @@ public class MisterItemSpawner {
 	public static int spavning_distance_x = 24;
 	public static int spavning_distance_y = 24;
 	
-	Random random = new Random();
-	int mapWith;
-	int mapHeight;
-	TiledMapTileLayer collisionLayer;
+	static Random random = new Random();
+	static int mapWith;
+	static int mapHeight;
+	static TiledMapTileLayer collisionLayer;
 	ItemGenerator itemGenerator = new ItemGenerator();
 	Item item;
 	int spawnRate;
@@ -58,7 +60,32 @@ public class MisterItemSpawner {
 		return item;
 	}
 
-	private boolean isValidTargetPosition(Item item, Player player) {
+	
+	public static Item spawnPropsItem(Player player, Prop prop) {
+		ItemGenerator itemGenerator = new ItemGenerator();
+		Random random = new Random();
+
+		int haveIitem = random.nextInt(100);
+		Item item;
+		if (haveIitem < 100) {
+			if (player.oxygen <= 13) {
+				item = itemGenerator.getMoreLikelyOxugenItem(Player.score);
+			} else {
+				item = itemGenerator.getItem(Player.score);
+			}
+		} else {
+			return null;
+		}
+
+		item.position = new Vector2(prop.position);
+		setItemTargetPos(item, player, prop);
+		while (!isValidTargetPosition(item, player)) {
+			setItemTargetPos(item, player, prop);
+		}
+		return item;
+	}
+	
+	private static boolean isValidTargetPosition(Item item, Player player) {
 		if (CollisionHelper.isCollidable(item.targetPos.x, item.targetPos.y, collisionLayer) == null
 				&& !Intersector.overlaps(item.circle, player.rectanlge)) {
 			return true;
@@ -66,7 +93,11 @@ public class MisterItemSpawner {
 		return false;
 	}
 
-	private void setItemTargetPos(Item i, Player player, Enemy enemy) {
+	private static void setItemTargetPos(Item i, Player player, AbstractGameObject enemy) {
+		mapWith = (int) collisionLayer.getTileWidth()
+				* collisionLayer.getWidth();
+		mapHeight = (int) collisionLayer.getTileHeight()
+				* collisionLayer.getHeight();
 		int minX = (int) (enemy.getPosition().x - spavning_distance_x);
 		if (minX <= 0) {
 			minX = 1;

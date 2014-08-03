@@ -79,7 +79,7 @@ public class ExplosiveArrow extends Slot{
 			explosion.position = pos;
 			explosion.explCircle.setPosition(pos.x, pos.y);
 			explosion.explosionEffect = new ParticleEffect();
-			explosion.explosionEffect.load(Gdx.files.local("effects/explosionEffect.p"),Gdx.files.local("effects"));
+			explosion.explosionEffect.load(Gdx.files.local("effects/FlameEffectTemp.p"),Gdx.files.local("effects"));
 			explosion.explosionEffect.setPosition(pos.x, pos.y);
 			explosion.explosionEffect.start();
 			L1.explosions.add(explosion);

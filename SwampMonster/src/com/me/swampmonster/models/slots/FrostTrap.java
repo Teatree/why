@@ -76,7 +76,7 @@ public class FrostTrap extends Trap{
 			explosion.explCircle.radius = 1f;
 
 			explosion.explosionEffect = new ParticleEffect();
-			explosion.explosionEffect.load(Gdx.files.local("effects/explosionEffect.p"),Gdx.files.local("effects"));
+			explosion.explosionEffect.load(Gdx.files.local("effects/FlameEffectTemp.p"),Gdx.files.local("effects"));
 			explosion.explosionEffect.setPosition(this.position.x,this.position.y);
 			explosion.explosionEffect.start();
 			L1.explosions.add(explosion);

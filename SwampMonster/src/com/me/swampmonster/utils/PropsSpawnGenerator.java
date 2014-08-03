@@ -9,12 +9,10 @@ import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector2;
 import com.me.swampmonster.game.collision.CollisionHelper;
 import com.me.swampmonster.models.ExplosiveProp;
-import com.me.swampmonster.models.HiddenStuff;
-import com.me.swampmonster.models.Item;
+import com.me.swampmonster.models.TreasureBox;
 import com.me.swampmonster.models.Player;
 import com.me.swampmonster.models.Prop;
 import com.me.swampmonster.models.ToxicPuddle;
-import com.me.swampmonster.models.enemies.Enemy;
 
 public class PropsSpawnGenerator {
 	private Map <Integer, Class<? extends Prop>> propTypes;
@@ -27,12 +25,12 @@ public class PropsSpawnGenerator {
 		propTypes = new HashMap<Integer, Class<? extends Prop>>();
 		propTypes.put(0, ToxicPuddle.class);
 		propTypes.put(1, ExplosiveProp.class);
-		propTypes.put(2, HiddenStuff.class);
+		propTypes.put(2, TreasureBox.class);
 		random = new Random();
 	}
 	
 	public Prop getSomeProp(Player player) {
-		int currentPropType = random.nextInt(2);
+		int currentPropType = random.nextInt(3);
 		Prop prop = null;
 		try {
 			prop = propTypes.get(currentPropType).getConstructor(Vector2.class).newInstance(new Vector2());
@@ -58,8 +56,8 @@ public class PropsSpawnGenerator {
 	
 	private void setPropPos(Prop prop, Player player) {
 			Vector2 vector2 = new Vector2();
-			vector2.x = random.nextInt((int)Constants.VIEWPORT_GUI_WIDTH);
-			vector2.y = random.nextInt((int)Constants.VIEWPORT_GUI_HEIGHT);
+			vector2.x = random.nextInt(mapWith - 25) + 25;
+			vector2.y = random.nextInt(mapHeight - 25) + 25;
 			prop.position = vector2;
 	}
 

@@ -209,7 +209,7 @@ public class Player extends AbstractGameObject {
 
 		// GUN
 		if (state.equals(State.GUNMOVEMENT)
-				&& negativeEffectsState != negativeEffectsState.STUN) {
+				&& negativeEffectsState != NegativeEffects.STUN) {
 			gunMovement(aiming, touchPos, V3point);
 		}
 
@@ -250,6 +250,17 @@ public class Player extends AbstractGameObject {
 		}
 
 		updateTrap();
+		
+		Iterator<Prop> propItr = L1.props.iterator();
+		while (propItr.hasNext()){
+			Prop prop = propItr.next();
+			if (prop.sprite.getBoundingRectangle().overlaps(this.sprite.getBoundingRectangle())){
+				prop.toDoSomething(this);
+				if (!(prop instanceof ToxicPuddle)){
+					propItr.remove();
+				}
+			}
+		}
 	}
 
 	private void updateProjectiles(TiledMapTileLayer collisionLayer) {
@@ -265,7 +276,6 @@ public class Player extends AbstractGameObject {
 				}
 				if (p.isCollisionNBreakable(collisionLayer)) {
 					L1.hasAtmosphere = false;
-					System.out.println("omg, atmosphere gone! oh noes");
 				}
 				prj.remove();
 			}
@@ -414,7 +424,7 @@ public class Player extends AbstractGameObject {
 		sprite.setRegion(animationsStandard.get(state).getCurrentFrame());
 		sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
 
-		if (!hurt && negativeEffectsState != negativeEffectsState.STUN) {
+		if (!hurt && negativeEffectsState != NegativeEffects.STUN) {
 			movementCollisionAndAnimation(movementSpeed, touchPos,
 					collisionLayer, dx, dy);
 		}
