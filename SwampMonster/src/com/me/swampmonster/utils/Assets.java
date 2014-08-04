@@ -28,7 +28,6 @@ public class Assets {
 	public static final AssetDescriptor<Texture> OxygenBarMiddle = new AssetDescriptor<Texture>("data\\OxygenBarMiddle.png", Texture.class);
 	public static final AssetDescriptor<Texture> OxygenBarHead = new AssetDescriptor<Texture>("data\\OxygenBarHead.png", Texture.class);
 	public static final AssetDescriptor<Texture> PointerHead = new AssetDescriptor<Texture>("data\\PointerHead.png", Texture.class);
-	public static final AssetDescriptor<Texture> PointerMiddle = new AssetDescriptor<Texture>("data\\PointerMiddle.png", Texture.class);
 	public static final AssetDescriptor<Texture> arrow = new AssetDescriptor<Texture>("data\\arrrrow.png", Texture.class);
 	public static final AssetDescriptor<Texture> arrowPoisoned = new AssetDescriptor<Texture>("data\\arrrrowPoisoned.png", Texture.class);
 	public static final AssetDescriptor<Texture> arrowExplosive = new AssetDescriptor<Texture>("data\\arrrrowExplosive.png", Texture.class);
@@ -91,7 +90,6 @@ public class Assets {
 		manager.load(OxygenBarMiddle);
 		manager.load(OxygenBarHead);
 		manager.load(PointerHead);
-		manager.load(PointerMiddle);
 		manager.load(items);
 		manager.load(weaponizerButton);
 		manager.load(tiles);
