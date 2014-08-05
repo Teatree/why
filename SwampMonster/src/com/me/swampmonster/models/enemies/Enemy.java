@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -19,7 +20,7 @@ import com.me.swampmonster.animations.AnimationControl;
 import com.me.swampmonster.game.collision.Collidable;
 import com.me.swampmonster.game.collision.CollisionHelper;
 import com.me.swampmonster.models.AbstractGameObject;
-import com.me.swampmonster.models.TreasureBox;
+import com.me.swampmonster.models.ToxicPuddle;
 import com.me.swampmonster.models.L1;
 import com.me.swampmonster.models.Player;
 import com.me.swampmonster.models.Projectile;
@@ -71,6 +72,10 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 	private int negativeEffectTimer;
 	private int timerPoisoned;
 
+	Random random = new Random();
+	int generateNewRandomPosForScared;
+	public int negativeEffectCounter;
+
 	public Enemy(Vector2 position) {
 		this.position = position;
 		rectanlge = new Rectangle();
@@ -98,9 +103,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 				Assets.manager.get(Assets.enemy), 8, 16, 8));
 		animationsStandard.put(State.ANIMATING, new AnimationControl(
 				Assets.manager.get(Assets.enemy), 8, 16, 8));
-		animationsStandard
-				.put(State.DEAD,
-						new AnimationControl(Assets.manager.get(Assets.enemy),
+		animationsStandard.put(State.DEAD,new AnimationControl(Assets.manager.get(Assets.enemy),
 								8, 16, 4));
 		oldPos = position;
 		// Timer is for the length of the actual animation
@@ -150,10 +153,28 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 		rectanlge.width = sprite.getWidth();
 		rectanlge.height = sprite.getHeight();
 
+		if (negativeEffectCounter <= 0) {
+			setNegativeEffect(NegativeEffects.NONE);
+		} else {
+			negativeEffectCounter--;
+		}
 		// Direction for the standard state
-		enemyDx = player.getPosition().x - position.x;
-		enemyDy = player.getPosition().y - position.y;
-
+		if (negativeEffectsState != NegativeEffects.FEAR) {
+			enemyDx = player.position.x - position.x;
+			enemyDy = player.position.y - position.y;
+		} else {
+			System.out.println(" I am scared state = " + state);
+			if (generateNewRandomPosForScared == 0) {
+				int randomTargetX = random.nextInt(1000);
+				int randomTargetY = random.nextInt(1000);
+				System.out.println(randomTargetX + " : " + randomTargetY);
+				enemyDx = randomTargetX - position.x;
+				enemyDy = randomTargetY - position.y;
+				generateNewRandomPosForScared = 23;
+			} else {
+				generateNewRandomPosForScared--;
+			}
+		}
 		float enemyLength = (float) Math.sqrt(enemyDx * enemyDx + enemyDy
 				* enemyDy);
 		enemyDx /= enemyLength;
@@ -389,14 +410,42 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 				p.update();
 			}
 		}
-		
-		
+
 		Iterator<Prop> propItr = L1.props.iterator();
-		while (propItr.hasNext()){
+		while (propItr.hasNext()) {
 			Prop prop = propItr.next();
-			if (prop.sprite.getBoundingRectangle().overlaps(this.sprite.getBoundingRectangle()) && 
-					!(prop instanceof TreasureBox)){
-				prop.toDoSomething(this);
+			if (prop.sprite.getBoundingRectangle().overlaps(
+					this.sprite.getBoundingRectangle())) {
+				if (prop instanceof ToxicPuddle) {
+					prop.toDoSomething(this);
+				} else {
+					Collidable cL = CollisionHelper.isCollidable(
+							prop.position.x,
+							prop.position.y + prop.sprite.getHeight() / 2,
+							collisionLayer);
+					Collidable cR = CollisionHelper.isCollidable(
+							prop.position.x + prop.sprite.getWidth(),
+							prop.position.y + prop.sprite.getHeight() / 2,
+							collisionLayer);
+					Collidable cU = CollisionHelper.isCollidable(
+							prop.position.x + prop.sprite.getWidth() / 2,
+							prop.position.y + prop.sprite.getHeight(),
+							collisionLayer);
+					Collidable cD = CollisionHelper.isCollidable(
+							prop.position.x + prop.sprite.getWidth() / 2,
+							prop.position.y, collisionLayer);
+
+					if (cL == null && getDx() <= 0 || cR == null && getDx() > 0) {
+						prop.position.x += getDx() /** movementSpeed*4 */
+						;
+						this.position.x -= getDx() * movementSpeed;
+					}
+					if (cD == null && getDy() < 0 || cU == null && getDy() >= 0) {
+						prop.position.y += getDy() /** movementSpeed*4 */
+						;
+						this.position.y -= getDy() * movementSpeed;
+					}
+				}
 			}
 		}
 	}
@@ -954,7 +1003,6 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 		switch (negativeEffect) {
 		case FROZEN:
 			if (negativeEffectsState != NegativeEffects.FROZEN) {
-				System.out.println(" ");
 				sprite.setColor(4 / 255f, 180 / 255f, 1f, 1f);
 				movementSpeed *= 0.4f;
 				negativeEffectsState = negativeEffect;
@@ -969,10 +1017,34 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 			}
 			break;
 		case NONE:
+			System.out.println("none");
 			sprite.setColor(1, 1, 1, 1);
 			movementSpeed = STANDART_MOVEMENT_SPEED;
 			negativeEffectsState = negativeEffect;
+		case FEAR:
+			sprite.setColor(0.1f, 0.5f, 0.8f, 1);
+			path = new Node[99];
+			negativeEffectsState = negativeEffect;
+			negativeEffectCounter = negativeEffect.lifetime;
+			System.out.println("negativeEffectCounter" + negativeEffectCounter);
+			break;
 		}
+	}
+
+	public float getDx() {
+		return enemyDx;
+	}
+
+	public float getDy() {
+		return enemyDy;
+	}
+
+	public void setDx(float playerDx) {
+		this.enemyDx = playerDx;
+	}
+
+	public void setDy(float playerDy) {
+		this.enemyDy = playerDy;
 	}
 
 }

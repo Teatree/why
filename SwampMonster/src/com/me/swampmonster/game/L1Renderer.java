@@ -325,8 +325,11 @@ public class L1Renderer {
 		sr.rect(TheController.level1.player.rectanlge.x, TheController.level1.player.rectanlge.y,
 				TheController.level1.player.rectanlge.width, TheController.level1.player.rectanlge.height);
 //		sr.circle(TheController.level1.player.invalidSpawnArea.x, TheController.level1.player.invalidSpawnArea.y, TheController.level1.player.invalidSpawnArea.radius);
-		for(Enemy enemy: L1.enemiesOnStage){
+		for(Enemy enemy : L1.enemiesOnStage){
 			sr.rect(enemy.rectanlge.x, enemy.rectanlge.y, enemy.rectanlge.width, enemy.rectanlge.height);
+		}
+		for (Prop p : L1.props){
+			sr.rect(p.sprite.getBoundingRectangle().x, p.sprite.getBoundingRectangle().y, p.sprite.getBoundingRectangle().width, p.sprite.getBoundingRectangle().height);
 		}
 		sr.setColor(Color.WHITE);
 		if(TheController.level1.player.state == State.GUNMOVEMENT){

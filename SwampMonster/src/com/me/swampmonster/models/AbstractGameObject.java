@@ -22,7 +22,7 @@ public abstract class AbstractGameObject {
 	}
 	public enum NegativeEffects {
 		POISONED(900, new Sprite(Assets.manager.get(Assets.POISONEDNEGATIVEEFFECT_ICON))),
-				FEAR(900, new Sprite(Assets.manager.get(Assets.SCAREDNEGATIVEEFFECT_ICON))),
+				FEAR(100, new Sprite(Assets.manager.get(Assets.SCAREDNEGATIVEEFFECT_ICON))),
 				FROZEN(830, new Sprite(Assets.manager.get(Assets.FROZENNEGATIVEEFFECT_ICON))),
 				STUN(200, new Sprite(Assets.manager.get(Assets.FROZENNEGATIVEEFFECT_ICON))),
 				NONE(0, null);

@@ -255,9 +255,24 @@ public class Player extends AbstractGameObject {
 		while (propItr.hasNext()){
 			Prop prop = propItr.next();
 			if (prop.sprite.getBoundingRectangle().overlaps(this.sprite.getBoundingRectangle())){
-				prop.toDoSomething(this);
-				if (!(prop instanceof ToxicPuddle)){
-					propItr.remove();
+				if (prop instanceof ToxicPuddle) {
+					prop.toDoSomething(this);
+				} else {
+					Collidable cL = CollisionHelper.isCollidable(prop.position.x, prop.position.y+prop.sprite.getHeight()/2, collisionLayer);
+					Collidable cR = CollisionHelper.isCollidable(prop.position.x+prop.sprite.getWidth(), prop.position.y+prop.sprite.getHeight()/2, collisionLayer);
+					Collidable cU = CollisionHelper.isCollidable(prop.position.x+prop.sprite.getWidth()/2, prop.position.y+prop.sprite.getHeight(), collisionLayer);
+					Collidable cD = CollisionHelper.isCollidable(prop.position.x+prop.sprite.getWidth()/2, prop.position.y, collisionLayer);
+					
+					if (cL == null && getDx() <= 0 ||
+							cR == null && getDx() > 0){
+						prop.position.x += getDx() /** movementSpeed*4*/;
+						position.x -= getDx()* movementSpeed;
+					} 
+					if (cD == null && getDy() < 0 
+							|| cU == null && getDy() >= 0){
+						prop.position.y += getDy() /** movementSpeed*4*/;
+						position.y -= getDy()* movementSpeed;
+					} 
 				}
 			}
 		}
