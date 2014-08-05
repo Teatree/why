@@ -16,7 +16,7 @@ public class EnemyZombie extends Enemy{
 		sprite = new Sprite(animationsStandard.get(state).getCurrentFrame());
 		health = 2;
 		damage = 2;
-		points = 100;
+		points = 20;
 		movementSpeed = 0.15f;
 		attackSpeed = 50;
 	}

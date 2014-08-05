@@ -12,7 +12,7 @@ public class EnemyBreather extends Enemy {
 
 	public EnemyBreather(Vector2 position) {
 		super(position);
-		points = 75;
+		points = 25;
 		health = 1;
 		damage = 1;
 	}

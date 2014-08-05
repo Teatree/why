@@ -22,7 +22,7 @@ public class EnemyLeech extends Enemy{
 		movementSpeed = 0.2f;
 		health = 1;
 		damage = 1;
-		points = 200;
+		points = 50;
 		attackSpeed = 150;
 		STANDART_MOVEMENT_SPEED = movementSpeed;
 	}

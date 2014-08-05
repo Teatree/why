@@ -39,9 +39,9 @@ public class LGenerator {
 		maps.put(4, "Map.tmx");
 
 		tileSets.put(0, "tileSet_SAND_WORLD");
-		tileSets.put(1, "tileSet_SAND_WORLD2");
+		tileSets.put(1, "tileSet_SAND_WORLD5");
 		tileSets.put(2, "tileSet_SAND_WORLD3");
-		tileSets.put(3, "tileSet_SAND_WORLD");
+		tileSets.put(3, "tileSet_SAND_WORLD4");
 	}
 
 	public L1 createLevel(Player player) {
@@ -62,7 +62,7 @@ public class LGenerator {
 		if (!hasLevelAtmosphere) {
 			br = br.replaceAll(DEFAULT_TILESET, tileSet + ".png");
 		} else {
-			br = br.replaceAll(DEFAULT_TILESET, "tileSet_SAND_WORLD4.png");
+			br = br.replaceAll(DEFAULT_TILESET, "tileSet_SAND_WORLD2.png");
 		}
 		Gdx.files.local("data\\" + map).writeString(br, false);
 		br = Gdx.files.local("data\\" + map).readString();
@@ -84,7 +84,7 @@ public class LGenerator {
 		player.setPosition(v2);
 		propsSpawnGenerator.collisionLayer = TheController.collisionLayer;
 		
-		int propsInLevelAmount = random.nextInt(15) + 13;
+		int propsInLevelAmount = random.nextInt(8) + 3;
 		for (int i = 0; i < propsInLevelAmount; i++){
 			L1.props.add(propsSpawnGenerator.getSomeProp(player));
 		}
