@@ -153,24 +153,23 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 		rectanlge.width = sprite.getWidth();
 		rectanlge.height = sprite.getHeight();
 
-		if (negativeEffectCounter <= 0) {
-			setNegativeEffect(NegativeEffects.NONE);
-		} else {
-			negativeEffectCounter--;
-		}
+//		if (negativeEffectCounter <= 0) {
+//			setNegativeEffect(NegativeEffects.NONE);
+//		} else {
+//			negativeEffectCounter--;
+//		}
 		// Direction for the standard state
 		if (negativeEffectsState != NegativeEffects.FEAR) {
 			enemyDx = player.position.x - position.x;
 			enemyDy = player.position.y - position.y;
 		} else {
-			System.out.println(" I am scared state = " + state);
 			if (generateNewRandomPosForScared == 0) {
 				int randomTargetX = random.nextInt(1000);
 				int randomTargetY = random.nextInt(1000);
-				System.out.println(randomTargetX + " : " + randomTargetY);
+//				System.out.println(randomTargetX + " : " + randomTargetY);
 				enemyDx = randomTargetX - position.x;
 				enemyDy = randomTargetY - position.y;
-				generateNewRandomPosForScared = 23;
+				generateNewRandomPosForScared = 90;
 			} else {
 				generateNewRandomPosForScared--;
 			}
@@ -336,7 +335,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 			}
 			negativeEffectTimer--;
 		} else {
-			negativeEffectsState = NegativeEffects.NONE;
+			setNegativeEffect(NegativeEffects.NONE);
 		}
 
 		// DEAD
@@ -1016,17 +1015,18 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 				negativeEffectTimer = negativeEffect.lifetime;
 			}
 			break;
+		case FEAR:
+			sprite.setColor(0.6f, 0.1f, 0.9f, 1);
+			path = new Node[99];
+			negativeEffectsState = negativeEffect;
+			negativeEffectTimer = negativeEffect.lifetime;
+			System.out.println("negativeEffectCounter" + negativeEffectCounter);
+			break;
 		case NONE:
 			System.out.println("none");
 			sprite.setColor(1, 1, 1, 1);
 			movementSpeed = STANDART_MOVEMENT_SPEED;
 			negativeEffectsState = negativeEffect;
-		case FEAR:
-			sprite.setColor(0.1f, 0.5f, 0.8f, 1);
-			path = new Node[99];
-			negativeEffectsState = negativeEffect;
-			negativeEffectCounter = negativeEffect.lifetime;
-			System.out.println("negativeEffectCounter" + negativeEffectCounter);
 			break;
 		}
 	}
