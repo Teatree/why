@@ -28,6 +28,11 @@ public class Assets {
 	public static final AssetDescriptor<Texture> OxygenBarMiddle = new AssetDescriptor<Texture>("data\\OxygenBarMiddle.png", Texture.class);
 	public static final AssetDescriptor<Texture> OxygenBarHead = new AssetDescriptor<Texture>("data\\OxygenBarHead.png", Texture.class);
 	public static final AssetDescriptor<Texture> PointerHead = new AssetDescriptor<Texture>("data\\PointerHead.png", Texture.class);
+	public static final AssetDescriptor<Texture> propExplosiveBarrel = new AssetDescriptor<Texture>("data\\propBarrelAnimation.png", Texture.class);
+	public static final AssetDescriptor<Texture> propTreasure = new AssetDescriptor<Texture>("data\\propTreasureAnimation.png", Texture.class);
+	//:TODO change this!
+	public static final AssetDescriptor<Texture> propToxicPuddle = new AssetDescriptor<Texture>("data\\googleSaysItIsAPool.png", Texture.class);
+	
 	public static final AssetDescriptor<Texture> arrow = new AssetDescriptor<Texture>("data\\arrrrow.png", Texture.class);
 	public static final AssetDescriptor<Texture> arrowPoisoned = new AssetDescriptor<Texture>("data\\arrrrowPoisoned.png", Texture.class);
 	public static final AssetDescriptor<Texture> arrowExplosive = new AssetDescriptor<Texture>("data\\arrrrowExplosive.png", Texture.class);
@@ -55,6 +60,7 @@ public class Assets {
 	public static final AssetDescriptor<Texture> FROZENNEGATIVEEFFECT_ICON = new AssetDescriptor<Texture>("data\\slotIcons\\FROZEN_NEGATIVE_EFFECT_ICON.png", Texture.class);
 	public static final AssetDescriptor<Texture> POISONEDNEGATIVEEFFECT_ICON = new AssetDescriptor<Texture>("data\\slotIcons\\POISONED_NEGATIVE_EFFECT_ICON.png", Texture.class);
 	public static final AssetDescriptor<Texture> SCAREDNEGATIVEEFFECT_ICON = new AssetDescriptor<Texture>("data\\slotIcons\\SCARED_NEGATIVE_EFFECT_ICON.png", Texture.class);
+	public static final AssetDescriptor<Texture> STUNNEGATIVEEFFECT_ICON = new AssetDescriptor<Texture>("data\\slotIcons\\STUN_NEGATIVE_EFFECT_ICON.png", Texture.class);
 	public static final AssetDescriptor<Texture> slotLevel1 = new AssetDescriptor<Texture>("data\\slotIcons\\slotLevel1.png", Texture.class);
 	public static final AssetDescriptor<Texture> slotLevel2 = new AssetDescriptor<Texture>("data\\slotIcons\\slotLevel2.png", Texture.class);
 	public static final AssetDescriptor<Texture> slotLevel3 = new AssetDescriptor<Texture>("data\\slotIcons\\slotLevel3.png", Texture.class);
@@ -80,6 +86,9 @@ public class Assets {
 		manager.load(enemyLeech);
 		manager.load(enemyZombie);
 		manager.load(enemyMaggot);
+		manager.load(propExplosiveBarrel);
+		manager.load(propTreasure);
+		manager.load(propToxicPuddle);
 		manager.load(arrow);
 		manager.load(HealthBarIcon);
 		manager.load(HealthBarTail);
@@ -114,6 +123,7 @@ public class Assets {
 		manager.load(FROZENNEGATIVEEFFECT_ICON);
 		manager.load(POISONEDNEGATIVEEFFECT_ICON);
 		manager.load(SCAREDNEGATIVEEFFECT_ICON);
+		manager.load(STUNNEGATIVEEFFECT_ICON);
 		manager.load(slotLevel1);
 		manager.load(slotLevel2);
 		manager.load(slotLevel3);

@@ -251,28 +251,48 @@ public class Player extends AbstractGameObject {
 
 		updateTrap();
 		
+		
 		Iterator<Prop> propItr = L1.props.iterator();
-		while (propItr.hasNext()){
+		while (propItr.hasNext()) {
 			Prop prop = propItr.next();
-			if (prop.sprite.getBoundingRectangle().overlaps(this.sprite.getBoundingRectangle())){
+			
+			float propDx = prop.position.x - V3playerPos.x;
+			float propDy = prop.position.y - V3playerPos.y;
+
+			float length1 = (float) Math.sqrt(propDx * propDx + propDy * propDy);
+			propDx /= length1;
+			propDy /= length1;
+			
+			if (prop.sprite.getBoundingRectangle().overlaps(
+					this.sprite.getBoundingRectangle())) {
+
 				if (prop instanceof ToxicPuddle) {
 					prop.toDoSomething(this);
 				} else {
-					Collidable cL = CollisionHelper.isCollidable(prop.position.x, prop.position.y+prop.sprite.getHeight()/2, collisionLayer);
-					Collidable cR = CollisionHelper.isCollidable(prop.position.x+prop.sprite.getWidth(), prop.position.y+prop.sprite.getHeight()/2, collisionLayer);
-					Collidable cU = CollisionHelper.isCollidable(prop.position.x+prop.sprite.getWidth()/2, prop.position.y+prop.sprite.getHeight(), collisionLayer);
-					Collidable cD = CollisionHelper.isCollidable(prop.position.x+prop.sprite.getWidth()/2, prop.position.y, collisionLayer);
-					
-					if (cL == null && getDx() <= 0 ||
-							cR == null && getDx() > 0){
-						prop.position.x += -getDx() /** movementSpeed*4*/;
-//						position.x += getDx()* movementSpeed;
-					} 
-					if (cD == null && getDy() <= 0 
-							|| cU == null && getDy() > 0){
-						prop.position.y += -getDy() /** movementSpeed*4*/;
-//						position.y += getDy()* movementSpeed;
-					} 
+					Collidable cL = CollisionHelper.isCollidable(
+							prop.position.x,
+							prop.position.y + prop.sprite.getHeight() / 2,
+							collisionLayer);
+					Collidable cR = CollisionHelper.isCollidable(
+							prop.position.x + prop.sprite.getWidth(),
+							prop.position.y + prop.sprite.getHeight() / 2,
+							collisionLayer);
+					Collidable cU = CollisionHelper.isCollidable(
+							prop.position.x + prop.sprite.getWidth() / 2,
+							prop.position.y + prop.sprite.getHeight(),
+							collisionLayer);
+					Collidable cD = CollisionHelper.isCollidable(
+							prop.position.x + prop.sprite.getWidth() / 2,
+							prop.position.y, collisionLayer);
+
+					if (cL == null && propDx <= 0 || cR == null && propDx > 0) {
+						prop.position.x += propDx/2 /** movementSpeed*4 */;
+						// position.x += getDx()* movementSpeed;
+					}
+					if (cD == null && propDy <= 0 || cU == null && propDy > 0) {
+						prop.position.y += propDy/2 /** movementSpeed*4 */;
+						// position.y += getDy()* movementSpeed;
+					}
 				}
 			}
 		}
@@ -289,9 +309,14 @@ public class Player extends AbstractGameObject {
 				if (p.effect == EffectCarriers.EXPLOSIVE) {
 					TheController.skill.explode(p.position);
 				}
-				if (p.isCollisionNBreakable(collisionLayer)) {
-					Explosion expl = new Explosion(new Vector2(p.position.x, p.position.y));
+				if (p.isCollisionNBreakable(collisionLayer) && L1.hasAtmosphere) {
+					Explosion expl = new Explosion(new Vector2(p.position.x,
+							p.position.y));
+					expl.type = Explosion.EXPLOSION_TYPE_INVERTED;
 					expl.damage = 0;
+					expl.explCircle.radius = 290;
+					expl.incrementalCircleValue = -4;
+					L1.explosions.add(expl);
 					L1.hasAtmosphere = false;
 				}
 				prj.remove();
@@ -931,16 +956,16 @@ public class Player extends AbstractGameObject {
 	}
 
 	public void decreaseOxygen() {
-//		if (oxygen >= 0 && !L1.hasAtmosphere) {
-//			oxygen -= 2.8f;
-//		}
+		// if (oxygen >= 0 && !L1.hasAtmosphere) {
+		// oxygen -= 2.8f;
+		// }
 	}
 
 	private void updateTrap() {
 		if (trap != null) {
 			if (trapTimer < trap.lifeTime) {
 				trapTimer++;
-				if (trap.effect != null /*&& trap.effect.isComplete()*/) {
+				if (trap.effect != null /* && trap.effect.isComplete() */) {
 					trap.position = null;
 				}
 			} else {

@@ -66,12 +66,22 @@ public class L1 {
 	public void update(boolean aiming, Vector3 touchPos, Vector3 V3point,
 			TiledMapTileLayer collisionLayer,
 			CameraHelper cameraHelper, float dx, float dy) {
+		Iterator<Prop> propItr = props.iterator();
+		while (propItr.hasNext()){
+			Prop p = propItr.next();
+			if (p.state != State.DEAD){
+				p.update();
+			} else {
+				propItr.remove();
+			}
+		}
 		for (Explosion expl : explosions) {
 			if (Intersector.overlaps(expl.explCircle, player.rectanlge)) {
 				expl.cause(player, collisionLayer);
 			}
 			expl.update();
 		}
+		
 		
 //		for (Explosion e : explosions){
 //		}

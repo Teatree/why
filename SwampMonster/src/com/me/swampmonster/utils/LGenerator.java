@@ -34,8 +34,8 @@ public class LGenerator {
 
 		maps.put(0, "Map.tmx");
 		maps.put(1, "Map.tmx");
-		maps.put(2, "Map3.tmx");
-		maps.put(3, "Map3.tmx");
+		maps.put(2, "Map.tmx");
+		maps.put(3, "Map.tmx");
 		maps.put(4, "Map.tmx");
 
 		tileSets.put(0, "tileSet_SAND_WORLD");
@@ -48,14 +48,15 @@ public class LGenerator {
 		String map = maps.get(random.nextInt(maps.size() - 1));
 		String tileSet = tileSets.get(random.nextInt(tileSets.size()));
 
-		boolean isLevelElite = random.nextBoolean();
-
+//		boolean isLevelElite = random.nextBoolean();
+//
 		boolean hasLevelAtmosphere;
-		if (isLevelElite) {
-			hasLevelAtmosphere = false;
-		} else {
-			hasLevelAtmosphere = random.nextBoolean();
-		}
+//		if (isLevelElite) {
+//			hasLevelAtmosphere = false;
+//		} else {
+//			hasLevelAtmosphere = random.nextBoolean();
+//		}
+		hasLevelAtmosphere = true;
 
 		String br = Gdx.files.local("data\\" + map).readString();
 		if (!hasLevelAtmosphere) {
@@ -67,7 +68,8 @@ public class LGenerator {
 		br = Gdx.files.local("data\\" + map).readString();
 
 		L1 level = new L1(player, "tileSet_SAND_WORLD", "data/" + map,
-				hasLevelAtmosphere, isLevelElite);
+				hasLevelAtmosphere, false);
+		//:TODO isLevelElite !
 		player.oxygen = Player.maxOxygen;
 		player.health = Player.playerMaxHealth;
 		player.setPositiveEffect(PositiveEffects.NONE);

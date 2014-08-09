@@ -82,7 +82,8 @@ public class Projectile extends AbstractGameObject {
 					prop.sprite.getBoundingRectangle())
 					&& !(prop instanceof ToxicPuddle)) {
 				prop.toDoSomething(this);
-				propItr.remove();
+				prop.state = State.DESPAWNING;
+//				propItr.remove();
 				state = State.DEAD;
 			}
 		}

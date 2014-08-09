@@ -24,7 +24,7 @@ public abstract class AbstractGameObject {
 		POISONED(900, new Sprite(Assets.manager.get(Assets.POISONEDNEGATIVEEFFECT_ICON))),
 				FEAR(100, new Sprite(Assets.manager.get(Assets.SCAREDNEGATIVEEFFECT_ICON))),
 				FROZEN(830, new Sprite(Assets.manager.get(Assets.FROZENNEGATIVEEFFECT_ICON))),
-				STUN(200, new Sprite(Assets.manager.get(Assets.FROZENNEGATIVEEFFECT_ICON))),
+				STUN(200, new Sprite(Assets.manager.get(Assets.STUNNEGATIVEEFFECT_ICON))),
 				NONE(0, null);
 		
 		public int lifetime;

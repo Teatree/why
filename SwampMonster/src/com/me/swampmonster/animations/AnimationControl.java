@@ -12,7 +12,7 @@ public class AnimationControl {
 	private TextureRegion[] frames;
 	private TextureRegion currentFrame;
 	private float stateTime;
-	private int multiplier;
+	private float multiplier;
 
 	public AnimationControl(String fileName, int col, int row, int multiplier) {
 		this.multiplier = multiplier;
@@ -34,7 +34,7 @@ public class AnimationControl {
 		currentFrame = animation.getKeyFrame(0);
 	}
 	
-	public AnimationControl(Texture t, int col, int row, int multiplier) {
+	public AnimationControl(Texture t, int col, int row, float multiplier) {
 		this.multiplier = multiplier;
 		TextureRegion[][] tmp = TextureRegion
 				.split(t, t.getWidth() / col,

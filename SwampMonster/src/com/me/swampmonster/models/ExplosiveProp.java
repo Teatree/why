@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector2;
+import com.me.swampmonster.animations.AnimationControl;
 import com.me.swampmonster.utils.Assets;
 
 public class ExplosiveProp extends Prop {
@@ -12,9 +13,20 @@ public class ExplosiveProp extends Prop {
 
 	public ExplosiveProp(Vector2 position) {
 		this.position = position;
-		sprite = new Sprite(Assets.manager.get(Assets.EXPLOSIVE_TRAP_ICON));
+		state = State.STANDARD;
+		
+		despawningCounter = 60;
+		
+		sizeW = 16;
+		sizeH = 32;
+		
+		animationsStandard.put(State.STANDARD, new AnimationControl(Assets.manager.get(Assets.propExplosiveBarrel), 4, 2, 3.6f));
+		animationsStandard.put(State.DESPAWNING, new AnimationControl(Assets.manager.get(Assets.propExplosiveBarrel), 4, 2, 3.6f));
+		
+		sprite = new Sprite(animationsStandard.get(state).getCurrentFrame());
 	}
-
+	
+	
 	public void toDoSomething(AbstractGameObject abs) {
 		explosion = new Explosion(this.position);
 		explosion.explCircle = new Circle();

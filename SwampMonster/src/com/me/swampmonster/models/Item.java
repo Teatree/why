@@ -30,7 +30,6 @@ public class Item extends AbstractGameObject{
 		circle = new Circle();
 		circle.radius = 16;
 		
-		
 		animationsStandard.put(State.SPAWNING, new AnimationControl(Assets.manager.get(Assets.items), 4, 4, 4));
 		animationsStandard.put(State.STANDARD, new AnimationControl(Assets.manager.get(Assets.items), 4, 4, 4));
 		animationsStandard.put(State.DEAD, new AnimationControl(Assets.manager.get(Assets.items), 4, 4, 4));

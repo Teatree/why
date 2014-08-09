@@ -122,6 +122,7 @@
   <tile id="72">
    <properties>
     <property name="blocked" value="blocked"/>
+    <property name="level" value="3"/>
    </properties>
   </tile>
   <tile id="73">
@@ -336,7 +337,7 @@
  </tileset>
  <layer name="background" width="110" height="80">
   <data encoding="base64" compression="zlib">
-   eJzt1EFugzAQQFGul/Rm7aW7qLooItQ4mJkxD+nvUDyep/BYluVRpKfCDbhxu1PRBtzGuH109PVG3LjNHLe/vTP7qO7i9tkZN27cuHHjxo0bN27cYtxa9s6N2x3dRs0Y6bYVt9xuWf+D3Lhx48aN2wi331pmn9Htv3u17p1bTbcrO+o2wi7SreVOGd16nGdzi94pt5+HW163M8+O3ik3btzmilvNuO3vZi9u3Lhd59Zj2fObr+LGjRs3bty4cYt2O9uLGzdu3Ea5nXXO0Zm4cePGjRs3bnndRu0zq9u6ym5X7SjabWtGbty4cePGbba41YxbzTK5tc7yXLhFu63fP3pO9P7u6hZ9/6pxq9nardVx6z1u3KJ3slf0fK9m7P0mcqsXt5pxqxm3mvW6ZTTkxi173Gp2hlsWW27cssetZle5XWHJjVv2uNUs0u3suMUbcLuPmyRJmrtvZWZR7Q==
+   eJzt1EFygzAMQFGWuVrSm7WX7qqdliHEOBhJ8BZ/x8RCL+Y+TdO9QDf9Fm2x1e0hbkUb4Tby/nNrc/vo6OuNuHE7c9z+987so7qK22dn3Lhx48aNGzdu3M7h9ipu+dxa9s6N2xXdRs0Y6bYUt9xuWe8gN27cuHHjNsLtp5bZz+j26r1a986tptuRbXUbYRfp1vJOGd16nM/mFr1Tbn1nR+/0Km63nc+O3ik3btzOFbeacVvfzVrcuHE7zq3Hsuc3n8WNGzdu3Lhx4xbttrcXN27cuI1y2+ucrTNx48aNGzdu3PK6jdpnVrd5ld2O2lG029KM3Lhx48aN29niVjNuNcvk1jrLY+IW7TZ/fus50fu7qlv0+1eNW83mbq2OS89x4xa9k7Wi53s2Y+83kVu9uNWMW8241azX7W/R78CtzS3r3ePGLXt7uLXELZdbpjvJjVv2jnI74tvJbV+3o+4gN27Zi3TbO27j3Ub8D7jVdFM9N0mStvQNY0D8FQ==
   </data>
  </layer>
  <layer name="foreground" width="110" height="80">

@@ -14,6 +14,7 @@ import com.me.swampmonster.models.slots.PositiveEffects;
 public class Explosion {
 	public static final String EXPLOSION_TYPE_STANDART = "standart";
 	public static final String EXPLOSION_TYPE_FROST = "frost";
+	public static final String EXPLOSION_TYPE_INVERTED = "inverted";
 	private static final float EXPLOSION_PUSH_FORCE = 2.2f;
 	
 	public Circle explCircle;
@@ -22,7 +23,7 @@ public class Explosion {
 	public float incrementalDamageValue;
 	public float incrementalCircleValue;
 	public Vector2 position;
-	public String type = EXPLOSION_TYPE_STANDART;
+	public String type;
 	public int causeDamageCounter;
 	private Random random;
 	float explosion_dx;
@@ -32,6 +33,7 @@ public class Explosion {
 	
 	public Explosion(Vector2 position){
 		this.position = position;
+		type = EXPLOSION_TYPE_STANDART;
 		random = new Random();
 		this.damage = (float)random.nextFloat()+0.7f;
 		incrementalCircleValue = 4f;
@@ -51,6 +53,7 @@ public class Explosion {
 		}else if(/*explosionEffect != null && */explodionLifeTimeCounter >= explosionLifeTime /*explosionEffect.isComplete()*/){
 			explCircle.radius = 0;
 		}
+		System.out.println("type: " + type);
 	}
 	
 	public void cause(AbstractGameObject ago, TiledMapTileLayer collisionLayer){
@@ -94,6 +97,10 @@ public class Explosion {
 			if (!(ago instanceof Player)){
 				ago.setNegativeEffect(NegativeEffects.FROZEN);
 			}
+		}
+		
+		if (type.equals(EXPLOSION_TYPE_INVERTED)){
+			System.out.println("bla");
 		}
 //		ago.collidableLeft = ago.collisionCheckerRight(collisionLayer);
 //		ago.collidableRight = ago.collisionCheckerLeft(collisionLayer);

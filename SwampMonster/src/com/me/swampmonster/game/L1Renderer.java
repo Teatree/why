@@ -97,8 +97,10 @@ public class L1Renderer {
 		}
 		
 		for (Explosion e : L1.explosions){
-			e.explosionEffect.draw(batch);
-			e.explosionEffect.update(Gdx.graphics.getDeltaTime());
+			if(e.explosionEffect!= null){
+				e.explosionEffect.draw(batch);
+				e.explosionEffect.update(Gdx.graphics.getDeltaTime());
+			}
 		}
 		if (Gdx.input.isTouched()
 				&& TheController.level1.player.state == State.GUNMOVEMENT
@@ -194,8 +196,8 @@ public class L1Renderer {
 						p.getPosition().y);
 
 				batch.draw(p.sprite, p.getPosition().x,
-					p.getPosition().y, p.sprite.getWidth() / 2,
-					p.sprite.getHeight() / 2);
+					p.getPosition().y, p.sprite.getWidth(),
+					p.sprite.getHeight());
 			}
 		}
 		
