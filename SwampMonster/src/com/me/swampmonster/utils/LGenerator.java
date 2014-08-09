@@ -58,7 +58,6 @@ public class LGenerator {
 		}
 
 		String br = Gdx.files.local("data\\" + map).readString();
-		System.out.println("atmosphere: " + L1.hasAtmosphere);
 		if (!hasLevelAtmosphere) {
 			br = br.replaceAll(DEFAULT_TILESET, tileSet + ".png");
 		} else {

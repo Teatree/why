@@ -265,13 +265,13 @@ public class Player extends AbstractGameObject {
 					
 					if (cL == null && getDx() <= 0 ||
 							cR == null && getDx() > 0){
-						prop.position.x += getDx() /** movementSpeed*4*/;
-						position.x -= getDx()* movementSpeed;
+						prop.position.x += -getDx() /** movementSpeed*4*/;
+//						position.x += getDx()* movementSpeed;
 					} 
-					if (cD == null && getDy() < 0 
-							|| cU == null && getDy() >= 0){
-						prop.position.y += getDy() /** movementSpeed*4*/;
-						position.y -= getDy()* movementSpeed;
+					if (cD == null && getDy() <= 0 
+							|| cU == null && getDy() > 0){
+						prop.position.y += -getDy() /** movementSpeed*4*/;
+//						position.y += getDy()* movementSpeed;
 					} 
 				}
 			}
@@ -938,7 +938,7 @@ public class Player extends AbstractGameObject {
 		if (trap != null) {
 			if (trapTimer < trap.lifeTime) {
 				trapTimer++;
-				if (trap.effect != null && trap.effect.isComplete()) {
+				if (trap.effect != null /*&& trap.effect.isComplete()*/) {
 					trap.position = null;
 				}
 			} else {

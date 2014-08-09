@@ -24,21 +24,25 @@ public class Explosion {
 	
 	float explosion_dx;
 	float explosion_dy;
+	private int explosionLifeTime;
+	private int explodionLifeTimeCounter;
 	
 	public Explosion(Vector2 position){
 		this.position = position;
-		this.damage = 0.9f;
-		incrementalCircleValue = 0.6f;
+		this.damage = 1.8f;
+		incrementalCircleValue = 4f;
 		incrementalDamageValue = 0.06f;
 		explCircle = new Circle();
 		explCircle.radius = 90;
+		explosionLifeTime = 30;
 	}
 	
 	public void update(){
-		if (explosionEffect != null && !explosionEffect.isComplete() && damage > incrementalDamageValue){
+		if (/*explosionEffect != null && !explosionEffect.isComplete()*/explodionLifeTimeCounter < explosionLifeTime /*&& damage > incrementalDamageValue*/){
 			explCircle.radius += incrementalCircleValue;
 			this.damage -= incrementalDamageValue;
-		}else if(explosionEffect != null && explosionEffect.isComplete()){
+			explodionLifeTimeCounter++;
+		}else if(/*explosionEffect != null && */explodionLifeTimeCounter >= explosionLifeTime /*explosionEffect.isComplete()*/){
 			explCircle.radius = 0;
 		}
 	}

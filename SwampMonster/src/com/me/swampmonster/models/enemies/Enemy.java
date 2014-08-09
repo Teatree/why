@@ -434,16 +434,14 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 							prop.position.x + prop.sprite.getWidth() / 2,
 							prop.position.y, collisionLayer);
 
-					if (cL == null && getDx() <= 0 || cR == null && getDx() > 0) {
-						prop.position.x += getDx() /** movementSpeed*4 */
-						;
-						this.position.x -= getDx() * movementSpeed;
-					}
-					if (cD == null && getDy() < 0 || cU == null && getDy() >= 0) {
-						prop.position.y += getDy() /** movementSpeed*4 */
-						;
-						this.position.y -= getDy() * movementSpeed;
-					}
+					if (cL == null && getDx() <= 0 ||
+							cR == null && getDx() > 0){
+						prop.position.x += -getDx();
+					} 
+					if (cD == null && getDy() <= 0 
+							|| cU == null && getDy() > 0){
+						prop.position.y += -getDy();
+					} 
 				}
 			}
 		}
@@ -1023,7 +1021,6 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 			System.out.println("negativeEffectCounter" + negativeEffectCounter);
 			break;
 		case NONE:
-			System.out.println("none");
 			sprite.setColor(1, 1, 1, 1);
 			movementSpeed = STANDART_MOVEMENT_SPEED;
 			negativeEffectsState = negativeEffect;
