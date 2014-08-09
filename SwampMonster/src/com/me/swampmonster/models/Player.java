@@ -290,6 +290,8 @@ public class Player extends AbstractGameObject {
 					TheController.skill.explode(p.position);
 				}
 				if (p.isCollisionNBreakable(collisionLayer)) {
+					Explosion expl = new Explosion(new Vector2(p.position.x, p.position.y));
+					expl.damage = 0;
 					L1.hasAtmosphere = false;
 				}
 				prj.remove();

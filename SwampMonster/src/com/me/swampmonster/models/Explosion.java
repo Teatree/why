@@ -1,5 +1,7 @@
 package com.me.swampmonster.models;
 
+import java.util.Random;
+
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Circle;
@@ -7,6 +9,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.me.swampmonster.game.collision.Collidable;
 import com.me.swampmonster.game.collision.CollisionHelper;
 import com.me.swampmonster.models.AbstractGameObject.NegativeEffects;
+import com.me.swampmonster.models.slots.PositiveEffects;
 
 public class Explosion {
 	public static final String EXPLOSION_TYPE_STANDART = "standart";
@@ -21,7 +24,7 @@ public class Explosion {
 	public Vector2 position;
 	public String type = EXPLOSION_TYPE_STANDART;
 	public int causeDamageCounter;
-	
+	private Random random;
 	float explosion_dx;
 	float explosion_dy;
 	private int explosionLifeTime;
@@ -29,18 +32,21 @@ public class Explosion {
 	
 	public Explosion(Vector2 position){
 		this.position = position;
-		this.damage = 1.8f;
+		random = new Random();
+		this.damage = (float)random.nextFloat()+0.7f;
 		incrementalCircleValue = 4f;
-		incrementalDamageValue = 0.06f;
+		incrementalDamageValue = 0.16f;
 		explCircle = new Circle();
-		explCircle.radius = 90;
-		explosionLifeTime = 30;
+		explCircle.radius = random.nextInt(40)+50;
+		explosionLifeTime = random.nextInt(25)+15;
 	}
 	
 	public void update(){
 		if (/*explosionEffect != null && !explosionEffect.isComplete()*/explodionLifeTimeCounter < explosionLifeTime /*&& damage > incrementalDamageValue*/){
 			explCircle.radius += incrementalCircleValue;
-			this.damage -= incrementalDamageValue;
+			if(damage >= incrementalDamageValue){
+				this.damage -= incrementalDamageValue;
+			}
 			explodionLifeTimeCounter++;
 		}else if(/*explosionEffect != null && */explodionLifeTimeCounter >= explosionLifeTime /*explosionEffect.isComplete()*/){
 			explCircle.radius = 0;
@@ -80,10 +86,14 @@ public class Explosion {
 		causeDamageCounter++;
 		if (type != EXPLOSION_TYPE_FROST){
 			if (causeDamageCounter % 15 == 0 && ago.health > 0){
-				ago.health -= this.damage;
+				if (ago.positiveEffectsState != PositiveEffects.FADE){
+					ago.health -= this.damage;
+				}
 			}
 		} else {
-			ago.setNegativeEffect(NegativeEffects.FROZEN);
+			if (!(ago instanceof Player)){
+				ago.setNegativeEffect(NegativeEffects.FROZEN);
+			}
 		}
 //		ago.collidableLeft = ago.collisionCheckerRight(collisionLayer);
 //		ago.collidableRight = ago.collisionCheckerLeft(collisionLayer);
