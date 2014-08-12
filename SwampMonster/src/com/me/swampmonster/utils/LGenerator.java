@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.Random;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Vector2;
 import com.me.swampmonster.game.TheController;
@@ -57,7 +58,7 @@ public class LGenerator {
 //			hasLevelAtmosphere = random.nextBoolean();
 //		}
 		hasLevelAtmosphere = true;
-
+		
 		String br = Gdx.files.local("data\\" + map).readString();
 		if (!hasLevelAtmosphere) {
 			br = br.replaceAll(DEFAULT_TILESET, tileSet + ".png");
@@ -66,7 +67,7 @@ public class LGenerator {
 		}
 		Gdx.files.local("data\\" + map).writeString(br, false);
 		br = Gdx.files.local("data\\" + map).readString();
-
+		
 		L1 level = new L1(player, "tileSet_SAND_WORLD", "data/" + map,
 				hasLevelAtmosphere, false);
 		//:TODO isLevelElite !

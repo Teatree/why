@@ -27,4 +27,9 @@ public class TreasureBox extends Prop{
 		L1.items.add(MisterItemSpawner.spawnPropsItem(L1.player, this));
 	}
 
+	public void toDoSomething() {
+		L1.items.add(MisterItemSpawner.spawnPropsItem(L1.player, this));
+		
+	}
+
 }

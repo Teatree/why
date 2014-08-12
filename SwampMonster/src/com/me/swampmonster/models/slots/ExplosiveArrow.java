@@ -29,7 +29,7 @@ public class ExplosiveArrow extends Slot{
 	}
 	
 	public ExplosiveArrow() {
-		explosion = new Explosion(null);
+		explosion = new Explosion(null, Explosion.EXPLOSION_TYPE_STANDART);
 		switch (level) {
 		case 0:
 			coolDown = Constants.ExplosiveArrow_CoolDown_L1;

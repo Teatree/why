@@ -66,10 +66,8 @@ public class FrostTrap extends Trap{
 
 	public void catchEnemy(Enemy enemy) {
 		if (!cuba) {
-			explosion = new Explosion(this.position);
-			explosion.explCircle = new Circle();
+			explosion = new Explosion(this.position, Explosion.EXPLOSION_TYPE_FROST);
 			explosion.damage = 0;
-			explosion.type = Explosion.EXPLOSION_TYPE_FROST;
 			explosion.incrementalDamageValue = 0;
 			explosion.incrementalCircleValue = 6;
 			explosion.explCircle.setPosition(this.position.x, this.position.y);

@@ -34,9 +34,9 @@
   </tile>
   <tile id="7">
    <properties>
-    <property name="blocked" value="blocked"/>
     <property name="breakable" value="breakable"/>
-    <property name="level" value="3"/>
+    <property name="level" value="1"/>
+    <property name="walkable" value="walkable"/>
    </properties>
   </tile>
   <tile id="8">
@@ -337,7 +337,7 @@
  </tileset>
  <layer name="background" width="110" height="80">
   <data encoding="base64" compression="zlib">
-   eJzt1EFygzAMQFGWuVrSm7WX7qqdliHEOBhJ8BZ/x8RCL+Y+TdO9QDf9Fm2x1e0hbkUb4Tby/nNrc/vo6OuNuHE7c9z+987so7qK22dn3Lhx48aNGzdu3M7h9ipu+dxa9s6N2xXdRs0Y6bYUt9xuWe8gN27cuHHjNsLtp5bZz+j26r1a986tptuRbXUbYRfp1vJOGd16nM/mFr1Tbn1nR+/0Km63nc+O3ik3btzOFbeacVvfzVrcuHE7zq3Hsuc3n8WNGzdu3Lhx4xbttrcXN27cuI1y2+ucrTNx48aNGzdu3PK6jdpnVrd5ld2O2lG029KM3Lhx48aN29niVjNuNcvk1jrLY+IW7TZ/fus50fu7qlv0+1eNW83mbq2OS89x4xa9k7Wi53s2Y+83kVu9uNWMW8241azX7W/R78CtzS3r3ePGLXt7uLXELZdbpjvJjVv2jnI74tvJbV+3o+4gN27Zi3TbO27j3Ub8D7jVdFM9N0mStvQNY0D8FQ==
+   eJzt3UFygkAQQFGWXk1zs+TSWVmVIqjDwNDd8BZ/p07Tr4at92ma7tLAbgo36HV7XDhuNWtx++roZ0PcuJ01bv/bMvuoruL23Rk3bty4cePGjRs3btxi3J5zfYpbPreW/XLrdxs1Y6TbUtxyu2W9g9y4cePGjdsIt2cts5/R7dNzte6dW023I1vrNsIu0q3lmTK69TifzS16p9z6zo7e6ZXc9jw7eqfcuHE7V9xqxu39bt7FjRu349x6LHt+81XcuHHjxo0bN27Rbnt7cePGjdsot73OWTsTN27cuHHjxi2v26h9ZnWbV9ntqB1Fuy3NyI0bN27cuJ0tbjXjVrNMbq2zPCZu0W7z76w9J3p/V3W7JdhBxbjVbO7W6rj0OW7confyruj5Xs3Y805cilv+uNWMW822uP0t+jm4rf9fI245npVb/vZya4lbLrcsd5Ibt+wd6Tb63cltf7cj7iA3btmLdts7bvXiFm+Q5f5WK9pAkiRp3i9/t+58
   </data>
  </layer>
  <layer name="foreground" width="110" height="80">

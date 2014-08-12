@@ -42,4 +42,10 @@ public class ToxicPuddle extends Prop{
 //			}
 		}
 	}
+
+	@Override
+	public void toDoSomething() {
+		// TODO Auto-generated method stub
+		
+	}
 }

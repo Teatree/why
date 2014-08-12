@@ -91,11 +91,11 @@ public class L1Renderer {
 		Gdx.gl.glEnable(GL20.GL_BLEND);
 		Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
 		batch.begin();
-		if(theController.explosion.explosionEffect != null){
-			theController.explosion.explosionEffect.draw(batch);
-			theController.explosion.explosionEffect.update(Gdx.graphics.getDeltaTime());
-		}
-		
+//		if(theController.explosion.explosionEffect != null){
+//			theController.explosion.explosionEffect.draw(batch);
+//			theController.explosion.explosionEffect.update(Gdx.graphics.getDeltaTime());
+//		}
+//		
 		for (Explosion e : L1.explosions){
 			if(e.explosionEffect!= null){
 				e.explosionEffect.draw(batch);
@@ -340,7 +340,7 @@ public class L1Renderer {
 		if(theController.gui.getCroshair().isAiming()){
 			sr.line(theController.V3playerPos, TheController.level1.player.aimLineHead);
 		}
-//		sr.circle(TheController.level1.player.circle.x, TheController.level1.player.circle.y, TheController.level1.player.circle.radius);
+		sr.circle(TheController.level1.player.circle.x, TheController.level1.player.circle.y, TheController.level1.player.circle.radius);
 		sr.setColor(Color.YELLOW);
 //		sr.circle(TheController.level1.player.aimingArea.x, TheController.level1.player.aimingArea.y, TheController.level1.player.aimingArea.radius);
 		sr.end();

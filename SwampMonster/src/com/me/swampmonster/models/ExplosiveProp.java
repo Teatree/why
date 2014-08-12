@@ -20,19 +20,35 @@ public class ExplosiveProp extends Prop {
 		sizeW = 16;
 		sizeH = 32;
 		
-		animationsStandard.put(State.STANDARD, new AnimationControl(Assets.manager.get(Assets.propExplosiveBarrel), 4, 2, 3.6f));
-		animationsStandard.put(State.DESPAWNING, new AnimationControl(Assets.manager.get(Assets.propExplosiveBarrel), 4, 2, 3.6f));
+		animationsStandard.put(State.STANDARD, new AnimationControl(Assets.manager.get(Assets.propExplosiveBarrel), 4, 4, 3.6f));
+		animationsStandard.put(State.DESPAWNING, new AnimationControl(Assets.manager.get(Assets.propExplosiveBarrel), 4, 4, 3.6f));
+		animationsStandard.put(State.ONFIRE, new AnimationControl(Assets.manager.get(Assets.propExplosiveBarrel), 4, 4, 3.6f));
 		
 		sprite = new Sprite(animationsStandard.get(state).getCurrentFrame());
 	}
 	
 	
-	public void toDoSomething(AbstractGameObject abs) {
-		explosion = new Explosion(this.position);
-		explosion.explCircle = new Circle();
+	public void toDoSomething() {
+		explosion = new Explosion(this.position, Explosion.EXPLOSION_TYPE_STANDART);
 		explosion.damage = 0.9f;
-		explosion.position = this.position;
-		explosion.explCircle.setPosition(position.x, position.y);
+		explosion.position = new Vector2(this.position.x, this.position.y);
+		explosion.explosionEffect = new ParticleEffect();
+		explosion.explosionEffect.load(
+				Gdx.files.local("effects/FlameEffectTemp.p"),
+				Gdx.files.local("effects"));
+		explosion.explosionEffect.setPosition(position.x, position.y);
+		explosion.explosionEffect.start();
+		L1.explosions.add(explosion);
+		
+		
+	}
+
+
+	@Override
+	public void toDoSomething(AbstractGameObject abs) {
+		explosion = new Explosion(this.position, Explosion.EXPLOSION_TYPE_STANDART);
+		explosion.damage = 0.9f;
+		explosion.position = new Vector2(this.position.x, this.position.y);
 		explosion.explosionEffect = new ParticleEffect();
 		explosion.explosionEffect.load(
 				Gdx.files.local("effects/FlameEffectTemp.p"),

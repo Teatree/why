@@ -31,7 +31,7 @@ public class ExplozionTrap extends Trap{
 	
 	public ExplozionTrap() {
 		circle = new Circle();
-		explosion = new Explosion(null);
+		explosion = new Explosion(null, Explosion.EXPLOSION_TYPE_STANDART);
 		switch (level) {
 		case 0:
 			lifeTimeMax = Constants.ExplozionTrap_LifeTime_L1;

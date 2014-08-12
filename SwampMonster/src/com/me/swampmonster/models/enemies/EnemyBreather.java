@@ -22,7 +22,7 @@ public class EnemyBreather extends Enemy {
 			CameraHelper cameraHelper, List<Enemy> enemies) {
 		super.update(collisionLayer, player, cameraHelper, enemies);
 		if (!L1.hasAtmosphere){
-			health -= 0.4;
+			health -= 0.0004;
 		}
 	}
 

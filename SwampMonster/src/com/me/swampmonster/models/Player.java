@@ -9,6 +9,7 @@ import java.util.Random;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
@@ -309,16 +310,15 @@ public class Player extends AbstractGameObject {
 				if (p.effect == EffectCarriers.EXPLOSIVE) {
 					TheController.skill.explode(p.position);
 				}
-				if (p.isCollisionNBreakable(collisionLayer) && L1.hasAtmosphere) {
-					Explosion expl = new Explosion(new Vector2(p.position.x,
-							p.position.y));
-					expl.type = Explosion.EXPLOSION_TYPE_INVERTED;
-					expl.damage = 0;
-					expl.explCircle.radius = 290;
-					expl.incrementalCircleValue = -4;
-					L1.explosions.add(expl);
-					L1.hasAtmosphere = false;
-				}
+				prj.remove();
+			}
+			if (p.isCollisionNBreakable(collisionLayer) && L1.hasAtmosphere) {
+				Explosion expl = new Explosion(new Vector2(p.position.x,
+						p.position.y), Explosion.EXPLOSION_TYPE_INVERTED);
+				
+				L1.explosions.add(expl);
+				L1.hasAtmosphere = false;
+				
 				prj.remove();
 			}
 			if (p != null && p.state == State.DEAD) {

@@ -8,6 +8,7 @@ import java.util.Stack;
 
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Intersector;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.me.swampmonster.game.TheController;
 import com.me.swampmonster.models.AbstractGameObject.NegativeEffects;
@@ -66,25 +67,52 @@ public class L1 {
 	public void update(boolean aiming, Vector3 touchPos, Vector3 V3point,
 			TiledMapTileLayer collisionLayer,
 			CameraHelper cameraHelper, float dx, float dy) {
+		
+		
 		Iterator<Prop> propItr = props.iterator();
 		while (propItr.hasNext()){
 			Prop p = propItr.next();
 			if (p.state != State.DEAD){
 				p.update();
+				
+				for (Explosion expl : explosions) {
+					if (Intersector.overlaps(expl.explCircle, p.sprite.getBoundingRectangle()) && !(p instanceof ToxicPuddle)) {
+						
+						boolean fudge = expl.cause(p, collisionLayer);
+						
+						if (fudge)
+						{
+							propItr.remove();
+						}
+						
+						if(p instanceof ExplosiveProp){
+							p.state = State.ONFIRE;
+							p.onFireCounter = 80;
+						}
+					}
+				}
 			} else {
 				propItr.remove();
 			}
 		}
-		for (Explosion expl : explosions) {
-			if (Intersector.overlaps(expl.explCircle, player.rectanlge)) {
+		
+		Iterator<Explosion> explItr = explosions.iterator();
+		while (explItr.hasNext()){
+			Explosion expl = explItr.next();
+			if (expl.type != expl.EXPLOSION_TYPE_INVERTED && Intersector.overlaps(expl.explCircle, player.rectanlge)) {
 				expl.cause(player, collisionLayer);
 			}
+			if (expl.type == expl.EXPLOSION_TYPE_INVERTED && expl.explCircle.contains(new Vector2(player.V3playerPos.x, player.V3playerPos.y))){
+				expl.cause(player, collisionLayer);
+				System.err.println("yes, we got it");
+			}
+			if (expl.explCircle.radius == 0){
+				explItr.remove();
+			}
+			
 			expl.update();
 		}
 		
-		
-//		for (Explosion e : explosions){
-//		}
 		
 		player.update(aiming, touchPos, V3point, collisionLayer, dx, dy);
 		
@@ -99,7 +127,7 @@ public class L1 {
 					cameraHelper, enemiesOnStage);
 		}
 		updateEnemies(collisionLayer);
-		updateItems();
+		updateItems(collisionLayer);
 		bunker.update();
 	}
 
@@ -160,7 +188,7 @@ public class L1 {
 		}
 	}
 
-	private void updateItems() {
+	private void updateItems(TiledMapTileLayer collisionLayer) {
 		Iterator<Item> itm = items.iterator();
 		while(itm.hasNext()){
 			Item item = itm.next();
@@ -181,6 +209,17 @@ public class L1 {
 						player.oxygen = Player.maxOxygen;
 					}
 					itm.remove();
+				}
+			}
+			for (Explosion expl : explosions) {
+				if (item.sprite != null && Intersector.overlaps(expl.explCircle, item.sprite.getBoundingRectangle())) {
+					
+					boolean fudge = expl.cause(item, collisionLayer);
+					
+					if (fudge)
+					{
+						itm.remove();
+					}
 				}
 			}
 			item.update();
@@ -221,7 +260,13 @@ public class L1 {
 				
 				for (Explosion expl : explosions) {
 					if (Intersector.overlaps(expl.explCircle, e.rectanlge)) {
-						expl.cause(e, collisionLayer);
+						
+						boolean fudge = expl.cause(e, collisionLayer);
+						
+						if (fudge)
+						{
+							itr.remove();
+						}
 					}
 				}
 			}

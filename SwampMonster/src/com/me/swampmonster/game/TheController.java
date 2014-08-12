@@ -87,7 +87,6 @@ public class TheController extends InputAdapter {
 		cameraHelper = new CameraHelper();
 		gui = new GUI(player);
 		gui.getCroshair().setPosition(new Vector2(330f, 100f));
-		explosion = new Explosion(player.position);
 
 		touchPos = new Vector3(player.getPosition().x + 10,
 				player.getPosition().y, 0);
@@ -129,6 +128,13 @@ public class TheController extends InputAdapter {
 		level1.update(gui.getCroshair().isAiming(), touchPos, V3point,
 				collisionLayer, cameraHelper, dx, dy);
 		projectileCollisionDetection();
+		
+		if(!level1.explosions.isEmpty()){
+			cameraHelper.setShakeAmt(25);
+		}
+		if(level1.explosions.isEmpty()){
+			cameraHelper.cameraShake();
+		}
 
 		// I don't fucking know if thsi is better, I just spent 2 hours on this
 		// solution, so deal with it!
@@ -309,13 +315,13 @@ public class TheController extends InputAdapter {
 		if (Gdx.input.isKeyPressed(Keys.F))
 			cameraHelper.setZoom(1);
 		if (Gdx.input.isKeyPressed(Keys.L) && Gdx.input.justTouched()) {
-			explosion = new Explosion(new Vector2(pointRectV3.x, pointRectV3.y));
-			explosion.explCircle = new Circle();
+			explosion = new Explosion(new Vector2(pointRectV3.x, pointRectV3.y), Explosion.EXPLOSION_TYPE_STANDART);
+//			explosion.type = Explosion.EXPLOSION_TYPE_INVERTED;
 			explosion.incrementalDamageValue = 0;
 			explosion.incrementalCircleValue = 6;
-			explosion.explCircle.setPosition(new Vector2(pointRectV3.x,
-					pointRectV3.y));
-			explosion.explCircle.radius = 1f;
+//			explosion.explCircle.setPosition(new Vector2(pointRectV3.x,
+//					pointRectV3.y));
+//			explosion.explCircle.radius = 1f;
 
 			explosion.explosionEffect = new ParticleEffect();
 			explosion.explosionEffect.load(

@@ -3,6 +3,8 @@ package com.me.swampmonster.models;
 import java.awt.geom.Line2D;
 import java.util.HashMap;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
@@ -18,7 +20,7 @@ public abstract class AbstractGameObject {
 
 	public enum State{
 		STANDARD, DEAD, ANIMATING, ANIMATINGLARGE, ACTIVATING, 
-		ATTACKING, PURSUIT, GUNMOVEMENT, SPAWNING, DESPAWNING;
+		ATTACKING, PURSUIT, GUNMOVEMENT, SPAWNING, DESPAWNING, ONFIRE;
 	}
 	public enum NegativeEffects {
 		POISONED(900, new Sprite(Assets.manager.get(Assets.POISONEDNEGATIVEEFFECT_ICON))),
@@ -75,6 +77,10 @@ public abstract class AbstractGameObject {
 	public Collidable collidableUp;
 	public Collidable collidableDown;
 	public int oxygen;
+	
+	public void toDoSomething(AbstractGameObject abs) {
+		
+	}
 	
 	public Vector2 getPosition() {
 		return position;
