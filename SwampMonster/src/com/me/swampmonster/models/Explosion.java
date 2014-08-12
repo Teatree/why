@@ -2,7 +2,6 @@ package com.me.swampmonster.models;
 
 import java.util.Random;
 
-import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector2;
@@ -19,7 +18,7 @@ public class Explosion {
 	
 	public Circle explCircle;
 	public float damage;
-	public ParticleEffect explosionEffect;
+//	public ParticleEffect explosionEffect;
 	public float incrementalDamageValue;
 	public float incrementalCircleValue;
 	public Vector2 position;

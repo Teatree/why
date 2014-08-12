@@ -3,8 +3,6 @@ package com.me.swampmonster.models.slots;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Circle;
 import com.me.swampmonster.models.Explosion;
@@ -88,10 +86,10 @@ public class ExplozionTrap extends Trap{
 		if (!cuba) {
 			explosion.position = this.position;
 			explosion.explCircle.setPosition(this.position.x, this.position.y);
-			explosion.explosionEffect = new ParticleEffect();
-			explosion.explosionEffect.load(Gdx.files.local("effects/FlameEffectTemp.p"),Gdx.files.local("effects"));
-			explosion.explosionEffect.setPosition(this.position.x,this.position.y);
-			explosion.explosionEffect.start();
+//			explosion.explosionEffect = new ParticleEffect();
+//			explosion.explosionEffect.load(Gdx.files.local("effects/FlameEffectTemp.p"),Gdx.files.local("effects"));
+//			explosion.explosionEffect.setPosition(this.position.x,this.position.y);
+//			explosion.explosionEffect.start();
 			L1.explosions.add(explosion);
 			cuba = true;
 		} else {

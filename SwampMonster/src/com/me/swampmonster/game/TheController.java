@@ -7,7 +7,6 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputAdapter;
-import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Circle;
@@ -22,10 +21,10 @@ import com.me.swampmonster.models.AbstractGameObject.State;
 import com.me.swampmonster.models.Explosion;
 import com.me.swampmonster.models.L1;
 import com.me.swampmonster.models.Player;
-import com.me.swampmonster.models.slots.PositiveEffectInterface;
-import com.me.swampmonster.models.slots.PositiveEffects;
 import com.me.swampmonster.models.Projectile;
 import com.me.swampmonster.models.enemies.Enemy;
+import com.me.swampmonster.models.slots.PositiveEffectInterface;
+import com.me.swampmonster.models.slots.PositiveEffects;
 import com.me.swampmonster.models.slots.Slot;
 import com.me.swampmonster.screens.AbstractGameScreen;
 import com.me.swampmonster.screens.SlotMachineScreen;
@@ -317,12 +316,12 @@ public class TheController extends InputAdapter {
 					pointRectV3.y));
 			explosion.explCircle.radius = 1f;
 
-			explosion.explosionEffect = new ParticleEffect();
-			explosion.explosionEffect.load(
-					Gdx.files.local("effects/explosionEffect.p"),
-					Gdx.files.local("effects"));
-			explosion.explosionEffect.setPosition(pointRectV3.x, pointRectV3.y);
-			explosion.explosionEffect.start();
+//			explosion.explosionEffect = new ParticleEffect();
+//			explosion.explosionEffect.load(
+//					Gdx.files.local("effects/explosionEffect.p"),
+//					Gdx.files.local("effects"));
+//			explosion.explosionEffect.setPosition(pointRectV3.x, pointRectV3.y);
+//			explosion.explosionEffect.start();
 			L1.explosions.add(explosion);
 		}
 		if (Gdx.input.isKeyPressed(Keys.N) && !NalreadyPressed) {

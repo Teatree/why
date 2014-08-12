@@ -2,7 +2,6 @@ package com.me.swampmonster.utils;
 
 import java.util.Random;
 
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector2;
 import com.me.swampmonster.game.TheController;

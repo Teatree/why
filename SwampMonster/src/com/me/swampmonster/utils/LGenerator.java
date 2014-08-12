@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.Random;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Vector2;
 import com.me.swampmonster.game.TheController;
@@ -58,16 +59,20 @@ public class LGenerator {
 //		}
 		hasLevelAtmosphere = true;
 
-		String br = Gdx.files.local("data\\" + map).readString();
+		String br = Gdx.files.internal("data\\" + map).readString();
 		if (!hasLevelAtmosphere) {
 			br = br.replaceAll(DEFAULT_TILESET, tileSet + ".png");
 		} else {
 			br = br.replaceAll(DEFAULT_TILESET, "tileSet_SAND_WORLD2.png");
 		}
-		Gdx.files.local("data\\" + map).writeString(br, false);
-		br = Gdx.files.local("data\\" + map).readString();
-
-		L1 level = new L1(player, "tileSet_SAND_WORLD", "data/" + map,
+//		FileHandle.file().mkdirs();
+//		FileHandle.file().createNewFile();
+		Gdx.files.local("MapTemp.tmx").writeString(br, false);
+		br = Gdx.files.local("MapTemp.tmx").readString();
+		System.err.println("DFfggh");
+		System.err.println(br);
+		
+		L1 level = new L1(player, "tileSet_SAND_WORLD", Gdx.files.getLocalStoragePath()+"MapTemp.tmx",
 				hasLevelAtmosphere, false);
 		//:TODO isLevelElite !
 		player.oxygen = Player.maxOxygen;

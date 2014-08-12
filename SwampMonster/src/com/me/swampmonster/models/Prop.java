@@ -1,6 +1,5 @@
 package com.me.swampmonster.models;
 
-import com.me.swampmonster.models.AbstractGameObject.State;
 
 public abstract class Prop extends AbstractGameObject{
 

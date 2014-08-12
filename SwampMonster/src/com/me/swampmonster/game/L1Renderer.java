@@ -4,20 +4,19 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.me.swampmonster.AI.Node;
+import com.me.swampmonster.models.AbstractGameObject.State;
 import com.me.swampmonster.models.Explosion;
 import com.me.swampmonster.models.Item;
-import com.me.swampmonster.models.AbstractGameObject.State;
 import com.me.swampmonster.models.L1;
+import com.me.swampmonster.models.Projectile;
 import com.me.swampmonster.models.Prop;
 import com.me.swampmonster.models.enemies.Enemy;
-import com.me.swampmonster.models.Projectile;
 import com.me.swampmonster.utils.Constants;
 
 public class L1Renderer {
@@ -29,7 +28,7 @@ public class L1Renderer {
 	// Temporary debug feature
 	
 	private SpriteBatch batch;
-	private ParticleEffect effect;
+//	private ParticleEffect effect;
 	private OrthogonalTiledMapRenderer mapRenderer;
 	private int timer;
 	
@@ -58,11 +57,11 @@ public class L1Renderer {
 		
 		timer = 60;
 		
-		effect = new ParticleEffect();
-		effect.load(Gdx.files.local("effects/FlameEffectTemp.p"), Gdx.files.local("effects"));
-		effect.setPosition(TheController.level1.player.position.x, TheController.level1.player.position.y);
-		effect.start();
-		
+//		effect = new ParticleEffect();
+//		effect.load(Gdx.files.local("effects/FlameEffectTemp.p"), Gdx.files.local("effects"));
+//		effect.setPosition(TheController.level1.player.position.x, TheController.level1.player.position.y);
+//		effect.start();
+//		
 	}	
 	
 	public void render() {
@@ -91,17 +90,17 @@ public class L1Renderer {
 		Gdx.gl.glEnable(GL20.GL_BLEND);
 		Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
 		batch.begin();
-		if(theController.explosion.explosionEffect != null){
-			theController.explosion.explosionEffect.draw(batch);
-			theController.explosion.explosionEffect.update(Gdx.graphics.getDeltaTime());
-		}
-		
-		for (Explosion e : L1.explosions){
-			if(e.explosionEffect!= null){
-				e.explosionEffect.draw(batch);
-				e.explosionEffect.update(Gdx.graphics.getDeltaTime());
-			}
-		}
+//		if(theController.explosion.explosionEffect != null){
+//			theController.explosion.explosionEffect.draw(batch);
+//			theController.explosion.explosionEffect.update(Gdx.graphics.getDeltaTime());
+//		}
+//		
+//		for (Explosion e : L1.explosions){
+//			if(e.explosionEffect!= null){
+//				e.explosionEffect.draw(batch);
+//				e.explosionEffect.update(Gdx.graphics.getDeltaTime());
+//			}
+//		}
 		if (Gdx.input.isTouched()
 				&& TheController.level1.player.state == State.GUNMOVEMENT
 				&& theController.gui.getCroshair().isAiming()) {

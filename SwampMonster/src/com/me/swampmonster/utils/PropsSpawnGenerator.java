@@ -9,10 +9,10 @@ import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector2;
 import com.me.swampmonster.game.collision.CollisionHelper;
 import com.me.swampmonster.models.ExplosiveProp;
-import com.me.swampmonster.models.TreasureBox;
 import com.me.swampmonster.models.Player;
 import com.me.swampmonster.models.Prop;
 import com.me.swampmonster.models.ToxicPuddle;
+import com.me.swampmonster.models.TreasureBox;
 
 public class PropsSpawnGenerator {
 	private Map <Integer, Class<? extends Prop>> propTypes;
