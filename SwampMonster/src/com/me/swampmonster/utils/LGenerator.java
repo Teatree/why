@@ -5,7 +5,6 @@ import java.util.Map;
 import java.util.Random;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Vector2;
 import com.me.swampmonster.game.TheController;
@@ -68,11 +67,9 @@ public class LGenerator {
 //		FileHandle.file().mkdirs();
 //		FileHandle.file().createNewFile();
 		Gdx.files.local("MapTemp.tmx").writeString(br, false);
-		br = Gdx.files.local("MapTemp.tmx").readString();
-		System.err.println("DFfggh");
-		System.err.println(br);
+//		br = Gdx.files.local("MapTemp.tmx").readString();
 		
-		L1 level = new L1(player, "tileSet_SAND_WORLD", Gdx.files.getLocalStoragePath()+"MapTemp.tmx",
+		L1 level = new L1(player, "tileSet_SAND_WORLD", "MapTemp.tmx",
 				hasLevelAtmosphere, false);
 		//:TODO isLevelElite !
 		player.oxygen = Player.maxOxygen;

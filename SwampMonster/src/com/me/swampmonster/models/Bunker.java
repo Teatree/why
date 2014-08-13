@@ -2,6 +2,9 @@ package com.me.swampmonster.models;
 
 import java.util.Iterator;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.loaders.FileHandleResolver;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTile;
@@ -18,7 +21,14 @@ public class Bunker extends AbstractGameObject{
 	public AnimatedTiledMapTile animatedTile;
 	
 	public Bunker(String tileSet, String tileMap){
-		map = new TmxMapLoader().load(tileMap);
+		TmxMapLoader mapResolver = new TmxMapLoader(new FileHandleResolver() {
+			
+			@Override
+			public FileHandle resolve(String fileName) {
+				return Gdx.files.local(fileName);
+			}
+		});
+		map = mapResolver.load(tileMap);
 		Array<StaticTiledMapTile> frameTiles = new Array<StaticTiledMapTile>(14);
 		Iterator<TiledMapTile> tiles = map.getTileSets().getTileSet(tileSet).iterator();
 		while(tiles.hasNext()){
