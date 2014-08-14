@@ -167,6 +167,8 @@ public class Player extends AbstractGameObject {
 
 	public void update(boolean aiming, Vector3 touchPos, Vector3 V3point,
 			TiledMapTileLayer collisionLayer, float dx, float dy) {
+		
+		System.out.println("player pos: " + position.x + " : " + position.y + " __ " + position);
 		oldPos.x = position.x;
 		oldPos.y = position.y;
 
@@ -324,6 +326,7 @@ public class Player extends AbstractGameObject {
 			if (p != null && p.state == State.DEAD) {
 				prj.remove();
 			}
+			//
 			if (p != null) {
 				p.update();
 			}

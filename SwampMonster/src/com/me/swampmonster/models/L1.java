@@ -68,7 +68,8 @@ public class L1 {
 			TiledMapTileLayer collisionLayer,
 			CameraHelper cameraHelper, float dx, float dy) {
 		
-		
+		player.update(aiming, touchPos, V3point, collisionLayer, dx, dy);
+				
 		Iterator<Prop> propItr = props.iterator();
 		while (propItr.hasNext()){
 			Prop p = propItr.next();
@@ -102,7 +103,7 @@ public class L1 {
 			if (expl.type != expl.EXPLOSION_TYPE_INVERTED && Intersector.overlaps(expl.explCircle, player.rectanlge)) {
 				expl.cause(player, collisionLayer);
 			}
-			if (expl.type == expl.EXPLOSION_TYPE_INVERTED && expl.explCircle.contains(new Vector2(player.V3playerPos.x, player.V3playerPos.y))){
+			else if (expl.type == expl.EXPLOSION_TYPE_INVERTED && expl.explCircle.contains(new Vector2(player.V3playerPos.x, player.V3playerPos.y))){
 				expl.cause(player, collisionLayer);
 				System.err.println("yes, we got it");
 			}
@@ -112,9 +113,6 @@ public class L1 {
 			
 			expl.update();
 		}
-		
-		
-		player.update(aiming, touchPos, V3point, collisionLayer, dx, dy);
 		
 		misterSpawner.setCollisionLayer(collisionLayer);
 		updateWave();

@@ -128,10 +128,10 @@ public class TheController extends InputAdapter {
 				collisionLayer, cameraHelper, dx, dy);
 		projectileCollisionDetection();
 		
-		if(!level1.explosions.isEmpty()){
+		if(!L1.explosions.isEmpty()){
 			cameraHelper.setShakeAmt(25);
 		}
-		if(level1.explosions.isEmpty()){
+		if(L1.explosions.isEmpty()){
 			cameraHelper.cameraShake();
 		}
 
