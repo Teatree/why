@@ -48,15 +48,14 @@ public class LGenerator {
 		String map = maps.get(random.nextInt(maps.size() - 1));
 		String tileSet = tileSets.get(random.nextInt(tileSets.size()));
 
-//		boolean isLevelElite = random.nextBoolean();
+		boolean isLevelElite = random.nextBoolean();
 //
 		boolean hasLevelAtmosphere;
-//		if (isLevelElite) {
-//			hasLevelAtmosphere = false;
-//		} else {
-//			hasLevelAtmosphere = random.nextBoolean();
-//		}
-		hasLevelAtmosphere = true;
+		if (isLevelElite) {
+			hasLevelAtmosphere = false;
+		} else {
+			hasLevelAtmosphere = random.nextBoolean();
+		}
 
 		String br = Gdx.files.internal("data\\" + map).readString();
 		if (!hasLevelAtmosphere) {
@@ -64,10 +63,7 @@ public class LGenerator {
 		} else {
 			br = br.replaceAll(DEFAULT_TILESET, "tileSet_SAND_WORLD2.png");
 		}
-//		FileHandle.file().mkdirs();
-//		FileHandle.file().createNewFile();
 		Gdx.files.local("MapTemp.tmx").writeString(br, false);
-//		br = Gdx.files.local("MapTemp.tmx").readString();
 		
 		L1 level = new L1(player, "tileSet_SAND_WORLD", "MapTemp.tmx",
 				hasLevelAtmosphere, false);
