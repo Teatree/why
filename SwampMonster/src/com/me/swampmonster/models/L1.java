@@ -82,13 +82,15 @@ public class L1 {
 						
 						if (fudge)
 						{
-							propItr.remove();
+							p.state = State.DEAD;
+//							propItr.remove();
 						}
 						
-						if(p instanceof ExplosiveProp){
-							p.state = State.ONFIRE;
-							p.onFireCounter = 80;
-						}
+						//:TODO On fire
+//						if(p instanceof ExplosiveProp){
+//							p.state = State.ONFIRE;
+//							p.onFireCounter = 80;
+//						}
 					}
 				}
 			} else {

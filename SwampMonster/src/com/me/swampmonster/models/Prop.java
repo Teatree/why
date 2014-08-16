@@ -28,15 +28,15 @@ public abstract class Prop extends AbstractGameObject{
 			}
 		}
 		
-		if(state == State.ONFIRE){
-			if(onFireCounter > 0){
-				onFireCounter--;
-				currentFrame = animationsStandard.get(state).animate(9);
-				sprite.setRegion(currentFrame);
-			}else if(onFireCounter == 0){
-				toDoSomething();
-			}
-		}
+//		if(state == State.ONFIRE){
+//			if(onFireCounter > 0){
+//				onFireCounter--;
+//				currentFrame = animationsStandard.get(state).animate(9);
+//				sprite.setRegion(currentFrame);
+//			}else if(onFireCounter == 0){
+//				toDoSomething();
+//			}
+//		}
 		
 		sprite.setSize(sizeW, sizeH);
 	}

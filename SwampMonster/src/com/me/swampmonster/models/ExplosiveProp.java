@@ -38,12 +38,14 @@ public class ExplosiveProp extends Prop {
 //		explosion.explosionEffect.setPosition(position.x, position.y);
 //		explosion.explosionEffect.start();
 		L1.explosions.add(explosion);
+		System.out.println("doing Somehting and I don't have abs as a parameter");
 	}
 
 
 	@Override
 	public void toDoSomething(AbstractGameObject abs) {
 		// TODO Auto-generated method stub
+		System.out.println("doing Somehting and have abs as parameter");
 		
 	}
 

@@ -81,7 +81,7 @@ public class Projectile extends AbstractGameObject {
 			if (Intersector.overlaps(this.circle,
 					prop.sprite.getBoundingRectangle())
 					&& !(prop instanceof ToxicPuddle)) {
-				prop.toDoSomething(this);
+				prop.toDoSomething();
 				prop.state = State.DESPAWNING;
 //				propItr.remove();
 				state = State.DEAD;
