@@ -2,6 +2,7 @@ package com.me.swampmonster.models;
 
 import java.util.Random;
 
+import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector2;
@@ -20,7 +21,7 @@ public class Explosion {
 	
 	public Circle explCircle;
 	public float damage;
-//	public ParticleEffect explosionEffect;
+	public ParticleEffect explosionEffect;
 	public float incrementalDamageValue;
 	public float incrementalCircleValue;
 	public Vector2 position;
@@ -35,7 +36,7 @@ public class Explosion {
 	public Explosion(Vector2 position, String type){
 		this.position = position;
 		this.type = type;
-//		type = EXPLOSION_TYPE_STANDART;
+		type = EXPLOSION_TYPE_STANDART;
 		random = new Random();
 		this.damage = (float)random.nextFloat()+0.7f;
 		explCircle = new Circle();
@@ -63,17 +64,18 @@ public class Explosion {
 		}else if(/*explosionEffect != null && */explodionLifeTimeCounter >= explosionLifeTime /*explosionEffect.isComplete()*/){
 			explCircle.radius = 0;
 		}
-		System.out.println("type: " + type);
 	}
 	
 	public boolean cause(AbstractGameObject ago, TiledMapTileLayer collisionLayer){
 		ago.hurt = true;
 		ago.exploding = true;
 
+		System.out.println("ago pos: " + ago.position);
 		explosion_dx = ago.position.x - position.x;
 		explosion_dy = ago.position.y - position.y;
 
 		float length1 = (float) Math.sqrt(explosion_dx * explosion_dx + explosion_dy * explosion_dy);
+		System.out.println("length1: " + length1);
 		
 		explosion_dx /= length1;
 		explosion_dy /= length1;
@@ -111,7 +113,7 @@ public class Explosion {
 		explosionEffect(ago, collisionLayer); 
 		ago.exploding = false;
 		
-		if(ago.sprite.getBoundingRectangle().contains(explCircle.x, explCircle.y)){
+		if(ago.sprite.getBoundingRectangle().contains(explCircle.x, explCircle.y) && type==EXPLOSION_TYPE_INVERTED){
 			return true;
 		}else{
 			return false;
