@@ -246,7 +246,7 @@ public class L1 {
 						}
 						prj.remove();
 						break;
-					}
+					}//asd
 				}
 				
 				if (player.trap != null && Intersector.overlaps(player.trap.circle, e.yellowAura)){
