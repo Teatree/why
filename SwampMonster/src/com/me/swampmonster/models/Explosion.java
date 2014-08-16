@@ -36,7 +36,6 @@ public class Explosion {
 	public Explosion(Vector2 position, String type){
 		this.position = position;
 		this.type = type;
-		type = EXPLOSION_TYPE_STANDART;
 		random = new Random();
 		this.damage = (float)random.nextFloat()+0.7f;
 		explCircle = new Circle();
@@ -70,6 +69,8 @@ public class Explosion {
 		ago.hurt = true;
 		ago.exploding = true;
 
+		System.out.println("type: " + type);
+		System.out.println("explosion pos: " + position);
 		System.out.println("ago pos: " + ago.position);
 		explosion_dx = ago.position.x - position.x;
 		explosion_dy = ago.position.y - position.y;
@@ -95,7 +96,7 @@ public class Explosion {
 		}
 		
 		if (type.equals(EXPLOSION_TYPE_INVERTED)){
-			System.out.println("bla");
+//			System.out.println("bla");
 			
 			ago.hurt = false;
 			

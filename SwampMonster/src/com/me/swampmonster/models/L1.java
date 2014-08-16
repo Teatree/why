@@ -77,8 +77,7 @@ public class L1 {
 				p.update();
 				
 				for (Explosion expl : explosions) {
-					if (Intersector.overlaps(expl.explCircle, p.sprite.getBoundingRectangle()) && !(p instanceof ToxicPuddle)) {
-						
+					if (Intersector.overlaps(expl.explCircle, p.sprite.getBoundingRectangle()) && !(p instanceof ToxicPuddle) && p.state != State.DESPAWNING) {
 						boolean fudge = expl.cause(p, collisionLayer);
 						
 						if (fudge)
@@ -87,11 +86,10 @@ public class L1 {
 //							propItr.remove();
 						}
 						
-						//:TODO On fire
-//						if(p instanceof ExplosiveProp){
-//							p.state = State.ONFIRE;
-//							p.onFireCounter = 80;
-//						}
+						if(p instanceof ExplosiveProp && !expl.type.equals(Explosion.EXPLOSION_TYPE_INVERTED) && !expl.equals(((ExplosiveProp) p).explosion)){
+							p.state = State.ONFIRE;
+							p.onFireCounter = 80;
+						}
 					}
 				}
 			} else {
@@ -109,11 +107,12 @@ public class L1 {
 				expl.cause(player, collisionLayer);
 				System.err.println("yes, we got it");
 			}
+			
+			expl.update();
 			if (expl.explCircle.radius == 0){
 				explItr.remove();
 			}
 			
-			expl.update();
 		}
 		
 		misterSpawner.setCollisionLayer(collisionLayer);
@@ -194,35 +193,36 @@ public class L1 {
 			Item item = itm.next();
 			if(item.state == State.DEAD){
 				itm.remove();
-			}
-			if(Intersector.overlaps(item.circle, player.rectanlge)){
-				if(item.itemType=="hp" && player.health < Player.playerMaxHealth){
-					player.health++;
-					if (player.negativeEffectsState == NegativeEffects.POISONED){
-						player.setNegativeEffect(NegativeEffects.NONE);
-					}
-					itm.remove();
-				}else if(item.itemType == "O2" && player.oxygen < Player.maxOxygen){
-					if(player.oxygen+50 < Player.maxOxygen){
-						player.oxygen = player.oxygen+50;
-					}else{
-						player.oxygen = Player.maxOxygen;
-					}
-					itm.remove();
-				}
-			}
-			for (Explosion expl : explosions) {
-				if (item.sprite != null && Intersector.overlaps(expl.explCircle, item.sprite.getBoundingRectangle())) {
-					
-					boolean fudge = expl.cause(item, collisionLayer);
-					
-					if (fudge)
-					{
-						itm.remove();
+			}else{
+					if(Intersector.overlaps(item.circle, player.rectanlge)){
+					if(item.itemType=="hp" && player.health < Player.playerMaxHealth){
+						player.health++;
+						if (player.negativeEffectsState == NegativeEffects.POISONED){
+							player.setNegativeEffect(NegativeEffects.NONE);
+						}
+						item.state = State.DEAD;
+					}else if(item.itemType == "O2" && player.oxygen < Player.maxOxygen){
+						if(player.oxygen+50 < Player.maxOxygen){
+							player.oxygen = player.oxygen+50;
+						}else{
+							player.oxygen = Player.maxOxygen;
+						}
+						item.state = State.DEAD;
 					}
 				}
+				for (Explosion expl : explosions) {
+					if (item.sprite != null && Intersector.overlaps(expl.explCircle, item.sprite.getBoundingRectangle())) {
+						
+						boolean fudge = expl.cause(item, collisionLayer);
+						
+						if (fudge)
+						{
+							item.state = State.DEAD;
+						}
+					}
+				}
+				item.update();
 			}
-			item.update();
 		}
 	}
 	
@@ -244,7 +244,7 @@ public class L1 {
 						}
 						prj.remove();
 						break;
-					}//asd
+					}
 				}
 				
 				if (player.trap != null && Intersector.overlaps(player.trap.circle, e.yellowAura)){
@@ -261,11 +261,12 @@ public class L1 {
 				for (Explosion expl : explosions) {
 					if (Intersector.overlaps(expl.explCircle, e.rectanlge)) {
 						
+						System.err.println("Enemy position: " + e.position);
 						boolean fudge = expl.cause(e, collisionLayer);
 						
 						if (fudge)
 						{
-							itr.remove();
+							e.state = State.DEAD;
 						}
 					}
 				}
