@@ -84,6 +84,7 @@ public class SlotsGenerator {
 		int activeSkillCode = random.nextInt(slotParams.maxRandActiveSkillValue - slotParams.minRandActiveSkillValue) + slotParams.minRandActiveSkillValue;
 		Slot slot = null;
 		try {
+			System.out.println("active skill : " + activeSkillCode);
 			slot = slots.get(activeSkillCode).getConstructor().newInstance();
 		} catch (Exception e) {
 			e.printStackTrace();

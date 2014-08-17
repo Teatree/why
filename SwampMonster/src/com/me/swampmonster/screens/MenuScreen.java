@@ -15,6 +15,7 @@ public class MenuScreen extends AbstractGameScreen{
 		s = new ShapeRenderer();
 	}
 
+	@Override
 	public void render (float deltaTime) {
 		Gdx.gl.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -26,16 +27,22 @@ public class MenuScreen extends AbstractGameScreen{
 		s.end();
 	}
 
+	@Override
 	public void resize(int width, int height) {
 	}
+	@Override
 	public void show() {
 	}
+	@Override
 	public void hide() {
 	}
+	@Override
 	public void pause() {
 	}
+	@Override
 	public void resume() {
 	}
+	@Override
 	public void dispose() {
 	}
 }

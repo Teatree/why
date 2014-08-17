@@ -32,6 +32,7 @@ public class ImproveMaxHealth extends Slot implements Perks{
 		sprite = new Sprite(Assets.manager.get(Assets.IMPROVEMAXHEALTH_ICON));
 	}
 	
+	@Override
 	public void execute (Player player){
 		Player.playerMaxHealth += Constants.ImproveMaxHealth_HealthValue_L1;
 	}

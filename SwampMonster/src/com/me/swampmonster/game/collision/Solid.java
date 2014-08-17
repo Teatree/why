@@ -6,6 +6,7 @@ import com.me.swampmonster.models.AbstractGameObject;
 
 public class Solid implements Collidable{
 
+	@Override
 	public void doCollide(AbstractGameObject abstractGameObject, TiledMapTileLayer collisionLayer) {
 		boolean collisionX = false;
 		boolean collisionY = false; 
@@ -74,6 +75,7 @@ public class Solid implements Collidable{
 			return false;
 		}
 
+		@Override
 		public void doCollideAbstactObject(AbstractGameObject abstractGameObject) {
 			
 		}

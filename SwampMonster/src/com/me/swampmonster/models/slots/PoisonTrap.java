@@ -60,6 +60,7 @@ public class PoisonTrap extends Trap{
 		
 	}
 
+	@Override
 	public void catchEnemy(Enemy enemy) {
 		enemy.setNegativeEffect(NegativeEffects.POISONED);
 		this.position = null;
@@ -69,6 +70,7 @@ public class PoisonTrap extends Trap{
 		return trapSprite;
 	}
 	
+	@Override
 	public String getDescription() {
 		return descriptionByLevel.get(level);
 	}

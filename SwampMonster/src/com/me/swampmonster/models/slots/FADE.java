@@ -22,6 +22,7 @@ public class FADE extends Slot implements PositiveEffectInterface{
 	}
 	
 	
+	@Override
 	public void execute(Player target) {
 		target.setPositiveEffect(PositiveEffects.FADE);
 		

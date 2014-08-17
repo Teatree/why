@@ -33,6 +33,7 @@ public class ImproveArrowDamage extends Slot implements Perks{
 		sprite = new Sprite(Assets.manager.get(Assets.IMPROVEARROWDAMAGE_ICON));
 	}
 	
+	@Override
 	public void execute (Player player){
 		player.damage += valuesByLevel.get(level);
 	}

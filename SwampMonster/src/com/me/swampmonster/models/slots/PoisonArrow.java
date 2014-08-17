@@ -44,10 +44,12 @@ public class PoisonArrow extends Slot{
 		}
 	}
 	
+	@Override
 	public void execute(Player player){
 		player.arrowEffectCarrier = EffectCarriers.POISONED;
 	}
 	
+	@Override
 	public String getDescription() {
 		return descriptionByLevel.get(level);
 	}

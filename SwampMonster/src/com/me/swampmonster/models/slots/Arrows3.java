@@ -36,6 +36,7 @@ public class Arrows3 extends Slot{
 		coolDown = Constants.Arrows3_CoolDown_L1;
 	}
 	
+	@Override
 	public void execute(Player player){
 		player.ThreeArrowsFlag = true;
 	}

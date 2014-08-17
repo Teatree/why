@@ -47,14 +47,12 @@ public class L1 {
 	public boolean isElite;
 	public static boolean hasAtmosphere;
 	
-	public L1(Player player, String tileSet, String tileMap, boolean hasAtmosphere, boolean isElite) {
-		create(player, tileSet, tileMap, hasAtmosphere, isElite);
+	public L1(String tileSet, String tileMap, boolean isElite) {
+		create(tileSet, tileMap, isElite);
 	}
 
-	public void create(Player player, String tileSet, String tileMap, boolean hasAtmosphere, boolean isElite) {
-		L1.player = player;
+	public void create(String tileSet, String tileMap, boolean isElite) {
 		this.isElite = isElite;
-		L1.hasAtmosphere = hasAtmosphere;
 		wavesAmount = waveGenerator.getWavesAmount(Player.score, hasAtmosphere, isElite);
 		currentWave = 1;
 		wave = waveGenerator.generateWave(Player.score, hasAtmosphere, isElite);
@@ -100,10 +98,10 @@ public class L1 {
 		Iterator<Explosion> explItr = explosions.iterator();
 		while (explItr.hasNext()){
 			Explosion expl = explItr.next();
-			if (expl.type != expl.EXPLOSION_TYPE_INVERTED && Intersector.overlaps(expl.explCircle, player.rectanlge)) {
+			if (expl.type != Explosion.EXPLOSION_TYPE_INVERTED && Intersector.overlaps(expl.explCircle, player.rectanlge)) {
 				expl.cause(player, collisionLayer);
 			}
-			else if (expl.type == expl.EXPLOSION_TYPE_INVERTED && expl.explCircle.contains(new Vector2(player.V3playerPos.x, player.V3playerPos.y))){
+			else if (expl.type == Explosion.EXPLOSION_TYPE_INVERTED && expl.explCircle.contains(new Vector2(player.V3playerPos.x, player.V3playerPos.y))){
 				expl.cause(player, collisionLayer);
 				System.err.println("yes, we got it");
 			}
@@ -122,7 +120,7 @@ public class L1 {
 			if (player.state == State.DEAD) {
 				enemy.state = State.STANDARD;
 			} 
-			enemy.update(collisionLayer, this.player,
+			enemy.update(collisionLayer, L1.player,
 					cameraHelper, enemiesOnStage);
 		}
 		updateEnemies(collisionLayer);
@@ -229,7 +227,7 @@ public class L1 {
 	private void updateEnemies(TiledMapTileLayer collisionLayer) {
 		Iterator<Enemy> itr = enemiesOnStage.iterator();
 		while (itr.hasNext()) {
-			Enemy e = (Enemy) itr.next();
+			Enemy e = itr.next();
 			if (!e.isDead()) {
 				if (player.radioactiveAura != null
 						&& Intersector.overlaps(player.radioactiveAura,
@@ -237,7 +235,7 @@ public class L1 {
 				}
 				Iterator<Projectile> prj = player.projectiles.iterator();
 				while (prj.hasNext()) {
-					Projectile p = (Projectile) prj.next();
+					Projectile p = prj.next();
 					if (p.effect != EffectCarriers.SHADOW && Intersector.overlaps(p.circle, e.rectanlge)) {
 						if (p.effect == EffectCarriers.EXPLOSIVE){
 							TheController.skill.explode(p.position);

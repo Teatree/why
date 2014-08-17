@@ -9,7 +9,6 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
@@ -23,6 +22,7 @@ import com.me.swampmonster.models.L1;
 import com.me.swampmonster.models.Player;
 import com.me.swampmonster.models.Projectile;
 import com.me.swampmonster.models.enemies.Enemy;
+import com.me.swampmonster.models.slots.ExplozionTrap;
 import com.me.swampmonster.models.slots.PositiveEffectInterface;
 import com.me.swampmonster.models.slots.PositiveEffects;
 import com.me.swampmonster.models.slots.Slot;
@@ -137,11 +137,11 @@ public class TheController extends InputAdapter {
 
 		// I don't fucking know if thsi is better, I just spent 2 hours on this
 		// solution, so deal with it!
-		if (Gdx.input.justTouched() && !level1.player.justSpawned) {
+		if (Gdx.input.justTouched() && !L1.player.justSpawned) {
 			inputNav();
 		}
 
-		gui.update(level1.player, point, V3point);
+		gui.update(L1.player, point, V3point);
 		handleDebugInput(deltaTime);
 		point.x = Gdx.input.getX();
 		point.y = 480 - Gdx.input.getY();
@@ -151,21 +151,21 @@ public class TheController extends InputAdapter {
 		l1Renderer.getCam().unproject(V3point);
 		V3point.z = 0;
 
-		V3playerPos.x = level1.player.getPosition().x
-				+ level1.player.circle.radius / 2;
-		V3playerPos.y = level1.player.getPosition().y
-				+ level1.player.circle.radius / 2;
+		V3playerPos.x = L1.player.getPosition().x
+				+ L1.player.circle.radius / 2;
+		V3playerPos.y = L1.player.getPosition().y
+				+ L1.player.circle.radius / 2;
 		V3playerPos.z = 0;
 		
 		if (Intersector.overlaps(debugRect, pointRect) || germany) {
 			AbstractGameScreen sl;
-			if (germany && level1.player.state == State.DEAD){
+			if (germany && L1.player.state == State.DEAD){
 				sl = new SwampScreen(game);
-				reloadLevel(level1.player);
+				reloadLevel(L1.player);
 			} else {
 				sl = new SlotMachineScreen(game);
 			}
-			sl.player = level1.player;
+			sl.player = L1.player;
 			germany = false;
 			game.setScreen(sl);
 		} 
@@ -179,8 +179,8 @@ public class TheController extends InputAdapter {
 		dx /= length1;
 		dy /= length1;
 		
-		level1.player.setDx(dx);
-		level1.player.setDy(dy);
+		L1.player.setDx(dx);
+		L1.player.setDy(dy);
 		if (coolDownCounter > 0) {
 			coolDownAngle = coolDownAngle - coolDownStep;
 			// c -= coolDownStep;
@@ -209,41 +209,44 @@ public class TheController extends InputAdapter {
 	private void projectileCollisionDetection() {
 		for (Enemy e : L1.enemiesOnStage) {
 			for (Projectile p : e.enemyProjectiles) {
-				if (p.circle.overlaps(level1.player.aimingArea)
-						&& !level1.player.hurt
-						&& level1.player.state != State.DEAD
-						&& level1.player.positiveEffectsState != PositiveEffects.FADE) {
+				if (p.circle.overlaps(L1.player.aimingArea)
+						&& !L1.player.hurt
+						&& L1.player.state != State.DEAD
+						&& L1.player.positiveEffectsState != PositiveEffects.FADE) {
 					cameraHelper.setShakeAmt(25);
 					cameraHelper.cameraShake();
 
-					level1.player.hurt = true;
-					level1.player.damageType = "enemy";
-					level1.player.health -= e.damage;
+					L1.player.hurt = true;
+					L1.player.damageType = "enemy";
+					L1.player.health -= e.damage;
 				}
 			}
 		}
 	}
 
 	private void inputNav() {
-		if (!level1.player.state.equals(State.DEAD)) {
+		if (!L1.player.state.equals(State.DEAD)) {
 			if (!doesIntersect(point, gui.getWeaponizer().getPosition(),
 					gui.getWeaponizer().circle.radius)) {
 				touchPos.y = Gdx.input.getY();
 				touchPos.x = Gdx.input.getX();
 				l1Renderer.getCam().unproject(touchPos);
 				touchPos.z = 0;
-				level1.player.pointGathered = true;
+				L1.player.pointGathered = true;
 			} else if (Intersector.intersectSegmentCircle(point, point, gui
 					.getWeaponizer().getPosition(),
 					gui.getWeaponizer().circle.radius
 							* gui.getWeaponizer().circle.radius)) {
 				if (skill != null && coolDownCounter == 0) {
-					skill.execute(level1.player);
+					if (skill instanceof ExplozionTrap){
+						ExplozionTrap.cuba = false;
+					}
+					skill.execute(L1.player);
 					coolDownAngle = 360;
 					coolDownStep = 360f / skill.coolDown;
 					coolDownCounter = skill.coolDown;
 					if (skill instanceof PositiveEffectInterface) {
-						level1.player.positiveEffectSprite = skill.sprite;
+						L1.player.positiveEffectSprite = skill.sprite;
 					}
 				}
 			}
@@ -275,7 +278,7 @@ public class TheController extends InputAdapter {
 			}
 		}
 		if (Gdx.input.isKeyPressed(Keys.P)) {
-			level1.player.state = State.DEAD;
+			L1.player.state = State.DEAD;
 		}
 		if (Gdx.input.isKeyPressed(Keys.X)
 				&& Gdx.input.isKeyPressed(Keys.CONTROL_RIGHT)) {
@@ -288,22 +291,22 @@ public class TheController extends InputAdapter {
 
 		// Pos effects
 		if (Gdx.input.isKeyPressed(Keys.T))
-			level1.player.setPositiveEffect(PositiveEffects.NONE);
+			L1.player.setPositiveEffect(PositiveEffects.NONE);
 		if (Gdx.input.isKeyPressed(Keys.Y))
-			level1.player.setPositiveEffect(PositiveEffects.FADE);
+			L1.player.setPositiveEffect(PositiveEffects.FADE);
 		if (Gdx.input.isKeyPressed(Keys.U))
-			level1.player.setPositiveEffect(PositiveEffects.RADIOACTIVE_AURA);
+			L1.player.setPositiveEffect(PositiveEffects.RADIOACTIVE_AURA);
 		if (Gdx.input.isKeyPressed(Keys.I))
-			level1.player.setPositiveEffect(PositiveEffects.SPEED_BOOST);
+			L1.player.setPositiveEffect(PositiveEffects.SPEED_BOOST);
 		// Neg effects
 		if (Gdx.input.isKeyPressed(Keys.G))
-			level1.player.setNegativeEffect(NegativeEffects.NONE);
+			L1.player.setNegativeEffect(NegativeEffects.NONE);
 		if (Gdx.input.isKeyPressed(Keys.H))
-			level1.player.setNegativeEffect(NegativeEffects.FEAR);
+			L1.player.setNegativeEffect(NegativeEffects.FEAR);
 		if (Gdx.input.isKeyPressed(Keys.J))
-			level1.player.setNegativeEffect(NegativeEffects.FROZEN);
+			L1.player.setNegativeEffect(NegativeEffects.FROZEN);
 		if (Gdx.input.isKeyPressed(Keys.K))
-			level1.player.setNegativeEffect(NegativeEffects.POISONED);
+			L1.player.setNegativeEffect(NegativeEffects.POISONED);
 
 		if (Gdx.input.isKeyPressed(Keys.SHIFT_LEFT))
 			camZoomSpeed *= camZoomSpeedAccelerationFactor;
@@ -331,8 +334,8 @@ public class TheController extends InputAdapter {
 			L1.explosions.add(explosion);
 		}
 		if (Gdx.input.isKeyPressed(Keys.N) && !NalreadyPressed) {
-			level1.player.hurt = true;
-			level1.player.timer2 = 80; // Remember that this one is supposed to
+			L1.player.hurt = true;
+			L1.player.timer2 = 80; // Remember that this one is supposed to
 										// be the same as the pending time of
 										// hurt state animation
 			NalreadyPressed = true;
@@ -340,7 +343,7 @@ public class TheController extends InputAdapter {
 			NalreadyPressed = false;
 		}
 		if (Gdx.input.isKeyPressed(Keys.B)) {
-			level1.player.decreaseOxygen();
+			L1.player.decreaseOxygen();
 		}
 	}
 
@@ -350,9 +353,10 @@ public class TheController extends InputAdapter {
 		cameraHelper.setPosition(x, y);
 	}
 
+	@Override
 	public boolean keyUp(int keycode) {
 		if (keycode == Keys.R) {
-			init(level1.player);
+			init(L1.player);
 		}
 
 		if (keycode == Keys.ENTER && cameraHelper.hasTarget) {

@@ -185,7 +185,8 @@ public class Pathfinder {
 	
     public static void findPathInThreadPool(final Vector2 startingPosition, final Vector2 targetPosition, final TiledMapTileLayer nodeLayer, final Enemy enemy) {
     	threadPool.submit(new Runnable() {
-            public void run() {
+            @Override
+			public void run() {
                 enemy.setPath(findPath(startingPosition, targetPosition, nodeLayer));
             }
         });

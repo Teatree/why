@@ -16,6 +16,7 @@ public class SwampScreen extends AbstractGameScreen {
 		super(game);
 	}
 	
+	@Override
 	public void show() {
 		if(theController == null){
 			theController = new TheController(game, this.player);
@@ -26,6 +27,7 @@ public class SwampScreen extends AbstractGameScreen {
 		theController.l1Renderer = renderer;
 	}
 	
+	@Override
 	public void render(float delta) {
 		Gdx.gl.glClearColor(0.1f, 0.1f, 0.1f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -35,19 +37,24 @@ public class SwampScreen extends AbstractGameScreen {
 		renderer.render();
 	}
 
+	@Override
 	public void resize(int width, int height) {
 		renderer.setSize(width, height);
 	}
 
+	@Override
 	public void hide() {
 	}
 
+	@Override
 	public void pause() {
 	}
 
+	@Override
 	public void resume() {
 	}
 
+	@Override
 	public void dispose() {
 		
 	}

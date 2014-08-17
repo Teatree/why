@@ -9,7 +9,6 @@ import java.util.Random;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
@@ -307,7 +306,7 @@ public class Player extends AbstractGameObject {
 			// System.err.println("player");
 			Projectile p = prj.next();
 			p.getSurfaceLevelProjectile(collisionLayer);
-			if (p != null && p.isCollision(collisionLayer)
+			if (p.isCollision(collisionLayer)
 					&& p.effect != EffectCarriers.SHADOW) {
 				if (p.effect == EffectCarriers.EXPLOSIVE) {
 					TheController.skill.explode(p.position);
@@ -581,6 +580,7 @@ public class Player extends AbstractGameObject {
 
 	}
 
+	@Override
 	public void setNegativeEffect(NegativeEffects negativeEffect) {
 		if (positiveEffectsState != PositiveEffects.FADE) {
 			switch (negativeEffect) {
@@ -776,6 +776,7 @@ public class Player extends AbstractGameObject {
 		return collidableDown;
 	}
 
+	@Override
 	public Collidable collisionCheckerRight(TiledMapTileLayer collisionLayer) {
 		Collidable collidableRight;
 		collidableRight = CollisionHelper.isCollidable(
@@ -798,6 +799,7 @@ public class Player extends AbstractGameObject {
 		}
 	}
 
+	@Override
 	public Collidable collisionCheckerLeft(TiledMapTileLayer collisionLayer) {
 		Collidable collidableLeft;
 		collidableLeft = CollisionHelper.isCollidable(position.x, position.y
@@ -978,10 +980,12 @@ public class Player extends AbstractGameObject {
 		}
 	}
 
+	@Override
 	public float getDx() {
 		return playerDx;
 	}
 
+	@Override
 	public float getDy() {
 		return playerDy;
 	}

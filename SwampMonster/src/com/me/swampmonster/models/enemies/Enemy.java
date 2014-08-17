@@ -398,7 +398,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 		}
 		Iterator<Projectile> prj = enemyProjectiles.iterator();
 		while (prj.hasNext()) {
-			Projectile p = (Projectile) prj.next();
+			Projectile p = prj.next();
 			if (p != null) {
 				p.movementSpeed = 1f;
 				if (p.isCollision(collisionLayer)
@@ -577,18 +577,22 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 		collidableUp = collisionCheckerTop(collisionLayer, enemies);
 	}
 
+	@Override
 	public Collidable collisionCheckerRight(TiledMapTileLayer collisionLayer) {
 		return collisionCheckerRight(collisionLayer, L1.enemiesOnStage);
 	}
 
+	@Override
 	public Collidable collisionCheckerLeft(TiledMapTileLayer collisionLayer) {
 		return collisionCheckerLeft(collisionLayer, L1.enemiesOnStage);
 	}
 
+	@Override
 	public Collidable collisionCheckerTop(TiledMapTileLayer collisionLayer) {
 		return collisionCheckerTop(collisionLayer, L1.enemiesOnStage);
 	}
 
+	@Override
 	public Collidable collisionCheckerBottom(TiledMapTileLayer collisionLayer) {
 		return collisionCheckerBottom(collisionLayer, L1.enemiesOnStage);
 	}
@@ -928,6 +932,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 	}
 
 	// temporary look
+	@Override
 	public void setPlayerMovementDirection(String playerMovementDirection) {
 		this.playerMovementDirectionLR = playerMovementDirection;
 	}
@@ -957,10 +962,12 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 		this.timereskin = timereskin;
 	}
 
+	@Override
 	public void doCollide(AbstractGameObject abstractGameObject,
 			TiledMapTileLayer collisionLayer) {
 	}
 
+	@Override
 	public void doCollideAbstactObject(AbstractGameObject abstractGameObject) {
 		if (playerMovementDirectionLR == "right") {
 			abstractGameObject.setPosition(new Vector2(abstractGameObject
@@ -996,6 +1003,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 		return false;
 	}
 
+	@Override
 	public void setNegativeEffect(NegativeEffects negativeEffect) {
 		switch (negativeEffect) {
 		case FROZEN:
@@ -1028,10 +1036,12 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 		}
 	}
 
+	@Override
 	public float getDx() {
 		return enemyDx;
 	}
 
+	@Override
 	public float getDy() {
 		return enemyDy;
 	}

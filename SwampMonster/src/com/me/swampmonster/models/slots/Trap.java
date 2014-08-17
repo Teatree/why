@@ -20,6 +20,7 @@ public abstract class Trap extends Slot{
 	
 	public void catchEnemy(Enemy enemy){};
 
+	@Override
 	public void execute (Player player){
 		this.lifeTime = lifeTimeMax;
 //		effect = new ParticleEffect();

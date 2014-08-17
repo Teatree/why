@@ -23,6 +23,7 @@ public class LeechProjectile extends Projectile{
 	}
 	// git is great !
 	
+	@Override
 	public void update(){
 		circle.x = position.x+8;
 		circle.y = position.y+8;

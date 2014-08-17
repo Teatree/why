@@ -49,6 +49,7 @@ public class EnemyMaggot extends Enemy {
 		attackSpeed = 30;
 	}
 	
+	@Override
 	public void update(TiledMapTileLayer collisionLayer, Player player, CameraHelper cameraHelper, List<Enemy> enemies) {
 		super.update(collisionLayer, player, cameraHelper, enemies);
 		
@@ -217,6 +218,7 @@ public class EnemyMaggot extends Enemy {
 		}
 	}
 	
+	@Override
 	public void atackLogic(Player player, CameraHelper cameraHelper) {
 		if (yellowAura.overlaps(player.circle) && player.state != State.DEAD && !charging) {
 			attackSequenceStarted = true;

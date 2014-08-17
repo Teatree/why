@@ -6,24 +6,30 @@ import com.me.swampmonster.utils.Assets;
 
 public class MainSwamp extends Game {
 
+	@Override
 	public void create() {		
 		Assets.load();
 		while (!Assets.manager.update()){
 		}
 		setScreen(new SwampScreen(this));
 	}
+	@Override
 	public void dispose() {
 		super.dispose();
 	}
+	@Override
 	public void render() {		
 		super.render();
 	}
+	@Override
 	public void resize(int width, int height) {
 		super.resize(width, height);
 	}
+	@Override
 	public void pause() {
 		super.pause();
 	}
+	@Override
 	public void resume() {
 		super.resume();
 	}

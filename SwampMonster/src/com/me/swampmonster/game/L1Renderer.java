@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.maps.tiled.tiles.AnimatedTiledMapTile;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.me.swampmonster.AI.Node;
 import com.me.swampmonster.models.AbstractGameObject.State;
@@ -70,7 +71,7 @@ public class L1Renderer {
 		
 		theController.cameraHelper.applyTo(cam);
 		
-		TheController.level1.bunker.animatedTile.updateAnimationBaseTime();
+		AnimatedTiledMapTile.updateAnimationBaseTime();
 		
 		stage.act();
 		
@@ -102,7 +103,7 @@ public class L1Renderer {
 //			}
 //		}
 		if (Gdx.input.isTouched()
-				&& TheController.level1.player.state == State.GUNMOVEMENT
+				&& L1.player.state == State.GUNMOVEMENT
 				&& theController.gui.getCroshair().isAiming()) {
 			batch.draw(theController.gui.getCroshair().getSprite(),
 					theController.gui.getCroshair().position.x,
@@ -114,14 +115,14 @@ public class L1Renderer {
 					1,1,
 					theController.gui.getCroshair().getSprite()
 							.getRotation());
-			batch.draw(TheController.level1.player.bow,
-					TheController.level1.player.bow.getX(),
-					TheController.level1.player.bow.getY(),
-					TheController.level1.player.bow.getOriginX(),
-					TheController.level1.player.bow.getOriginY(),
-					TheController.level1.player.bow.getWidth(),
-					TheController.level1.player.bow.getHeight(), 1, 1,
-					TheController.level1.player.bow.getRotation());
+			batch.draw(L1.player.bow,
+					L1.player.bow.getX(),
+					L1.player.bow.getY(),
+					L1.player.bow.getOriginX(),
+					L1.player.bow.getOriginY(),
+					L1.player.bow.getWidth(),
+					L1.player.bow.getHeight(), 1, 1,
+					L1.player.bow.getRotation());
 		}
 		// temporary drawing of a projectile
 		
@@ -178,18 +179,18 @@ public class L1Renderer {
 			}
 		}
 		
-		if (TheController.level1.player.trap != null && TheController.level1.player.trap.position != null){
+		if (L1.player.trap != null && L1.player.trap.position != null){
 			
-			TheController.level1.player.trap.trapSprite.setPosition(TheController.level1.player.trap.position.x,
-					TheController.level1.player.trap.position.y);
+			L1.player.trap.trapSprite.setPosition(L1.player.trap.position.x,
+					L1.player.trap.position.y);
 			
-			batch.draw(TheController.level1.player.trap.trapSprite, TheController.level1.player.trap.position.x,
-					TheController.level1.player.trap.position.y, TheController.level1.player.trap.trapSprite.getWidth(),
-					TheController.level1.player.trap.trapSprite.getHeight());
+			batch.draw(L1.player.trap.trapSprite, L1.player.trap.position.x,
+					L1.player.trap.position.y, L1.player.trap.trapSprite.getWidth(),
+					L1.player.trap.trapSprite.getHeight());
 		}
 		
 
-		for (Prop p : TheController.level1.props) {
+		for (Prop p : L1.props) {
 			if (p.sprite != null) {
 				p.getSprite().setPosition(p.getPosition().x,
 						p.getPosition().y);
@@ -200,7 +201,7 @@ public class L1Renderer {
 			}
 		}
 		
-		for (Item item : TheController.level1.items) {
+		for (Item item : L1.items) {
 			if (item.sprite != null) {
 				item.getSprite().setPosition(item.getPosition().x,
 						item.getPosition().y);
@@ -213,7 +214,7 @@ public class L1Renderer {
 		
 		
 		for (Enemy enemy : L1.enemiesOnStage){
-			if(enemy.getPosition().y+42 > TheController.level1.player.getPosition().y+42){
+			if(enemy.getPosition().y+42 > L1.player.getPosition().y+42){
 				enemy.getSprite().setPosition(enemy.getPosition().x, enemy.getPosition().y);
 				if(enemy.timeRemove<110){
 					enemy.getSprite().draw(batch);
@@ -243,36 +244,36 @@ public class L1Renderer {
 			}
 		}
 		
-			TheController.level1.player.getSprite().setPosition(TheController.level1.player.getPosition().x, TheController.level1.player.getPosition().y);
-			TheController.level1.player.getSprite().draw(batch);
+			L1.player.getSprite().setPosition(L1.player.getPosition().x, L1.player.getPosition().y);
+			L1.player.getSprite().draw(batch);
 //			batch.draw(TheController.level1.player.getSprite(), TheController.level1.player.getPosition().x, TheController.level1.player.getPosition().y,
 //					TheController.level1.player.getSprite().getWidth(), TheController.level1.player.getSprite().getHeight());
 //			TheController.level1.drawEnemy(batch);
 			
 			if (Gdx.input.isTouched()
-					&& TheController.level1.player.state == State.GUNMOVEMENT
+					&& L1.player.state == State.GUNMOVEMENT
 					&& theController.gui.getCroshair().isAiming()
-					&& TheController.level1.player.bow.getRotation() > 0
-					&& TheController.level1.player.bow.getRotation() < 180) {
+					&& L1.player.bow.getRotation() > 0
+					&& L1.player.bow.getRotation() < 180) {
 				
-				batch.draw(TheController.level1.player.bow,
-						TheController.level1.player.bow.getX(),
-						TheController.level1.player.bow.getY(),
-						TheController.level1.player.bow.getOriginX(),
-						TheController.level1.player.bow.getOriginY(),
-						TheController.level1.player.bow.getWidth(),
-						TheController.level1.player.bow.getHeight(), 1, 1,
-						TheController.level1.player.bow.getRotation());
+				batch.draw(L1.player.bow,
+						L1.player.bow.getX(),
+						L1.player.bow.getY(),
+						L1.player.bow.getOriginX(),
+						L1.player.bow.getOriginY(),
+						L1.player.bow.getWidth(),
+						L1.player.bow.getHeight(), 1, 1,
+						L1.player.bow.getRotation());
 			}
 			
 		for(Enemy enemy : L1.enemiesOnStage){
-			if(enemy.getPosition().y+42 < TheController.level1.player.getPosition().y+42){
+			if(enemy.getPosition().y+42 < L1.player.getPosition().y+42){
 				enemy.getSprite().setPosition(enemy.getPosition().x, enemy.getPosition().y);
 				enemy.getSprite().draw(batch);
 			}
 		}
 		
-		for(Projectile p: TheController.level1.player.projectiles){
+		for(Projectile p: L1.player.projectiles){
 			if(p != null){
 				batch.draw(p.getSprite(), p.getPosition().x, p.getPosition().y, 
 						p.getSprite().getOriginX(), p.getSprite().getOriginY(),
@@ -282,9 +283,9 @@ public class L1Renderer {
 			}
 		}
 		
-		if (TheController.level1.player.trap != null && TheController.level1.player.trap.showEffect){
-			TheController.level1.player.trap.effect.draw(batch);
-			TheController.level1.player.trap.effect.update(Gdx.graphics.getDeltaTime());
+		if (L1.player.trap != null && L1.player.trap.showEffect){
+			L1.player.trap.effect.draw(batch);
+			L1.player.trap.effect.update(Gdx.graphics.getDeltaTime());
 		}
 //		effect.draw(batch);
 //		effect.update(Gdx.graphics.getDeltaTime());
@@ -304,11 +305,8 @@ public class L1Renderer {
 //			sr.circle(theController.explosion.position.x, theController.explosion.position.y, theController.explosion.explCircle.radius);
 //			sr.circle(enemy.aimingAura.x, enemy.aimingAura.y, enemy.aimingAura.radius);
 //		}	
-		sr.setColor(Color.CYAN);
-		for (Explosion e : L1.explosions){
-			sr.circle(e.position.x, e.position.y, e.explCircle.radius);
-		}
-		for(Projectile p: TheController.level1.player.projectiles){
+		
+		for(Projectile p: L1.player.projectiles){
 			if(p != null){
 				sr.rect(p.position.x+p.sprite.getWidth()/2, p.position.y+p.sprite.getHeight()/2, 3, 3, 1, 1, p.sprite.getRotation());
 				sr.setColor(Color.RED);
@@ -316,15 +314,15 @@ public class L1Renderer {
 			}
 		}
 		sr.setColor(Color.WHITE);
-		for(Projectile p: TheController.level1.player.projectiles){
+		for(Projectile p: L1.player.projectiles){
 			if(p!=null){
 				sr.circle(p.circle.x, p.circle.y, p.circle.radius);
 			}
 		}
 		
 		sr.rect(theController.point.x, theController.point.y, 32, 32);
-		sr.rect(TheController.level1.player.rectanlge.x, TheController.level1.player.rectanlge.y,
-				TheController.level1.player.rectanlge.width, TheController.level1.player.rectanlge.height);
+		sr.rect(L1.player.rectanlge.x, L1.player.rectanlge.y,
+				L1.player.rectanlge.width, L1.player.rectanlge.height);
 //		sr.circle(TheController.level1.player.invalidSpawnArea.x, TheController.level1.player.invalidSpawnArea.y, TheController.level1.player.invalidSpawnArea.radius);
 		for(Enemy enemy : L1.enemiesOnStage){
 			sr.rect(enemy.rectanlge.x, enemy.rectanlge.y, enemy.rectanlge.width, enemy.rectanlge.height);
@@ -333,13 +331,13 @@ public class L1Renderer {
 			sr.rect(p.sprite.getBoundingRectangle().x, p.sprite.getBoundingRectangle().y, p.sprite.getBoundingRectangle().width, p.sprite.getBoundingRectangle().height);
 		}
 		sr.setColor(Color.WHITE);
-		if(TheController.level1.player.state == State.GUNMOVEMENT){
-			sr.line(theController.V3playerPos, TheController.level1.player.shotDir);
+		if(L1.player.state == State.GUNMOVEMENT){
+			sr.line(theController.V3playerPos, L1.player.shotDir);
 		}
 		if(theController.gui.getCroshair().isAiming()){
-			sr.line(theController.V3playerPos, TheController.level1.player.aimLineHead);
+			sr.line(theController.V3playerPos, L1.player.aimLineHead);
 		}
-		sr.circle(TheController.level1.player.circle.x, TheController.level1.player.circle.y, TheController.level1.player.circle.radius);
+		sr.circle(L1.player.circle.x, L1.player.circle.y, L1.player.circle.radius);
 		sr.setColor(Color.YELLOW);
 //		sr.circle(TheController.level1.player.aimingArea.x, TheController.level1.player.aimingArea.y, TheController.level1.player.aimingArea.radius);
 		sr.end();
@@ -348,6 +346,11 @@ public class L1Renderer {
 		Gdx.gl.glEnable(GL20.GL_BLEND);
 		Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
 		sr.begin(ShapeType.Filled);
+		sr.setColor(1f, 0, 0.2f, 0.4f);
+		for (Explosion e : L1.explosions){
+			if (!e.type.equals(Explosion.EXPLOSION_TYPE_INVERTED))
+			sr.circle(e.position.x, e.position.y, e.explCircle.radius);
+		}
 		sr.setColor(Color.RED);
 		for (Enemy enemy : L1.enemiesOnStage){
 			if(enemy.getPath() != null){
@@ -360,11 +363,11 @@ public class L1Renderer {
 		}
 		sr.setColor(Color.BLACK);
 		sr.rect(theController.pointRectV3.x, theController.pointRectV3.y, 1, 1);
-		if (TheController.level1.player.radioactiveAura != null) {
+		if (L1.player.radioactiveAura != null) {
 			sr.setColor(new Color(1f, 0, 0.07f, 0.5f));
-			sr.circle(TheController.level1.player.radioactiveAura.x,
-					TheController.level1.player.radioactiveAura.y,
-					TheController.level1.player.radioactiveAura.radius);
+			sr.circle(L1.player.radioactiveAura.x,
+					L1.player.radioactiveAura.y,
+					L1.player.radioactiveAura.radius);
 		} 
 		sr.end();
 		mapRenderer.render(fiveground);

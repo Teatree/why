@@ -6,11 +6,9 @@ import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector2;
-import com.me.swampmonster.game.TheController;
 import com.me.swampmonster.game.collision.Collidable;
 import com.me.swampmonster.game.collision.CollisionHelper;
 import com.me.swampmonster.models.AbstractGameObject.NegativeEffects;
-import com.me.swampmonster.models.AbstractGameObject.State;
 import com.me.swampmonster.models.slots.PositiveEffects;
 
 public class Explosion {
@@ -37,10 +35,10 @@ public class Explosion {
 		this.position = position;
 		this.type = type;
 		random = new Random();
-		this.damage = (float)random.nextFloat()+0.7f;
+		this.damage = random.nextFloat()+0.7f;
 		explCircle = new Circle();
 		explCircle.setPosition(new Vector2(position.x, position.y));
-		if(type != EXPLOSION_TYPE_INVERTED){
+		if(!type.equals(EXPLOSION_TYPE_INVERTED)){
 			explCircle.radius = random.nextInt(40)+50;
 			explosionLifeTime = random.nextInt(25)+15;
 			incrementalCircleValue = 4f;
@@ -69,15 +67,9 @@ public class Explosion {
 		ago.hurt = true;
 		ago.exploding = true;
 
-		System.out.println("type: " + type);
-		System.out.println("explosion pos: " + position);
-		System.out.println("ago pos: " + ago.position);
 		explosion_dx = ago.position.x - position.x;
 		explosion_dy = ago.position.y - position.y;
-
 		float length1 = (float) Math.sqrt(explosion_dx * explosion_dx + explosion_dy * explosion_dy);
-		System.out.println("length1: " + length1);
-		
 		explosion_dx /= length1;
 		explosion_dy /= length1;
 		

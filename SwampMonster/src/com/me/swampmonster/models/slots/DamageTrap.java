@@ -62,6 +62,7 @@ public class DamageTrap extends Trap {
 		trapSprite = new Sprite(Assets.manager.get(Assets.DAMAGE_TRAP));
 	}
 
+	@Override
 	public void catchEnemy(Enemy enemy) {
 //		effect.load(Gdx.files.local("effects/explosionEffect.p"), Gdx.files.local("effects"));
 //		effect.setPosition(position.x, position.y);

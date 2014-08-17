@@ -26,7 +26,7 @@ public class ExplosiveArrow extends Slot{
 	}
 	
 	public ExplosiveArrow() {
-		explosion = new Explosion(null, Explosion.EXPLOSION_TYPE_STANDART);
+		explosion = new Explosion(new Vector2(), Explosion.EXPLOSION_TYPE_STANDART);
 		switch (level) {
 		case 0:
 			coolDown = Constants.ExplosiveArrow_CoolDown_L1;
@@ -67,10 +67,12 @@ public class ExplosiveArrow extends Slot{
 		sprite = new Sprite(Assets.manager.get(Assets.EXPLOSIVE_ARROW_ICON));
 	}
 	
+	@Override
 	public void execute(Player player){
 		player.arrowEffectCarrier = EffectCarriers.EXPLOSIVE;
 	}
 
+	@Override
 	public void explode(Vector2 pos) {
 //		if (!cuba) {
 			explosion.position = pos;

@@ -33,6 +33,7 @@ public class ImproveMovementSpeed extends Slot implements Perks{
 		sprite = new Sprite(Assets.manager.get(Assets.IMPROVEMOVEMENTSPEED_ICON));
 	}
 	
+	@Override
 	public void execute (Player player){
 		player.movementSpeed += Constants.ImproveMaxSpeed_SpeedValue_L1;
 	}

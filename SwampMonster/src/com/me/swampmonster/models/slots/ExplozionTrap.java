@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Circle;
+import com.badlogic.gdx.math.Vector2;
 import com.me.swampmonster.models.Explosion;
 import com.me.swampmonster.models.L1;
 import com.me.swampmonster.models.enemies.Enemy;
@@ -16,7 +17,7 @@ public class ExplozionTrap extends Trap{
 	public static int level;
 	private static Map <Integer, String> descriptionByLevel;
 //	public Explosion explosion;
-	private boolean cuba;
+	public static boolean cuba;
 	
 	static {
 		descriptionByLevel = new HashMap<Integer, String>();
@@ -29,7 +30,7 @@ public class ExplozionTrap extends Trap{
 	
 	public ExplozionTrap() {
 		circle = new Circle();
-		explosion = new Explosion(null, Explosion.EXPLOSION_TYPE_STANDART);
+		explosion = new Explosion(new Vector2(), Explosion.EXPLOSION_TYPE_STANDART);
 		switch (level) {
 		case 0:
 			lifeTimeMax = Constants.ExplozionTrap_LifeTime_L1;
@@ -82,8 +83,45 @@ public class ExplozionTrap extends Trap{
 		trapSprite = new Sprite(Assets.manager.get(Assets.explosiveTrap));
 	}
 	
+	@Override
 	public void catchEnemy(Enemy enemy) {
+		
 		if (!cuba) {
+			explosion = new Explosion(new Vector2(), Explosion.EXPLOSION_TYPE_STANDART);
+			switch (level) {
+			case 0:
+				explosion.explCircle.radius = Constants.ExplozionTrap_explCircleRadius_L1;
+				explosion.damage = Constants.ExplozionTrap_damage_L1;
+				explosion.incrementalCircleValue = Constants.ExplozionTrap_incrementExplosionRadius_L1;
+				explosion.incrementalDamageValue = Constants.ExplozionTrap_incrementDamage_L1;
+				break;
+			case 1:
+				explosion.explCircle.radius = Constants.ExplozionTrap_explCircleRadius_L2;
+				explosion.damage = Constants.ExplozionTrap_damage_L2;
+				explosion.incrementalCircleValue = Constants.ExplozionTrap_incrementExplosionRadius_L2;
+				explosion.incrementalDamageValue = Constants.ExplozionTrap_incrementDamage_L2;
+				break;
+			case 2:
+				explosion.explCircle.radius = Constants.ExplozionTrap_explCircleRadius_L3;
+				explosion.damage = Constants.ExplozionTrap_damage_L3;
+				explosion.incrementalCircleValue = Constants.ExplozionTrap_incrementExplosionRadius_L3;
+				explosion.incrementalDamageValue = Constants.ExplozionTrap_incrementDamage_L3;
+				break;
+			case 3:
+				explosion.explCircle.radius = Constants.ExplozionTrap_explCircleRadius_L4;
+				explosion.damage = Constants.ExplozionTrap_damage_L4;
+				explosion.incrementalCircleValue = Constants.ExplozionTrap_incrementExplosionRadius_L4;
+				explosion.incrementalDamageValue = Constants.ExplozionTrap_incrementDamage_L4;
+				break;
+			case 4:
+				explosion.explCircle.radius = Constants.ExplozionTrap_explCircleRadius_L5;
+				explosion.damage = Constants.ExplozionTrap_damage_L5;
+				explosion.incrementalCircleValue = Constants.ExplozionTrap_incrementExplosionRadius_L5;
+				explosion.incrementalDamageValue = Constants.ExplozionTrap_incrementDamage_L5;
+				break;
+			}
+			
+			
 			explosion.position = this.position;
 			explosion.explCircle.setPosition(this.position.x, this.position.y);
 //			explosion.explosionEffect = new ParticleEffect();
@@ -97,6 +135,7 @@ public class ExplozionTrap extends Trap{
 		}
 	}
 
+	@Override
 	public String getDescription() {
 		return descriptionByLevel.get(level);
 	} 

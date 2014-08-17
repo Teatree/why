@@ -22,6 +22,7 @@ public class RADIOACTIVE extends Slot implements PositiveEffectInterface{
 		descriptionByLevel.put(4, Constants.RADIOACTIVE_Description_L5);
 	}
 	
+	@Override
 	public void execute(Player target) {
 		target.setPositiveEffect(PositiveEffects.RADIOACTIVE_AURA);
 	}

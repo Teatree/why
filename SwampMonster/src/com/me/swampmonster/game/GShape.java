@@ -67,7 +67,7 @@ public class GShape extends Group {
 		sr.setTransformMatrix(batch.getTransformMatrix());
 		sr.translate(getX(), getY(), 0);
 		sr.begin(ShapeType.Filled);
-		if (TheController.level1.player.fearRectangle != null){
+		if (L1.player.fearRectangle != null){
 			sr.setColor(new Color(84/255f,84/255f,84/255f, 0.5f));
 			sr.rect(0, 0, Constants.VIEWPORT_WIDTH, Constants.VIEWPORT_HEIGHT);
 		}
@@ -78,12 +78,12 @@ public class GShape extends Group {
 				sr.rect(r.x, r.y, r.width, r.height);
 			}
 		}
-		if (TheController.level1.player.hurt) {
+		if (L1.player.hurt) {
 			int j = 0;
-			if (TheController.level1.player.health > 1) {
-				j = (int) TheController.level1.player.health - 1;
+			if (L1.player.health > 1) {
+				j = (int) L1.player.health - 1;
 			}
-			TheController.level1.player.hurt = true;
+			L1.player.hurt = true;
 			sr.setColor(new Color(200, 0, 0, ass));
 			if (theController.gui.getHealthBar().getHealthBarRect()[j] != null) {
 				sr.rect(theController.gui.getHealthBar().getHealthBarRect()[j].x,
@@ -92,31 +92,31 @@ public class GShape extends Group {
 						theController.gui.getHealthBar().getHealthBarRect()[j].height);
 			}
 			ass = ass - 0.02f;
-		} else if (!TheController.level1.player.hurt) {
+		} else if (!L1.player.hurt) {
 			ass = 1f;
 		}
-		if (TheController.level1.player.oxygen > 0) {
+		if (L1.player.oxygen > 0) {
 			sr.setColor(Color.YELLOW);
 		}
-		if (TheController.level1.player.oxygen < 42) {
+		if (L1.player.oxygen < 42) {
 			warningFlicker(sr);
 		}
-		if (TheController.level1.player.oxygen <= 0 && timer >= 10) {
+		if (L1.player.oxygen <= 0 && timer >= 10) {
 			// System.out.println(timer);
 			sr.setColor(new Color(0, 200, 20, 0.5f));
 			sr.rect(16, 422, Player.maxOxygen, 22);
 		}
-		if (TheController.level1.player.maskOn) {
-			if (TheController.level1.player.oxygen > 0) {
-				sr.rect(16, 422, TheController.level1.player.oxygen, 22);
+		if (L1.player.maskOn) {
+			if (L1.player.oxygen > 0) {
+				sr.rect(16, 422, L1.player.oxygen, 22);
 			}
 		}
 		sr.setColor(Color.BLUE);
-		if (TheController.level1.player.maskOn
-				&& TheController.level1.player.oxygen == 0) {
+		if (L1.player.maskOn
+				&& L1.player.oxygen == 0) {
 			sr.rect(16, 422, Player.maxOxygen, 22);
 		}
-		if (TheController.level1.player.state != State.DEAD) {
+		if (L1.player.state != State.DEAD) {
 			if (theController.gui.getWeaponizer().on == false) {
 				sr.setColor(Color.WHITE);
 			} else if (theController.gui.getWeaponizer().on == true) {
@@ -153,9 +153,9 @@ public class GShape extends Group {
 		sr.rect(point.x, point.y, 10, 10);
 
 		if (theController.doesIntersect(point, new Vector2(
-				TheController.level1.player.circle.x,
-				TheController.level1.player.circle.y),
-				TheController.level1.player.circle.radius * 2)) {
+				L1.player.circle.x,
+				L1.player.circle.y),
+				L1.player.circle.radius * 2)) {
 			sr.setColor(Color.WHITE);
 		}
 
@@ -168,19 +168,19 @@ public class GShape extends Group {
 		sr.setTransformMatrix(batch.getTransformMatrix());
 		sr.translate(getX(), getY(), 0);
 		sr.begin(ShapeType.Filled);
-		if (TheController.level1.player.isDead()) {
+		if (L1.player.isDead()) {
 			sr.setColor(new Color(200, 0, 0, assRevert));
 			sr.rect(theController.gui.getGameoverGUI().rectanlge.x,
 					theController.gui.getGameoverGUI().rectanlge.y,
 					theController.gui.getGameoverGUI().rectanlge.width + 200,
 					theController.gui.getGameoverGUI().rectanlge.height + 200);
 			if (assRevert < 0.5f
-					&& TheController.level1.player.state == State.DEAD) {
+					&& L1.player.state == State.DEAD) {
 				assRevert = assRevert + 0.002f;
 			}
 		}
 		if (assRevert >= 0.45f
-				&& TheController.level1.player.state == State.DEAD) {
+				&& L1.player.state == State.DEAD) {
 			sr.setColor(Color.GREEN);
 			if (theController.gui.getGameoverGUI().circle.contains(point)) {
 				sr.setColor(new Color(0, 200, 0.5f, 100));
@@ -197,7 +197,7 @@ public class GShape extends Group {
 		sr.begin(ShapeType.Line);
 
 		if (assRevert >= 0.45f
-				&& TheController.level1.player.state == State.DEAD) {
+				&& L1.player.state == State.DEAD) {
 			sr.setColor(Color.BLACK);
 			sr.circle(theController.gui.getGameoverGUI().circle.x,
 					theController.gui.getGameoverGUI().circle.y,
@@ -226,21 +226,21 @@ public class GShape extends Group {
 			batch.draw(theController.gui.getWeaponizer().sprite, 0, 0);
 		}
 		
-		if (TheController.level1.player.positiveEffectsState != null
-				&& TheController.level1.player.positiveEffectsState != PositiveEffects.NONE) {
-			batch.draw(TheController.level1.player.positiveEffectSprite,
+		if (L1.player.positiveEffectsState != null
+				&& L1.player.positiveEffectsState != PositiveEffects.NONE) {
+			batch.draw(L1.player.positiveEffectSprite,
 					Constants.VIEWPORT_WIDTH - 64,
 					Constants.VIEWPORT_HEIGHT - 100, 64, 64);
-			font.draw(batch, TheController.level1.player.positiveEffectCounter
+			font.draw(batch, L1.player.positiveEffectCounter
 					.toString(), Constants.VIEWPORT_WIDTH - 64,
 					Constants.VIEWPORT_HEIGHT - 110);
 		}
-		if (TheController.level1.player.negativeEffectsState != null
-				&& TheController.level1.player.negativeEffectsState != NegativeEffects.NONE) {
-			batch.draw(TheController.level1.player.negativeEffectsState.sprite,
+		if (L1.player.negativeEffectsState != null
+				&& L1.player.negativeEffectsState != NegativeEffects.NONE) {
+			batch.draw(L1.player.negativeEffectsState.sprite,
 					Constants.VIEWPORT_WIDTH - 64,
 					Constants.VIEWPORT_HEIGHT - 174, 64, 64);
-			font.draw(batch, TheController.level1.player.negativeEffectCounter
+			font.draw(batch, L1.player.negativeEffectCounter
 					.toString(), Constants.VIEWPORT_WIDTH - 64,
 					Constants.VIEWPORT_HEIGHT - 184);
 		}
@@ -290,14 +290,14 @@ public class GShape extends Group {
 		
 		font.setColor(Color.YELLOW);
 		font.setScale(1);
-		if(assRevert >= 0.4f && TheController.level1.player.state == State.DEAD){
+		if(assRevert >= 0.4f && L1.player.state == State.DEAD){
 			font.draw(batch, theController.gui.getGameoverGUI().getGameOverString(), 310, 280);
 		}
 //		if(assRevert >= 0.4f && TheController.level1.player.state == State.DEAD){
 //			font.setScale(1);
 //			font.draw(batch, theController.gui.getGameoverGUI().getWittyMessage(), 240-theController.gui.getGameoverGUI().getWittyMessage().length(), 230);
 //		}
-		if(assRevert >= 0.45f && TheController.level1.player.state == State.DEAD){
+		if(assRevert >= 0.45f && L1.player.state == State.DEAD){
 			font.setScale(1);
 			font.draw(batch, theController.gui.getGameoverGUI().getRestartString(), 361, 170);
 		}
@@ -310,7 +310,7 @@ public class GShape extends Group {
 			font.setColor(Color.RED);
 			String wittyMessage;
 			String nextMessage;
-			if(assRevert >= 0.4f && TheController.level1.player.state == State.DEAD){
+			if(assRevert >= 0.4f && L1.player.state == State.DEAD){
 				wittyMessage = theController.gui.getGameoverGUI().getWittyMessage();
 				nextMessage = Constants.TRY_AGAIN;
 			} else {

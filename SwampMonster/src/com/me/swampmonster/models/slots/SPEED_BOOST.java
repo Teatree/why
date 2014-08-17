@@ -19,6 +19,7 @@ public class SPEED_BOOST extends Slot implements PositiveEffectInterface{
 		descriptionByLevel.put(3, Constants.SPEED_BOOST_Description_L4);
 		descriptionByLevel.put(4, Constants.SPEED_BOOST_Description_L5);
 	}
+	@Override
 	public void execute(Player target) {
 		target.setPositiveEffect(PositiveEffects.SPEED_BOOST);
 	}

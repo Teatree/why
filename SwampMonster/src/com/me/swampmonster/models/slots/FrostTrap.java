@@ -62,6 +62,7 @@ public class FrostTrap extends Trap{
 		trapSprite = new Sprite(Assets.manager.get(Assets.FROST_TRAP_ICON));
 	}
 
+	@Override
 	public void catchEnemy(Enemy enemy) {
 		if (!cuba) {
 			explosion = new Explosion(this.position, Explosion.EXPLOSION_TYPE_FROST);
@@ -82,11 +83,13 @@ public class FrostTrap extends Trap{
 		}
 	}
 	
+	@Override
 	public void execute(Player player){
 		super.execute(player);
 		cuba = false;
 	}
 
+	@Override
 	public String getDescription() {
 		return descriptionByLevel.get(level);
 	}

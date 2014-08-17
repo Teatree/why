@@ -1,5 +1,6 @@
 package com.me.swampmonster.utils;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -68,8 +69,9 @@ public class LGenerator {
 		}
 		Gdx.files.local("MapTemp.tmx").writeString(br, false);
 		
-		L1 level = new L1(player, "tileSet_SAND_WORLD", "MapTemp.tmx",
-				hasLevelAtmosphere, false);
+		L1.player = player;
+		L1.hasAtmosphere = hasLevelAtmosphere;
+		L1 level = new L1("tileSet_SAND_WORLD", "MapTemp.tmx", false);
 		//:TODO isLevelElite !
 		player.oxygen = Player.maxOxygen;
 		player.health = Player.playerMaxHealth;
@@ -87,6 +89,7 @@ public class LGenerator {
 		propsSpawnGenerator.collisionLayer = TheController.collisionLayer;
 		
 		int propsInLevelAmount = random.nextInt(8) + 3;
+		L1.props = new ArrayList<Prop>();
 		for (int i = 0; i < propsInLevelAmount; i++){
 			L1.props.add(propsSpawnGenerator.getSomeProp(player));
 		}
@@ -108,11 +111,11 @@ public class LGenerator {
 	public Vector2 calculateRandomPlayerPos() {
 		Vector2 vector2 = new Vector2();
 		int minPosX = 230;
-		int maxPosX = (int) (TheController.collisionLayer.getWidth()
-				* TILE_SIZE - PLAYER_SPRITE_WIDTH - 200);
+		int maxPosX = TheController.collisionLayer.getWidth()
+				* TILE_SIZE - PLAYER_SPRITE_WIDTH - 200;
 		int minPosY = 230;
-		int maxPosY = (int) (TheController.collisionLayer.getHeight()
-				* TILE_SIZE - PLAYER_SPRITE_HEIGHT - 200);
+		int maxPosY = TheController.collisionLayer.getHeight()
+				* TILE_SIZE - PLAYER_SPRITE_HEIGHT - 200;
 
 		vector2.x = random.nextInt(maxPosX - minPosX) + minPosX;
 		vector2.y = random.nextInt(maxPosY - minPosY) + minPosY;

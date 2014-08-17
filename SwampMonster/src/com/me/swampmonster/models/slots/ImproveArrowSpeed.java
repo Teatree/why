@@ -34,6 +34,7 @@ public class ImproveArrowSpeed extends Slot implements Perks{
 		sprite = new Sprite(Assets.manager.get(Assets.IMPROVEARROWSPEED_ICON));
 	}
 	
+	@Override
 	public void execute (Player player){
 		Projectile.arrowMovementSpeed += valuesByLevel.get(level);
 	}

@@ -34,10 +34,12 @@ public class ImproveMaxOxygen extends Slot implements Perks{
 		sprite = new Sprite(Assets.manager.get(Assets.IMPROVEMAXOXYGEN_ICON));
 	}
 	
+	@Override
 	public void execute (Player player){
 		Player.maxOxygen += valuesByLevel.get(level);
 	}
 	
+	@Override
 	public String getDescription() {
 		return descriptionByLevel.get(level);
 	}

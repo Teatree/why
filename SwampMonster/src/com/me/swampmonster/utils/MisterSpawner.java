@@ -28,11 +28,11 @@ public class MisterSpawner {
 //			public void run() {
 				mapWith = (int) collisionLayer.getTileWidth()
 						* collisionLayer.getWidth()
-						- (int) l.player.getSprite().getWidth();
+						- (int) L1.player.getSprite().getWidth();
 				mapHeight = (int) collisionLayer.getTileHeight()
 						* collisionLayer.getHeight()
-						- (int) l.player.getSprite().getHeight();
-				v2 = calculateEnemiesPosition(l.player, enemy);
+						- (int) L1.player.getSprite().getHeight();
+				v2 = calculateEnemiesPosition(L1.player, enemy);
 				while (!isValidPosition(v2)) {
 //					System.err.println("enemy posX: " + enemy.getPosition().x
 //							+ " posY: " + enemy.getPosition().y);
@@ -40,7 +40,7 @@ public class MisterSpawner {
 //					System.err.println("CollisionLayer TileWidth = " +collisionLayer.getTileWidth());
 //					System.err.println("CollisionLayer TileHeight = " +collisionLayer.getTileHeight());
 //					System.err.println("CollisionLayer Width = " + collisionLayer.getWidth() + " CollisionLayer Height = " + collisionLayer.getHeight());
-					v2 = calculateEnemiesPosition(l.player, enemy);
+					v2 = calculateEnemiesPosition(L1.player, enemy);
 				}
 //				// System.out.println("Spawn enemy x=" + v2.x + " y=" + v2.y);
 				enemy.position = v2;

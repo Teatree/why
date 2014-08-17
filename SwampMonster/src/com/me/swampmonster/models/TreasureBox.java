@@ -22,9 +22,11 @@ public class TreasureBox extends Prop{
 		sprite = new Sprite(animationsStandard.get(state).getCurrentFrame());
 	}
 	
+	@Override
 	public void toDoSomething(AbstractGameObject abs){
 	}
 
+	@Override
 	public void toDoSomething() {
 		L1.items.add(MisterItemSpawner.spawnPropsItem(L1.player, this));
 		

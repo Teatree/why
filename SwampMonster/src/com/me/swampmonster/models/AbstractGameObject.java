@@ -3,8 +3,6 @@ package com.me.swampmonster.models;
 import java.awt.geom.Line2D;
 import java.util.HashMap;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;

@@ -1,12 +1,8 @@
 package com.me.swampmonster.models;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector2;
 import com.me.swampmonster.animations.AnimationControl;
-import com.me.swampmonster.models.AbstractGameObject.State;
 import com.me.swampmonster.utils.Assets;
 
 public class ExplosiveProp extends Prop {
@@ -28,6 +24,7 @@ public class ExplosiveProp extends Prop {
 		sprite = new Sprite(animationsStandard.get(state).getCurrentFrame());
 	}
 	
+	@Override
 	public void toDoSomething() {
 		state = State.DESPAWNING;
 		explosion = new Explosion(new Vector2(this.position.x+1, this.position.y+1), Explosion.EXPLOSION_TYPE_STANDART);

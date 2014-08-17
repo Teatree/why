@@ -8,6 +8,7 @@ public abstract class Prop extends AbstractGameObject{
 	public int sizeH;
 	public int onFireCounter;
 	
+	@Override
 	public abstract void toDoSomething(AbstractGameObject abs);
 	
 	public abstract void toDoSomething();

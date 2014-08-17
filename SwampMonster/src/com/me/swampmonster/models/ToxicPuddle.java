@@ -22,6 +22,7 @@ public class ToxicPuddle extends Prop{
 		sprite = new Sprite(animationsStandard.get(state).getCurrentFrame());
 	}
 	
+	@Override
 	public void toDoSomething(AbstractGameObject abstractGameObject){
 		if (abstractGameObject instanceof Enemy || abstractGameObject instanceof Player){
 			abstractGameObject.setNegativeEffect(NegativeEffects.POISONED);
