@@ -1,6 +1,7 @@
 package com.me.swampmonster.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -39,6 +40,10 @@ public class GShape extends Group {
 	public Sprite feedbackWindow;
 	public Sprite feedbackWindowYes;
 	
+	public Sprite exitMessageWindow;
+	public Sprite gotoMenu;
+	public Sprite backToGame;
+	
 	public GShape(TheController theController) {
 		super();
 		sr = new ShapeRenderer();
@@ -46,6 +51,9 @@ public class GShape extends Group {
 		waveNotificationAnimationCounter = 240;
 		feedbackWindow = new Sprite(Assets.manager.get(Assets.slotMachineWindow));
 		feedbackWindowYes = new Sprite(Assets.manager.get(Assets.slotMachineWindowYes));
+		exitMessageWindow = new Sprite(Assets.manager.get(Assets.exitMessageWindow));
+		gotoMenu = new Sprite(Assets.manager.get(Assets.slotMachineWindowYes));
+		backToGame = new Sprite(Assets.manager.get(Assets.slotMachineWindowNo));
 	}
 	
 	
@@ -336,6 +344,39 @@ public class GShape extends Group {
 			}
 		}
 		
+		
+		if (TheController.showExitMessage){
+			exitMessageWindow.setSize(Constants.VIEWPORT_WIDTH/2.1f, Constants.VIEWPORT_HEIGHT/1.4f);
+			exitMessageWindow.setPosition(Constants.VIEWPORT_WIDTH/4f, Constants.VIEWPORT_HEIGHT/5f);
+			exitMessageWindow.draw(batch);
+			font.setColor(Color.RED);
+			font.draw(batch, Constants.EXIT_MESSAGE, exitMessageWindow.getBoundingRectangle().x+20, exitMessageWindow.getBoundingRectangle().y+280);
+			
+			gotoMenu.setPosition(exitMessageWindow.getBoundingRectangle().x+90, exitMessageWindow.getBoundingRectangle().y+20);
+			gotoMenu.draw(batch);
+			
+			
+			backToGame.setPosition(exitMessageWindow.getBoundingRectangle().x+290, exitMessageWindow.getBoundingRectangle().y+20);
+			backToGame.draw(batch);
+			
+			Vector2 victor2 = new Vector2(Gdx.input.getX(), Constants.VIEWPORT_HEIGHT - Gdx.input.getY());
+			
+			if (Gdx.input.justTouched()
+					&& gotoMenu.getBoundingRectangle().contains(victor2)){
+				TheController.gotoToMenu = true;
+				System.out.println("dfghj");
+				TheController.showExitMessage = false;
+			}
+			if (Gdx.input.justTouched()
+					&& backToGame.getBoundingRectangle().contains(victor2)){
+				TheController.gotoToMenu = false;
+				TheController.showExitMessage = false;
+			}
+		}
+		
+//		if ((Gdx.input.isKeyPressed(Keys.BACK) || Gdx.input.isKeyPressed(Keys.ESCAPE))&& TheController.showExitMessage){
+//			TheController.showExitMessage = false;
+//		} 
 		batch.end();
 		
 		sr.begin(ShapeType.Filled);
@@ -352,7 +393,6 @@ public class GShape extends Group {
 		Gdx.gl.glDisable(GL20.GL_BLEND);
 		
 		batch.begin();
-		
 	}
 
 	public void warningFlicker(ShapeRenderer Sr) {

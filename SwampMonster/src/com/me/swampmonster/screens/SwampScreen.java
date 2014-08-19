@@ -2,6 +2,7 @@ package com.me.swampmonster.screens;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.GL20;
 import com.me.swampmonster.game.L1Renderer;
 import com.me.swampmonster.game.TheController;
@@ -33,6 +34,9 @@ public class SwampScreen extends AbstractGameScreen {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		if(!paused){
 			theController.update(Gdx.graphics.getDeltaTime(), game);
+		}
+		if (TheController.gotoToMenu){
+			game.setScreen(new MenuScreen(game));
 		}
 		renderer.render();
 	}

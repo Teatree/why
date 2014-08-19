@@ -39,7 +39,7 @@ public class SlotMachineScreen extends AbstractGameScreen {
 		victor = new Vector2(Gdx.input.getX(), Constants.VIEWPORT_HEIGHT
 				- Gdx.input.getY());
 		if (Gdx.input.justTouched() 
-				&& slotMachineTextures.reloadButton.getBoundingRectangle().contains(victor)){
+				&& slotMachineTextures.rerollButton.getBoundingRectangle().contains(victor)){
 			slotMachineTextures.generateSlots(player);
 			for (int i = 0; i < slotMachineTextures.notAnimating.length; i++){
 				slotMachineTextures.notAnimating[i] = false;

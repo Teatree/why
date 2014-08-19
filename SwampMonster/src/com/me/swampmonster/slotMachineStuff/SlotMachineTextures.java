@@ -38,7 +38,7 @@ public class SlotMachineTextures extends Group {
 	int slotPositionY = 174;
 	public Sprite slotMachineWindow;
 	public Sprite slotMachineWindowYes;
-	public Sprite reloadButton;
+	public Sprite rerollButton;
 	public Sprite slotMachineWindowNo;
 	public Sprite slotLevel1;
 	public Sprite slotLevel2;
@@ -61,7 +61,7 @@ public class SlotMachineTextures extends Group {
 		slotMachineWindow = new Sprite(Assets.manager.get(Assets.slotMachineWindow));
 		slotMachineWindowYes = new Sprite(Assets.manager.get(Assets.slotMachineWindowYes));
 		slotMachineWindowNo = new Sprite(Assets.manager.get(Assets.slotMachineWindowNo));
-		reloadButton = new Sprite(Assets.manager.get(Assets.slotMachineWindowYes));
+		rerollButton = new Sprite(Assets.manager.get(Assets.slotMachineWindowYes));
 		animantionCtlr = new AnimationControl(Assets.manager.get(Assets.slotAnimation), 8, 1, 8);
 		notAnimating = new boolean[3];
 		
@@ -148,9 +148,9 @@ public class SlotMachineTextures extends Group {
 		super.draw(batch, parentAlpha);
 		batch.draw(Assets.manager.get(Assets.slotMachineCase), 144, 112);
 		
-		reloadButton.setSize(90, 90);
-		reloadButton.setPosition(Constants.VIEWPORT_GUI_WIDTH*0.88f, Constants.VIEWPORT_GUI_HEIGHT*0.08f);
-		batch.draw(reloadButton, Constants.VIEWPORT_GUI_WIDTH*0.88f, Constants.VIEWPORT_GUI_HEIGHT*0.08f);
+		rerollButton.setSize(90, 90);
+		rerollButton.setPosition(Constants.VIEWPORT_GUI_WIDTH*0.88f, Constants.VIEWPORT_GUI_HEIGHT*0.08f);
+		batch.draw(rerollButton, Constants.VIEWPORT_GUI_WIDTH*0.88f, Constants.VIEWPORT_GUI_HEIGHT*0.08f);
 		animantionCtlr.doComplexAnimation(0, 1f, Gdx.graphics.getDeltaTime(), Animation.NORMAL);
 		int i = 0;
 		

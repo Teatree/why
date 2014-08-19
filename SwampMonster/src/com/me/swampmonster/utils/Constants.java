@@ -387,4 +387,8 @@ public class Constants {
 	public static final String ONE_MORE_WORLD_CONQUERED = "One More World conquered!";
 	public static final String GET_REWARD = "Get reward!";
 	public static final String TRY_AGAIN = "Next time I'll be better!";
+	
+	//Exitmessage
+	public static final String EXIT_MESSAGE = "Exit to main menu";
+	
 }

@@ -27,6 +27,7 @@ import com.me.swampmonster.models.slots.PositiveEffectInterface;
 import com.me.swampmonster.models.slots.PositiveEffects;
 import com.me.swampmonster.models.slots.Slot;
 import com.me.swampmonster.screens.AbstractGameScreen;
+import com.me.swampmonster.screens.MenuScreen;
 import com.me.swampmonster.screens.SlotMachineScreen;
 import com.me.swampmonster.screens.SwampScreen;
 import com.me.swampmonster.utils.Assets;
@@ -70,6 +71,8 @@ public class TheController extends InputAdapter {
 	public static Slot skill;
 	public static boolean germany;
 	public static boolean showFeedback;
+	public static boolean showExitMessage;
+	public static boolean gotoToMenu;
 	
 	private static LGenerator levelGenerator;
 
@@ -289,6 +292,10 @@ public class TheController extends InputAdapter {
 		float camZoomSpeed = 0.1f * deltaTime;
 		float camZoomSpeedAccelerationFactor = 50;
 
+		if (Gdx.input.isKeyPressed(Keys.BACK) || Gdx.input.isKeyPressed(Keys.ESCAPE)){
+			showExitMessage = true;
+		} 
+		
 		// Pos effects
 		if (Gdx.input.isKeyPressed(Keys.T))
 			L1.player.setPositiveEffect(PositiveEffects.NONE);
