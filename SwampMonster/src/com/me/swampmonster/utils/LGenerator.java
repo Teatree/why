@@ -97,6 +97,11 @@ public class LGenerator {
 			if (p != null)
 				propsSpawnGenerator.spawnProp(player, p);
 		}
+		if(TheController.skill != null && !TheController.paused){
+			TheController.coolDownCounter = 0;
+			TheController.coolDownAngle = 0;
+			TheController.coolDownStep = 0;
+		}
 		return level;
 	}
 

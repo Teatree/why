@@ -86,8 +86,10 @@ public class ExplozionTrap extends Trap{
 	@Override
 	public void catchEnemy(Enemy enemy) {
 		
+		
 		if (!cuba) {
 			explosion = new Explosion(new Vector2(), Explosion.EXPLOSION_TYPE_STANDART);
+			explosion.explCircle = new Circle();
 			switch (level) {
 			case 0:
 				explosion.explCircle.radius = Constants.ExplozionTrap_explCircleRadius_L1;

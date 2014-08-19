@@ -344,8 +344,28 @@ public class GShape extends Group {
 			}
 		}
 		
+		batch.end();
 		
-		if (TheController.showExitMessage){
+		sr.begin(ShapeType.Filled);
+		Gdx.gl.glEnable(GL20.GL_BLEND);
+		Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
+		sr.setColor(new Color(0.1f,  0.1f, 0.1f, 0.57f));
+		if (TheController.skill != null) {
+			sr.arc(theController.gui.getWeaponizer().position.x,
+					theController.gui.getWeaponizer().position.y,
+					theController.gui.getWeaponizer().circle.radius, 90,
+					theController.coolDownAngle);
+		}
+		if(TheController.paused){
+			sr.setColor(new Color(0.5f,0.5f,0.5f,0.5f));
+			sr.rect(-20, -20, Constants.VIEWPORT_GUI_WIDTH+40, Constants.VIEWPORT_GUI_HEIGHT+40);
+		}
+		sr.end();
+		Gdx.gl.glDisable(GL20.GL_BLEND);
+		
+		batch.begin();
+		
+		if (TheController.paused){
 			exitMessageWindow.setSize(Constants.VIEWPORT_WIDTH/2.1f, Constants.VIEWPORT_HEIGHT/1.4f);
 			exitMessageWindow.setPosition(Constants.VIEWPORT_WIDTH/4f, Constants.VIEWPORT_HEIGHT/5f);
 			exitMessageWindow.draw(batch);
@@ -364,33 +384,20 @@ public class GShape extends Group {
 			if (Gdx.input.justTouched()
 					&& gotoMenu.getBoundingRectangle().contains(victor2)){
 				TheController.gotoToMenu = true;
-				System.out.println("dfghj");
-				TheController.showExitMessage = false;
+				TheController.paused = false;
 			}
 			if (Gdx.input.justTouched()
 					&& backToGame.getBoundingRectangle().contains(victor2)){
 				TheController.gotoToMenu = false;
-				TheController.showExitMessage = false;
+				TheController.paused = false;
 			}
+			
 		}
 		
 //		if ((Gdx.input.isKeyPressed(Keys.BACK) || Gdx.input.isKeyPressed(Keys.ESCAPE))&& TheController.showExitMessage){
 //			TheController.showExitMessage = false;
 //		} 
 		batch.end();
-		
-		sr.begin(ShapeType.Filled);
-		Gdx.gl.glEnable(GL20.GL_BLEND);
-		Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
-		sr.setColor(new Color(0.1f,  0.1f, 0.1f, 0.57f));
-		if (TheController.skill != null) {
-			sr.arc(theController.gui.getWeaponizer().position.x,
-					theController.gui.getWeaponizer().position.y,
-					theController.gui.getWeaponizer().circle.radius, 90,
-					theController.coolDownAngle);
-		}
-		sr.end();
-		Gdx.gl.glDisable(GL20.GL_BLEND);
 		
 		batch.begin();
 	}

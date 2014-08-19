@@ -44,9 +44,9 @@ public class TheController extends InputAdapter {
 	public static Vector3 touchPos;
 	int timer;
 	int timer3hurt;
-	int coolDownCounter;
-	float coolDownStep;
-	float coolDownAngle;
+	public static int coolDownCounter;
+	public static float coolDownStep;
+	public static float coolDownAngle;
 	public Vector2 point;
 	public Vector3 V3point;
 	public Vector3 V3playerPos;
@@ -71,8 +71,8 @@ public class TheController extends InputAdapter {
 	public static Slot skill;
 	public static boolean germany;
 	public static boolean showFeedback;
-	public static boolean showExitMessage;
 	public static boolean gotoToMenu;
+	public static boolean paused;
 	
 	private static LGenerator levelGenerator;
 
@@ -127,8 +127,10 @@ public class TheController extends InputAdapter {
 
 		cameraHelper.upadate(V3playerPos.x, V3playerPos.y, 5);
 
-		level1.update(gui.getCroshair().isAiming(), touchPos, V3point,
-				collisionLayer, cameraHelper, dx, dy);
+		if(!paused){
+			level1.update(gui.getCroshair().isAiming(), touchPos, V3point,
+					collisionLayer, cameraHelper, dx, dy);
+		}
 		projectileCollisionDetection();
 		
 		if(!L1.explosions.isEmpty()){
@@ -184,7 +186,7 @@ public class TheController extends InputAdapter {
 		
 		L1.player.setDx(dx);
 		L1.player.setDy(dy);
-		if (coolDownCounter > 0) {
+		if (coolDownCounter > 0 && !paused) {
 			coolDownAngle = coolDownAngle - coolDownStep;
 			// c -= coolDownStep;
 			coolDownCounter--;
@@ -228,7 +230,7 @@ public class TheController extends InputAdapter {
 	}
 
 	private void inputNav() {
-		if (!L1.player.state.equals(State.DEAD)) {
+		if (!L1.player.state.equals(State.DEAD) && !paused) {
 			if (!doesIntersect(point, gui.getWeaponizer().getPosition(),
 					gui.getWeaponizer().circle.radius)) {
 				touchPos.y = Gdx.input.getY();
@@ -293,7 +295,7 @@ public class TheController extends InputAdapter {
 		float camZoomSpeedAccelerationFactor = 50;
 
 		if (Gdx.input.isKeyPressed(Keys.BACK) || Gdx.input.isKeyPressed(Keys.ESCAPE)){
-			showExitMessage = true;
+			paused = true;
 		} 
 		
 		// Pos effects
