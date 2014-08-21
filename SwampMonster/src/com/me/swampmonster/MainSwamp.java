@@ -1,6 +1,7 @@
 package com.me.swampmonster;
 
 import com.badlogic.gdx.Game;
+import com.me.swampmonster.screens.MenuScreen;
 import com.me.swampmonster.screens.SwampScreen;
 import com.me.swampmonster.utils.Assets;
 
@@ -11,7 +12,7 @@ public class MainSwamp extends Game {
 		Assets.load();
 		while (!Assets.manager.update()){
 		}
-		setScreen(new SwampScreen(this));
+		setScreen(new MenuScreen(this));
 	}
 	@Override
 	public void dispose() {
