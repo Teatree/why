@@ -2,12 +2,12 @@ package com.me.swampmonster.screens;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.me.swampmonster.game.L1Renderer;
 import com.me.swampmonster.game.TheController;
 
-public class SwampScreen extends AbstractGameScreen {
+public class SwampScreen extends AbstractGameScreen  implements Screen {
 
 	private L1Renderer renderer;
 	private static TheController theController;

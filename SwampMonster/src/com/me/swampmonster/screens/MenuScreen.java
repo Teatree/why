@@ -4,82 +4,96 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.me.swampmonster.utils.Constants;
 
 public class MenuScreen extends AbstractGameScreen{
-
-	ShapeRenderer s;
-	SpriteBatch batch;
-	SpriteDrawable sDrawable1;
-	SpriteDrawable sDrawable2;
-	Sprite sprite1;
-	Sprite sprite2;
-	ImageButton ib;
 	
-//	private SpriteBatch batch;
-//	private Stage stage;
-//	private Skin skin;
+	private Stage stage;
+	private Skin skin;
+	Button playButton;
+	Button exitButton;
+	Label wrldConqueror;
+	Table table;
 	
-	public MenuScreen(Game game) {
+	public MenuScreen(final Game game) {
 		super(game);
-//		batch = new SpriteBatch();
-//		skin = new Skin(Gdx.files.internal("data\\ui.json"));
-		s = new ShapeRenderer();
-//		stage = new Stage(Constants.VIEWPORT_WIDTH, Constants.VIEWPORT_HEIGHT, false, batch);
-		batch = new SpriteBatch();
+		skin = new Skin(Gdx.files.internal("skins\\style.json"), new TextureAtlas(Gdx.files.internal("skins\\main.pack")));
+		stage = new Stage();
+		table = new Table();
+		playButton = new TextButton(Constants.PLAY, skin);
+		playButton.addListener(new ClickListener(){
+			@Override
+	        public void clicked(InputEvent event, float x, float y) {
+	            ((Game)Gdx.app.getApplicationListener()).setScreen(new SwampScreen(game));
+	        }
+		});
 		
-		sprite1 = new Sprite(new Texture("data/button.png"));
-		sprite2 = new Sprite(new Texture("data/button_down.png"));
-		sDrawable1 = new SpriteDrawable(sprite1);
-		sDrawable2 = new SpriteDrawable(sprite2);
+		exitButton = new TextButton(Constants.EXIT, skin);
+		exitButton.addListener(new ClickListener(){
+			@Override
+			public void clicked (InputEvent event, float x, float y){
+				Gdx.app.exit();
+			}
+		});
 		
-//		Button startCont = new TextButton("Text", skin);
-		ib = new ImageButton(sDrawable1, sDrawable2); 
-		
+		wrldConqueror = new Label(Constants.WORLDS_CONQUERROR, skin);
+		Image img = new Image(new Texture("data/ui/wrldcnqr.png"));
+		img.toBack();
+		img.setHeight(Constants.VIEWPORT_GUI_HEIGHT);
+		img.setWidth(Constants.VIEWPORT_GUI_WIDTH);
+		stage.addActor(img);
+		Gdx.input.setInputProcessor(stage);
 	}
 
 	@Override
 	public void render (float deltaTime) {
 		Gdx.gl.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		if(Gdx.input.isTouched()){
-			game.setScreen(new SwampScreen(game));
-		}
-		s.begin(ShapeType.Filled);
-		s.rect(20, 20, 20, 20);
-		s.end();
-		
-		batch.begin();
-		ib.draw(batch, 100);
-		batch.end();
+		stage.act();
+        stage.draw();
 	}
 
 	@Override
 	public void resize(int width, int height) {
 	}
+	
 	@Override
 	public void show() {
+		table.add(wrldConqueror).padBottom(40).row();
+	    table.add(playButton).size(150,60).padBottom(20).row();
+	    table.add(exitButton).size(150,60).padBottom(20).row();
+
+	    table.setFillParent(true);
+	    stage.addActor(table);
+
+        Gdx.input.setInputProcessor(stage);
 	}
+	
 	@Override
 	public void hide() {
 	}
+	
 	@Override
 	public void pause() {
 	}
+	
 	@Override
 	public void resume() {
 	}
+	
 	@Override
 	public void dispose() {
+		stage.dispose();
+        skin.dispose();
 	}
 }

@@ -391,4 +391,9 @@ public class Constants {
 	//Exitmessage
 	public static final String EXIT_MESSAGE = "Exit to main menu";
 	
+	//UI stuff
+	public static final String EXIT = "Exit";
+	public static final String PLAY = "Play";
+	public static final String WORLDS_CONQUERROR = "World's Conqueror";
+	
 }
