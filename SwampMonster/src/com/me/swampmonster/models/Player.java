@@ -122,7 +122,7 @@ public class Player extends AbstractGameObject {
 		animationsStandard.put(State.ACTIVATING, new AnimationControl(
 				Assets.manager.get(Assets.nastyaSpriteStandard), 8, 32, 8));
 		animationsStandard.put(State.GUNMOVEMENT, new AnimationControl(
-				Assets.manager.get(Assets.nastyaSpriteGun), 8, 16, 7));
+				Assets.manager.get(Assets.nastyaSpriteGun), 8, 32, 7));
 		animationsStandard.put(
 				State.DEAD,
 				new AnimationControl(Assets.manager
@@ -340,7 +340,7 @@ public class Player extends AbstractGameObject {
 			currentFrame = animationsStandard.get(state).doComplexAnimation(32,
 					0.5f, 0.001f, Animation.NORMAL);
 			sprite.setRegion(animationsStandard.get(state).getCurrentFrame());
-			sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
+			sprite.setBounds(sprite.getX(), sprite.getY(), 32, 32);
 
 			timeShooting++;
 
@@ -431,7 +431,7 @@ public class Player extends AbstractGameObject {
 			currentFrame = animationsStandard.get(state).doComplexAnimation(
 					112, 1.6f, 0.018f, Animation.NORMAL);
 			sprite.setRegion(animationsStandard.get(state).getCurrentFrame());
-			sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
+			sprite.setBounds(sprite.getX(), sprite.getY(), 32, 32);
 			timeDead++;
 		}
 		playerKilled++;
@@ -466,7 +466,7 @@ public class Player extends AbstractGameObject {
 	private void standart(Vector3 touchPos, TiledMapTileLayer collisionLayer,
 			float dx, float dy) {
 		sprite.setRegion(animationsStandard.get(state).getCurrentFrame());
-		sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
+		sprite.setBounds(sprite.getX(), sprite.getY(), 32, 32);
 
 		if (!hurt && negativeEffectsState != NegativeEffects.STUN) {
 			movementCollisionAndAnimation(movementSpeed, touchPos,
@@ -481,7 +481,7 @@ public class Player extends AbstractGameObject {
 				+ Math.pow(aimLineHead.y - position.y, 2));
 
 		sprite.setRegion(animationsStandard.get(state).getCurrentFrame());
-		sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
+		sprite.setBounds(sprite.getX(), sprite.getY(), 32, 32);
 		if (aimingLength < 50) {
 			bow = new Sprite(bowFrames[0][0]);
 
@@ -671,7 +671,7 @@ public class Player extends AbstractGameObject {
 							Gdx.graphics.getDeltaTime() / 2, Animation.NORMAL);
 
 			sprite.setRegion(animationsStandard.get(state).getCurrentFrame());
-			sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
+			sprite.setBounds(sprite.getX(), sprite.getY(), 32, 32);
 			position.x += movementSpeed / 2;
 			touchPos.x += movementSpeed / 2;
 			sprite.translateY(movementSpeed / 2);
@@ -686,7 +686,7 @@ public class Player extends AbstractGameObject {
 							Gdx.graphics.getDeltaTime() / 2, Animation.NORMAL);
 
 			sprite.setRegion(animationsStandard.get(state).getCurrentFrame());
-			sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
+			sprite.setBounds(sprite.getX(), sprite.getY(), 32, 32);
 			position.x -= movementSpeed / 2;
 			touchPos.x -= movementSpeed / 2;
 			sprite.translateY(movementSpeed / 2);
@@ -701,7 +701,7 @@ public class Player extends AbstractGameObject {
 							Gdx.graphics.getDeltaTime() / 2, Animation.NORMAL);
 
 			sprite.setRegion(animationsStandard.get(state).getCurrentFrame());
-			sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
+			sprite.setBounds(sprite.getX(), sprite.getY(), 32, 32);
 			position.y -= movementSpeed / 2;
 			touchPos.y -= movementSpeed / 2;
 			sprite.translateY(movementSpeed / 2);
@@ -716,7 +716,7 @@ public class Player extends AbstractGameObject {
 							Gdx.graphics.getDeltaTime() / 2, Animation.NORMAL);
 
 			sprite.setRegion(animationsStandard.get(state).getCurrentFrame());
-			sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
+			sprite.setBounds(sprite.getX(), sprite.getY(), 32, 32);
 
 			position.y += movementSpeed / 2;
 			touchPos.y += movementSpeed / 2;

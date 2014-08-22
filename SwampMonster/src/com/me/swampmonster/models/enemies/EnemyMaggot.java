@@ -42,16 +42,19 @@ public class EnemyMaggot extends Enemy {
 		animationsStandard.put(State.PURSUIT, new AnimationControl(Assets.manager.get(Assets.enemyMaggot), 8, 32, 7)); 
 		animationsStandard.put(State.DEAD, new AnimationControl(Assets.manager.get(Assets.enemyMaggot), 8, 32, 4)); 
 		sprite = new Sprite(animationsStandard.get(state).getCurrentFrame());
-		movementSpeed = 0.6f;
+		movementSpeed = 0.16f;
 		health = 1;
 		damage = 1;
 		points = 10;
 		attackSpeed = 30;
+		STANDART_MOVEMENT_SPEED = movementSpeed;
 	}
 	
 	@Override
 	public void update(TiledMapTileLayer collisionLayer, Player player, CameraHelper cameraHelper, List<Enemy> enemies) {
 		super.update(collisionLayer, player, cameraHelper, enemies);
+		
+		movementSpeed = 0.16f;
 		
 		if(!aiming && !preparingToCharge){
 			aimerBot.x = position.x;

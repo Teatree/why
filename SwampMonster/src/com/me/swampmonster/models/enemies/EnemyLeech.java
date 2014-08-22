@@ -14,8 +14,8 @@ public class EnemyLeech extends Enemy{
 	public EnemyLeech(Vector2 position) {
 		super(position);
 		
-		animationsStandard.put(State.STANDARD, new AnimationControl(Assets.manager.get(Assets.enemyLeech), 8, 16, 7)); 
-		animationsStandard.put(State.PURSUIT, new AnimationControl(Assets.manager.get(Assets.enemyLeech), 8, 16, 7)); 
+		animationsStandard.put(State.STANDARD, new AnimationControl(Assets.manager.get(Assets.enemyLeech), 8, 32, 7)); 
+		animationsStandard.put(State.PURSUIT, new AnimationControl(Assets.manager.get(Assets.enemyLeech), 8, 32, 7)); 
 		
 		yellowAura.radius = yellowAura.radius*14;
 		sprite = new Sprite(animationsStandard.get(state).getCurrentFrame());
@@ -41,7 +41,7 @@ public class EnemyLeech extends Enemy{
 				currentFrame = animationsStandard.get(state).doComplexAnimation(animation, 1.8f, Gdx.graphics.getDeltaTime(), Animation.NORMAL);
 				
 				sprite.setRegion(animationsStandard.get(state).getCurrentFrame());
-				sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
+				sprite.setBounds(sprite.getX(), sprite.getY(), 32, 32);
 				timer++;
 				if(timer == 30 && timer2 >= attackSpeed){
 					float direction_x = player.position.x - position.x;

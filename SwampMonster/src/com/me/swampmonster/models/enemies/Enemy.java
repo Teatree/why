@@ -96,15 +96,15 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 		aimerBot.height = 5;
 		state = State.STANDARD;
 		animationsStandard.put(State.PURSUIT, new AnimationControl(
-				Assets.manager.get(Assets.enemy), 8, 16, 8));
+				Assets.manager.get(Assets.enemy), 8, 32, 8));
 		animationsStandard.put(State.STANDARD, new AnimationControl(
-				Assets.manager.get(Assets.enemy), 8, 16, 8));
+				Assets.manager.get(Assets.enemy), 8, 32, 8));
 		animationsStandard.put(State.ATTACKING, new AnimationControl(
-				Assets.manager.get(Assets.enemy), 8, 16, 8));
+				Assets.manager.get(Assets.enemy), 8, 32, 8));
 		animationsStandard.put(State.ANIMATING, new AnimationControl(
-				Assets.manager.get(Assets.enemy), 8, 16, 8));
+				Assets.manager.get(Assets.enemy), 8, 32, 8));
 		animationsStandard.put(State.DEAD,new AnimationControl(Assets.manager.get(Assets.enemy),
-								8, 16, 4));
+								8, 32, 4));
 		oldPos = position;
 		// Timer is for the length of the actual animation
 		// Timer2 is for the waiting period
@@ -277,6 +277,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 		// THIS IS STANDARD!
 		if (state.equals(State.STANDARD) && !aiming) {
 			sprite.setRegion(animations.get(state).getCurrentFrame());
+			sprite.setBounds(sprite.getX(), sprite.getY(), 32, 32);
 			if (!hurt) {
 				if (timer == 0 && timer2 == 0
 						&& !yellowAura.overlaps(player.circle)
@@ -345,7 +346,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 						0.03f, Animation.NORMAL);
 
 				sprite.setRegion(animations.get(state).getCurrentFrame());
-				sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
+				sprite.setBounds(sprite.getX(), sprite.getY(), 32, 32);
 				timeDead++;
 			}
 			if (timeDead == 1) {
@@ -536,7 +537,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 
 				sprite.setRegion(animationsStandard.get(state)
 						.getCurrentFrame());
-				sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
+				sprite.setBounds(sprite.getX(), sprite.getY(), 32, 32);
 				timer++;
 				if (timer == 30 && timer2 >= attackSpeed) {
 					currentFrame = animationsStandard.get(state).animate(
@@ -602,14 +603,14 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 		Collidable collidable;
 		collidable = CollisionHelper.isCollidable(
 				position.x + sprite.getWidth(),
-				(position.y + sprite.getHeight() / 2) - 1, collisionLayer);
+				(position.y + sprite.getHeight()) - 1, collisionLayer);
 		if (collidable == null)
 			collidable = CollisionHelper.isCollidable(position.x,
-					(position.y + sprite.getHeight() / 2) - 1, collisionLayer);
+					(position.y + sprite.getHeight()) - 1, collisionLayer);
 		if (collidable == null)
 			collidable = CollisionHelper.isCollidable(
 					position.x + (sprite.getWidth() / 2),
-					(position.y + sprite.getHeight() / 2) - 1, collisionLayer);
+					(position.y + sprite.getHeight()) - 1, collisionLayer);
 		// if(collidable == null)collidable =
 		// CollisionHelper.isCollidableEnemy(this, enemies);
 		return collidable;
@@ -738,10 +739,14 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 		currentlyMovingOnPath = true;
 		if (!iAmWaiting) {
 			if (path != null && path[cunter] != null) {
-				if (position.x > (path[cunter].x * Constants.NodeSize) - 4
-						|| position.x < (path[cunter].x * Constants.NodeSize) - 10
-						|| position.y > (path[cunter].y * Constants.NodeSize) - 4
-						|| position.y < (path[cunter].y * Constants.NodeSize) - 10) {
+				
+				//:TODO You shitty problem with the enemy moving on the path shittily is over here!
+				
+				if (position.x+sprite.getWidth()/2 > (path[cunter].x * Constants.NodeSize) - 10
+						|| position.x+sprite.getWidth()/2 < (path[cunter].x * Constants.NodeSize) - 20
+						|| position.y > (path[cunter].y * Constants.NodeSize) - 10
+						|| position.y < (path[cunter].y * Constants.NodeSize) - 20) {
+					System.out.println("I realy should be moving on path right about now");
 
 					if (collidableLeft == null || collidableRight == null) {
 						position.x += enemyPathDx * playerMovementSpeed;
@@ -868,7 +873,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 					.doComplexAnimation(112, 0.6f,
 							Gdx.graphics.getDeltaTime() / 2, Animation.NORMAL);
 			sprite.setRegion(animationsStandard.get(state).getCurrentFrame());
-			sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
+			sprite.setBounds(sprite.getX(), sprite.getY(), 32, 32);
 
 			position.x -= movementSpeed / 3;
 			sprite.translateY(movementSpeed / 3);
@@ -884,7 +889,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 							Gdx.graphics.getDeltaTime() / 2, Animation.NORMAL);
 
 			sprite.setRegion(animationsStandard.get(state).getCurrentFrame());
-			sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
+			sprite.setBounds(sprite.getX(), sprite.getY(), 32, 32);
 			position.x += movementSpeed / 3;
 			sprite.translateY(movementSpeed / 3);
 		}
@@ -898,7 +903,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 							Gdx.graphics.getDeltaTime() / 2, Animation.NORMAL);
 
 			sprite.setRegion(animationsStandard.get(state).getCurrentFrame());
-			sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
+			sprite.setBounds(sprite.getX(), sprite.getY(), 32, 32);
 			position.y += movementSpeed / 3;
 			sprite.translateY(movementSpeed / 3);
 		}
@@ -914,7 +919,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 							Gdx.graphics.getDeltaTime() / 2, Animation.NORMAL);
 
 			sprite.setRegion(animationsStandard.get(state).getCurrentFrame());
-			sprite.setBounds(sprite.getX(), sprite.getY(), 16, 32);
+			sprite.setBounds(sprite.getX(), sprite.getY(), 32, 32);
 
 			position.y -= movementSpeed / 3;
 			sprite.translateY(movementSpeed / 3);

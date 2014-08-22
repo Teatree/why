@@ -356,7 +356,7 @@ public class L1Renderer {
 			if(enemy.getPath() != null){
 				for(Node n : enemy.getPath()){
 					if(n != null){
-						sr.rect((n.x*Constants.NodeSize)+8, (n.y*Constants.NodeSize)+8, 4, 4);
+						sr.rect((n.x*Constants.NodeSize), (n.y*Constants.NodeSize), 4, 4);
 					}
 				}
 			}

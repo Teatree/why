@@ -37,7 +37,7 @@ public class CameraHelper {
 		if(hasTarget){
 			position.x = x;
 			position.y = y; 
-			zoom = 0.5f;
+			zoom = 0.7f;
 		}
 		
 		if (shakeX!=0 && shakeY!=0){
