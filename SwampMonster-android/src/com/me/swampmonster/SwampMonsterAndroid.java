@@ -4,7 +4,6 @@ import android.os.Bundle;
 
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
-import com.me.swampmonster.utils.ScreenContainer;
 
 public class SwampMonsterAndroid extends AndroidApplication {
     @Override

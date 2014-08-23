@@ -12,9 +12,7 @@ public abstract class AbstractGameScreen implements Screen {
 	
 	public AbstractGameScreen(Game game){
 		this.game = game;
-		
 		player = new Player(new Vector2());
-
 	}
 	
 	@Override

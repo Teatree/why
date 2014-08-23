@@ -28,8 +28,6 @@ import com.me.swampmonster.models.slots.PositiveEffects;
 import com.me.swampmonster.models.slots.Slot;
 import com.me.swampmonster.screens.AbstractGameScreen;
 import com.me.swampmonster.screens.MenuScreen;
-import com.me.swampmonster.screens.SlotMachineScreen;
-import com.me.swampmonster.screens.SwampScreen;
 import com.me.swampmonster.utils.Assets;
 import com.me.swampmonster.utils.CameraHelper;
 import com.me.swampmonster.utils.LGenerator;
@@ -87,7 +85,7 @@ public class TheController extends InputAdapter {
 //		random = new Random();
 		levelGenerator = new LGenerator();
 		if(!MenuScreen.tutorialFinished){
-			level1 = levelGenerator.createTutorialLevel();
+			level1 = LGenerator.createTutorialLevel();
 		}else{
 			level1 = levelGenerator.createLevel(player);
 		}
@@ -170,10 +168,10 @@ public class TheController extends InputAdapter {
 		if (Intersector.overlaps(debugRect, pointRect) || germany) {
 			AbstractGameScreen sl;
 			if (germany && L1.player.state == State.DEAD){
-				sl = new SwampScreen(game);
+				sl = ScreenContainer.SS;
 				reloadLevel(L1.player);
 			} else {
-				sl = new SlotMachineScreen(game);
+				sl = ScreenContainer.SMS;
 			}
 			sl.player = L1.player;
 			germany = false;

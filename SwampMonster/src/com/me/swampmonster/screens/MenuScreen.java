@@ -14,11 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.me.swampmonster.game.TheController;
-import com.me.swampmonster.models.L1;
-import com.me.swampmonster.models.TutorialLevel;
 import com.me.swampmonster.utils.Constants;
-import com.me.swampmonster.utils.LGenerator;
 import com.me.swampmonster.utils.ScreenContainer;
 
 public class MenuScreen extends AbstractGameScreen{

@@ -1,10 +1,7 @@
 package com.me.swampmonster;
 
-import sun.applet.Main;
-
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
-import com.me.swampmonster.utils.ScreenContainer;
 
 public class SwampMonsterDesktop {
 	public static void main(String[] args) {
