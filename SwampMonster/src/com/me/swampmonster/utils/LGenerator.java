@@ -118,7 +118,7 @@ public class LGenerator {
 		return level;
 	}
 	
-	public L1 createTutorialLevel(){
+	public static L1 createTutorialLevel(){
 		String br = Gdx.files.internal("data\\" + "Map2.tmx").readString();
 		Gdx.files.local("MapTemp.tmx").writeString(br, false);
 		L1 tutorialLevel = new TutorialLevel("tileSet_SAND_WORLD", "MapTemp.tmx");

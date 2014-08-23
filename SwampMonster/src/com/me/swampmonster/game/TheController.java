@@ -86,7 +86,11 @@ public class TheController extends InputAdapter {
 		Gdx.input.setInputProcessor(this);
 //		random = new Random();
 		levelGenerator = new LGenerator();
-		level1 = levelGenerator.createTutorialLevel();
+		if(!MenuScreen.tutorialFinished){
+			level1 = levelGenerator.createTutorialLevel();
+		}else{
+			level1 = levelGenerator.createLevel(player);
+		}
 		cameraHelper = new CameraHelper();
 		gui = new GUI(player);
 		gui.getCroshair().setPosition(new Vector2(330f, 100f));
@@ -428,7 +432,11 @@ public class TheController extends InputAdapter {
 	}
 
 	public static void reloadLevel(Player player) {
-		level1 = levelGenerator.createLevel(player);
+		if(!MenuScreen.tutorialFinished){
+			level1 = levelGenerator.createTutorialLevel();
+		}else{
+			level1 = levelGenerator.createLevel(player);
+		}
 	}
 
 	public Vector2 getPoint() {

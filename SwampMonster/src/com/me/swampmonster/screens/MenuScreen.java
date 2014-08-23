@@ -14,7 +14,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.me.swampmonster.game.TheController;
+import com.me.swampmonster.models.L1;
+import com.me.swampmonster.models.TutorialLevel;
 import com.me.swampmonster.utils.Constants;
+import com.me.swampmonster.utils.LGenerator;
 import com.me.swampmonster.utils.ScreenContainer;
 
 public class MenuScreen extends AbstractGameScreen{
@@ -23,8 +27,12 @@ public class MenuScreen extends AbstractGameScreen{
 	private Skin skin;
 	Button playButton;
 	Button exitButton;
+	Button tutorialButton;
 	Label wrldConqueror;
 	Table table;
+	public static boolean tutorialFinished;
+	public static boolean showTutorialButton;
+
 	
 	public MenuScreen(Game game) {
 		super(game);
@@ -44,6 +52,7 @@ public class MenuScreen extends AbstractGameScreen{
 
 	@Override
 	public void resize(int width, int height) {
+		
 	}
 	
 	@Override
@@ -56,6 +65,7 @@ public class MenuScreen extends AbstractGameScreen{
 		img.setWidth(Constants.VIEWPORT_GUI_WIDTH);
 		stage.addActor(img);
 		
+		
 		playButton = new TextButton(Constants.PLAY, skin);
 		playButton.addListener(new ClickListener(){
 			@Override
@@ -64,6 +74,19 @@ public class MenuScreen extends AbstractGameScreen{
 	            ((Game) Gdx.app.getApplicationListener()).setScreen(ScreenContainer.SS);
 	        }
 		});
+		
+		if(showTutorialButton){
+			tutorialButton = new TextButton(Constants.TUTORIAL, skin);
+			tutorialButton.addListener(new ClickListener(){
+				@Override
+		        public void clicked(InputEvent event, float x, float y) {
+					Gdx.input.setInputProcessor(null);
+					MenuScreen.tutorialFinished = false;
+		            ((Game) Gdx.app.getApplicationListener()).setScreen(ScreenContainer.SS);
+		        }
+			});
+			table.add(tutorialButton).size(150,60).padBottom(20).row();;
+		}
 		
 		exitButton = new TextButton(Constants.EXIT, skin);
 		exitButton.addListener(new ClickListener(){

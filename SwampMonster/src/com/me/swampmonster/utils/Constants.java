@@ -394,6 +394,7 @@ public class Constants {
 	//UI stuff
 	public static final String EXIT = "Exit";
 	public static final String PLAY = "Play";
+	public static final String TUTORIAL = "Tutorial";
 	public static final String WORLDS_CONQUERROR = "World's Conqueror";
 	
 }
