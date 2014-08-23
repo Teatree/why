@@ -11,6 +11,7 @@ import com.me.swampmonster.models.slots.Perks;
 import com.me.swampmonster.models.slots.Slot;
 import com.me.swampmonster.slotMachineStuff.SlotMachineTextures;
 import com.me.swampmonster.utils.Constants;
+import com.me.swampmonster.utils.ScreenContainer;
 
 public class SlotMachineScreen extends AbstractGameScreen {
 	private static final int Max_slot_level = 4;
@@ -114,7 +115,7 @@ public class SlotMachineScreen extends AbstractGameScreen {
 						}
 						
 						slotMachineTextures.peru = false;
-						game.setScreen(new SwampScreen(game));
+						((Game) Gdx.app.getApplicationListener()).setScreen(ScreenContainer.SS);
 					}
 	
 				}

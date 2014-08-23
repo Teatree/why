@@ -51,7 +51,9 @@ public class L1Renderer {
 		batch = new SpriteBatch();
 		stage = new Stage(Constants.VIEWPORT_WIDTH, Constants.VIEWPORT_HEIGHT, false, batch);
 		sr = new ShapeRenderer();
+		System.out.println(TheController.level1);
 		mapRenderer = new OrthogonalTiledMapRenderer(TheController.level1.bunker.getMap());
+		
 		
 		gshape = new GShape(theController);
 		stage.addActor(gshape);

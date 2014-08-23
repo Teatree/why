@@ -12,11 +12,11 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 public class Assets {
 
 	public static final AssetManager manager = new AssetManager();
-	public static final AssetDescriptor<Texture> nastyaSpriteStandard = new AssetDescriptor<Texture>("data\\EnemyTemp.png", Texture.class);
-	public static final AssetDescriptor<Texture> nastyaSpriteGun = new AssetDescriptor<Texture>("data\\EnemyTemp.png", Texture.class);
 	public static final AssetDescriptor<Texture> bow = new AssetDescriptor<Texture>("data\\BowNArrow.png", Texture.class);
 	public static final AssetDescriptor<Texture> enemyLeech = new AssetDescriptor<Texture>("data\\EnemyLeech_new.png", Texture.class);
 	public static final AssetDescriptor<Texture> enemyZombie = new AssetDescriptor<Texture>("data\\EnemyZombie_new.png", Texture.class);
+	public static final AssetDescriptor<Texture> nastyaSpriteStandard = new AssetDescriptor<Texture>("data\\EnemyTemp.png", Texture.class);
+	public static final AssetDescriptor<Texture> nastyaSpriteGun = new AssetDescriptor<Texture>("data\\EnemyTemp.png", Texture.class);
 	public static final AssetDescriptor<Texture> enemyMaggot = new AssetDescriptor<Texture>("data\\EnemyMaggot_new.png", Texture.class);
 	public static final AssetDescriptor<Texture> enemy = new AssetDescriptor<Texture>("data\\EnemyTemp.png", Texture.class);
 	public static final AssetDescriptor<Texture> HealthBarIcon = new AssetDescriptor<Texture>("data\\HealthBarIcon.png", Texture.class);
@@ -79,11 +79,11 @@ public class Assets {
 	public static final AssetDescriptor<Texture> explosiveTrap = new AssetDescriptor<Texture>("data\\explosiveTrap.png", Texture.class); 
 	public static final AssetDescriptor<Texture> exitMessageWindow = new AssetDescriptor<Texture>("data\\ExitMessageWindow.png", Texture.class); 
 	public static void load(){
-		manager.load(nastyaSpriteStandard);
-		manager.load(nastyaSpriteGun);
 		manager.load(bow);
 		manager.load(enemy);
 		manager.load(enemyLeech);
+		manager.load(nastyaSpriteStandard);
+		manager.load(nastyaSpriteGun);
 		manager.load(enemyZombie);
 		manager.load(enemyMaggot);
 		manager.load(propExplosiveBarrel);
@@ -143,13 +143,8 @@ public class Assets {
 		manager.setLoader(BitmapFont.class, new BitmapFontLoader(new InternalFileHandleResolver()));
 		manager.load(font);
 		manager.load(exitMessageWindow);
-		manager.setLoader(TiledMap.class, new TmxMapLoader());
-		Gdx.files.local("Tiles.png").write(Gdx.files.internal("data\\Tiles.png").read(), false);
-		Gdx.files.local("tileSet_SAND_WORLD.png").write(Gdx.files.internal("data\\tileSet_SAND_WORLD.png").read(), false);
-		Gdx.files.local("tileSet_SAND_WORLD2.png").write(Gdx.files.internal("data\\tileSet_SAND_WORLD2.png").read(), false);
-		Gdx.files.local("tileSet_SAND_WORLD3.png").write(Gdx.files.internal("data\\tileSet_SAND_WORLD3.png").read(), false);
-		Gdx.files.local("tileSet_SAND_WORLD4.png").write(Gdx.files.internal("data\\tileSet_SAND_WORLD4.png").read(), false);
-		Gdx.files.local("tileSet_SAND_WORLD5.png").write(Gdx.files.internal("data\\tileSet_SAND_WORLD5.png").read(), false);
+//		manager.setLoader(TiledMap.class, new TmxMapLoader());
+		
 		
 //		manager.load(map);
 	}

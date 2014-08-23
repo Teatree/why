@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
+import java.util.Stack;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
@@ -14,6 +15,12 @@ import com.me.swampmonster.models.AbstractGameObject.NegativeEffects;
 import com.me.swampmonster.models.L1;
 import com.me.swampmonster.models.Player;
 import com.me.swampmonster.models.Prop;
+import com.me.swampmonster.models.TutorialLevel;
+import com.me.swampmonster.models.Wave;
+import com.me.swampmonster.models.enemies.Enemy;
+import com.me.swampmonster.models.enemies.EnemyLeech;
+import com.me.swampmonster.models.enemies.EnemyMaggot;
+import com.me.swampmonster.models.enemies.EnemyZombie;
 import com.me.swampmonster.models.slots.PositiveEffects;
 
 public class LGenerator {
@@ -45,7 +52,13 @@ public class LGenerator {
 		tileSets.put(3, "tileSet_SAND_WORLD4");
 		
 		//
-		
+		System.out.println("ous " + Gdx.files);
+		Gdx.files.local("Tiles.png").write(Gdx.files.internal("data\\Tiles.png").read(), false);
+		Gdx.files.local("tileSet_SAND_WORLD.png").write(Gdx.files.internal("data\\tileSet_SAND_WORLD.png").read(), false);
+		Gdx.files.local("tileSet_SAND_WORLD2.png").write(Gdx.files.internal("data\\tileSet_SAND_WORLD2.png").read(), false);
+		Gdx.files.local("tileSet_SAND_WORLD3.png").write(Gdx.files.internal("data\\tileSet_SAND_WORLD3.png").read(), false);
+		Gdx.files.local("tileSet_SAND_WORLD4.png").write(Gdx.files.internal("data\\tileSet_SAND_WORLD4.png").read(), false);
+		Gdx.files.local("tileSet_SAND_WORLD5.png").write(Gdx.files.internal("data\\tileSet_SAND_WORLD5.png").read(), false);
 	}
 
 	public L1 createLevel(Player player) {
@@ -103,6 +116,35 @@ public class LGenerator {
 			TheController.coolDownStep = 0;
 		}
 		return level;
+	}
+	
+	public L1 createTutorialLevel(){
+		String br = Gdx.files.internal("data\\" + "Map2.tmx").readString();
+		Gdx.files.local("MapTemp.tmx").writeString(br, false);
+		L1 tutorialLevel = new TutorialLevel("tileSet_SAND_WORLD", "MapTemp.tmx");
+		TutorialLevel.player = new Player(new Vector2(230,230));
+		TutorialLevel.player.oxygen = Player.maxOxygen;
+		TutorialLevel.player.health = Player.playerMaxHealth;
+		TutorialLevel.player.setPositiveEffect(PositiveEffects.NONE);
+		TutorialLevel.player.setNegativeEffect(NegativeEffects.NONE);
+		TutorialLevel.player.movementSpeed = 1.4f;
+		TutorialLevel.player.characterStatsBoard();
+		TheController.collisionLayer = (TiledMapTileLayer) tutorialLevel.bunker.getMap().getLayers().get(0);
+		
+		Wave wave = new Wave();
+		wave.enemies = new Stack<Enemy>();
+		wave.enemiesOnBattleField = 3;
+		wave.enemies.push(new EnemyMaggot(new Vector2(400,400)));
+		wave.enemies.push(new EnemyZombie(new Vector2(440,400)));
+		wave.enemies.push(new EnemyLeech(new Vector2(480,400)));
+		tutorialLevel.wave = wave;
+		tutorialLevel.enemiesOnStage = wave.enemies;
+		tutorialLevel.wave.enemies = new Stack<Enemy>();
+		tutorialLevel.wavesAmount = 1;
+		
+		
+		return tutorialLevel;
+		
 	}
 
 	private boolean isValidPosition(Vector2 v2) {

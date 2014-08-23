@@ -33,6 +33,7 @@ import com.me.swampmonster.screens.SwampScreen;
 import com.me.swampmonster.utils.Assets;
 import com.me.swampmonster.utils.CameraHelper;
 import com.me.swampmonster.utils.LGenerator;
+import com.me.swampmonster.utils.ScreenContainer;
 
 public class TheController extends InputAdapter {
 	public CameraHelper cameraHelper;
@@ -85,7 +86,7 @@ public class TheController extends InputAdapter {
 		Gdx.input.setInputProcessor(this);
 //		random = new Random();
 		levelGenerator = new LGenerator();
-		level1 = levelGenerator.createLevel(player);
+		level1 = levelGenerator.createTutorialLevel();
 		cameraHelper = new CameraHelper();
 		gui = new GUI(player);
 		gui.getCroshair().setPosition(new Vector2(330f, 100f));
@@ -172,7 +173,7 @@ public class TheController extends InputAdapter {
 			}
 			sl.player = L1.player;
 			germany = false;
-			game.setScreen(sl);
+			((Game) Gdx.app.getApplicationListener()).setScreen(ScreenContainer.SMS);
 		} 
 		
 		// This bit is responsible for calculating where exactly the projective

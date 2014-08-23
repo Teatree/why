@@ -15,6 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.me.swampmonster.utils.Constants;
+import com.me.swampmonster.utils.ScreenContainer;
 
 public class MenuScreen extends AbstractGameScreen{
 	
@@ -25,33 +26,11 @@ public class MenuScreen extends AbstractGameScreen{
 	Label wrldConqueror;
 	Table table;
 	
-	public MenuScreen(final Game game) {
+	public MenuScreen(Game game) {
 		super(game);
 		skin = new Skin(Gdx.files.internal("skins\\style.json"), new TextureAtlas(Gdx.files.internal("skins\\main.pack")));
-		stage = new Stage();
-		table = new Table();
-		playButton = new TextButton(Constants.PLAY, skin);
-		playButton.addListener(new ClickListener(){
-			@Override
-	        public void clicked(InputEvent event, float x, float y) {
-	            ((Game)Gdx.app.getApplicationListener()).setScreen(new SwampScreen(game));
-	        }
-		});
-		
-		exitButton = new TextButton(Constants.EXIT, skin);
-		exitButton.addListener(new ClickListener(){
-			@Override
-			public void clicked (InputEvent event, float x, float y){
-				Gdx.app.exit();
-			}
-		});
 		
 		wrldConqueror = new Label(Constants.WORLDS_CONQUERROR, skin);
-		Image img = new Image(new Texture("data/ui/wrldcnqr.png"));
-		img.toBack();
-		img.setHeight(Constants.VIEWPORT_GUI_HEIGHT);
-		img.setWidth(Constants.VIEWPORT_GUI_WIDTH);
-		stage.addActor(img);
 		Gdx.input.setInputProcessor(stage);
 	}
 
@@ -69,6 +48,30 @@ public class MenuScreen extends AbstractGameScreen{
 	
 	@Override
 	public void show() {
+		table = new Table();
+		stage = new Stage();
+		Image img = new Image(new Texture("data/ui/wrldcnqr.png"));
+		img.toBack();
+		img.setHeight(Constants.VIEWPORT_GUI_HEIGHT);
+		img.setWidth(Constants.VIEWPORT_GUI_WIDTH);
+		stage.addActor(img);
+		
+		playButton = new TextButton(Constants.PLAY, skin);
+		playButton.addListener(new ClickListener(){
+			@Override
+	        public void clicked(InputEvent event, float x, float y) {
+				Gdx.input.setInputProcessor(null);
+	            ((Game) Gdx.app.getApplicationListener()).setScreen(ScreenContainer.SS);
+	        }
+		});
+		
+		exitButton = new TextButton(Constants.EXIT, skin);
+		exitButton.addListener(new ClickListener(){
+			@Override
+			public void clicked (InputEvent event, float x, float y){
+				Gdx.app.exit();
+			}
+		});
 		table.add(wrldConqueror).padBottom(40).row();
 	    table.add(playButton).size(150,60).padBottom(20).row();
 	    table.add(exitButton).size(150,60).padBottom(20).row();

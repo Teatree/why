@@ -6,6 +6,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.me.swampmonster.game.L1Renderer;
 import com.me.swampmonster.game.TheController;
+import com.me.swampmonster.utils.ScreenContainer;
 
 public class SwampScreen extends AbstractGameScreen  implements Screen {
 
@@ -36,7 +37,8 @@ public class SwampScreen extends AbstractGameScreen  implements Screen {
 			theController.update(Gdx.graphics.getDeltaTime(), game);
 		}
 		if (TheController.gotoToMenu){
-			game.setScreen(new MenuScreen(game));
+			TheController.gotoToMenu = false;
+			((Game) Gdx.app.getApplicationListener()).setScreen(ScreenContainer.MS);
 		}
 		renderer.render();
 	}
