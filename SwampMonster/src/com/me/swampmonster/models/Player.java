@@ -36,7 +36,9 @@ public class Player extends AbstractGameObject {
 	public static int enemiesKilled;
 	public static int playerKilled;
 	public static int shotArrows;
-
+	
+	public static boolean shootingSwitch;
+	
 	public Sprite positiveEffectSprite;
 	int time = 0;
 	int timer3hurt = 0;

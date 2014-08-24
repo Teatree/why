@@ -26,6 +26,8 @@ public class MenuScreen extends AbstractGameScreen{
 	Button tutorialButton;
 	Label wrldConqueror;
 	Table table;
+	// Dmitriy's shinanigans
+	public static short lessBytes; 
 	public static boolean tutorialFinished;
 	public static boolean showTutorialButton;
 
@@ -66,6 +68,7 @@ public class MenuScreen extends AbstractGameScreen{
 		playButton.addListener(new ClickListener(){
 			@Override
 	        public void clicked(InputEvent event, float x, float y) {
+				lessBytes = 1;
 				Gdx.input.setInputProcessor(null);
 	            ((Game) Gdx.app.getApplicationListener()).setScreen(ScreenContainer.SS);
 	        }
@@ -76,8 +79,10 @@ public class MenuScreen extends AbstractGameScreen{
 			tutorialButton.addListener(new ClickListener(){
 				@Override
 		        public void clicked(InputEvent event, float x, float y) {
+					lessBytes = 2;
 					Gdx.input.setInputProcessor(null);
-					MenuScreen.tutorialFinished = false;
+					System.out.println("tutorial clicked");
+//					MenuScreen.tutorialFinished = false;
 		            ((Game) Gdx.app.getApplicationListener()).setScreen(ScreenContainer.SS);
 		        }
 			});

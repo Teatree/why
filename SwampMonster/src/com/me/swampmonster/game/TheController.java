@@ -1,4 +1,5 @@
 package com.me.swampmonster.game;
+import java.awt.Menu;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map.Entry;
@@ -21,6 +22,7 @@ import com.me.swampmonster.models.Explosion;
 import com.me.swampmonster.models.L1;
 import com.me.swampmonster.models.Player;
 import com.me.swampmonster.models.Projectile;
+import com.me.swampmonster.models.TutorialLevel;
 import com.me.swampmonster.models.enemies.Enemy;
 import com.me.swampmonster.models.slots.ExplozionTrap;
 import com.me.swampmonster.models.slots.PositiveEffectInterface;
@@ -72,6 +74,7 @@ public class TheController extends InputAdapter {
 	public static boolean showFeedback;
 	public static boolean gotoToMenu;
 	public static boolean paused;
+	public static boolean pausedTutorial;
 	
 	private static LGenerator levelGenerator;
 
@@ -84,10 +87,15 @@ public class TheController extends InputAdapter {
 		Gdx.input.setInputProcessor(this);
 //		random = new Random();
 		levelGenerator = new LGenerator();
-		if(!MenuScreen.tutorialFinished){
+		System.err.println("lessBytes: " + MenuScreen.lessBytes);
+		if(MenuScreen.lessBytes == 1 && !MenuScreen.showTutorialButton){
 			level1 = LGenerator.createTutorialLevel();
-		}else{
+		}else if (MenuScreen.lessBytes == 1 && MenuScreen.showTutorialButton){
 			level1 = levelGenerator.createLevel(player);
+			Player.shootingSwitch = true;
+		}
+		if (MenuScreen.lessBytes == 2){
+			level1 = LGenerator.createTutorialLevel();
 		}
 		cameraHelper = new CameraHelper();
 		gui = new GUI(player);
@@ -130,7 +138,7 @@ public class TheController extends InputAdapter {
 
 		cameraHelper.upadate(V3playerPos.x, V3playerPos.y, 5);
 
-		if(!paused){
+		if(!paused && !pausedTutorial){
 			level1.update(gui.getCroshair().isAiming(), touchPos, V3point,
 					collisionLayer, cameraHelper, dx, dy);
 		}
@@ -189,7 +197,7 @@ public class TheController extends InputAdapter {
 		
 		L1.player.setDx(dx);
 		L1.player.setDy(dy);
-		if (coolDownCounter > 0 && !paused) {
+		if (coolDownCounter > 0 && !paused && !pausedTutorial) {
 			coolDownAngle = coolDownAngle - coolDownStep;
 			// c -= coolDownStep;
 			coolDownCounter--;
@@ -233,7 +241,7 @@ public class TheController extends InputAdapter {
 	}
 
 	private void inputNav() {
-		if (!L1.player.state.equals(State.DEAD) && !paused) {
+		if (!L1.player.state.equals(State.DEAD) && !paused && !pausedTutorial) {
 			if (!doesIntersect(point, gui.getWeaponizer().getPosition(),
 					gui.getWeaponizer().circle.radius)) {
 				touchPos.y = Gdx.input.getY();
@@ -297,6 +305,11 @@ public class TheController extends InputAdapter {
 		float camZoomSpeed = 0.1f * deltaTime;
 		float camZoomSpeedAccelerationFactor = 50;
 
+		if (pausedTutorial && Gdx.input.justTouched()){
+			TutorialLevel.step++;
+			pausedTutorial = false;
+		}
+		
 		if (Gdx.input.isKeyPressed(Keys.BACK) || Gdx.input.isKeyPressed(Keys.ESCAPE)){
 			paused = true;
 		} 
@@ -430,10 +443,13 @@ public class TheController extends InputAdapter {
 	}
 
 	public static void reloadLevel(Player player) {
-		if(!MenuScreen.tutorialFinished){
-			level1 = levelGenerator.createTutorialLevel();
-		}else{
+		if(MenuScreen.lessBytes == 1 && !MenuScreen.showTutorialButton){
+			level1 = LGenerator.createTutorialLevel();
+		}else if (MenuScreen.lessBytes == 1 && MenuScreen.showTutorialButton){
 			level1 = levelGenerator.createLevel(player);
+		}
+		if (MenuScreen.lessBytes == 2){
+			level1 = LGenerator.createTutorialLevel();
 		}
 	}
 

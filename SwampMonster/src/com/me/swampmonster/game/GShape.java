@@ -355,7 +355,7 @@ public class GShape extends Group {
 					theController.gui.getWeaponizer().circle.radius, 90,
 					theController.coolDownAngle);
 		}
-		if(TheController.paused){
+		if(TheController.paused || TheController.pausedTutorial){
 			sr.setColor(new Color(0.5f,0.5f,0.5f,0.5f));
 			sr.rect(-20, -20, Constants.VIEWPORT_GUI_WIDTH+40, Constants.VIEWPORT_GUI_HEIGHT+40);
 		}
