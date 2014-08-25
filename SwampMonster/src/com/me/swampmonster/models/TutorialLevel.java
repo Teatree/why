@@ -20,6 +20,7 @@ public class TutorialLevel extends L1 {
 	public static int step;
 	public static Sprite movehere;
 	public static Sprite aFingure;
+	public static Sprite greenArrow;
 	private AnimationControl aControl;
 	static int fingerAnimCounter;
 	public static boolean animating;
@@ -69,6 +70,11 @@ public class TutorialLevel extends L1 {
 			System.out.println("drawing Text 3");
 		}
 		if(step == 2){
+			greenArrow = new Sprite(Assets.manager.get(Assets.greenPointerArrow));
+			greenArrow.setX(160);
+			greenArrow.setY(350);
+			greenArrow.setSize(64, 64);
+			greenArrow.rotate(45);
 			TheController.pausedTutorial = true;
 			System.out.println("drawing Text 2");
 		}
@@ -104,12 +110,12 @@ public class TutorialLevel extends L1 {
 			}
 			if(fingerAnimCounter > 40){
 				if(aFingure.getX()>300){
-					aFingure.setX(aFingure.getX()-0.5f);
+					aFingure.setX(aFingure.getX()-0.7f);
 				}else{
 					animating = false;
 				}
 				if(aFingure.getY()>80){
-					aFingure.setY(aFingure.getY()-0.5f);
+					aFingure.setY(aFingure.getY()-0.7f);
 				}
 			}
 		}

@@ -66,6 +66,8 @@ public class LGenerator {
 		String map = maps.get(random.nextInt(maps.size() - 1));
 		String tileSet = tileSets.get(random.nextInt(tileSets.size()));
 
+		Player.shootingSwitch = true;
+		
 		boolean isLevelElite = random.nextBoolean();
 //
 		boolean hasLevelAtmosphere;

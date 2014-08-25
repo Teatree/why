@@ -40,6 +40,7 @@ public class Player extends AbstractGameObject {
 	public static boolean shootingSwitch;
 	
 	public Sprite positiveEffectSprite;
+	public Sprite aimingAuraSprite;
 	int time = 0;
 	int timer3hurt = 0;
 	int timerPoisoned = 0;
@@ -49,6 +50,7 @@ public class Player extends AbstractGameObject {
 	String nastyaSpriteGun;
 	public Sprite bow;
 	public TextureRegion[][] bowFrames;
+	public TextureRegion[][] aimingAuraFrames;
 	// responsible for what kind of animation are to be played in the Animating
 	// State
 	String doing;
@@ -101,6 +103,9 @@ public class Player extends AbstractGameObject {
 		bowFrames = TextureRegion.split((Assets.manager.get(Assets.bow)), 32,
 				32);
 		bow = new Sprite(bowFrames[0][0]);
+		aimingAuraFrames = TextureRegion.split((Assets.manager.get(Assets.aimingAuraSprite)), 64, 64);
+		aimingAuraSprite = new Sprite(aimingAuraFrames[0][0]);
+		aimingAuraSprite.setSize(48, 48);
 		hurt = false;
 		aimingArea = new Circle();
 		aimingArea.radius = 8;
@@ -193,6 +198,9 @@ public class Player extends AbstractGameObject {
 		rectanlge.width = sprite.getWidth();
 		rectanlge.height = sprite.getHeight();
 
+		aimingAuraSprite.setX(position.x-9);
+		aimingAuraSprite.setY(position.y-8);
+		
 		if (!L1.hasAtmosphere) {
 			oxygen -= 0.005f;
 		}
@@ -500,9 +508,11 @@ public class Player extends AbstractGameObject {
 		if (!aiming) {
 			currentFrame = animationsStandard.get(state).doComplexAnimation(0,
 					0.5f, Gdx.graphics.getDeltaTime(), Animation.NORMAL);
+			aimingAuraSprite.setRegion(aimingAuraFrames[0][0]);
 		}
 
 		if (aiming) {
+			aimingAuraSprite.setRegion(aimingAuraFrames[0][1]);
 			touchPos.x = position.x + 9;
 			touchPos.y = position.y + 4;
 			aimLineHead.x = (position.x + sprite.getWidth() / 2) * 2

@@ -249,6 +249,9 @@ public class L1Renderer {
 		
 			L1.player.getSprite().setPosition(L1.player.getPosition().x, L1.player.getPosition().y);
 			L1.player.getSprite().draw(batch);
+			if(L1.player.shootingSwitch){
+				L1.player.aimingAuraSprite.draw(batch);
+			}
 //			batch.draw(TheController.level1.player.getSprite(), TheController.level1.player.getPosition().x, TheController.level1.player.getPosition().y,
 //					TheController.level1.player.getSprite().getWidth(), TheController.level1.player.getSprite().getHeight());
 //			TheController.level1.drawEnemy(batch);

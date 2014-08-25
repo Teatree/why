@@ -397,10 +397,41 @@ public class GShape extends Group {
 			batch.draw(TutorialLevel.aFingure, TutorialLevel.aFingure.getX(), TutorialLevel.aFingure.getY(), TutorialLevel.aFingure.getWidth(), TutorialLevel.aFingure.getHeight());
 		}
 		
-		
 //		if ((Gdx.input.isKeyPressed(Keys.BACK) || Gdx.input.isKeyPressed(Keys.ESCAPE))&& TheController.showExitMessage){
 //			TheController.showExitMessage = false;
 //		} 
+		batch.end();
+		
+		sr.begin(ShapeType.Filled);
+		if(TutorialLevel.step == 2){
+			sr.setColor(Color.RED);
+			for (Rectangle r : theController.gui.getHealthBar().getHealthBarRect()) {
+				if (r != null) {
+					sr.rect(r.x, r.y, r.width, r.height);
+				}
+			}
+			sr.setColor(Color.YELLOW);
+			sr.rect(16, 422, Player.maxOxygen, 22);
+		}
+		sr.end();
+		
+		batch.begin();
+		
+		if(TutorialLevel.step == 2){
+			for (Sprite s: theController.gui.getHealthBar().sprites){
+				batch.draw(s, s.getX(), s.getY(), s.getWidth(), s.getHeight()+6);
+			}
+			
+			for (Sprite s: theController.gui.getOxygenBar().sprites){
+				batch.draw(s, s.getX(), s.getY(), s.getWidth(), s.getHeight()+6);
+			}
+			
+			if (TutorialLevel.greenArrow != null){
+				TutorialLevel.greenArrow.draw(batch);
+			}
+			
+		}
+		
 		batch.end();
 		
 		batch.begin();

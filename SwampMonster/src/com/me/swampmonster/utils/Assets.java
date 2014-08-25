@@ -14,6 +14,7 @@ public class Assets {
 	public static final AssetDescriptor<Texture> enemyZombie = new AssetDescriptor<Texture>("data\\EnemyZombie_new.png", Texture.class);
 	public static final AssetDescriptor<Texture> nastyaSpriteStandard = new AssetDescriptor<Texture>("data\\EnemyTemp.png", Texture.class);
 	public static final AssetDescriptor<Texture> nastyaSpriteGun = new AssetDescriptor<Texture>("data\\EnemyTemp.png", Texture.class);
+	public static final AssetDescriptor<Texture> aimingAuraSprite = new AssetDescriptor<Texture>("data\\aimingAura.png", Texture.class);
 	public static final AssetDescriptor<Texture> enemyMaggot = new AssetDescriptor<Texture>("data\\EnemyMaggot_new.png", Texture.class);
 	public static final AssetDescriptor<Texture> enemy = new AssetDescriptor<Texture>("data\\EnemyTemp.png", Texture.class);
 	public static final AssetDescriptor<Texture> HealthBarIcon = new AssetDescriptor<Texture>("data\\HealthBarIcon.png", Texture.class);
@@ -27,8 +28,9 @@ public class Assets {
 	public static final AssetDescriptor<Texture> PointerHead = new AssetDescriptor<Texture>("data\\PointerHead.png", Texture.class);
 	public static final AssetDescriptor<Texture> propExplosiveBarrel = new AssetDescriptor<Texture>("data\\propBarrelAnimation.png", Texture.class);
 	public static final AssetDescriptor<Texture> propTreasure = new AssetDescriptor<Texture>("data\\propTreasureAnimation.png", Texture.class);
-	public static final AssetDescriptor<Texture> moveHere = new AssetDescriptor<Texture>("data\\moveHere.png", Texture.class);
-	public static final AssetDescriptor<Texture> aFinger = new AssetDescriptor<Texture>("data\\aGoodLookingFinger.png", Texture.class);
+	public static final AssetDescriptor<Texture> moveHere = new AssetDescriptor<Texture>("data\\tutorialStuff\\moveHere.png", Texture.class);
+	public static final AssetDescriptor<Texture> aFinger = new AssetDescriptor<Texture>("data\\tutorialStuff\\aGoodLookingFinger.png", Texture.class);
+	public static final AssetDescriptor<Texture> greenPointerArrow = new AssetDescriptor<Texture>("data\\tutorialStuff\\greenPointerArrow.png", Texture.class);
 	//:TODO change this!
 	public static final AssetDescriptor<Texture> propToxicPuddle = new AssetDescriptor<Texture>("data\\googleSaysItIsAPool.png", Texture.class);
 	
@@ -79,6 +81,8 @@ public class Assets {
 	public static final AssetDescriptor<Texture> exitMessageWindow = new AssetDescriptor<Texture>("data\\ExitMessageWindow.png", Texture.class); 
 	public static void load(){
 		manager.load(bow);
+		manager.load(aimingAuraSprite);
+		manager.load(greenPointerArrow);
 		manager.load(enemy);
 		manager.load(aFinger);
 		manager.load(enemyLeech);
