@@ -28,6 +28,7 @@ public class Assets {
 	public static final AssetDescriptor<Texture> propExplosiveBarrel = new AssetDescriptor<Texture>("data\\propBarrelAnimation.png", Texture.class);
 	public static final AssetDescriptor<Texture> propTreasure = new AssetDescriptor<Texture>("data\\propTreasureAnimation.png", Texture.class);
 	public static final AssetDescriptor<Texture> moveHere = new AssetDescriptor<Texture>("data\\moveHere.png", Texture.class);
+	public static final AssetDescriptor<Texture> aFinger = new AssetDescriptor<Texture>("data\\aGoodLookingFinger.png", Texture.class);
 	//:TODO change this!
 	public static final AssetDescriptor<Texture> propToxicPuddle = new AssetDescriptor<Texture>("data\\googleSaysItIsAPool.png", Texture.class);
 	
@@ -79,6 +80,7 @@ public class Assets {
 	public static void load(){
 		manager.load(bow);
 		manager.load(enemy);
+		manager.load(aFinger);
 		manager.load(enemyLeech);
 		manager.load(nastyaSpriteStandard);
 		manager.load(nastyaSpriteGun);

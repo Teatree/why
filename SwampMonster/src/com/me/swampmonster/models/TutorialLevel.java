@@ -19,7 +19,10 @@ public class TutorialLevel extends L1 {
 	public static boolean gotoGame;
 	public static int step;
 	public static Sprite movehere;
+	public static Sprite aFingure;
 	private AnimationControl aControl;
+	static int fingerAnimCounter;
+	public static boolean animating;
 	
 	
 	public TutorialLevel(String tileSet, String tileMap) {
@@ -35,6 +38,18 @@ public class TutorialLevel extends L1 {
 			CameraHelper cameraHelper, float dx, float dy) {
 		super.update(aiming, touchPos, V3point, collisionLayer, cameraHelper, dx, dy);
 		
+		
+		if(step == 7){
+			aFingure = null;
+			player.shootingSwitch = true;
+		}
+		if(step == 6){
+			TheController.pausedTutorial = true;
+			System.out.println("drawing Text 5");
+			aFingure = new Sprite(Assets.manager.get(Assets.aFinger));
+			aFingure.setSize(90, 90);
+			animating = true;
+		}
 		if(step == 5){
 			TheController.pausedTutorial = true;
 			System.out.println("drawing Text 4");
@@ -78,5 +93,25 @@ public class TutorialLevel extends L1 {
 			}
 		}
 		
+	}
+
+	public static void animating() {
+		if(step == 6){
+			fingerAnimCounter++;
+			if(fingerAnimCounter < 40){
+				aFingure.setX(390);
+				aFingure.setY(170);
+			}
+			if(fingerAnimCounter > 40){
+				if(aFingure.getX()>300){
+					aFingure.setX(aFingure.getX()-0.5f);
+				}else{
+					animating = false;
+				}
+				if(aFingure.getY()>80){
+					aFingure.setY(aFingure.getY()-0.5f);
+				}
+			}
+		}
 	}
 }

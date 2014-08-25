@@ -144,6 +144,9 @@ public class TheController extends InputAdapter {
 			level1.update(gui.getCroshair().isAiming(), touchPos, V3point,
 					collisionLayer, cameraHelper, dx, dy);
 		}
+		if(TutorialLevel.animating){
+			TutorialLevel.animating();
+		}
 		projectileCollisionDetection();
 		
 		if(!L1.explosions.isEmpty()){
@@ -307,7 +310,7 @@ public class TheController extends InputAdapter {
 		float camZoomSpeed = 0.1f * deltaTime;
 		float camZoomSpeedAccelerationFactor = 50;
 
-		if (pausedTutorial && Gdx.input.justTouched()){
+		if (pausedTutorial && Gdx.input.justTouched() && !TutorialLevel.animating){
 			TutorialLevel.step++;
 			pausedTutorial = false;
 		}

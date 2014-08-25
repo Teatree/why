@@ -15,6 +15,7 @@ import com.me.swampmonster.models.AbstractGameObject.NegativeEffects;
 import com.me.swampmonster.models.AbstractGameObject.State;
 import com.me.swampmonster.models.L1;
 import com.me.swampmonster.models.Player;
+import com.me.swampmonster.models.TutorialLevel;
 import com.me.swampmonster.models.slots.Perks;
 import com.me.swampmonster.models.slots.PositiveEffects;
 import com.me.swampmonster.slotMachineStuff.SlotMachineTextures;
@@ -392,6 +393,10 @@ public class GShape extends Group {
 			}
 			
 		}
+		if(TutorialLevel.aFingure != null){
+			batch.draw(TutorialLevel.aFingure, TutorialLevel.aFingure.getX(), TutorialLevel.aFingure.getY(), TutorialLevel.aFingure.getWidth(), TutorialLevel.aFingure.getHeight());
+		}
+		
 		
 //		if ((Gdx.input.isKeyPressed(Keys.BACK) || Gdx.input.isKeyPressed(Keys.ESCAPE))&& TheController.showExitMessage){
 //			TheController.showExitMessage = false;
