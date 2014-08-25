@@ -27,6 +27,7 @@ public class TutorialLevel extends L1 {
 		props = new ArrayList<Prop>();
 		Player.shootingSwitch = false;
 		step = 1;
+		aControl = new AnimationControl(Assets.manager.get(Assets.moveHere), 4, 1, 2);
 	}
 	
 	public void update(boolean aiming, Vector3 touchPos, Vector3 V3point,
@@ -34,13 +35,19 @@ public class TutorialLevel extends L1 {
 			CameraHelper cameraHelper, float dx, float dy) {
 		super.update(aiming, touchPos, V3point, collisionLayer, cameraHelper, dx, dy);
 		
-		
+		if(step == 5){
+			TheController.pausedTutorial = true;
+			System.out.println("drawing Text 4");
+		}
 		if(step == 4){
-			aControl = new AnimationControl(Assets.manager.get(Assets.moveHere), 1, 4, 7);
 			aControl.animate(0);
 			movehere = new Sprite(aControl.getCurrentFrame());
-			movehere.setX(208);
+			movehere.setX(535);
 			movehere.setY(400);
+			if(player.sprite.getBoundingRectangle().overlaps(movehere.getBoundingRectangle())){
+				step++;
+				movehere = null;
+			}
 		}
 		if(step == 3){
 			TheController.pausedTutorial = true;

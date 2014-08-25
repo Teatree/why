@@ -125,7 +125,7 @@ public class LGenerator {
 		String br = Gdx.files.internal("data\\" + "Map2.tmx").readString();
 		Gdx.files.local("MapTemp.tmx").writeString(br, false);
 		L1 tutorialLevel = new TutorialLevel("tileSet_SAND_WORLD", "MapTemp.tmx");
-		TutorialLevel.player = new Player(new Vector2(208,400));
+		TutorialLevel.player = new Player(new Vector2(298,400));
 		TutorialLevel.player.oxygen = Player.maxOxygen;
 		TutorialLevel.player.health = Player.playerMaxHealth;
 		TutorialLevel.player.setPositiveEffect(PositiveEffects.NONE);
