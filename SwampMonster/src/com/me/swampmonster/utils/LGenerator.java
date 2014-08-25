@@ -9,6 +9,7 @@ import java.util.Stack;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.me.swampmonster.game.TheController;
 import com.me.swampmonster.game.collision.CollisionHelper;
 import com.me.swampmonster.models.AbstractGameObject.NegativeEffects;
@@ -99,6 +100,8 @@ public class LGenerator {
 			v2 = calculateRandomPlayerPos();
 		}
 		player.setPosition(v2);
+		TheController.touchPos = new Vector3(v2.x+10, v2.y+5, 0);
+		System.err.println("toughtPos: " + TheController.touchPos);
 		propsSpawnGenerator.collisionLayer = TheController.collisionLayer;
 		
 		int propsInLevelAmount = random.nextInt(8) + 3;
@@ -122,21 +125,24 @@ public class LGenerator {
 		String br = Gdx.files.internal("data\\" + "Map2.tmx").readString();
 		Gdx.files.local("MapTemp.tmx").writeString(br, false);
 		L1 tutorialLevel = new TutorialLevel("tileSet_SAND_WORLD", "MapTemp.tmx");
-		TutorialLevel.player = new Player(new Vector2(230,230));
+		TutorialLevel.player = new Player(new Vector2(208,400));
 		TutorialLevel.player.oxygen = Player.maxOxygen;
 		TutorialLevel.player.health = Player.playerMaxHealth;
 		TutorialLevel.player.setPositiveEffect(PositiveEffects.NONE);
 		TutorialLevel.player.setNegativeEffect(NegativeEffects.NONE);
 		TutorialLevel.player.movementSpeed = 1.4f;
 		TutorialLevel.player.characterStatsBoard();
+		
+		TheController.touchPos = new Vector3(TutorialLevel.player.position.x+10, TutorialLevel.player.position.y+5, 0);
+		
 		TheController.collisionLayer = (TiledMapTileLayer) tutorialLevel.bunker.getMap().getLayers().get(0);
 		
 		Wave wave = new Wave();
 		wave.enemies = new Stack<Enemy>();
 		wave.enemiesOnBattleField = 3;
-		wave.enemies.push(new EnemyMaggot(new Vector2(400,400)));
-		wave.enemies.push(new EnemyZombie(new Vector2(440,400)));
-		wave.enemies.push(new EnemyLeech(new Vector2(480,400)));
+		wave.enemies.push(new EnemyMaggot(new Vector2(1520,944)));
+		wave.enemies.push(new EnemyZombie(new Vector2(1560, 944)));
+		wave.enemies.push(new EnemyLeech(new Vector2(1610, 944)));
 		tutorialLevel.wave = wave;
 		L1.enemiesOnStage = wave.enemies;
 		tutorialLevel.wave.enemies = new Stack<Enemy>();

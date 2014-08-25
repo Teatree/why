@@ -101,8 +101,8 @@ public class TheController extends InputAdapter {
 		gui = new GUI(player);
 		gui.getCroshair().setPosition(new Vector2(330f, 100f));
 
-		touchPos = new Vector3(player.getPosition().x + 10,
-				player.getPosition().y, 0);
+//		touchPos = new Vector3(player.getPosition().x + 10,
+//				player.getPosition().y, 0);
 		point = new Vector2();
 		V3point = new Vector3();
 		V3playerPos = new Vector3();
@@ -133,6 +133,8 @@ public class TheController extends InputAdapter {
 		pointRectV3.x = touchPos.x;
 		pointRectV3.y = touchPos.y;
 
+		System.err.println("toughtPos: " + touchPos);
+		
 		pointRect.x = point.x;
 		pointRect.y = point.y;
 

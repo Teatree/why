@@ -17,6 +17,7 @@ import com.me.swampmonster.models.Item;
 import com.me.swampmonster.models.L1;
 import com.me.swampmonster.models.Projectile;
 import com.me.swampmonster.models.Prop;
+import com.me.swampmonster.models.TutorialLevel;
 import com.me.swampmonster.models.enemies.Enemy;
 import com.me.swampmonster.utils.Constants;
 
@@ -291,7 +292,9 @@ public class L1Renderer {
 		}
 //		effect.draw(batch);
 //		effect.update(Gdx.graphics.getDeltaTime());
-		
+		if(TutorialLevel.movehere != null){
+			batch.draw(TutorialLevel.movehere, TutorialLevel.movehere.getX(), TutorialLevel.movehere.getY());
+		}
 		batch.end();
 		
 		// Temporary deBug feature
