@@ -1,5 +1,4 @@
 package com.me.swampmonster.game;
-import java.awt.Menu;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map.Entry;
@@ -89,13 +88,15 @@ public class TheController extends InputAdapter {
 		levelGenerator = new LGenerator();
 		System.err.println("lessBytes: " + MenuScreen.lessBytes);
 		if(MenuScreen.lessBytes == 1 && !MenuScreen.showTutorialButton){
-			level1 = LGenerator.createTutorialLevel();
+//			level1 = LGenerator.createTutorialLevel();
+			level1 = levelGenerator.createLevel(player);
 		}else if (MenuScreen.lessBytes == 1 && MenuScreen.showTutorialButton){
 			level1 = levelGenerator.createLevel(player);
 			Player.shootingSwitch = true;
 		}
 		if (MenuScreen.lessBytes == 2){
-			level1 = LGenerator.createTutorialLevel();
+//			level1 = LGenerator.createTutorialLevel();
+			level1 = levelGenerator.createLevel(player);
 		}
 		cameraHelper = new CameraHelper();
 		gui = new GUI(player);
@@ -447,14 +448,17 @@ public class TheController extends InputAdapter {
 
 	}
 
+	// TODO You also gotta change stuff here in orde to load tutorial level, bro!
 	public static void reloadLevel(Player player) {
 		if(MenuScreen.lessBytes == 1 && !MenuScreen.showTutorialButton){
-			level1 = LGenerator.createTutorialLevel();
+//			level1 = LGenerator.createTutorialLevel();
+			level1 = levelGenerator.createLevel(player);
 		}else if (MenuScreen.lessBytes == 1 && MenuScreen.showTutorialButton){
 			level1 = levelGenerator.createLevel(player);
 		}
 		if (MenuScreen.lessBytes == 2){
-			level1 = LGenerator.createTutorialLevel();
+//			level1 = LGenerator.createTutorialLevel();
+			level1 = levelGenerator.createLevel(player);
 		}
 	}
 

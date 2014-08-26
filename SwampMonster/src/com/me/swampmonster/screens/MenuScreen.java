@@ -2,6 +2,7 @@ package com.me.swampmonster.screens;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -14,6 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.me.swampmonster.utils.Assets;
 import com.me.swampmonster.utils.Constants;
 import com.me.swampmonster.utils.ScreenContainer;
 
@@ -30,11 +32,13 @@ public class MenuScreen extends AbstractGameScreen{
 	public static short lessBytes; 
 	public static boolean tutorialFinished;
 	public static boolean showTutorialButton;
+	public Music menuMusic;
 
 	
 	public MenuScreen(Game game) {
 		super(game);
 		skin = new Skin(Gdx.files.internal("skins\\style.json"), new TextureAtlas(Gdx.files.internal("skins\\main.pack")));
+		menuMusic = Assets.manager.get(Assets.menuBackgroundMusic);
 		
 		wrldConqueror = new Label(Constants.WORLDS_CONQUERROR, skin);
 		Gdx.input.setInputProcessor(stage);
@@ -55,6 +59,8 @@ public class MenuScreen extends AbstractGameScreen{
 	
 	@Override
 	public void show() {
+		menuMusic.play();
+		menuMusic.setLooping(true);
 		table = new Table();
 		stage = new Stage();
 		Image img = new Image(new Texture("data/ui/wrldcnqr.png"));
@@ -70,6 +76,7 @@ public class MenuScreen extends AbstractGameScreen{
 	        public void clicked(InputEvent event, float x, float y) {
 				lessBytes = 1;
 				Gdx.input.setInputProcessor(null);
+				menuMusic.stop();
 	            ((Game) Gdx.app.getApplicationListener()).setScreen(ScreenContainer.SS);
 	        }
 		});
@@ -83,6 +90,7 @@ public class MenuScreen extends AbstractGameScreen{
 					Gdx.input.setInputProcessor(null);
 					System.out.println("tutorial clicked");
 //					MenuScreen.tutorialFinished = false;
+					menuMusic.stop();
 		            ((Game) Gdx.app.getApplicationListener()).setScreen(ScreenContainer.SS);
 		        }
 			});

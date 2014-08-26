@@ -74,6 +74,7 @@ public class Player extends AbstractGameObject {
 	public Integer negativeEffectCounter;
 	private Random random;
 	public Rectangle fearRectangle;
+	public Turret turret;
 
 	public Circle aimingArea;
 	public Circle invalidSpawnArea;
@@ -214,6 +215,10 @@ public class Player extends AbstractGameObject {
 		shotDir.x = (position.x + sprite.getWidth() / 2) * 2 - V3point.x;
 		shotDir.y = (position.y + sprite.getHeight() / 2) * 2 - V3point.y;
 
+		if(turret!=null){
+			turret.update();
+		}
+		
 		// STANDARD
 		if (state.equals(State.STANDARD)) {
 			standart(touchPos, collisionLayer, dx, dy);

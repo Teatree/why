@@ -192,7 +192,16 @@ public class L1Renderer {
 					L1.player.trap.trapSprite.getHeight());
 		}
 		
-
+		if (L1.player.turret != null && L1.player.turret.position != null){
+			batch.draw(L1.player.turret.sprite, L1.player.turret.position.x, L1.player.turret.position.y);
+			if(L1.player.turret.projectiles!=null && !L1.player.turret.projectiles.isEmpty()){
+				for (Projectile p : L1.player.turret.projectiles){
+					batch.draw(p.sprite, p.position.x, p.position.y);
+				}
+			}
+		}
+		
+		
 		for (Prop p : L1.props) {
 			if (p.sprite != null) {
 				p.getSprite().setPosition(p.getPosition().x,

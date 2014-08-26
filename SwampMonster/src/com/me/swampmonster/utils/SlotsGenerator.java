@@ -22,6 +22,7 @@ import com.me.swampmonster.models.slots.RADIOACTIVE;
 import com.me.swampmonster.models.slots.SPEED_BOOST;
 import com.me.swampmonster.models.slots.ShadowArrow;
 import com.me.swampmonster.models.slots.Slot;
+import com.me.swampmonster.models.slots.TurretSkill;
 
 public class SlotsGenerator {
 
@@ -31,10 +32,10 @@ public class SlotsGenerator {
 	SlotParams slotParams;
 	
 	private static enum SlotParams{
-		p0_500(0, 8, 11, 16),
-		p500_1000(0, 9, 11, 16),
-		p1000_2000(0, 10, 11, 16),
-		p2000_4000(0, 11, 11, 16);
+		p0_500(0, 12, 12, 16),
+		p500_1000(0, 12, 12, 16),
+		p1000_2000(0, 12, 12, 16),
+		p2000_4000(0, 12, 12, 16);
 		
 		public final int minRandActiveSkillValue;
 		public final int maxRandActiveSkillValue;
@@ -64,12 +65,13 @@ public class SlotsGenerator {
 		slots.put(7, Arrows3.class);
 		slots.put(8, ShadowArrow.class);
 		slots.put(9, PoisonArrow.class);
-		slots.put(10, ExplosiveArrow.class);
-		slots.put(11, ImproveArrowDamage.class);
-		slots.put(12, ImproveArrowSpeed.class);
-		slots.put(13, ImproveMaxHealth.class);
-		slots.put(14, ImproveMaxOxygen.class);
-		slots.put(15, ImproveMovementSpeed.class);
+		slots.put(10, TurretSkill.class);
+		slots.put(11, ExplosiveArrow.class);
+		slots.put(12, ImproveArrowDamage.class);
+		slots.put(13, ImproveArrowSpeed.class);
+		slots.put(14, ImproveMaxHealth.class);
+		slots.put(15, ImproveMaxOxygen.class);
+		slots.put(16, ImproveMovementSpeed.class);
 	}
 
 	public static SlotsGenerator getSlotGenerator() {

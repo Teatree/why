@@ -4,6 +4,7 @@ import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.BitmapFontLoader;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 public class Assets {
@@ -17,6 +18,8 @@ public class Assets {
 	public static final AssetDescriptor<Texture> aimingAuraSprite = new AssetDescriptor<Texture>("data\\aimingAura.png", Texture.class);
 	public static final AssetDescriptor<Texture> enemyMaggot = new AssetDescriptor<Texture>("data\\EnemyMaggot_new.png", Texture.class);
 	public static final AssetDescriptor<Texture> enemy = new AssetDescriptor<Texture>("data\\EnemyTemp.png", Texture.class);
+	public static final AssetDescriptor<Texture> turretImg = new AssetDescriptor<Texture>("data\\turret.png", Texture.class);
+	public static final AssetDescriptor<Texture> TURRET_ICON = new AssetDescriptor<Texture>("data\\slotIcons\\TURRET_ICON.png", Texture.class);
 	public static final AssetDescriptor<Texture> HealthBarIcon = new AssetDescriptor<Texture>("data\\HealthBarIcon.png", Texture.class);
 	public static final AssetDescriptor<Texture> HealthBarTail = new AssetDescriptor<Texture>("data\\HealthBarTail.png", Texture.class);
 	public static final AssetDescriptor<Texture> HealthBarMiddle = new AssetDescriptor<Texture>("data\\HealthBarMiddle.png", Texture.class);
@@ -31,6 +34,7 @@ public class Assets {
 	public static final AssetDescriptor<Texture> moveHere = new AssetDescriptor<Texture>("data\\tutorialStuff\\moveHere.png", Texture.class);
 	public static final AssetDescriptor<Texture> aFinger = new AssetDescriptor<Texture>("data\\tutorialStuff\\aGoodLookingFinger.png", Texture.class);
 	public static final AssetDescriptor<Texture> greenPointerArrow = new AssetDescriptor<Texture>("data\\tutorialStuff\\greenPointerArrow.png", Texture.class);
+	public static final AssetDescriptor<Music> menuBackgroundMusic = new AssetDescriptor<Music>("data\\backgroundMusic.mp3", Music.class);
 	//:TODO change this!
 	public static final AssetDescriptor<Texture> propToxicPuddle = new AssetDescriptor<Texture>("data\\googleSaysItIsAPool.png", Texture.class);
 	
@@ -80,6 +84,9 @@ public class Assets {
 	public static final AssetDescriptor<Texture> explosiveTrap = new AssetDescriptor<Texture>("data\\explosiveTrap.png", Texture.class); 
 	public static final AssetDescriptor<Texture> exitMessageWindow = new AssetDescriptor<Texture>("data\\ExitMessageWindow.png", Texture.class); 
 	public static void load(){
+		manager.load(menuBackgroundMusic);
+		manager.load(turretImg);
+		manager.load(TURRET_ICON);
 		manager.load(bow);
 		manager.load(aimingAuraSprite);
 		manager.load(greenPointerArrow);

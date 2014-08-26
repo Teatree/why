@@ -36,6 +36,28 @@ public class Projectile extends AbstractGameObject {
 		}
 	}
 
+	public Projectile(Vector2 position) {
+
+		this.position = position;
+		sprite = new Sprite(EffectCarriers.NONE.sprite);
+		sprite.setSize(32, 32);
+		circle = new Circle();
+		circle.radius = 6;
+		damage = 1f;
+
+		state = State.STANDARD;
+
+		arrowMovementSpeed = 1.8f;
+
+		direction_x = 0;
+		direction_y = 0;
+
+		force = 1.8f;
+		resistance = 0.07f;
+
+		initialSurfaceLevel = getSurfaceLevelProjectile(TheController.collisionLayer);
+	}
+	
 	public Projectile(Vector2 position, float rot, EffectCarriers effect) {
 
 		this.position = position;

@@ -15,6 +15,7 @@ import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.me.swampmonster.AI.Node;
 import com.me.swampmonster.AI.Pathfinder;
 import com.me.swampmonster.animations.AnimationControl;
@@ -1041,6 +1042,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 		}
 	}
 
+	
 	@Override
 	public float getDx() {
 		return enemyDx;
