@@ -32,7 +32,7 @@ public class SlotsGenerator {
 	SlotParams slotParams;
 	
 	private static enum SlotParams{
-		p0_500(0, 12, 12, 16),
+		p0_500(9, 12, 12, 16),
 		p500_1000(0, 12, 12, 16),
 		p1000_2000(0, 12, 12, 16),
 		p2000_4000(0, 12, 12, 16);

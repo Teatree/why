@@ -64,6 +64,10 @@ public class TurretSkill extends Slot{
 		player.turret.killingAura.x = player.turret.position.x;
 		player.turret.killingAura.y = player.turret.position.y;
 		player.turret.killingAura.radius = 128;
+		player.turret.turretAimerBot.x = player.turret.position.x;
+		player.turret.turretAimerBot.y = player.turret.position.y;
+		player.turret.turretAimerBot.width = 5;
+		player.turret.turretAimerBot.height = 5;
 	}
 	
 	@Override

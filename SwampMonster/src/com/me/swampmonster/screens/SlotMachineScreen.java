@@ -103,12 +103,14 @@ public class SlotMachineScreen extends AbstractGameScreen {
 
 	@Override
 	public void resize(int width, int height) {
-
+		
 	}
 
 	@Override
 	public void show() {
+		slotMachineTextures = new SlotMachineTextures(player);
 
+		stage.addActor(slotMachineTextures);
 	}
 
 	@Override
