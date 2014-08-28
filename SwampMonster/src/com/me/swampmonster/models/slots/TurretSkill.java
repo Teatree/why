@@ -30,7 +30,7 @@ public class TurretSkill extends Slot{
 		turret = new Turret();
 		turret.damage = 1f;
 		turret.health = 10;
-		turret.attackSpeed = 40;
+		turret.attackSpeed = 80;
 		
 		switch (level) {
 		case 0:
@@ -59,6 +59,7 @@ public class TurretSkill extends Slot{
 	@Override
 	public void execute(Player player){
 		player.turret = this.turret;
+		player.turret.damage = 0.2f;
 		player.turret.position = new Vector2(player.position.x, player.position.y);
 		player.turret.killingAura = new Circle();
 		player.turret.killingAura.x = player.turret.position.x;

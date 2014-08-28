@@ -28,6 +28,7 @@ import com.me.swampmonster.models.Projectile;
 import com.me.swampmonster.models.Projectile.EffectCarriers;
 import com.me.swampmonster.models.Prop;
 import com.me.swampmonster.models.ToxicPuddle;
+import com.me.swampmonster.models.Turret;
 import com.me.swampmonster.models.slots.PositiveEffects;
 import com.me.swampmonster.models.slots.RADIOACTIVE;
 import com.me.swampmonster.utils.Assets;
@@ -205,7 +206,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 			for (Projectile projectile : player.projectiles) {
 				if (projectile != null
 						&& Intersector.overlaps(projectile.circle, rectanlge)
-						&& !hurt) {
+						&& !hurt ) {
 					hurt = true;
 					damageType = "player";
 					enemyHurt(player);
@@ -215,6 +216,19 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 				}
 			}
 
+		if (player.turret != null && player.turret.projectiles != null && !player.turret.projectiles.isEmpty()){
+				Iterator<Projectile> itrTP = player.turret.projectiles.iterator(); 
+				while(itrTP.hasNext()){
+					Projectile tp = itrTP.next();
+					if (Intersector.overlaps(tp.circle, rectanlge)
+							&& !hurt) {
+						hurt = true;
+						damageType = "turret";
+						enemyTurretHurt(player.turret);
+						itrTP.remove();
+				}
+			}
+		}
 		if (health <= 0) {
 			Player.enemiesKilled++;
 			state = State.DEAD;
@@ -235,7 +249,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 		// MOVEMENT + COLLISION PROCESSING AND DETECTION
 
 		// PURSUIT!
-		if (!hurt) {
+		if (!hurt ||(damageType != null && damageType.equals("turret"))) {
 			if (state.equals(State.PURSUIT)) {
 
 				sprite.setRegion(animations.get(state).getCurrentFrame());
@@ -279,7 +293,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 		if (state.equals(State.STANDARD) && !aiming) {
 			sprite.setRegion(animations.get(state).getCurrentFrame());
 			sprite.setBounds(sprite.getX(), sprite.getY(), 32, 32);
-			if (!hurt) {
+			if (!hurt ||(damageType != null && damageType.equals("turret"))) {
 				if (timer == 0 && timer2 == 0
 						&& !yellowAura.overlaps(player.circle)
 						&& player.state != State.DEAD) {
@@ -937,6 +951,13 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 		}
 	}
 
+	public void enemyTurretHurt(Turret turret) {
+		state = State.STANDARD;
+		if (health >= 0) {
+			health -= turret.damage;
+		}
+	}
+	
 	// temporary look
 	@Override
 	public void setPlayerMovementDirection(String playerMovementDirection) {

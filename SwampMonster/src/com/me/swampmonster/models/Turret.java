@@ -1,6 +1,7 @@
 package com.me.swampmonster.models;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -59,6 +60,8 @@ public class Turret extends AbstractGameObject {
 	
 				p.setDirection(direction_x, direction_y);
 				p.effect = EffectCarriers.NONE;
+				p.resistance = 0.0008f;
+//				p.force = 
 				this.projectiles.add(p);
 				
 				canAttack = false;
@@ -94,8 +97,14 @@ public class Turret extends AbstractGameObject {
 		}
 		
 		if (projectiles != null && !projectiles.isEmpty()) {
-			for (Projectile p : projectiles) {
+			Iterator<Projectile> itrP = projectiles.iterator();
+			while(itrP.hasNext()){
+				Projectile p = itrP.next();
 				p.update();
+				
+				if(p.state == State.DEAD){
+					itrP.remove();
+				}
 			}
 		}
 	}
