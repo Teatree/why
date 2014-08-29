@@ -333,7 +333,7 @@
   </tile>
  </tileset>
  <tileset firstgid="4097" name="tileSet_SAND_WORLD" tilewidth="16" tileheight="16">
-  <image source="tileSet_SAND_WORLD4.png" width="512" height="512"/>
+  <image source="tileSet_SAND_WORLD3.png" width="512" height="512"/>
  </tileset>
  <layer name="background" width="110" height="80">
   <data encoding="base64" compression="zlib">
