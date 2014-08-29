@@ -761,7 +761,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 						|| position.x+sprite.getWidth()/2 < (path[cunter].x * Constants.NodeSize) - 20
 						|| position.y > (path[cunter].y * Constants.NodeSize) - 10
 						|| position.y < (path[cunter].y * Constants.NodeSize) - 20) {
-					System.out.println("I realy should be moving on path right about now");
+//					System.out.println("I realy should be moving on path right about now");
 
 					if (collidableLeft == null || collidableRight == null) {
 						position.x += enemyPathDx * playerMovementSpeed;
