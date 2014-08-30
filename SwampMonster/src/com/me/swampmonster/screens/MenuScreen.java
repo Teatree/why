@@ -70,6 +70,7 @@ public class MenuScreen extends AbstractGameScreen{
 		stage.addActor(img);
 		
 		
+		table.add(wrldConqueror).padBottom(40).row();
 		playButton = new TextButton(Constants.PLAY, skin);
 		playButton.addListener(new ClickListener(){
 			@Override
@@ -81,6 +82,8 @@ public class MenuScreen extends AbstractGameScreen{
 	        }
 		});
 		
+		table.add(playButton).size(150,60).padBottom(20).row();
+//		showTutorialButton = true;
 		if(showTutorialButton){
 			tutorialButton = new TextButton(Constants.TUTORIAL, skin);
 			tutorialButton.addListener(new ClickListener(){
@@ -104,8 +107,6 @@ public class MenuScreen extends AbstractGameScreen{
 				Gdx.app.exit();
 			}
 		});
-		table.add(wrldConqueror).padBottom(40).row();
-	    table.add(playButton).size(150,60).padBottom(20).row();
 	    table.add(exitButton).size(150,60).padBottom(20).row();
 
 	    table.setFillParent(true);

@@ -6,6 +6,8 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.me.swampmonster.game.L1Renderer;
 import com.me.swampmonster.game.TheController;
+import com.me.swampmonster.models.L1;
+import com.me.swampmonster.utils.SaveManager;
 import com.me.swampmonster.utils.ScreenContainer;
 
 public class SwampScreen extends AbstractGameScreen  implements Screen {
@@ -23,7 +25,12 @@ public class SwampScreen extends AbstractGameScreen  implements Screen {
 		if(theController == null){
 			theController = new TheController(game, this.player);
 		}else{
-			TheController.reloadLevel(this.player);
+			L1 level = SaveManager.loadLevel();
+			if ( level == null){
+				TheController.reloadLevel(this.player);
+			} else {
+				TheController.level1 = level;
+			}
 		}
 		renderer = new L1Renderer(theController);
 		theController.l1Renderer = renderer;
