@@ -167,8 +167,8 @@ public class Constants {
 	public static final int FADE_CoolDown_L4 = 600;
 	public static final int FADE_CoolDown_L5 = 400;
 
-	public static final int FADE_LifeTime_L1 = 100;
-	public static final int FADE_LifeTime_L2 = 200;
+	public static final int FADE_LifeTime_L1 = 1000;
+	public static final int FADE_LifeTime_L2 = 1000;
 	public static final int FADE_LifeTime_L3 = 300;
 	public static final int FADE_LifeTime_L4 = 400;
 	public static final int FADE_LifeTime_L5 = 500;
@@ -178,6 +178,44 @@ public class Constants {
 	public static final String FADE_Description_L3 = "FADE of da Level 3";
 	public static final String FADE_Description_L4 = "FADE of da Level 4";
 	public static final String FADE_Description_L5 = "FADE of da Level 5";
+	
+	
+//	TURRET:
+	public static final int TURRET_CoolDown_L1 = 222;
+	public static final int TURRET_CoolDown_L2 = 222;
+	public static final int TURRET_CoolDown_L3 = 800;
+	public static final int TURRET_CoolDown_L4 = 600;
+	public static final int TURRET_CoolDown_L5 = 400;
+	
+	public static final int TURRET_LifeTime_L1 = 90000;
+	public static final int TURRET_LifeTime_L2 = 290000;
+	public static final int TURRET_LifeTime_L3 = 300;
+	public static final int TURRET_LifeTime_L4 = 400;
+	public static final int TURRET_LifeTime_L5 = 500;
+	
+	public static final int TURRET_Health_L1 = 2;
+	public static final int TURRET_Health_L2 = 3;
+	public static final int TURRET_Health_L3 = 3;
+	public static final int TURRET_Health_L4 = 4;
+	public static final int TURRET_Health_L5 = 5;
+	
+	public static final float TURRET_Damage_L1 = 1f;
+	public static final float TURRET_Damage_L2 = 1f;
+	public static final float TURRET_Damage_L3 = 2f;
+	public static final float TURRET_Damage_L4 = 2f;
+	public static final float TURRET_Damage_L5 = 3f;
+	
+	public static final int TURRET_AttackSpeed_L1 = 100;
+	public static final int TURRET_AttackSpeed_L2 = 80;
+	public static final int TURRET_AttackSpeed_L3 = 80;
+	public static final int TURRET_AttackSpeed_L4 = 60;
+	public static final int TURRET_AttackSpeed_L5 = 45;
+	
+	public static final String TURRET_Description_L1 = "FADE of da Level 1";
+	public static final String TURRET_Description_L2 = "FADE of da Level 2";
+	public static final String TURRET_Description_L3 = "FADE of da Level 3";
+	public static final String TURRET_Description_L4 = "FADE of da Level 4";
+	public static final String TURRET_Description_L5 = "FADE of da Level 5";
 	
 	
 //	FrostTrap:

@@ -77,6 +77,11 @@ public class AnimationControl {
 		currentFrame = new Animation(1, frames2, playType).getKeyFrame(i + stateTime*multiplier);
 		return currentFrame;
 	}
+	
+	public TextureRegion getCertainFrame(int i){
+		currentFrame = animation.getKeyFrame(i);
+		return currentFrame;
+	}
 
 	public TextureRegion getCurrentFrame() {
 		return currentFrame;

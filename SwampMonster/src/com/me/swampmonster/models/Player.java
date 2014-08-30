@@ -27,7 +27,7 @@ import com.me.swampmonster.models.slots.RADIOACTIVE;
 import com.me.swampmonster.models.slots.Trap;
 import com.me.swampmonster.utils.Assets;
 
-public class Player extends AbstractGameObject {
+public class Player extends AbstractGameObject{
 
 	private static final float FROZEN_MOVEMENT = 0.16f;
 	private static final float SPEED_BOOST_EFFECT = 1.1f;
@@ -217,6 +217,10 @@ public class Player extends AbstractGameObject {
 
 		if(turret!=null){
 			turret.update();
+			
+			if(turret.state == State.DEAD){
+				this.turret = null;
+			}
 		}
 		
 		// STANDARD

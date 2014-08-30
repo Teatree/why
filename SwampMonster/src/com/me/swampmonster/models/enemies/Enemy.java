@@ -52,6 +52,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 	public String projectileLocation;
 	public List<Projectile> enemyProjectiles;
 	public Toughness toughness;
+	public Vector2 target;
 
 	float enemyDx;
 	float enemyDy;
@@ -161,9 +162,29 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 //			negativeEffectCounter--;
 //		}
 		// Direction for the standard state
+		Vector2 target;
+		float distanceToPlayer;
+		float distanceToTurret;
+		if(player.turret != null){
+			System.out.println("yes turret is not null!");
+			distanceToPlayer = (float) Math.sqrt(Math.pow((this.position.x - player.position.x), 2) +
+					(Math.pow((this.position.y - player.position.y), 2)));
+			distanceToTurret = (float) Math.sqrt(Math.pow((this.position.x - player.turret.position.x), 2) +
+					(Math.pow((this.position.y - player.turret.position.y), 2)));
+			if(distanceToPlayer > distanceToTurret){
+				System.out.println("yes, player is further");
+				target = player.turret.position;
+				System.out.println("target is turret: " + player.turret.position);
+			}else{
+				target = player.position;
+			}
+		}else{
+			target = player.position;
+		}
+		
 		if (negativeEffectsState != NegativeEffects.FEAR) {
-			enemyDx = player.position.x - position.x;
-			enemyDy = player.position.y - position.y;
+			enemyDx = target.x - position.x;
+			enemyDy = target.y - position.y;
 		} else {
 			if (generateNewRandomPosForScared == 0) {
 				int randomTargetX = random.nextInt(1000);
@@ -295,7 +316,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 			sprite.setBounds(sprite.getX(), sprite.getY(), 32, 32);
 			if (!hurt ||(damageType != null && damageType.equals("turret"))) {
 				if (timer == 0 && timer2 == 0
-						&& !yellowAura.overlaps(player.circle)
+						&& !(yellowAura.overlaps(player.circle) || player.turret!=null && yellowAura.overlaps(player.turret.circle))
 						&& player.state != State.DEAD) {
 
 					collidableLeft = null;
@@ -304,7 +325,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 					collidableUp = null;
 
 					if (!preparingToCharge && !charging && !waiting) {
-						move(player, collidableLeft, collidableRight,
+						move(target, collidableLeft, collidableRight,
 								collidableDown, collidableUp, enemyDx, enemyDy,
 								movementSpeed, enemies);
 					}
@@ -329,6 +350,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 						timer2 = 0;
 					}
 
+					
 					atackLogic(player, cameraHelper);
 				}
 			}
@@ -467,6 +489,20 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 		if (yellowAura.overlaps(player.circle) && player.state != State.DEAD) {
 			attackSequenceStarted = true;
 		}
+		else if (player.turret != null && yellowAura.overlaps(player.turret.circle) && player.turret.state != State.DEAD) {
+			if (playerMovementDirection == "right") {
+				inflictToTurret(88, 56, player.turret, cameraHelper, attackSpeed);
+			}
+			if (playerMovementDirection == "left") {
+				inflictToTurret(72, 40, player.turret, cameraHelper, attackSpeed);
+			}
+			if (playerMovementDirection == "up") {
+				inflictToTurret(80, 48, player.turret, cameraHelper, attackSpeed);
+			}
+			if (playerMovementDirection == "down") {
+				inflictToTurret(64, 32, player.turret, cameraHelper, attackSpeed);
+			}
+		}
 
 		if (attackSequenceStarted) {
 			if (playerMovementDirection == "right") {
@@ -522,11 +558,11 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 
 	}
 
-	protected float getRotation(Player player) {
+	protected float getRotation(Vector2 target) {
 		double angle1 = Math.atan2(position.y
 				- (position.y + oRangeAura.radius / 2), position.x - 0);
-		double angle2 = Math.atan2(position.y - player.position.y, position.x
-				- player.position.x);
+		double angle2 = Math.atan2(position.y - target.y, position.x
+				- target.x);
 		return (float) (angle2 - angle1);
 	}
 
@@ -568,6 +604,48 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 						player.health -= damage;
 					}
 
+					timer = 0;
+					timer2 = 0;
+					attackSequenceStarted = false;
+				}
+			}
+		}
+	}
+	protected void inflictToTurret(int standing, int animation, Turret turret,
+			CameraHelper cameraHelper, int attackSpeed) {
+		// Timer is for the length of the actual animation
+		// Timer2 is for the waiting period
+		if (oldPos.x == position.x && oldPos.y == position.y) {
+			if (timer2 < attackSpeed) {
+				timer2++;
+				// // System.out.println("timer2: " + timer2 );
+				currentFrame = animationsStandard.get(state).animate(standing);
+			}
+			if (timer2 >= attackSpeed && timer < 30) {
+//				if (oRangeAura.overlaps(player.circle)) {
+//					cameraHelper.setShakeAmt(25);
+//					cameraHelper.cameraShake();
+//				}
+				// // System.out.println("timer1: " + timer);
+				currentFrame = animationsStandard.get(state)
+						.doComplexAnimation(animation, 1.8f,
+								Gdx.graphics.getDeltaTime(), Animation.NORMAL);
+				
+				sprite.setRegion(animationsStandard.get(state)
+						.getCurrentFrame());
+				sprite.setBounds(sprite.getX(), sprite.getY(), 32, 32);
+				timer++;
+				if (timer == 30 && timer2 >= attackSpeed) {
+					currentFrame = animationsStandard.get(state).animate(
+							standing);
+					// And may be inflict different hurts, direction/ kinds of
+					// hurts/ etc.
+					if (oRangeAura.overlaps(turret.circle)
+							&& !turret.hurt) {
+						turret.hurt = true;
+						turret.health -= damage;
+					}
+					
 					timer = 0;
 					timer2 = 0;
 					attackSequenceStarted = false;
@@ -681,15 +759,17 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 		return collidable;
 	}
 
-	public void move(AbstractGameObject player, Collidable collidableLeft,
+	public void move(Vector2 target, Collidable collidableLeft,
 			Collidable collidableRight, Collidable collidableDown,
 			Collidable collidableUp, float enemyDx, float enemyDy,
 			float playerMovementSpeed, List<Enemy> enemies) {
 		if (!iAmWaiting) {
-			if (position.x > player.getPosition().x - 4
-					|| position.x < player.getPosition().x - 10
-					|| position.y > player.getPosition().y - 4
-					|| position.y < player.getPosition().y - 10) {
+			
+			System.err.println("moving...");
+			if (position.x > target.x - 4
+					|| position.x < target.x - 10
+					|| position.y > target.y - 4
+					|| position.y < target.y - 10) {
 				// // System.out.println("yes it is !");
 				if (collidableLeft == null || collidableRight == null) {
 					position.x += enemyDx * playerMovementSpeed;
@@ -700,16 +780,16 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 				sprite.translateX(-playerMovementSpeed);
 			}
 
-			if (position.x > player.getPosition().x - 10) {
+			if (position.x > target.x - 10) {
 				playerMovementDirectionLR = "left";
 			}
-			if (position.x < player.getPosition().x - 10) {
+			if (position.x < target.x - 10) {
 				playerMovementDirectionLR = "right";
 			}
-			if (position.y > player.getPosition().y - 10) {
+			if (position.y > target.y - 10) {
 				playerMovementDirectionUD = "down";
 			}
-			if (position.y < player.getPosition().y - 10) {
+			if (position.y < target.y - 10) {
 				playerMovementDirectionUD = "up";
 			}
 
