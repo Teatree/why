@@ -63,6 +63,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 	boolean iAmWaiting = false;
 	boolean currentlyMovingOnPath = false;
 	boolean attackSequenceStarted = false;
+	boolean turretAttackSequenceStarted = false;
 
 	public Circle gReenAura;
 	public Circle oRangeAura;
@@ -166,15 +167,15 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 		float distanceToPlayer;
 		float distanceToTurret;
 		if(player.turret != null){
-			System.out.println("yes turret is not null!");
+//			System.out.println("yes turret is not null!");
 			distanceToPlayer = (float) Math.sqrt(Math.pow((this.position.x - player.position.x), 2) +
 					(Math.pow((this.position.y - player.position.y), 2)));
 			distanceToTurret = (float) Math.sqrt(Math.pow((this.position.x - player.turret.position.x), 2) +
 					(Math.pow((this.position.y - player.turret.position.y), 2)));
 			if(distanceToPlayer > distanceToTurret){
-				System.out.println("yes, player is further");
+//				System.out.println("yes, player is further");
 				target = player.turret.position;
-				System.out.println("target is turret: " + player.turret.position);
+//				System.out.println("target is turret: " + player.turret.position);
 			}else{
 				target = player.position;
 			}
@@ -489,19 +490,9 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 		if (yellowAura.overlaps(player.circle) && player.state != State.DEAD) {
 			attackSequenceStarted = true;
 		}
-		else if (player.turret != null && yellowAura.overlaps(player.turret.circle) && player.turret.state != State.DEAD) {
-			if (playerMovementDirection == "right") {
-				inflictToTurret(88, 56, player.turret, cameraHelper, attackSpeed);
-			}
-			if (playerMovementDirection == "left") {
-				inflictToTurret(72, 40, player.turret, cameraHelper, attackSpeed);
-			}
-			if (playerMovementDirection == "up") {
-				inflictToTurret(80, 48, player.turret, cameraHelper, attackSpeed);
-			}
-			if (playerMovementDirection == "down") {
-				inflictToTurret(64, 32, player.turret, cameraHelper, attackSpeed);
-			}
+		else if (player.turret != null && yellowAura.overlaps(player.turret.circle)
+				&& player.turret.state != State.DEAD && player.turret.state != State.DESPAWNING) {
+			turretAttackSequenceStarted = true;
 		}
 
 		if (attackSequenceStarted) {
@@ -516,6 +507,20 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 			}
 			if (playerMovementDirection == "down") {
 				inflictOnThe(64, 32, player, cameraHelper, attackSpeed);
+			}
+		}
+		if (turretAttackSequenceStarted) {
+			if (playerMovementDirection == "right") {
+				inflictToTurret(88, 56, player.turret, cameraHelper, attackSpeed);
+			}
+			if (playerMovementDirection == "left") {
+				inflictToTurret(72, 40, player.turret, cameraHelper, attackSpeed);
+			}
+			if (playerMovementDirection == "up") {
+				inflictToTurret(80, 48, player.turret, cameraHelper, attackSpeed);
+			}
+			if (playerMovementDirection == "down") {
+				inflictToTurret(64, 32, player.turret, cameraHelper, attackSpeed);
 			}
 		}
 	}
@@ -640,15 +645,16 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 							standing);
 					// And may be inflict different hurts, direction/ kinds of
 					// hurts/ etc.
-					if (oRangeAura.overlaps(turret.circle)
+					if (turret!=null && oRangeAura.overlaps(turret.circle)
 							&& !turret.hurt) {
 						turret.hurt = true;
 						turret.health -= damage;
+						System.out.println("turret health has been decreased by 1 + " + turret.health );
 					}
 					
 					timer = 0;
 					timer2 = 0;
-					attackSequenceStarted = false;
+					turretAttackSequenceStarted = false;
 				}
 			}
 		}
@@ -765,7 +771,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 			float playerMovementSpeed, List<Enemy> enemies) {
 		if (!iAmWaiting) {
 			
-			System.err.println("moving...");
+//			System.err.println("moving...");
 			if (position.x > target.x - 4
 					|| position.x < target.x - 10
 					|| position.y > target.y - 4

@@ -187,21 +187,21 @@ public class Constants {
 	public static final int TURRET_CoolDown_L4 = 600;
 	public static final int TURRET_CoolDown_L5 = 400;
 	
-	public static final int TURRET_LifeTime_L1 = 90000;
-	public static final int TURRET_LifeTime_L2 = 290000;
+	public static final int TURRET_LifeTime_L1 = 800;
+	public static final int TURRET_LifeTime_L2 = 1000;
 	public static final int TURRET_LifeTime_L3 = 300;
 	public static final int TURRET_LifeTime_L4 = 400;
 	public static final int TURRET_LifeTime_L5 = 500;
 	
-	public static final int TURRET_Health_L1 = 2;
-	public static final int TURRET_Health_L2 = 3;
-	public static final int TURRET_Health_L3 = 3;
-	public static final int TURRET_Health_L4 = 4;
+	public static final int TURRET_Health_L1 = 5;
+	public static final int TURRET_Health_L2 = 5;
+	public static final int TURRET_Health_L3 = 5;
+	public static final int TURRET_Health_L4 = 1;
 	public static final int TURRET_Health_L5 = 5;
 	
-	public static final float TURRET_Damage_L1 = 1f;
-	public static final float TURRET_Damage_L2 = 1f;
-	public static final float TURRET_Damage_L3 = 2f;
+	public static final float TURRET_Damage_L1 = 0.2f;
+	public static final float TURRET_Damage_L2 = 0.4f;
+	public static final float TURRET_Damage_L3 = 0.6f;
 	public static final float TURRET_Damage_L4 = 2f;
 	public static final float TURRET_Damage_L5 = 3f;
 	

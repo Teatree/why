@@ -12,11 +12,11 @@ import com.me.swampmonster.models.AbstractGameObject.State;
 import com.me.swampmonster.utils.Assets;
 import com.me.swampmonster.utils.Constants;
 
-public class TurretSkill extends Slot{
+public class TurretSkill extends Slot {
 
 	public Turret turret;
 	public static int level;
-	private static Map <Integer, String> descriptionByLevel;
+	private static Map<Integer, String> descriptionByLevel;
 	static {
 		descriptionByLevel = new HashMap<Integer, String>();
 		descriptionByLevel.put(0, Constants.TURRET_Description_L1);
@@ -25,11 +25,17 @@ public class TurretSkill extends Slot{
 		descriptionByLevel.put(3, Constants.TURRET_Description_L4);
 		descriptionByLevel.put(4, Constants.TURRET_Description_L5);
 	}
-	
-	public TurretSkill(){
+
+	public TurretSkill() {
 		sprite = new Sprite(Assets.manager.get(Assets.TURRET_ICON));
 		turret = new Turret();
 		turret.state = State.SPAWNING;
+
+	}
+
+	@Override
+	public void execute(Player player) {
+		System.out.println("execute, turret: " + player.turret);
 		
 		switch (level) {
 		case 0:
@@ -70,15 +76,14 @@ public class TurretSkill extends Slot{
 		}
 		
 		turret.standardLifeTime = turret.lifeTime - 50;
-	}
-	
-	@Override
-	public void execute(Player player){
-		System.out.println("execute");
+		
 		player.turret = this.turret;
 		player.turret.state = State.SPAWNING;
-		player.turret.damage = 0.2f;
-		player.turret.position = new Vector2(player.position.x, player.position.y);
+		player.turret.position = new Vector2(player.position.x,
+				player.position.y);
+		System.out.println("turret.pos : " + player.turret.position);
+		System.out.println("turret.STATE : " + player.turret.state);
+		System.out.println("turret.sprite : " + player.turret.sprite);
 		player.turret.killingAura = new Circle();
 		player.turret.killingAura.x = player.turret.position.x;
 		player.turret.killingAura.y = player.turret.position.y;
@@ -89,10 +94,12 @@ public class TurretSkill extends Slot{
 		player.turret.turretAimerBot.height = 5;
 		player.turret.circle = new Circle();
 		player.turret.circle.radius = 16;
-		player.turret.circle.x = player.turret.position.x + player.turret.sprite.getWidth()/2;
-		player.turret.circle.y = player.turret.position.y + player.turret.sprite.getHeight()/2;
+		player.turret.circle.x = player.turret.position.x
+				+ player.turret.sprite.getWidth() / 2;
+		player.turret.circle.y = player.turret.position.y
+				+ player.turret.sprite.getHeight() / 2;
 	}
-	
+
 	@Override
 	public String getDescription() {
 		return descriptionByLevel.get(level);

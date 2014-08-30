@@ -91,7 +91,7 @@ public class MenuScreen extends AbstractGameScreen{
 		        public void clicked(InputEvent event, float x, float y) {
 					lessBytes = 2;
 					Gdx.input.setInputProcessor(null);
-					System.out.println("tutorial clicked");
+//					System.out.println("tutorial clicked");
 //					MenuScreen.tutorialFinished = false;
 					menuMusic.stop();
 		            ((Game) Gdx.app.getApplicationListener()).setScreen(ScreenContainer.SS);

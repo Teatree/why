@@ -14,6 +14,7 @@ import com.me.swampmonster.animations.AnimationControl;
 import com.me.swampmonster.game.TheController;
 import com.me.swampmonster.game.collision.Collidable;
 import com.me.swampmonster.game.collision.CollisionHelper;
+import com.me.swampmonster.models.AbstractGameObject.State;
 import com.me.swampmonster.models.Projectile.EffectCarriers;
 import com.me.swampmonster.models.enemies.Enemy;
 import com.me.swampmonster.models.slots.PositiveEffects;
@@ -33,6 +34,7 @@ public class Turret extends AbstractGameObject {
 	private AnimationControl animControl;
 	
 	int counter;
+	public int time;
 	
 	public Turret() {
 		animControl = new AnimationControl(Assets.manager.get(Assets.turretImg), 4, 4, 4);
@@ -46,13 +48,12 @@ public class Turret extends AbstractGameObject {
 	public void update() {
 		
 		//:TODO GET THE ANIAMTIONS RIGHT!
-		if(lifeTime <= 0){
+		if(lifeTime <= 0 ){
 			state = State.DEAD;
-		}else if(lifeTime <= 100){
+		}else if(lifeTime <= 100 || health <= 0){
 			state = State.DESPAWNING;
 			animControl.doComplexAnimation(8, 2f, 0.03f, Animation.NORMAL);
 			sprite = new Sprite(animControl.getCurrentFrame());
-			
 		}else if(lifeTime <= standardLifeTime){
 			state = State.STANDARD;
 			animControl.animate(0);
@@ -64,6 +65,10 @@ public class Turret extends AbstractGameObject {
 		}
 		
 		lifeTime--;
+		if(state == State.DESPAWNING && lifeTime>= 100){
+			//:TODO change this as well, if you otta change the speed of the despawning animation
+			lifeTime = 100;
+		}
 		if(state == State.DESPAWNING){
 			// Aniamte
 		}
@@ -96,6 +101,7 @@ public class Turret extends AbstractGameObject {
 				
 				if(canAttack && counter == 0){
 					Projectile p = new Projectile(new Vector2(100, 100));
+					p.sprite = new Sprite(Assets.manager.get(Assets.turretProjectile));
 					p.setPosition(new Vector2(position.x + direction_x / 100 - 8,
 							position.y + direction_y / 100 - 8));
 		
@@ -121,7 +127,7 @@ public class Turret extends AbstractGameObject {
 							turretAimerBot.y += direction_y * 5;
 						}
 						if (collidable != null){
-							System.out.println("can't aimBot there!");
+//							System.out.println("can't aimBot there!");
 							turretAimerBot.x = position.x;
 							turretAimerBot.y = position.y;
 							
@@ -135,6 +141,15 @@ public class Turret extends AbstractGameObject {
 						
 						canAttack = true;
 					}
+				}
+			}
+			if(hurt){
+				if (time < 40) {
+					time++;
+
+				} else if (time > 39) {
+					hurt = false;
+					time = 0;
 				}
 			}
 		}

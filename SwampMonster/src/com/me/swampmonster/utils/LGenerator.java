@@ -53,7 +53,7 @@ public class LGenerator {
 		tileSets.put(3, "tileSet_SAND_WORLD4");
 		
 		//
-		System.out.println("ous " + Gdx.files);
+//		System.out.println("ous " + Gdx.files);
 		Gdx.files.local("Tiles.png").write(Gdx.files.internal("data\\Tiles.png").read(), false);
 		Gdx.files.local("tileSet_SAND_WORLD.png").write(Gdx.files.internal("data\\tileSet_SAND_WORLD.png").read(), false);
 		Gdx.files.local("tileSet_SAND_WORLD2.png").write(Gdx.files.internal("data\\tileSet_SAND_WORLD2.png").read(), false);
@@ -103,7 +103,7 @@ public class LGenerator {
 		}
 		player.setPosition(v2);
 		TheController.touchPos = new Vector3(v2.x+10, v2.y+5, 0);
-		System.err.println("toughtPos: " + TheController.touchPos);
+//		System.err.println("toughtPos: " + TheController.touchPos);
 		propsSpawnGenerator.collisionLayer = TheController.collisionLayer;
 		
 		int propsInLevelAmount = random.nextInt(8) + 3;

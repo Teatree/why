@@ -86,7 +86,7 @@ public class TheController extends InputAdapter {
 		Gdx.input.setInputProcessor(this);
 //		random = new Random();
 		levelGenerator = new LGenerator();
-		System.err.println("lessBytes: " + MenuScreen.lessBytes);
+//		System.err.println("lessBytes: " + MenuScreen.lessBytes);
 		if(MenuScreen.lessBytes == 1 && !MenuScreen.showTutorialButton){
 //			level1 = LGenerator.createTutorialLevel();
 			level1 = levelGenerator.createLevel(player);

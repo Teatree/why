@@ -19,6 +19,7 @@ public class Assets {
 	public static final AssetDescriptor<Texture> enemyMaggot = new AssetDescriptor<Texture>("data\\EnemyMaggot_new.png", Texture.class);
 	public static final AssetDescriptor<Texture> enemy = new AssetDescriptor<Texture>("data\\EnemyTemp.png", Texture.class);
 	public static final AssetDescriptor<Texture> turretImg = new AssetDescriptor<Texture>("data\\turret.png", Texture.class);
+	public static final AssetDescriptor<Texture> turretProjectile = new AssetDescriptor<Texture>("data\\turretProjectile.png", Texture.class);
 	public static final AssetDescriptor<Texture> TURRET_ICON = new AssetDescriptor<Texture>("data\\slotIcons\\TURRET_ICON.png", Texture.class);
 	public static final AssetDescriptor<Texture> HealthBarIcon = new AssetDescriptor<Texture>("data\\HealthBarIcon.png", Texture.class);
 	public static final AssetDescriptor<Texture> HealthBarTail = new AssetDescriptor<Texture>("data\\HealthBarTail.png", Texture.class);
@@ -87,6 +88,7 @@ public class Assets {
 		manager.load(menuBackgroundMusic);
 		manager.load(turretImg);
 		manager.load(TURRET_ICON);
+		manager.load(turretProjectile);
 		manager.load(bow);
 		manager.load(aimingAuraSprite);
 		manager.load(greenPointerArrow);

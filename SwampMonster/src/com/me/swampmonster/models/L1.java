@@ -259,7 +259,7 @@ public class L1 {
 				for (Explosion expl : explosions) {
 					if (Intersector.overlaps(expl.explCircle, e.rectanlge)) {
 						
-						System.err.println("Enemy position: " + e.position);
+//						System.err.println("Enemy position: " + e.position);
 						boolean fudge = expl.cause(e, collisionLayer);
 						
 						if (fudge)

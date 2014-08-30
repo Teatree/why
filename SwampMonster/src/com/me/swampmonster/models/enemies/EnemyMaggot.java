@@ -12,6 +12,7 @@ import com.me.swampmonster.animations.AnimationControl;
 import com.me.swampmonster.game.collision.Collidable;
 import com.me.swampmonster.game.collision.CollisionHelper;
 import com.me.swampmonster.models.Player;
+import com.me.swampmonster.models.AbstractGameObject.State;
 import com.me.swampmonster.utils.Assets;
 import com.me.swampmonster.utils.CameraHelper;
 
@@ -226,6 +227,9 @@ public class EnemyMaggot extends Enemy {
 		if (yellowAura.overlaps(player.circle) && player.state != State.DEAD && !charging) {
 			attackSequenceStarted = true;
 		}
+		else if (player.turret != null && yellowAura.overlaps(player.turret.circle) && player.turret.state != State.DEAD) {
+			turretAttackSequenceStarted = true;
+		}
 		
 		if (aimingAura.overlaps(player.circle) && !attackSequenceStarted && player.state != State.DEAD && !charging) {
 			if (rand.nextInt(randomChargeCounter) == randomChargeCounter-1) {
@@ -246,6 +250,20 @@ public class EnemyMaggot extends Enemy {
 			}
 			if (playerMovementDirection == "down") {
 				inflictOnThe(64, 32, player, cameraHelper, attackSpeed);
+			}
+		}
+		if (turretAttackSequenceStarted) {
+			if (playerMovementDirection == "right") {
+				inflictToTurret(88, 56, player.turret, cameraHelper, attackSpeed);
+			}
+			if (playerMovementDirection == "left") {
+				inflictToTurret(72, 40, player.turret, cameraHelper, attackSpeed);
+			}
+			if (playerMovementDirection == "up") {
+				inflictToTurret(80, 48, player.turret, cameraHelper, attackSpeed);
+			}
+			if (playerMovementDirection == "down") {
+				inflictToTurret(64, 32, player.turret, cameraHelper, attackSpeed);
 			}
 		}
 	}

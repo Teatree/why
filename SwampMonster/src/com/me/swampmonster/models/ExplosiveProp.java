@@ -50,7 +50,7 @@ public class ExplosiveProp extends Prop {
 	@Override
 	public void toDoSomething(AbstractGameObject abs) {
 		// TODO Auto-generated method stub
-		System.out.println("doing Somehting and have abs as parameter");
+//		System.out.println("doing Somehting and have abs as parameter");
 		
 	}
 

@@ -55,7 +55,7 @@ public class L1Renderer {
 		stage = new Stage(Constants.VIEWPORT_WIDTH, Constants.VIEWPORT_HEIGHT,
 				false, batch);
 		sr = new ShapeRenderer();
-		System.out.println(TheController.level1);
+		// System.out.println(TheController.level1);
 		mapRenderer = new OrthogonalTiledMapRenderer(
 				TheController.level1.bunker.getMap());
 
@@ -199,17 +199,6 @@ public class L1Renderer {
 					L1.player.trap.trapSprite.getHeight());
 		}
 
-		if (L1.player.turret != null && L1.player.turret.position != null) {
-			batch.draw(L1.player.turret.sprite, L1.player.turret.position.x,
-					L1.player.turret.position.y);
-			if (L1.player.turret.projectiles != null
-					&& !L1.player.turret.projectiles.isEmpty()) {
-				for (Projectile p : L1.player.turret.projectiles) {
-					 batch.draw(p.sprite, p.position.x, p.position.y);
-				}
-			}
-		}
-
 		for (Prop p : L1.props) {
 			if (p.sprite != null) {
 				p.getSprite().setPosition(p.getPosition().x, p.getPosition().y);
@@ -259,6 +248,36 @@ public class L1Renderer {
 					enemy.getSprite().draw(batch);
 				}
 
+			}
+		}
+
+		if (L1.player.turret != null && L1.player.turret.position != null) {
+			if (L1.player.turret.hurt) {
+				System.out
+						.println("I really should be flickering red right now!");
+				if (L1.player.turret.time == 4 || L1.player.turret.time == 24) {
+					L1.player.turret.sprite.setColor(
+
+					L1.player.turret.sprite.getColor().r,
+							L1.player.turret.sprite.getColor().g - 1,
+							L1.player.turret.sprite.getColor().b - 1,
+							L1.player.turret.sprite.getColor().a);
+				}
+				if (L1.player.turret.time == 14 || L1.player.turret.time == 34) {
+					L1.player.turret.sprite.setColor(
+							L1.player.turret.sprite.getColor().r,
+							L1.player.turret.sprite.getColor().g + 1,
+							L1.player.turret.sprite.getColor().b + 1,
+							L1.player.turret.sprite.getColor().a);
+				}
+			}
+			batch.draw(L1.player.turret.sprite, L1.player.turret.position.x,
+					L1.player.turret.position.y);
+			if (L1.player.turret.projectiles != null
+					&& !L1.player.turret.projectiles.isEmpty()) {
+				for (Projectile p : L1.player.turret.projectiles) {
+					batch.draw(p.sprite, p.position.x, p.position.y);
+				}
 			}
 		}
 
@@ -318,30 +337,31 @@ public class L1Renderer {
 
 		// Temporary deBug feature
 		sr.begin(ShapeType.Line);
-		 for (Enemy enemy : L1.enemiesOnStage){
-		// sr.setColor(Color.GREEN);
-		// sr.circle(enemy.getgReenAura().x, enemy.getgReenAura().y,
-		// enemy.getgReenAura().radius);
-		// sr.setColor(Color.BLUE);
-		// sr.circle(enemy.getoRangeAura().x, enemy.getoRangeAura().y,
-		// enemy.getoRangeAura().radius);
-		 sr.setColor(Color.YELLOW);
-		 sr.circle(enemy.yellowAura.x, enemy.yellowAura.y,
-		 enemy.yellowAura.radius);
-		// sr.setColor(Color.BLACK);
-		// sr.circle(theController.explosion.position.x,
-		// theController.explosion.position.y,
-		// theController.explosion.explCircle.radius);
-		// sr.circle(enemy.aimingAura.x, enemy.aimingAura.y,
-		// enemy.aimingAura.radius);
-		 }
+		for (Enemy enemy : L1.enemiesOnStage) {
+			// sr.setColor(Color.GREEN);
+			// sr.circle(enemy.getgReenAura().x, enemy.getgReenAura().y,
+			// enemy.getgReenAura().radius);
+			// sr.setColor(Color.BLUE);
+			// sr.circle(enemy.getoRangeAura().x, enemy.getoRangeAura().y,
+			// enemy.getoRangeAura().radius);
+			sr.setColor(Color.YELLOW);
+			sr.circle(enemy.yellowAura.x, enemy.yellowAura.y,
+					enemy.yellowAura.radius);
+			// sr.setColor(Color.BLACK);
+			// sr.circle(theController.explosion.position.x,
+			// theController.explosion.position.y,
+			// theController.explosion.explCircle.radius);
+			// sr.circle(enemy.aimingAura.x, enemy.aimingAura.y,
+			// enemy.aimingAura.radius);
+		}
 
 		if (L1.player.turret != null) {
 			sr.rect(L1.player.turret.turretAimerBot.x,
 					L1.player.turret.turretAimerBot.y,
 					L1.player.turret.turretAimerBot.width,
 					L1.player.turret.turretAimerBot.height);
-			sr.circle(L1.player.turret.circle.x, L1.player.turret.circle.y, L1.player.turret.circle.radius);
+			sr.circle(L1.player.turret.circle.x, L1.player.turret.circle.y,
+					L1.player.turret.circle.radius);
 		}
 
 		for (Projectile p : L1.player.projectiles) {
