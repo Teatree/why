@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Circle;
@@ -14,12 +13,9 @@ import com.me.swampmonster.animations.AnimationControl;
 import com.me.swampmonster.game.TheController;
 import com.me.swampmonster.game.collision.Collidable;
 import com.me.swampmonster.game.collision.CollisionHelper;
-import com.me.swampmonster.models.AbstractGameObject.State;
 import com.me.swampmonster.models.Projectile.EffectCarriers;
 import com.me.swampmonster.models.enemies.Enemy;
-import com.me.swampmonster.models.slots.PositiveEffects;
 import com.me.swampmonster.utils.Assets;
-import com.me.swampmonster.utils.Constants;
 
 public class Turret extends AbstractGameObject {
 
@@ -107,7 +103,7 @@ public class Turret extends AbstractGameObject {
 		
 					p.setDirection(direction_x, direction_y);
 					p.effect = EffectCarriers.NONE;
-					p.resistance = 0.0008f;
+					Projectile.resistance = 0.0008f;
 	//				p.force = 
 					this.projectiles.add(p);
 					

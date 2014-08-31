@@ -4,6 +4,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.math.Vector2;
 import com.me.swampmonster.models.Player;
+import com.me.swampmonster.utils.SaveManager;
 
 public abstract class AbstractGameScreen implements Screen {
 	protected Game game;
@@ -12,7 +13,10 @@ public abstract class AbstractGameScreen implements Screen {
 	
 	public AbstractGameScreen(Game game){
 		this.game = game;
-		player = new Player(new Vector2());
+		player = SaveManager.loadPlayer();
+		if (player == null) {
+			player = new Player(new Vector2());
+		} 
 	}
 	
 	@Override

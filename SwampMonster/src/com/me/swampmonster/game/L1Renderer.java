@@ -15,6 +15,7 @@ import com.me.swampmonster.models.AbstractGameObject.State;
 import com.me.swampmonster.models.Explosion;
 import com.me.swampmonster.models.Item;
 import com.me.swampmonster.models.L1;
+import com.me.swampmonster.models.Player;
 import com.me.swampmonster.models.Projectile;
 import com.me.swampmonster.models.Prop;
 import com.me.swampmonster.models.TutorialLevel;
@@ -284,7 +285,7 @@ public class L1Renderer {
 		L1.player.getSprite().setPosition(L1.player.getPosition().x,
 				L1.player.getPosition().y);
 		L1.player.getSprite().draw(batch);
-		if (L1.player.shootingSwitch) {
+		if (Player.shootingSwitch) {
 			L1.player.aimingAuraSprite.draw(batch);
 		}
 		// batch.draw(TheController.level1.player.getSprite(),

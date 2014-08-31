@@ -63,7 +63,7 @@ public class GShape extends Group {
 		
 		font = Assets.manager.get(Assets.font);
 		
-		str = "points: " + Player.score;
+		str = "points: " + Player.levelsScore;
 		str2 = "Wave:" + TheController.level1.currentWave + "/" + TheController.level1.wavesAmount;
 		str3 = "Wave:" + TheController.level1.currentWave;
 		
@@ -328,7 +328,7 @@ public class GShape extends Group {
 			font.draw(batch, wittyMessage, feedbackWindow.getBoundingRectangle().x+20, feedbackWindow.getBoundingRectangle().y+280);
 			font.setColor(Color.BLACK);
 			font.setScale(0.75f);
-			font.draw(batch, Constants.SCORE + Player.score, feedbackWindow.getBoundingRectangle().x+25, feedbackWindow.getBoundingRectangle().y+240);
+			font.draw(batch, Constants.SCORE + Player.levelsScore, feedbackWindow.getBoundingRectangle().x+25, feedbackWindow.getBoundingRectangle().y+240);
 			font.draw(batch, Constants.ENEMIES_KILLED + Player.enemiesKilled, feedbackWindow.getBoundingRectangle().x+25, feedbackWindow.getBoundingRectangle().y+215);
 			font.draw(batch, Constants.SHOT_ARROWS + Player.shotArrows, feedbackWindow.getBoundingRectangle().x+25, feedbackWindow.getBoundingRectangle().y+190);
 			font.setColor(Color.GREEN);
@@ -354,7 +354,7 @@ public class GShape extends Group {
 			sr.arc(theController.gui.getWeaponizer().position.x,
 					theController.gui.getWeaponizer().position.y,
 					theController.gui.getWeaponizer().circle.radius, 90,
-					theController.coolDownAngle);
+					TheController.coolDownAngle);
 		}
 		if(TheController.paused || TheController.pausedTutorial){
 			sr.setColor(new Color(0.5f,0.5f,0.5f,0.5f));
@@ -388,6 +388,7 @@ public class GShape extends Group {
 			}
 			if (Gdx.input.justTouched()
 					&& backToGame.getBoundingRectangle().contains(victor2)){
+				System.out.println("back to game");
 				TheController.gotoToMenu = false;
 				TheController.paused = false;
 			}

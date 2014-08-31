@@ -53,9 +53,9 @@ public class L1 {
 
 	public void create(String tileSet, String tileMap, boolean isElite) {
 		this.isElite = isElite;
-		wavesAmount = waveGenerator.getWavesAmount(Player.score, hasAtmosphere, isElite);
+		wavesAmount = waveGenerator.getWavesAmount(Player.absoluteScore, hasAtmosphere, isElite);
 		currentWave = 1;
-		wave = waveGenerator.generateWave(Player.score, hasAtmosphere, isElite);
+		wave = waveGenerator.generateWave(Player.absoluteScore, hasAtmosphere, isElite);
 		enemiesOnStage = new Stack<Enemy>();
 		bunker = new Bunker(tileSet, tileMap);
 		items = new LinkedList<Item>();
@@ -135,7 +135,7 @@ public class L1 {
 		
 		if (waveTemp == null && needTogenerateNewWave) {
 			needTogenerateNewWave = false;
-			waveTemp = waveGenerator.generateWave(Player.score, hasAtmosphere, isElite);
+			waveTemp = waveGenerator.generateWave(Player.levelsScore, hasAtmosphere, isElite);
 		}
 
 		if (enemiesOnStage.empty() && waveTemp != null

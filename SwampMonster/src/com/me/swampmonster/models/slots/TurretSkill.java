@@ -6,9 +6,9 @@ import java.util.Map;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector2;
+import com.me.swampmonster.models.AbstractGameObject.State;
 import com.me.swampmonster.models.Player;
 import com.me.swampmonster.models.Turret;
-import com.me.swampmonster.models.AbstractGameObject.State;
 import com.me.swampmonster.utils.Assets;
 import com.me.swampmonster.utils.Constants;
 

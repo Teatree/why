@@ -28,14 +28,31 @@ public class SaveManager {
     
     public static void savePlayer(){
     	Json json = new Json();
-    	writeFile("player.sav", json.toJson(L1.player));
+    	JsomPlayer somPlayer = new JsomPlayer();
+    	somPlayer.maxOxygen = Player.maxOxygen;
+    	somPlayer.playerMaxHealth = Player.playerMaxHealth;
+    	somPlayer.score = Player.absoluteScore;
+    	somPlayer.arrowMovementSpeed = Player.arrowMovementSpeed;
+    	somPlayer.movementSpeed = L1.player.movementSpeed;
+    	somPlayer.damage = L1.player.damage;
+    	writeFile("player.sav", json.toJson(somPlayer));
     }
     
     public static Player loadPlayer(){
     	String save = readFile("player.sav");
         if (!save.isEmpty()) {
 	    	Json json = new Json();
-	        Player player = json.fromJson(Player.class, save);
+	        JsomPlayer somPlayer = json.fromJson(JsomPlayer.class, save);
+	        Player player = new Player(new Vector2());
+	        Player.maxOxygen = somPlayer.maxOxygen;
+	        Player.maxHealth = somPlayer.playerMaxHealth;
+	        Player.playerMaxHealth = somPlayer.playerMaxHealth;
+	        Player.absoluteScore = somPlayer.score;
+	        Player.arrowMovementSpeed = somPlayer.arrowMovementSpeed;
+	        player.oxygen = Player.maxOxygen;
+	        player.health = Player.maxHealth;
+	        player.damage = somPlayer.damage;
+	        player.movementSpeed = somPlayer.movementSpeed;
 	        return player;
         } else {
         	return new Player(new Vector2());
@@ -44,7 +61,6 @@ public class SaveManager {
     
     public static void saveLevel(){
     	Json json = new Json();
-    	System.out.println("!" + json.toJson(TheController.level1));
     	writeFile("world.sav", json.toJson(TheController.level1));
     }
     

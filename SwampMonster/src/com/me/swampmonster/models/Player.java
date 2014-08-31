@@ -27,7 +27,7 @@ import com.me.swampmonster.models.slots.RADIOACTIVE;
 import com.me.swampmonster.models.slots.Trap;
 import com.me.swampmonster.utils.Assets;
 
-public class Player extends AbstractGameObject{
+public class Player extends AbstractGameObject {
 
 	private static final float FROZEN_MOVEMENT = 0.16f;
 	private static final float SPEED_BOOST_EFFECT = 1.1f;
@@ -36,9 +36,9 @@ public class Player extends AbstractGameObject{
 	public static int enemiesKilled;
 	public static int playerKilled;
 	public static int shotArrows;
-	
+
 	public static boolean shootingSwitch;
-	
+
 	public Sprite positiveEffectSprite;
 	public Sprite aimingAuraSprite;
 	int time = 0;
@@ -67,9 +67,10 @@ public class Player extends AbstractGameObject{
 	public Vector3 V3playerPos;
 	public Vector3 aimLineHead;
 	public float oxygen;
-	public static float maxOxygen = 96;
-	public static int playerMaxHealth = 8;
-	public static int score = 0;
+	public static float maxOxygen;
+	public static int playerMaxHealth;
+	public static int absoluteScore;
+	public static int levelsScore;
 	public Integer positiveEffectCounter;
 	public Integer negativeEffectCounter;
 	private Random random;
@@ -77,7 +78,7 @@ public class Player extends AbstractGameObject{
 	public Turret turret;
 
 	public Circle aimingArea;
-	public Circle invalidSpawnArea;
+	// public Circle invalidSpawnArea;
 
 	public Enemy harmfulEnemy;
 
@@ -91,8 +92,12 @@ public class Player extends AbstractGameObject{
 	public int trapTimer;
 
 	public EffectCarriers arrowEffectCarrier;
+	public static float arrowMovementSpeed;
 
 	public Player(Vector2 position) {
+		maxOxygen = 96;
+		playerMaxHealth = 8;
+		levelsScore = absoluteScore;
 		state = State.STANDARD;
 		positiveEffectsState = PositiveEffects.NONE;
 		negativeEffectsState = NegativeEffects.NONE;
@@ -104,14 +109,15 @@ public class Player extends AbstractGameObject{
 		bowFrames = TextureRegion.split((Assets.manager.get(Assets.bow)), 32,
 				32);
 		bow = new Sprite(bowFrames[0][0]);
-		aimingAuraFrames = TextureRegion.split((Assets.manager.get(Assets.aimingAuraSprite)), 64, 64);
+		aimingAuraFrames = TextureRegion.split(
+				(Assets.manager.get(Assets.aimingAuraSprite)), 64, 64);
 		aimingAuraSprite = new Sprite(aimingAuraFrames[0][0]);
 		aimingAuraSprite.setSize(48, 48);
 		hurt = false;
 		aimingArea = new Circle();
 		aimingArea.radius = 8;
-		invalidSpawnArea = new Circle();
-		invalidSpawnArea.radius = 90;
+		// invalidSpawnArea = new Circle();
+		// invalidSpawnArea.radius = 90;
 		circle = new Circle();
 		circle.radius = 16;
 		V3playerPos = new Vector3();
@@ -142,6 +148,7 @@ public class Player extends AbstractGameObject{
 		maskOn = true;
 		justSpawned = true;
 		shooting = false;
+		arrowMovementSpeed = 1.8f;
 
 		// ***Character stats board***
 		characterStatsBoard();
@@ -174,8 +181,9 @@ public class Player extends AbstractGameObject{
 
 	public void update(boolean aiming, Vector3 touchPos, Vector3 V3point,
 			TiledMapTileLayer collisionLayer, float dx, float dy) {
-		
-//		System.out.println("player pos: " + position.x + " : " + position.y + " __ " + position);
+
+		// System.out.println("player pos: " + position.x + " : " + position.y +
+		// " __ " + position);
 		oldPos.x = position.x;
 		oldPos.y = position.y;
 
@@ -184,8 +192,8 @@ public class Player extends AbstractGameObject{
 
 		aimingArea.x = position.x + sprite.getWidth() / 2;
 		aimingArea.y = position.y + sprite.getHeight() / 2;
-		invalidSpawnArea.x = position.x + 8;
-		invalidSpawnArea.y = position.y + 16;
+		// invalidSpawnArea.x = position.x + 8;
+		// invalidSpawnArea.y = position.y + 16;
 
 		V3playerPos.x = position.x + circle.radius / 2;
 		V3playerPos.y = position.y + circle.radius / 2;
@@ -199,9 +207,9 @@ public class Player extends AbstractGameObject{
 		rectanlge.width = sprite.getWidth();
 		rectanlge.height = sprite.getHeight();
 
-		aimingAuraSprite.setX(position.x-9);
-		aimingAuraSprite.setY(position.y-8);
-		
+		aimingAuraSprite.setX(position.x - 9);
+		aimingAuraSprite.setY(position.y - 8);
+
 		if (!L1.hasAtmosphere) {
 			oxygen -= 0.005f;
 		}
@@ -215,14 +223,14 @@ public class Player extends AbstractGameObject{
 		shotDir.x = (position.x + sprite.getWidth() / 2) * 2 - V3point.x;
 		shotDir.y = (position.y + sprite.getHeight() / 2) * 2 - V3point.y;
 
-		if(turret!=null){
+		if (turret != null) {
 			turret.update();
-			
-			if(turret.state == State.DEAD){
+
+			if (turret.state == State.DEAD) {
 				this.turret = null;
 			}
 		}
-		
+
 		// STANDARD
 		if (state.equals(State.STANDARD)) {
 			standart(touchPos, collisionLayer, dx, dy);
@@ -271,19 +279,19 @@ public class Player extends AbstractGameObject{
 		}
 
 		updateTrap();
-		
-		
+
 		Iterator<Prop> propItr = L1.props.iterator();
 		while (propItr.hasNext()) {
 			Prop prop = propItr.next();
-			
+
 			float propDx = prop.position.x - V3playerPos.x;
 			float propDy = prop.position.y - V3playerPos.y;
 
-			float length1 = (float) Math.sqrt(propDx * propDx + propDy * propDy);
+			float length1 = (float) Math
+					.sqrt(propDx * propDx + propDy * propDy);
 			propDx /= length1;
 			propDy /= length1;
-			
+
 			if (prop.sprite.getBoundingRectangle().overlaps(
 					this.sprite.getBoundingRectangle())) {
 
@@ -307,11 +315,13 @@ public class Player extends AbstractGameObject{
 							prop.position.y, collisionLayer);
 
 					if (cL == null && propDx <= 0 || cR == null && propDx > 0) {
-						prop.position.x += propDx/2 /** movementSpeed*4 */;
+						prop.position.x += propDx / 2 /** movementSpeed*4 */
+						;
 						// position.x += getDx()* movementSpeed;
 					}
 					if (cD == null && propDy <= 0 || cU == null && propDy > 0) {
-						prop.position.y += propDy/2 /** movementSpeed*4 */;
+						prop.position.y += propDy / 2 /** movementSpeed*4 */
+						;
 						// position.y += getDy()* movementSpeed;
 					}
 				}
@@ -335,10 +345,10 @@ public class Player extends AbstractGameObject{
 			if (p.isCollisionNBreakable(collisionLayer) && L1.hasAtmosphere) {
 				Explosion expl = new Explosion(new Vector2(p.position.x,
 						p.position.y), Explosion.EXPLOSION_TYPE_INVERTED);
-				
+
 				L1.explosions.add(expl);
 				L1.hasAtmosphere = false;
-				
+
 				prj.remove();
 			}
 			if (p != null && p.state == State.DEAD) {

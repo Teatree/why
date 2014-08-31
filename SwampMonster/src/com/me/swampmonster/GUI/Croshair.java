@@ -1,7 +1,5 @@
 package com.me.swampmonster.GUI;
 
-
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -85,7 +83,7 @@ public class Croshair extends AbstractGameObject{
 //		}
 		
 		if(doesIntersect(new Vector2(player.circle.x, player.circle.y), player.circle.radius*2, new Vector2(V3point.x, V3point.y))
-				&& !aiming && Gdx.input.isTouched() && player.shootingSwitch){
+				&& !aiming && Gdx.input.isTouched() && Player.shootingSwitch){
 			player.state = State.GUNMOVEMENT;
 			aiming = true;
 		}else if(!doesIntersect(new Vector2(player.circle.x, player.circle.y), player.circle.radius*2, new Vector2(V3point.x, V3point.y))

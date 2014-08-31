@@ -5,7 +5,6 @@ import java.util.Map;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.me.swampmonster.models.Player;
-import com.me.swampmonster.models.Projectile;
 import com.me.swampmonster.utils.Assets;
 import com.me.swampmonster.utils.Constants;
 
@@ -36,7 +35,7 @@ public class ImproveArrowSpeed extends Slot implements Perks{
 	
 	@Override
 	public void execute (Player player){
-		Projectile.arrowMovementSpeed += valuesByLevel.get(level);
+		Player.arrowMovementSpeed += valuesByLevel.get(level);
 	}
 	
 	@Override

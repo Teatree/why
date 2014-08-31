@@ -17,7 +17,7 @@ public class MainSwamp extends Game {
 	}
 	@Override
 	public void dispose() {
-//		SaveManager.saveLevel();
+		SaveManager.savePlayer();
 		super.dispose();
 	}
 	@Override

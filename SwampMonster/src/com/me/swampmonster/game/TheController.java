@@ -219,7 +219,7 @@ public class TheController extends InputAdapter {
 			// System.err.println("points: " + Player.score);
 			// System.err.println("getKey: " + e.getKey());
 
-			if (e != null && e.getKey() <= Player.score) {
+			if (e != null && e.getKey() <= Player.levelsScore) {
 //				System.out.println("in da if");
 				unlockNotificationSprite = e.getValue();
 				GShape.unlockNotificationCounter = 240;

@@ -18,7 +18,7 @@ public class Projectile extends AbstractGameObject {
 	public float direction_x;
 	public float direction_y;
 	public float force;
-	public static float arrowMovementSpeed;
+//	public static float arrowMovementSpeed;
 	public EffectCarriers effect;
 	public int currentSurfaceLevel;
 	public int initialSurfaceLevel;
@@ -46,8 +46,7 @@ public class Projectile extends AbstractGameObject {
 		damage = 1f;
 
 		state = State.STANDARD;
-
-		arrowMovementSpeed = 1.8f;
+//		arrowMovementSpeed = 1.8f;
 
 		direction_x = 0;
 		direction_y = 0;
@@ -71,7 +70,7 @@ public class Projectile extends AbstractGameObject {
 
 		state = State.STANDARD;
 
-		arrowMovementSpeed = 1.8f;
+//		arrowMovementSpeed = 1.8f;
 
 		direction_x = 0;
 		direction_y = 0;

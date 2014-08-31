@@ -42,7 +42,7 @@ public class TutorialLevel extends L1 {
 		
 		if(step == 7){
 			aFingure = null;
-			player.shootingSwitch = true;
+			Player.shootingSwitch = true;
 		}
 		if(step == 6){
 			TheController.pausedTutorial = true;
@@ -92,7 +92,7 @@ public class TutorialLevel extends L1 {
 			} else {
 				TheController.gotoToMenu = false;
 				L1.player = new Player(null);
-				Player.score = 0;
+				Player.levelsScore = 0;
 				TheController.showFeedback = false;
 				MenuScreen.showTutorialButton = true;
 				((Game) Gdx.app.getApplicationListener()).setScreen(ScreenContainer.SS);
