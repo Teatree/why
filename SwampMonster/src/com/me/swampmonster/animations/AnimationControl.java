@@ -68,13 +68,16 @@ public class AnimationControl {
 	//Comparator is to adjust the time spent moving forward in the array, standard = 1f;
 	//Adjusts the speed at which the frames are changing, standard = approximately 0.016f;
 	public TextureRegion doComplexAnimation(int i, float Comparator, float speedAdjust, int playType){
+		int iE = i;
 		if (stateTime < Comparator) {
 			stateTime += speedAdjust;
+//			System.out.println(i);
+//			System.out.println(Comparator);
 		} else {
 			stateTime = 0;
 		}
 		Array<TextureRegion> frames2 = new Array<TextureRegion>(frames);
-		currentFrame = new Animation(1, frames2, playType).getKeyFrame(i + stateTime*multiplier);
+		currentFrame = new Animation(1, frames2, playType).getKeyFrame(iE + stateTime*multiplier);
 		return currentFrame;
 	}
 	

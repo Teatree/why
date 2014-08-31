@@ -33,7 +33,7 @@ public class Turret extends AbstractGameObject {
 	public int time;
 	
 	public Turret() {
-		animControl = new AnimationControl(Assets.manager.get(Assets.turretImg), 4, 4, 4);
+		animControl = new AnimationControl(Assets.manager.get(Assets.turretImg), 4, 4, 3.9f);
 		sprite = new Sprite(animControl.getCertainFrame(0));
 		
 		circle = new Circle();
@@ -46,17 +46,17 @@ public class Turret extends AbstractGameObject {
 		//:TODO GET THE ANIAMTIONS RIGHT!
 		if(lifeTime <= 0 ){
 			state = State.DEAD;
-		}else if(lifeTime <= 100 || health <= 0){
+		}else if(lifeTime <= 40 || health <= 0){
 			state = State.DESPAWNING;
-			animControl.doComplexAnimation(8, 2f, 0.03f, Animation.NORMAL);
+			animControl.doComplexAnimation(4, 2f, 0.03f, Animation.NORMAL);
 			sprite = new Sprite(animControl.getCurrentFrame());
-		}else if(lifeTime <= standardLifeTime){
+		}else if(lifeTime <= standardLifeTime && lifeTime >= 40){
 			state = State.STANDARD;
 			animControl.animate(0);
-			sprite = new Sprite(animControl.getCurrentFrame());
+//			sprite = new Sprite(animControl.getCurrentFrame());
 		}else{
 			state = State.SPAWNING;
-			animControl.doComplexAnimation(4, 2f, 0.03f, Animation.NORMAL);
+			animControl.doComplexAnimation(8, 1f, 0.02f, Animation.NORMAL);
 			sprite = new Sprite(animControl.getCurrentFrame());
 		}
 		

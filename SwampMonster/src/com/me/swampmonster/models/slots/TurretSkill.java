@@ -75,7 +75,7 @@ public class TurretSkill extends Slot {
 			break;
 		}
 		
-		turret.standardLifeTime = turret.lifeTime - 50;
+		turret.standardLifeTime = turret.lifeTime - 40;
 		
 		player.turret = this.turret;
 		player.turret.state = State.SPAWNING;
