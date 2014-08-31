@@ -67,6 +67,7 @@ public class AnimationControl {
 		
 		currentFrame = animation.getKeyFrame(i + stateTime*multiplier);
 		return currentFrame;
+		
 	}
 	
 	//Does a complex animation...
