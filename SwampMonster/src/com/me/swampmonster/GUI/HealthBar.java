@@ -29,10 +29,12 @@ public class HealthBar extends AbstractGameObject{
 		position = new Vector2();
 		position.x = 0;
 		position.y = 448;
-		setCasingPos(Player.playerMaxHealth);
+		setCasingPos(Player.maxHealth);
+		healthBarRect = new Rectangle[Player.maxHealth];
+		fillBar(healthBarRect, (int)player.health);
 	}
 	public void update(Player player){
-		healthBarRect = new Rectangle[Player.playerMaxHealth];
+		healthBarRect = new Rectangle[Player.maxHealth];
 		fillBar(healthBarRect, (int)player.health);
 	}
 	private void fillBar(Rectangle[] r, int q) {

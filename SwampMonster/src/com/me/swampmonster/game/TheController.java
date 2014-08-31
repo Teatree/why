@@ -39,7 +39,7 @@ public class TheController extends InputAdapter {
 	public L1Renderer l1Renderer; // I am bad, and shouldn't be here
 	public CollisionHelper collisionHandler;
 	public static L1 level1;
-	public GUI gui;
+	public static GUI gui;
 	public Explosion explosion;
 	public static Vector3 touchPos;
 	int timer;
@@ -83,8 +83,6 @@ public class TheController extends InputAdapter {
 	public void init(Player player) {
 		Gdx.input.setInputProcessor(this);
 //		System.err.println("lessBytes: " + MenuScreen.lessBytes);
-		
-		
 		if(MenuScreen.lessBytes == 1 && !MenuScreen.showTutorialButton){
 //			level1 = LGenerator.createTutorialLevel();
 			level1 = LGenerator.createLevel(player);
@@ -183,8 +181,10 @@ public class TheController extends InputAdapter {
 			AbstractGameScreen sl;
 			if (germany && L1.player.state == State.DEAD){
 				sl = ScreenContainer.SS;
+				gui = new GUI(L1.player);
 //				reloadLevel(L1.player);
 			} else {
+				gui = new GUI(L1.player);
 				sl = ScreenContainer.SMS;
 			}
 			sl.player = L1.player;
@@ -450,6 +450,7 @@ public class TheController extends InputAdapter {
 
 	// TODO You also gotta change stuff here in orde to load tutorial level, bro!
 	public static void reloadLevel(Player player) {
+		gui = new GUI(L1.player);
 		System.out.println("reload level");
 		if(MenuScreen.lessBytes == 1 && !MenuScreen.showTutorialButton){
 //			level1 = LGenerator.createTutorialLevel();

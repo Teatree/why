@@ -108,7 +108,7 @@ public class LGenerator {
 		L1 level = new L1("tileSet_SAND_WORLD", "MapTemp.tmx", false);
 		//:TODO isLevelElite !
 		player.oxygen = Player.maxOxygen;
-		player.health = Player.playerMaxHealth;
+		player.health = Player.maxHealth;
 		player.setPositiveEffect(PositiveEffects.NONE);
 		player.setNegativeEffect(NegativeEffects.NONE);
 		player.movementSpeed = 1.4f;
@@ -146,7 +146,7 @@ public class LGenerator {
 		L1 tutorialLevel = new TutorialLevel("tileSet_SAND_WORLD", "MapTemp.tmx");
 		TutorialLevel.player = new Player(new Vector2(298,400));
 		TutorialLevel.player.oxygen = Player.maxOxygen;
-		TutorialLevel.player.health = Player.playerMaxHealth;
+		TutorialLevel.player.health = Player.maxHealth;
 		TutorialLevel.player.setPositiveEffect(PositiveEffects.NONE);
 		TutorialLevel.player.setNegativeEffect(NegativeEffects.NONE);
 		TutorialLevel.player.movementSpeed = 1.4f;

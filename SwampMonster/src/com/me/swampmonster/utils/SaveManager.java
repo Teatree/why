@@ -29,7 +29,7 @@ public class SaveManager {
     	Json json = new Json();
     	JsomPlayer somPlayer = new JsomPlayer();
     	somPlayer.maxOxygen = Player.maxOxygen;
-    	somPlayer.playerMaxHealth = Player.playerMaxHealth;
+    	somPlayer.playerMaxHealth = Player.maxHealth;
     	somPlayer.score = Player.absoluteScore;
     	somPlayer.arrowMovementSpeed = Player.arrowMovementSpeed;
     	somPlayer.movementSpeed = L1.player.movementSpeed;
@@ -49,7 +49,7 @@ public class SaveManager {
 	        Player player = new Player(new Vector2());
 	        Player.maxOxygen = somPlayer.maxOxygen;
 	        Player.maxHealth = somPlayer.playerMaxHealth;
-	        Player.playerMaxHealth = somPlayer.playerMaxHealth;
+	        Player.maxHealth = somPlayer.playerMaxHealth;
 	        Player.absoluteScore = somPlayer.score;
 	        Player.arrowMovementSpeed = somPlayer.arrowMovementSpeed;
 	        player.oxygen = Player.maxOxygen;
