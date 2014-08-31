@@ -71,7 +71,6 @@ public class AnimationControl {
 		int iE = i;
 		if (stateTime < Comparator) {
 			stateTime += speedAdjust;
-//			System.out.println(i);
 //			System.out.println(Comparator);
 		} else {
 			stateTime = 0;

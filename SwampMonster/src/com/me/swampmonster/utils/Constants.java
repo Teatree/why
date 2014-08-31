@@ -187,8 +187,8 @@ public class Constants {
 	public static final int TURRET_CoolDown_L4 = 600;
 	public static final int TURRET_CoolDown_L5 = 400;
 	
-	public static final int TURRET_LifeTime_L1 = 800;
-	public static final int TURRET_LifeTime_L2 = 1000;
+	public static final int TURRET_LifeTime_L1 = 780;
+	public static final int TURRET_LifeTime_L2 = 780;
 	public static final int TURRET_LifeTime_L3 = 300;
 	public static final int TURRET_LifeTime_L4 = 400;
 	public static final int TURRET_LifeTime_L5 = 500;
