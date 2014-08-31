@@ -21,6 +21,7 @@ import com.me.swampmonster.models.slots.PositiveEffects;
 import com.me.swampmonster.slotMachineStuff.SlotMachineTextures;
 import com.me.swampmonster.utils.Assets;
 import com.me.swampmonster.utils.Constants;
+import com.me.swampmonster.utils.LGenerator;
 
 public class GShape extends Group {
 	
@@ -182,8 +183,7 @@ public class GShape extends Group {
 					theController.gui.getGameoverGUI().rectanlge.y,
 					theController.gui.getGameoverGUI().rectanlge.width + 200,
 					theController.gui.getGameoverGUI().rectanlge.height + 200);
-			if (assRevert < 0.5f
-					&& L1.player.state == State.DEAD) {
+			if (assRevert < 0.5f && L1.player.state == State.DEAD) {
 				assRevert = assRevert + 0.002f;
 			}
 		}
@@ -339,6 +339,10 @@ public class GShape extends Group {
 			Vector2 victor = new Vector2(Gdx.input.getX(), Constants.VIEWPORT_HEIGHT - Gdx.input.getY());
 			if (Gdx.input.justTouched()
 					&& feedbackWindowYes.getBoundingRectangle().contains(victor)){
+				LGenerator.lastMap = null;
+				LGenerator.lastTileSet = null;
+				LGenerator.hadLastAtmosphere = false;
+				LGenerator.wasLastElite = false;
 				TheController.germany = true;
 				TheController.showFeedback = false;
 			}
@@ -364,7 +368,6 @@ public class GShape extends Group {
 		Gdx.gl.glDisable(GL20.GL_BLEND);
 		
 		batch.begin();
-		
 		if (TheController.paused){
 			exitMessageWindow.setSize(Constants.VIEWPORT_WIDTH/2.1f, Constants.VIEWPORT_HEIGHT/1.4f);
 			exitMessageWindow.setPosition(Constants.VIEWPORT_WIDTH/4f, Constants.VIEWPORT_HEIGHT/5f);
@@ -383,13 +386,12 @@ public class GShape extends Group {
 			
 			if (Gdx.input.justTouched()
 					&& gotoMenu.getBoundingRectangle().contains(victor2)){
-				TheController.gotoToMenu = true;
+				TheController.gotoMenu = true;
 				TheController.paused = false;
 			}
 			if (Gdx.input.justTouched()
 					&& backToGame.getBoundingRectangle().contains(victor2)){
-				System.out.println("back to game");
-				TheController.gotoToMenu = false;
+				TheController.gotoMenu = false;
 				TheController.paused = false;
 			}
 			

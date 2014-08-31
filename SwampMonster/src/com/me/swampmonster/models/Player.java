@@ -29,6 +29,11 @@ import com.me.swampmonster.utils.Assets;
 
 public class Player extends AbstractGameObject {
 
+	private static final float DEFAULT_DAMAGE = 1f;
+	private static final float DEFAULT_ARROW_MOVEMENT_SPEED = 1.8f;
+	private static final float DEFAULT_MOVEMENT_SPEED = 1.5f;
+	private static final int DEFAULT_MAX_HEALTH = 8;
+	private static final int DEFAULT_MAX_O2 = 96;
 	private static final float FROZEN_MOVEMENT = 0.16f;
 	private static final float SPEED_BOOST_EFFECT = 1.1f;
 
@@ -95,8 +100,11 @@ public class Player extends AbstractGameObject {
 	public static float arrowMovementSpeed;
 
 	public Player(Vector2 position) {
-		maxOxygen = 96;
-		playerMaxHealth = 8;
+		maxOxygen = DEFAULT_MAX_O2;
+		playerMaxHealth = DEFAULT_MAX_HEALTH;
+		arrowMovementSpeed = DEFAULT_ARROW_MOVEMENT_SPEED;
+		
+		
 		levelsScore = absoluteScore;
 		state = State.STANDARD;
 		positiveEffectsState = PositiveEffects.NONE;
@@ -104,7 +112,8 @@ public class Player extends AbstractGameObject {
 		positiveEffectCounter = new Integer(0);
 		negativeEffectCounter = new Integer(0);
 		this.position = position;
-		movementSpeed = 0.5f;
+		movementSpeed = DEFAULT_MOVEMENT_SPEED;
+		STANDART_MOVEMENT_SPEED = DEFAULT_MOVEMENT_SPEED;
 		random = new Random();
 		bowFrames = TextureRegion.split((Assets.manager.get(Assets.bow)), 32,
 				32);
@@ -148,7 +157,6 @@ public class Player extends AbstractGameObject {
 		maskOn = true;
 		justSpawned = true;
 		shooting = false;
-		arrowMovementSpeed = 1.8f;
 
 		// ***Character stats board***
 		characterStatsBoard();
@@ -166,7 +174,6 @@ public class Player extends AbstractGameObject {
 		// playerMaxHealth = 16;
 		health = playerMaxHealth;
 		oxygen = maxOxygen;
-		damage = 1f;
 		sprite = new Sprite(animationsStandard.get(State.STANDARD)
 				.getCurrentFrame());
 		sprite.setColor(1, 1, 1, 1);
@@ -244,6 +251,16 @@ public class Player extends AbstractGameObject {
 
 		// DEAD
 		if (state.equals(State.DEAD)) {
+			maxOxygen = DEFAULT_MAX_O2;
+			maxHealth = DEFAULT_MAX_HEALTH;
+			damage = DEFAULT_DAMAGE;
+			arrowMovementSpeed = DEFAULT_ARROW_MOVEMENT_SPEED;
+			movementSpeed = DEFAULT_MOVEMENT_SPEED;
+			absoluteScore = 0;
+			levelsScore = 0;
+			trap = null;
+			turret = null;
+			TheController.skill = null;
 			dying();
 		}
 

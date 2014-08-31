@@ -35,7 +35,8 @@ public class ImproveMovementSpeed extends Slot implements Perks{
 	
 	@Override
 	public void execute (Player player){
-		player.movementSpeed += Constants.ImproveMaxSpeed_SpeedValue_L1;
+		player.STANDART_MOVEMENT_SPEED += Constants.ImproveMaxSpeed_SpeedValue_L1;
+		player.movementSpeed = player.STANDART_MOVEMENT_SPEED;
 	}
 	
 	@Override

@@ -59,7 +59,7 @@ public abstract class AbstractGameObject {
 	protected String playerMovementDirection; 
 	protected String playerMovementDirectionLR; 
 	protected String playerMovementDirectionUD; 
-	public float movementSpeed = 1f; 
+	public float movementSpeed = 0.5f; 
 	
 	public float health;
 	public static int maxHealth;

@@ -23,12 +23,7 @@ public class SwampScreen extends AbstractGameScreen  implements Screen {
 		if(theController == null){
 			theController = new TheController(game, this.player);
 		}else{
-//			L1 level = SaveManager.loadLevel();
-//			if ( level == null){
-				TheController.reloadLevel(this.player);
-//			} else {
-//				TheController.level1 = level;
-//			}
+			TheController.reloadLevel(this.player);
 		}
 		renderer = new L1Renderer(theController);
 		theController.l1Renderer = renderer;
@@ -41,8 +36,8 @@ public class SwampScreen extends AbstractGameScreen  implements Screen {
 		if(!paused){
 			theController.update(Gdx.graphics.getDeltaTime(), game);
 		}
-		if (TheController.gotoToMenu){
-			TheController.gotoToMenu = false;
+		if (TheController.gotoMenu){
+			TheController.gotoMenu = false;
 			((Game) Gdx.app.getApplicationListener()).setScreen(ScreenContainer.MS);
 		}
 		renderer.render();

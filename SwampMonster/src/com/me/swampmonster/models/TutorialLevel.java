@@ -88,9 +88,9 @@ public class TutorialLevel extends L1 {
 			if (MenuScreen.showTutorialButton){
 				MenuScreen.showTutorialButton = true;
 				TheController.showFeedback = false;
-				TheController.gotoToMenu = true;
+				TheController.gotoMenu = true;
 			} else {
-				TheController.gotoToMenu = false;
+				TheController.gotoMenu = false;
 				L1.player = new Player(null);
 				Player.levelsScore = 0;
 				TheController.showFeedback = false;

@@ -71,7 +71,7 @@ public class TheController extends InputAdapter {
 	public static Slot skill;
 	public static boolean germany;
 	public static boolean showFeedback;
-	public static boolean gotoToMenu;
+	public static boolean gotoMenu;
 	public static boolean paused;
 	public static boolean pausedTutorial;
 	
@@ -87,6 +87,8 @@ public class TheController extends InputAdapter {
 //		random = new Random();
 		levelGenerator = new LGenerator();
 //		System.err.println("lessBytes: " + MenuScreen.lessBytes);
+		
+		
 		if(MenuScreen.lessBytes == 1 && !MenuScreen.showTutorialButton){
 //			level1 = LGenerator.createTutorialLevel();
 			level1 = levelGenerator.createLevel(player);
@@ -98,6 +100,8 @@ public class TheController extends InputAdapter {
 //			level1 = LGenerator.createTutorialLevel();
 			level1 = levelGenerator.createLevel(player);
 		}
+		
+		
 		cameraHelper = new CameraHelper();
 		gui = new GUI(player);
 		gui.getCroshair().setPosition(new Vector2(330f, 100f));
@@ -189,7 +193,7 @@ public class TheController extends InputAdapter {
 			}
 			sl.player = L1.player;
 			germany = false;
-			((Game) Gdx.app.getApplicationListener()).setScreen(ScreenContainer.SMS);
+			((Game) Gdx.app.getApplicationListener()).setScreen(sl);
 		} 
 		
 		// This bit is responsible for calculating where exactly the projective
@@ -450,6 +454,7 @@ public class TheController extends InputAdapter {
 
 	// TODO You also gotta change stuff here in orde to load tutorial level, bro!
 	public static void reloadLevel(Player player) {
+		System.out.println("reload level");
 		if(MenuScreen.lessBytes == 1 && !MenuScreen.showTutorialButton){
 //			level1 = LGenerator.createTutorialLevel();
 			level1 = levelGenerator.createLevel(player);

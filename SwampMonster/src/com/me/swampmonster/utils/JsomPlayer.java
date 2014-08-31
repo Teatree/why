@@ -9,4 +9,8 @@ public class JsomPlayer {
 	public float movementSpeed;
 	public float damage;
 	
+	public String lastTileSet;
+	public String lastMap;
+	public boolean wasLastElite;
+	public boolean hadLastAtmosphere;
 }

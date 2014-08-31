@@ -11,7 +11,6 @@ import com.me.swampmonster.models.Player;
 public class SaveManager {
 	public static void writeFile(String fileName, String s) {
         FileHandle file = Gdx.files.local(fileName);
-        System.out.println(" ! " + s);
         file.writeString(com.badlogic.gdx.utils.Base64Coder.encodeString(s), false);
     }
  
@@ -35,6 +34,10 @@ public class SaveManager {
     	somPlayer.arrowMovementSpeed = Player.arrowMovementSpeed;
     	somPlayer.movementSpeed = L1.player.movementSpeed;
     	somPlayer.damage = L1.player.damage;
+    	somPlayer.lastMap = LGenerator.lastMap;
+    	somPlayer.hadLastAtmosphere = LGenerator.hadLastAtmosphere;
+    	somPlayer.lastTileSet = LGenerator.lastTileSet;
+    	somPlayer.wasLastElite = LGenerator.wasLastElite;
     	writeFile("player.sav", json.toJson(somPlayer));
     }
     
@@ -53,6 +56,10 @@ public class SaveManager {
 	        player.health = Player.maxHealth;
 	        player.damage = somPlayer.damage;
 	        player.movementSpeed = somPlayer.movementSpeed;
+	        LGenerator.hadLastAtmosphere = somPlayer.hadLastAtmosphere;
+	        LGenerator.wasLastElite = somPlayer.wasLastElite;
+	        LGenerator.lastMap = somPlayer.lastMap;
+	        LGenerator.lastTileSet = somPlayer.lastTileSet;
 	        return player;
         } else {
         	return new Player(new Vector2());
