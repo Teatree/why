@@ -339,10 +339,12 @@ public class GShape extends Group {
 			Vector2 victor = new Vector2(Gdx.input.getX(), Constants.VIEWPORT_HEIGHT - Gdx.input.getY());
 			if (Gdx.input.justTouched()
 					&& feedbackWindowYes.getBoundingRectangle().contains(victor)){
-				LGenerator.lastMap = null;
-				LGenerator.lastTileSet = null;
-				LGenerator.hadLastAtmosphere = false;
-				LGenerator.wasLastElite = false;
+				if (L1.player.state != State.DEAD){
+					LGenerator.lastMap = null;
+					LGenerator.lastTileSet = null;
+					LGenerator.hadLastAtmosphere = false;
+					LGenerator.wasLastElite = false;
+				}
 				TheController.germany = true;
 				TheController.showFeedback = false;
 			}

@@ -31,17 +31,17 @@ public class LGenerator {
 	private static final int PLAYER_SPRITE_WIDTH = 32;
 	public static final int TILE_SIZE = 16;
 
-	Map<Integer, String> maps;
-	Map<Integer, String> tileSets;
-	private Random random;
-	PropsSpawnGenerator propsSpawnGenerator;
+	static Map<Integer, String> maps;
+	static Map<Integer, String> tileSets;
+	private static Random random;
+	static PropsSpawnGenerator propsSpawnGenerator;
 	
 	public static  String lastTileSet;
 	public static String lastMap;
 	public static  boolean hadLastAtmosphere;
 	public static boolean wasLastElite;
 
-	public LGenerator() {
+	static  {
 		maps = new HashMap<Integer, String>();
 		tileSets = new HashMap<Integer, String>();
 		random = new Random();
@@ -59,7 +59,6 @@ public class LGenerator {
 		tileSets.put(3, "tileSet_SAND_WORLD4");
 		
 		//
-//		System.out.println("ous " + Gdx.files);
 		Gdx.files.local("Tiles.png").write(Gdx.files.internal("data\\Tiles.png").read(), false);
 		Gdx.files.local("tileSet_SAND_WORLD.png").write(Gdx.files.internal("data\\tileSet_SAND_WORLD.png").read(), false);
 		Gdx.files.local(LAB_TILESET).write(Gdx.files.internal("data\\tileSet_SAND_WORLD2.png").read(), false);
@@ -68,7 +67,7 @@ public class LGenerator {
 		Gdx.files.local("tileSet_SAND_WORLD5.png").write(Gdx.files.internal("data\\tileSet_SAND_WORLD5.png").read(), false);
 	}
 
-	public L1 createLevel(Player player) {
+	public static L1 createLevel(Player player) {
 		String map;
 		String tileSet;
 		boolean isLevelElite;
@@ -173,7 +172,7 @@ public class LGenerator {
 		
 	}
 
-	private boolean isValidPosition(Vector2 v2) {
+	private static boolean isValidPosition(Vector2 v2) {
 		if (CollisionHelper.isCollidable(v2.x, v2.y,
 				TheController.collisionLayer) == null) {
 			return true;
@@ -181,7 +180,7 @@ public class LGenerator {
 		return false;
 	}
 
-	public Vector2 calculateRandomPlayerPos() {
+	public static Vector2 calculateRandomPlayerPos() {
 		Vector2 vector2 = new Vector2();
 		int minPosX = 230;
 		int maxPosX = TheController.collisionLayer.getWidth()

@@ -577,7 +577,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 		if (oldPos.x == position.x && oldPos.y == position.y) {
 			if (timer2 < attackSpeed) {
 				timer2++;
-				// // System.out.println("timer2: " + timer2 );
+				// System.out.println("timer2: " + timer2 );
 				currentFrame = animationsStandard.get(state).animate(standing);
 			}
 			if (timer2 >= attackSpeed && timer < 30) {
@@ -585,7 +585,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 					cameraHelper.setShakeAmt(25);
 					cameraHelper.cameraShake();
 				}
-				// // System.out.println("timer1: " + timer);
+				// System.out.println("timer1: " + timer);
 				currentFrame = animationsStandard.get(state)
 						.doComplexAnimation(animation, 1.8f,
 								Gdx.graphics.getDeltaTime(), Animation.NORMAL);

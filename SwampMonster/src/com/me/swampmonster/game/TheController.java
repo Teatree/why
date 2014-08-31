@@ -74,8 +74,6 @@ public class TheController extends InputAdapter {
 	public static boolean gotoMenu;
 	public static boolean paused;
 	public static boolean pausedTutorial;
-	
-	private static LGenerator levelGenerator;
 
 	public TheController(Game game, Player player) {
 		init(player);
@@ -84,21 +82,19 @@ public class TheController extends InputAdapter {
 	// INIT METHOD!
 	public void init(Player player) {
 		Gdx.input.setInputProcessor(this);
-//		random = new Random();
-		levelGenerator = new LGenerator();
 //		System.err.println("lessBytes: " + MenuScreen.lessBytes);
 		
 		
 		if(MenuScreen.lessBytes == 1 && !MenuScreen.showTutorialButton){
 //			level1 = LGenerator.createTutorialLevel();
-			level1 = levelGenerator.createLevel(player);
+			level1 = LGenerator.createLevel(player);
 		}else if (MenuScreen.lessBytes == 1 && MenuScreen.showTutorialButton){
-			level1 = levelGenerator.createLevel(player);
+			level1 = LGenerator.createLevel(player);
 			Player.shootingSwitch = true;
 		}
 		if (MenuScreen.lessBytes == 2){
 //			level1 = LGenerator.createTutorialLevel();
-			level1 = levelGenerator.createLevel(player);
+			level1 = LGenerator.createLevel(player);
 		}
 		
 		
@@ -187,7 +183,7 @@ public class TheController extends InputAdapter {
 			AbstractGameScreen sl;
 			if (germany && L1.player.state == State.DEAD){
 				sl = ScreenContainer.SS;
-				reloadLevel(L1.player);
+//				reloadLevel(L1.player);
 			} else {
 				sl = ScreenContainer.SMS;
 			}
@@ -457,13 +453,13 @@ public class TheController extends InputAdapter {
 		System.out.println("reload level");
 		if(MenuScreen.lessBytes == 1 && !MenuScreen.showTutorialButton){
 //			level1 = LGenerator.createTutorialLevel();
-			level1 = levelGenerator.createLevel(player);
+			level1 = LGenerator.createLevel(player);
 		}else if (MenuScreen.lessBytes == 1 && MenuScreen.showTutorialButton){
-			level1 = levelGenerator.createLevel(player);
+			level1 = LGenerator.createLevel(player);
 		}
 		if (MenuScreen.lessBytes == 2){
 //			level1 = LGenerator.createTutorialLevel();
-			level1 = levelGenerator.createLevel(player);
+			level1 = LGenerator.createLevel(player);
 		}
 	}
 
