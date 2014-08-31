@@ -81,7 +81,6 @@ public class GShape extends Group {
 			sr.rect(0, 0, Constants.VIEWPORT_WIDTH, Constants.VIEWPORT_HEIGHT);
 		}
 		sr.setColor(Color.RED);
-		
 		for (Rectangle r : theController.gui.getHealthBar().getHealthBarRect()) {
 			if (r != null) {
 				sr.rect(r.x, r.y, r.width, r.height);

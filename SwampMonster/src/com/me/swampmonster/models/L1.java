@@ -193,7 +193,7 @@ public class L1 {
 				itm.remove();
 			}else{
 					if(Intersector.overlaps(item.circle, player.rectanlge)){
-					if(item.itemType=="hp" && player.health < Player.playerMaxHealth){
+					if(item.itemType=="hp" && player.health < Player.maxHealth){
 						player.health++;
 						if (player.negativeEffectsState == NegativeEffects.POISONED){
 							player.setNegativeEffect(NegativeEffects.NONE);
@@ -275,6 +275,7 @@ public class L1 {
 					e.timeRemove++;
 				} else if (e.timeRemove > 179) {
 					itr.remove();
+					Player.enemiesKilled++;
 					e.timeRemove = 0;
 				}
 				if (e.timeRemove == 1) {

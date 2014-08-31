@@ -34,7 +34,7 @@ public class ImproveMaxHealth extends Slot implements Perks{
 	
 	@Override
 	public void execute (Player player){
-		Player.playerMaxHealth += Constants.ImproveMaxHealth_HealthValue_L1;
+		Player.maxHealth += Constants.ImproveMaxHealth_HealthValue_L1;
 	}
 	
 	@Override

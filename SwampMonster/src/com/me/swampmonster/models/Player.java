@@ -32,7 +32,7 @@ public class Player extends AbstractGameObject {
 	private static final float DEFAULT_DAMAGE = 1f;
 	private static final float DEFAULT_ARROW_MOVEMENT_SPEED = 1.8f;
 	private static final float DEFAULT_MOVEMENT_SPEED = 1.5f;
-	private static final int DEFAULT_MAX_HEALTH = 8;
+	private static final int DEFAULT_MAX_HEALTH = 7;
 	private static final int DEFAULT_MAX_O2 = 96;
 	private static final float FROZEN_MOVEMENT = 0.16f;
 	private static final float SPEED_BOOST_EFFECT = 1.1f;
@@ -73,7 +73,6 @@ public class Player extends AbstractGameObject {
 	public Vector3 aimLineHead;
 	public float oxygen;
 	public static float maxOxygen;
-	public static int playerMaxHealth;
 	public static int absoluteScore;
 	public static int levelsScore;
 	public Integer positiveEffectCounter;
@@ -101,10 +100,9 @@ public class Player extends AbstractGameObject {
 
 	public Player(Vector2 position) {
 		maxOxygen = DEFAULT_MAX_O2;
-		playerMaxHealth = DEFAULT_MAX_HEALTH;
+		maxHealth = DEFAULT_MAX_HEALTH;
 		arrowMovementSpeed = DEFAULT_ARROW_MOVEMENT_SPEED;
-		
-		
+
 		levelsScore = absoluteScore;
 		state = State.STANDARD;
 		positiveEffectsState = PositiveEffects.NONE;
@@ -172,7 +170,7 @@ public class Player extends AbstractGameObject {
 	public void characterStatsBoard() {
 		// HEALTH, DAMAGE, OXYGEN, TYPE, TOUGHGUY, COLORSCHEME, ETC.
 		// playerMaxHealth = 16;
-		health = playerMaxHealth;
+		health = maxHealth;
 		oxygen = maxOxygen;
 		sprite = new Sprite(animationsStandard.get(State.STANDARD)
 				.getCurrentFrame());
@@ -351,6 +349,7 @@ public class Player extends AbstractGameObject {
 		while (prj.hasNext()) {
 			// System.err.println("player");
 			Projectile p = prj.next();
+			p.update();
 			p.getSurfaceLevelProjectile(collisionLayer);
 			if (p.isCollision(collisionLayer)
 					&& p.effect != EffectCarriers.SHADOW) {
@@ -358,22 +357,14 @@ public class Player extends AbstractGameObject {
 					TheController.skill.explode(p.position);
 				}
 				prj.remove();
-			}
-			if (p.isCollisionNBreakable(collisionLayer) && L1.hasAtmosphere) {
+			} else if (p.isCollisionNBreakable(collisionLayer) && L1.hasAtmosphere) {
 				Explosion expl = new Explosion(new Vector2(p.position.x,
 						p.position.y), Explosion.EXPLOSION_TYPE_INVERTED);
-
 				L1.explosions.add(expl);
 				L1.hasAtmosphere = false;
-
 				prj.remove();
-			}
-			if (p != null && p.state == State.DEAD) {
+			} else if (p != null && p.state == State.DEAD) {
 				prj.remove();
-			}
-			//
-			if (p != null) {
-				p.update();
 			}
 		}
 	}
@@ -979,7 +970,6 @@ public class Player extends AbstractGameObject {
 		if (timer2 <= 0 && oxygen <= 0 && !hurt) {
 			timer2 = 80;
 		}
-
 		if (health <= 0) {
 			state = State.DEAD;
 		}
