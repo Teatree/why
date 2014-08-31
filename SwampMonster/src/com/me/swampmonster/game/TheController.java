@@ -337,7 +337,7 @@ public class TheController extends InputAdapter {
 		if (Gdx.input.isKeyPressed(Keys.J))
 			L1.player.setNegativeEffect(NegativeEffects.FROZEN);
 		if (Gdx.input.isKeyPressed(Keys.K))
-			L1.player.setNegativeEffect(NegativeEffects.POISONED);
+			L1.player.turret.state = State.DEAD;
 
 		if (Gdx.input.isKeyPressed(Keys.SHIFT_LEFT))
 			camZoomSpeed *= camZoomSpeedAccelerationFactor;

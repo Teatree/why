@@ -48,16 +48,20 @@ public class Turret extends AbstractGameObject {
 			state = State.DEAD;
 		}else if(lifeTime <= 40 || health <= 0){
 			state = State.DESPAWNING;
+//			animControl = new AnimationControl(Assets.manager.get(Assets.turretImg), 4, 4, 3.9f);
 			animControl.doComplexAnimation(8, 1f, 0.02f, Animation.NORMAL);
 			sprite = new Sprite(animControl.getCurrentFrame());
+			System.out.println("[TURRET] STATE ?DESPAWNING? : " + state );
 		}else if(lifeTime <= standardLifeTime && lifeTime >= 40){
 			state = State.STANDARD;
 			animControl.animate(0);
 			sprite = new Sprite(animControl.getCurrentFrame());
+			System.out.println("[TURRET] STATE ?STANDARD? : " + state );
 		}else{
 			state = State.SPAWNING;
 			animControl.doComplexAnimation(4, 1f, 0.02f, Animation.NORMAL);
 			sprite = new Sprite(animControl.getCurrentFrame());
+			System.out.println("[TURRET] STATE ?SPAWNING? : " + state );
 		}
 		
 		lifeTime--;

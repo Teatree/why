@@ -81,9 +81,9 @@ public class TurretSkill extends Slot {
 		player.turret.state = State.SPAWNING;
 		player.turret.position = new Vector2(player.position.x,
 				player.position.y);
-		System.out.println("turret.pos : " + player.turret.position);
-		System.out.println("turret.STATE : " + player.turret.state);
-		System.out.println("turret.sprite : " + player.turret.sprite);
+//		System.out.println("turret.pos : " + player.turret.position);
+//		System.out.println("turret.STATE : " + player.turret.state);
+//		System.out.println("turret.sprite : " + player.turret.sprite);
 		player.turret.killingAura = new Circle();
 		player.turret.killingAura.x = player.turret.position.x;
 		player.turret.killingAura.y = player.turret.position.y;
