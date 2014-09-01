@@ -11,8 +11,9 @@ public class AnimationControl {
 	private Texture playerTexture;
 	private TextureRegion[] frames;
 	private TextureRegion currentFrame;
-	private float stateTime;
-	private float stateTimeDoComplex;
+	public float stateTime;
+	public float stateTimeDoComplex;
+	public boolean animating;
 	private float multiplier;
 	
 
@@ -85,6 +86,7 @@ public class AnimationControl {
 		
 		currentFrame = animation.getKeyFrame(i + stateTimeDoComplex*multiplier);
 		System.out.println("complex animation: " + i + stateTimeDoComplex*multiplier);
+		
 		return currentFrame;
 	}
 	

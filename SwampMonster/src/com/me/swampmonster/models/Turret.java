@@ -26,6 +26,7 @@ public class Turret extends AbstractGameObject {
 	public boolean canAttack;
 	public int lifeTime;
 	public int standardLifeTime;
+	public int timeRemove = 0; 
 	
 	private AnimationControl animControl;
 	
@@ -42,14 +43,21 @@ public class Turret extends AbstractGameObject {
 	}
 
 	public void update() {
+		if (!animControl.animating){
+			animControl.stateTimeDoComplex = 0f;
+		}
 		
 		//:TODO GET THE ANIAMTIONS RIGHT!
+		if(state == State.DEAD){
+			animControl.stateTimeDoComplex = 0f;
+		}
 		if(lifeTime <= 0 ){
 			state = State.DEAD;
 		}else if(lifeTime <= 40 || health <= 0){
 			state = State.DESPAWNING;
 //			animControl = new AnimationControl(Assets.manager.get(Assets.turretImg), 4, 4, 3.9f);
 			animControl.doComplexAnimation(8, 1f, 0.02f, Animation.NORMAL);
+			animControl.animating = true;
 			sprite = new Sprite(animControl.getCurrentFrame());
 			System.out.println("[TURRET] STATE ?DESPAWNING? : " + state );
 		}else if(lifeTime <= standardLifeTime && lifeTime >= 40){

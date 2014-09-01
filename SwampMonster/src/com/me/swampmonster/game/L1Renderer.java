@@ -272,14 +272,46 @@ public class L1Renderer {
 							L1.player.turret.sprite.getColor().a);
 				}
 			}
-			batch.draw(L1.player.turret.sprite, L1.player.turret.position.x,
-					L1.player.turret.position.y);
+//			batch.draw(L1.player.turret.sprite, L1.player.turret.position.x,
+//					L1.player.turret.position.y);
 			if (L1.player.turret.projectiles != null
 					&& !L1.player.turret.projectiles.isEmpty()) {
 				for (Projectile p : L1.player.turret.projectiles) {
 					batch.draw(p.sprite, p.position.x, p.position.y);
 				}
 			}
+				if (L1.player.turret.timeRemove < 110) {
+					batch.draw(L1.player.turret.sprite, L1.player.turret.position.x,
+							L1.player.turret.position.y);
+				}
+				if (L1.player.turret.timeRemove > 110 && L1.player.turret.timeRemove < 115) {
+					batch.draw(L1.player.turret.sprite, L1.player.turret.position.x,
+							L1.player.turret.position.y);
+				}
+				if (L1.player.turret.timeRemove > 120 && L1.player.turret.timeRemove < 125) {
+					batch.draw(L1.player.turret.sprite, L1.player.turret.position.x,
+							L1.player.turret.position.y);
+				}
+				if (L1.player.turret.timeRemove > 130 && L1.player.turret.timeRemove < 135) {
+					batch.draw(L1.player.turret.sprite, L1.player.turret.position.x,
+							L1.player.turret.position.y);
+				}
+				if (L1.player.turret.timeRemove > 140 && L1.player.turret.timeRemove < 145) {
+					batch.draw(L1.player.turret.sprite, L1.player.turret.position.x,
+							L1.player.turret.position.y);
+				}
+				if (L1.player.turret.timeRemove > 150 && L1.player.turret.timeRemove < 155) {
+					batch.draw(L1.player.turret.sprite, L1.player.turret.position.x,
+							L1.player.turret.position.y);
+				}
+				if (L1.player.turret.timeRemove > 160 && L1.player.turret.timeRemove < 165) {
+					batch.draw(L1.player.turret.sprite, L1.player.turret.position.x,
+							L1.player.turret.position.y);
+				}
+				if (L1.player.turret.timeRemove > 170 && L1.player.turret.timeRemove < 175) {
+					batch.draw(L1.player.turret.sprite, L1.player.turret.position.x,
+							L1.player.turret.position.y);
+				}
 		}
 
 		L1.player.getSprite().setPosition(L1.player.getPosition().x,

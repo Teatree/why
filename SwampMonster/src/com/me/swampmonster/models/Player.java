@@ -232,7 +232,12 @@ public class Player extends AbstractGameObject {
 			turret.update();
 
 			if (turret.state == State.DEAD) {
-				this.turret = null;
+				if (turret.timeRemove < 180) {
+					turret.timeRemove++;
+				} else if (turret.timeRemove > 179) {
+					turret.timeRemove = 0;
+					this.turret = null;
+				}
 			}
 		}
 
