@@ -85,7 +85,7 @@ public class AnimationControl {
 		animation = new Animation(1, frames2, playType);
 		
 		currentFrame = animation.getKeyFrame(i + stateTimeDoComplex*multiplier);
-		System.out.println("complex animation: " + i + stateTimeDoComplex*multiplier);
+//		System.out.println("complex animation: " + i + stateTimeDoComplex*multiplier);
 		
 		return currentFrame;
 	}

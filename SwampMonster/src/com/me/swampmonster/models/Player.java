@@ -1,5 +1,6 @@
 package com.me.swampmonster.models;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -24,6 +25,8 @@ import com.me.swampmonster.models.Projectile.EffectCarriers;
 import com.me.swampmonster.models.enemies.Enemy;
 import com.me.swampmonster.models.slots.PositiveEffects;
 import com.me.swampmonster.models.slots.RADIOACTIVE;
+import com.me.swampmonster.models.slots.ShadowArrow;
+import com.me.swampmonster.models.slots.Slot;
 import com.me.swampmonster.models.slots.Trap;
 import com.me.swampmonster.utils.Assets;
 
@@ -80,6 +83,7 @@ public class Player extends AbstractGameObject {
 	private Random random;
 	public Rectangle fearRectangle;
 	public Turret turret;
+	
 
 	public Circle aimingArea;
 	// public Circle invalidSpawnArea;
@@ -235,8 +239,8 @@ public class Player extends AbstractGameObject {
 				if (turret.timeRemove < 180) {
 					turret.timeRemove++;
 				} else if (turret.timeRemove > 179) {
-					turret.timeRemove = 0;
 					this.turret = null;
+					turret.timeRemove = 0;
 				}
 			}
 		}

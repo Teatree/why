@@ -24,6 +24,7 @@ import com.me.swampmonster.models.slots.ImproveMaxOxygen;
 import com.me.swampmonster.models.slots.ImproveMovementSpeed;
 import com.me.swampmonster.models.slots.Perks;
 import com.me.swampmonster.models.slots.Slot;
+import com.me.swampmonster.screens.SlotMachineScreen;
 import com.me.swampmonster.utils.Assets;
 import com.me.swampmonster.utils.Constants;
 import com.me.swampmonster.utils.GeneralUtils;
@@ -154,6 +155,13 @@ public class SlotMachineTextures extends Group {
 		animantionCtlr.doComplexAnimation(0, 1f, Gdx.graphics.getDeltaTime(), Animation.NORMAL);
 		int i = 0;
 		
+		int Oppa = 32;
+		for(Slot s: SlotMachineScreen.savedSlots){
+			System.out.println("stuff");
+			batch.draw(s.sprite, Oppa, 10);
+			Oppa += s.sprite.getWidth()/5+5;
+		}
+		
 		while (i < 3) {
 			if (notAnimating[i]) {
 				Slot slot = slots[i];
@@ -221,6 +229,7 @@ public class SlotMachineTextures extends Group {
 					slotMachineWindow.getBoundingRectangle().y + 200);
 
 		}
+		
 	}
 	
 	// Method to be used whenever the slot Machine page is to be loaded.

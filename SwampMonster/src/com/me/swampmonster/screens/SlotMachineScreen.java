@@ -1,5 +1,8 @@
 package com.me.swampmonster.screens;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
@@ -7,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.me.swampmonster.game.TheController;
+import com.me.swampmonster.models.L1;
 import com.me.swampmonster.models.slots.Perks;
 import com.me.swampmonster.models.slots.Slot;
 import com.me.swampmonster.slotMachineStuff.SlotMachineTextures;
@@ -19,9 +23,12 @@ public class SlotMachineScreen extends AbstractGameScreen {
 	private Stage stage;
 	private SlotMachineTextures slotMachineTextures;
 	public Vector2 victor;
-
+	public static List<Slot> savedSlots;
+	
 	public SlotMachineScreen(Game game) {
 		super(game);
+		savedSlots = new ArrayList<Slot>();
+		System.out.println("once");
 
 		batch = new SpriteBatch();
 		stage = new Stage(Constants.VIEWPORT_WIDTH, Constants.VIEWPORT_HEIGHT,
@@ -93,7 +100,20 @@ public class SlotMachineScreen extends AbstractGameScreen {
 							}
 						}
 						slotMachineTextures.peru = false;
+						System.out.println("savedSlots size" + savedSlots.size());
+						boolean rewritenSlot = false;
+						for(Slot s : savedSlots){
+							if(s.getClass().equals(slot.getClass())){
+								System.out.println("problem = none");
+								s = slot;
+								rewritenSlot = true;
+							}
+						}
+						if(!rewritenSlot){
+							savedSlots.add(slot);
+						}
 						((Game) Gdx.app.getApplicationListener()).setScreen(ScreenContainer.SS);
+						
 					}
 				}
 			}
