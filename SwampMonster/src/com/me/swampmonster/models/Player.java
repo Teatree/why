@@ -44,6 +44,7 @@ public class Player extends AbstractGameObject {
 	public static int enemiesKilled;
 	public static int playerKilled;
 	public static int shotArrows;
+	public static float damage;
 
 	public static boolean shootingSwitch;
 
@@ -238,8 +239,8 @@ public class Player extends AbstractGameObject {
 				if (turret.timeRemove < 180) {
 					turret.timeRemove++;
 				} else if (turret.timeRemove > 179) {
-					this.turret = null;
 					turret.timeRemove = 0;
+					this.turret = null;
 				}
 			}
 		}

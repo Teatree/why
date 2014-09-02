@@ -16,16 +16,15 @@ public class MisterItemSpawner {
 
 	public static int spavning_distance_x = 24;
 	public static int spavning_distance_y = 24;
-	
+
 	static Random random = new Random();
 	static int mapWith;
 	static int mapHeight;
-//	static TiledMapTileLayer collisionLayer;
+	// static TiledMapTileLayer collisionLayer;
 	ItemGenerator itemGenerator = new ItemGenerator();
 	Item item;
 	int spawnRate;
-	
-	
+
 	public Item spawnItem(Player player, Enemy enmy) {
 		spawnRate = itemGenerator.generateSpawnRate(Player.levelsScore);
 
@@ -37,63 +36,69 @@ public class MisterItemSpawner {
 			haveIitem = random.nextInt(100);
 		}
 
-		if (haveIitem < 100) {
-			if (player.oxygen <= 13) {
-				item = itemGenerator.getMoreLikelyOxugenItem(Player.levelsScore);
-			} else {
-				item = itemGenerator.getItem(Player.levelsScore);
-			}
-		} else {
-			return null;
-		}
-		item.position = new Vector2(enmy.position);
-		mapWith = (int) TheController.collisionLayer.getTileWidth()
-				* TheController.collisionLayer.getWidth();
-		mapHeight = (int) TheController.collisionLayer.getTileHeight()
-				* TheController.collisionLayer.getHeight();
-
-		setItemTargetPos(item, player, enmy);
-
-		while (!isValidTargetPosition(item, player)) {
+		// if (haveIitem < 100) {
+		// if (player.oxygen <= 13) {
+		// item = itemGenerator.getMoreLikelyOxugenItem(Player.levelsScore);
+		// } else {
+		
+		if (item != null) {
+			 item = itemGenerator.getItem(Player.levelsScore);
+			// }
+			// } else {
+			// return null;
+			// }
+			item.position = new Vector2(enmy.position);
+			mapWith = (int) TheController.collisionLayer.getTileWidth()
+					* TheController.collisionLayer.getWidth();
+			mapHeight = (int) TheController.collisionLayer.getTileHeight()
+					* TheController.collisionLayer.getHeight();
+	
 			setItemTargetPos(item, player, enmy);
+	
+			while (!isValidTargetPosition(item, player)) {
+				setItemTargetPos(item, player, enmy);
+			}
 		}
 		return item;
 	}
 
-	
 	public static Item spawnPropsItem(Player player, Prop prop) {
 		ItemGenerator itemGenerator = new ItemGenerator();
 		Random random = new Random();
 
 		int haveIitem = random.nextInt(100);
 		Item item;
-		if (haveIitem < 100) {
-			if (player.oxygen <= 13) {
-				item = itemGenerator.getMoreLikelyOxugenItem(Player.levelsScore);
-			} else {
-				item = itemGenerator.getItem(Player.levelsScore);
-			}
-		} else {
-			return null;
-		}
+		// if (haveIitem < 100) {
+		// if (player.oxygen <= 13) {
+		// item = itemGenerator.getMoreLikelyOxugenItem(Player.levelsScore);
+		// } else {
+		item = itemGenerator.getItem(Player.levelsScore);
+		// }
+		// } else {
+		// return null;
+		// }
 
-		item.position = new Vector2(prop.position);
-		setItemTargetPos(item, player, prop);
-		while (!isValidTargetPosition(item, player)) {
+		if (item != null) {
+			item.position = new Vector2(prop.position);
 			setItemTargetPos(item, player, prop);
+			while (!isValidTargetPosition(item, player)) {
+				setItemTargetPos(item, player, prop);
+			}
 		}
 		return item;
 	}
-	
+
 	private static boolean isValidTargetPosition(Item item, Player player) {
-		if (CollisionHelper.isCollidable(item.targetPos.x, item.targetPos.y, TheController.collisionLayer) == null
+		if (CollisionHelper.isCollidable(item.targetPos.x, item.targetPos.y,
+				TheController.collisionLayer) == null
 				&& !Intersector.overlaps(item.circle, player.rectanlge)) {
 			return true;
 		}
 		return false;
 	}
 
-	private static void setItemTargetPos(Item i, Player player, AbstractGameObject enemy) {
+	private static void setItemTargetPos(Item i, Player player,
+			AbstractGameObject enemy) {
 		mapWith = (int) TheController.collisionLayer.getTileWidth()
 				* TheController.collisionLayer.getWidth();
 		mapHeight = (int) TheController.collisionLayer.getTileHeight()
@@ -122,6 +127,5 @@ public class MisterItemSpawner {
 		i.collisionLayer = TheController.collisionLayer;
 		i.spawned = true;
 	}
-
 
 }

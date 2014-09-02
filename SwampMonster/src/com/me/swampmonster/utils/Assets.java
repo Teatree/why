@@ -42,7 +42,8 @@ public class Assets {
 	public static final AssetDescriptor<Texture> arrow = new AssetDescriptor<Texture>("data\\arrrrow.png", Texture.class);
 	public static final AssetDescriptor<Texture> arrowPoisoned = new AssetDescriptor<Texture>("data\\arrrrowPoisoned.png", Texture.class);
 	public static final AssetDescriptor<Texture> arrowExplosive = new AssetDescriptor<Texture>("data\\arrrrowExplosive.png", Texture.class);
-	public static final AssetDescriptor<Texture> items = new AssetDescriptor<Texture>("data\\Items.png", Texture.class);
+	public static final AssetDescriptor<Texture> oxygenKitItem = new AssetDescriptor<Texture>("data\\Items\\HealthKitItem.png", Texture.class);
+	public static final AssetDescriptor<Texture> healthKitItem = new AssetDescriptor<Texture>("data\\Items\\OxygenKitItem.png", Texture.class);
 	public static final AssetDescriptor<Texture> weaponizerButton = new AssetDescriptor<Texture>("data\\Weaponizer.png", Texture.class);
 	public static final AssetDescriptor<Texture> tiles = new AssetDescriptor<Texture>("data\\Tiles.png", Texture.class);
 	public static final AssetDescriptor<Texture> tileSet_SAND_WORLD = new AssetDescriptor<Texture>("data\\tileSet_SAND_WORLD.png", Texture.class);
@@ -113,7 +114,8 @@ public class Assets {
 		manager.load(OxygenBarMiddle);
 		manager.load(OxygenBarHead);
 		manager.load(PointerHead);
-		manager.load(items);
+		manager.load(healthKitItem);
+		manager.load(oxygenKitItem);
 		manager.load(weaponizerButton);
 		manager.load(tiles);
 		manager.load(tileSet_SAND_WORLD);

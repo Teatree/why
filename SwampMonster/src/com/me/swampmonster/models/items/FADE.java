@@ -4,12 +4,25 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.me.swampmonster.animations.AnimationControl;
+import com.me.swampmonster.models.Item;
 import com.me.swampmonster.models.Player;
+import com.me.swampmonster.models.AbstractGameObject.State;
 import com.me.swampmonster.utils.Assets;
 import com.me.swampmonster.utils.Constants;
 
-public class FADE{
+public class FADE extends Item{
 	
+	public FADE() {
+		super();
+		
+		animationsStandard.put(State.SPAWNING, new AnimationControl(Assets.manager.get(Assets.oxygenKitItem), 4, 2, 4));
+		animationsStandard.put(State.STANDARD, new AnimationControl(Assets.manager.get(Assets.oxygenKitItem), 4, 2, 4));
+		animationsStandard.put(State.DEAD, new AnimationControl(Assets.manager.get(Assets.oxygenKitItem), 4, 2, 4));
+		animationsStandard.put(State.DESPAWNING, new AnimationControl(Assets.manager.get(Assets.oxygenKitItem), 4, 2, 4));
+		
+		sprite = new Sprite(animationsStandard.get(state).getCurrentFrame());
+	}
 	public static int level;
 	private static Map <Integer, String> descriptionByLevel;
 	static {

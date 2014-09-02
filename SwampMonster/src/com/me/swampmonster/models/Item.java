@@ -1,5 +1,7 @@
 package com.me.swampmonster.models;
 
+import java.util.Random;
+
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -24,22 +26,18 @@ public class Item extends AbstractGameObject{
 	public TiledMapTileLayer collisionLayer;
 	
 	//Animations
-	public Item(String itemType, int lifeTime){
+	public Item(){
 		state = State.SPAWNING;
 		
 		circle = new Circle();
 		circle.radius = 16;
 		
-		animationsStandard.put(State.SPAWNING, new AnimationControl(Assets.manager.get(Assets.items), 4, 4, 4));
-		animationsStandard.put(State.STANDARD, new AnimationControl(Assets.manager.get(Assets.items), 4, 4, 4));
-		animationsStandard.put(State.DEAD, new AnimationControl(Assets.manager.get(Assets.items), 4, 4, 4));
-		animationsStandard.put(State.DESPAWNING, new AnimationControl(Assets.manager.get(Assets.items), 4, 4, 4));
-		
-		sprite = new Sprite(animationsStandard.get(state).getCurrentFrame());
-		
-		this.lifeTime = lifeTime;
-		this.itemType = itemType;
+		Random random = new Random();
+		this.lifeTime = random.nextInt((800-600) + 600);
+//		this.itemType = itemType;
 		pendingTimer = 180;
+		
+		
 	}
 	
 	public void update(){
@@ -106,10 +104,6 @@ public class Item extends AbstractGameObject{
 	}
 	
 	private TextureRegion doItemAnimation(int i, float Comparator, float speedAdjust, int playMode){
-		if(itemType == "hp"){
 			return animationsStandard.get(state).doComplexAnimation(i, Comparator, speedAdjust, playMode);
-		}else{
-			return animationsStandard.get(state).doComplexAnimation(i+4, Comparator, speedAdjust, playMode);
-		}
 	}
 }
