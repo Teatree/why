@@ -127,8 +127,6 @@ public class Player extends AbstractGameObject {
 		hurt = false;
 		aimingArea = new Circle();
 		aimingArea.radius = 8;
-		// invalidSpawnArea = new Circle();
-		// invalidSpawnArea.radius = 90;
 		circle = new Circle();
 		circle.radius = 16;
 		V3playerPos = new Vector3();

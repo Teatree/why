@@ -72,7 +72,6 @@ public class LGenerator {
 		String tileSet;
 		boolean isLevelElite;
 		boolean hasLevelAtmosphere;
-		System.out.println("Last map " + lastMap);
 		if (lastMap == null && lastTileSet == null){
 			map = maps.get(random.nextInt(maps.size() - 1));
 			tileSet = tileSets.get(random.nextInt(tileSets.size()));

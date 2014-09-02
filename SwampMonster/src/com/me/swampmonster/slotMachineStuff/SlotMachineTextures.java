@@ -157,7 +157,7 @@ public class SlotMachineTextures extends Group {
 		
 		int Oppa = 32;
 		for(Slot s: SlotMachineScreen.savedSlots){
-			System.out.println("stuff");
+//			System.out.println("stuff");
 			batch.draw(s.sprite, Oppa, 10);
 			Oppa += s.sprite.getWidth()/5+5;
 		}

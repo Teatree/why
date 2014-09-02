@@ -12,6 +12,7 @@ public abstract class Slot {
 	public void execute (Player target){};
 	public int coolDown;
 	public boolean selected;
+	public int level;
 	
 	@Override
 	public boolean equals (Object slot){

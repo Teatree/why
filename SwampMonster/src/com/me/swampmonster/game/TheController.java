@@ -189,6 +189,7 @@ public class TheController extends InputAdapter {
 			}
 			sl.player = L1.player;
 			germany = false;
+			gotoMenu = false;
 			((Game) Gdx.app.getApplicationListener()).setScreen(sl);
 		} 
 		

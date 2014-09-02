@@ -1,12 +1,17 @@
 package com.me.swampmonster.utils;
 
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.List;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Json;
-import com.me.swampmonster.game.TheController;
 import com.me.swampmonster.models.L1;
 import com.me.swampmonster.models.Player;
+import com.me.swampmonster.models.slots.Slot;
+import com.me.swampmonster.screens.SlotMachineScreen;
 
 public class SaveManager {
 	public static void writeFile(String fileName, String s) {
@@ -27,7 +32,7 @@ public class SaveManager {
     
     public static void savePlayer(){
     	Json json = new Json();
-    	JsomPlayer somPlayer = new JsomPlayer();
+    	JsomPlayer somPlayer = new SaveManager.JsomPlayer();
     	somPlayer.maxOxygen = Player.maxOxygen;
     	somPlayer.playerMaxHealth = Player.maxHealth;
     	somPlayer.score = Player.absoluteScore;
@@ -38,6 +43,19 @@ public class SaveManager {
     	somPlayer.hadLastAtmosphere = LGenerator.hadLastAtmosphere;
     	somPlayer.lastTileSet = LGenerator.lastTileSet;
     	somPlayer.wasLastElite = LGenerator.wasLastElite;
+    	List<JsomSlot> jsavedSlots = new ArrayList<SaveManager.JsomSlot>();
+    	for (Slot slotik : SlotMachineScreen.savedSlots){
+    		try {
+    			JsomSlot somSlot = new JsomSlot();
+    			somSlot.className = slotik.getClass().toString().replace("class ", "");
+    			System.out.println("save " + somSlot.className);
+				somSlot.level = slotik.getClass().getField("level").getInt(null);
+				jsavedSlots.add(somSlot);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+    	}
+    	somPlayer.savedSlots = jsavedSlots;
     	writeFile("player.sav", json.toJson(somPlayer));
     }
     
@@ -60,25 +78,45 @@ public class SaveManager {
 	        LGenerator.wasLastElite = somPlayer.wasLastElite;
 	        LGenerator.lastMap = somPlayer.lastMap;
 	        LGenerator.lastTileSet = somPlayer.lastTileSet;
+	        SlotMachineScreen.savedSlots = new ArrayList<Slot>();
+	        if (somPlayer.savedSlots != null && !somPlayer.savedSlots.isEmpty()){
+		        for (JsomSlot somSlot : somPlayer.savedSlots){
+		        	try {
+		        		System.out.println(somSlot.className);
+						Slot slot = (Slot) Class.forName(somSlot.className).newInstance();
+						Field hack = slot.getClass().getDeclaredField("level");
+						hack.setAccessible(true);
+						hack.set(null, somSlot.level);
+						SlotMachineScreen.savedSlots.add(slot);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+		        }
+	        }
 	        return player;
         } else {
         	return new Player(new Vector2());
         }
     }
     
-    public static void saveLevel(){
-    	Json json = new Json();
-    	writeFile("world.sav", json.toJson(TheController.level1));
+    public static class JsomPlayer {
+    	public float maxOxygen;
+    	public int playerMaxHealth;
+    	public int score;
+    	public float arrowMovementSpeed;
+    	public String saved;
+    	public float movementSpeed;
+    	public float damage;
+    	
+    	public String lastTileSet;
+    	public String lastMap;
+    	public boolean wasLastElite;
+    	public boolean hadLastAtmosphere;
+    	public List <JsomSlot> savedSlots;
     }
-    
-    public static L1 loadLevel(){
-    	String save = readFile("world.sav");
-        if (!save.isEmpty()) {
-	    	Json json = new Json();
-	        L1 world = json.fromJson(L1.class, save);
-	        return world;
-        } else {
-        	return null;
-        }
+
+    public static class JsomSlot {
+    	public String className;
+    	public int level;
     }
 }
