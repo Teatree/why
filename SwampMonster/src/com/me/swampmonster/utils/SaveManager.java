@@ -37,24 +37,27 @@ public class SaveManager {
     	somPlayer.playerMaxHealth = Player.maxHealth;
     	somPlayer.score = Player.absoluteScore;
     	somPlayer.arrowMovementSpeed = Player.arrowMovementSpeed;
-    	somPlayer.movementSpeed = L1.player.movementSpeed;
-    	somPlayer.damage = L1.player.damage;
+    	if (L1.player != null){
+	    	somPlayer.movementSpeed = L1.player.movementSpeed;
+	    	somPlayer.damage = L1.player.damage;
+    	}
     	somPlayer.lastMap = LGenerator.lastMap;
     	somPlayer.hadLastAtmosphere = LGenerator.hadLastAtmosphere;
     	somPlayer.lastTileSet = LGenerator.lastTileSet;
     	somPlayer.wasLastElite = LGenerator.wasLastElite;
     	List<JsomSlot> jsavedSlots = new ArrayList<SaveManager.JsomSlot>();
-    	for (Slot slotik : SlotMachineScreen.savedSlots){
-    		try {
-    			JsomSlot somSlot = new JsomSlot();
-    			somSlot.className = slotik.getClass().toString().replace("class ", "");
-    			System.out.println("save " + somSlot.className);
-				somSlot.level = slotik.getClass().getField("level").getInt(null);
-				jsavedSlots.add(somSlot);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-    	}
+    	if (SlotMachineScreen.savedSlots != null && !SlotMachineScreen.savedSlots.isEmpty()){
+	    	for (Slot slotik : SlotMachineScreen.savedSlots){
+	    		try {
+	    			JsomSlot somSlot = new JsomSlot();
+	    			somSlot.className = slotik.getClass().toString().replace("class ", "");
+					somSlot.level = slotik.getClass().getField("level").getInt(null);
+					jsavedSlots.add(somSlot);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+	    	}
+		}
     	somPlayer.savedSlots = jsavedSlots;
     	writeFile("player.sav", json.toJson(somPlayer));
     }
@@ -82,7 +85,6 @@ public class SaveManager {
 	        if (somPlayer.savedSlots != null && !somPlayer.savedSlots.isEmpty()){
 		        for (JsomSlot somSlot : somPlayer.savedSlots){
 		        	try {
-		        		System.out.println(somSlot.className);
 						Slot slot = (Slot) Class.forName(somSlot.className).newInstance();
 						Field hack = slot.getClass().getDeclaredField("level");
 						hack.setAccessible(true);

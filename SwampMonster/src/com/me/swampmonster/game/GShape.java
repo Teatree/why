@@ -81,7 +81,7 @@ public class GShape extends Group {
 			sr.rect(0, 0, Constants.VIEWPORT_WIDTH, Constants.VIEWPORT_HEIGHT);
 		}
 		sr.setColor(Color.RED);
-		for (Rectangle r : theController.gui.getHealthBar().getHealthBarRect()) {
+		for (Rectangle r : TheController.gui.getHealthBar().getHealthBarRect()) {
 			if (r != null) {
 				sr.rect(r.x, r.y, r.width, r.height);
 			}
@@ -93,11 +93,11 @@ public class GShape extends Group {
 			}
 			L1.player.hurt = true;
 			sr.setColor(new Color(200, 0, 0, ass));
-			if (theController.gui.getHealthBar().getHealthBarRect()[j] != null) {
-				sr.rect(theController.gui.getHealthBar().getHealthBarRect()[j].x,
-						theController.gui.getHealthBar().getHealthBarRect()[j].y,
-						theController.gui.getHealthBar().getHealthBarRect()[j].width,
-						theController.gui.getHealthBar().getHealthBarRect()[j].height);
+			if (TheController.gui.getHealthBar().getHealthBarRect()[j] != null) {
+				sr.rect(TheController.gui.getHealthBar().getHealthBarRect()[j].x,
+						TheController.gui.getHealthBar().getHealthBarRect()[j].y,
+						TheController.gui.getHealthBar().getHealthBarRect()[j].width,
+						TheController.gui.getHealthBar().getHealthBarRect()[j].height);
 			}
 			ass = ass - 0.02f;
 		} else if (!L1.player.hurt) {
@@ -125,16 +125,16 @@ public class GShape extends Group {
 			sr.rect(16, 422, Player.maxOxygen, 22);
 		}
 		if (L1.player.state != State.DEAD) {
-			if (theController.gui.getWeaponizer().on == false) {
+			if (TheController.gui.getWeaponizer().on == false) {
 				sr.setColor(Color.WHITE);
-			} else if (theController.gui.getWeaponizer().on == true) {
+			} else if (TheController.gui.getWeaponizer().on == true) {
 				sr.setColor(Color.WHITE);
 			}
 
 			if (TheController.skill != null) {
-				sr.circle(theController.gui.getWeaponizer().circle.x,
-						theController.gui.getWeaponizer().circle.y,
-						theController.gui.getWeaponizer().circle.radius);
+				sr.circle(TheController.gui.getWeaponizer().circle.x,
+						TheController.gui.getWeaponizer().circle.y,
+						TheController.gui.getWeaponizer().circle.radius);
 			}
 		}
 
@@ -178,10 +178,10 @@ public class GShape extends Group {
 		sr.begin(ShapeType.Filled);
 		if (L1.player.isDead()) {
 			sr.setColor(new Color(200, 0, 0, assRevert));
-			sr.rect(theController.gui.getGameoverGUI().rectanlge.x,
-					theController.gui.getGameoverGUI().rectanlge.y,
-					theController.gui.getGameoverGUI().rectanlge.width + 200,
-					theController.gui.getGameoverGUI().rectanlge.height + 200);
+			sr.rect(TheController.gui.getGameoverGUI().rectanlge.x,
+					TheController.gui.getGameoverGUI().rectanlge.y,
+					TheController.gui.getGameoverGUI().rectanlge.width + 200,
+					TheController.gui.getGameoverGUI().rectanlge.height + 200);
 			if (assRevert < 0.5f && L1.player.state == State.DEAD) {
 				assRevert = assRevert + 0.002f;
 			}
@@ -189,13 +189,13 @@ public class GShape extends Group {
 		if (assRevert >= 0.45f
 				&& L1.player.state == State.DEAD) {
 			sr.setColor(Color.GREEN);
-			if (theController.gui.getGameoverGUI().circle.contains(point)) {
+			if (TheController.gui.getGameoverGUI().circle.contains(point)) {
 				sr.setColor(new Color(0, 200, 0.5f, 100));
 				TheController.showFeedback = true;
 			}
-			sr.circle(theController.gui.getGameoverGUI().circle.x,
-					theController.gui.getGameoverGUI().circle.y,
-					theController.gui.getGameoverGUI().circle.radius);
+			sr.circle(TheController.gui.getGameoverGUI().circle.x,
+					TheController.gui.getGameoverGUI().circle.y,
+					TheController.gui.getGameoverGUI().circle.radius);
 		}
 
 		sr.end();
@@ -206,9 +206,9 @@ public class GShape extends Group {
 		if (assRevert >= 0.45f
 				&& L1.player.state == State.DEAD) {
 			sr.setColor(Color.BLACK);
-			sr.circle(theController.gui.getGameoverGUI().circle.x,
-					theController.gui.getGameoverGUI().circle.y,
-					theController.gui.getGameoverGUI().circle.radius);
+			sr.circle(TheController.gui.getGameoverGUI().circle.x,
+					TheController.gui.getGameoverGUI().circle.y,
+					TheController.gui.getGameoverGUI().circle.radius);
 		}
 		sr.rect(TheController.debugRect.x, TheController.debugRect.y,
 				TheController.debugRect.width, TheController.debugRect.height);
@@ -223,14 +223,14 @@ public class GShape extends Group {
 			unlockNotificationCounter--;
 		}
 		
-		for (Sprite s: theController.gui.getHealthBar().sprites){
+		for (Sprite s: TheController.gui.getHealthBar().sprites){
 			batch.draw(s, s.getX(), s.getY(), s.getWidth(), s.getHeight()+6);
 		}
-		for (Sprite s: theController.gui.getOxygenBar().sprites){
+		for (Sprite s: TheController.gui.getOxygenBar().sprites){
 			batch.draw(s, s.getX(), s.getY(), s.getWidth(), s.getHeight()+6);
 		}
 		if (TheController.skill != null){
-			batch.draw(theController.gui.getWeaponizer().sprite, 0, 0);
+			batch.draw(TheController.gui.getWeaponizer().sprite, 0, 0);
 		}
 		
 		if (L1.player.positiveEffectsState != null
@@ -254,11 +254,11 @@ public class GShape extends Group {
 		if (TheController.skill != null && !(TheController.skill instanceof Perks)) {
 			batch.draw(
 					TheController.skill.sprite,
-					theController.gui.getWeaponizer().sprite.getX()
-							+ theController.gui.getWeaponizer().sprite
+					TheController.gui.getWeaponizer().sprite.getX()
+							+ TheController.gui.getWeaponizer().sprite
 									.getWidth() / 4,
-					theController.gui.getWeaponizer().sprite.getY()
-							+ theController.gui.getWeaponizer().sprite
+					TheController.gui.getWeaponizer().sprite.getY()
+							+ TheController.gui.getWeaponizer().sprite
 									.getHeight() / 4, 64, 64);
 			
 		}
@@ -270,8 +270,8 @@ public class GShape extends Group {
 								.get(TheController.skill.getClass()
 										.getField("level").getInt(null) - 1));
 				s.setPosition(
-						theController.gui.getWeaponizer().position.x - 35,
-						theController.gui.getWeaponizer().position.y - 35);
+						TheController.gui.getWeaponizer().position.x - 35,
+						TheController.gui.getWeaponizer().position.y - 35);
 				s.setSize(27, 27);
 				s.draw(batch);
 			}
@@ -298,15 +298,15 @@ public class GShape extends Group {
 		font.setColor(Color.YELLOW);
 		font.setScale(1);
 		if(assRevert >= 0.4f && L1.player.state == State.DEAD){
-			font.draw(batch, theController.gui.getGameoverGUI().getGameOverString(), 310, 280);
+			font.draw(batch, TheController.gui.getGameoverGUI().getGameOverString(), 310, 280);
 		}
 //		if(assRevert >= 0.4f && TheController.level1.player.state == State.DEAD){
 //			font.setScale(1);
-//			font.draw(batch, theController.gui.getGameoverGUI().getWittyMessage(), 240-theController.gui.getGameoverGUI().getWittyMessage().length(), 230);
+//			font.draw(batch, TheController.gui.getGameoverGUI().getWittyMessage(), 240-TheController.gui.getGameoverGUI().getWittyMessage().length(), 230);
 //		}
 		if(assRevert >= 0.45f && L1.player.state == State.DEAD){
 			font.setScale(1);
-			font.draw(batch, theController.gui.getGameoverGUI().getRestartString(), 361, 170);
+			font.draw(batch, TheController.gui.getGameoverGUI().getRestartString(), 361, 170);
 		}
 		
 		if(TheController.showFeedback){
@@ -318,7 +318,7 @@ public class GShape extends Group {
 			String wittyMessage;
 			String nextMessage;
 			if(assRevert >= 0.4f && L1.player.state == State.DEAD){
-				wittyMessage = theController.gui.getGameoverGUI().getWittyMessage();
+				wittyMessage = TheController.gui.getGameoverGUI().getWittyMessage();
 				nextMessage = Constants.TRY_AGAIN;
 			} else {
 				wittyMessage = Constants.ONE_MORE_WORLD_CONQUERED;
@@ -356,9 +356,9 @@ public class GShape extends Group {
 		Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
 		sr.setColor(new Color(0.1f,  0.1f, 0.1f, 0.57f));
 		if (TheController.skill != null) {
-			sr.arc(theController.gui.getWeaponizer().position.x,
-					theController.gui.getWeaponizer().position.y,
-					theController.gui.getWeaponizer().circle.radius, 90,
+			sr.arc(TheController.gui.getWeaponizer().position.x,
+					TheController.gui.getWeaponizer().position.y,
+					TheController.gui.getWeaponizer().circle.radius, 90,
 					TheController.coolDownAngle);
 		}
 		if(TheController.paused || TheController.pausedTutorial){
@@ -409,7 +409,7 @@ public class GShape extends Group {
 		sr.begin(ShapeType.Filled);
 		if(TutorialLevel.step == 2){
 			sr.setColor(Color.RED);
-			for (Rectangle r : theController.gui.getHealthBar().getHealthBarRect()) {
+			for (Rectangle r : TheController.gui.getHealthBar().getHealthBarRect()) {
 				if (r != null) {
 					sr.rect(r.x, r.y, r.width, r.height);
 				}
@@ -422,11 +422,11 @@ public class GShape extends Group {
 		batch.begin();
 		
 		if(TutorialLevel.step == 2){
-			for (Sprite s: theController.gui.getHealthBar().sprites){
+			for (Sprite s: TheController.gui.getHealthBar().sprites){
 				batch.draw(s, s.getX(), s.getY(), s.getWidth(), s.getHeight()+6);
 			}
 			
-			for (Sprite s: theController.gui.getOxygenBar().sprites){
+			for (Sprite s: TheController.gui.getOxygenBar().sprites){
 				batch.draw(s, s.getX(), s.getY(), s.getWidth(), s.getHeight()+6);
 			}
 			

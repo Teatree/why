@@ -113,6 +113,7 @@ public class Player extends AbstractGameObject {
 		negativeEffectsState = NegativeEffects.NONE;
 		positiveEffectCounter = new Integer(0);
 		negativeEffectCounter = new Integer(0);
+		
 		this.position = position;
 		movementSpeed = DEFAULT_MOVEMENT_SPEED;
 		STANDART_MOVEMENT_SPEED = DEFAULT_MOVEMENT_SPEED;

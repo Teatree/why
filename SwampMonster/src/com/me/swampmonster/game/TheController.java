@@ -131,6 +131,8 @@ public class TheController extends InputAdapter {
 	public void update(float deltaTime, Game game) {
 		pointRectV3.x = touchPos.x;
 		pointRectV3.y = touchPos.y;
+		
+		System.out.println("paysed " + paused + " goto Manu " + gotoMenu);
 
 //		System.err.println("toughtPos: " + touchPos);
 		
@@ -189,7 +191,7 @@ public class TheController extends InputAdapter {
 			}
 			sl.player = L1.player;
 			germany = false;
-			gotoMenu = false;
+			paused = false;
 			((Game) Gdx.app.getApplicationListener()).setScreen(sl);
 		} 
 		
