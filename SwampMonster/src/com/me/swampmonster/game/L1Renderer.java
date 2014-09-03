@@ -341,9 +341,9 @@ public class L1Renderer {
 
 		for (Enemy enemy : L1.enemiesOnStage) {
 			if (enemy.getPosition().y + 42 < L1.player.getPosition().y + 42) {
-				enemy.getSprite().setPosition(enemy.getPosition().x,
+				enemy.sprite.setPosition(enemy.getPosition().x,
 						enemy.getPosition().y);
-				enemy.getSprite().draw(batch);
+				enemy.sprite.draw(batch);
 			}
 		}
 

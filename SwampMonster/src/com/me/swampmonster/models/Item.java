@@ -12,7 +12,7 @@ import com.me.swampmonster.game.collision.CollisionHelper;
 
 public abstract class Item extends AbstractGameObject{
 	public String itemType;
-	public int lifeTime;
+	public static int lifeTime;
 	public int deadAnimTimer;
 	public boolean spawned;
 	
@@ -105,5 +105,5 @@ public abstract class Item extends AbstractGameObject{
 			return animationsStandard.get(state).doComplexAnimation(i, Comparator, speedAdjust, playMode);
 	}
 	
-	public abstract void pickUpMe(Player player);
+	public abstract void pickMeUp(Player player);
 }

@@ -20,7 +20,7 @@ public class HealthKit extends Item{
 	}
 
 	@Override
-	public void pickUpMe(Player player) {
+	public void pickMeUp(Player player) {
 		if (player.health < Player.maxHealth) {
 			player.health++;
 			if (player.negativeEffectsState == NegativeEffects.POISONED) {

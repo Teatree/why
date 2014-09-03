@@ -63,6 +63,7 @@ public class Assets {
 	public static final AssetDescriptor<Texture> IMPROVEMAXOXYGEN_ICON = new AssetDescriptor<Texture>("data\\slotIcons\\IMPROVEMAXOXYGEN_ICON2.png", Texture.class);
 	public static final AssetDescriptor<Texture> IMPROVEARROWDAMAGE_ICON = new AssetDescriptor<Texture>("data\\slotIcons\\IMPROVEARROWDAMAGE_ICON.png", Texture.class);
 	public static final AssetDescriptor<Texture> IMPROVEARROWSPEED_ICON = new AssetDescriptor<Texture>("data\\slotIcons\\IMPROVEARROWSPEED_ICON.png", Texture.class);
+	public static final AssetDescriptor<Texture> HASTE_ICON = new AssetDescriptor<Texture>("data\\slotIcons\\HASTE_ICON.png", Texture.class);
 	public static final AssetDescriptor<Texture> IMPROVEMOVEMENTSPEED_ICON = new AssetDescriptor<Texture>("data\\slotIcons\\IMPROVE_MOVEMENT_SPEED_ICON.png", Texture.class);
 	public static final AssetDescriptor<Texture> FROZENNEGATIVEEFFECT_ICON = new AssetDescriptor<Texture>("data\\slotIcons\\FROZEN_NEGATIVE_EFFECT_ICON.png", Texture.class);
 	public static final AssetDescriptor<Texture> POISONEDNEGATIVEEFFECT_ICON = new AssetDescriptor<Texture>("data\\slotIcons\\POISONED_NEGATIVE_EFFECT_ICON.png", Texture.class);
@@ -122,6 +123,7 @@ public class Assets {
 		manager.load(slotMachineCase);
 		manager.load(FADE_ICON);
 		manager.load(RADIOACTIVE_AURA_ICON);
+		manager.load(HASTE_ICON);
 		manager.load(SPEED_BOOST_ICON);
 		manager.load(THREEARROW_ICON);
 		manager.load(EXPLOSIVE_ARROW_ICON);

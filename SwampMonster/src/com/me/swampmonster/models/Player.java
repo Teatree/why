@@ -23,6 +23,7 @@ import com.me.swampmonster.game.collision.Collidable;
 import com.me.swampmonster.game.collision.CollisionHelper;
 import com.me.swampmonster.models.Projectile.EffectCarriers;
 import com.me.swampmonster.models.enemies.Enemy;
+import com.me.swampmonster.models.items.HASTE;
 import com.me.swampmonster.models.items.RADIOACTIVE;
 import com.me.swampmonster.models.slots.PositiveEffects;
 import com.me.swampmonster.models.slots.Slot;
@@ -606,6 +607,7 @@ public class Player extends AbstractGameObject {
 			radioactiveAura = new Circle(position.x + sprite.getWidth() / 2,
 					position.y + sprite.getHeight() / 2,
 					RADIOACTIVE.RADIOACTIVE_Radius);
+			System.out.println("radioactiveRadius: " + RADIOACTIVE.RADIOACTIVE_Radius);
 			positiveEffectsState = positiveEffect;
 			positiveEffectCounter = positiveEffect.lifetime;
 			break;
@@ -619,6 +621,16 @@ public class Player extends AbstractGameObject {
 			positiveEffectsState = positiveEffect;
 			positiveEffectCounter = positiveEffect.lifetime;
 			break;
+		case HASTE:
+			if (negativeEffectsState == NegativeEffects.FROZEN) {
+				setNegativeEffect(NegativeEffects.NONE);
+			}
+			this.sprite.setColor(220f/255, 20f/255, 60f/255, 1f);
+			radioactiveAura = null;
+			damage = damage+2;
+			positiveEffectsState = positiveEffect;
+			positiveEffectCounter = HASTE.lifeTime;
+			break;
 		case NONE:
 			if (negativeEffectsState == NegativeEffects.NONE
 					|| negativeEffectsState == null) {
@@ -626,6 +638,7 @@ public class Player extends AbstractGameObject {
 				movementSpeed = STANDART_MOVEMENT_SPEED;
 			}
 			radioactiveAura = null;
+			damage = DEFAULT_DAMAGE;
 			positiveEffectsState = PositiveEffects.NONE;
 		}
 

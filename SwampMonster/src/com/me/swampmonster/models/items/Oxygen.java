@@ -21,7 +21,7 @@ public class Oxygen extends Item{
 	}
 
 	@Override
-	public void pickUpMe(Player player) {
+	public void pickMeUp(Player player) {
 		if (player.oxygen < Player.maxOxygen) {
 			if (player.oxygen + 50 < Player.maxOxygen) {
 				player.oxygen = player.oxygen + 50;
@@ -29,6 +29,7 @@ public class Oxygen extends Item{
 				player.oxygen = Player.maxOxygen;
 			}
 			this.state = State.DEAD;
+			System.out.println("Hi! I am radioactive aura");
 		}
 	}
 

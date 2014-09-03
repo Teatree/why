@@ -206,7 +206,7 @@ public class L1 {
 //						}
 //						item.state = State.DEAD;
 //					}
-						item.pickUpMe(player);
+						item.pickMeUp(player);
 				}
 				for (Explosion expl : explosions) {
 					if (item.sprite != null && Intersector.overlaps(expl.explCircle, item.sprite.getBoundingRectangle())) {

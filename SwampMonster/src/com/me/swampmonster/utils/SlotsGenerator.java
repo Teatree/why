@@ -9,7 +9,6 @@ import com.me.swampmonster.models.slots.Arrows3;
 import com.me.swampmonster.models.slots.DamageTrap;
 import com.me.swampmonster.models.slots.ExplosiveArrow;
 import com.me.swampmonster.models.slots.ExplozionTrap;
-import com.me.swampmonster.models.slots.FADE;
 import com.me.swampmonster.models.slots.FrostTrap;
 import com.me.swampmonster.models.slots.ImproveArrowDamage;
 import com.me.swampmonster.models.slots.ImproveArrowSpeed;
@@ -31,10 +30,10 @@ public class SlotsGenerator {
 	SlotParams slotParams;
 	
 	private static enum SlotParams{
-		p0_500(8, 11, 11, 15),
-		p500_1000(0, 11, 11, 15),
-		p1000_2000(0, 11, 11, 15),
-		p2000_4000(0, 11, 11, 15);
+		p0_500(0, 10, 10, 14),
+		p500_1000(0, 10, 10, 14),
+		p1000_2000(0, 10, 10, 14),
+		p2000_4000(0, 10, 10, 14);
 		
 		public final int minRandActiveSkillValue;
 		public final int maxRandActiveSkillValue;
@@ -55,21 +54,20 @@ public class SlotsGenerator {
 		slots = new HashMap<Integer, Class<? extends Slot>>();
 		//:TODO Dmitriy, order is essential in this biatch, it determines what the player will receive.
 		slots.put(0, SPEED_BOOST.class);
-		slots.put(1, FADE.class);
-		slots.put(2, PoisonTrap.class);
-		slots.put(3, DamageTrap.class);
-		slots.put(4, FrostTrap.class);
-		slots.put(5, ExplozionTrap.class);
-		slots.put(6, Arrows3.class);
-		slots.put(7, ShadowArrow.class);
-		slots.put(8, PoisonArrow.class);
-		slots.put(9, TurretSkill.class);
-		slots.put(10, ExplosiveArrow.class);
-		slots.put(11, ImproveArrowDamage.class);
-		slots.put(12, ImproveArrowSpeed.class);
-		slots.put(13, ImproveMaxHealth.class);
-		slots.put(14, ImproveMaxOxygen.class);
-		slots.put(15, ImproveMovementSpeed.class);
+		slots.put(1, PoisonTrap.class);
+		slots.put(2, DamageTrap.class);
+		slots.put(3, FrostTrap.class);
+		slots.put(4, ExplozionTrap.class);
+		slots.put(5, Arrows3.class);
+		slots.put(6, ShadowArrow.class);
+		slots.put(7, PoisonArrow.class);
+		slots.put(8, TurretSkill.class);
+		slots.put(9, ExplosiveArrow.class);
+		slots.put(10, ImproveArrowDamage.class);
+		slots.put(11, ImproveArrowSpeed.class);
+		slots.put(12, ImproveMaxHealth.class);
+		slots.put(13, ImproveMaxOxygen.class);
+		slots.put(14, ImproveMovementSpeed.class);
 	}
 
 	public static SlotsGenerator getSlotGenerator() {

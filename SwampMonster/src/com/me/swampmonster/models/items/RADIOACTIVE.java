@@ -58,8 +58,11 @@ public class RADIOACTIVE extends Item{
 	
 
 	@Override
-	public void pickUpMe(Player player) {
+	public void pickMeUp(Player player) {
+		player.positiveEffectSprite = new Sprite(Assets.manager.get(Assets.RADIOACTIVE_AURA_ICON));
 		player.setPositiveEffect(PositiveEffects.RADIOACTIVE_AURA);
+//		System.out.println("Hi! I am RADIOACTIVE aura, circle radius: ");
+		this.state=State.DEAD;
 	}
 	
 //	@Override

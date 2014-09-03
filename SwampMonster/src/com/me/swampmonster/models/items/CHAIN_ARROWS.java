@@ -20,9 +20,9 @@ public class CHAIN_ARROWS extends Item{
 	}
 
 	@Override
-	public void pickUpMe(Player player) {
-		// TODO Auto-generated method stub
-		
+	public void pickMeUp(Player player) {
+		this.state = State.DEAD;
+		System.out.println("Hello, I am Chain arrows!");
 	}
 
 }

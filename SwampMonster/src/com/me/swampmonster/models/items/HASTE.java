@@ -1,15 +1,42 @@
 package com.me.swampmonster.models.items;
 
+import java.util.Random;
+
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.me.swampmonster.animations.AnimationControl;
 import com.me.swampmonster.models.Item;
 import com.me.swampmonster.models.Player;
+import com.me.swampmonster.models.AbstractGameObject.State;
+import com.me.swampmonster.models.slots.PositiveEffects;
 import com.me.swampmonster.utils.Assets;
+import com.me.swampmonster.utils.Constants;
 
 public class HASTE extends Item{
 
 	public HASTE() {
 		super();
+				
+		sprite = new Sprite(Assets.manager.get(Assets.SPEED_BOOST_ICON));
+				
+		Random random = new Random();
+		int level = random.nextInt(5);
+		switch (level) {
+		case 0:
+			lifeTime = Constants.SPEED_BOOST_LifeTime_L1;
+			break;
+		case 1:
+			lifeTime = Constants.SPEED_BOOST_LifeTime_L2;
+			break;
+		case 2:
+			lifeTime = Constants.SPEED_BOOST_LifeTime_L3;
+			break;
+		case 3:
+			lifeTime = Constants.SPEED_BOOST_LifeTime_L4;
+			break;
+		case 4:
+			lifeTime = Constants.SPEED_BOOST_LifeTime_L5;
+			break;
+		}
 		
 		animationsStandard.put(State.SPAWNING, new AnimationControl(Assets.manager.get(Assets.oxygenKitItem), 4, 2, 4));
 		animationsStandard.put(State.STANDARD, new AnimationControl(Assets.manager.get(Assets.oxygenKitItem), 4, 2, 4));
@@ -20,9 +47,11 @@ public class HASTE extends Item{
 	}
 
 	@Override
-	public void pickUpMe(Player player) {
-		// TODO Auto-generated method stub
-		
+	public void pickMeUp(Player player) {
+		this.state=State.DEAD;
+		player.positiveEffectSprite = new Sprite(Assets.manager.get(Assets.HASTE_ICON));
+		player.setPositiveEffect(PositiveEffects.HASTE);
+		System.out.println("I am Haste, biatch");
 	}
 
 }

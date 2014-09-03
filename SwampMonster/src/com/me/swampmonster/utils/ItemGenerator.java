@@ -82,7 +82,8 @@ public class ItemGenerator {
 	}
 	
 	public Item getItem(int playersScore){
-		return generateItem(playersScore);
+//		return generateItem(playersScore);
+		return new HASTE();
 	}
 	
 	public Item generateItem(int playersScore) {
@@ -91,7 +92,7 @@ public class ItemGenerator {
 		Item item = null;
 		try {
 			item = items.get(number).getConstructor().newInstance();
-			System.out.println(item + " num "+ number);
+//			System.out.println(item + " num "+ number);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;

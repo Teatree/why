@@ -47,7 +47,7 @@ public class EnemyLeech extends Enemy{
 					float direction_x = player.position.x - position.x;
 					float direction_y = player.position.y - position.y;
 					
-					LeechProjectile p = new LeechProjectile(new Vector2(100, 100), getRotation(target));
+					LeechProjectile p = new LeechProjectile(new Vector2(100, 100), getRotation(player.position));
 					if(this.toughness != null){
 						p.setColour(this.toughness.red, this.toughness.green, this.toughness.blue, this.toughness.alpha);
 					}
