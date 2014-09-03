@@ -10,7 +10,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.me.swampmonster.game.TheController;
-import com.me.swampmonster.models.L1;
 import com.me.swampmonster.models.slots.Perks;
 import com.me.swampmonster.models.slots.Slot;
 import com.me.swampmonster.slotMachineStuff.SlotMachineTextures;

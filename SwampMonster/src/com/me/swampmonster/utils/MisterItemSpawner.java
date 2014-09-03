@@ -26,27 +26,25 @@ public class MisterItemSpawner {
 	int spawnRate;
 
 	public Item spawnItem(Player player, Enemy enmy) {
-		spawnRate = itemGenerator.generateSpawnRate(Player.levelsScore);
+//		spawnRate = itemGenerator.generateSpawnRate(Player.levelsScore);
 
-		int haveIitem;
+		int haveItem =0;
 
 		if (enmy.toughness != null) {
-			haveIitem = random.nextInt(102);
+			haveItem = random.nextInt(102);
 		} else {
-			haveIitem = random.nextInt(100);
+			haveItem = random.nextInt(100);
 		}
 
 		// if (haveIitem < 100) {
 		// if (player.oxygen <= 13) {
 		// item = itemGenerator.getMoreLikelyOxugenItem(Player.levelsScore);
 		// } else {
-		
-		if (item != null) {
+		if (haveItem > 10){
 			 item = itemGenerator.getItem(Player.levelsScore);
-			// }
-			// } else {
-			// return null;
-			// }
+		} else {
+			 return null;
+		}
 			item.position = new Vector2(enmy.position);
 			mapWith = (int) TheController.collisionLayer.getTileWidth()
 					* TheController.collisionLayer.getWidth();
@@ -58,9 +56,8 @@ public class MisterItemSpawner {
 			while (!isValidTargetPosition(item, player)) {
 				setItemTargetPos(item, player, enmy);
 			}
+			return item;
 		}
-		return item;
-	}
 
 	public static Item spawnPropsItem(Player player, Prop prop) {
 		ItemGenerator itemGenerator = new ItemGenerator();

@@ -8,11 +8,9 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector2;
-import com.me.swampmonster.animations.AnimationControl;
 import com.me.swampmonster.game.collision.CollisionHelper;
-import com.me.swampmonster.utils.Assets;
 
-public class Item extends AbstractGameObject{
+public abstract class Item extends AbstractGameObject{
 	public String itemType;
 	public int lifeTime;
 	public int deadAnimTimer;
@@ -106,4 +104,6 @@ public class Item extends AbstractGameObject{
 	private TextureRegion doItemAnimation(int i, float Comparator, float speedAdjust, int playMode){
 			return animationsStandard.get(state).doComplexAnimation(i, Comparator, speedAdjust, playMode);
 	}
+	
+	public abstract void pickUpMe(Player player);
 }

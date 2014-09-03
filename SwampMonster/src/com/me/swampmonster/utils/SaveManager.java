@@ -39,7 +39,7 @@ public class SaveManager {
     	somPlayer.arrowMovementSpeed = Player.arrowMovementSpeed;
     	if (L1.player != null){
 	    	somPlayer.movementSpeed = L1.player.movementSpeed;
-	    	somPlayer.damage = L1.player.damage;
+	    	somPlayer.damage = Player.damage;
     	}
     	somPlayer.lastMap = LGenerator.lastMap;
     	somPlayer.hadLastAtmosphere = LGenerator.hadLastAtmosphere;
@@ -75,7 +75,7 @@ public class SaveManager {
 	        Player.arrowMovementSpeed = somPlayer.arrowMovementSpeed;
 	        player.oxygen = Player.maxOxygen;
 	        player.health = Player.maxHealth;
-	        player.damage = somPlayer.damage;
+	        Player.damage = somPlayer.damage;
 	        player.movementSpeed = somPlayer.movementSpeed;
 	        LGenerator.hadLastAtmosphere = somPlayer.hadLastAtmosphere;
 	        LGenerator.wasLastElite = somPlayer.wasLastElite;

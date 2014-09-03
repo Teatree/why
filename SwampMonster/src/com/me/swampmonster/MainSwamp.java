@@ -1,7 +1,6 @@
 package com.me.swampmonster;
 
 import com.badlogic.gdx.Game;
-import com.me.swampmonster.game.TheController;
 import com.me.swampmonster.utils.Assets;
 import com.me.swampmonster.utils.SaveManager;
 import com.me.swampmonster.utils.ScreenContainer;

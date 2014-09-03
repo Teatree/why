@@ -7,7 +7,6 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.me.swampmonster.animations.AnimationControl;
 import com.me.swampmonster.models.Item;
 import com.me.swampmonster.models.Player;
-import com.me.swampmonster.models.AbstractGameObject.State;
 import com.me.swampmonster.utils.Assets;
 import com.me.swampmonster.utils.Constants;
 
@@ -32,6 +31,11 @@ public class FADE extends Item{
 		descriptionByLevel.put(2, Constants.FADE_Description_L3);
 		descriptionByLevel.put(3, Constants.FADE_Description_L4);
 		descriptionByLevel.put(4, Constants.FADE_Description_L5);
+	}
+	@Override
+	public void pickUpMe(Player player) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	

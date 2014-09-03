@@ -42,8 +42,8 @@ public class Assets {
 	public static final AssetDescriptor<Texture> arrow = new AssetDescriptor<Texture>("data\\arrrrow.png", Texture.class);
 	public static final AssetDescriptor<Texture> arrowPoisoned = new AssetDescriptor<Texture>("data\\arrrrowPoisoned.png", Texture.class);
 	public static final AssetDescriptor<Texture> arrowExplosive = new AssetDescriptor<Texture>("data\\arrrrowExplosive.png", Texture.class);
-	public static final AssetDescriptor<Texture> oxygenKitItem = new AssetDescriptor<Texture>("data\\Items\\HealthKitItem.png", Texture.class);
-	public static final AssetDescriptor<Texture> healthKitItem = new AssetDescriptor<Texture>("data\\Items\\OxygenKitItem.png", Texture.class);
+	public static final AssetDescriptor<Texture> oxygenKitItem = new AssetDescriptor<Texture>("data\\Items\\OxygenKitItem.png", Texture.class);
+	public static final AssetDescriptor<Texture> healthKitItem = new AssetDescriptor<Texture>("data\\Items\\HealthKitItem.png", Texture.class);
 	public static final AssetDescriptor<Texture> weaponizerButton = new AssetDescriptor<Texture>("data\\Weaponizer.png", Texture.class);
 	public static final AssetDescriptor<Texture> tiles = new AssetDescriptor<Texture>("data\\Tiles.png", Texture.class);
 	public static final AssetDescriptor<Texture> tileSet_SAND_WORLD = new AssetDescriptor<Texture>("data\\tileSet_SAND_WORLD.png", Texture.class);

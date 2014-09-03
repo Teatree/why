@@ -11,7 +11,6 @@ import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.me.swampmonster.game.TheController;
-import com.me.swampmonster.models.AbstractGameObject.NegativeEffects;
 import com.me.swampmonster.models.AbstractGameObject.State;
 import com.me.swampmonster.models.Projectile.EffectCarriers;
 import com.me.swampmonster.models.enemies.Enemy;
@@ -193,20 +192,21 @@ public class L1 {
 				itm.remove();
 			}else{
 					if(Intersector.overlaps(item.circle, player.rectanlge)){
-					if(item.itemType=="hp" && player.health < Player.maxHealth){
-						player.health++;
-						if (player.negativeEffectsState == NegativeEffects.POISONED){
-							player.setNegativeEffect(NegativeEffects.NONE);
-						}
-						item.state = State.DEAD;
-					}else if(item.itemType == "O2" && player.oxygen < Player.maxOxygen){
-						if(player.oxygen+50 < Player.maxOxygen){
-							player.oxygen = player.oxygen+50;
-						}else{
-							player.oxygen = Player.maxOxygen;
-						}
-						item.state = State.DEAD;
-					}
+//					if(item.itemType=="hp" && player.health < Player.maxHealth){
+//						player.health++;
+//						if (player.negativeEffectsState == NegativeEffects.POISONED){
+//							player.setNegativeEffect(NegativeEffects.NONE);
+//						}
+//						item.state = State.DEAD;
+//					}else if(item.itemType == "O2" && player.oxygen < Player.maxOxygen){
+//						if(player.oxygen+50 < Player.maxOxygen){
+//							player.oxygen = player.oxygen+50;
+//						}else{
+//							player.oxygen = Player.maxOxygen;
+//						}
+//						item.state = State.DEAD;
+//					}
+						item.pickUpMe(player);
 				}
 				for (Explosion expl : explosions) {
 					if (item.sprite != null && Intersector.overlaps(expl.explCircle, item.sprite.getBoundingRectangle())) {

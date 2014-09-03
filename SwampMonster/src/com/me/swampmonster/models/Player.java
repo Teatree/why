@@ -23,11 +23,11 @@ import com.me.swampmonster.game.collision.Collidable;
 import com.me.swampmonster.game.collision.CollisionHelper;
 import com.me.swampmonster.models.Projectile.EffectCarriers;
 import com.me.swampmonster.models.enemies.Enemy;
+import com.me.swampmonster.models.items.RADIOACTIVE;
 import com.me.swampmonster.models.slots.PositiveEffects;
-import com.me.swampmonster.models.slots.RADIOACTIVE;
-import com.me.swampmonster.models.slots.ShadowArrow;
 import com.me.swampmonster.models.slots.Slot;
 import com.me.swampmonster.models.slots.Trap;
+import com.me.swampmonster.screens.SlotMachineScreen;
 import com.me.swampmonster.utils.Assets;
 
 public class Player extends AbstractGameObject {
@@ -84,7 +84,6 @@ public class Player extends AbstractGameObject {
 	private Random random;
 	public Rectangle fearRectangle;
 	public Turret turret;
-	
 
 	public Circle aimingArea;
 	// public Circle invalidSpawnArea;
@@ -114,7 +113,7 @@ public class Player extends AbstractGameObject {
 		negativeEffectsState = NegativeEffects.NONE;
 		positiveEffectCounter = new Integer(0);
 		negativeEffectCounter = new Integer(0);
-		
+
 		this.position = position;
 		movementSpeed = DEFAULT_MOVEMENT_SPEED;
 		STANDART_MOVEMENT_SPEED = DEFAULT_MOVEMENT_SPEED;
@@ -261,12 +260,15 @@ public class Player extends AbstractGameObject {
 			maxOxygen = DEFAULT_MAX_O2;
 			maxHealth = DEFAULT_MAX_HEALTH;
 			damage = DEFAULT_DAMAGE;
+			System.out.println("damage = " + damage + " defaule "
+					+ DEFAULT_DAMAGE);
 			arrowMovementSpeed = DEFAULT_ARROW_MOVEMENT_SPEED;
 			movementSpeed = DEFAULT_MOVEMENT_SPEED;
 			absoluteScore = 0;
 			levelsScore = 0;
 			trap = null;
 			turret = null;
+			SlotMachineScreen.savedSlots = new ArrayList<Slot>();
 			TheController.skill = null;
 			dying();
 		}
@@ -366,7 +368,8 @@ public class Player extends AbstractGameObject {
 					TheController.skill.explode(p.position);
 				}
 				prj.remove();
-			} else if (p.isCollisionNBreakable(collisionLayer) && L1.hasAtmosphere) {
+			} else if (p.isCollisionNBreakable(collisionLayer)
+					&& L1.hasAtmosphere) {
 				Explosion expl = new Explosion(new Vector2(p.position.x,
 						p.position.y), Explosion.EXPLOSION_TYPE_INVERTED);
 				L1.explosions.add(expl);

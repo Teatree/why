@@ -132,8 +132,6 @@ public class TheController extends InputAdapter {
 		pointRectV3.x = touchPos.x;
 		pointRectV3.y = touchPos.y;
 		
-		System.out.println("paysed " + paused + " goto Manu " + gotoMenu);
-
 //		System.err.println("toughtPos: " + touchPos);
 		
 		pointRect.x = point.x;

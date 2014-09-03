@@ -58,8 +58,8 @@ public class CollisionHelper {
 			if ((String) cell.getTile().getProperties().get("level") != null) {
 				int i = Integer.parseInt((String) cell.getTile()
 						.getProperties().get("level"));
-				System.out.println("sufraceLevel: " + p.currentSurfaceLevel
-						+ " i " + i);
+//				System.out.println("sufraceLevel: " + p.currentSurfaceLevel
+//						+ " i " + i);
 				if (p.initialSurfaceLevel <= i) {
 					solid = new Solid();
 				} 

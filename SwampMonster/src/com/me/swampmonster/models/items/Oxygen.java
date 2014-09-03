@@ -3,7 +3,7 @@ package com.me.swampmonster.models.items;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.me.swampmonster.animations.AnimationControl;
 import com.me.swampmonster.models.Item;
-import com.me.swampmonster.models.AbstractGameObject.State;
+import com.me.swampmonster.models.Player;
 import com.me.swampmonster.utils.Assets;
 
 public class Oxygen extends Item{
@@ -18,6 +18,18 @@ public class Oxygen extends Item{
 		
 		sprite = new Sprite(animationsStandard.get(state).getCurrentFrame());
 
+	}
+
+	@Override
+	public void pickUpMe(Player player) {
+		if (player.oxygen < Player.maxOxygen) {
+			if (player.oxygen + 50 < Player.maxOxygen) {
+				player.oxygen = player.oxygen + 50;
+			} else {
+				player.oxygen = Player.maxOxygen;
+			}
+			this.state = State.DEAD;
+		}
 	}
 
 }
