@@ -83,7 +83,7 @@ public class ItemGenerator {
 	
 	public Item getItem(int playersScore){
 //		return generateItem(playersScore);
-		return new HASTE();
+		return new NUKE();
 	}
 	
 	public Item generateItem(int playersScore) {
