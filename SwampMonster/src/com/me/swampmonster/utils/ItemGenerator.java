@@ -83,7 +83,7 @@ public class ItemGenerator {
 	
 	public Item getItem(int playersScore){
 //		return generateItem(playersScore);
-		return new NUKE();
+		return new ICE_THING();
 	}
 	
 	public Item generateItem(int playersScore) {

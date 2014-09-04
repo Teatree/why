@@ -35,7 +35,6 @@ public abstract class Item extends AbstractGameObject{
 //		this.itemType = itemType;
 		pendingTimer = 180;
 		
-		
 	}
 	
 	public void update(){

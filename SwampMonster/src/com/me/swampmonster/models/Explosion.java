@@ -66,7 +66,9 @@ public class Explosion {
 	}
 	
 	public boolean cause(AbstractGameObject ago, TiledMapTileLayer collisionLayer){
-		ago.hurt = true;
+		if(!((ago instanceof Player) && isNuke)){
+			ago.hurt = true;
+		}
 		ago.exploding = true;
 		
 		explosion_dx = ago.position.x - position.x;

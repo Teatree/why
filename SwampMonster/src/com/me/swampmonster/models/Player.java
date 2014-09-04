@@ -261,8 +261,6 @@ public class Player extends AbstractGameObject {
 			maxOxygen = DEFAULT_MAX_O2;
 			maxHealth = DEFAULT_MAX_HEALTH;
 			damage = DEFAULT_DAMAGE;
-			System.out.println("damage = " + damage + " defaule "
-					+ DEFAULT_DAMAGE);
 			arrowMovementSpeed = DEFAULT_ARROW_MOVEMENT_SPEED;
 			movementSpeed = DEFAULT_MOVEMENT_SPEED;
 			absoluteScore = 0;

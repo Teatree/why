@@ -123,8 +123,8 @@ public class Constants {
 	public static final float ExplozionTrap_CircleRadius_L4 = 30;
 	public static final float ExplozionTrap_CircleRadius_L5 = 35;
 	
-	public static final int ExplozionTrap_LifeTime_L1 = 300;
-	public static final int ExplozionTrap_LifeTime_L2 = 600;
+	public static final int ExplozionTrap_LifeTime_L1 = 900;
+	public static final int ExplozionTrap_LifeTime_L2 = 900;
 	public static final int ExplozionTrap_LifeTime_L3 = 900;
 	public static final int ExplozionTrap_LifeTime_L4 = 1200;
 	public static final int ExplozionTrap_LifeTime_L5 = 1600;
@@ -141,11 +141,11 @@ public class Constants {
 	public static final float ExplozionTrap_explCircleRadius_L4 = 16;
 	public static final float ExplozionTrap_explCircleRadius_L5 = 18;
 	
-	public static final float ExplozionTrap_damage_L1 = 1;
-	public static final float ExplozionTrap_damage_L2 = 1.3f;
-	public static final float ExplozionTrap_damage_L3 = 1.5f;
-	public static final float ExplozionTrap_damage_L4 = 1.7f;
-	public static final float ExplozionTrap_damage_L5 = 1.9f;
+	public static final float ExplozionTrap_damage_L1 = 3;
+	public static final float ExplozionTrap_damage_L2 = 3f;
+	public static final float ExplozionTrap_damage_L3 = 4f;
+	public static final float ExplozionTrap_damage_L4 = 4f;
+	public static final float ExplozionTrap_damage_L5 = 5f;
 	
 	public static final float ExplozionTrap_incrementExplosionRadius_L1 = 3f;
 	public static final float ExplozionTrap_incrementExplosionRadius_L2 = 4f;

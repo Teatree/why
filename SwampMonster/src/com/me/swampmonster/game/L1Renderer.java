@@ -11,6 +11,7 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.tiles.AnimatedTiledMapTile;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.me.swampmonster.AI.Node;
+import com.me.swampmonster.models.AbstractGameObject.NegativeEffects;
 import com.me.swampmonster.models.AbstractGameObject.State;
 import com.me.swampmonster.models.Explosion;
 import com.me.swampmonster.models.Item;
@@ -344,6 +345,11 @@ public class L1Renderer {
 				enemy.sprite.setPosition(enemy.getPosition().x,
 						enemy.getPosition().y);
 				enemy.sprite.draw(batch);
+			}
+		}
+		for (Enemy enemy : L1.enemiesOnStage) {
+			if (enemy.negativeEffectsState == NegativeEffects.STUN && enemy.state != State.DEAD) {
+				enemy.iceCube.draw(batch);
 			}
 		}
 

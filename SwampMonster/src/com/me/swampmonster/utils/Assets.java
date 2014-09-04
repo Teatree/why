@@ -45,6 +45,7 @@ public class Assets {
 	public static final AssetDescriptor<Texture> oxygenKitItem = new AssetDescriptor<Texture>("data\\Items\\OxygenKitItem.png", Texture.class);
 	public static final AssetDescriptor<Texture> healthKitItem = new AssetDescriptor<Texture>("data\\Items\\HealthKitItem.png", Texture.class);
 	public static final AssetDescriptor<Texture> weaponizerButton = new AssetDescriptor<Texture>("data\\Weaponizer.png", Texture.class);
+	public static final AssetDescriptor<Texture> iceCube = new AssetDescriptor<Texture>("data\\iceCube.png", Texture.class);
 	public static final AssetDescriptor<Texture> tiles = new AssetDescriptor<Texture>("data\\Tiles.png", Texture.class);
 	public static final AssetDescriptor<Texture> tileSet_SAND_WORLD = new AssetDescriptor<Texture>("data\\tileSet_SAND_WORLD.png", Texture.class);
 	public static final AssetDescriptor<Texture> slotMachineCase = new AssetDescriptor<Texture>("data\\slotMachineUI\\slotMachineCase.png", Texture.class);
@@ -104,6 +105,7 @@ public class Assets {
 		manager.load(propExplosiveBarrel);
 		manager.load(propTreasure);
 		manager.load(propToxicPuddle);
+		manager.load(iceCube);
 		manager.load(arrow);
 		manager.load(moveHere);
 		manager.load(HealthBarIcon);

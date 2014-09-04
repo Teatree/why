@@ -24,10 +24,12 @@ import com.me.swampmonster.models.AbstractGameObject;
 import com.me.swampmonster.models.L1;
 import com.me.swampmonster.models.Player;
 import com.me.swampmonster.models.Projectile;
+import com.me.swampmonster.models.AbstractGameObject.NegativeEffects;
 import com.me.swampmonster.models.Projectile.EffectCarriers;
 import com.me.swampmonster.models.Prop;
 import com.me.swampmonster.models.ToxicPuddle;
 import com.me.swampmonster.models.Turret;
+import com.me.swampmonster.models.items.ICE_THING;
 import com.me.swampmonster.models.items.RADIOACTIVE;
 import com.me.swampmonster.models.slots.PositiveEffects;
 import com.me.swampmonster.utils.Assets;
@@ -52,6 +54,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 	public List<Projectile> enemyProjectiles;
 	public Toughness toughness;
 	public Vector2 target;
+	public Sprite iceCube;
 
 	float enemyDx;
 	float enemyDy;
@@ -108,6 +111,8 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 				Assets.manager.get(Assets.enemy), 8, 32, 8));
 		animationsStandard.put(State.DEAD,new AnimationControl(Assets.manager.get(Assets.enemy),
 								8, 32, 4));
+		animationsStandard.put(State.ICECUBESDEAD,new AnimationControl(Assets.manager.get(Assets.enemy),
+				8, 32, 4));
 		oldPos = position;
 		// Timer is for the length of the actual animation
 		// Timer2 is for the waiting period
@@ -180,6 +185,10 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 			}
 		}else{
 			target = player.position;
+		}
+		
+		if(negativeEffectsState != NegativeEffects.STUN){
+			iceCube = null;
 		}
 		
 		if (negativeEffectsState != NegativeEffects.FEAR) {
@@ -270,7 +279,8 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 
 		// PURSUIT!
 		if (!hurt ||(damageType != null && damageType.equals("turret"))) {
-			if (state.equals(State.PURSUIT)) {
+			if (state.equals(State.PURSUIT)  && negativeEffectsState != NegativeEffects.STUN) {
+				
 
 				sprite.setRegion(animations.get(state).getCurrentFrame());
 
@@ -310,7 +320,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 		}
 
 		// THIS IS STANDARD!
-		if (state.equals(State.STANDARD) && !aiming) {
+		if (state.equals(State.STANDARD) && !aiming && negativeEffectsState != NegativeEffects.STUN) {
 			sprite.setRegion(animations.get(state).getCurrentFrame());
 			sprite.setBounds(sprite.getX(), sprite.getY(), 32, 32);
 			if (!hurt ||(damageType != null && damageType.equals("turret"))) {
@@ -377,11 +387,19 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 
 		// DEAD
 		if (state.equals(State.DEAD)) {
+			
 			if (timeDead < 65) {
-				currentFrame = animations.get(state).doComplexAnimation(96, 2f,
-						0.03f, Animation.NORMAL);
+				if(negativeEffectsState == NegativeEffects.STUN){
+					currentFrame = animations.get(State.ICECUBESDEAD).doComplexAnimation(136, 2f,
+							0.03f, Animation.NORMAL);
+					sprite.setRegion(animations.get(State.ICECUBESDEAD).getCurrentFrame());
+					System.out.println("YOU ARE STUNNEd!");
+				}else{
+					currentFrame = animations.get(state).doComplexAnimation(96, 2f,
+							0.03f, Animation.NORMAL);
+					sprite.setRegion(animations.get(state).getCurrentFrame());
+				}
 
-				sprite.setRegion(animations.get(state).getCurrentFrame());
 				sprite.setBounds(sprite.getX(), sprite.getY(), 32, 32);
 				timeDead++;
 			}
@@ -393,7 +411,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 				dead = true;
 			}
 		}
-		if (hurt && !exploding && !charging) {
+		if (hurt && !exploding && !charging && !negativeEffectsState.equals(NegativeEffects.STUN)) {
 			if (player.projectiles != null) {
 				getProjectileLocationRelativeToSprite(player.projectiles);
 			}
@@ -1139,6 +1157,15 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 			negativeEffectsState = negativeEffect;
 			negativeEffectTimer = negativeEffect.lifetime;
 			System.out.println("negativeEffectCounter" + negativeEffectCounter);
+			break;
+		case STUN:
+			if (negativeEffectsState != NegativeEffects.STUN) {
+				negativeEffectsState = negativeEffect;
+				negativeEffectTimer = ICE_THING.negativeEffectLifeTime;
+				iceCube = new Sprite(Assets.manager.get(Assets.iceCube));
+				iceCube.setX(position.x);
+				iceCube.setY(position.y);
+			}
 			break;
 		case NONE:
 			if(toughness==null){
