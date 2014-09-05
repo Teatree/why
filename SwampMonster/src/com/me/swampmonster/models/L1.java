@@ -191,28 +191,12 @@ public class L1 {
 			if(item.state == State.DEAD){
 				itm.remove();
 			}else{
-					if(Intersector.overlaps(item.circle, player.rectanlge)){
-//					if(item.itemType=="hp" && player.health < Player.maxHealth){
-//						player.health++;
-//						if (player.negativeEffectsState == NegativeEffects.POISONED){
-//							player.setNegativeEffect(NegativeEffects.NONE);
-//						}
-//						item.state = State.DEAD;
-//					}else if(item.itemType == "O2" && player.oxygen < Player.maxOxygen){
-//						if(player.oxygen+50 < Player.maxOxygen){
-//							player.oxygen = player.oxygen+50;
-//						}else{
-//							player.oxygen = Player.maxOxygen;
-//						}
-//						item.state = State.DEAD;
-//					}
-						item.pickMeUp(player);
+				if(Intersector.overlaps(item.circle, player.rectanlge) && item.state != State.SPAWNING){
+					item.pickMeUp(player);
 				}
 				for (Explosion expl : explosions) {
 					if (item.sprite != null && Intersector.overlaps(expl.explCircle, item.sprite.getBoundingRectangle())) {
-						
 						boolean fudge = expl.cause(item, collisionLayer);
-						
 						if (fudge)
 						{
 							item.state = State.DEAD;

@@ -1171,6 +1171,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 			if(toughness==null){
 				sprite.setColor(1, 1, 1, 1);
 			}
+			iceCube = null;
 			movementSpeed = STANDART_MOVEMENT_SPEED;
 			negativeEffectsState = negativeEffect;
 			break;

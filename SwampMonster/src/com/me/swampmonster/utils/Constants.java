@@ -211,11 +211,11 @@ public class Constants {
 	public static final int TURRET_AttackSpeed_L4 = 60;
 	public static final int TURRET_AttackSpeed_L5 = 45;
 	
-	public static final String TURRET_Description_L1 = "FADE of da Level 1";
-	public static final String TURRET_Description_L2 = "FADE of da Level 2";
-	public static final String TURRET_Description_L3 = "FADE of da Level 3";
-	public static final String TURRET_Description_L4 = "FADE of da Level 4";
-	public static final String TURRET_Description_L5 = "FADE of da Level 5";
+	public static final String TURRET_Description_L1 = "Turret of da Level 1";
+	public static final String TURRET_Description_L2 = "Turret of da Level 2";
+	public static final String TURRET_Description_L3 = "Turret of da Level 3";
+	public static final String TURRET_Description_L4 = "Turret of da Level 4";
+	public static final String TURRET_Description_L5 = "Turret of da Level 5";
 	
 	
 //	FrostTrap:

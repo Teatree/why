@@ -1,5 +1,7 @@
 package com.me.swampmonster.slotMachineStuff;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -118,9 +120,7 @@ public class SlotMachineTextures extends Group {
 			}
 			else if (slotsSet.size() == 2 && !argentina && !madagascar){
 				temp = slotsGen.getPerkSlot(player);
-			} 
-			else 
-			{
+			} else {
 				temp = slotsGen.getActiveSkillSlot(player);
 			}
 			try {
@@ -156,11 +156,41 @@ public class SlotMachineTextures extends Group {
 		int i = 0;
 		
 		int Oppa = 32;
+		Collections.sort(SlotMachineScreen.savedSlots, new Comparator<Slot>() {
+
+			@Override
+			public int compare(Slot o1, Slot o2) {
+				if (o1 instanceof Perks && !(o2 instanceof Perks)){
+					return 1;
+				} else if (!(o1 instanceof Perks) && (o2 instanceof Perks)){
+					return -1;
+				} else if (o1 instanceof Perks && o2 instanceof Perks){
+					if(o1.level == o2.level){
+						return 0;
+					} else if (o1.level > o2.level){
+						return 1;
+					} else {
+						return -1;
+					}
+				} else /*(!(o1 instanceof Perks) && !(o2 instanceof Perks))*/{
+					if(o1.level == o2.level){
+						return 0;
+					} else if (o1.level > o2.level){
+						return 1;
+					} else {
+						return -1;
+					}
+				}
+			}
+		});
 		for(Slot s: SlotMachineScreen.savedSlots){
 //			System.out.println("stuff");
-			batch.draw(s.sprite, Oppa, 10);
-			Oppa += s.sprite.getWidth()/5+5;
+			s.sprite.setX(Oppa);
+			s.sprite.setY(10);
+			batch.draw(s.sprite, s.sprite.getX(), s.sprite.getY());
+			Oppa += s.sprite.getWidth()+5;
 		}
+		
 		
 		while (i < 3) {
 			if (notAnimating[i]) {
