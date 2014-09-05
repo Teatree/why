@@ -137,8 +137,7 @@ public class SlotMachineScreen extends AbstractGameScreen {
 				slotMachineTextures.selectedSlot = slot;
 				slot.selected = true;
 			}
-		} else if (slotMachineTextures.slotMachineWindowNo
-						.getBoundingRectangle().contains(victor)) {
+		} else if (slotMachineTextures.slotMachineWindowNo.getBoundingRectangle().contains(victor)) {
 			for(Slot s : savedSlots){
 				s.selected = false;
 			}
