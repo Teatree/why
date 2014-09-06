@@ -305,6 +305,50 @@ public class Player extends AbstractGameObject {
 
 		updateTrap();
 
+		Iterator<Enemy> eItr = L1.enemiesOnStage.iterator();
+		while (eItr.hasNext()) {
+			Enemy e = eItr.next();
+
+			float edx = e.position.x - V3playerPos.x;
+			float edy = e.position.y - V3playerPos.y;
+
+			float length1 = (float) Math
+					.sqrt(edx * edx + edy * edy);
+			edx /= length1;
+			edy /= length1;
+
+			if (e.sprite.getBoundingRectangle().overlaps(
+					this.sprite.getBoundingRectangle())) {
+
+				if (e.negativeEffectsState == NegativeEffects.STUN) {
+					Collidable cL = CollisionHelper.isCollidable(
+							e.position.x,
+							e.position.y + e.sprite.getHeight() / 2,
+							collisionLayer);
+					Collidable cR = CollisionHelper.isCollidable(
+							e.position.x + e.sprite.getWidth(),
+							e.position.y + e.sprite.getHeight() / 2,
+							collisionLayer);
+					Collidable cU = CollisionHelper.isCollidable(
+							e.position.x + e.sprite.getWidth() / 2,
+							e.position.y + e.sprite.getHeight(),
+							collisionLayer);
+					Collidable cD = CollisionHelper.isCollidable(
+							e.position.x + e.sprite.getWidth() / 2,
+							e.position.y, collisionLayer);
+
+					if (cL == null && edx <= 0 || cR == null && edx > 0) {
+						e.position.x += edx / 2 /** movementSpeed*4 */;
+						e.iceCube.setX(e.position.x);
+					}
+					if (cD == null && edy <= 0 || cU == null && edy > 0) {
+						e.position.y += edy / 2 /** movementSpeed*4 */;
+						e.iceCube.setY(e.position.y);
+					}
+				}
+			}
+		}
+		
 		Iterator<Prop> propItr = L1.props.iterator();
 		while (propItr.hasNext()) {
 			Prop prop = propItr.next();

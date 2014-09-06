@@ -94,6 +94,10 @@ public class L1 {
 			}
 		}
 		
+		for(ProjectileHydra pH : ProjectileHydra.listHydras){
+			pH.update();
+		}
+		
 		Iterator<Explosion> explItr = explosions.iterator();
 		while (explItr.hasNext()){
 			Explosion expl = explItr.next();
