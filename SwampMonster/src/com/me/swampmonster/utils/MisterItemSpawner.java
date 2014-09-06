@@ -42,6 +42,7 @@ public class MisterItemSpawner {
 		// } else {
 		if (haveItem > 10){
 			 item = itemGenerator.getItem(Player.levelsScore);
+			 System.out.println("item " + item);
 		} else {
 			 return null;
 		}

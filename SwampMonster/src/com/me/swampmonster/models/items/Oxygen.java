@@ -1,5 +1,7 @@
 package com.me.swampmonster.models.items;
 
+import com.badlogic.gdx.assets.AssetDescriptor;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.me.swampmonster.animations.AnimationControl;
 import com.me.swampmonster.models.Item;
@@ -8,6 +10,8 @@ import com.me.swampmonster.utils.Assets;
 
 public class Oxygen extends Item{
 
+	public static AssetDescriptor<Texture> poisonSprite;
+	
 	public Oxygen() {
 		super();
 		

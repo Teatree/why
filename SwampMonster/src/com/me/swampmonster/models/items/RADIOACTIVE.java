@@ -3,6 +3,8 @@ package com.me.swampmonster.models.items;
 
 import java.util.Random;
 
+import com.badlogic.gdx.assets.AssetDescriptor;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.me.swampmonster.animations.AnimationControl;
 import com.me.swampmonster.models.Item;
@@ -15,6 +17,7 @@ public class RADIOACTIVE extends Item{
 	
 	public static float RADIOACTIVE_Damage;
 	public static float RADIOACTIVE_Radius;
+	public static AssetDescriptor<Texture> poisonSprite;
 	
 	public RADIOACTIVE() {
 		super();

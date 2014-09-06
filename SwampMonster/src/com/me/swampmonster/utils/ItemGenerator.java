@@ -1,10 +1,14 @@
 package com.me.swampmonster.utils;
 
+import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-//import com.me.swampmonster.GUI.HealthBar;
+import com.badlogic.gdx.assets.AssetDescriptor;
+import com.badlogic.gdx.graphics.Texture;
 import com.me.swampmonster.models.Item;
 import com.me.swampmonster.models.Player;
 import com.me.swampmonster.models.items.CHAIN_ARROWS;
@@ -15,38 +19,20 @@ import com.me.swampmonster.models.items.ICE_THING;
 import com.me.swampmonster.models.items.NUKE;
 import com.me.swampmonster.models.items.Oxygen;
 import com.me.swampmonster.models.items.RADIOACTIVE;
-//import com.me.swampmonster.models.slots.Slot;
 
 public class ItemGenerator {
-	
-//	private static final String HEALTH = "hp";
-//	private static final String OXYGEN = "O2";
-	
 	HashMap<Integer, String> itemTypeParams = new HashMap<Integer, String>();
 	Map<Integer, Class<? extends Item>> items;
-//	ItemParams itemParams;
 	Items itEms;
 	private Random random = new Random();
+	public static Map<Integer, AssetDescriptor<Texture>> poisonTextures;
+	private static List<Integer> usedTextures = new ArrayList<Integer>(); 
 	
-//	private static enum ItemParams{
-//		p0_500(200, 230, 10, 20),
-//		p500_1000(300, 310, 200, 300),
-//		p1000_2000(300, 310, 300, 400),
-//		p2000_4000(300, 310, 400, 500);
-//		
-//		public final int minLifeTime;
-//		public final int maxLifeTime;
-//		public final int minSpawnRate;
-//		public final int maxSpawnRate;
-//		
-//		private ItemParams(int minLifeTime, int maxLifeTime, int minSpawnRate,
-//				int maxSpawnRate) {
-//			this.minLifeTime = minLifeTime;
-//			this.maxLifeTime = maxLifeTime;
-//			this.minSpawnRate = minSpawnRate;
-//			this.maxSpawnRate = maxSpawnRate;
-//		}
-//	}
+	static {
+		poisonTextures = new HashMap<Integer,AssetDescriptor<Texture>>();
+		poisonTextures.put(0, Assets.healthKitItem);
+		poisonTextures.put(1, Assets.oxygenKitItem);
+	}
 	
 	private static enum Items{
 		p0_500(0, 7),
@@ -60,15 +46,11 @@ public class ItemGenerator {
 		private Items(int minItemGenerate, int maxItemGenerate){
 			this.maxItemGenerate = maxItemGenerate;
 			this.minItemGenerate = minItemGenerate;
-			
 		}
 	}
 	
 	
 	public ItemGenerator(){
-//		itemTypeParams.put(0, HEALTH);
-//		itemTypeParams.put(1, OXYGEN);
-		
 		random = new Random();
 		items = new HashMap<Integer, Class<? extends Item>>();
 		items.put(0, Oxygen.class);
@@ -82,20 +64,39 @@ public class ItemGenerator {
 	}
 	
 	public Item getItem(int playersScore){
-//		return generateItem(playersScore);
-		return new ICE_THING();
+		Item resulItem = generateItem(playersScore);
+//		Item resulItem = new NUKE();
+		
+		return resulItem;
 	}
 	
 	public Item generateItem(int playersScore) {
 		setItemParams(Player.absoluteScore);
-		int number = random.nextInt(itEms.maxItemGenerate - itEms.minItemGenerate) + itEms.minItemGenerate ;
+		int number = random.nextInt(itEms.maxItemGenerate
+				- itEms.minItemGenerate)
+				+ itEms.minItemGenerate;
 		Item item = null;
 		try {
-			item = items.get(number).getConstructor().newInstance();
-//			System.out.println(item + " num "+ number);
+			// Class<? extends Item> itemClass = items.get(number);
+			Class<? extends Item> itemClass = NUKE.class;
+			int randomTextureNumber;
+			if (itemClass.getDeclaredField("poisonSprite").get(null) == null) {
+				randomTextureNumber = random.nextInt(poisonTextures.size());
+				while (usedTextures.contains(randomTextureNumber)) {
+					randomTextureNumber = random.nextInt(poisonTextures.size());
+				}
+				usedTextures.add(randomTextureNumber);
+				try {
+					Field hack = itemClass.getDeclaredField("poisonSprite");
+					hack.setAccessible(true);
+					hack.set(null, poisonTextures.get(randomTextureNumber));
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			item = itemClass.getConstructor().newInstance();
 		} catch (Exception e) {
 			e.printStackTrace();
-			return null;
 		}
 		return item;
 	}
@@ -106,27 +107,17 @@ public class ItemGenerator {
 //		return generateItem(playersScore,);
 //	}
 	
-//	public int generateSpawnRate(int playersScore){
-//		setItemParams(playersScore);
-//		//:TODO NPE
-//		return random.nextInt(itemParams.maxSpawnRate - itemParams.minSpawnRate) + itemParams.minSpawnRate;
-//	}
-//	
 	private void setItemParams(int playersScore) {
 		if(playersScore>=0 && playersScore<500){
-//			itemParams = ItemParams.p0_500;
 			itEms = Items.p0_500;
 		}
 		else if(playersScore>=100 && playersScore<1000){
-//			itemParams = ItemParams.p500_1000;
 			itEms = Items.p500_1000;
 		}
 		else if(playersScore>=1000 && playersScore<2000){
-//			itemParams = ItemParams.p1000_2000;
 			itEms = Items.p1000_2000;
 		}
 		else if(playersScore>=2000){
-//			itemParams = ItemParams.p2000_4000;
 			itEms = Items.p2000_4000;
 		}
 	}

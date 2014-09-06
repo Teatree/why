@@ -35,7 +35,7 @@ public class ImproveArrowDamage extends Slot implements Perks{
 	
 	@Override
 	public void execute (Player player){
-		player.damage += valuesByLevel.get(level);
+		Player.damage += valuesByLevel.get(level);
 	}
 
 	@Override

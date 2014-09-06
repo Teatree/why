@@ -1,18 +1,20 @@
 package com.me.swampmonster.models.items;
 
+import com.badlogic.gdx.assets.AssetDescriptor;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.me.swampmonster.animations.AnimationControl;
 import com.me.swampmonster.models.Item;
 import com.me.swampmonster.models.L1;
 import com.me.swampmonster.models.Player;
-import com.me.swampmonster.models.AbstractGameObject.State;
 import com.me.swampmonster.models.enemies.Enemy;
 import com.me.swampmonster.utils.Assets;
 
 public class ICE_THING extends Item{
 
 	public static int negativeEffectLifeTime;
-
+	public static AssetDescriptor<Texture> poisonSprite;
+	
 	public ICE_THING() {
 		super();
 		

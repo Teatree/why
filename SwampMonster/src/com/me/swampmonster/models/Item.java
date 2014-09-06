@@ -18,6 +18,7 @@ public abstract class Item extends AbstractGameObject{
 	
 	private int animTimer2;
 	private int pendingTimer;
+	public static Sprite poisonSprite;
 	
 	public Vector2 spawnPos;
 	public Vector2 targetPos;
