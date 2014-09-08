@@ -23,10 +23,10 @@ import com.me.swampmonster.models.items.RADIOACTIVE;
 public class ItemGenerator {
 	HashMap<Integer, String> itemTypeParams = new HashMap<Integer, String>();
 	Map<Integer, Class<? extends Item>> items;
-	Items itEms;
+	Items itEmsTypes;
 	private Random random = new Random();
 	public static Map<Integer, AssetDescriptor<Texture>> poisonTextures;
-	private static List<Integer> usedTextures = new ArrayList<Integer>(); 
+	public static HashMap<Integer, String> usedTextures = new HashMap<Integer, String>(); 
 	
 	static {
 		poisonTextures = new HashMap<Integer,AssetDescriptor<Texture>>();
@@ -49,7 +49,6 @@ public class ItemGenerator {
 		}
 	}
 	
-	
 	public ItemGenerator(){
 		random = new Random();
 		items = new HashMap<Integer, Class<? extends Item>>();
@@ -65,16 +64,14 @@ public class ItemGenerator {
 	
 	public Item getItem(int playersScore){
 		Item resulItem = generateItem(playersScore);
-//		Item resulItem = new NUKE();
-		
 		return resulItem;
 	}
 	
 	public Item generateItem(int playersScore) {
 		setItemParams(Player.absoluteScore);
-		int number = random.nextInt(itEms.maxItemGenerate
-				- itEms.minItemGenerate)
-				+ itEms.minItemGenerate;
+		int number = random.nextInt(itEmsTypes.maxItemGenerate
+				- itEmsTypes.minItemGenerate)
+				+ itEmsTypes.minItemGenerate;
 		Item item = null;
 		try {
 			// Class<? extends Item> itemClass = items.get(number);
@@ -82,10 +79,10 @@ public class ItemGenerator {
 			int randomTextureNumber;
 			if (itemClass.getDeclaredField("poisonSprite").get(null) == null) {
 				randomTextureNumber = random.nextInt(poisonTextures.size());
-				while (usedTextures.contains(randomTextureNumber)) {
+				while (usedTextures.keySet().contains(randomTextureNumber)) {
 					randomTextureNumber = random.nextInt(poisonTextures.size());
 				}
-				usedTextures.add(randomTextureNumber);
+				usedTextures.put(randomTextureNumber, itemClass.getName());
 				try {
 					Field hack = itemClass.getDeclaredField("poisonSprite");
 					hack.setAccessible(true);
@@ -109,16 +106,43 @@ public class ItemGenerator {
 	
 	private void setItemParams(int playersScore) {
 		if(playersScore>=0 && playersScore<500){
-			itEms = Items.p0_500;
+			itEmsTypes = Items.p0_500;
 		}
 		else if(playersScore>=100 && playersScore<1000){
-			itEms = Items.p500_1000;
+			itEmsTypes = Items.p500_1000;
 		}
 		else if(playersScore>=1000 && playersScore<2000){
-			itEms = Items.p1000_2000;
+			itEmsTypes = Items.p1000_2000;
 		}
 		else if(playersScore>=2000){
-			itEms = Items.p2000_4000;
+			itEmsTypes = Items.p2000_4000;
 		}
+	}
+	
+	public Item generatePlainItem(int playersScore) {
+		setItemParams(Player.absoluteScore);
+		Item item = null;
+		try {
+			 Class<? extends Item> itemClass = items.get(2);
+			int randomTextureNumber;
+			if (itemClass.getDeclaredField("poisonSprite").get(null) == null) {
+				randomTextureNumber = random.nextInt(poisonTextures.size());
+				while (usedTextures.keySet().contains(randomTextureNumber)) {
+					randomTextureNumber = random.nextInt(poisonTextures.size());
+				}
+				usedTextures.put(randomTextureNumber, itemClass.getName());
+				try {
+					Field hack = itemClass.getDeclaredField("poisonSprite");
+					hack.setAccessible(true);
+					hack.set(null, poisonTextures.get(randomTextureNumber));
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			item = itemClass.getConstructor().newInstance();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return item;
 	}
 }

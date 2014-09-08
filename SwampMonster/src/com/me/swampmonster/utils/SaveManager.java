@@ -2,7 +2,9 @@ package com.me.swampmonster.utils;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
@@ -24,6 +26,7 @@ public class SaveManager {
         if (file != null && file.exists()) {
             String s = file.readString();
             if (!s.isEmpty()) {
+            	System.out.println(com.badlogic.gdx.utils.Base64Coder.decodeString(s));
                 return com.badlogic.gdx.utils.Base64Coder.decodeString(s);
             }
         }
@@ -59,6 +62,9 @@ public class SaveManager {
 	    	}
 		}
     	somPlayer.savedSlots = jsavedSlots;
+    	if (ItemGenerator.usedTextures !=null){
+    		somPlayer.usedSpritesForItems = ItemGenerator.usedTextures;
+    	}
     	writeFile("player.sav", json.toJson(somPlayer));
     }
     
@@ -95,6 +101,9 @@ public class SaveManager {
 					}
 		        }
 	        }
+	        if (somPlayer.usedSpritesForItems != null){
+	        	ItemGenerator.usedTextures = (HashMap<Integer, String>) somPlayer.usedSpritesForItems;
+	        }
 	        return player;
         } else {
         	return new Player(new Vector2());
@@ -115,6 +124,8 @@ public class SaveManager {
     	public boolean wasLastElite;
     	public boolean hadLastAtmosphere;
     	public List <JsomSlot> savedSlots;
+    	
+    	public Map<Integer, String> usedSpritesForItems;
     }
 
     public static class JsomSlot {
