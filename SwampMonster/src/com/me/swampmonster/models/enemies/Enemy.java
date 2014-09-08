@@ -43,6 +43,8 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 	public boolean preparingToCharge;
 	public boolean charging;
 	public boolean waiting;
+	public boolean injuredByHydra;
+	public boolean isAimedByHydra;
 	int timer;
 	public int time;
 	int timeDead = 0;

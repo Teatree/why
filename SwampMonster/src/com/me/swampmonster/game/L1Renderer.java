@@ -221,8 +221,8 @@ public class L1Renderer {
 						item.sprite.getHeight() / 2);
 			}
 		}
-		if (!ProjectileHydra.listHydras.isEmpty()) {
-			for (ProjectileHydra p : ProjectileHydra.listHydras) {
+		if (L1.hydra != null) {
+			for (ProjectileHydra p : L1.hydra.getProjectiles()) {
 				batch.draw(p.sprite, p.sprite.getX(), p.sprite.getY(),
 						p.sprite.getOriginX(), p.sprite.getOriginY(),
 						p.sprite.getWidth(), p.sprite.getHeight(), 1, 1,

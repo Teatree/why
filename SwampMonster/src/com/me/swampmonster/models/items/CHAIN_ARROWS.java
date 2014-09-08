@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.me.swampmonster.animations.AnimationControl;
 import com.me.swampmonster.models.Item;
+import com.me.swampmonster.models.L1;
 import com.me.swampmonster.models.Player;
 import com.me.swampmonster.models.ProjectileHydra;
 import com.me.swampmonster.utils.Assets;
@@ -24,13 +25,13 @@ public class CHAIN_ARROWS extends Item{
 		sprite = new Sprite(animationsStandard.get(state).getCurrentFrame());
 	}
 
-	@Override
 	public void pickMeUp(Player player) {
 		this.state = State.DEAD;
 		System.out.println("Hello, I am Chain arrows!");
 		
 		ProjectileHydra p = new ProjectileHydra(new Vector2(position.x, position.y));
-		ProjectileHydra.listHydras.add(p);
+		L1.hydra = p;
+//		ProjectileHydra.listHydras.add(p);
 	}
 
 }

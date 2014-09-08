@@ -3,6 +3,7 @@ package com.me.swampmonster.models;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
@@ -24,13 +25,11 @@ public class ProjectileHydra extends Projectile{
 	public float direction_y;
 	public float force;
 //	public static float arrowMovementSpeed;
-	public EffectCarriers effect;
-	public int currentSurfaceLevel;
-	public int initialSurfaceLevel;
-	public static int musltiplyCounter;
+	public static int musltiplyCounter = 3;
 	
 	private Vector2 target;
-	public static List<ProjectileHydra> listHydras = new ArrayList<ProjectileHydra>();
+//	public static List<ProjectileHydra> listHydras = new ArrayList<ProjectileHydra>();
+	private List<ProjectileHydra> miniHydras = new ArrayList<ProjectileHydra>();
 	
 	public ProjectileHydra(Vector2 position) {
 		super(position);
@@ -42,7 +41,8 @@ public class ProjectileHydra extends Projectile{
 		damage = 1f;
 
 		target = findClosestTarget();
-		
+
+		System.err.println("target xy: " + target + "position " + position);
 		direction_x = target.x - position.x;
 		direction_y = target.y - position.y;
 
@@ -53,7 +53,7 @@ public class ProjectileHydra extends Projectile{
 		sprite.setRotation(getRotation(target)* 57.29f);
 		
 
-		force = 1.3f;
+		force = 0.8f;
 		resistance = 0f;
 
 		initialSurfaceLevel = getSurfaceLevelProjectile(TheController.collisionLayer);
@@ -63,36 +63,67 @@ public class ProjectileHydra extends Projectile{
 	
 
 	public void update() {
-		sprite.setX(position.x);
-		sprite.setY(position.y);
-
-		
-			position.x += direction_x * force / (g / 30);
-			position.y += direction_y * force / (g / 30);
-			if (force > 0) {
-				force -= resistance;
-			} else {
-				force = 0;
-				state = State.DEAD;
-			}
-
-		circle.x = position.x + sprite.getWidth() / 2;
-		circle.y = position.y + sprite.getHeight() / 2;
-
-		Iterator<Prop> propItr = L1.props.iterator();
-		while (propItr.hasNext()) {
-			Prop prop = propItr.next();
-			if (Intersector.overlaps(this.circle,
-					prop.sprite.getBoundingRectangle())
-					&& !(prop instanceof ToxicPuddle)) {
-				prop.toDoSomething();
-				prop.state = State.DESPAWNING;
-//				propItr.remove();
-				state = State.DEAD;
+		if(state != State.DEAD){
+			sprite.setX(position.x);
+			sprite.setY(position.y);
+			
+				position.x += direction_x * force / (g / 30);
+				position.y += direction_y * force / (g / 30);
+				if (force > 0) {
+					force -= resistance;
+				} else {
+					force = 0;
+					state = State.DEAD;
+				}
+	
+			circle.x = position.x + sprite.getWidth() / 2;
+			circle.y = position.y + sprite.getHeight() / 2;
+	
+				for(Enemy e : L1.enemiesOnStage){
+					if (Intersector.overlaps(this.circle, e.rectanlge) && !e.injuredByHydra && e.state != State.DEAD) {
+						state = State.DEAD;
+						musltiplyCounter--;
+						if(musltiplyCounter>=0){
+							ProjectileHydra projectile = new ProjectileHydra(new Vector2(position.x, position.y));
+							ProjectileHydra projectile2 = new ProjectileHydra(new Vector2(position.x, position.y));
+							miniHydras.add(projectile);
+							miniHydras.add(projectile2);
+							e.injuredByHydra = true;
+						}
+						
+						break;
+					}
+				}
+				if(miniHydras != null && !miniHydras.isEmpty()){
+					for(ProjectileHydra mini : miniHydras){
+						mini.update();
+					}
+				}
+		}
+		else
+		{
+			position = null;
+		}
+		if(miniHydras != null && !miniHydras.isEmpty()){
+			for(ProjectileHydra mini : miniHydras){
+				mini.update();
 			}
 		}
 	}
 
+	public List<ProjectileHydra> getProjectiles(){
+		List<ProjectileHydra> result = new ArrayList<ProjectileHydra>();
+		result.add(this);
+		if(miniHydras != null && !miniHydras.isEmpty()){
+			for(ProjectileHydra p: miniHydras){
+				result.addAll(p.getProjectiles());
+			}
+		}
+		
+		return result;
+		
+	}
+	
 	public int getSurfaceLevelProjectile(TiledMapTileLayer collisionLayer) {
 		// if(sprite.getRotation()<0){
 		currentSurfaceLevel = CollisionHelper.getSurfaceLevel(position.x
@@ -123,18 +154,21 @@ public class ProjectileHydra extends Projectile{
 
 	private Vector2 findClosestTarget() {
 		Vector2 target = null;
-		float minLengthToEnemy = 901;
+		float minLengthToEnemy = 99901;
+		Enemy closestEnemy = null;
 		for(Enemy e : L1.enemiesOnStage){
-			if(e.state != State.DEAD){
+			if(e.state != State.DEAD && e.isAimedByHydra != true){
 				float length;
 				length = (float) Math.sqrt(Math.pow((this.position.x - e.position.x), 2) +
 							(Math.pow((this.position.y - e.position.y), 2)));
-				if(length<minLengthToEnemy){
+				if(length<=minLengthToEnemy){
 					minLengthToEnemy = length;
 					target = new Vector2(e.position.x, e.position.y);
+					closestEnemy = e;
 				}
 			}
 		}
+		closestEnemy.isAimedByHydra = true;
 		return target;
 	}
 

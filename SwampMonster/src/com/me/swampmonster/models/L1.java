@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Stack;
 
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
@@ -43,6 +44,8 @@ public class L1 {
 	public static List<Explosion> explosions;
 	public static List<Prop> props =  new ArrayList<Prop>(); 
 
+	public static ProjectileHydra hydra;
+	
 	public boolean isElite;
 	public static boolean hasAtmosphere;
 	
@@ -94,8 +97,14 @@ public class L1 {
 			}
 		}
 		
-		for(ProjectileHydra pH : ProjectileHydra.listHydras){
-			pH.update();
+//		ListIterator<ProjectileHydra> pH = ProjectileHydra.listHydras.listIterator();
+//		while(pH.hasNext()){
+//			ProjectileHydra p = pH.next();
+//			
+//			p.update();
+//		}
+		if(hydra != null){
+			hydra.update();
 		}
 		
 		Iterator<Explosion> explItr = explosions.iterator();
