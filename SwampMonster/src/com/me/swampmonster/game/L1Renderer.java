@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
@@ -221,16 +222,7 @@ public class L1Renderer {
 						item.sprite.getHeight() / 2);
 			}
 		}
-		if (L1.hydra != null) {
-			for (ProjectileHydra p : L1.hydra.getProjectiles()) {
-				if (p.state != State.DEAD){
-					batch.draw(p.sprite, p.sprite.getX(), p.sprite.getY(),
-						p.sprite.getOriginX(), p.sprite.getOriginY(),
-						p.sprite.getWidth(), p.sprite.getHeight(), 1, 1,
-						p.sprite.getRotation());
-				}
-			}
-		}
+		
 
 		for (Enemy enemy : L1.enemiesOnStage) {
 			if (enemy.getPosition().y + 42 > L1.player.getPosition().y + 42) {
@@ -399,6 +391,7 @@ public class L1Renderer {
 			batch.draw(TutorialLevel.movehere, TutorialLevel.movehere.getX(),
 					TutorialLevel.movehere.getY());
 		}
+		
 		batch.end();
 
 		// Temporary deBug feature
@@ -506,9 +499,27 @@ public class L1Renderer {
 					L1.player.radioactiveAura.radius);
 		}
 		sr.end();
+		
 		mapRenderer.render(fiveground);
+		batch.begin();
+		if (L1.hydra != null) {
+			for (ProjectileHydra p : L1.hydra.getProjectiles()) {
+				if (p.state != State.DEAD){
+					batch.draw(p.sprite, p.sprite.getX(), p.sprite.getY(),
+						p.sprite.getOriginX(), p.sprite.getOriginY(),
+						p.sprite.getWidth(), p.sprite.getHeight(), 1, 1,
+						p.sprite.getRotation());
+					for(Sprite s: p.animsTrailList){
+						System.out.println("s: " + s);
+						System.out.println(" s.getX(): " + s.getX());
+						System.out.println("s.getY(): " + s.getY());
+						batch.draw(s, p.sprite.getX(), p.sprite.getY());
+					}
+				}
+			}
+		}
+		batch.end();
 		stage.draw();
-
 	}
 
 	public void warningFlicker(ShapeRenderer Sr) {

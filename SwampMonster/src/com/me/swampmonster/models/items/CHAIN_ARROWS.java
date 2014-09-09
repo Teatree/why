@@ -29,6 +29,7 @@ public class CHAIN_ARROWS extends Item{
 		this.state = State.DEAD;
 //		System.out.println("Hello, I am Chain arrows!");
 		L1.hydra  = new ProjectileHydra(new Vector2(position.x, position.y));
+		ProjectileHydra.musltiplyCounter = 3;
 	}
 
 }

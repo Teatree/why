@@ -349,6 +349,8 @@ public class GShape extends Group {
 			}
 		}
 		
+		
+		
 		batch.end();
 		
 		sr.begin(ShapeType.Filled);

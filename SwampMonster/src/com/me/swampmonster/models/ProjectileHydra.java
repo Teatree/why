@@ -2,11 +2,14 @@ package com.me.swampmonster.models;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector2;
+import com.me.swampmonster.animations.AnimationControl;
 import com.me.swampmonster.game.TheController;
 import com.me.swampmonster.game.collision.CollisionHelper;
 import com.me.swampmonster.models.enemies.Enemy;
@@ -18,8 +21,13 @@ public class ProjectileHydra extends Projectile{
 	public float direction_x;
 	public float direction_y;
 	public float force;
+	
+	public int effectCounter;
+	public Sprite trailEffect;
+	private AnimationControl animControl;
+	public List<Sprite> animsTrailList;
 //	public static float arrowMovementSpeed;
-	public static int musltiplyCounter =5;
+	public static int musltiplyCounter = 3;
 	
 	private Vector2 target;
 //	public static List<ProjectileHydra> listHydras = new ArrayList<ProjectileHydra>();
@@ -34,7 +42,8 @@ public class ProjectileHydra extends Projectile{
 		circle.radius = 6;
 		damage = 1f;
 		target = findClosestTarget();
-
+		animsTrailList = new ArrayList<Sprite>();
+		
 //		System.err.println("target xy: " + target + "position " + position);
 		if (target != null){
 		direction_x = target.x - position.x;
@@ -46,6 +55,8 @@ public class ProjectileHydra extends Projectile{
 		
 		sprite.setRotation(getRotation(target)* 57.29f);
 
+		animControl = new AnimationControl(Assets.manager.get(Assets.trailEffect), 4, 1, 3.9f);
+		
 		force = 0.8f;
 		resistance = 0f;
 		initialSurfaceLevel = getSurfaceLevelProjectile(TheController.collisionLayer);
@@ -104,6 +115,23 @@ public class ProjectileHydra extends Projectile{
 				mini.update();
 			}
 		}
+		
+		effectCounter++;
+		animControl.animate(0);
+		if(effectCounter==30){
+			Sprite s = new Sprite(animControl.getCurrentFrame());
+			animsTrailList.add(s);
+			effectCounter=0;
+		}
+		System.out.println("thing: " + animsTrailList.size());
+		for(Sprite s: animsTrailList){
+			s = new Sprite(animControl.getCurrentFrame());
+			if(position != null){
+				s.setX(position.x);
+				s.setY(position.y);
+			}
+		}
+		
 	}
 
 	public List<ProjectileHydra> getProjectiles(){

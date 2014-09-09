@@ -88,6 +88,8 @@ public class Assets {
 	public static final AssetDescriptor<BitmapFont> font = new AssetDescriptor<BitmapFont>("data\\font.fnt", BitmapFont.class);
 	public static final AssetDescriptor<Texture> explosiveTrap = new AssetDescriptor<Texture>("data\\explosiveTrap.png", Texture.class); 
 	public static final AssetDescriptor<Texture> exitMessageWindow = new AssetDescriptor<Texture>("data\\ExitMessageWindow.png", Texture.class); 
+	//effects
+	public static final AssetDescriptor<Texture> trailEffect = new AssetDescriptor<Texture>("data\\trailEffect.png", Texture.class);
 	public static void load(){
 		manager.load(menuBackgroundMusic);
 		manager.load(turretImg);
@@ -162,10 +164,13 @@ public class Assets {
 		manager.load(leachProjectile);
 		manager.load(projectileHydra);
 		manager.load(explosiveTrap);
+		
 		manager.setLoader(BitmapFont.class, new BitmapFontLoader(new InternalFileHandleResolver()));
 		manager.load(font);
 		manager.load(exitMessageWindow);
 //		manager.setLoader(TiledMap.class, new TmxMapLoader());
+		//Effects load
+		manager.load(trailEffect);
 		
 		
 //		manager.load(map);
