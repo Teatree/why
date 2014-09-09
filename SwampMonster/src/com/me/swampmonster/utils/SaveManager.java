@@ -26,7 +26,6 @@ public class SaveManager {
         if (file != null && file.exists()) {
             String s = file.readString();
             if (!s.isEmpty()) {
-            	System.out.println(com.badlogic.gdx.utils.Base64Coder.decodeString(s));
                 return com.badlogic.gdx.utils.Base64Coder.decodeString(s);
             }
         }

@@ -27,11 +27,8 @@ public class CHAIN_ARROWS extends Item{
 
 	public void pickMeUp(Player player) {
 		this.state = State.DEAD;
-		System.out.println("Hello, I am Chain arrows!");
-		
-		ProjectileHydra p = new ProjectileHydra(new Vector2(position.x, position.y));
-		L1.hydra = p;
-//		ProjectileHydra.listHydras.add(p);
+//		System.out.println("Hello, I am Chain arrows!");
+		L1.hydra  = new ProjectileHydra(new Vector2(position.x, position.y));
 	}
 
 }

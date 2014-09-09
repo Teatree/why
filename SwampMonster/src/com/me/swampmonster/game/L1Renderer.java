@@ -223,10 +223,12 @@ public class L1Renderer {
 		}
 		if (L1.hydra != null) {
 			for (ProjectileHydra p : L1.hydra.getProjectiles()) {
-				batch.draw(p.sprite, p.sprite.getX(), p.sprite.getY(),
+				if (p.state != State.DEAD){
+					batch.draw(p.sprite, p.sprite.getX(), p.sprite.getY(),
 						p.sprite.getOriginX(), p.sprite.getOriginY(),
 						p.sprite.getWidth(), p.sprite.getHeight(), 1, 1,
 						p.sprite.getRotation());
+				}
 			}
 		}
 

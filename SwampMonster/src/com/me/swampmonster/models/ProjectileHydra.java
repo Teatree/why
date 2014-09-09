@@ -1,20 +1,14 @@
 package com.me.swampmonster.models;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
-
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Vector3;
 import com.me.swampmonster.game.TheController;
 import com.me.swampmonster.game.collision.CollisionHelper;
-import com.me.swampmonster.models.AbstractGameObject.State;
-import com.me.swampmonster.models.Projectile.EffectCarriers;
 import com.me.swampmonster.models.enemies.Enemy;
 import com.me.swampmonster.utils.Assets;
 
@@ -25,7 +19,7 @@ public class ProjectileHydra extends Projectile{
 	public float direction_y;
 	public float force;
 //	public static float arrowMovementSpeed;
-	public static int musltiplyCounter = 3;
+	public static int musltiplyCounter =5;
 	
 	private Vector2 target;
 //	public static List<ProjectileHydra> listHydras = new ArrayList<ProjectileHydra>();
@@ -39,10 +33,10 @@ public class ProjectileHydra extends Projectile{
 		circle = new Circle();
 		circle.radius = 6;
 		damage = 1f;
-
 		target = findClosestTarget();
 
-		System.err.println("target xy: " + target + "position " + position);
+//		System.err.println("target xy: " + target + "position " + position);
+		if (target != null){
 		direction_x = target.x - position.x;
 		direction_y = target.y - position.y;
 
@@ -51,13 +45,11 @@ public class ProjectileHydra extends Projectile{
 		direction_y /= length1;
 		
 		sprite.setRotation(getRotation(target)* 57.29f);
-		
 
 		force = 0.8f;
 		resistance = 0f;
-
 		initialSurfaceLevel = getSurfaceLevelProjectile(TheController.collisionLayer);
-		
+		}
 //		listHydras.add(this);
 	}
 	
@@ -81,27 +73,30 @@ public class ProjectileHydra extends Projectile{
 	
 				for(Enemy e : L1.enemiesOnStage){
 					if (Intersector.overlaps(this.circle, e.rectanlge) && !e.injuredByHydra && e.state != State.DEAD) {
+						e.health--;
 						state = State.DEAD;
 						musltiplyCounter--;
 						if(musltiplyCounter>=0){
 							ProjectileHydra projectile = new ProjectileHydra(new Vector2(position.x, position.y));
 							ProjectileHydra projectile2 = new ProjectileHydra(new Vector2(position.x, position.y));
-							miniHydras.add(projectile);
-							miniHydras.add(projectile2);
+							if (projectile.target != null){
+								miniHydras.add(projectile);
+							}
+							if (projectile2.target != null){
+								miniHydras.add(projectile2);
+							}
 							e.injuredByHydra = true;
 						}
-						
 						break;
 					}
 				}
-				if(miniHydras != null && !miniHydras.isEmpty()){
-					for(ProjectileHydra mini : miniHydras){
-						mini.update();
-					}
-				}
+//				if(miniHydras != null && !miniHydras.isEmpty()){
+//					for(ProjectileHydra mini : miniHydras){
+//						mini.update();
+//					}
+//				}
 		}
-		else
-		{
+		else{
 			position = null;
 		}
 		if(miniHydras != null && !miniHydras.isEmpty()){
@@ -119,9 +114,7 @@ public class ProjectileHydra extends Projectile{
 				result.addAll(p.getProjectiles());
 			}
 		}
-		
 		return result;
-		
 	}
 	
 	public int getSurfaceLevelProjectile(TiledMapTileLayer collisionLayer) {
@@ -168,7 +161,8 @@ public class ProjectileHydra extends Projectile{
 				}
 			}
 		}
-		closestEnemy.isAimedByHydra = true;
+		if (closestEnemy != null)
+			closestEnemy.isAimedByHydra = true;
 		return target;
 	}
 

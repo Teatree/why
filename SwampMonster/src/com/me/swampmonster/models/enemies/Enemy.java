@@ -25,6 +25,7 @@ import com.me.swampmonster.models.L1;
 import com.me.swampmonster.models.Player;
 import com.me.swampmonster.models.Projectile;
 import com.me.swampmonster.models.Projectile.EffectCarriers;
+import com.me.swampmonster.models.ProjectileHydra;
 import com.me.swampmonster.models.Prop;
 import com.me.swampmonster.models.ToxicPuddle;
 import com.me.swampmonster.models.Turret;
@@ -1062,6 +1063,12 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 		}
 	}
 	
+	public void enemyHydraHurt(Turret turret) {
+		state = State.STANDARD;
+		if (health >= 0) {
+			health -= ProjectileHydra.damage;
+		}
+	}
 	// temporary look
 	@Override
 	public void setPlayerMovementDirection(String playerMovementDirection) {
