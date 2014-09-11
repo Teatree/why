@@ -510,10 +510,10 @@ public class L1Renderer {
 						p.sprite.getWidth(), p.sprite.getHeight(), 1, 1,
 						p.sprite.getRotation());
 					for(Sprite s: p.animsTrailList){
-						System.out.println("s: " + s);
-						System.out.println(" s.getX(): " + s.getX());
-						System.out.println("s.getY(): " + s.getY());
-						batch.draw(s, p.sprite.getX(), p.sprite.getY());
+//						System.out.println("s: " + s);
+//						System.out.println(" s.getX(): " + s.getX());
+//						System.out.println("s.getY(): " + s.getY());
+						batch.draw(s, s.getX(), s.getY());
 					}
 				}
 			}

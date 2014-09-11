@@ -1,7 +1,9 @@
 package com.me.swampmonster.models;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -26,6 +28,7 @@ public class ProjectileHydra extends Projectile{
 	public Sprite trailEffect;
 	private AnimationControl animControl = new AnimationControl(Assets.manager.get(Assets.trailEffect), 4, 1, 3.9f);
 	public List<Sprite> animsTrailList;
+	public Map<Sprite, AnimationControl> animMap = new HashMap<Sprite, AnimationControl>();;
 //	public static float arrowMovementSpeed;
 	public static int musltiplyCounter = 3;
 	
@@ -57,7 +60,7 @@ public class ProjectileHydra extends Projectile{
 
 //		animControl = new AnimationControl(Assets.manager.get(Assets.trailEffect), 4, 1, 3.9f);
 //		
-		force = 0.8f;
+		force = 0.2f;
 		resistance = 0f;
 		initialSurfaceLevel = getSurfaceLevelProjectile(TheController.collisionLayer);
 		}
@@ -118,18 +121,26 @@ public class ProjectileHydra extends Projectile{
 		
 		effectCounter++;
 		animControl.animate(0);
-		if(effectCounter==30){
+		if(effectCounter==60){
 			Sprite s = new Sprite(animControl.getCurrentFrame());
-			animsTrailList.add(s);
-			effectCounter=0;
-		}
-		System.out.println("thing: " + animsTrailList.size());
-		for(Sprite s: animsTrailList){
-			s = new Sprite(animControl.getCurrentFrame());
 			if(position != null){
 				s.setX(position.x);
 				s.setY(position.y);
 			}
+			animsTrailList.add(s);
+			effectCounter=0;
+		}
+//		System.out.println("thing: " + animsTrailList.size());
+		for(Sprite s: animsTrailList){
+			System.out.println("size: " + animsTrailList.size());
+			Sprite sOp = new Sprite(animControl.getCurrentFrame());
+			s = sOp;
+		}
+		
+		int i = 0;
+		while(i>animsTrailList.size()){
+			Sprite s = new Sprite(animControl.getCurrentFrame());
+			
 		}
 		
 	}
