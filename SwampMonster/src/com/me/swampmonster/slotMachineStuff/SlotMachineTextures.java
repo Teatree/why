@@ -160,27 +160,35 @@ public class SlotMachineTextures extends Group {
 
 			@Override
 			public int compare(Slot o1, Slot o2) {
-				if (o1 instanceof Perks && !(o2 instanceof Perks)){
-					return 1;
-				} else if (!(o1 instanceof Perks) && (o2 instanceof Perks)){
-					return -1;
-				} else if (o1 instanceof Perks && o2 instanceof Perks){
-					if(o1.level == o2.level){
-						return 0;
-					} else if (o1.level > o2.level){
-						return 1;
-					} else {
-						return -1;
-					}
-				} else /*(!(o1 instanceof Perks) && !(o2 instanceof Perks))*/{
-					if(o1.level == o2.level){
-						return 0;
-					} else if (o1.level > o2.level){
-						return 1;
-					} else {
-						return -1;
-					}
+				int o1level = 0;
+				int o2level = 0;
+				try {
+					o1level = o1.getClass().getField("level").getInt(null);
+					o2level = o2.getClass().getField("level").getInt(null);
+				} catch (Exception e) {
+					e.printStackTrace();
 				}
+				if (o1 instanceof Perks && o2 instanceof Perks){
+					if(o1level == o2level){
+						return 0;
+					} else if (o1level > o2level){
+						return -1;
+					} else {
+						return 1;
+					}
+				} else if(!(o1 instanceof Perks) && !(o2 instanceof Perks)){
+					if(o1level == o2level){
+						return 0;
+					} else if (o1level > o2level){
+						return -1;
+					} else {
+						return 1;
+					}
+				} else if (o1 instanceof Perks && !(o2 instanceof Perks)){
+					return 1;
+				} else/* if (!(o1 instanceof Perks) && (o2 instanceof Perks))*/{
+					return -1;
+				} 
 			}
 		});
 		for(Slot s: SlotMachineScreen.savedSlots){
@@ -257,7 +265,6 @@ public class SlotMachineTextures extends Group {
 			font.draw(batch, selectedSlot.getDescription(),
 					slotMachineWindow.getBoundingRectangle().x + 25,
 					slotMachineWindow.getBoundingRectangle().y + 200);
-
 		}
 		
 	}

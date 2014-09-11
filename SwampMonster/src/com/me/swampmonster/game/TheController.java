@@ -320,6 +320,8 @@ public class TheController extends InputAdapter {
 		
 		if (Gdx.input.isKeyPressed(Keys.BACK) || Gdx.input.isKeyPressed(Keys.ESCAPE)){
 			paused = true;
+			System.out.println("isKeyPressed(Keys.BACK) " + Gdx.input.isKeyPressed(Keys.BACK));
+			System.out.println("isKeyPressed(Keys.ESCAPE) " + Gdx.input.isKeyPressed(Keys.ESCAPE));
 		} 
 		
 		// Pos effects

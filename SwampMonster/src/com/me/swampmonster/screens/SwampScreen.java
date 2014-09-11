@@ -20,6 +20,7 @@ public class SwampScreen extends AbstractGameScreen  implements Screen {
 	
 	@Override
 	public void show() {
+		Gdx.input.setCatchBackKey(true);
 		if(theController == null){
 			theController = new TheController(game, this.player);
 		}else{

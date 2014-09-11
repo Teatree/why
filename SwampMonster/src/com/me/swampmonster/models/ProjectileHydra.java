@@ -24,7 +24,7 @@ public class ProjectileHydra extends Projectile{
 	
 	public int effectCounter;
 	public Sprite trailEffect;
-	private AnimationControl animControl;
+	private AnimationControl animControl = new AnimationControl(Assets.manager.get(Assets.trailEffect), 4, 1, 3.9f);
 	public List<Sprite> animsTrailList;
 //	public static float arrowMovementSpeed;
 	public static int musltiplyCounter = 3;
@@ -55,8 +55,8 @@ public class ProjectileHydra extends Projectile{
 		
 		sprite.setRotation(getRotation(target)* 57.29f);
 
-		animControl = new AnimationControl(Assets.manager.get(Assets.trailEffect), 4, 1, 3.9f);
-		
+//		animControl = new AnimationControl(Assets.manager.get(Assets.trailEffect), 4, 1, 3.9f);
+//		
 		force = 0.8f;
 		resistance = 0f;
 		initialSurfaceLevel = getSurfaceLevelProjectile(TheController.collisionLayer);

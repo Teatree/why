@@ -130,7 +130,7 @@ public class SlotMachineScreen extends AbstractGameScreen {
 	}
 	
 	private void selectSavedSlot(Slot slot) {
-		System.out.println("savedslot " + slot.sprite.getX() + ":" + slot.sprite.getY() + " "+ victor + " = " + slot.sprite.getBoundingRectangle().contains(victor));
+//		System.out.println("savedslot " + slot.sprite.getX() + ":" + slot.sprite.getY() + " "+ victor + " = " + slot.sprite.getBoundingRectangle().contains(victor));
 		if (slot.sprite.getBoundingRectangle().contains(victor)) {
 			if (!slotMachineTextures.peru) {
 				slotMachineTextures.peru = true;
@@ -165,7 +165,7 @@ public class SlotMachineScreen extends AbstractGameScreen {
 	@Override
 	public void show() {
 		slotMachineTextures = new SlotMachineTextures(player);
-
+//		Gdx.input.setCatchBackKey(true);
 		stage.addActor(slotMachineTextures);
 	}
 
