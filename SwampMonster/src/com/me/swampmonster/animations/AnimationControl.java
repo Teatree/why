@@ -14,6 +14,7 @@ public class AnimationControl {
 	public float stateTime;
 	public float stateTimeDoComplex;
 	public boolean animating;
+	public boolean animating2 = true;
 	private float multiplier;
 	
 
@@ -31,6 +32,7 @@ public class AnimationControl {
 				frames[index++] = tmp[i][j];
 			}
 		}
+//		animating2 = true;
 
 		animation = new Animation(1, frames);
 		stateTime = 0f;
@@ -63,6 +65,7 @@ public class AnimationControl {
 		if (stateTime < 1) {
 			stateTime += Gdx.graphics.getDeltaTime()/1.5f;
 		} else {
+			animating2 = false;
 			stateTime = 0;
 		}
 		

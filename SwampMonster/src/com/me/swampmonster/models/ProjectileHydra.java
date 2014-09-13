@@ -2,6 +2,7 @@ package com.me.swampmonster.models;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -16,6 +17,7 @@ import com.me.swampmonster.game.TheController;
 import com.me.swampmonster.game.collision.CollisionHelper;
 import com.me.swampmonster.models.enemies.Enemy;
 import com.me.swampmonster.utils.Assets;
+import com.sun.xml.internal.ws.api.pipe.NextAction;
 
 public class ProjectileHydra extends Projectile{
 	public static float resistance;
@@ -26,14 +28,10 @@ public class ProjectileHydra extends Projectile{
 	
 	public int effectCounter;
 	public Sprite trailEffect;
-	private AnimationControl animControl = new AnimationControl(Assets.manager.get(Assets.trailEffect), 4, 1, 3.9f);
-	public List<Sprite> animsTrailList;
-	public Map<Sprite, AnimationControl> animMap = new HashMap<Sprite, AnimationControl>();;
-//	public static float arrowMovementSpeed;
+	public List<hydraTrailAnimation> animsTrailList;
 	public static int musltiplyCounter = 3;
 	
 	private Vector2 target;
-//	public static List<ProjectileHydra> listHydras = new ArrayList<ProjectileHydra>();
 	private List<ProjectileHydra> miniHydras = new ArrayList<ProjectileHydra>();
 	
 	public ProjectileHydra(Vector2 position) {
@@ -45,7 +43,7 @@ public class ProjectileHydra extends Projectile{
 		circle.radius = 6;
 		damage = 1f;
 		target = findClosestTarget();
-		animsTrailList = new ArrayList<Sprite>();
+		animsTrailList = new ArrayList<hydraTrailAnimation>();
 		
 //		System.err.println("target xy: " + target + "position " + position);
 		if (target != null){
@@ -60,7 +58,7 @@ public class ProjectileHydra extends Projectile{
 
 //		animControl = new AnimationControl(Assets.manager.get(Assets.trailEffect), 4, 1, 3.9f);
 //		
-		force = 0.2f;
+		force = 0.9f;
 		resistance = 0f;
 		initialSurfaceLevel = getSurfaceLevelProjectile(TheController.collisionLayer);
 		}
@@ -120,29 +118,24 @@ public class ProjectileHydra extends Projectile{
 		}
 		
 		effectCounter++;
-		animControl.animate(0);
-		if(effectCounter==60){
-			Sprite s = new Sprite(animControl.getCurrentFrame());
+		if(effectCounter==6){
+			hydraTrailAnimation hydraTrail = new hydraTrailAnimation();
 			if(position != null){
-				s.setX(position.x);
-				s.setY(position.y);
+				hydraTrail.position.x = position.x;
+				hydraTrail.position.y = position.y;
 			}
-			animsTrailList.add(s);
+			animsTrailList.add(hydraTrail);
 			effectCounter=0;
 		}
-//		System.out.println("thing: " + animsTrailList.size());
-		for(Sprite s: animsTrailList){
-			System.out.println("size: " + animsTrailList.size());
-			Sprite sOp = new Sprite(animControl.getCurrentFrame());
-			s = sOp;
-		}
 		
-		int i = 0;
-		while(i>animsTrailList.size()){
-			Sprite s = new Sprite(animControl.getCurrentFrame());
-			
+		Iterator<hydraTrailAnimation> trailItr = animsTrailList.iterator();
+		while(trailItr.hasNext()){
+			hydraTrailAnimation hydraTrail = trailItr.next();
+			if(!hydraTrail.animationControl.animating2){
+				System.out.println("animating 2 " + hydraTrail.animationControl.animating2);
+				trailItr.remove();
+			}
 		}
-		
 	}
 
 	public List<ProjectileHydra> getProjectiles(){
@@ -216,5 +209,25 @@ public class ProjectileHydra extends Projectile{
 	
 	public ProjectileHydra() {
 	}
-
+	
+	public class hydraTrailAnimation{
+		public AnimationControl animationControl;
+		public Vector2 position;
+//		public boolean 
+		
+		public hydraTrailAnimation(){
+			animationControl = new AnimationControl(Assets.manager.get(Assets.trailEffect), 4, 1, 3.9f);
+			
+			position = new Vector2();
+		}
+		
+		public Sprite getCurrentSprite(){
+			animationControl.animate(0);
+			Sprite s = new Sprite(animationControl.getCurrentFrame());
+			s.setX(position.x);
+			s.setY(position.y);
+			return s;
+		}
+		
+	}
 }

@@ -20,6 +20,7 @@ import com.me.swampmonster.models.L1;
 import com.me.swampmonster.models.Player;
 import com.me.swampmonster.models.Projectile;
 import com.me.swampmonster.models.ProjectileHydra;
+import com.me.swampmonster.models.ProjectileHydra.hydraTrailAnimation;
 import com.me.swampmonster.models.Prop;
 import com.me.swampmonster.models.TutorialLevel;
 import com.me.swampmonster.models.enemies.Enemy;
@@ -509,11 +510,11 @@ public class L1Renderer {
 						p.sprite.getOriginX(), p.sprite.getOriginY(),
 						p.sprite.getWidth(), p.sprite.getHeight(), 1, 1,
 						p.sprite.getRotation());
-					for(Sprite s: p.animsTrailList){
+					for(hydraTrailAnimation h: p.animsTrailList){
 //						System.out.println("s: " + s);
 //						System.out.println(" s.getX(): " + s.getX());
 //						System.out.println("s.getY(): " + s.getY());
-						batch.draw(s, s.getX(), s.getY());
+						batch.draw(h.getCurrentSprite(), h.getCurrentSprite().getX(), h.getCurrentSprite().getY());
 					}
 				}
 			}
