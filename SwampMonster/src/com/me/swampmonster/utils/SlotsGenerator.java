@@ -15,6 +15,7 @@ import com.me.swampmonster.models.slots.ImproveArrowSpeed;
 import com.me.swampmonster.models.slots.ImproveMaxHealth;
 import com.me.swampmonster.models.slots.ImproveMaxOxygen;
 import com.me.swampmonster.models.slots.ImproveMovementSpeed;
+import com.me.swampmonster.models.slots.PanicTeleport;
 import com.me.swampmonster.models.slots.PoisonArrow;
 import com.me.swampmonster.models.slots.PoisonTrap;
 import com.me.swampmonster.models.slots.SPEED_BOOST;
@@ -59,7 +60,7 @@ public class SlotsGenerator {
 		slots.put(3, FrostTrap.class);
 		slots.put(4, ExplozionTrap.class);
 		slots.put(5, Arrows3.class);
-		slots.put(6, ShadowArrow.class);
+		slots.put(6, PanicTeleport.class);
 		slots.put(7, PoisonArrow.class);
 		slots.put(8, TurretSkill.class);
 		slots.put(9, ExplosiveArrow.class);

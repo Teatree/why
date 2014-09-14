@@ -17,7 +17,7 @@ import com.me.swampmonster.utils.Assets;
 public abstract class AbstractGameObject {
 
 	public enum State{
-		STANDARD, DEAD, ANIMATING, ANIMATINGLARGE, ACTIVATING, 
+		STANDARD, DEAD, ANIMATING, ANIMATINGLARGE, ACTIVATING, TELEPORTING,
 		ATTACKING, PURSUIT, GUNMOVEMENT, SPAWNING, DESPAWNING, ONFIRE, ICECUBESDEAD;
 	}
 	public enum NegativeEffects {

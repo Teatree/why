@@ -85,6 +85,7 @@ public class Player extends AbstractGameObject {
 	private Random random;
 	public Rectangle fearRectangle;
 	public Turret turret;
+	public boolean teleported;
 
 	public Circle aimingArea;
 	// public Circle invalidSpawnArea;
@@ -148,10 +149,10 @@ public class Player extends AbstractGameObject {
 				Assets.manager.get(Assets.nastyaSpriteStandard), 8, 32, 8));
 		animationsStandard.put(State.GUNMOVEMENT, new AnimationControl(
 				Assets.manager.get(Assets.nastyaSpriteGun), 8, 32, 7));
-		animationsStandard.put(
-				State.DEAD,
-				new AnimationControl(Assets.manager
-						.get(Assets.nastyaSpriteStandard), 8, 32, 8));
+		animationsStandard.put(State.TELEPORTING, new AnimationControl(
+				Assets.manager.get(Assets.nastyaSpriteGun), 8, 32, 7));
+		animationsStandard.put(State.DEAD, new AnimationControl(
+				Assets.manager.get(Assets.nastyaSpriteStandard), 8, 32, 8));
 
 		oldPos = position;
 
@@ -241,6 +242,28 @@ public class Player extends AbstractGameObject {
 				} else if (turret.timeRemove > 179) {
 					turret.timeRemove = 0;
 					this.turret = null;
+				}
+			}
+		}
+		
+		// TELEPORTING
+		if (state.equals(State.TELEPORTING)){
+			if(!teleported){
+					currentFrame = animationsStandard.get(state).animate(136);
+					sprite.setRegion(animationsStandard.get(state).getCurrentFrame());
+					sprite.setBounds(sprite.getX(), sprite.getY(), 32, 32);
+				if(!animationsStandard.get(state).animating2){
+					position = L1.misterSpawner.teleportPlayerPos();
+					animationsStandard.get(state).animating2 = true;
+					teleported = true;
+				}
+			}else{
+				currentFrame = animationsStandard.get(state).animate(128);
+				sprite.setRegion(animationsStandard.get(state).getCurrentFrame());
+				sprite.setBounds(sprite.getX(), sprite.getY(), 32, 32);
+				if(!animationsStandard.get(state).animating2){
+					teleported = false;
+					state = State.STANDARD;
 				}
 			}
 		}

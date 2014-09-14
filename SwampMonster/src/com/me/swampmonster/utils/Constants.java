@@ -398,6 +398,18 @@ public class Constants {
 	public static final String ShadowArrow_Description_L4 = "ShadowArrow SA Level 4";
 	public static final String ShadowArrow_Description_L5 = "ShadowArrow SA Level 5";
 
+//	PANIC_TELEPORT:
+	public static final int PANIC_TELEPORT_CoolDown_L1 = 3000;
+	public static final int PANIC_TELEPORT_CoolDown_L2 = 2500;
+	public static final int PANIC_TELEPORT_CoolDown_L3 = 2000;
+	public static final int PANIC_TELEPORT_CoolDown_L4 = 1500;
+	public static final int PANIC_TELEPORT_CoolDown_L5 = 1000;
+
+	public static final String PANIC_TELEPORT_Description_L1 = "PANIC_TELEPORT SA Level 1";
+	public static final String PANIC_TELEPORT_Description_L2 = "PANIC_TELEPORT SA Level 2";
+	public static final String PANIC_TELEPORT_Description_L3 = "PANIC_TELEPORT SA Level 3";
+	public static final String PANIC_TELEPORT_Description_L4 = "PANIC_TELEPORT SA Level 4";
+	public static final String PANIC_TELEPORT_Description_L5 = "PANIC_TELEPORT SA Level 5";
 	
 //	SPEED_BOOST:
 	public static final int SPEED_BOOST_CoolDown_L1 = 3000;

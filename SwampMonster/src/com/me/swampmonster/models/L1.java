@@ -38,7 +38,7 @@ public class L1 {
 	private int enemyEnemyPendingCoounter;
 	public int pendingPeriodBetweedWavesCounter;
 	private WaveGenerator waveGenerator = new WaveGenerator();
-	private MisterSpawner misterSpawner = new MisterSpawner();
+	public static MisterSpawner misterSpawner = new MisterSpawner();
 	private MisterItemSpawner misterItemSpawner = new MisterItemSpawner();
 	
 	public static List<Explosion> explosions;
