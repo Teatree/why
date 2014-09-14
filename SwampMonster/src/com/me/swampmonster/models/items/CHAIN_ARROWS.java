@@ -27,7 +27,7 @@ public class CHAIN_ARROWS extends Item{
 
 	public void pickMeUp(Player player) {
 		this.state = State.DEAD;
-//		System.out.println("Hello, I am Chain arrows!");
+		System.out.println("Hello, I am Chain arrows! and multiplyCounter is: " + ProjectileHydra.musltiplyCounter);
 		L1.hydra  = new ProjectileHydra(new Vector2(position.x, position.y));
 		ProjectileHydra.musltiplyCounter = 3;
 	}

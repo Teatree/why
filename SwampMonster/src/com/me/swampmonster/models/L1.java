@@ -105,6 +105,11 @@ public class L1 {
 //		}
 		if(hydra != null){
 			hydra.update();
+			if(hydra.allDead()){
+				System.out.println("yes u r");
+				ProjectileHydra.musltiplyCounter = 3;
+				hydra = null;
+			}
 		}
 		
 		Iterator<Explosion> explItr = explosions.iterator();

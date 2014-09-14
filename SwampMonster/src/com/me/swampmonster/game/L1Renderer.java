@@ -514,7 +514,11 @@ public class L1Renderer {
 //						System.out.println("s: " + s);
 //						System.out.println(" s.getX(): " + s.getX());
 //						System.out.println("s.getY(): " + s.getY());
-						batch.draw(h.getCurrentSprite(), h.getCurrentSprite().getX(), h.getCurrentSprite().getY());
+						
+						//:TODO FINISH THIS BULLSHIT!
+						batch.draw(h.getCurrentSprite(), 
+								h.getCurrentSprite().getX()+(p.sprite.getWidth()/2*Math.signum(p.sprite.getRotation())),
+								h.getCurrentSprite().getY()+(p.sprite.getHeight()/2*Math.signum(p.sprite.getRotation())));
 					}
 				}
 			}
