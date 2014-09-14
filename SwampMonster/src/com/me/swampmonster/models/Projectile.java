@@ -24,10 +24,9 @@ public class Projectile extends AbstractGameObject {
 	public int initialSurfaceLevel;
 
 	public enum EffectCarriers {
-		POISONED(new Sprite(Assets.manager.get(Assets.arrowPoisoned))), SHADOW(
-				new Sprite(Assets.manager.get(Assets.SHADOW_ARROW_ICON))), EXPLOSIVE(
-				new Sprite(Assets.manager.get(Assets.arrowExplosive))), NONE(
-				new Sprite(Assets.manager.get(Assets.arrow)));
+		POISONED(new Sprite(Assets.manager.get(Assets.arrowPoisoned))), 
+		EXPLOSIVE(new Sprite(Assets.manager.get(Assets.arrowExplosive))),
+		NONE(new Sprite(Assets.manager.get(Assets.arrow)));
 
 		Sprite sprite;
 

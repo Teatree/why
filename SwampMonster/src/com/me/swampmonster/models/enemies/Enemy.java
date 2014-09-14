@@ -24,6 +24,7 @@ import com.me.swampmonster.models.AbstractGameObject;
 import com.me.swampmonster.models.L1;
 import com.me.swampmonster.models.Player;
 import com.me.swampmonster.models.Projectile;
+import com.me.swampmonster.models.AbstractGameObject.State;
 import com.me.swampmonster.models.Projectile.EffectCarriers;
 import com.me.swampmonster.models.ProjectileHydra;
 import com.me.swampmonster.models.Prop;
@@ -460,8 +461,14 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 				p.movementSpeed = 1f;
 				if (p.isCollision(collisionLayer)
 						|| Intersector.overlaps(p.circle, player.aimingArea)) {
+					p.state = State.DEAD;
+				} else if(L1.plasmaShield!= null && p.circle.overlaps(L1.plasmaShield.circle)){
+					if(!L1.plasmaShield.circle.contains(oRangeAura)){
+						p.state = State.DEAD;
+					}
+				} 
+				if(p.state == State.DEAD){
 					prj.remove();
-					break;
 				}
 				p.update();
 			}

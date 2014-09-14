@@ -31,6 +31,7 @@ public class L1 {
 	public int currentWave;
 	public Bunker bunker;
 	public boolean korea;
+	public static PlasmaShield plasmaShield;
 
 	public Wave waveTemp;
 	private boolean needTogenerateNewWave = false;
@@ -69,6 +70,12 @@ public class L1 {
 			CameraHelper cameraHelper, float dx, float dy) {
 		
 		player.update(aiming, touchPos, V3point, collisionLayer, dx, dy);
+		if(plasmaShield != null){
+			plasmaShield.update();
+			if(plasmaShield.state == State.DEAD){
+				plasmaShield = null;
+			}
+		}
 				
 		Iterator<Prop> propItr = props.iterator();
 		while (propItr.hasNext()){
@@ -238,7 +245,7 @@ public class L1 {
 				Iterator<Projectile> prj = player.projectiles.iterator();
 				while (prj.hasNext()) {
 					Projectile p = prj.next();
-					if (p.effect != EffectCarriers.SHADOW && Intersector.overlaps(p.circle, e.rectanlge)) {
+					if (Intersector.overlaps(p.circle, e.rectanlge)) {
 						if (p.effect == EffectCarriers.EXPLOSIVE){
 							TheController.skill.explode(p.position);
 						}

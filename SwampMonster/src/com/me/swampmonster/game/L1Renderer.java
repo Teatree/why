@@ -397,6 +397,9 @@ public class L1Renderer {
 
 		// Temporary deBug feature
 		sr.begin(ShapeType.Line);
+		if(L1.plasmaShield != null){
+			sr.circle(L1.plasmaShield.circle.x, L1.plasmaShield.circle.y, L1.plasmaShield.circle.radius);
+		}
 		for (Enemy enemy : L1.enemiesOnStage) {
 			// sr.setColor(Color.GREEN);
 			// sr.circle(enemy.getgReenAura().x, enemy.getgReenAura().y,
@@ -499,6 +502,7 @@ public class L1Renderer {
 			sr.circle(L1.player.radioactiveAura.x, L1.player.radioactiveAura.y,
 					L1.player.radioactiveAura.radius);
 		}
+		
 		sr.end();
 		
 		mapRenderer.render(fiveground);

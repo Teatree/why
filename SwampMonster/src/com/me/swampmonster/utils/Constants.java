@@ -385,21 +385,27 @@ public class Constants {
 	public static final String RADIOACTIVE_Description_L5 = "Sup, name is RADIOACTIVE Aura Level 5!";
 	
 	
-//	ShadowArrow:
-	public static final int ShadowArrow_CoolDown_L1 = 3000;
-	public static final int ShadowArrow_CoolDown_L2 = 2500;
-	public static final int ShadowArrow_CoolDown_L3 = 2000;
-	public static final int ShadowArrow_CoolDown_L4 = 1500;
-	public static final int ShadowArrow_CoolDown_L5 = 1000;
+//	PLASMA_SHIELD:
+	public static final int PLASMA_SHIELD_CoolDown_L1 = 1000;
+	public static final int PLASMA_SHIELD_CoolDown_L2 = 2500;
+	public static final int PLASMA_SHIELD_CoolDown_L3 = 2000;
+	public static final int PLASMA_SHIELD_CoolDown_L4 = 1500;
+	public static final int PLASMA_SHIELD_CoolDown_L5 = 1000;
+	
+	public static final int PLASMA_SHIELD_LifeTime_L1 = 300;
+	public static final int PLASMA_SHIELD_LifeTime_L2 = 600;
+	public static final int PLASMA_SHIELD_LifeTime_L3 = 900;
+	public static final int PLASMA_SHIELD_LifeTime_L4 = 1200;
+	public static final int PLASMA_SHIELD_LifeTime_L5 = 1500;
 
-	public static final String ShadowArrow_Description_L1 = "ShadowArrow SA Level 1";
-	public static final String ShadowArrow_Description_L2 = "ShadowArrow SA Level 2";
-	public static final String ShadowArrow_Description_L3 = "ShadowArrow SA Level 3";
-	public static final String ShadowArrow_Description_L4 = "ShadowArrow SA Level 4";
-	public static final String ShadowArrow_Description_L5 = "ShadowArrow SA Level 5";
+	public static final String PLASMA_SHIELD_Description_L1 = "PLASMA_SHIELD SA Level 1";
+	public static final String PLASMA_SHIELD_Description_L2 = "PLASMA_SHIELD SA Level 2";
+	public static final String PLASMA_SHIELD_Description_L3 = "PLASMA_SHIELD SA Level 3";
+	public static final String PLASMA_SHIELD_Description_L4 = "PLASMA_SHIELD SA Level 4";
+	public static final String PLASMA_SHIELD_Description_L5 = "PLASMA_SHIELD SA Level 5";
 
 //	PANIC_TELEPORT:
-	public static final int PANIC_TELEPORT_CoolDown_L1 = 3000;
+	public static final int PANIC_TELEPORT_CoolDown_L1 = 1000;
 	public static final int PANIC_TELEPORT_CoolDown_L2 = 2500;
 	public static final int PANIC_TELEPORT_CoolDown_L3 = 2000;
 	public static final int PANIC_TELEPORT_CoolDown_L4 = 1500;

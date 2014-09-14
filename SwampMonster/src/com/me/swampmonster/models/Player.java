@@ -25,6 +25,7 @@ import com.me.swampmonster.models.Projectile.EffectCarriers;
 import com.me.swampmonster.models.enemies.Enemy;
 import com.me.swampmonster.models.items.HASTE;
 import com.me.swampmonster.models.items.RADIOACTIVE;
+import com.me.swampmonster.models.slots.PanicTeleport;
 import com.me.swampmonster.models.slots.PositiveEffects;
 import com.me.swampmonster.models.slots.Slot;
 import com.me.swampmonster.models.slots.Trap;
@@ -248,6 +249,7 @@ public class Player extends AbstractGameObject {
 		
 		// TELEPORTING
 		if (state.equals(State.TELEPORTING)){
+			
 			if(!teleported){
 					currentFrame = animationsStandard.get(state).animate(136);
 					sprite.setRegion(animationsStandard.get(state).getCurrentFrame());
@@ -261,6 +263,15 @@ public class Player extends AbstractGameObject {
 				currentFrame = animationsStandard.get(state).animate(128);
 				sprite.setRegion(animationsStandard.get(state).getCurrentFrame());
 				sprite.setBounds(sprite.getX(), sprite.getY(), 32, 32);
+				if(!PanicTeleport.explCreated){
+					Explosion expl = new Explosion(position, Explosion.EXPLOSION_TYPE_STANDART);
+					expl.damage = 0f;
+					expl.explosionLifeTime = 15;
+					expl.explCircle.radius = 0;
+					expl.isNuke = true;
+					L1.explosions.add(expl);
+					PanicTeleport.explCreated = true;
+				}
 				if(!animationsStandard.get(state).animating2){
 					teleported = false;
 					state = State.STANDARD;
@@ -290,6 +301,8 @@ public class Player extends AbstractGameObject {
 			levelsScore = 0;
 			trap = null;
 			turret = null;
+			L1.hydra = null;
+			L1.plasmaShield = null;
 			SlotMachineScreen.savedSlots = new ArrayList<Slot>();
 			TheController.skill = null;
 			dying();
@@ -428,12 +441,15 @@ public class Player extends AbstractGameObject {
 			Projectile p = prj.next();
 			p.update();
 			p.getSurfaceLevelProjectile(collisionLayer);
-			if (p.isCollision(collisionLayer)
-					&& p.effect != EffectCarriers.SHADOW) {
+			if (p.isCollision(collisionLayer)) {
 				if (p.effect == EffectCarriers.EXPLOSIVE) {
 					TheController.skill.explode(p.position);
 				}
 				prj.remove();
+			} else if(L1.plasmaShield!= null && p.circle.overlaps(L1.plasmaShield.circle)){
+				if(!L1.plasmaShield.circle.contains(circle)){
+					p.state = State.DEAD;
+				}
 			} else if (p.isCollisionNBreakable(collisionLayer)
 					&& L1.hasAtmosphere) {
 				Explosion expl = new Explosion(new Vector2(p.position.x,
@@ -441,7 +457,7 @@ public class Player extends AbstractGameObject {
 				L1.explosions.add(expl);
 				L1.hasAtmosphere = false;
 				prj.remove();
-			} else if (p != null && p.state == State.DEAD) {
+			} if (p != null && p.state == State.DEAD) {
 				prj.remove();
 			}
 		}

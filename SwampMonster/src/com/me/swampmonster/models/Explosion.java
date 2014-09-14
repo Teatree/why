@@ -28,7 +28,7 @@ public class Explosion {
 	private Random random;
 	float explosion_dx;
 	float explosion_dy;
-	private int explosionLifeTime;
+	public int explosionLifeTime;
 	private int explodionLifeTimeCounter;
 	
 	public boolean isNuke;

@@ -17,7 +17,7 @@ public class EnemyLeech extends Enemy{
 		animationsStandard.put(State.STANDARD, new AnimationControl(Assets.manager.get(Assets.enemyLeech), 8, 32, 7)); 
 		animationsStandard.put(State.PURSUIT, new AnimationControl(Assets.manager.get(Assets.enemyLeech), 8, 32, 7)); 
 		
-		yellowAura.radius = yellowAura.radius*14;
+		yellowAura.radius = yellowAura.radius*20;
 		sprite = new Sprite(animationsStandard.get(state).getCurrentFrame());
 		movementSpeed = 0.2f;
 		health = 1;

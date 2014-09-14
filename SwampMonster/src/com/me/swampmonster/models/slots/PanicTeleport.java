@@ -13,6 +13,7 @@ import com.me.swampmonster.utils.Constants;
 public class PanicTeleport extends Slot{
 
 	public static int level;
+	public static boolean explCreated = false;
 	private static Map <Integer, String> descriptionByLevel;
 	static {
 		descriptionByLevel = new HashMap<Integer, String>();
@@ -47,6 +48,7 @@ public class PanicTeleport extends Slot{
 	@Override
 	public void execute(Player player){
 		player.state = State.TELEPORTING;
+		explCreated = false;
 	}
 	@Override
 	public String getDescription() {
