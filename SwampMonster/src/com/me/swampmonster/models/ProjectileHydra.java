@@ -1,12 +1,9 @@
 package com.me.swampmonster.models;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Circle;
@@ -17,7 +14,6 @@ import com.me.swampmonster.game.TheController;
 import com.me.swampmonster.game.collision.CollisionHelper;
 import com.me.swampmonster.models.enemies.Enemy;
 import com.me.swampmonster.utils.Assets;
-import com.sun.xml.internal.ws.api.pipe.NextAction;
 
 public class ProjectileHydra extends Projectile {
 	public static float resistance;
@@ -47,7 +43,7 @@ public class ProjectileHydra extends Projectile {
 		damage = 1f;
 //		System.out.println("target: " + target);
 		target = findClosestTarget();
-		System.out.println("findClosest: " + findClosestTarget());
+//		System.out.println("findClosest: " + findClosestTarget());
 		animsTrailList = new ArrayList<hydraTrailAnimation>();
 
 		// System.err.println("target xy: " + target + "position " + position);

@@ -21,7 +21,6 @@ import com.me.swampmonster.models.Explosion;
 import com.me.swampmonster.models.L1;
 import com.me.swampmonster.models.Player;
 import com.me.swampmonster.models.Projectile;
-import com.me.swampmonster.models.ProjectileHydra;
 import com.me.swampmonster.models.TutorialLevel;
 import com.me.swampmonster.models.enemies.Enemy;
 import com.me.swampmonster.models.slots.ExplozionTrap;

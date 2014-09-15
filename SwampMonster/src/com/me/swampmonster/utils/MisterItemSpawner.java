@@ -37,12 +37,13 @@ public class MisterItemSpawner {
 		}
 
 		// if (haveIitem < 100) {
-		// if (player.oxygen <= 13) {
-		// item = itemGenerator.getMoreLikelyOxugenItem(Player.levelsScore);
-		// } else {
 		if (haveItem > 10){
+		 if (player.oxygen <= 13) {
+		 item = itemGenerator.getMoreLikelyOxugenItem(Player.levelsScore);
+		 } else {
+//			 item = itemGenerator.getPlainItem(Player.levelsScore);
 			 item = itemGenerator.getItem(Player.levelsScore);
-			 System.out.println("item " + item);
+		 }
 		} else {
 			 return null;
 		}
@@ -62,20 +63,8 @@ public class MisterItemSpawner {
 
 	public static Item spawnPropsItem(Player player, Prop prop) {
 		ItemGenerator itemGenerator = new ItemGenerator();
-		Random random = new Random();
-
-		int haveIitem = random.nextInt(100);
 		Item item;
-		// if (haveIitem < 100) {
-		// if (player.oxygen <= 13) {
-		// item = itemGenerator.getMoreLikelyOxugenItem(Player.levelsScore);
-		// } else {
 		item = itemGenerator.getItem(Player.levelsScore);
-		// }
-		// } else {
-		// return null;
-		// }
-
 		if (item != null) {
 			item.position = new Vector2(prop.position);
 			setItemTargetPos(item, player, prop);

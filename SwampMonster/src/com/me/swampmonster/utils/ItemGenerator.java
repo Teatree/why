@@ -1,9 +1,7 @@
 package com.me.swampmonster.utils;
 
 import java.lang.reflect.Field;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -35,10 +33,10 @@ public class ItemGenerator {
 	}
 	
 	private static enum Items{
-		p0_500(0, 7),
-		p500_1000(0, 7),
-		p1000_2000(0, 7),
-		p2000_4000(0, 7);
+		p0_500(2, 7),
+		p500_1000(2, 7),
+		p1000_2000(2, 7),
+		p2000_4000(2, 7);
 		
 		public int minItemGenerate;
 		public int maxItemGenerate;
@@ -98,11 +96,14 @@ public class ItemGenerator {
 		return item;
 	}
 	
-//	public Item getMoreLikelyOxugenItem(int playersScore){
-//		Map<Integer, String> param = new HashMap<Integer, String>(itemTypeParams);
-//		param.put(2, OXYGEN);
-//		return generateItem(playersScore,);
-//	}
+	public Item getMoreLikelyOxugenItem(int playersScore){
+		int probability = random.nextInt(100);
+		if (probability > 33){
+			return new Oxygen();
+		} else {
+			return new HealthKit();
+		}
+	}
 	
 	private void setItemParams(int playersScore) {
 		if(playersScore>=0 && playersScore<500){
@@ -119,30 +120,12 @@ public class ItemGenerator {
 		}
 	}
 	
-	public Item generatePlainItem(int playersScore) {
-		setItemParams(Player.absoluteScore);
-		Item item = null;
-		try {
-			 Class<? extends Item> itemClass = items.get(2);
-			int randomTextureNumber;
-			if (itemClass.getDeclaredField("poisonSprite").get(null) == null) {
-				randomTextureNumber = random.nextInt(poisonTextures.size());
-				while (usedTextures.keySet().contains(randomTextureNumber)) {
-					randomTextureNumber = random.nextInt(poisonTextures.size());
-				}
-				usedTextures.put(randomTextureNumber, itemClass.getName());
-				try {
-					Field hack = itemClass.getDeclaredField("poisonSprite");
-					hack.setAccessible(true);
-					hack.set(null, poisonTextures.get(randomTextureNumber));
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-			item = itemClass.getConstructor().newInstance();
-		} catch (Exception e) {
-			e.printStackTrace();
+	public Item getPlainItem(int playersScore) {
+		int probability = random.nextInt(100);
+		if (probability > 50){
+			return new Oxygen();
+		} else {
+			return new HealthKit();
 		}
-		return item;
 	}
 }

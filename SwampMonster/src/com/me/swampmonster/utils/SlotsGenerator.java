@@ -15,7 +15,6 @@ import com.me.swampmonster.models.slots.ImproveArrowSpeed;
 import com.me.swampmonster.models.slots.ImproveMaxHealth;
 import com.me.swampmonster.models.slots.ImproveMaxOxygen;
 import com.me.swampmonster.models.slots.ImproveMovementSpeed;
-import com.me.swampmonster.models.slots.PanicTeleport;
 import com.me.swampmonster.models.slots.PlasmaShieldSkill;
 import com.me.swampmonster.models.slots.PoisonArrow;
 import com.me.swampmonster.models.slots.PoisonTrap;
