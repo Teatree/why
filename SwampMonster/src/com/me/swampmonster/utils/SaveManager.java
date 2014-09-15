@@ -26,6 +26,7 @@ public class SaveManager {
         if (file != null && file.exists()) {
             String s = file.readString();
             if (!s.isEmpty()) {
+            	System.err.println("puff: " + com.badlogic.gdx.utils.Base64Coder.decodeString(s));
                 return com.badlogic.gdx.utils.Base64Coder.decodeString(s);
             }
         }
@@ -102,6 +103,7 @@ public class SaveManager {
 	        }
 	        if (somPlayer.usedSpritesForItems != null){
 	        	ItemGenerator.usedTextures = (HashMap<Integer, String>) somPlayer.usedSpritesForItems;
+	        	
 	        }
 	        return player;
         } else {

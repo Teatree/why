@@ -31,6 +31,7 @@ import com.me.swampmonster.models.slots.Slot;
 import com.me.swampmonster.models.slots.Trap;
 import com.me.swampmonster.screens.SlotMachineScreen;
 import com.me.swampmonster.utils.Assets;
+import com.me.swampmonster.utils.ItemGenerator;
 
 public class Player extends AbstractGameObject {
 
@@ -303,6 +304,7 @@ public class Player extends AbstractGameObject {
 			turret = null;
 			L1.hydra = null;
 			L1.plasmaShield = null;
+			ItemGenerator.usedTextures = new HashMap<Integer, String>();
 			SlotMachineScreen.savedSlots = new ArrayList<Slot>();
 			TheController.skill = null;
 			dying();

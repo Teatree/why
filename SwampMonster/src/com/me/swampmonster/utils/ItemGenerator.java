@@ -28,8 +28,11 @@ public class ItemGenerator {
 	
 	static {
 		poisonTextures = new HashMap<Integer,AssetDescriptor<Texture>>();
-		poisonTextures.put(0, Assets.healthKitItem);
-		poisonTextures.put(1, Assets.oxygenKitItem);
+		poisonTextures.put(0, Assets.blueItem);
+		poisonTextures.put(1, Assets.greenItem);
+		poisonTextures.put(2, Assets.redItem);
+		poisonTextures.put(3, Assets.yellowItem);
+		poisonTextures.put(4, Assets.purpleItem);
 	}
 	
 	private static enum Items{
@@ -65,15 +68,15 @@ public class ItemGenerator {
 		return resulItem;
 	}
 	
-	public Item generateItem(int playersScore) {
+	public Item generateSpecialItem(int playerScore){
 		setItemParams(Player.absoluteScore);
 		int number = random.nextInt(itEmsTypes.maxItemGenerate
 				- itEmsTypes.minItemGenerate)
 				+ itEmsTypes.minItemGenerate;
 		Item item = null;
 		try {
-			// Class<? extends Item> itemClass = items.get(number);
-			Class<? extends Item> itemClass = CHAIN_ARROWS.class;
+			 Class<? extends Item> itemClass = items.get(number);
+//			Class<? extends Item> itemClass = CHAIN_ARROWS.class;
 			int randomTextureNumber;
 			if (itemClass.getDeclaredField("poisonSprite").get(null) == null) {
 				randomTextureNumber = random.nextInt(poisonTextures.size());
@@ -88,12 +91,23 @@ public class ItemGenerator {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
+				System.out.println("poisonSprite: " + randomTextureNumber);
 			}
 			item = itemClass.getConstructor().newInstance();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return item;
+	}
+	
+	
+	public Item generateItem(int playersScore) {
+		int probability = random.nextInt(100);
+		if (probability > 70){
+			return generateSpecialItem(playersScore);
+		} else {
+			return getPlainItem(playersScore);
+		}
 	}
 	
 	public Item getMoreLikelyOxugenItem(int playersScore){

@@ -44,6 +44,11 @@ public class Assets {
 	public static final AssetDescriptor<Texture> arrowExplosive = new AssetDescriptor<Texture>("data\\arrrrowExplosive.png", Texture.class);
 	public static final AssetDescriptor<Texture> oxygenKitItem = new AssetDescriptor<Texture>("data\\Items\\OxygenKitItem.png", Texture.class);
 	public static final AssetDescriptor<Texture> healthKitItem = new AssetDescriptor<Texture>("data\\Items\\HealthKitItem.png", Texture.class);
+	public static final AssetDescriptor<Texture> blueItem = new AssetDescriptor<Texture>("data\\Items\\blue.png", Texture.class);
+	public static final AssetDescriptor<Texture> greenItem = new AssetDescriptor<Texture>("data\\Items\\green.png", Texture.class);
+	public static final AssetDescriptor<Texture> yellowItem = new AssetDescriptor<Texture>("data\\Items\\yellow.png", Texture.class);
+	public static final AssetDescriptor<Texture> purpleItem = new AssetDescriptor<Texture>("data\\Items\\purple.png", Texture.class);
+	public static final AssetDescriptor<Texture> redItem = new AssetDescriptor<Texture>("data\\Items\\red.png", Texture.class);
 	public static final AssetDescriptor<Texture> weaponizerButton = new AssetDescriptor<Texture>("data\\Weaponizer.png", Texture.class);
 	public static final AssetDescriptor<Texture> iceCube = new AssetDescriptor<Texture>("data\\iceCube.png", Texture.class);
 	public static final AssetDescriptor<Texture> tiles = new AssetDescriptor<Texture>("data\\Tiles.png", Texture.class);
@@ -122,6 +127,11 @@ public class Assets {
 		manager.load(PointerHead);
 		manager.load(healthKitItem);
 		manager.load(oxygenKitItem);
+		manager.load(blueItem);
+		manager.load(greenItem);
+		manager.load(yellowItem);
+		manager.load(redItem);
+		manager.load(purpleItem);
 		manager.load(weaponizerButton);
 		manager.load(tiles);
 		manager.load(tileSet_SAND_WORLD);

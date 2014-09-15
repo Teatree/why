@@ -143,6 +143,9 @@ public class L1 {
 			if (player.state == State.DEAD) {
 				enemy.state = State.STANDARD;
 			} 
+			if (hydra == null){
+				enemy.isAimedByHydra = false;
+			}
 			enemy.update(collisionLayer, L1.player,
 					cameraHelper, enemiesOnStage);
 		}
