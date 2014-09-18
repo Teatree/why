@@ -15,6 +15,7 @@ import com.me.swampmonster.utils.Constants;
 public class ExplosiveArrow extends Slot{
 	
 	public static int level;
+	public static int actualLevel;
 	private static Map <Integer, String> descriptionByLevel;
 	public Explosion explosion; 
 	static {
@@ -96,5 +97,10 @@ public class ExplosiveArrow extends Slot{
 	@Override
 	public String getDescription() {
 		return descriptionByLevel.get(level);
+	}
+	
+	@Override
+	public String getDescriptionForSaved() {
+		return descriptionByLevel.get(level-1);
 	}
 }

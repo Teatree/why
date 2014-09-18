@@ -59,4 +59,9 @@ public class PlasmaShieldSkill extends Slot{
 	public String getDescription() {
 		return descriptionByLevel.get(level);
 	}
+	
+	@Override
+	public String getDescriptionForSaved() {
+		return descriptionByLevel.get(level-1);
+	}
 }

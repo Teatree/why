@@ -77,5 +77,8 @@ public class DamageTrap extends Trap {
 		return descriptionByLevel.get(level);
 	}
 	
-	
+	@Override
+	public String getDescriptionForSaved() {
+		return descriptionByLevel.get(level-1);
+	}
 }

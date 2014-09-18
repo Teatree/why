@@ -191,6 +191,8 @@ public class SlotMachineTextures extends Group {
 				} 
 			}
 		});
+		
+		
 		for(Slot s: SlotMachineScreen.savedSlots){
 //			System.out.println("stuff");
 			s.sprite.setX(Oppa);
@@ -262,9 +264,15 @@ public class SlotMachineTextures extends Group {
 					Constants.VIEWPORT_GUI_HEIGHT / 6.5f);
 			no.setPosition(new Vector2(slotMachineWindowNo.getX(),
 					slotMachineWindowNo.getY()));
-			font.draw(batch, selectedSlot.getDescription(),
+			if (selectedSlot.selected){
+				font.draw(batch, selectedSlot.getDescription(),
 					slotMachineWindow.getBoundingRectangle().x + 25,
 					slotMachineWindow.getBoundingRectangle().y + 200);
+			} else if (selectedSlot.selectedSaved){
+				font.draw(batch, selectedSlot.getDescriptionForSaved(),
+						slotMachineWindow.getBoundingRectangle().x + 25,
+						slotMachineWindow.getBoundingRectangle().y + 200);
+			}
 		}
 		
 	}

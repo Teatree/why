@@ -12,7 +12,8 @@ public abstract class Slot {
 	public void execute (Player target){};
 	public int coolDown;
 	public boolean selected;
-	public int level;
+	public boolean selectedSaved;
+	public int actualLevel;
 	
 	@Override
 	public boolean equals (Object slot){
@@ -30,4 +31,7 @@ public abstract class Slot {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	public abstract String getDescriptionForSaved();
 }
+

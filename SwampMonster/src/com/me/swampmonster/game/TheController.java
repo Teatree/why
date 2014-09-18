@@ -126,6 +126,7 @@ public class TheController extends InputAdapter {
 		pointRect = new Rectangle();
 		pointRect.width = 1;
 		pointRect.height = 1;
+		paused = false;
 	}
 
 	public void update(float deltaTime, Game game) {

@@ -56,4 +56,9 @@ public class SPEED_BOOST extends Slot implements PositiveEffectInterface{
 	public String getDescription() {
 		return descriptionByLevel.get(level);
 	}
+	
+	@Override
+	public String getDescriptionForSaved() {
+		return descriptionByLevel.get(level-1);
+	}
 }

@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.me.swampmonster.game.TheController;
+import com.me.swampmonster.models.AbstractGameObject.State;
 import com.me.swampmonster.models.slots.Perks;
 import com.me.swampmonster.models.slots.Slot;
 import com.me.swampmonster.slotMachineStuff.SlotMachineTextures;
@@ -41,7 +42,6 @@ public class SlotMachineScreen extends AbstractGameScreen {
 	public void render(float deltaTime) {
 		Gdx.gl.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
 		victor = new Vector2(Gdx.input.getX(), Constants.VIEWPORT_HEIGHT
 				- Gdx.input.getY());
 		if (Gdx.input.justTouched() 
@@ -96,6 +96,7 @@ public class SlotMachineScreen extends AbstractGameScreen {
 						}
 					} catch (Exception e) {
 					}
+				
 				} else {
 					TheController.skill = slot;
 					try {
@@ -110,11 +111,9 @@ public class SlotMachineScreen extends AbstractGameScreen {
 					}
 				}
 				slotMachineTextures.peru = false;
-//				System.out.println("savedSlots size" + savedSlots.size());
 				boolean rewritenSlot = false;
 				for(Slot s : savedSlots){
 					if(s.getClass().equals(slot.getClass())){
-						System.out.println("problem = none");
 						s = slot;
 						rewritenSlot = true;
 					}
@@ -130,29 +129,30 @@ public class SlotMachineScreen extends AbstractGameScreen {
 	}
 	
 	private void selectSavedSlot(Slot slot) {
-//		System.out.println("savedslot " + slot.sprite.getX() + ":" + slot.sprite.getY() + " "+ victor + " = " + slot.sprite.getBoundingRectangle().contains(victor));
 		if (slot.sprite.getBoundingRectangle().contains(victor)) {
 			if (!slotMachineTextures.peru) {
 				slotMachineTextures.peru = true;
 				slotMachineTextures.selectedSlot = slot;
-				slot.selected = true;
+				slot.selectedSaved = true;
 			}
 		} else if (slotMachineTextures.slotMachineWindowNo.getBoundingRectangle().contains(victor)) {
 			for(Slot s : savedSlots){
 				s.selected = false;
+				s.selectedSaved = false;
 			}
 			slotMachineTextures.peru = false;
 		} else if (slotMachineTextures.slotMachineWindowYes
 						.getBoundingRectangle().contains(victor)) {
-			if (slot.selected){
+			if (slot.selectedSaved){
 				if (slot instanceof Perks) {
-					slot.execute(player);
+//					slot.execute(player);
 				} else {
 					TheController.skill = slot;
 				}
 				slotMachineTextures.peru = false;
-				System.out.println("savedSlots size" + savedSlots.size());
-				((Game) Gdx.app.getApplicationListener()).setScreen(ScreenContainer.SS);
+				if (!(slot instanceof Perks)){
+					((Game) Gdx.app.getApplicationListener()).setScreen(ScreenContainer.SS);
+				}
 			}
 		}
 	}
@@ -165,7 +165,6 @@ public class SlotMachineScreen extends AbstractGameScreen {
 	@Override
 	public void show() {
 		slotMachineTextures = new SlotMachineTextures(player);
-//		Gdx.input.setCatchBackKey(true);
 		stage.addActor(slotMachineTextures);
 	}
 

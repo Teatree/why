@@ -15,6 +15,7 @@ import com.me.swampmonster.utils.Constants;
 public class FrostTrap extends Trap{
 
 	public static int level;
+	
 	private static Map <Integer, String> descriptionByLevel;
 	private boolean cuba;
 	
@@ -71,11 +72,6 @@ public class FrostTrap extends Trap{
 			explosion.incrementalCircleValue = 6;
 			explosion.explCircle.setPosition(this.position.x, this.position.y);
 			explosion.explCircle.radius = 1f;
-
-//			explosion.explosionEffect = new ParticleEffect();
-//			explosion.explosionEffect.load(Gdx.files.local("effects/FlameEffectTemp.p"),Gdx.files.local("effects"));
-//			explosion.explosionEffect.setPosition(this.position.x,this.position.y);
-//			explosion.explosionEffect.start();
 			L1.explosions.add(explosion);
 			cuba = true;
 		} else {
@@ -92,5 +88,10 @@ public class FrostTrap extends Trap{
 	@Override
 	public String getDescription() {
 		return descriptionByLevel.get(level);
+	}
+	
+	@Override
+	public String getDescriptionForSaved() {
+		return descriptionByLevel.get(level-1);
 	}
 }

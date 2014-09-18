@@ -5,11 +5,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Json;
+import com.me.swampmonster.models.Item;
 import com.me.swampmonster.models.L1;
 import com.me.swampmonster.models.Player;
 import com.me.swampmonster.models.slots.Slot;
@@ -103,7 +105,16 @@ public class SaveManager {
 	        }
 	        if (somPlayer.usedSpritesForItems != null){
 	        	ItemGenerator.usedTextures = (HashMap<Integer, String>) somPlayer.usedSpritesForItems;
-	        	
+	        }
+	        for (Entry <Integer, String> entry : somPlayer.usedSpritesForItems.entrySet()){
+	        	try {
+					Class itemClass = Class.forName(entry.getValue());
+					Field hack = itemClass.getDeclaredField("poisonSprite");
+					hack.setAccessible(true);
+					hack.set(null, ItemGenerator.poisonTextures.get(entry.getKey()));
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 	        }
 	        return player;
         } else {

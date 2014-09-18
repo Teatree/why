@@ -32,6 +32,8 @@ public class ProjectileHydra extends Projectile {
 	private Vector2 target;
 	private List<ProjectileHydra> miniHydras = new ArrayList<ProjectileHydra>();
 
+	public static float damage;
+	
 	public ProjectileHydra(Vector2 position) {
 		super(position);
 		position = new Vector2(position.x, position.y);
