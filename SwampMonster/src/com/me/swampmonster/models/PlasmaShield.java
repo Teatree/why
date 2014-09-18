@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.Vector2;
 public class PlasmaShield extends AbstractGameObject{
 	
 	public int lifeTime;
+	public int spawnTime;
 	
 	public PlasmaShield(Vector2 pos){
 		state = State.SPAWNING;
