@@ -16,6 +16,7 @@ import com.me.swampmonster.models.AbstractGameObject.State;
 import com.me.swampmonster.models.Explosion;
 import com.me.swampmonster.models.Item;
 import com.me.swampmonster.models.L1;
+import com.me.swampmonster.models.PlasmaShield;
 import com.me.swampmonster.models.Player;
 import com.me.swampmonster.models.Projectile;
 import com.me.swampmonster.models.ProjectileHydra;
@@ -222,7 +223,6 @@ public class L1Renderer {
 						item.sprite.getHeight() / 2);
 			}
 		}
-		
 
 		for (Enemy enemy : L1.enemiesOnStage) {
 			if (enemy.getPosition().y + 42 > L1.player.getPosition().y + 42) {
@@ -391,13 +391,14 @@ public class L1Renderer {
 			batch.draw(TutorialLevel.movehere, TutorialLevel.movehere.getX(),
 					TutorialLevel.movehere.getY());
 		}
-		
+
 		batch.end();
 
 		// Temporary deBug feature
 		sr.begin(ShapeType.Line);
-		if(L1.plasmaShield != null){
-			sr.circle(L1.plasmaShield.circle.x, L1.plasmaShield.circle.y, L1.plasmaShield.circle.radius);
+		if (L1.plasmaShield != null) {
+			sr.circle(L1.plasmaShield.circle.x, L1.plasmaShield.circle.y,
+					L1.plasmaShield.circle.radius);
 		}
 		for (Enemy enemy : L1.enemiesOnStage) {
 			// sr.setColor(Color.GREEN);
@@ -501,27 +502,39 @@ public class L1Renderer {
 			sr.circle(L1.player.radioactiveAura.x, L1.player.radioactiveAura.y,
 					L1.player.radioactiveAura.radius);
 		}
-		
+
 		sr.end();
-		
+
 		mapRenderer.render(fiveground);
 		batch.begin();
+		if (L1.plasmaShield != null) {
+			// L1.plasmaShield.sprite.draw(batch);
+			batch.draw(L1.plasmaShield.sprite, L1.plasmaShield.sprite.getX(),
+					L1.plasmaShield.sprite.getY(),
+					L1.plasmaShield.sprite.getWidth(),
+					L1.plasmaShield.sprite.getHeight());
+		}
 		if (L1.hydra != null) {
 			for (ProjectileHydra p : L1.hydra.getProjectiles()) {
-				if (p.state != State.DEAD){
+				if (p.state != State.DEAD) {
 					batch.draw(p.sprite, p.sprite.getX(), p.sprite.getY(),
-						p.sprite.getOriginX(), p.sprite.getOriginY(),
-						p.sprite.getWidth(), p.sprite.getHeight(), 1, 1,
-						p.sprite.getRotation());
-					for(hydraTrailAnimation h: p.animsTrailList){
-//						System.out.println("s: " + s);
-//						System.out.println(" s.getX(): " + s.getX());
-//						System.out.println("s.getY(): " + s.getY());
-						
-						//:TODO FINISH THIS BULLSHIT!
-						batch.draw(h.getCurrentSprite(), 
-								h.getCurrentSprite().getX()+(p.sprite.getWidth()/2*Math.signum(p.sprite.getRotation())),
-								h.getCurrentSprite().getY()+(p.sprite.getHeight()/2*Math.signum(p.sprite.getRotation())));
+							p.sprite.getOriginX(), p.sprite.getOriginY(),
+							p.sprite.getWidth(), p.sprite.getHeight(), 1, 1,
+							p.sprite.getRotation());
+					for (hydraTrailAnimation h : p.animsTrailList) {
+						// System.out.println("s: " + s);
+						// System.out.println(" s.getX(): " + s.getX());
+						// System.out.println("s.getY(): " + s.getY());
+
+						// :TODO FINISH THIS BULLSHIT!
+						batch.draw(
+								h.getCurrentSprite(),
+								h.getCurrentSprite().getX()
+										+ (p.sprite.getWidth() / 2 * Math
+												.signum(p.sprite.getRotation())),
+								h.getCurrentSprite().getY()
+										+ (p.sprite.getHeight() / 2 * Math
+												.signum(p.sprite.getRotation())));
 					}
 				}
 			}

@@ -53,7 +53,7 @@ public class PlasmaShieldSkill extends Slot{
 	public void execute(Player player){
 		L1.plasmaShield = new PlasmaShield(player.position); 
 		L1.plasmaShield.lifeTime = lifeTime;
-		L1.plasmaShield.spawnTime = lifeTime-80;
+		L1.plasmaShield.spawnTime = lifeTime-50;
 	}
 	
 	@Override
@@ -63,7 +63,6 @@ public class PlasmaShieldSkill extends Slot{
 
 	@Override
 	public String getDescriptionForSaved() {
-		// TODO Auto-generated method stub
-		return null;
+		return descriptionByLevel.get(level-1);
 	}
 }

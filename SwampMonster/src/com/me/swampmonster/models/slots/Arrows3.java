@@ -45,4 +45,10 @@ public class Arrows3 extends Slot{
 	public String getDescription() {
 		return descriptionByLevel.get(level);
 	}
+
+	@Override
+	public String getDescriptionForSaved() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

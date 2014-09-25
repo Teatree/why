@@ -30,6 +30,7 @@ public class Assets {
 	public static final AssetDescriptor<Texture> OxygenBarMiddle = new AssetDescriptor<Texture>("data\\OxygenBarMiddle.png", Texture.class);
 	public static final AssetDescriptor<Texture> OxygenBarHead = new AssetDescriptor<Texture>("data\\OxygenBarHead.png", Texture.class);
 	public static final AssetDescriptor<Texture> PointerHead = new AssetDescriptor<Texture>("data\\PointerHead.png", Texture.class);
+	public static final AssetDescriptor<Texture> plasmaShield = new AssetDescriptor<Texture>("data\\plasmaShieldAnimation.png", Texture.class);
 	public static final AssetDescriptor<Texture> propExplosiveBarrel = new AssetDescriptor<Texture>("data\\propBarrelAnimation.png", Texture.class);
 	public static final AssetDescriptor<Texture> propTreasure = new AssetDescriptor<Texture>("data\\propTreasureAnimation.png", Texture.class);
 	public static final AssetDescriptor<Texture> moveHere = new AssetDescriptor<Texture>("data\\tutorialStuff\\moveHere.png", Texture.class);
@@ -105,6 +106,7 @@ public class Assets {
 		manager.load(greenPointerArrow);
 		manager.load(enemy);
 		manager.load(aFinger);
+		manager.load(plasmaShield);
 		manager.load(enemyLeech);
 		manager.load(nastyaSpriteStandard);
 		manager.load(nastyaSpriteGun);
