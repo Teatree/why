@@ -62,7 +62,7 @@ public class L1Renderer {
 		sr = new ShapeRenderer();
 		// System.out.println(TheController.level1);
 		mapRenderer = new OrthogonalTiledMapRenderer(
-				TheController.level1.bunker.getMap());
+			TheController.level1.bunker.getMap());
 
 		gshape = new GShape(theController);
 		stage.addActor(gshape);

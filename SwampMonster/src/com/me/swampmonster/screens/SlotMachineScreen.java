@@ -21,6 +21,7 @@ public class SlotMachineScreen extends AbstractGameScreen {
 	private static final int Max_slot_level = 4;
 	SpriteBatch batch;
 	private Stage stage;
+	public static boolean yesWasJustPressed;
 	private SlotMachineTextures slotMachineTextures;
 	public Vector2 victor;
 	public static List<Slot> savedSlots;
@@ -83,6 +84,7 @@ public class SlotMachineScreen extends AbstractGameScreen {
 		} else if (Gdx.input.justTouched()
 				&& slotMachineTextures.slotMachineWindowYes
 						.getBoundingRectangle().contains(victor)) {
+			yesWasJustPressed = true;
 			if (slot.selected){
 				if (slot instanceof Perks) {
 					slot.execute(player);
@@ -121,7 +123,7 @@ public class SlotMachineScreen extends AbstractGameScreen {
 				if(!rewritenSlot){
 					savedSlots.add(slot);
 				}
-				((Game) Gdx.app.getApplicationListener()).setScreen(ScreenContainer.SS);
+//				((Game) Gdx.app.getApplicationListener()).setScreen(ScreenContainer.SS);
 			}
 		}
 		

@@ -10,10 +10,13 @@ import java.util.Set;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Group;
@@ -48,6 +51,7 @@ public class SlotMachineTextures extends Group {
 	public Sprite slotLevel3;
 	public Sprite slotLevel4;
 	public Sprite slotLevel5;
+	public ShapeRenderer sr;
 	public Rectangle yes;
 	public Rectangle no;
 	public AnimationControl animantionCtlr;
@@ -274,7 +278,22 @@ public class SlotMachineTextures extends Group {
 						slotMachineWindow.getBoundingRectangle().y + 200);
 			}
 		}
-		
+		batch.end();
+		if(SlotMachineScreen.yesWasJustPressed){
+			sr = new ShapeRenderer();
+			Gdx.gl.glEnable(GL20.GL_BLEND);
+			Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
+			sr.begin(ShapeType.Filled);
+			sr.setColor(0.5f, 0.5f, 0.5f, 0.5f);
+			int ka = 0;
+			while(ka<3){
+				sr.rect(slotPositionsX[ka], slotPositionY, 146, 146);
+				System.out.println("boom");
+				ka++;
+			}
+			sr.end();
+		}
+		batch.begin();
 	}
 	
 	// Method to be used whenever the slot Machine page is to be loaded.
