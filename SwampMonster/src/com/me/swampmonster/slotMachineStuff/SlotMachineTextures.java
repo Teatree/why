@@ -26,6 +26,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.me.swampmonster.animations.AnimationControl;
 import com.me.swampmonster.game.TheController;
 import com.me.swampmonster.models.Player;
+import com.me.swampmonster.models.AbstractGameObject.State;
 import com.me.swampmonster.models.slots.ImproveArrowDamage;
 import com.me.swampmonster.models.slots.ImproveMaxHealth;
 import com.me.swampmonster.models.slots.ImproveMaxOxygen;
@@ -37,7 +38,6 @@ import com.me.swampmonster.utils.Assets;
 import com.me.swampmonster.utils.Constants;
 import com.me.swampmonster.utils.GeneralUtils;
 import com.me.swampmonster.utils.SlotsGenerator;
-import com.sun.swing.internal.plaf.basic.resources.basic;
 
 public class SlotMachineTextures extends Group {
 	private BitmapFont font;
@@ -61,7 +61,7 @@ public class SlotMachineTextures extends Group {
 	public Rectangle no;
 	public AnimationControl animantionCtlr;
 	public boolean[] notAnimating;
-	public boolean peru;
+	public static boolean peru;
 	public Slot selectedSlot;
 	public int selectedSlotNumber;
 	public int animCounter;
@@ -218,13 +218,38 @@ public class SlotMachineTextures extends Group {
 		
 		int Oppa = 32;
 		for(Slot s: SlotMachineScreen.savedSlots){
-			s.sprite.setPosition(Oppa, 10);
-			s.sprite.setSize(32, 32);
-			s.sprite.setX(Oppa);
-			s.sprite.setY(10);
-			batch.draw(s.sprite, s.sprite.getX(), s.sprite.getY(), s.sprite.getWidth(), s.sprite.getHeight());
-			Oppa += s.sprite.getWidth()+5;
-//			System.out.println("Oppa " + Oppa + " spriteSize " + s.sprite.getWidth());
+			if(s.state != State.ANIMATING){
+				s.sprite.setPosition(Oppa, 10);
+				s.sprite.setSize(32, 32);
+				s.sprite.setX(Oppa);
+				s.sprite.setY(10);
+				batch.draw(s.sprite, s.sprite.getX(), s.sprite.getY(), s.sprite.getWidth(), s.sprite.getHeight());
+				Oppa += s.sprite.getWidth()+5;
+	//			System.out.println("Oppa " + Oppa + " spriteSize " + s.sprite.getWidth());
+			}else{
+				s.savedSlotPosition = new Vector2(Oppa, 10);
+				if(selectedSlot != null){
+					System.out.println("yes");
+//					s.position = new Vector2(selectedSlot.sprite.getX(), selectedSlot.sprite.getY());
+				}
+				if(selectedSlot!=null){
+					System.out.println("selectedSlot " + s.savedSlotPosition.x);
+					float dx = /*selectedSlot.sprite.getX() -*/ s.savedSlotPosition.x - selectedSlot.sprite.getX();
+					float dy = /*selectedSlot.sprite.getY() -*/ s.savedSlotPosition.y - selectedSlot.sprite.getY();
+				
+					float length1 = (float) Math.sqrt(dx * dx + dy * dy);
+					
+					dx = dx /= length1;
+					dy = dy /= length1;
+					
+					if(s.sprite.getX() != s.savedSlotPosition.x){
+						s.update(dx, dy);
+					}
+					batch.draw(s.sprite, s.sprite.getX(), s.sprite.getY(), s.sprite.getWidth(), s.sprite.getHeight());
+				}
+				
+				Oppa += 37;
+			}
 		}
 		
 		while (i < 3) {
@@ -235,8 +260,14 @@ public class SlotMachineTextures extends Group {
 				slot.sprite.setSize(146, 146);
 				slot.sprite.draw(batch);
 				try {
-					Sprite s = new Sprite(slotLevelPic.get(slot.getClass()
-							.getField("level").getInt(null)));
+					Sprite s;
+					if(slot.selected && SlotMachineScreen.yesWasJustPressed){
+						s = new Sprite(slotLevelPic.get(slot.getClass()
+								.getField("level").getInt(null)-1));
+					}else{
+						s = new Sprite(slotLevelPic.get(slot.getClass()
+								.getField("level").getInt(null)));
+					}
 					s.setPosition(slot.sprite.getX(), slot.sprite.getY());
 					s.setSize(32, 32);
 					s.draw(batch);
@@ -270,7 +301,7 @@ public class SlotMachineTextures extends Group {
 		// font.draw(batch, "AS: " + p.shotCoolDown, 284, 170);
 		// font.draw(batch, "Score: " + p.points, 156, 338);
 
-		if (peru) {
+		if (peru && !SlotMachineScreen.yesWasJustPressed) {
 			slotMachineWindow.setSize(Constants.VIEWPORT_WIDTH / 2.1f,
 					Constants.VIEWPORT_HEIGHT / 1.4f);
 			slotMachineWindow.draw(batch);
@@ -289,30 +320,32 @@ public class SlotMachineTextures extends Group {
 					Constants.VIEWPORT_GUI_HEIGHT / 6.5f);
 			no.setPosition(new Vector2(slotMachineWindowNo.getX(),
 					slotMachineWindowNo.getY()));
-			if (selectedSlot.selected){
+			if (selectedSlot != null && selectedSlot.selected){
 				font.draw(batch, selectedSlot.getDescription(),
 					slotMachineWindow.getBoundingRectangle().x + 25,
 					slotMachineWindow.getBoundingRectangle().y + 200);
-			} else if (selectedSlot.selectedSaved){
+			} else if (selectedSlot != null && selectedSlot.selectedSaved){
 				font.draw(batch, selectedSlot.getDescriptionForSaved(),
 						slotMachineWindow.getBoundingRectangle().x + 25,
 						slotMachineWindow.getBoundingRectangle().y + 200);
 			}
 		}
 		batch.end();
+		Gdx.gl.glEnable(GL20.GL_BLEND);
+		Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
+		sr = new ShapeRenderer();
+		sr.begin(ShapeType.Filled);
+		sr.setColor(0.5f, 0.5f, 0.5f, 0.5f);
 		if(SlotMachineScreen.yesWasJustPressed){
-			sr = new ShapeRenderer();
-			Gdx.gl.glEnable(GL20.GL_BLEND);
-			Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
-			sr.begin(ShapeType.Filled);
-			sr.setColor(0.5f, 0.5f, 0.5f, 0.5f);
 			int ka = 0;
 			while(ka<3){
 				sr.rect(slotPositionsX[ka], slotPositionY, 146, 146);
 				ka++;
 			}
-			sr.end();
+		}else{
+			sr.rect(goButton.getX(), goButton.getY(), goButton.getWidth(), goButton.getHeight());
 		}
+		sr.end();
 		batch.begin();
 	}
 	

@@ -29,6 +29,7 @@ import com.me.swampmonster.models.slots.PositiveEffects;
 import com.me.swampmonster.models.slots.Slot;
 import com.me.swampmonster.screens.AbstractGameScreen;
 import com.me.swampmonster.screens.MenuScreen;
+import com.me.swampmonster.slotMachineStuff.SlotMachineTextures;
 import com.me.swampmonster.utils.Assets;
 import com.me.swampmonster.utils.CameraHelper;
 import com.me.swampmonster.utils.LGenerator;
@@ -186,6 +187,8 @@ public class TheController extends InputAdapter {
 //				reloadLevel(L1.player);
 			} else {
 				gui = new GUI(L1.player);
+				ScreenContainer.SMS.yesWasJustPressed = false;
+				SlotMachineTextures.peru = false;
 				sl = ScreenContainer.SMS;
 			}
 			sl.player = L1.player;

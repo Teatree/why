@@ -18,7 +18,7 @@ public class Constants {
 	public static final String poisionedMessage2 = "That went right into your ear!";
 	public static final String poisionedMessage3 = "Tyrion did it!";
 	
-	public static final int pendingPeriodBetweedWaves = 2800;
+	public static final int pendingPeriodBetweedWaves = 500;
 	public static final int NodeSize = 16;
 	
 	
