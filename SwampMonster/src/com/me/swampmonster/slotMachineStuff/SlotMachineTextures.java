@@ -15,11 +15,14 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.me.swampmonster.animations.AnimationControl;
 import com.me.swampmonster.game.TheController;
 import com.me.swampmonster.models.Player;
@@ -34,6 +37,7 @@ import com.me.swampmonster.utils.Assets;
 import com.me.swampmonster.utils.Constants;
 import com.me.swampmonster.utils.GeneralUtils;
 import com.me.swampmonster.utils.SlotsGenerator;
+import com.sun.swing.internal.plaf.basic.resources.basic;
 
 public class SlotMachineTextures extends Group {
 	private BitmapFont font;
@@ -45,6 +49,7 @@ public class SlotMachineTextures extends Group {
 	public Sprite slotMachineWindow;
 	public Sprite slotMachineWindowYes;
 	public Sprite rerollButton;
+	public Sprite goButton;
 	public Sprite slotMachineWindowNo;
 	public Sprite slotLevel1;
 	public Sprite slotLevel2;
@@ -61,7 +66,13 @@ public class SlotMachineTextures extends Group {
 	public int selectedSlotNumber;
 	public int animCounter;
 	
+	private Skin skin;
+	public ImageButton goButtonButton;
+
 	public SlotMachineTextures(Player player) {
+		skin = new Skin(Gdx.files.internal("skins\\style.json"), new TextureAtlas(Gdx.files.internal("skins\\main.pack")));
+		goButtonButton = new ImageButton(skin);
+		
 		font = Assets.manager.get(Assets.font);
 		slotsGen = SlotsGenerator.getSlotGenerator();
 		
@@ -69,6 +80,8 @@ public class SlotMachineTextures extends Group {
 		slotMachineWindowYes = new Sprite(Assets.manager.get(Assets.slotMachineWindowYes));
 		slotMachineWindowNo = new Sprite(Assets.manager.get(Assets.slotMachineWindowNo));
 		rerollButton = new Sprite(Assets.manager.get(Assets.slotMachineWindowYes));
+		goButton = new Sprite (Assets.manager.get(Assets.goButton));
+		
 		animantionCtlr = new AnimationControl(Assets.manager.get(Assets.slotAnimation), 8, 1, 8);
 		notAnimating = new boolean[3];
 		
@@ -146,6 +159,7 @@ public class SlotMachineTextures extends Group {
 		}
 			this.slots = slotsSet.toArray(slots); 
 			GeneralUtils.shuffle(slots);
+			
 	}
 
 	@Override
@@ -154,12 +168,18 @@ public class SlotMachineTextures extends Group {
 		batch.draw(Assets.manager.get(Assets.slotMachineCase), 144, 112);
 		
 		rerollButton.setSize(90, 90);
-		rerollButton.setPosition(Constants.VIEWPORT_GUI_WIDTH*0.88f, Constants.VIEWPORT_GUI_HEIGHT*0.08f);
-		batch.draw(rerollButton, Constants.VIEWPORT_GUI_WIDTH*0.88f, Constants.VIEWPORT_GUI_HEIGHT*0.08f);
+		rerollButton.setPosition(Constants.VIEWPORT_GUI_WIDTH*0.45f, Constants.VIEWPORT_GUI_HEIGHT*0.18f);
+		batch.draw(rerollButton, Constants.VIEWPORT_GUI_WIDTH*0.45f, Constants.VIEWPORT_GUI_HEIGHT*0.18f);
+		
+		goButton.setSize(100, 100);
+		goButton.setPosition(Constants.VIEWPORT_GUI_WIDTH*0.85f, Constants.VIEWPORT_GUI_HEIGHT*0.05f);
+		batch.draw(goButton, Constants.VIEWPORT_GUI_WIDTH*0.85f, Constants.VIEWPORT_GUI_HEIGHT*0.05f, goButton.getWidth(), goButton.getHeight());
+		
+		goButton.draw(batch);
+		
 		animantionCtlr.doComplexAnimation(0, 1f, Gdx.graphics.getDeltaTime(), Animation.NORMAL);
 		int i = 0;
 		
-		int Oppa = 32;
 		Collections.sort(SlotMachineScreen.savedSlots, new Comparator<Slot>() {
 
 			@Override
@@ -196,15 +216,16 @@ public class SlotMachineTextures extends Group {
 			}
 		});
 		
-		
+		int Oppa = 32;
 		for(Slot s: SlotMachineScreen.savedSlots){
-//			System.out.println("stuff");
+			s.sprite.setPosition(Oppa, 10);
+			s.sprite.setSize(32, 32);
 			s.sprite.setX(Oppa);
 			s.sprite.setY(10);
-			batch.draw(s.sprite, s.sprite.getX(), s.sprite.getY());
+			batch.draw(s.sprite, s.sprite.getX(), s.sprite.getY(), s.sprite.getWidth(), s.sprite.getHeight());
 			Oppa += s.sprite.getWidth()+5;
+//			System.out.println("Oppa " + Oppa + " spriteSize " + s.sprite.getWidth());
 		}
-		
 		
 		while (i < 3) {
 			if (notAnimating[i]) {
@@ -288,7 +309,6 @@ public class SlotMachineTextures extends Group {
 			int ka = 0;
 			while(ka<3){
 				sr.rect(slotPositionsX[ka], slotPositionY, 146, 146);
-				System.out.println("boom");
 				ka++;
 			}
 			sr.end();

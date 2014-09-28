@@ -5,9 +5,23 @@ filter: Nearest,Nearest
 repeat: none
 wrldcnqr
   rotate: false
-  xy: 1, 35
+  xy: 1, 101
   size: 512, 512
   orig: 512, 512
+  offset: 0, 0
+  index: -1
+soundOff
+  rotate: false
+  xy: 1, 35
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+soundOn
+  rotate: false
+  xy: 515, 549
+  size: 64, 64
+  orig: 64, 64
   offset: 0, 0
   index: -1
 button
@@ -18,6 +32,13 @@ button
   offset: 0, 0
   index: -1
 button_down
+  rotate: false
+  xy: 67, 67
+  size: 64, 32
+  orig: 64, 32
+  offset: 0, 0
+  index: -1
+soundButton
   rotate: false
   xy: 515, 515
   size: 64, 32

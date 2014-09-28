@@ -11,7 +11,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Json;
-import com.me.swampmonster.models.Item;
 import com.me.swampmonster.models.L1;
 import com.me.swampmonster.models.Player;
 import com.me.swampmonster.models.slots.Slot;
@@ -28,7 +27,7 @@ public class SaveManager {
         if (file != null && file.exists()) {
             String s = file.readString();
             if (!s.isEmpty()) {
-            	System.err.println("puff: " + com.badlogic.gdx.utils.Base64Coder.decodeString(s));
+//            	System.err.println("puff: " + com.badlogic.gdx.utils.Base64Coder.decodeString(s));
                 return com.badlogic.gdx.utils.Base64Coder.decodeString(s);
             }
         }

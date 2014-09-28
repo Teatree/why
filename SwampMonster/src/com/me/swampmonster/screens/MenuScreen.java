@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -26,22 +27,38 @@ public class MenuScreen extends AbstractGameScreen{
 	Button playButton;
 	Button exitButton;
 	Button tutorialButton;
+	public static Button soundButton;
 	Label wrldConqueror;
 	Table table;
 	// Dmitriy's shinanigans
 	public static short lessBytes; 
 	public static boolean tutorialFinished;
 	public static boolean showTutorialButton;
+	public static boolean soundsEnabled = true;
 	public Music menuMusic;
 
-	
 	public MenuScreen(Game game) {
 		super(game);
 		skin = new Skin(Gdx.files.internal("skins\\style.json"), new TextureAtlas(Gdx.files.internal("skins\\main.pack")));
 		menuMusic = Assets.manager.get(Assets.menuBackgroundMusic);
-		
 		wrldConqueror = new Label(Constants.WORLDS_CONQUERROR, skin);
 		Gdx.input.setInputProcessor(stage);
+		 
+		soundButton = new ImageButton(skin);
+		soundButton.addListener(new ClickListener(){
+			@Override
+			public void clicked (InputEvent event, float x, float y){
+				if (soundsEnabled){
+					soundsEnabled = false;
+					menuMusic.setVolume(0);
+				} else {
+					soundsEnabled = true;
+					menuMusic.setVolume(13);
+					menuMusic.play();
+					menuMusic.setLooping(true);
+				}
+			}
+		});
 	}
 
 	@Override
@@ -59,9 +76,11 @@ public class MenuScreen extends AbstractGameScreen{
 	
 	@Override
 	public void show() {
-		menuMusic.play();
-		menuMusic.setLooping(true);
-		table = new Table();
+		if (soundsEnabled){
+			menuMusic.play();
+			menuMusic.setLooping(true);
+		}
+		table = new Table().right();
 		stage = new Stage();
 		Image img = new Image(new Texture("data/ui/wrldcnqr.png"));
 		img.toBack();
@@ -82,7 +101,7 @@ public class MenuScreen extends AbstractGameScreen{
 	        }
 		});
 		
-		table.add(playButton).size(150,60).padBottom(20).row();
+		table.add(playButton).size(150,60).padBottom(20).row().right();
 //		showTutorialButton = true;
 		if(showTutorialButton){
 			tutorialButton = new TextButton(Constants.TUTORIAL, skin);
@@ -97,7 +116,7 @@ public class MenuScreen extends AbstractGameScreen{
 		            ((Game) Gdx.app.getApplicationListener()).setScreen(ScreenContainer.SS);
 		        }
 			});
-			table.add(tutorialButton).size(150,60).padBottom(20).row();;
+			table.add(tutorialButton).size(150,60).padBottom(20).row().right();
 		}
 		
 		exitButton = new TextButton(Constants.EXIT, skin);
@@ -107,8 +126,10 @@ public class MenuScreen extends AbstractGameScreen{
 				Gdx.app.exit();
 			}
 		});
-	    table.add(exitButton).size(150,60).padBottom(20).row();
+		
+	    table.add(exitButton).size(150,60).padBottom(20).row().right();
 
+		table.add(soundButton).size(64,64).padBottom(50).free();
 	    table.setFillParent(true);
 	    stage.addActor(table);
 
@@ -121,10 +142,12 @@ public class MenuScreen extends AbstractGameScreen{
 	
 	@Override
 	public void pause() {
+		menuMusic.pause();
 	}
 	
 	@Override
 	public void resume() {
+		menuMusic.play();
 	}
 	
 	@Override

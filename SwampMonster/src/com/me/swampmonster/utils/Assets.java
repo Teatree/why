@@ -96,6 +96,10 @@ public class Assets {
 	public static final AssetDescriptor<Texture> exitMessageWindow = new AssetDescriptor<Texture>("data\\ExitMessageWindow.png", Texture.class); 
 	//effects
 	public static final AssetDescriptor<Texture> trailEffect = new AssetDescriptor<Texture>("data\\trailEffect.png", Texture.class);
+	
+	public static final AssetDescriptor<Texture> goButton = new AssetDescriptor<Texture>("data\\goButton.png", Texture.class);
+	public static final AssetDescriptor<Texture> PANIC_TELEPORT_ICON = new AssetDescriptor<Texture>("data\\slotIcons\\PANIC_TELEPORT__ICON.png", Texture.class);
+	
 	public static void load(){
 		manager.load(menuBackgroundMusic);
 		manager.load(turretImg);
@@ -159,6 +163,7 @@ public class Assets {
 		manager.load(POISONEDNEGATIVEEFFECT_ICON);
 		manager.load(SCAREDNEGATIVEEFFECT_ICON);
 		manager.load(STUNNEGATIVEEFFECT_ICON);
+		manager.load(PANIC_TELEPORT_ICON);
 		manager.load(slotLevel1);
 		manager.load(slotLevel2);
 		manager.load(slotLevel3);
@@ -184,7 +189,7 @@ public class Assets {
 		//Effects load
 		manager.load(trailEffect);
 		
-		
+		manager.load(goButton);
 //		manager.load(map);
 	}
 

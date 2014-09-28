@@ -12,7 +12,7 @@ public class MainSwamp extends Game {
 		Assets.load();
 		while (!Assets.manager.update()){
 		}
-		setScreen(ScreenContainer.SMS);
+		setScreen(ScreenContainer.MS);
 	}
 	@Override
 	public void dispose() {

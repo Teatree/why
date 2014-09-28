@@ -23,7 +23,7 @@ public class PanicTeleport extends Slot{
 		descriptionByLevel.put(4, Constants.PANIC_TELEPORT_Description_L5);
 	}
 	public PanicTeleport() {
-		sprite = new Sprite(Assets.manager.get(Assets.SHADOW_ARROW_ICON));
+		sprite = new Sprite(Assets.manager.get(Assets.PANIC_TELEPORT_ICON));
 		
 		switch (level) {
 		case 0:

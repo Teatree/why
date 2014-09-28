@@ -10,7 +10,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.me.swampmonster.game.TheController;
-import com.me.swampmonster.models.AbstractGameObject.State;
 import com.me.swampmonster.models.slots.Perks;
 import com.me.swampmonster.models.slots.Slot;
 import com.me.swampmonster.slotMachineStuff.SlotMachineTextures;
@@ -46,8 +45,13 @@ public class SlotMachineScreen extends AbstractGameScreen {
 		victor = new Vector2(Gdx.input.getX(), Constants.VIEWPORT_HEIGHT
 				- Gdx.input.getY());
 		if (Gdx.input.justTouched() 
+				&& slotMachineTextures.goButton.getBoundingRectangle().contains(victor)){
+			((Game) Gdx.app.getApplicationListener()).setScreen(ScreenContainer.SS);
+		}
+		if (Gdx.input.justTouched() 
 				&& slotMachineTextures.rerollButton.getBoundingRectangle().contains(victor)){
 			slotMachineTextures.generateSlots(player);
+			yesWasJustPressed = false;
 			for (int i = 0; i < slotMachineTextures.notAnimating.length; i++){
 				slotMachineTextures.notAnimating[i] = false;
 			}
@@ -154,6 +158,7 @@ public class SlotMachineScreen extends AbstractGameScreen {
 				slotMachineTextures.peru = false;
 				if (!(slot instanceof Perks)){
 					((Game) Gdx.app.getApplicationListener()).setScreen(ScreenContainer.SS);
+					yesWasJustPressed = false;
 				}
 			}
 		}
