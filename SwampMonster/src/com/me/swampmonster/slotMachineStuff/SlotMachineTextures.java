@@ -67,8 +67,8 @@ public class SlotMachineTextures extends Group {
 	
 	public int animCounter;
 	public int animSlotCounter = 50;
-	float animDx;
-	float animDy;
+	public float animDx;
+	public float animDy;
 	public static float width = 146;
 	public static float height = 146;
 	public static float slotAnimSpeed;
@@ -235,12 +235,14 @@ public class SlotMachineTextures extends Group {
 	//			System.out.println("Oppa " + Oppa + " spriteSize " + s.sprite.getWidth());
 			}else{
 				s.savedSlotPosition = new Vector2(Oppa, 10);
-				if(selectedSlot!=null && !s.selectedSaved ){
+				if(selectedSlot!=null){
 					if(animSlotCounter>0){
 						animSlotCounter--;
 					}
 					if(animSlotCounter==49){
 						s.position = new Vector2(selectedSlot.sprite.getX(), selectedSlot.sprite.getY());
+						System.out.println("rewrite the fuckign pos! " + s.position);
+						System.err.println("position: " + s.position);
 						width = 146;
 						height = 146;
 						animDx = /*selectedSlot.sprite.getX() -*/ s.savedSlotPosition.x - selectedSlot.sprite.getX();
@@ -252,12 +254,12 @@ public class SlotMachineTextures extends Group {
 						animDx = animDx /= length1;
 						animDy = animDy /= length1;
 					}
-					if(animSlotCounter==0){
+					if(animSlotCounter<=1){
 						animSlotCounter=50;
 						s.state = State.STANDARD;
 					}
 				}
-				if(animSlotCounter>0 && s.selected){
+				if(animSlotCounter>0){
 					s.update(animDx, animDy);
 				}
 				batch.draw(s.sprite, s.sprite.getX(), s.sprite.getY(), width, height);

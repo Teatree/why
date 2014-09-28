@@ -34,10 +34,10 @@ public abstract class Slot {
 					sprite.setX(position.x);
 					sprite.setY(position.y);
 					if(SlotMachineTextures.width>32){
-						SlotMachineTextures.width -= 2.28f;
-						SlotMachineTextures.height -= 2.28f;
+						SlotMachineTextures.width -= 1.28f;
+						SlotMachineTextures.height -= 1.28f;
 					}
-					System.out.println("sprite.pos " + sprite.getX() + " _ " + sprite.getY());
+//					System.out.println("sprite.pos " + sprite.getX() + " _ " + sprite.getY());
 				}
 			}
 		}

@@ -48,6 +48,10 @@ public class SlotMachineScreen extends AbstractGameScreen {
 		if (Gdx.input.justTouched()
 				&& slotMachineTextures.goButton.getBoundingRectangle()
 						.contains(victor) && yesWasJustPressed) {
+			slotMachineTextures.selectedSlot = null;
+			slotMachineTextures.slotAnimSpeed = 0;
+			slotMachineTextures.animDx = 0;
+			slotMachineTextures.animDy = 0;
 			((Game) Gdx.app.getApplicationListener())
 					.setScreen(ScreenContainer.SS);
 		}
@@ -118,6 +122,7 @@ public class SlotMachineScreen extends AbstractGameScreen {
 
 					} else {
 						TheController.skill = slot;
+//						slot.selected = false;
 						try {
 							int i = TheController.skill.getClass()
 									.getField("level").getInt(null);
@@ -175,6 +180,7 @@ public class SlotMachineScreen extends AbstractGameScreen {
 					// slot.execute(player);
 				} else {
 					TheController.skill = slot;
+//					slot.selected = false;
 				}
 				slotMachineTextures.peru = false;
 				if (!(slot instanceof Perks)) {
