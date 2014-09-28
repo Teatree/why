@@ -64,7 +64,14 @@ public class SlotMachineTextures extends Group {
 	public static boolean peru;
 	public Slot selectedSlot;
 	public int selectedSlotNumber;
+	
 	public int animCounter;
+	public int animSlotCounter = 50;
+	float animDx;
+	float animDy;
+	public static float width = 146;
+	public static float height = 146;
+	public static float slotAnimSpeed;
 	
 	private Skin skin;
 	public ImageButton goButtonButton;
@@ -229,24 +236,29 @@ public class SlotMachineTextures extends Group {
 			}else{
 				s.savedSlotPosition = new Vector2(Oppa, 10);
 				if(selectedSlot != null){
-					System.out.println("yes");
 //					s.position = new Vector2(selectedSlot.sprite.getX(), selectedSlot.sprite.getY());
 				}
 				if(selectedSlot!=null){
-					System.out.println("selectedSlot " + s.savedSlotPosition.x);
-					float dx = /*selectedSlot.sprite.getX() -*/ s.savedSlotPosition.x - selectedSlot.sprite.getX();
-					float dy = /*selectedSlot.sprite.getY() -*/ s.savedSlotPosition.y - selectedSlot.sprite.getY();
-				
-					float length1 = (float) Math.sqrt(dx * dx + dy * dy);
-					
-					dx = dx /= length1;
-					dy = dy /= length1;
-					
-					if(s.sprite.getX() != s.savedSlotPosition.x){
-						s.update(dx, dy);
+					if(animSlotCounter>0){
+						animSlotCounter--;
 					}
-					batch.draw(s.sprite, s.sprite.getX(), s.sprite.getY(), s.sprite.getWidth(), s.sprite.getHeight());
+					if(animSlotCounter==49){
+						s.position = new Vector2(selectedSlot.sprite.getX(), selectedSlot.sprite.getY());
+						s.sprite.setSize(146,146);
+						animDx = /*selectedSlot.sprite.getX() -*/ s.savedSlotPosition.x - selectedSlot.sprite.getX();
+						animDy = /*selectedSlot.sprite.getY() -*/ s.savedSlotPosition.y - selectedSlot.sprite.getY();
+						
+						float length1 = (float) Math.sqrt(animDx * animDx + animDy * animDy);
+						slotAnimSpeed = length1 / 50;
+						
+						animDx = animDx /= length1;
+						animDy = animDy /= length1;
+					}
 				}
+				if(animSlotCounter>0){
+					s.update(animDx, animDy);
+				}
+				batch.draw(s.sprite, s.sprite.getX(), s.sprite.getY(), width, height);
 				
 				Oppa += 37;
 			}
