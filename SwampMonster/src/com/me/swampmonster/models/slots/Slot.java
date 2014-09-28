@@ -37,7 +37,7 @@ public abstract class Slot {
 						SlotMachineTextures.width -= 2.28f;
 						SlotMachineTextures.height -= 2.28f;
 					}
-					System.out.println("sprite.size " + sprite.getWidth() + " _ " + sprite.getHeight());
+					System.out.println("sprite.pos " + sprite.getX() + " _ " + sprite.getY());
 				}
 			}
 		}

@@ -179,7 +179,7 @@ public class TheController extends InputAdapter {
 				+ L1.player.circle.radius / 2;
 		V3playerPos.z = 0;
 		
-		if (Intersector.overlaps(debugRect, pointRect) || germany) {
+		if (Gdx.input.justTouched() && Intersector.overlaps(debugRect, pointRect) || germany) {
 			AbstractGameScreen sl;
 			if (germany && L1.player.state == State.DEAD){
 				sl = ScreenContainer.SS;

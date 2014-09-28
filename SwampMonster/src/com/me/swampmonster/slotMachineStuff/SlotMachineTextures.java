@@ -235,16 +235,14 @@ public class SlotMachineTextures extends Group {
 	//			System.out.println("Oppa " + Oppa + " spriteSize " + s.sprite.getWidth());
 			}else{
 				s.savedSlotPosition = new Vector2(Oppa, 10);
-				if(selectedSlot != null){
-//					s.position = new Vector2(selectedSlot.sprite.getX(), selectedSlot.sprite.getY());
-				}
-				if(selectedSlot!=null){
+				if(selectedSlot!=null && !s.selectedSaved ){
 					if(animSlotCounter>0){
 						animSlotCounter--;
 					}
 					if(animSlotCounter==49){
 						s.position = new Vector2(selectedSlot.sprite.getX(), selectedSlot.sprite.getY());
-						s.sprite.setSize(146,146);
+						width = 146;
+						height = 146;
 						animDx = /*selectedSlot.sprite.getX() -*/ s.savedSlotPosition.x - selectedSlot.sprite.getX();
 						animDy = /*selectedSlot.sprite.getY() -*/ s.savedSlotPosition.y - selectedSlot.sprite.getY();
 						
@@ -254,8 +252,12 @@ public class SlotMachineTextures extends Group {
 						animDx = animDx /= length1;
 						animDy = animDy /= length1;
 					}
+					if(animSlotCounter==0){
+						animSlotCounter=50;
+						s.state = State.STANDARD;
+					}
 				}
-				if(animSlotCounter>0){
+				if(animSlotCounter>0 && s.selected){
 					s.update(animDx, animDy);
 				}
 				batch.draw(s.sprite, s.sprite.getX(), s.sprite.getY(), width, height);
