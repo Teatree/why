@@ -51,15 +51,20 @@ public class SlotMachineTextures extends Group {
 	public Sprite rerollButton;
 	public Sprite goButton;
 	public Sprite slotMachineWindowNo;
+	public Sprite savedSlotBar;
 	public Sprite slotLevel1;
 	public Sprite slotLevel2;
 	public Sprite slotLevel3;
 	public Sprite slotLevel4;
 	public Sprite slotLevel5;
+	public Sprite selectedSavedSlotRectangle;
 	public ShapeRenderer sr;
 	public Rectangle yes;
 	public Rectangle no;
 	public AnimationControl animantionCtlr;
+	public AnimationControl animantionSavedSelectedCtlr;
+	public int animSavedSelectedCounter;
+	public Sprite selectedSavedSlotFrame;
 	public boolean[] notAnimating;
 	public static boolean peru;
 	public Slot selectedSlot;
@@ -69,8 +74,8 @@ public class SlotMachineTextures extends Group {
 	public int animSlotCounter = 50;
 	public float animDx;
 	public float animDy;
-	public static float width = 146;
-	public static float height = 146;
+//	public static float width = 146;
+//	public static float height = 146;
 	public static float slotAnimSpeed;
 	
 	private Skin skin;
@@ -88,8 +93,11 @@ public class SlotMachineTextures extends Group {
 		slotMachineWindowNo = new Sprite(Assets.manager.get(Assets.slotMachineWindowNo));
 		rerollButton = new Sprite(Assets.manager.get(Assets.slotMachineWindowYes));
 		goButton = new Sprite (Assets.manager.get(Assets.goButton));
+		selectedSavedSlotRectangle = new Sprite (Assets.manager.get(Assets.selectedSavedSlot));
+		savedSlotBar = new Sprite(Assets.manager.get(Assets.saveSlotBar));
 		
 		animantionCtlr = new AnimationControl(Assets.manager.get(Assets.slotAnimation), 8, 1, 8);
+		animantionSavedSelectedCtlr = new AnimationControl(Assets.manager.get(Assets.selectedSavedSlot), 4, 1, 8);
 		notAnimating = new boolean[3];
 		
 		slotLevel1 = new Sprite(Assets.manager.get(Assets.slotLevel1));
@@ -178,11 +186,11 @@ public class SlotMachineTextures extends Group {
 		rerollButton.setPosition(Constants.VIEWPORT_GUI_WIDTH*0.45f, Constants.VIEWPORT_GUI_HEIGHT*0.18f);
 		batch.draw(rerollButton, Constants.VIEWPORT_GUI_WIDTH*0.45f, Constants.VIEWPORT_GUI_HEIGHT*0.18f);
 		
+		batch.draw(savedSlotBar, 0, -26);
+		
 		goButton.setSize(100, 100);
 		goButton.setPosition(Constants.VIEWPORT_GUI_WIDTH*0.85f, Constants.VIEWPORT_GUI_HEIGHT*0.05f);
 		batch.draw(goButton, Constants.VIEWPORT_GUI_WIDTH*0.85f, Constants.VIEWPORT_GUI_HEIGHT*0.05f, goButton.getWidth(), goButton.getHeight());
-		
-		goButton.draw(batch);
 		
 		animantionCtlr.doComplexAnimation(0, 1f, Gdx.graphics.getDeltaTime(), Animation.NORMAL);
 		int i = 0;
@@ -223,19 +231,30 @@ public class SlotMachineTextures extends Group {
 			}
 		});
 		
-		int Oppa = 32;
+		int Oppa = 5;
 		for(Slot s: SlotMachineScreen.savedSlots){
+			if(s.state == State.SPAWNING){
+				animSavedSelectedCounter++;
+				System.out.println("boom");
+				animantionSavedSelectedCtlr.animate(0);
+				selectedSavedSlotFrame = new Sprite(animantionSavedSelectedCtlr.getCurrentFrame());
+				batch.draw(selectedSavedSlotFrame, s.sprite.getX(), s.sprite.getY());
+				if(animSavedSelectedCounter == 4){
+					s.state = State.STANDARD;
+					animSavedSelectedCounter = 0;
+				}
+			}
 			if(s.state != State.ANIMATING){
-				s.sprite.setPosition(Oppa, 10);
+				s.sprite.setPosition(Oppa, 3);
 				s.sprite.setSize(32, 32);
 				s.sprite.setX(Oppa);
-				s.sprite.setY(10);
+				s.sprite.setY(3);
 				batch.draw(s.sprite, s.sprite.getX(), s.sprite.getY(), s.sprite.getWidth(), s.sprite.getHeight());
 				Oppa += s.sprite.getWidth()+5;
 	//			System.out.println("Oppa " + Oppa + " spriteSize " + s.sprite.getWidth());
 			}else{
-				s.savedSlotPosition = new Vector2(Oppa, 10);
-				if(selectedSlot!=null){
+				s.savedSlotPosition = new Vector2(Oppa, 3);
+				if(selectedSlot!=null && s.selected){
 					if(animSlotCounter>0){
 						animSlotCounter--;
 					}
@@ -243,8 +262,8 @@ public class SlotMachineTextures extends Group {
 						s.position = new Vector2(selectedSlot.sprite.getX(), selectedSlot.sprite.getY());
 						System.out.println("rewrite the fuckign pos! " + s.position);
 						System.err.println("position: " + s.position);
-						width = 146;
-						height = 146;
+						s.width = 146;
+						s.height = 146;
 						animDx = /*selectedSlot.sprite.getX() -*/ s.savedSlotPosition.x - selectedSlot.sprite.getX();
 						animDy = /*selectedSlot.sprite.getY() -*/ s.savedSlotPosition.y - selectedSlot.sprite.getY();
 						
@@ -256,15 +275,19 @@ public class SlotMachineTextures extends Group {
 					}
 					if(animSlotCounter<=1){
 						animSlotCounter=50;
-						s.state = State.STANDARD;
+						s.state = State.SPAWNING;
 					}
 				}
-				if(animSlotCounter>0){
-					s.update(animDx, animDy);
+				if(animSlotCounter>0 && animSlotCounter<=49 && s.selected){
+					s.update(animDx, animDy, animSlotCounter);
 				}
-				batch.draw(s.sprite, s.sprite.getX(), s.sprite.getY(), width, height);
+				batch.draw(s.sprite, s.sprite.getX(), s.sprite.getY(), s.width, s.height);
 				
 				Oppa += 37;
+			}
+			if(s.selectedSaved){
+				System.out.println("yes savedselected");
+				batch.draw(selectedSavedSlotRectangle, s.sprite.getX(), s.sprite.getY());
 			}
 		}
 		

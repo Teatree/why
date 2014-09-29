@@ -20,10 +20,12 @@ public abstract class Slot {
 	public State state;
 	public Vector2 savedSlotPosition;
 	public Vector2 position;
+	public float width = 146;
+	public float height = 146;
 //	float dx;
 //	float dy;
 	
-	public void update(float dx, float dy){
+	public void update(float dx, float dy, int frame){
 //		position =  new Vector2(sprite.getX(), sprite.getY());
 		if(state == State.ANIMATING){
 			if(sprite.getX() != savedSlotPosition.x && sprite.getY() != savedSlotPosition.y){
@@ -33,9 +35,10 @@ public abstract class Slot {
 					
 					sprite.setX(position.x);
 					sprite.setY(position.y);
-					if(SlotMachineTextures.width>32){
-						SlotMachineTextures.width -= 1.28f;
-						SlotMachineTextures.height -= 1.28f;
+					if(width>32 || height>32){
+						System.out.println("w: " + width + " frame: " + frame);
+						width -= 2.28f;
+						height -= 2.28f;
 					}
 //					System.out.println("sprite.pos " + sprite.getX() + " _ " + sprite.getY());
 				}

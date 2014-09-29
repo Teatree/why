@@ -55,6 +55,7 @@ public class Assets {
 	public static final AssetDescriptor<Texture> tiles = new AssetDescriptor<Texture>("data\\Tiles.png", Texture.class);
 	public static final AssetDescriptor<Texture> tileSet_SAND_WORLD = new AssetDescriptor<Texture>("data\\tileSet_SAND_WORLD.png", Texture.class);
 	public static final AssetDescriptor<Texture> slotMachineCase = new AssetDescriptor<Texture>("data\\slotMachineUI\\slotMachineCase.png", Texture.class);
+	public static final AssetDescriptor<Texture> saveSlotBar = new AssetDescriptor<Texture>("data\\slotMachineUI\\savedSlotsBar.png", Texture.class);
 	public static final AssetDescriptor<Texture> FADE_ICON = new AssetDescriptor<Texture>("data\\slotIcons\\FADE_ICON.png", Texture.class);
 	public static final AssetDescriptor<Texture> RADIOACTIVE_AURA_ICON = new AssetDescriptor<Texture>("data\\slotIcons\\RADIOACTIVE_AURA_ICON.png", Texture.class);
 	public static final AssetDescriptor<Texture> SPEED_BOOST_ICON = new AssetDescriptor<Texture>("data\\slotIcons\\SPEED_BOOST_ICON.png", Texture.class);
@@ -81,6 +82,8 @@ public class Assets {
 	public static final AssetDescriptor<Texture> slotLevel3 = new AssetDescriptor<Texture>("data\\slotIcons\\slotLevel3.png", Texture.class);
 	public static final AssetDescriptor<Texture> slotLevel4 = new AssetDescriptor<Texture>("data\\slotIcons\\slotLevel4.png", Texture.class);
 	public static final AssetDescriptor<Texture> slotLevel5 = new AssetDescriptor<Texture>("data\\slotIcons\\slotLevel5.png", Texture.class);
+	public static final AssetDescriptor<Texture> selectedSavedSlot = new AssetDescriptor<Texture>("data\\slotMachineUI\\selectedSavedSlot.png", Texture.class);
+	public static final AssetDescriptor<Texture> addedSavedSlotAnimation = new AssetDescriptor<Texture>("data\\slotMachineUI\\addedSavedSlotAnimation.png", Texture.class);
 	public static final AssetDescriptor<Texture> slotAnimation = new AssetDescriptor<Texture>("data\\slotMachineUI\\slotAnimation.png", Texture.class);
 	public static final AssetDescriptor<Texture> POISON_TRAP = new AssetDescriptor<Texture>("data\\googleSaysItIsAPool.png", Texture.class);
 	public static final AssetDescriptor<Texture> FROZEN_TRAP = new AssetDescriptor<Texture>("data\\Frozen.png", Texture.class);
@@ -142,6 +145,7 @@ public class Assets {
 		manager.load(tiles);
 		manager.load(tileSet_SAND_WORLD);
 		manager.load(slotMachineCase);
+		manager.load(saveSlotBar);
 		manager.load(FADE_ICON);
 		manager.load(RADIOACTIVE_AURA_ICON);
 		manager.load(HASTE_ICON);
@@ -169,6 +173,8 @@ public class Assets {
 		manager.load(slotLevel3);
 		manager.load(slotLevel4);
 		manager.load(slotLevel5);
+		manager.load(selectedSavedSlot);
+		manager.load(addedSavedSlotAnimation);
 		manager.load(slotAnimation);
 		manager.load(POISON_TRAP);
 		manager.load(FROZEN_TRAP);

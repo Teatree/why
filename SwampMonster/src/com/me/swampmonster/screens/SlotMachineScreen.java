@@ -140,6 +140,10 @@ public class SlotMachineScreen extends AbstractGameScreen {
 						if (s.getClass().equals(slot.getClass())) {
 							s = slot;
 							rewritenSlot = true;
+							// just because I can't be fucked to add a enw type of state
+							// this is savedSelectedAnimating...
+							slot.state = State.SPAWNING;
+							slotMachineTextures.animantionSavedSelectedCtlr.animating2 = true;
 						}
 					}
 					if (!rewritenSlot) {
