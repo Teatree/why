@@ -11,6 +11,7 @@ public class SwampMonsterDesktop {
 		cfg.width = 800;
 		cfg.height = 480;
 		
+		
 //		MainSwamp mainSwamp = new MainSwamp();
 //        ScreenContainer.game = mainSwamp;
 		new LwjglApplication(new MainSwamp(), cfg);

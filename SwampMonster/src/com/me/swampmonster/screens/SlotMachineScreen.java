@@ -36,7 +36,7 @@ public class SlotMachineScreen extends AbstractGameScreen {
 
 		slotMachineTextures = new SlotMachineTextures(player);
 
-		stage.addActor(slotMachineTextures);
+//		stage.addActor(slotMachineTextures);
 	}
 
 	@Override
@@ -52,6 +52,7 @@ public class SlotMachineScreen extends AbstractGameScreen {
 			slotMachineTextures.slotAnimSpeed = 0;
 			slotMachineTextures.animDx = 0;
 			slotMachineTextures.animDy = 0;
+			slotMachineTextures.animSavedSelectedCounter = 0;
 			((Game) Gdx.app.getApplicationListener())
 					.setScreen(ScreenContainer.SS);
 		}
@@ -204,6 +205,7 @@ public class SlotMachineScreen extends AbstractGameScreen {
 	@Override
 	public void show() {
 		slotMachineTextures = new SlotMachineTextures(player);
+		System.out.println("dum dum dum dum");
 		stage.addActor(slotMachineTextures);
 	}
 

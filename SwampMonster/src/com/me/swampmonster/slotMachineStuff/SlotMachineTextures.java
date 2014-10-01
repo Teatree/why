@@ -63,7 +63,7 @@ public class SlotMachineTextures extends Group {
 	public Rectangle no;
 	public AnimationControl animantionCtlr;
 	public AnimationControl animantionSavedSelectedCtlr;
-	public int animSavedSelectedCounter;
+	public static int animSavedSelectedCounter;
 	public Sprite selectedSavedSlotFrame;
 	public boolean[] notAnimating;
 	public static boolean peru;
@@ -97,7 +97,7 @@ public class SlotMachineTextures extends Group {
 		savedSlotBar = new Sprite(Assets.manager.get(Assets.saveSlotBar));
 		
 		animantionCtlr = new AnimationControl(Assets.manager.get(Assets.slotAnimation), 8, 1, 8);
-		animantionSavedSelectedCtlr = new AnimationControl(Assets.manager.get(Assets.selectedSavedSlot), 4, 1, 8);
+		animantionSavedSelectedCtlr = new AnimationControl(Assets.manager.get(Assets.addedSavedSlotAnimation), 4, 1, 3.8f);
 		notAnimating = new boolean[3];
 		
 		slotLevel1 = new Sprite(Assets.manager.get(Assets.slotLevel1));
@@ -119,6 +119,8 @@ public class SlotMachineTextures extends Group {
 		no = new Rectangle();
 		no.width = slotMachineWindowNo.getWidth();
 		no.height = slotMachineWindowNo.getHeight();
+		
+//		animSavedSelectedCounter = 0;
 		
 		slots = new Slot[3];
 		
@@ -234,15 +236,18 @@ public class SlotMachineTextures extends Group {
 		int Oppa = 5;
 		for(Slot s: SlotMachineScreen.savedSlots){
 			if(s.state == State.SPAWNING){
-				animSavedSelectedCounter++;
-				System.out.println("boom");
-				animantionSavedSelectedCtlr.animate(0);
-				selectedSavedSlotFrame = new Sprite(animantionSavedSelectedCtlr.getCurrentFrame());
-				batch.draw(selectedSavedSlotFrame, s.sprite.getX(), s.sprite.getY());
-				if(animSavedSelectedCounter == 4){
+				if(animSavedSelectedCounter<90){
+					animSavedSelectedCounter++;
+	//				System.out.println("boom");
+					animantionSavedSelectedCtlr.animate(0);
+					selectedSavedSlotFrame = new Sprite(animantionSavedSelectedCtlr.getCurrentFrame());
+					System.out.println("animSavedSelected: " + animSavedSelectedCounter + " slot: " + s);
+				}
+				if(animSavedSelectedCounter == 90){
 					s.state = State.STANDARD;
 					animSavedSelectedCounter = 0;
 				}
+				batch.draw(selectedSavedSlotFrame, s.sprite.getX(), s.sprite.getY()+20);
 			}
 			if(s.state != State.ANIMATING){
 				s.sprite.setPosition(Oppa, 3);
@@ -273,7 +278,7 @@ public class SlotMachineTextures extends Group {
 						animDx = animDx /= length1;
 						animDy = animDy /= length1;
 					}
-					if(animSlotCounter<=1){
+					if(animSlotCounter<=1 && animSavedSelectedCounter==0){
 						animSlotCounter=50;
 						s.state = State.SPAWNING;
 					}

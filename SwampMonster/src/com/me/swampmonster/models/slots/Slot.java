@@ -36,7 +36,7 @@ public abstract class Slot {
 					sprite.setX(position.x);
 					sprite.setY(position.y);
 					if(width>32 || height>32){
-						System.out.println("w: " + width + " frame: " + frame);
+//						System.out.println("w: " + width + " frame: " + frame);
 						width -= 2.28f;
 						height -= 2.28f;
 					}
