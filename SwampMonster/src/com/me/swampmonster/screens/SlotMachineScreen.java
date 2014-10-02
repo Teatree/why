@@ -8,6 +8,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.me.swampmonster.game.TheController;
 import com.me.swampmonster.models.AbstractGameObject.State;
@@ -36,7 +37,7 @@ public class SlotMachineScreen extends AbstractGameScreen {
 
 		slotMachineTextures = new SlotMachineTextures(player);
 
-//		stage.addActor(slotMachineTextures);
+		stage.addActor(slotMachineTextures);
 	}
 
 	@Override
@@ -52,7 +53,6 @@ public class SlotMachineScreen extends AbstractGameScreen {
 			slotMachineTextures.slotAnimSpeed = 0;
 			slotMachineTextures.animDx = 0;
 			slotMachineTextures.animDy = 0;
-			slotMachineTextures.animSavedSelectedCounter = 0;
 			((Game) Gdx.app.getApplicationListener())
 					.setScreen(ScreenContainer.SS);
 		}
@@ -143,8 +143,11 @@ public class SlotMachineScreen extends AbstractGameScreen {
 							rewritenSlot = true;
 							// just because I can't be fucked to add a enw type of state
 							// this is savedSelectedAnimating...
+							System.out.println("rewriteen ");
+							s.state = State.SPAWNING;
 							slot.state = State.SPAWNING;
-							slotMachineTextures.animantionSavedSelectedCtlr.animating2 = true;
+							System.out.println(" counter " + slot.animSavedSelectedCounter);
+							System.out.println(" counter2 " + s.animSavedSelectedCounter);
 						}
 					}
 					if (!rewritenSlot) {
@@ -204,8 +207,15 @@ public class SlotMachineScreen extends AbstractGameScreen {
 
 	@Override
 	public void show() {
-		slotMachineTextures = new SlotMachineTextures(player);
+//		stage.addActor(slotMachineTextures);
 		System.out.println("dum dum dum dum");
+		for(Actor a : stage.getActors()){
+			if(a instanceof SlotMachineTextures){
+				a.remove();
+				break;
+			}
+		}
+		slotMachineTextures = new SlotMachineTextures(player);
 		stage.addActor(slotMachineTextures);
 	}
 

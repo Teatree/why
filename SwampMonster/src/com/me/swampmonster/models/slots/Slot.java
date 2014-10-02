@@ -2,10 +2,12 @@ package com.me.swampmonster.models.slots;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
+import com.me.swampmonster.animations.AnimationControl;
 import com.me.swampmonster.models.AbstractGameObject.State;
 import com.me.swampmonster.models.Player;
 import com.me.swampmonster.screens.SlotMachineScreen;
 import com.me.swampmonster.slotMachineStuff.SlotMachineTextures;
+import com.me.swampmonster.utils.Assets;
 
 public abstract class Slot {
 	
@@ -22,10 +24,16 @@ public abstract class Slot {
 	public Vector2 position;
 	public float width = 146;
 	public float height = 146;
+	
+	public float animSlotCounter = 50;
+	
+	public float animSavedSelectedCounter = 0;
+	public AnimationControl animantionSavedSelectedCtlr = new AnimationControl(Assets.manager.get(Assets.addedSavedSlotAnimation), 4, 1, 3.8f);
+	public Sprite selectedSavedSlotFrame = new Sprite();
 //	float dx;
 //	float dy;
 	
-	public void update(float dx, float dy, int frame){
+	public void updateAnimate(float dx, float dy){
 //		position =  new Vector2(sprite.getX(), sprite.getY());
 		if(state == State.ANIMATING){
 			if(sprite.getX() != savedSlotPosition.x && sprite.getY() != savedSlotPosition.y){
@@ -42,6 +50,22 @@ public abstract class Slot {
 					}
 //					System.out.println("sprite.pos " + sprite.getX() + " _ " + sprite.getY());
 				}
+			}
+		}
+	}
+	public void update(){
+		if(state == State.SPAWNING){
+			System.out.println("spawning");
+			if(animSavedSelectedCounter<90){
+				animSavedSelectedCounter++;
+				animantionSavedSelectedCtlr.animate(0);
+				selectedSavedSlotFrame.setRegion(animantionSavedSelectedCtlr.getCurrentFrame());
+				System.out.println("animSavedSelected: " + animSavedSelectedCounter + " slot: " + this);
+			}
+			if(animSavedSelectedCounter == 90){
+				animSavedSelectedCounter = 0;
+				System.out.println("animSavedSelected: " + animSavedSelectedCounter + " slot: " + this);
+				state = State.STANDARD;
 			}
 		}
 	}

@@ -62,16 +62,14 @@ public class SlotMachineTextures extends Group {
 	public Rectangle yes;
 	public Rectangle no;
 	public AnimationControl animantionCtlr;
-	public AnimationControl animantionSavedSelectedCtlr;
-	public static int animSavedSelectedCounter;
-	public Sprite selectedSavedSlotFrame;
 	public boolean[] notAnimating;
 	public static boolean peru;
 	public Slot selectedSlot;
 	public int selectedSlotNumber;
+	public int timeCOutner;
 	
 	public int animCounter;
-	public int animSlotCounter = 50;
+//	public int animSlotCounter = 50;
 	public float animDx;
 	public float animDy;
 //	public static float width = 146;
@@ -97,7 +95,6 @@ public class SlotMachineTextures extends Group {
 		savedSlotBar = new Sprite(Assets.manager.get(Assets.saveSlotBar));
 		
 		animantionCtlr = new AnimationControl(Assets.manager.get(Assets.slotAnimation), 8, 1, 8);
-		animantionSavedSelectedCtlr = new AnimationControl(Assets.manager.get(Assets.addedSavedSlotAnimation), 4, 1, 3.8f);
 		notAnimating = new boolean[3];
 		
 		slotLevel1 = new Sprite(Assets.manager.get(Assets.slotLevel1));
@@ -182,6 +179,7 @@ public class SlotMachineTextures extends Group {
 	@Override
 	public void draw(SpriteBatch batch, float parentAlpha) {
 		super.draw(batch, parentAlpha);
+		timeCOutner++;
 		batch.draw(Assets.manager.get(Assets.slotMachineCase), 144, 112);
 		
 		rerollButton.setSize(90, 90);
@@ -235,20 +233,7 @@ public class SlotMachineTextures extends Group {
 		
 		int Oppa = 5;
 		for(Slot s: SlotMachineScreen.savedSlots){
-			if(s.state == State.SPAWNING){
-				if(animSavedSelectedCounter<90){
-					animSavedSelectedCounter++;
-	//				System.out.println("boom");
-					animantionSavedSelectedCtlr.animate(0);
-					selectedSavedSlotFrame = new Sprite(animantionSavedSelectedCtlr.getCurrentFrame());
-					System.out.println("animSavedSelected: " + animSavedSelectedCounter + " slot: " + s);
-				}
-				if(animSavedSelectedCounter == 90){
-					s.state = State.STANDARD;
-					animSavedSelectedCounter = 0;
-				}
-				batch.draw(selectedSavedSlotFrame, s.sprite.getX(), s.sprite.getY()+20);
-			}
+			System.out.println("state: " + s.state);
 			if(s.state != State.ANIMATING){
 				s.sprite.setPosition(Oppa, 3);
 				s.sprite.setSize(32, 32);
@@ -257,16 +242,23 @@ public class SlotMachineTextures extends Group {
 				batch.draw(s.sprite, s.sprite.getX(), s.sprite.getY(), s.sprite.getWidth(), s.sprite.getHeight());
 				Oppa += s.sprite.getWidth()+5;
 	//			System.out.println("Oppa " + Oppa + " spriteSize " + s.sprite.getWidth());
+				if(s.state == State.SPAWNING){
+					s.update();
+					System.out.println("s.animateCOutner: " + s.animantionSavedSelectedCtlr + " time: " + timeCOutner);
+//					System.out.println("slot: " + s + " selectedSavedSlotFrame " + s.selectedSavedSlotFrame + " sprite " + s.sprite);
+					batch.draw(s.selectedSavedSlotFrame, s.sprite.getX()-1, s.sprite.getY()-1);
+				}
 			}else{
 				s.savedSlotPosition = new Vector2(Oppa, 3);
 				if(selectedSlot!=null && s.selected){
-					if(animSlotCounter>0){
-						animSlotCounter--;
+					if(s.animSlotCounter>0){
+						s.animSlotCounter--;
+						System.out.println(" s AnimationSlotCounter: " + s.animSlotCounter);
 					}
-					if(animSlotCounter==49){
+					if(s.animSlotCounter==49){
 						s.position = new Vector2(selectedSlot.sprite.getX(), selectedSlot.sprite.getY());
-						System.out.println("rewrite the fuckign pos! " + s.position);
-						System.err.println("position: " + s.position);
+//						System.out.println("rewrite the fuckign pos! " + s.position);
+//						System.err.println("position: " + s.position);
 						s.width = 146;
 						s.height = 146;
 						animDx = /*selectedSlot.sprite.getX() -*/ s.savedSlotPosition.x - selectedSlot.sprite.getX();
@@ -278,13 +270,14 @@ public class SlotMachineTextures extends Group {
 						animDx = animDx /= length1;
 						animDy = animDy /= length1;
 					}
-					if(animSlotCounter<=1 && animSavedSelectedCounter==0){
-						animSlotCounter=50;
+					if(s.animSlotCounter<=1){
+//						s.animSlotCounter=0;
+						System.out.println("Yes, should be state spawning");
 						s.state = State.SPAWNING;
 					}
 				}
-				if(animSlotCounter>0 && animSlotCounter<=49 && s.selected){
-					s.update(animDx, animDy, animSlotCounter);
+				if(s.animSlotCounter>0 && s.animSlotCounter<=49 && s.selected){
+					s.updateAnimate(animDx, animDy);
 				}
 				batch.draw(s.sprite, s.sprite.getX(), s.sprite.getY(), s.width, s.height);
 				
