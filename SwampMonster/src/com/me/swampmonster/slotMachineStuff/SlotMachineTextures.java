@@ -116,9 +116,6 @@ public class SlotMachineTextures extends Group {
 		no = new Rectangle();
 		no.width = slotMachineWindowNo.getWidth();
 		no.height = slotMachineWindowNo.getHeight();
-		
-//		animSavedSelectedCounter = 0;
-		
 		slots = new Slot[3];
 		
 		generateSlots(player);
@@ -173,7 +170,6 @@ public class SlotMachineTextures extends Group {
 		}
 			this.slots = slotsSet.toArray(slots); 
 			GeneralUtils.shuffle(slots);
-			
 	}
 
 	@Override

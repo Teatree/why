@@ -34,9 +34,7 @@ public class SlotMachineScreen extends AbstractGameScreen {
 		batch = new SpriteBatch();
 		stage = new Stage(Constants.VIEWPORT_WIDTH, Constants.VIEWPORT_HEIGHT,
 				true, batch);
-
 		slotMachineTextures = new SlotMachineTextures(player);
-
 		stage.addActor(slotMachineTextures);
 	}
 
@@ -90,8 +88,8 @@ public class SlotMachineScreen extends AbstractGameScreen {
 					&& slotMachineTextures.notAnimating[0]
 					&& slotMachineTextures.notAnimating[1]
 					&& slotMachineTextures.notAnimating[2]) {
-				if (!slotMachineTextures.peru) {
-					slotMachineTextures.peru = true;
+				if (!SlotMachineTextures.peru) {
+					SlotMachineTextures.peru = true;
 					slotMachineTextures.selectedSlot = slot;
 					slot.selected = true;
 
@@ -102,7 +100,7 @@ public class SlotMachineScreen extends AbstractGameScreen {
 				for (Slot s : slotMachineTextures.slots) {
 					s.selected = false;
 				}
-				slotMachineTextures.peru = false;
+				SlotMachineTextures.peru = false;
 			} else if (Gdx.input.justTouched()
 					&& slotMachineTextures.slotMachineWindowYes
 							.getBoundingRectangle().contains(victor)) {
@@ -135,7 +133,7 @@ public class SlotMachineScreen extends AbstractGameScreen {
 						} catch (Exception e) {
 						}
 					}
-					slotMachineTextures.peru = false;
+					SlotMachineTextures.peru = false;
 					boolean rewritenSlot = false;
 					for (Slot s : savedSlots) {
 						if (s.getClass().equals(slot.getClass())) {
@@ -169,8 +167,8 @@ public class SlotMachineScreen extends AbstractGameScreen {
 
 	private void selectSavedSlot(Slot slot) {
 		if (slot.sprite.getBoundingRectangle().contains(victor)) {
-			if (!slotMachineTextures.peru) {
-				slotMachineTextures.peru = true;
+			if (!SlotMachineTextures.peru) {
+				SlotMachineTextures.peru = true;
 				slotMachineTextures.selectedSlot = slot;
 				slot.selectedSaved = true;
 			}
@@ -180,7 +178,7 @@ public class SlotMachineScreen extends AbstractGameScreen {
 				s.selected = false;
 				s.selectedSaved = false;
 			}
-			slotMachineTextures.peru = false;
+			SlotMachineTextures.peru = false;
 		} else if (slotMachineTextures.slotMachineWindowYes
 				.getBoundingRectangle().contains(victor)) {
 			if (slot.selectedSaved) {
@@ -190,7 +188,7 @@ public class SlotMachineScreen extends AbstractGameScreen {
 					TheController.skill = slot;
 //					slot.selected = false;
 				}
-				slotMachineTextures.peru = false;
+				SlotMachineTextures.peru = false;
 				if (!(slot instanceof Perks)) {
 					((Game) Gdx.app.getApplicationListener())
 							.setScreen(ScreenContainer.SS);
@@ -217,6 +215,7 @@ public class SlotMachineScreen extends AbstractGameScreen {
 		}
 		slotMachineTextures = new SlotMachineTextures(player);
 		stage.addActor(slotMachineTextures);
+		
 	}
 
 	@Override

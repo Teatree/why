@@ -59,6 +59,9 @@ public class MenuScreen extends AbstractGameScreen{
 				}
 			}
 		});
+		if (!soundsEnabled){
+			soundButton.setChecked(true);
+		}
 	}
 
 	@Override

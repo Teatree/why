@@ -14,6 +14,7 @@ import com.badlogic.gdx.utils.Json;
 import com.me.swampmonster.models.L1;
 import com.me.swampmonster.models.Player;
 import com.me.swampmonster.models.slots.Slot;
+import com.me.swampmonster.screens.MenuScreen;
 import com.me.swampmonster.screens.SlotMachineScreen;
 
 public class SaveManager {
@@ -37,6 +38,8 @@ public class SaveManager {
     public static void savePlayer(){
     	Json json = new Json();
     	JsomPlayer somPlayer = new SaveManager.JsomPlayer();
+    	
+    	somPlayer.soundEnabled = MenuScreen.soundsEnabled;
     	somPlayer.maxOxygen = Player.maxOxygen;
     	somPlayer.playerMaxHealth = Player.maxHealth;
     	somPlayer.score = Player.absoluteScore;
@@ -74,6 +77,7 @@ public class SaveManager {
         if (!save.isEmpty()) {
 	    	Json json = new Json();
 	        JsomPlayer somPlayer = json.fromJson(JsomPlayer.class, save);
+	        MenuScreen.soundsEnabled = somPlayer.soundEnabled;
 	        Player player = new Player(new Vector2());
 	        Player.maxOxygen = somPlayer.maxOxygen;
 	        Player.maxHealth = somPlayer.playerMaxHealth;
@@ -137,6 +141,8 @@ public class SaveManager {
     	public List <JsomSlot> savedSlots;
     	
     	public Map<Integer, String> usedSpritesForItems;
+    	
+    	public boolean soundEnabled;
     }
 
     public static class JsomSlot {
