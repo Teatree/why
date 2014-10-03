@@ -26,6 +26,7 @@ public class SlotMachineScreen extends AbstractGameScreen {
 	private SlotMachineTextures slotMachineTextures;
 	public Vector2 victor;
 	public static List<Slot> savedSlots;
+//	public static boolean rewritenSlot = false;
 
 	public SlotMachineScreen(Game game) {
 		super(game);
@@ -48,9 +49,9 @@ public class SlotMachineScreen extends AbstractGameScreen {
 				&& slotMachineTextures.goButton.getBoundingRectangle()
 						.contains(victor) && yesWasJustPressed) {
 			slotMachineTextures.selectedSlot = null;
-			slotMachineTextures.slotAnimSpeed = 0;
-			slotMachineTextures.animDx = 0;
-			slotMachineTextures.animDy = 0;
+//			slotMachineTextures.slotAnimSpeed = 0;
+//			slotMachineTextures.animDx = 0;
+//			slotMachineTextures.animDy = 0;
 			((Game) Gdx.app.getApplicationListener())
 					.setScreen(ScreenContainer.SS);
 		}
@@ -134,21 +135,19 @@ public class SlotMachineScreen extends AbstractGameScreen {
 						}
 					}
 					SlotMachineTextures.peru = false;
-					boolean rewritenSlot = false;
+					
 					for (Slot s : savedSlots) {
 						if (s.getClass().equals(slot.getClass())) {
-							s = slot;
-							rewritenSlot = true;
-							// just because I can't be fucked to add a enw type of state
-							// this is savedSelectedAnimating...
-							System.out.println("rewriteen ");
+							// DON"T TOUCH THIS!
+							s.rewritten = true;
+							slot.rewritten = true;
 							s.state = State.SPAWNING;
 							slot.state = State.SPAWNING;
-							System.out.println(" counter " + slot.animSavedSelectedCounter);
-							System.out.println(" counter2 " + s.animSavedSelectedCounter);
+							s.rewritten = true;
+							s = slot;
 						}
 					}
-					if (!rewritenSlot) {
+					if (!slot.rewritten) {
 						slot.state = State.ANIMATING;
 						savedSlots.add(slot);
 						// SlotMachineTextures.width = 146;
@@ -156,6 +155,9 @@ public class SlotMachineScreen extends AbstractGameScreen {
 						// slot.position = new
 						// Vector2(SlotMachineTextures.selectedSlot.sprite.getX(),
 						// SlotMachineTextures.selectedSlot.sprite.getY());
+					}else{
+						slot.state = State.SPAWNING;
+						slot.rewritten = true;
 					}
 					// ((Game)
 					// Gdx.app.getApplicationListener()).setScreen(ScreenContainer.SS);
@@ -192,6 +194,7 @@ public class SlotMachineScreen extends AbstractGameScreen {
 				if (!(slot instanceof Perks)) {
 					((Game) Gdx.app.getApplicationListener())
 							.setScreen(ScreenContainer.SS);
+					
 					yesWasJustPressed = false;
 				}
 			}

@@ -229,7 +229,6 @@ public class SlotMachineTextures extends Group {
 		
 		int Oppa = 5;
 		for(Slot s: SlotMachineScreen.savedSlots){
-			System.out.println("state: " + s.state);
 			if(s.state != State.ANIMATING){
 				s.sprite.setPosition(Oppa, 3);
 				s.sprite.setSize(32, 32);
@@ -237,11 +236,11 @@ public class SlotMachineTextures extends Group {
 				s.sprite.setY(3);
 				batch.draw(s.sprite, s.sprite.getX(), s.sprite.getY(), s.sprite.getWidth(), s.sprite.getHeight());
 				Oppa += s.sprite.getWidth()+5;
-	//			System.out.println("Oppa " + Oppa + " spriteSize " + s.sprite.getWidth());
+				if(s.rewritten){
+					s.state = State.SPAWNING;
+				}
 				if(s.state == State.SPAWNING){
 					s.update();
-					System.out.println("s.animateCOutner: " + s.animantionSavedSelectedCtlr + " time: " + timeCOutner);
-//					System.out.println("slot: " + s + " selectedSavedSlotFrame " + s.selectedSavedSlotFrame + " sprite " + s.sprite);
 					batch.draw(s.selectedSavedSlotFrame, s.sprite.getX()-1, s.sprite.getY()-1);
 				}
 			}else{
@@ -249,7 +248,6 @@ public class SlotMachineTextures extends Group {
 				if(selectedSlot!=null && s.selected){
 					if(s.animSlotCounter>0){
 						s.animSlotCounter--;
-						System.out.println(" s AnimationSlotCounter: " + s.animSlotCounter);
 					}
 					if(s.animSlotCounter==49){
 						s.position = new Vector2(selectedSlot.sprite.getX(), selectedSlot.sprite.getY());
@@ -268,7 +266,6 @@ public class SlotMachineTextures extends Group {
 					}
 					if(s.animSlotCounter<=1){
 //						s.animSlotCounter=0;
-						System.out.println("Yes, should be state spawning");
 						s.state = State.SPAWNING;
 					}
 				}

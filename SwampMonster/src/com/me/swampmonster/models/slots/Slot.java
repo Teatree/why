@@ -24,10 +24,11 @@ public abstract class Slot {
 	public Vector2 position;
 	public float width = 146;
 	public float height = 146;
+	public boolean rewritten;
 	
 	public float animSlotCounter = 50;
 	
-	public float animSavedSelectedCounter = 0;
+	public int animSavedSelectedCounter = 0;
 	public AnimationControl animantionSavedSelectedCtlr = new AnimationControl(Assets.manager.get(Assets.addedSavedSlotAnimation), 4, 1, 3.8f);
 	public Sprite selectedSavedSlotFrame = new Sprite();
 //	float dx;
@@ -55,17 +56,15 @@ public abstract class Slot {
 	}
 	public void update(){
 		if(state == State.SPAWNING){
-			System.out.println("spawning");
 			if(animSavedSelectedCounter<90){
 				animSavedSelectedCounter++;
 				animantionSavedSelectedCtlr.animate(0);
 				selectedSavedSlotFrame.setRegion(animantionSavedSelectedCtlr.getCurrentFrame());
-				System.out.println("animSavedSelected: " + animSavedSelectedCounter + " slot: " + this);
 			}
 			if(animSavedSelectedCounter == 90){
+				rewritten = false;
 				animSavedSelectedCounter = 0;
-				System.out.println("animSavedSelected: " + animSavedSelectedCounter + " slot: " + this);
-				state = State.STANDARD;
+				state = null;
 			}
 		}
 	}
