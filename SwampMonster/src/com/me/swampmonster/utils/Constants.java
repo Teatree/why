@@ -21,6 +21,7 @@ public class Constants {
 	public static final int pendingPeriodBetweedWaves = 500;
 	public static final int NodeSize = 16;
 	
+	public static final int Max_slot_level = 4;
 	
 	//
 	

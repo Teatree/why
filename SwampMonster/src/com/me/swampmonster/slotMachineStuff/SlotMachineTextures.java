@@ -21,8 +21,12 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Window;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.me.swampmonster.animations.AnimationControl;
 import com.me.swampmonster.game.TheController;
 import com.me.swampmonster.models.Player;
@@ -78,9 +82,10 @@ public class SlotMachineTextures extends Group {
 	
 	private Skin skin;
 	public ImageButton goButtonButton;
+	public Window slotDescWindow;
 
 	public SlotMachineTextures(Player player) {
-		skin = new Skin(Gdx.files.internal("skins\\style.json"), new TextureAtlas(Gdx.files.internal("skins\\main.pack")));
+		skin = new Skin(Gdx.files.internal("skins\\slotMachineUI.json"), new TextureAtlas(Gdx.files.internal("skins\\slotMachineUI.pack")));
 		goButtonButton = new ImageButton(skin);
 		
 		font = Assets.manager.get(Assets.font);
@@ -118,6 +123,8 @@ public class SlotMachineTextures extends Group {
 		no.height = slotMachineWindowNo.getHeight();
 		slots = new Slot[3];
 		
+		
+//		Gdx.input.setInputProcessor(SlotMachineScreen.stage);
 		generateSlots(player);
 	}
 
@@ -325,40 +332,19 @@ public class SlotMachineTextures extends Group {
 
 		font.setColor(Color.BLACK);
 		font.setScale(0.5f, 0.5f);
-		// font.draw(batch, "MaxHP: " + p.getMaxHealth(), 284, 215);
-		// font.draw(batch, "MaxO2: " + p.maxOxygen, 284, 200);
-		// font.draw(batch, "Damage: " + p.damage, 284, 185);
-		// font.draw(batch, "AS: " + p.shotCoolDown, 284, 170);
-		// font.draw(batch, "Score: " + p.points, 156, 338);
 
 		if (peru && !SlotMachineScreen.yesWasJustPressed) {
-			slotMachineWindow.setSize(Constants.VIEWPORT_WIDTH / 2.1f,
-					Constants.VIEWPORT_HEIGHT / 1.4f);
-			slotMachineWindow.draw(batch);
-			slotMachineWindow.setPosition(Constants.VIEWPORT_WIDTH / 3.5f,
-					Constants.VIEWPORT_GUI_HEIGHT / 7);
-			slotMachineWindowYes.setSize(90, 90);
-			slotMachineWindowYes.draw(batch);
-			slotMachineWindowYes.setPosition(
-					Constants.VIEWPORT_WIDTH / 3.5f + 10,
-					Constants.VIEWPORT_GUI_HEIGHT / 6.5f);
-			yes.setPosition(new Vector2(slotMachineWindowYes.getX(),
-					slotMachineWindowYes.getY()));
-			slotMachineWindowNo.setSize(90, 90);
-			slotMachineWindowNo.draw(batch);
-			slotMachineWindowNo.setPosition(Constants.VIEWPORT_WIDTH / 1.575f,
-					Constants.VIEWPORT_GUI_HEIGHT / 6.5f);
-			no.setPosition(new Vector2(slotMachineWindowNo.getX(),
-					slotMachineWindowNo.getY()));
-			if (selectedSlot != null && selectedSlot.selected){
-				font.draw(batch, selectedSlot.getDescription(),
-					slotMachineWindow.getBoundingRectangle().x + 25,
-					slotMachineWindow.getBoundingRectangle().y + 200);
-			} else if (selectedSlot != null && selectedSlot.selectedSaved){
-				font.draw(batch, selectedSlot.getDescriptionForSaved(),
-						slotMachineWindow.getBoundingRectangle().x + 25,
-						slotMachineWindow.getBoundingRectangle().y + 200);
+			for(Slot s: slots){
+				if(s.selected){
+					slotDescWindow = new SlotDescWindow("Slot description", skin, s);
+					SlotMachineScreen.stage.addActor(slotDescWindow);
+				}
 			}
+			
+		}
+		if(SlotMachineScreen.yesWasJustPressed){
+			this.removeActor(slotDescWindow);
+//			SlotMachineScreen.stage.
 		}
 		batch.end();
 		Gdx.gl.glEnable(GL20.GL_BLEND);

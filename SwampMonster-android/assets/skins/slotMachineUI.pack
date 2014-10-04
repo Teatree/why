@@ -1,0 +1,40 @@
+
+slotMachineUI.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+slotMachineWindow
+  rotate: false
+  xy: 1, 133
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+slotMachineWindowNO
+  rotate: false
+  xy: 1, 67
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+slotMachineWindowNO_pressed
+  rotate: false
+  xy: 259, 325
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+slotMachineWindowYES
+  rotate: false
+  xy: 1, 1
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+slotMachineWindowYES_pressed
+  rotate: false
+  xy: 67, 67
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1

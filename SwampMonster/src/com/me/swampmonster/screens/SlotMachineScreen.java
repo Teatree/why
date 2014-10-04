@@ -10,6 +10,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.me.swampmonster.game.TheController;
 import com.me.swampmonster.models.AbstractGameObject.State;
 import com.me.swampmonster.models.slots.Perks;
@@ -19,9 +22,9 @@ import com.me.swampmonster.utils.Constants;
 import com.me.swampmonster.utils.ScreenContainer;
 
 public class SlotMachineScreen extends AbstractGameScreen {
-	private static final int Max_slot_level = 4;
+	
 	SpriteBatch batch;
-	private Stage stage;
+	public static Stage stage;
 	public static boolean yesWasJustPressed;
 	private SlotMachineTextures slotMachineTextures;
 	public Vector2 victor;
@@ -37,6 +40,7 @@ public class SlotMachineScreen extends AbstractGameScreen {
 				true, batch);
 		slotMachineTextures = new SlotMachineTextures(player);
 		stage.addActor(slotMachineTextures);
+//		Gdx.input.setInputProcessor(stage);
 	}
 
 	@Override
@@ -77,6 +81,12 @@ public class SlotMachineScreen extends AbstractGameScreen {
 					// savedSlot.sprite.getHeight());
 				}
 			}
+			
+			if(yesWasJustPressed){
+				slotMachineTextures.slotDescWindow.remove();
+			}
+			
+			stage.act();
 			stage.draw();
 		}
 	}
@@ -105,67 +115,67 @@ public class SlotMachineScreen extends AbstractGameScreen {
 			} else if (Gdx.input.justTouched()
 					&& slotMachineTextures.slotMachineWindowYes
 							.getBoundingRectangle().contains(victor)) {
-				System.out.println("yes pressed");
-				if (slot.selected) {
-					if (slot instanceof Perks) {
-						slot.execute(player);
-						try {
-							int i = slot.getClass().getField("level")
-									.getInt(null);
-							if (i < Max_slot_level) {
-								i++;
-								slot.getClass().getField("level")
-										.setInt(null, i);
-							}
-						} catch (Exception e) {
-						}
-
-					} else {
-						TheController.skill = slot;
-//						slot.selected = false;
-						try {
-							int i = TheController.skill.getClass()
-									.getField("level").getInt(null);
-							if (i < Max_slot_level) {
-								i++;
-								TheController.skill.getClass()
-										.getField("level").setInt(null, i);
-							}
-						} catch (Exception e) {
-						}
-					}
-					SlotMachineTextures.peru = false;
-					
-					for (Slot s : savedSlots) {
-						if (s.getClass().equals(slot.getClass())) {
-							// DON"T TOUCH THIS!
-							s.rewritten = true;
-							slot.rewritten = true;
-							s.state = State.SPAWNING;
-							slot.state = State.SPAWNING;
-							s.rewritten = true;
-							s = slot;
-						}
-					}
-					if (!slot.rewritten) {
-						slot.state = State.ANIMATING;
-						savedSlots.add(slot);
-						// SlotMachineTextures.width = 146;
-						// SlotMachineTextures.height = 146;
-						// slot.position = new
-						// Vector2(SlotMachineTextures.selectedSlot.sprite.getX(),
-						// SlotMachineTextures.selectedSlot.sprite.getY());
-					}else{
-						slot.state = State.SPAWNING;
-						slot.rewritten = true;
-					}
-					// ((Game)
-					// Gdx.app.getApplicationListener()).setScreen(ScreenContainer.SS);
-					yesWasJustPressed = true;
-				}
-			}
+//				System.out.println("yes pressed");
+//				if (slot.selected) {
+//					if (slot instanceof Perks) {
+//						slot.execute(player);
+//						try {
+//							int i = slot.getClass().getField("level")
+//									.getInt(null);
+//							if (i < Max_slot_level) {
+//								i++;
+//								slot.getClass().getField("level")
+//										.setInt(null, i);
+//							}
+//						} catch (Exception e) {
+//						}
+//
+//					} else {
+//						TheController.skill = slot;
+////						slot.selected = false;
+//						try {
+//							int i = TheController.skill.getClass()
+//									.getField("level").getInt(null);
+//							if (i < Max_slot_level) {
+//								i++;
+//								TheController.skill.getClass()
+//										.getField("level").setInt(null, i);
+//							}
+//						} catch (Exception e) {
+//						}
+//					}
+//					SlotMachineTextures.peru = false;
+//					
+//					for (Slot s : savedSlots) {
+//						if (s.getClass().equals(slot.getClass())) {
+//							// DON"T TOUCH THIS!
+//							s.rewritten = true;
+//							slot.rewritten = true;
+//							s.state = State.SPAWNING;
+//							slot.state = State.SPAWNING;
+//							s.rewritten = true;
+//							s = slot;
+//						}
+//					}
+//					if (!slot.rewritten) {
+//						slot.state = State.ANIMATING;
+//						savedSlots.add(slot);
+//						// SlotMachineTextures.width = 146;
+//						// SlotMachineTextures.height = 146;
+//						// slot.position = new
+//						// Vector2(SlotMachineTextures.selectedSlot.sprite.getX(),
+//						// SlotMachineTextures.selectedSlot.sprite.getY());
+//					}else{
+//						slot.state = State.SPAWNING;
+//						slot.rewritten = true;
+//					}
+//					// ((Game)
+//					// Gdx.app.getApplicationListener()).setScreen(ScreenContainer.SS);
+//					yesWasJustPressed = true;
+//				}
+//			}
+	}}
 		}
-	}
 
 	private void selectSavedSlot(Slot slot) {
 		if (slot.sprite.getBoundingRectangle().contains(victor)) {
@@ -217,8 +227,14 @@ public class SlotMachineScreen extends AbstractGameScreen {
 			}
 		}
 		slotMachineTextures = new SlotMachineTextures(player);
+//		if(slotMachineTextures.slotDescWindow != null){
+//			stage.addActor(slotMachineTextures.slotDescWindow);
+//		}
 		stage.addActor(slotMachineTextures);
-		
+//		if(yesWasJustPressed){
+//			slotMachineTextures.slotDescWindow.remove();
+//		}
+		Gdx.input.setInputProcessor(stage);
 	}
 
 	@Override
@@ -238,7 +254,7 @@ public class SlotMachineScreen extends AbstractGameScreen {
 
 	@Override
 	public void dispose() {
-
+		stage.dispose();
 	}
 
 }
