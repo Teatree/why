@@ -22,6 +22,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -80,9 +81,8 @@ public class SlotMachineTextures extends Group {
 //	public static float height = 146;
 	public static float slotAnimSpeed;
 	
-	private Skin skin;
+	public Skin skin;
 	public ImageButton goButtonButton;
-	public Window slotDescWindow;
 
 	public SlotMachineTextures(Player player) {
 		skin = new Skin(Gdx.files.internal("skins\\slotMachineUI.json"), new TextureAtlas(Gdx.files.internal("skins\\slotMachineUI.pack")));
@@ -333,19 +333,7 @@ public class SlotMachineTextures extends Group {
 		font.setColor(Color.BLACK);
 		font.setScale(0.5f, 0.5f);
 
-		if (peru && !SlotMachineScreen.yesWasJustPressed) {
-			for(Slot s: slots){
-				if(s.selected){
-					slotDescWindow = new SlotDescWindow("Slot description", skin, s);
-					SlotMachineScreen.stage.addActor(slotDescWindow);
-				}
-			}
-			
-		}
-		if(SlotMachineScreen.yesWasJustPressed){
-			this.removeActor(slotDescWindow);
-//			SlotMachineScreen.stage.
-		}
+		
 		batch.end();
 		Gdx.gl.glEnable(GL20.GL_BLEND);
 		Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);

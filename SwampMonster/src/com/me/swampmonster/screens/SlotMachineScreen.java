@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
@@ -17,6 +18,7 @@ import com.me.swampmonster.game.TheController;
 import com.me.swampmonster.models.AbstractGameObject.State;
 import com.me.swampmonster.models.slots.Perks;
 import com.me.swampmonster.models.slots.Slot;
+import com.me.swampmonster.slotMachineStuff.SlotDescWindow;
 import com.me.swampmonster.slotMachineStuff.SlotMachineTextures;
 import com.me.swampmonster.utils.Constants;
 import com.me.swampmonster.utils.ScreenContainer;
@@ -29,6 +31,8 @@ public class SlotMachineScreen extends AbstractGameScreen {
 	private SlotMachineTextures slotMachineTextures;
 	public Vector2 victor;
 	public static List<Slot> savedSlots;
+	public Dialog slotDescWindow;
+	public static boolean isSlotDescWindowOpen;
 //	public static boolean rewritenSlot = false;
 
 	public SlotMachineScreen(Game game) {
@@ -53,15 +57,12 @@ public class SlotMachineScreen extends AbstractGameScreen {
 				&& slotMachineTextures.goButton.getBoundingRectangle()
 						.contains(victor) && yesWasJustPressed) {
 			slotMachineTextures.selectedSlot = null;
-//			slotMachineTextures.slotAnimSpeed = 0;
-//			slotMachineTextures.animDx = 0;
-//			slotMachineTextures.animDy = 0;
 			((Game) Gdx.app.getApplicationListener())
 					.setScreen(ScreenContainer.SS);
 		}
 		if (Gdx.input.justTouched()
 				&& slotMachineTextures.rerollButton.getBoundingRectangle()
-						.contains(victor) && !yesWasJustPressed) {
+						.contains(victor) && !yesWasJustPressed && !isSlotDescWindowOpen) {
 			slotMachineTextures.generateSlots(player);
 			yesWasJustPressed = false;
 			for (int i = 0; i < slotMachineTextures.notAnimating.length; i++) {
@@ -75,25 +76,32 @@ public class SlotMachineScreen extends AbstractGameScreen {
 			if (Gdx.input.justTouched()) {
 				for (Slot savedSlot : savedSlots) {
 					selectSavedSlot(savedSlot);
-					// System.out.println("slot Pos: " + savedSlot.sprite.getX()
-					// + " : " + savedSlot.sprite.getY() + " slot size: " +
-					// savedSlot.sprite.getWidth() + " : " +
-					// savedSlot.sprite.getHeight());
 				}
 			}
 			
-			if(yesWasJustPressed){
-				slotMachineTextures.slotDescWindow.remove();
-			}
 			
 			stage.act();
 			stage.draw();
+			
+			if (SlotMachineTextures.peru && !SlotMachineScreen.yesWasJustPressed) {
+				for(Slot s: slotMachineTextures.slots){
+					if(s.selected){
+						slotDescWindow = new SlotDescWindow("Slot description", slotMachineTextures.skin, s).show(stage);
+						SlotMachineTextures.peru = false;
+						isSlotDescWindowOpen = true;
+//						Gdx.input.setInputProcessor(null);
+						System.out.println("creating the fuckign slotDesc");
+					}
+				}
+				
+			}
 		}
 	}
 
 	private void selectSlot(Slot slot) {
 		// System.out.println("yesWasJustPressed: " + yesWasJustPressed);
-		if (!yesWasJustPressed) {
+		if(!isSlotDescWindowOpen){
+		if (!yesWasJustPressed && !SlotMachineTextures.peru) {
 			if (Gdx.input.justTouched()
 					&& slot.sprite.getBoundingRectangle().contains(victor)
 					&& slotMachineTextures.notAnimating[0]
@@ -115,69 +123,12 @@ public class SlotMachineScreen extends AbstractGameScreen {
 			} else if (Gdx.input.justTouched()
 					&& slotMachineTextures.slotMachineWindowYes
 							.getBoundingRectangle().contains(victor)) {
-//				System.out.println("yes pressed");
-//				if (slot.selected) {
-//					if (slot instanceof Perks) {
-//						slot.execute(player);
-//						try {
-//							int i = slot.getClass().getField("level")
-//									.getInt(null);
-//							if (i < Max_slot_level) {
-//								i++;
-//								slot.getClass().getField("level")
-//										.setInt(null, i);
-//							}
-//						} catch (Exception e) {
-//						}
-//
-//					} else {
-//						TheController.skill = slot;
-////						slot.selected = false;
-//						try {
-//							int i = TheController.skill.getClass()
-//									.getField("level").getInt(null);
-//							if (i < Max_slot_level) {
-//								i++;
-//								TheController.skill.getClass()
-//										.getField("level").setInt(null, i);
-//							}
-//						} catch (Exception e) {
-//						}
-//					}
-//					SlotMachineTextures.peru = false;
-//					
-//					for (Slot s : savedSlots) {
-//						if (s.getClass().equals(slot.getClass())) {
-//							// DON"T TOUCH THIS!
-//							s.rewritten = true;
-//							slot.rewritten = true;
-//							s.state = State.SPAWNING;
-//							slot.state = State.SPAWNING;
-//							s.rewritten = true;
-//							s = slot;
-//						}
-//					}
-//					if (!slot.rewritten) {
-//						slot.state = State.ANIMATING;
-//						savedSlots.add(slot);
-//						// SlotMachineTextures.width = 146;
-//						// SlotMachineTextures.height = 146;
-//						// slot.position = new
-//						// Vector2(SlotMachineTextures.selectedSlot.sprite.getX(),
-//						// SlotMachineTextures.selectedSlot.sprite.getY());
-//					}else{
-//						slot.state = State.SPAWNING;
-//						slot.rewritten = true;
-//					}
-//					// ((Game)
-//					// Gdx.app.getApplicationListener()).setScreen(ScreenContainer.SS);
-//					yesWasJustPressed = true;
-//				}
-//			}
 	}}
 		}
+	}
 
 	private void selectSavedSlot(Slot slot) {
+		if(!isSlotDescWindowOpen){
 		if (slot.sprite.getBoundingRectangle().contains(victor)) {
 			if (!SlotMachineTextures.peru) {
 				SlotMachineTextures.peru = true;
@@ -208,6 +159,7 @@ public class SlotMachineScreen extends AbstractGameScreen {
 					yesWasJustPressed = false;
 				}
 			}
+		}
 		}
 	}
 
