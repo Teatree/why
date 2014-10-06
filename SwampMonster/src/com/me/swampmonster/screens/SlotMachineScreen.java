@@ -86,7 +86,10 @@ public class SlotMachineScreen extends AbstractGameScreen {
 			if (SlotMachineTextures.peru && !SlotMachineScreen.yesWasJustPressed) {
 				for(Slot s: slotMachineTextures.slots){
 					if(s.selected){
-						slotDescWindow = new SlotDescWindow("Slot description", slotMachineTextures.skin, s).show(stage);
+						slotDescWindow = new SlotDescWindow("Slot description", slotMachineTextures.skin, s);
+						stage.addActor(slotDescWindow);
+						slotDescWindow.setX(132);
+						slotDescWindow.setY(123);
 						SlotMachineTextures.peru = false;
 						isSlotDescWindowOpen = true;
 //						Gdx.input.setInputProcessor(null);
