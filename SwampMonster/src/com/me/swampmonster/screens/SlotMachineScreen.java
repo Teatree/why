@@ -90,6 +90,7 @@ public class SlotMachineScreen extends AbstractGameScreen {
 						stage.addActor(slotDescWindow);
 						slotDescWindow.setX(132);
 						slotDescWindow.setY(123);
+						slotDescWindow.setSize(350, 250);
 						SlotMachineTextures.peru = false;
 						isSlotDescWindowOpen = true;
 //						Gdx.input.setInputProcessor(null);

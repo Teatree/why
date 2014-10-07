@@ -16,6 +16,8 @@
 	    default: { titleFont: "default", background: "slotMachineWindow",  titleFontColor: red },
 	},
      "com.badlogic.gdx.scenes.scene2d.ui.ImageButton$ImageButtonStyle": { 
-        "default": { "up": "slotMachineWindowYES" , "down": "slotMachineWindowYES_pressed"}
+        "default": { "up": "slotMachineWindowYES" , "down": "slotMachineWindowYES_pressed"},
+        "yes": { "up": "slotMachineWindowYES" , "down": "slotMachineWindowYES_pressed"},
+        "no": { "up": "slotMachineWindowNO" , "down": "slotMachineWindowNO_pressed"}
     }
  }
