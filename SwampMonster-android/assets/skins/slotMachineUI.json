@@ -18,6 +18,8 @@
      "com.badlogic.gdx.scenes.scene2d.ui.ImageButton$ImageButtonStyle": { 
         "default": { "up": "slotMachineWindowYES" , "down": "slotMachineWindowYES_pressed"},
         "yes": { "up": "slotMachineWindowYES" , "down": "slotMachineWindowYES_pressed"},
-        "no": { "up": "slotMachineWindowNO" , "down": "slotMachineWindowNO_pressed"}
+        "no": { "up": "slotMachineWindowNO" , "down": "slotMachineWindowNO_pressed"},
+        "go": { "up": "goButton" , "down": "goButton_blocked", "checked": "goButton_blocked", "disabled": "goButton_blocked"},
+        "reroll": { "up": "slotMachineWindowYES" , "down": "slotMachineWindowYES_pressed", "disabled": "slotMachineWindowYES_pressed"}
     }
  }

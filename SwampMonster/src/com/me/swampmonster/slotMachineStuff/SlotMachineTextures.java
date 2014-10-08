@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
@@ -20,6 +21,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
@@ -27,9 +29,12 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener.ChangeEvent;
 import com.me.swampmonster.animations.AnimationControl;
 import com.me.swampmonster.game.TheController;
+import com.me.swampmonster.models.L1;
 import com.me.swampmonster.models.Player;
 import com.me.swampmonster.models.AbstractGameObject.State;
 import com.me.swampmonster.models.slots.ImproveArrowDamage;
@@ -42,6 +47,7 @@ import com.me.swampmonster.screens.SlotMachineScreen;
 import com.me.swampmonster.utils.Assets;
 import com.me.swampmonster.utils.Constants;
 import com.me.swampmonster.utils.GeneralUtils;
+import com.me.swampmonster.utils.ScreenContainer;
 import com.me.swampmonster.utils.SlotsGenerator;
 
 public class SlotMachineTextures extends Group {
@@ -53,8 +59,6 @@ public class SlotMachineTextures extends Group {
 	int slotPositionY = 174;
 	public Sprite slotMachineWindow;
 	public Sprite slotMachineWindowYes;
-	public Sprite rerollButton;
-	public Sprite goButton;
 	public Sprite slotMachineWindowNo;
 	public Sprite savedSlotBar;
 	public Sprite slotLevel1;
@@ -83,10 +87,38 @@ public class SlotMachineTextures extends Group {
 	
 	public Skin skin;
 	public ImageButton goButtonButton;
+	public ImageButton rerollButton;
 
 	public SlotMachineTextures(Player player) {
 		skin = new Skin(Gdx.files.internal("skins\\slotMachineUI.json"), new TextureAtlas(Gdx.files.internal("skins\\slotMachineUI.pack")));
-		goButtonButton = new ImageButton(skin);
+		goButtonButton = new ImageButton(skin, "go");
+		goButtonButton.addListener(new ChangeListener() {
+			@Override
+			public void changed(ChangeEvent event, Actor actor) {
+				Gdx.input.setInputProcessor(null);
+				selectedSlot = null;
+				((Game) Gdx.app.getApplicationListener()).setScreen(ScreenContainer.SS);
+			}
+		});
+		
+		goButtonButton.setDisabled(true);
+		SlotMachineScreen.stage.addActor(goButtonButton);
+		
+		rerollButton = new ImageButton(skin, "reroll");
+		rerollButton.addListener(new ChangeListener() {
+			@Override
+			public void changed(ChangeEvent event, Actor actor) {
+				generateSlots(L1.player);
+				SlotMachineScreen.yesWasJustPressed = false;
+				for (int i = 0; i < notAnimating.length; i++) {
+					notAnimating[i] = false;
+				}
+				animCounter = 0;
+			}
+		});
+		rerollButton.setSize(90, 90);
+		rerollButton.setPosition(Constants.VIEWPORT_GUI_WIDTH*0.45f, Constants.VIEWPORT_GUI_HEIGHT*0.18f);
+		SlotMachineScreen.stage.addActor(rerollButton);
 		
 		font = Assets.manager.get(Assets.font);
 		slotsGen = SlotsGenerator.getSlotGenerator();
@@ -94,8 +126,6 @@ public class SlotMachineTextures extends Group {
 		slotMachineWindow = new Sprite(Assets.manager.get(Assets.slotMachineWindow));
 		slotMachineWindowYes = new Sprite(Assets.manager.get(Assets.slotMachineWindowYes));
 		slotMachineWindowNo = new Sprite(Assets.manager.get(Assets.slotMachineWindowNo));
-		rerollButton = new Sprite(Assets.manager.get(Assets.slotMachineWindowYes));
-		goButton = new Sprite (Assets.manager.get(Assets.goButton));
 		selectedSavedSlotRectangle = new Sprite (Assets.manager.get(Assets.selectedSavedSlot));
 		savedSlotBar = new Sprite(Assets.manager.get(Assets.saveSlotBar));
 		
@@ -123,8 +153,6 @@ public class SlotMachineTextures extends Group {
 		no.height = slotMachineWindowNo.getHeight();
 		slots = new Slot[3];
 		
-		
-//		Gdx.input.setInputProcessor(SlotMachineScreen.stage);
 		generateSlots(player);
 	}
 
@@ -185,15 +213,11 @@ public class SlotMachineTextures extends Group {
 		timeCOutner++;
 		batch.draw(Assets.manager.get(Assets.slotMachineCase), 144, 112);
 		
-		rerollButton.setSize(90, 90);
-		rerollButton.setPosition(Constants.VIEWPORT_GUI_WIDTH*0.45f, Constants.VIEWPORT_GUI_HEIGHT*0.18f);
-		batch.draw(rerollButton, Constants.VIEWPORT_GUI_WIDTH*0.45f, Constants.VIEWPORT_GUI_HEIGHT*0.18f);
-		
 		batch.draw(savedSlotBar, 0, -26);
 		
-		goButton.setSize(100, 100);
-		goButton.setPosition(Constants.VIEWPORT_GUI_WIDTH*0.85f, Constants.VIEWPORT_GUI_HEIGHT*0.05f);
-		batch.draw(goButton, Constants.VIEWPORT_GUI_WIDTH*0.85f, Constants.VIEWPORT_GUI_HEIGHT*0.05f, goButton.getWidth(), goButton.getHeight());
+		goButtonButton.setSize(100, 100);
+		goButtonButton.setPosition(Constants.VIEWPORT_GUI_WIDTH*0.85f, Constants.VIEWPORT_GUI_HEIGHT*0.05f);
+		goButtonButton.draw(batch, 1);
 		
 		animantionCtlr.doComplexAnimation(0, 1f, Gdx.graphics.getDeltaTime(), Animation.NORMAL);
 		int i = 0;
@@ -284,7 +308,6 @@ public class SlotMachineTextures extends Group {
 				Oppa += 37;
 			}
 			if(s.selectedSaved){
-				System.out.println("yes savedselected");
 				batch.draw(selectedSavedSlotRectangle, s.sprite.getX(), s.sprite.getY());
 			}
 		}
@@ -301,6 +324,7 @@ public class SlotMachineTextures extends Group {
 					if(slot.selected && SlotMachineScreen.yesWasJustPressed){
 						s = new Sprite(slotLevelPic.get(slot.getClass()
 								.getField("level").getInt(null)-1));
+						rerollButton.setDisabled(true);
 					}else{
 						s = new Sprite(slotLevelPic.get(slot.getClass()
 								.getField("level").getInt(null)));
@@ -341,13 +365,14 @@ public class SlotMachineTextures extends Group {
 		sr.begin(ShapeType.Filled);
 		sr.setColor(0.5f, 0.5f, 0.5f, 0.5f);
 		if(SlotMachineScreen.yesWasJustPressed){
+			goButtonButton.setDisabled(false);
 			int ka = 0;
 			while(ka<3){
 				sr.rect(slotPositionsX[ka], slotPositionY, 146, 146);
 				ka++;
 			}
 		}else{
-			sr.rect(goButton.getX(), goButton.getY(), goButton.getWidth(), goButton.getHeight());
+			goButtonButton.setDisabled(true);
 		}
 		sr.end();
 		batch.begin();

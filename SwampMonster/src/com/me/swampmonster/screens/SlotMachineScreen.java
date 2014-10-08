@@ -11,11 +11,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.me.swampmonster.game.TheController;
-import com.me.swampmonster.models.AbstractGameObject.State;
 import com.me.swampmonster.models.slots.Perks;
 import com.me.swampmonster.models.slots.Slot;
 import com.me.swampmonster.slotMachineStuff.SlotDescWindow;
@@ -53,23 +49,16 @@ public class SlotMachineScreen extends AbstractGameScreen {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		victor = new Vector2(Gdx.input.getX(), Constants.VIEWPORT_HEIGHT
 				- Gdx.input.getY());
-		if (Gdx.input.justTouched()
-				&& slotMachineTextures.goButton.getBoundingRectangle()
-						.contains(victor) && yesWasJustPressed) {
-			slotMachineTextures.selectedSlot = null;
-			((Game) Gdx.app.getApplicationListener())
-					.setScreen(ScreenContainer.SS);
-		}
-		if (Gdx.input.justTouched()
-				&& slotMachineTextures.rerollButton.getBoundingRectangle()
-						.contains(victor) && !yesWasJustPressed && !isSlotDescWindowOpen) {
-			slotMachineTextures.generateSlots(player);
-			yesWasJustPressed = false;
-			for (int i = 0; i < slotMachineTextures.notAnimating.length; i++) {
-				slotMachineTextures.notAnimating[i] = false;
-			}
-			slotMachineTextures.animCounter = 0;
-		} else {
+//		if (Gdx.input.justTouched()
+//				&& slotMachineTextures.rerollButton.getBoundingRectangle()
+//						.contains(victor) && !yesWasJustPressed && !isSlotDescWindowOpen) {
+//			slotMachineTextures.generateSlots(player);
+//			yesWasJustPressed = false;
+//			for (int i = 0; i < slotMachineTextures.notAnimating.length; i++) {
+//				slotMachineTextures.notAnimating[i] = false;
+//			}
+//			slotMachineTextures.animCounter = 0;
+//		} else {
 			for (Slot slot : slotMachineTextures.slots) {
 				selectSlot(slot);
 			}
@@ -99,7 +88,7 @@ public class SlotMachineScreen extends AbstractGameScreen {
 				}
 				
 			}
-		}
+//		}
 	}
 
 	private void selectSlot(Slot slot) {
@@ -175,7 +164,6 @@ public class SlotMachineScreen extends AbstractGameScreen {
 	@Override
 	public void show() {
 //		stage.addActor(slotMachineTextures);
-		System.out.println("dum dum dum dum");
 		for(Actor a : stage.getActors()){
 			if(a instanceof SlotMachineTextures){
 				a.remove();
