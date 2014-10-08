@@ -8,9 +8,11 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.me.swampmonster.game.TheController;
 import com.me.swampmonster.models.slots.Perks;
 import com.me.swampmonster.models.slots.Slot;
@@ -71,15 +73,19 @@ public class SlotMachineScreen extends AbstractGameScreen {
 			
 			stage.act();
 			stage.draw();
+			Table.drawDebug(stage);
 			
 			if (SlotMachineTextures.peru && !SlotMachineScreen.yesWasJustPressed) {
 				for(Slot s: slotMachineTextures.slots){
 					if(s.selected){
 						slotDescWindow = new SlotDescWindow("Slot description", slotMachineTextures.skin, s);
 						stage.addActor(slotDescWindow);
-						slotDescWindow.setX(132);
-						slotDescWindow.setY(123);
-						slotDescWindow.setSize(350, 250);
+						slotDescWindow.debug();
+						slotDescWindow.getButtonTable().debug();
+						slotDescWindow.getContentTable().debug();
+						slotDescWindow.setSize(Constants.VIEWPORT_GUI_WIDTH/2f, Constants.VIEWPORT_GUI_HEIGHT/1.7f);
+						slotDescWindow.setX(Constants.VIEWPORT_GUI_WIDTH/2f-slotDescWindow.getWidth()/2);
+						slotDescWindow.setY(Constants.VIEWPORT_GUI_HEIGHT/2f-slotDescWindow.getHeight()/2);
 						SlotMachineTextures.peru = false;
 						isSlotDescWindowOpen = true;
 //						Gdx.input.setInputProcessor(null);
