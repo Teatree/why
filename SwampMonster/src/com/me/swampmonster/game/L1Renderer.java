@@ -10,6 +10,8 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.tiles.AnimatedTiledMapTile;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 import com.me.swampmonster.AI.Node;
 import com.me.swampmonster.models.AbstractGameObject.NegativeEffects;
 import com.me.swampmonster.models.AbstractGameObject.State;
@@ -27,6 +29,7 @@ import com.me.swampmonster.utils.Constants;
 
 public class L1Renderer {
 	private OrthographicCamera cam;
+	private ScreenViewport viewport;
 	private TheController theController;
 
 	// Temporary debug feature
@@ -50,14 +53,16 @@ public class L1Renderer {
 		this.theController = theController;
 		this.cam = new OrthographicCamera(Constants.VIEWPORT_WIDTH,
 				Constants.VIEWPORT_HEIGHT);
+		viewport = new ScreenViewport();
+		viewport.setScreenWidth((int) Constants.VIEWPORT_WIDTH);
+		viewport.setScreenHeight((int) Constants.VIEWPORT_HEIGHT);
 		// stage.setViewport(Constants.VIEWPORT_WIDTH, Constants.VIEWPORT_WIDTH,
 		// true);
 		// Temporary debug feature
 		// Pathfinder.setTiledMap(level1.bunker.getMap());
 		// temporary bedug feature
 		batch = new SpriteBatch();
-		stage = new Stage(Constants.VIEWPORT_WIDTH, Constants.VIEWPORT_HEIGHT,
-				false, batch);
+		stage = new Stage(viewport);
 		sr = new ShapeRenderer();
 		// System.out.println(TheController.level1);
 		mapRenderer = new OrthogonalTiledMapRenderer(
@@ -426,17 +431,15 @@ public class L1Renderer {
 					L1.player.turret.circle.radius);
 		}
 
-		for (Projectile p : L1.player.projectiles) {
-			if (p != null) {
-				sr.rect(p.position.x + p.sprite.getWidth() / 2, p.position.y
-						+ p.sprite.getHeight() / 2, 3, 3, 1, 1,
-						p.sprite.getRotation());
-				sr.setColor(Color.RED);
-				sr.rect(p.position.x - p.sprite.getRotation(), p.position.y
-						- p.sprite.getRotation(), 2, 2, 1, 1,
-						p.sprite.getRotation());
-			}
-		}
+//		for (Projectile p : L1.player.projectiles) {
+//			if (p != null) {
+//				sr.rect(p.position.x + p.sprite.getWidth() / 2, p.position.y+ p.sprite.getHeight() / 2, 3, 3, 1, 1,p.sprite.getRotation());
+//				sr.setColor(Color.RED);
+//				sr.rect(p.position.x - p.sprite.getRotation(), p.position.y
+//						- p.sprite.getRotation(), 2, 2, 1, 1,
+//						p.sprite.getRotation());
+//			}
+//		}
 		sr.setColor(Color.WHITE);
 		for (Projectile p : L1.player.projectiles) {
 			if (p != null) {
@@ -559,8 +562,7 @@ public class L1Renderer {
 	public void setSize(int width, int height) {
 		// this.width = width;
 		// this.height = height;
-		stage.setViewport(Constants.VIEWPORT_WIDTH,
-				Constants.VIEWPORT_GUI_HEIGHT, true);
+		stage.setViewport(viewport);
 		cam.viewportWidth = (Constants.VIEWPORT_HEIGHT / height) * width;
 		cam.update();
 	}

@@ -393,12 +393,12 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 			if (timeDead < 65) {
 				if(negativeEffectsState == NegativeEffects.STUN){
 					currentFrame = animations.get(State.ICECUBESDEAD).doComplexAnimation(136, 2f,
-							0.03f, Animation.NORMAL);
+							0.03f, Animation.PlayMode.NORMAL);
 					sprite.setRegion(animations.get(State.ICECUBESDEAD).getCurrentFrame());
 					System.out.println("YOU ARE STUNNEd!");
 				}else{
 					currentFrame = animations.get(state).doComplexAnimation(96, 2f,
-							0.03f, Animation.NORMAL);
+							0.03f, Animation.PlayMode.NORMAL);
 					sprite.setRegion(animations.get(state).getCurrentFrame());
 				}
 
@@ -613,7 +613,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 				// System.out.println("timer1: " + timer);
 				currentFrame = animationsStandard.get(state)
 						.doComplexAnimation(animation, 1.8f,
-								Gdx.graphics.getDeltaTime(), Animation.NORMAL);
+								Gdx.graphics.getDeltaTime(), Animation.PlayMode.NORMAL);
 
 				sprite.setRegion(animationsStandard.get(state)
 						.getCurrentFrame());
@@ -658,7 +658,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 				// // System.out.println("timer1: " + timer);
 				currentFrame = animationsStandard.get(state)
 						.doComplexAnimation(animation, 1.8f,
-								Gdx.graphics.getDeltaTime(), Animation.NORMAL);
+								Gdx.graphics.getDeltaTime(), Animation.PlayMode.NORMAL);
 				
 				sprite.setRegion(animationsStandard.get(state)
 						.getCurrentFrame());
@@ -996,7 +996,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 			// // System.out.println("supposed to be animating... Right");
 			currentFrame = animationsStandard.get(State.STANDARD)
 					.doComplexAnimation(112, 0.6f,
-							Gdx.graphics.getDeltaTime() / 2, Animation.NORMAL);
+							Gdx.graphics.getDeltaTime() / 2, Animation.PlayMode.NORMAL);
 			sprite.setRegion(animationsStandard.get(state).getCurrentFrame());
 			sprite.setBounds(sprite.getX(), sprite.getY(), 32, 32);
 
@@ -1011,7 +1011,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 			// // System.out.println("supposed to be animating... Left");
 			currentFrame = animationsStandard.get(State.STANDARD)
 					.doComplexAnimation(108, 0.6f,
-							Gdx.graphics.getDeltaTime() / 2, Animation.NORMAL);
+							Gdx.graphics.getDeltaTime() / 2, Animation.PlayMode.NORMAL);
 
 			sprite.setRegion(animationsStandard.get(state).getCurrentFrame());
 			sprite.setBounds(sprite.getX(), sprite.getY(), 32, 32);
@@ -1025,7 +1025,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 		if (projectileLocation == "bottom" && collidableUp == null) {
 			currentFrame = animationsStandard.get(State.STANDARD)
 					.doComplexAnimation(104, 0.6f,
-							Gdx.graphics.getDeltaTime() / 2, Animation.NORMAL);
+							Gdx.graphics.getDeltaTime() / 2, Animation.PlayMode.NORMAL);
 
 			sprite.setRegion(animationsStandard.get(state).getCurrentFrame());
 			sprite.setBounds(sprite.getX(), sprite.getY(), 32, 32);
@@ -1041,7 +1041,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 			// // System.out.println("supposed to be animating... Top");
 			currentFrame = animationsStandard.get(State.STANDARD)
 					.doComplexAnimation(116, 0.6f,
-							Gdx.graphics.getDeltaTime() / 2, Animation.NORMAL);
+							Gdx.graphics.getDeltaTime() / 2, Animation.PlayMode.NORMAL);
 
 			sprite.setRegion(animationsStandard.get(state).getCurrentFrame());
 			sprite.setBounds(sprite.getX(), sprite.getY(), 32, 32);

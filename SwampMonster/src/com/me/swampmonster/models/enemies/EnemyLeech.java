@@ -38,7 +38,7 @@ public class EnemyLeech extends Enemy{
 				currentFrame = animationsStandard.get(state).animate(standing);
 			}
 			if(timer2 >= attackSpeed && timer < 30){
-				currentFrame = animationsStandard.get(state).doComplexAnimation(animation, 1.8f, Gdx.graphics.getDeltaTime(), Animation.NORMAL);
+				currentFrame = animationsStandard.get(state).doComplexAnimation(animation, 1.8f, Gdx.graphics.getDeltaTime(), Animation.PlayMode.NORMAL);
 				
 				sprite.setRegion(animationsStandard.get(state).getCurrentFrame());
 				sprite.setBounds(sprite.getX(), sprite.getY(), 32, 32);

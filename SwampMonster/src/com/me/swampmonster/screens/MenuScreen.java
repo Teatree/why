@@ -132,7 +132,7 @@ public class MenuScreen extends AbstractGameScreen{
 		
 	    table.add(exitButton).size(150,60).padBottom(20).row().right();
 
-		table.add(soundButton).size(64,64).padBottom(50).free();
+		table.add(soundButton).size(64,64).padBottom(50);
 	    table.setFillParent(true);
 	    stage.addActor(table);
 

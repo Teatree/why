@@ -13,6 +13,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -207,8 +208,11 @@ public class SlotMachineTextures extends Group {
 			GeneralUtils.shuffle(slots);
 	}
 
+	
+	
 	@Override
-	public void draw(SpriteBatch batch, float parentAlpha) {
+	public void draw(Batch batch, float parentAlpha) {
+
 		super.draw(batch, parentAlpha);
 		timeCOutner++;
 		batch.draw(Assets.manager.get(Assets.slotMachineCase), 144, 112);
@@ -219,7 +223,7 @@ public class SlotMachineTextures extends Group {
 		goButtonButton.setPosition(Constants.VIEWPORT_GUI_WIDTH*0.85f, Constants.VIEWPORT_GUI_HEIGHT*0.05f);
 		goButtonButton.draw(batch, 1);
 		
-		animantionCtlr.doComplexAnimation(0, 1f, Gdx.graphics.getDeltaTime(), Animation.NORMAL);
+		animantionCtlr.doComplexAnimation(0, 1f, Gdx.graphics.getDeltaTime(), Animation.PlayMode.NORMAL);
 		int i = 0;
 		
 		Collections.sort(SlotMachineScreen.savedSlots, new Comparator<Slot>() {
@@ -377,7 +381,7 @@ public class SlotMachineTextures extends Group {
 		sr.end();
 		batch.begin();
 	}
-	
+
 	// Method to be used whenever the slot Machine page is to be loaded.
 	private static SlotMachineTextures smt;
 	

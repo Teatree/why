@@ -3,6 +3,7 @@ package com.me.swampmonster.animations;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
 
@@ -77,7 +78,7 @@ public class AnimationControl {
 	//Does a complex animation...
 	//Comparator is to adjust the time spent moving forward in the array, standard = 1f;
 	//Adjusts the speed at which the frames are changing, standard = approximately 0.016f;
-	public TextureRegion doComplexAnimation(int i, float Comparator, float speedAdjust, int playType){
+	public TextureRegion doComplexAnimation(int i, float Comparator, float speedAdjust, PlayMode playType){
 		if (stateTimeDoComplex < Comparator) {
 			stateTimeDoComplex += speedAdjust;
 //			System.out.println(Comparator);

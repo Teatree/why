@@ -3,6 +3,7 @@ package com.me.swampmonster.models;
 import java.util.Random;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
@@ -52,7 +53,7 @@ public abstract class Item extends AbstractGameObject{
 
 			if (pendingTimer > 180) {
 				if(animTimer2<32){
-					currentFrame = doItemAnimation(0, 0.9f, 0.03f, Animation.NORMAL);
+					currentFrame = doItemAnimation(0, 0.9f, 0.03f, Animation.PlayMode.NORMAL);
 					animTimer2++;
 				}else if(animTimer2==32){
 					animTimer2=0;
@@ -78,7 +79,7 @@ public abstract class Item extends AbstractGameObject{
 			} else {
 				state = State.STANDARD;
 			}
-			currentFrame = doItemAnimation(0, 0.9f, 0.03f, Animation.NORMAL);
+			currentFrame = doItemAnimation(0, 0.9f, 0.03f, Animation.PlayMode.NORMAL);
 		}
 		
 		sprite = new Sprite(new TextureRegion(currentFrame));
@@ -101,8 +102,8 @@ public abstract class Item extends AbstractGameObject{
 		
 	}
 	
-	private TextureRegion doItemAnimation(int i, float Comparator, float speedAdjust, int playMode){
-			return animationsStandard.get(state).doComplexAnimation(i, Comparator, speedAdjust, playMode);
+	private TextureRegion doItemAnimation(int i, float Comparator, float speedAdjust, PlayMode normal){
+			return animationsStandard.get(state).doComplexAnimation(i, Comparator, speedAdjust, normal);
 	}
 	
 	public abstract void pickMeUp(Player player);

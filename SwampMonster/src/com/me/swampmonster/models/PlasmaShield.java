@@ -44,11 +44,11 @@ public class PlasmaShield extends AbstractGameObject{
 		}
 		
 		if(state == State.SPAWNING){
-			animControl.doComplexAnimation(0, 1f, 0.02f, Animation.NORMAL);
+			animControl.doComplexAnimation(0, 1f, 0.02f, Animation.PlayMode.NORMAL);
 			sprite.setRegion(animControl.getCurrentFrame());
 		}
 		if(state == State.STANDARD){
-			animControl.doComplexAnimation(6, 1f, 0.02f, Animation.NORMAL);
+			animControl.doComplexAnimation(6, 1f, 0.02f, Animation.PlayMode.NORMAL);
 			sprite.setRegion(animControl.getCurrentFrame());
 		}
 	}

@@ -35,6 +35,7 @@ import com.me.swampmonster.utils.CameraHelper;
 import com.me.swampmonster.utils.LGenerator;
 import com.me.swampmonster.utils.ScreenContainer;
 
+
 public class TheController extends InputAdapter {
 	public CameraHelper cameraHelper;
 	public L1Renderer l1Renderer; // I am bad, and shouldn't be here

@@ -3,6 +3,7 @@ package com.me.swampmonster.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -59,8 +60,8 @@ public class GShape extends Group {
 	
 	
 	@Override
-	public void draw(SpriteBatch batch, float parentAlpha) {
-		super.draw(batch, parentAlpha);
+	public void draw(Batch batch, float parentAlpha) {
+	super.draw(batch, parentAlpha);
 		
 		font = Assets.manager.get(Assets.font);
 		
@@ -442,6 +443,7 @@ public class GShape extends Group {
 		
 		batch.begin();
 	}
+
 
 	public void warningFlicker(ShapeRenderer Sr) {
 		if (timer >= 42) {

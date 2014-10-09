@@ -7,7 +7,7 @@ public class SwampMonsterDesktop {
 	public static void main(String[] args) {
 		LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
 		cfg.title = "SwampMonster";
-		cfg.useGL20 = false;
+		cfg.useGL30 = false;
 		cfg.width = 800;
 		cfg.height = 480;
 		

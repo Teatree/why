@@ -471,7 +471,7 @@ public class Player extends AbstractGameObject {
 				setPositiveEffect(PositiveEffects.NONE);
 			}
 			currentFrame = animationsStandard.get(state).doComplexAnimation(32,
-					0.5f, 0.001f, Animation.NORMAL);
+					0.5f, 0.001f, Animation.PlayMode.NORMAL);
 			sprite.setRegion(animationsStandard.get(state).getCurrentFrame());
 			sprite.setBounds(sprite.getX(), sprite.getY(), 32, 32);
 
@@ -562,7 +562,7 @@ public class Player extends AbstractGameObject {
 	private void dying() {
 		if (timeDead < 89) {
 			currentFrame = animationsStandard.get(state).doComplexAnimation(
-					112, 1.6f, 0.018f, Animation.NORMAL);
+					112, 1.6f, 0.018f, Animation.PlayMode.NORMAL);
 			sprite.setRegion(animationsStandard.get(state).getCurrentFrame());
 			sprite.setBounds(sprite.getX(), sprite.getY(), 32, 32);
 			timeDead++;
@@ -630,7 +630,7 @@ public class Player extends AbstractGameObject {
 
 		if (!aiming) {
 			currentFrame = animationsStandard.get(state).doComplexAnimation(0,
-					0.5f, Gdx.graphics.getDeltaTime(), Animation.NORMAL);
+					0.5f, Gdx.graphics.getDeltaTime(), Animation.PlayMode.NORMAL);
 			aimingAuraSprite.setRegion(aimingAuraFrames[0][0]);
 		}
 
@@ -648,18 +648,18 @@ public class Player extends AbstractGameObject {
 				&& V3point.x > position.x) {
 
 			currentFrame = animationsStandard.get(state).doComplexAnimation(24,
-					0.5f, Gdx.graphics.getDeltaTime(), Animation.NORMAL);
+					0.5f, Gdx.graphics.getDeltaTime(), Animation.PlayMode.NORMAL);
 		} else if (aiming && V3point.y < position.y + 8
 				&& V3point.x < position.x + 32 && V3point.x > position.x) {
 			currentFrame = animationsStandard.get(state).doComplexAnimation(0,
-					0.5f, Gdx.graphics.getDeltaTime(), Animation.NORMAL);
+					0.5f, Gdx.graphics.getDeltaTime(), Animation.PlayMode.NORMAL);
 		}
 		if (aiming && V3point.x < position.x) {
 			currentFrame = animationsStandard.get(state).doComplexAnimation(8,
-					0.5f, Gdx.graphics.getDeltaTime(), Animation.NORMAL);
+					0.5f, Gdx.graphics.getDeltaTime(), Animation.PlayMode.NORMAL);
 		} else if (aiming && V3point.x > position.x + 32) {
 			currentFrame = animationsStandard.get(state).doComplexAnimation(16,
-					0.5f, Gdx.graphics.getDeltaTime(), Animation.NORMAL);
+					0.5f, Gdx.graphics.getDeltaTime(), Animation.PlayMode.NORMAL);
 		}
 
 		if (!Gdx.input.isTouched() && aiming) {
@@ -815,7 +815,7 @@ public class Player extends AbstractGameObject {
 		if (enemy.playerMovementDirection == "right" && collidableUp == null) {
 			currentFrame = animationsStandard.get(State.STANDARD)
 					.doComplexAnimation(108, 0.2f,
-							Gdx.graphics.getDeltaTime() / 2, Animation.NORMAL);
+							Gdx.graphics.getDeltaTime() / 2, Animation.PlayMode.NORMAL);
 
 			sprite.setRegion(animationsStandard.get(state).getCurrentFrame());
 			sprite.setBounds(sprite.getX(), sprite.getY(), 32, 32);
@@ -830,7 +830,7 @@ public class Player extends AbstractGameObject {
 		if (enemy.playerMovementDirection == "left" && collidableUp == null) {
 			currentFrame = animationsStandard.get(State.STANDARD)
 					.doComplexAnimation(106, 0.2f,
-							Gdx.graphics.getDeltaTime() / 2, Animation.NORMAL);
+							Gdx.graphics.getDeltaTime() / 2, Animation.PlayMode.NORMAL);
 
 			sprite.setRegion(animationsStandard.get(state).getCurrentFrame());
 			sprite.setBounds(sprite.getX(), sprite.getY(), 32, 32);
@@ -845,7 +845,7 @@ public class Player extends AbstractGameObject {
 		if (enemy.playerMovementDirection == "down" && collidableUp == null) {
 			currentFrame = animationsStandard.get(State.STANDARD)
 					.doComplexAnimation(110, 0.2f,
-							Gdx.graphics.getDeltaTime() / 2, Animation.NORMAL);
+							Gdx.graphics.getDeltaTime() / 2, Animation.PlayMode.NORMAL);
 
 			sprite.setRegion(animationsStandard.get(state).getCurrentFrame());
 			sprite.setBounds(sprite.getX(), sprite.getY(), 32, 32);
@@ -860,7 +860,7 @@ public class Player extends AbstractGameObject {
 		if (enemy.playerMovementDirection == "up" && collidableUp == null) {
 			currentFrame = animationsStandard.get(State.STANDARD)
 					.doComplexAnimation(104, 0.2f,
-							Gdx.graphics.getDeltaTime() / 2, Animation.NORMAL);
+							Gdx.graphics.getDeltaTime() / 2, Animation.PlayMode.NORMAL);
 
 			sprite.setRegion(animationsStandard.get(state).getCurrentFrame());
 			sprite.setBounds(sprite.getX(), sprite.getY(), 32, 32);

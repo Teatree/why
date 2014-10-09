@@ -8,11 +8,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 import com.me.swampmonster.game.TheController;
 import com.me.swampmonster.models.slots.Perks;
 import com.me.swampmonster.models.slots.Slot;
@@ -32,14 +33,16 @@ public class SlotMachineScreen extends AbstractGameScreen {
 	public Dialog slotDescWindow;
 	public static boolean isSlotDescWindowOpen;
 //	public static boolean rewritenSlot = false;
+	private ScreenViewport viewport;
 
 	public SlotMachineScreen(Game game) {
 		super(game);
 		savedSlots = new ArrayList<Slot>();
-
+		viewport = new ScreenViewport();
+		viewport.setScreenWidth((int) Constants.VIEWPORT_WIDTH);
+		viewport.setScreenHeight((int) Constants.VIEWPORT_HEIGHT);
 		batch = new SpriteBatch();
-		stage = new Stage(Constants.VIEWPORT_WIDTH, Constants.VIEWPORT_HEIGHT,
-				true, batch);
+		stage = new Stage(viewport, batch);
 		slotMachineTextures = new SlotMachineTextures(player);
 		stage.addActor(slotMachineTextures);
 //		Gdx.input.setInputProcessor(stage);
@@ -73,7 +76,7 @@ public class SlotMachineScreen extends AbstractGameScreen {
 			
 			stage.act();
 			stage.draw();
-			Table.drawDebug(stage);
+//			Table.drawDebug(stage);
 			
 			if (SlotMachineTextures.peru && !SlotMachineScreen.yesWasJustPressed) {
 				for(Slot s: slotMachineTextures.slots){

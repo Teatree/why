@@ -11,7 +11,7 @@ public class SwampMonsterAndroid extends AndroidApplication {
         super.onCreate(savedInstanceState);
         
         AndroidApplicationConfiguration cfg = new AndroidApplicationConfiguration();
-        cfg.useGL20 = true;
+        cfg.useGL30 = true;
 //        MainSwamp mainSwamp = new MainSwamp();
 //        ScreenContainer.game = mainSwamp;
         initialize(new MainSwamp(), cfg);

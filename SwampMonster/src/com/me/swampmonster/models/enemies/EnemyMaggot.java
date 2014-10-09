@@ -97,7 +97,7 @@ public class EnemyMaggot extends Enemy {
 			if (prepareChargeCoutner > 0 && !charging && state != State.DEAD){
 				preparingToCharge = true;
 				prepareChargeCoutner--;
-				currentFrame = animationsStandard.get(state).doComplexAnimation(120, 1.4f,Gdx.graphics.getDeltaTime(), Animation.NORMAL);
+				currentFrame = animationsStandard.get(state).doComplexAnimation(120, 1.4f,Gdx.graphics.getDeltaTime(), Animation.PlayMode.NORMAL);
 				
 				if (aimerBot.x > player.getPosition().x - 4
 						|| aimerBot.x < player.getPosition().x - 10

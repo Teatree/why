@@ -28,7 +28,7 @@ public class SlotDescWindow extends Dialog {
 	public SlotDescWindow(String title, Skin skin, final Slot slot) {
 		super(title, skin);
 		this.slot = slot;
-		fadeDuration = 0;
+//		fadeDuration = 0;
 		image = new Image(slot.sprite.getTexture());
 		ImageButton yesButton = new ImageButton(skin, "yes");
 		ImageButton noButton = new ImageButton(skin, "no");
