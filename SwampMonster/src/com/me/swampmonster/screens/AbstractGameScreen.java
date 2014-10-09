@@ -9,7 +9,6 @@ import com.me.swampmonster.utils.SaveManager;
 public abstract class AbstractGameScreen implements Screen {
 	protected Game game;
 	public Player player;
-
 	
 	public AbstractGameScreen(Game game){
 		this.game = game;

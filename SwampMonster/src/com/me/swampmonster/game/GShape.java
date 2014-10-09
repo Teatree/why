@@ -1,5 +1,6 @@
 package com.me.swampmonster.game;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
@@ -7,11 +8,21 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener.ChangeEvent;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.me.swampmonster.GUI.GUI;
 import com.me.swampmonster.models.AbstractGameObject.NegativeEffects;
 import com.me.swampmonster.models.AbstractGameObject.State;
 import com.me.swampmonster.models.L1;
@@ -19,10 +30,12 @@ import com.me.swampmonster.models.Player;
 import com.me.swampmonster.models.TutorialLevel;
 import com.me.swampmonster.models.slots.Perks;
 import com.me.swampmonster.models.slots.PositiveEffects;
+import com.me.swampmonster.screens.AbstractGameScreen;
 import com.me.swampmonster.slotMachineStuff.SlotMachineTextures;
 import com.me.swampmonster.utils.Assets;
 import com.me.swampmonster.utils.Constants;
 import com.me.swampmonster.utils.LGenerator;
+import com.me.swampmonster.utils.ScreenContainer;
 
 public class GShape extends Group {
 	
@@ -46,9 +59,38 @@ public class GShape extends Group {
 	public Sprite gotoMenu;
 	public Sprite backToGame;
 	
+	public ImageButton slotMachineButton;
+	
 	public GShape(TheController theController) {
 		super();
 		sr = new ShapeRenderer();
+		Skin skin = new Skin(Gdx.files.internal("skins\\slotMachineUI.json"), new TextureAtlas(Gdx.files.internal("skins\\slotMachineUI.pack")));
+		slotMachineButton = new ImageButton(skin, "yes");
+		slotMachineButton.debug();
+		slotMachineButton.addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				System.out.println("yes you pressed me");
+//				Gdx.input.setInputProcessor(null);
+
+				AbstractGameScreen sl;
+				if (TheController.germany && L1.player.state == State.DEAD){
+					sl = ScreenContainer.SS;
+					TheController.gui = new GUI(L1.player);
+//					reloadLevel(L1.player);
+				} else {
+					TheController.gui = new GUI(L1.player);
+					ScreenContainer.SMS.yesWasJustPressed = false;
+					SlotMachineTextures.peru = false;
+					sl = ScreenContainer.SMS;
+				}
+				sl.player = L1.player;
+				TheController.germany = false;
+				TheController.paused = false;
+				((Game) Gdx.app.getApplicationListener()).setScreen(sl);
+			}
+		});
+		L1Renderer.stage.addActor(slotMachineButton);
 		this.theController = theController;
 		waveNotificationAnimationCounter = 240;
 		feedbackWindow = new Sprite(Assets.manager.get(Assets.slotMachineWindow));
@@ -63,6 +105,11 @@ public class GShape extends Group {
 	public void draw(Batch batch, float parentAlpha) {
 	super.draw(batch, parentAlpha);
 		
+	slotMachineButton.setX(720);
+	slotMachineButton.setY(370);
+	slotMachineButton.setWidth(64);
+	slotMachineButton.setHeight(64);
+	
 		font = Assets.manager.get(Assets.font);
 		
 		str = "points: " + Player.levelsScore;
@@ -211,8 +258,6 @@ public class GShape extends Group {
 					TheController.gui.getGameoverGUI().circle.y,
 					TheController.gui.getGameoverGUI().circle.radius);
 		}
-		sr.rect(TheController.debugRect.x, TheController.debugRect.y,
-				TheController.debugRect.width, TheController.debugRect.height);
 
 		sr.end();
 			

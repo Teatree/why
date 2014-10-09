@@ -33,6 +33,7 @@ public class SlotDescWindow extends Dialog {
 		ImageButton yesButton = new ImageButton(skin, "yes");
 		ImageButton noButton = new ImageButton(skin, "no");
 		Label text = new Label(slot.getDescription()+"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", skin);
+		Label text3 = new Label("someDAY!", skin);
 		Label text2 = new Label(slot.getDescription(), skin);
 		text.setWrap(true);
 		
@@ -46,13 +47,15 @@ public class SlotDescWindow extends Dialog {
 		getButtonTable().getCell(noButton).padLeft(this.getWidth());
 //		getButtonTable().getCell(noButton).padLeft(this.getWidth()-image.getWidth());
 		row();
-		getContentTable().add(image).size(100);
-		getContentTable().left();
-		getContentTable().top();
-		columnDefaults(2);
-		getContentTable().add(text2).size(230, 25).padTop(1);
+		getContentTable().add(image).size(100).left();
+//		getContentTable().left();
+//		getContentTable().top();
+		getContentTable().add(text2).left().top();
+		
+//		columnDefaults(3);
 		getContentTable().row();
-		getContentTable().add(text).size(230,100).padTop(10);
+		getContentTable().add(text3).top();
+		getContentTable().add(text).expand().top();
 
 	}
 

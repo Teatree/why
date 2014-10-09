@@ -41,7 +41,7 @@ public class L1Renderer {
 	private OrthogonalTiledMapRenderer mapRenderer;
 	private int timer;
 
-	private Stage stage;
+	public static Stage stage;
 	private GShape gshape;
 
 	private int[] background = { 0 };
@@ -62,7 +62,7 @@ public class L1Renderer {
 		// Pathfinder.setTiledMap(level1.bunker.getMap());
 		// temporary bedug feature
 		batch = new SpriteBatch();
-		stage = new Stage(viewport);
+		stage = new Stage(viewport, batch);
 		sr = new ShapeRenderer();
 		// System.out.println(TheController.level1);
 		mapRenderer = new OrthogonalTiledMapRenderer(
@@ -70,6 +70,7 @@ public class L1Renderer {
 
 		gshape = new GShape(theController);
 		stage.addActor(gshape);
+		Gdx.input.setInputProcessor(stage);
 
 		timer = 60;
 
@@ -89,8 +90,6 @@ public class L1Renderer {
 		theController.cameraHelper.applyTo(cam);
 
 		AnimatedTiledMapTile.updateAnimationBaseTime();
-
-		stage.act();
 
 		// cam.unproject(theController.touchPos);
 		// // System.out.println("MY X IS: " + theController.touchPos.x +
@@ -542,6 +541,7 @@ public class L1Renderer {
 			}
 		}
 		batch.end();
+		stage.act();
 		stage.draw();
 	}
 

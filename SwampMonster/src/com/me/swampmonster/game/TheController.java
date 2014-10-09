@@ -64,7 +64,6 @@ public class TheController extends InputAdapter {
 	// temp
 	public boolean restart;
 	public boolean NalreadyPressed = false;
-	public static Rectangle debugRect;
 	public Rectangle pointRectV3;
 	public Rectangle pointRect;
 	// temp
@@ -115,11 +114,6 @@ public class TheController extends InputAdapter {
 		timer3hurt = 0;
 
 		// debug feature!!!
-		debugRect = new Rectangle();
-		debugRect.x = 780;
-		debugRect.y = 370;
-		debugRect.width = 20;
-		debugRect.height = 20;
 
 		pointRectV3 = new Rectangle();
 		pointRectV3.width = 1;
@@ -180,7 +174,7 @@ public class TheController extends InputAdapter {
 				+ L1.player.circle.radius / 2;
 		V3playerPos.z = 0;
 		
-		if (Gdx.input.justTouched() && Intersector.overlaps(debugRect, pointRect) || germany) {
+		if (germany) {
 			AbstractGameScreen sl;
 			if (germany && L1.player.state == State.DEAD){
 				sl = ScreenContainer.SS;
