@@ -2,25 +2,24 @@ package com.me.swampmonster.game;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener.ChangeEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.me.swampmonster.GUI.GUI;
 import com.me.swampmonster.models.AbstractGameObject.NegativeEffects;
@@ -55,9 +54,10 @@ public class GShape extends Group {
 	public Sprite feedbackWindow;
 	public Sprite feedbackWindowYes;
 	
-	public Sprite exitMessageWindow;
-	public Sprite gotoMenu;
-	public Sprite backToGame;
+//	public Sprite exitMessageWindow;
+	public Dialog exitDialog;
+//	public Sprite gotoMenu;
+//	public Sprite backToGame;
 	
 	public ImageButton slotMachineButton;
 	
@@ -95,9 +95,10 @@ public class GShape extends Group {
 		waveNotificationAnimationCounter = 240;
 		feedbackWindow = new Sprite(Assets.manager.get(Assets.slotMachineWindow));
 		feedbackWindowYes = new Sprite(Assets.manager.get(Assets.slotMachineWindowYes));
-		exitMessageWindow = new Sprite(Assets.manager.get(Assets.exitMessageWindow));
-		gotoMenu = new Sprite(Assets.manager.get(Assets.slotMachineWindowYes));
-		backToGame = new Sprite(Assets.manager.get(Assets.slotMachineWindowNo));
+//		exitMessageWindow = new Sprite(Assets.manager.get(Assets.exitMessageWindow));
+		exitDialog = new ExitDialog("", skin);
+//		gotoMenu = new Sprite(Assets.manager.get(Assets.slotMachineWindowYes));
+//		backToGame = new Sprite(Assets.manager.get(Assets.slotMachineWindowNo));
 	}
 	
 	
@@ -418,40 +419,42 @@ public class GShape extends Group {
 		
 		batch.begin();
 		if (TheController.paused){
-			exitMessageWindow.setSize(Constants.VIEWPORT_WIDTH/2.1f, Constants.VIEWPORT_HEIGHT/1.4f);
-			exitMessageWindow.setPosition(Constants.VIEWPORT_WIDTH/4f, Constants.VIEWPORT_HEIGHT/5f);
-			exitMessageWindow.draw(batch);
-			font.setColor(Color.RED);
-			font.draw(batch, Constants.EXIT_MESSAGE, exitMessageWindow.getBoundingRectangle().x+20, exitMessageWindow.getBoundingRectangle().y+280);
+//			exitMessageWindow.setSize(Constants.VIEWPORT_WIDTH/2.1f, Constants.VIEWPORT_HEIGHT/1.4f);
+//			exitMessageWindow.setPosition(Constants.VIEWPORT_WIDTH/4f, Constants.VIEWPORT_HEIGHT/5f);
+//			exitMessageWindow.draw(batch);
+//			font.setColor(Color.RED);
+//			font.draw(batch, Constants.EXIT_MESSAGE, exitMessageWindow.getBoundingRectangle().x+20, exitMessageWindow.getBoundingRectangle().y+280);
 			
-			gotoMenu.setPosition(exitMessageWindow.getBoundingRectangle().x+90, exitMessageWindow.getBoundingRectangle().y+20);
-			gotoMenu.draw(batch);
+//			gotoMenu.setPosition(exitMessageWindow.getBoundingRectangle().x+90, exitMessageWindow.getBoundingRectangle().y+20);
+//			gotoMenu.draw(batch);
 			
 			
-			backToGame.setPosition(exitMessageWindow.getBoundingRectangle().x+290, exitMessageWindow.getBoundingRectangle().y+20);
-			backToGame.draw(batch);
+//			backToGame.setPosition(exitMessageWindow.getBoundingRectangle().x+290, exitMessageWindow.getBoundingRectangle().y+20);
+//			backToGame.draw(batch);
 			
 			Vector2 victor2 = new Vector2(Gdx.input.getX(), Constants.VIEWPORT_HEIGHT - Gdx.input.getY());
 			
-			if (Gdx.input.justTouched()
-					&& gotoMenu.getBoundingRectangle().contains(victor2)){
-				TheController.gotoMenu = true;
-				TheController.paused = false;
-			}
-			if (Gdx.input.justTouched()
-					&& backToGame.getBoundingRectangle().contains(victor2)){
-				TheController.gotoMenu = false;
-				TheController.paused = false;
-			}
-			
+//			if (Gdx.input.justTouched()
+//					&& gotoMenu.getBoundingRectangle().contains(victor2)){
+//				TheController.gotoMenu = true;
+//				TheController.paused = false;
+//			}
+//			if (Gdx.input.justTouched()
+//					&& backToGame.getBoundingRectangle().contains(victor2)){
+//				TheController.gotoMenu = false;
+//				TheController.paused = false;
+//			}
+//			
 		}
 		if(TutorialLevel.aFingure != null){
 			batch.draw(TutorialLevel.aFingure, TutorialLevel.aFingure.getX(), TutorialLevel.aFingure.getY(), TutorialLevel.aFingure.getWidth(), TutorialLevel.aFingure.getHeight());
 		}
 		
-//		if ((Gdx.input.isKeyPressed(Keys.BACK) || Gdx.input.isKeyPressed(Keys.ESCAPE))&& TheController.showExitMessage){
+		if ((Gdx.input.isKeyPressed(Keys.BACK) || Gdx.input.isKeyPressed(Keys.ESCAPE))/*&& TheController.showExitMessage*/){
 //			TheController.showExitMessage = false;
-//		} 
+			exitDialog.setPosition(Constants.VIEWPORT_WIDTH/2 - exitDialog.getWidth()/2, Constants.VIEWPORT_HEIGHT/2 - exitDialog.getHeight()/2);
+			L1Renderer.stage.addActor(exitDialog);
+		} 
 		batch.end();
 		
 		sr.begin(ShapeType.Filled);
@@ -483,9 +486,7 @@ public class GShape extends Group {
 			}
 			
 		}
-		
 		batch.end();
-		
 		batch.begin();
 	}
 
@@ -500,5 +501,31 @@ public class GShape extends Group {
 		} else if (timer <= 1) {
 			timer = 60;
 		}
+	}
+	
+	public class ExitDialog extends Dialog {
+
+		public ExitDialog(String title, Skin skin) {
+			super(title, skin);
+			Label message = new Label("why?", skin);
+			message.setWrap(true);
+			getContentTable().add(message).center();
+			ImageButton yes = new ImageButton(skin, "yes");
+			button(yes, "penis");
+			ImageButton no = new ImageButton(skin, "no");
+			button(no, "poop");
+		}
+
+		@Override
+		protected void result(Object object) {
+			if (object.equals("penis")){
+				TheController.gotoMenu = true;
+				TheController.paused = false;
+			} else if (object.equals("poop")) {
+				TheController.gotoMenu = false;
+				TheController.paused = false;
+			}
+		}
+		
 	}
 }
