@@ -125,6 +125,7 @@ public class SlotMachineTextures extends Group {
 		font = Assets.manager.get(Assets.font);
 		slotsGen = SlotsGenerator.getSlotGenerator();
 		
+		// do you still need this?
 		slotMachineWindow = new Sprite(Assets.manager.get(Assets.slotMachineWindow));
 		slotMachineWindowYes = new Sprite(Assets.manager.get(Assets.slotMachineWindowYes));
 		slotMachineWindowNo = new Sprite(Assets.manager.get(Assets.slotMachineWindowNo));
@@ -218,11 +219,13 @@ public class SlotMachineTextures extends Group {
 		timeCOutner++;
 		batch.draw(Assets.manager.get(Assets.slotMachineCase), 144, 112);
 		
-		batch.draw(savedSlotBar, 0, -26);
 		
 		goButtonButton.setSize(100, 100);
-		goButtonButton.setPosition(Constants.VIEWPORT_GUI_WIDTH*0.85f, Constants.VIEWPORT_GUI_HEIGHT*0.05f);
+//		goButtonButton.setPosition(Constants.VIEWPORT_GUI_WIDTH*0.85f, Constants.VIEWPORT_GUI_HEIGHT*0.05f);
+		goButtonButton.setPosition(660, 40);
 		goButtonButton.draw(batch, 1);
+		savedSlotBar.setPosition(0, -26);
+		savedSlotBar.draw(batch);
 		
 		animantionCtlr.doComplexAnimation(0, 1f, Gdx.graphics.getDeltaTime(), Animation.PlayMode.NORMAL);
 		int i = 0;

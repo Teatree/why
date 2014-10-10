@@ -7,6 +7,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.GL30;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -62,7 +63,7 @@ public class SlotMachineScreen extends AbstractGameScreen {
 	@Override
 	public void render(float deltaTime) {
 		Gdx.gl.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		Gdx.gl.glClear(GL30.GL_COLOR_BUFFER_BIT);
 		victor = new Vector2(Gdx.input.getX(), Constants.VIEWPORT_HEIGHT
 				- Gdx.input.getY());
 //		if (Gdx.input.justTouched()
@@ -100,8 +101,8 @@ public class SlotMachineScreen extends AbstractGameScreen {
 //						slotDescWindow.setSize(Constants.VIEWPORT_GUI_WIDTH/2f, Constants.VIEWPORT_GUI_HEIGHT/1.7f);
 //						slotDescWindow.setX(Constants.VIEWPORT_GUI_WIDTH/2f-slotDescWindow.getWidth()/2);
 //						slotDescWindow.setY(Constants.VIEWPORT_GUI_HEIGHT/2f-slotDescWindow.getHeight()/2);
-						slotDescWindow.setSize(100,100);
-						slotDescWindow.setX(100);
+						slotDescWindow.setSize(400,350);
+						slotDescWindow.setX(200);
 						slotDescWindow.setY(100);
 						SlotMachineTextures.peru = false;
 						isSlotDescWindowOpen = true;
