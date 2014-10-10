@@ -5,6 +5,9 @@ import java.util.List;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.GL30;
@@ -13,6 +16,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Scaling;
@@ -44,7 +48,8 @@ public class SlotMachineScreen extends AbstractGameScreen {
 //	public static boolean rewritenSlot = false;
 	private Array<Viewport> viewports;
 	private Array<String> names;
-
+	private InputMultiplexer inputMultiplexer;
+	
 	public SlotMachineScreen(Game game) {
 		super(game);
 		savedSlots = new ArrayList<Slot>();
@@ -54,6 +59,12 @@ public class SlotMachineScreen extends AbstractGameScreen {
 		stage.addActor(slotMachineTextures);
 		viewports = getViewports(stage.getCamera());
 		names = getViewportNames();
+		
+		inputMultiplexer = new InputMultiplexer();
+		inputMultiplexer.addProcessor(stage);
+		for(Slot s: slotMachineTextures.slots){
+			inputMultiplexer.addProcessor(s);
+		}
 		
 //		viewport.setScreenWidth((int) Constants.VIEWPORT_WIDTH);
 //		viewport.setScreenHeight((int) Constants.VIEWPORT_HEIGHT);
@@ -142,6 +153,7 @@ public class SlotMachineScreen extends AbstractGameScreen {
 							.getBoundingRectangle().contains(victor)) {
 	}}
 		}
+//		stage.addActor(new Image(slot.sprite));
 	}
 
 	private void selectSavedSlot(Slot slot) {
@@ -202,7 +214,7 @@ public class SlotMachineScreen extends AbstractGameScreen {
 //		if(yesWasJustPressed){
 //			slotMachineTextures.slotDescWindow.remove();
 //		}
-		Gdx.input.setInputProcessor(stage);
+		Gdx.input.setInputProcessor(inputMultiplexer);
 		stage.setViewport(viewports.first());
 	}
 

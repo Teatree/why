@@ -1,6 +1,7 @@
 package com.me.swampmonster.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -10,7 +11,14 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.tiles.AnimatedTiledMapTile;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Scaling;
+import com.badlogic.gdx.utils.viewport.ExtendViewport;
+import com.badlogic.gdx.utils.viewport.FillViewport;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.ScalingViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.me.swampmonster.AI.Node;
 import com.me.swampmonster.models.AbstractGameObject.NegativeEffects;
@@ -42,6 +50,8 @@ public class L1Renderer {
 	private int timer;
 
 	public static Stage stage;
+	private Array<Viewport> viewports;
+	private Array<String> names;
 	private GShape gshape;
 
 	private int[] background = { 0 };
@@ -68,6 +78,11 @@ public class L1Renderer {
 		mapRenderer = new OrthogonalTiledMapRenderer(
 			TheController.level1.bunker.getMap());
 
+		viewports = getViewports(stage.getCamera());
+		names = getViewportNames();
+		
+		stage.setViewport(viewports.first());
+		
 		gshape = new GShape(theController);
 		stage.addActor(gshape);
 		Gdx.input.setInputProcessor(stage);
@@ -555,6 +570,43 @@ public class L1Renderer {
 		} else if (timer <= 1) {
 			timer = 60;
 		}
+	}
+	
+	static public Array<String> getViewportNames () {
+		Array<String> names = new Array();
+		names.add("FillViewport");
+		names.add("StretchViewport");
+		names.add("FitViewport");
+		names.add("ExtendViewport: no max");
+		names.add("ExtendViewport: max");
+		names.add("ScreenViewport: 1:1");
+		names.add("ScreenViewport: 0.75:1");
+		names.add("ScalingViewport: none");
+		return names;
+	}
+
+	static public Array<Viewport> getViewports (Camera camera) {
+		int minWorldWidth = 800;
+		int minWorldHeight = 480;
+//		int minWorldWidth = 1280;
+//		int minWorldHeight = 768;
+		int maxWorldWidth = 640;
+		int maxWorldHeight = 480;
+
+		Array<Viewport> viewports = new Array();
+		viewports.add(new FillViewport(minWorldWidth, minWorldHeight, camera));
+		viewports.add(new StretchViewport(minWorldWidth, minWorldHeight, camera));
+		viewports.add(new FitViewport(minWorldWidth, minWorldHeight, camera));
+		viewports.add(new ExtendViewport(minWorldWidth, minWorldHeight, camera));
+		viewports.add(new ExtendViewport(minWorldWidth, minWorldHeight, maxWorldWidth, maxWorldHeight, camera));
+		viewports.add(new ScreenViewport(camera));
+
+		ScreenViewport screenViewport = new ScreenViewport(camera);
+		screenViewport.setUnitsPerPixel(0.75f);
+		viewports.add(screenViewport);
+
+		viewports.add(new ScalingViewport(Scaling.none, minWorldWidth, minWorldHeight, camera));
+		return viewports;
 	}
 
 	// there are two of those;

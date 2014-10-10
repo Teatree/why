@@ -46,7 +46,7 @@ public class SwampScreen extends AbstractGameScreen  implements Screen {
 
 	@Override
 	public void resize(int width, int height) {
-		renderer.setSize(width, height);
+		renderer.stage.getViewport().update(width, height, true);
 	}
 
 	@Override

@@ -1,7 +1,13 @@
 package com.me.swampmonster.models.slots;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Scaling;
+import com.badlogic.gdx.utils.viewport.ScalingViewport;
 import com.me.swampmonster.animations.AnimationControl;
 import com.me.swampmonster.models.AbstractGameObject.State;
 import com.me.swampmonster.models.Player;
@@ -9,7 +15,7 @@ import com.me.swampmonster.screens.SlotMachineScreen;
 import com.me.swampmonster.slotMachineStuff.SlotMachineTextures;
 import com.me.swampmonster.utils.Assets;
 
-public abstract class Slot {
+public abstract class Slot extends InputAdapter {
 	
 	public Sprite sprite;
 	public int lifeTime;
@@ -55,6 +61,7 @@ public abstract class Slot {
 		}
 	}
 	public void update(){
+		
 		if(state == State.SPAWNING){
 			if(animSavedSelectedCounter<90){
 				animSavedSelectedCounter++;
