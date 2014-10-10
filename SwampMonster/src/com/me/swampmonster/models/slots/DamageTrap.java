@@ -24,6 +24,7 @@ public class DamageTrap extends Trap {
 	}
 
 	public DamageTrap() {
+		name = Constants.DamageTrap_Name;
 		circle = new Circle();
 		switch (level) {
 		case 0:

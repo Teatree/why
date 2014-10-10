@@ -30,6 +30,7 @@ public class ImproveArrowDamage extends Slot implements Perks{
 	}	
 	
 	public ImproveArrowDamage() {
+		name = Constants.ImproveArrowDamage_Name;
 		sprite = new Sprite(Assets.manager.get(Assets.IMPROVEARROWDAMAGE_ICON));
 	}
 	

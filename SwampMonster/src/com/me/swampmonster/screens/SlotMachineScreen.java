@@ -5,19 +5,14 @@ import java.util.List;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.Camera;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.GL30;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Scaling;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
@@ -112,7 +107,7 @@ public class SlotMachineScreen extends AbstractGameScreen {
 //						slotDescWindow.setSize(Constants.VIEWPORT_GUI_WIDTH/2f, Constants.VIEWPORT_GUI_HEIGHT/1.7f);
 //						slotDescWindow.setX(Constants.VIEWPORT_GUI_WIDTH/2f-slotDescWindow.getWidth()/2);
 //						slotDescWindow.setY(Constants.VIEWPORT_GUI_HEIGHT/2f-slotDescWindow.getHeight()/2);
-						slotDescWindow.setSize(400,350);
+						slotDescWindow.setSize(Constants.SLOT_DESC_WINDOW_WIDTH, Constants.SLOT_DESC_WINDOW_HEIGHT);
 						slotDescWindow.setX(200);
 						slotDescWindow.setY(100);
 						SlotMachineTextures.peru = false;

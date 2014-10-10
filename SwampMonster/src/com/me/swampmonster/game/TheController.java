@@ -23,7 +23,6 @@ import com.me.swampmonster.models.Player;
 import com.me.swampmonster.models.Projectile;
 import com.me.swampmonster.models.TutorialLevel;
 import com.me.swampmonster.models.enemies.Enemy;
-import com.me.swampmonster.models.slots.ExplozionTrap;
 import com.me.swampmonster.models.slots.PositiveEffectInterface;
 import com.me.swampmonster.models.slots.PositiveEffects;
 import com.me.swampmonster.models.slots.Slot;
@@ -260,9 +259,6 @@ public class TheController extends InputAdapter {
 					gui.getWeaponizer().circle.radius
 							* gui.getWeaponizer().circle.radius)) {
 				if (skill != null && coolDownCounter == 0) {
-					if (skill instanceof ExplozionTrap){
-						ExplozionTrap.cuba = false;
-					}
 					skill.execute(L1.player);
 					coolDownAngle = 360;
 					coolDownStep = 360f / skill.coolDown;

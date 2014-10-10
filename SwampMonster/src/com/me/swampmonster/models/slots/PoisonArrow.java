@@ -22,6 +22,7 @@ public class PoisonArrow extends Slot{
 	}
 	
 	public PoisonArrow() {
+		name = Constants.PoisonArrow_Name;
 		sprite = new Sprite(Assets.manager.get(Assets.POISONED_ARROW_ICON));
 		coolDown = Constants.PoisonArrow_CoolDown_L1;
 		

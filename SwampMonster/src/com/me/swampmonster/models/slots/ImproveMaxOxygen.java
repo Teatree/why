@@ -31,6 +31,7 @@ public class ImproveMaxOxygen extends Slot implements Perks{
 	}
 	
 	public ImproveMaxOxygen() {
+		name = Constants.ImproveMaxOxygen_Name;
 		sprite = new Sprite(Assets.manager.get(Assets.IMPROVEMAXOXYGEN_ICON));
 	}
 	

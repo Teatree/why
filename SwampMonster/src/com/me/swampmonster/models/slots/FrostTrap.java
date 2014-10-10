@@ -29,6 +29,7 @@ public class FrostTrap extends Trap{
 	}
 	
 	public FrostTrap() {
+		name = Constants.FrostTrap_Name;
 		sprite = new Sprite(Assets.manager.get(Assets.FROST_TRAP_ICON));
 		circle = new Circle();
 		

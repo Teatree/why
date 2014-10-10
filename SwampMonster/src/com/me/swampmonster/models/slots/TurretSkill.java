@@ -27,6 +27,7 @@ public class TurretSkill extends Slot {
 	}
 
 	public TurretSkill() {
+		name = Constants.TURRET_Name;
 		sprite = new Sprite(Assets.manager.get(Assets.TURRET_ICON));
 		turret = new Turret();
 		turret.state = State.SPAWNING;

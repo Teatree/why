@@ -1,16 +1,11 @@
 package com.me.swampmonster.slotMachineStuff;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.Window;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.me.swampmonster.game.TheController;
 import com.me.swampmonster.models.AbstractGameObject.State;
 import com.me.swampmonster.models.L1;
@@ -18,45 +13,62 @@ import com.me.swampmonster.models.slots.Perks;
 import com.me.swampmonster.models.slots.Slot;
 import com.me.swampmonster.screens.SlotMachineScreen;
 import com.me.swampmonster.utils.Constants;
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils.Text;
 
 public class SlotDescWindow extends Dialog {
 
 	public Slot slot;
 	private Image image;
+	private Image imageLevel;
 
 	public SlotDescWindow(String title, Skin skin, final Slot slot) {
-		super(title, skin);
+		super("", skin);
 		this.slot = slot;
 //		fadeDuration = 0;
 		image = new Image(slot.sprite.getTexture());
+		try {
+			imageLevel = new Image(SlotMachineTextures.slotLevelPic.get(slot.getClass().getField("level").getInt(null)));
+		} catch (Exception e) {
+			
+		}
+		imageLevel.setSize(16, 16);
 		ImageButton yesButton = new ImageButton(skin, "yes");
 		ImageButton noButton = new ImageButton(skin, "no");
-		Label text = new Label(slot.getDescription()+"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", skin);
+		Label text = new Label(slot.getDescription(), skin);
+		text.setWrap(true);
 		Label text3 = new Label("someDAY!", skin);
-		Label text2 = new Label(slot.getDescription(), skin);
+		Label text2 = new Label(slot.name, skin);
 		text.setWrap(true);
 		
 		row();
-//		getButtonTable().add(yesButton).padRight(101);
 		button(yesButton, "penis sandwich");
-//		getButtonTable().columnDefaults(2);
 		button(noButton, "poop nugget");
-//		getButtonTable().padLeft(200);
-		getButtonTable().getCell(yesButton).padLeft(100);
+		getButtonTable().getCell(yesButton).padLeft(105);
 		getButtonTable().getCell(noButton).padLeft(this.getWidth());
-//		getButtonTable().getCell(noButton).padLeft(this.getWidth()-image.getWidth());
 		row();
-		getContentTable().add(image).size(100).left();
-//		getContentTable().left();
-//		getContentTable().top();
-		getContentTable().add(text2).left().top();
 		
-//		columnDefaults(3);
-		getContentTable().row();
-		getContentTable().add(text3).top();
-		getContentTable().add(text).expand().top();
-
+		Table firstColumn = new Table();
+		firstColumn.add(image).size(100).left().top().row();
+		firstColumn.add(text3).left().top();
+		System.out.println((float)(this.getHeight()));
+		getContentTable().add(firstColumn).top();
+		
+		columnDefaults(1);
+		Table secondColumn = new Table();
+		System.out.println(this.getHeight() + " - " + this.getWidth());
+		secondColumn.add(text2).padLeft(5).height((float)((Constants.SLOT_DESC_WINDOW_HEIGHT-getButtonTable().getHeight())*0.13f)).
+		width((float)((Constants.SLOT_DESC_WINDOW_WIDTH*0.6))).bottom();
+		
+		secondColumn.add(imageLevel).bottom().padBottom(5).height((float)((Constants.SLOT_DESC_WINDOW_HEIGHT-getButtonTable().getHeight())*0.08f)).
+		width((float)((Constants.SLOT_DESC_WINDOW_WIDTH*0.1))).row();
+		
+//		secondColumn.add(text).colspan(2).height((float)((Constants.SLOT_DESC_WINDOW_HEIGHT-getButtonTable().getHeight())*0.73f)).
+//		width((float)((Constants.SLOT_DESC_WINDOW_WIDTH*0.7))).top().left();
+		secondColumn.add(text).colspan(2).fill().top().left();
+		getContentTable().add(secondColumn).top();
+		getContentTable().top();
+		
+		firstColumn.debug();
+		secondColumn.debug();
 	}
 
 	@Override

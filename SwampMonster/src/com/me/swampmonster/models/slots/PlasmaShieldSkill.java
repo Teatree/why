@@ -23,6 +23,7 @@ public class PlasmaShieldSkill extends Slot{
 		descriptionByLevel.put(4, Constants.PLASMA_SHIELD_Description_L5);
 	}
 	public PlasmaShieldSkill() {
+		name = Constants.PLASMA_SHIELD_Name;
 		sprite = new Sprite(Assets.manager.get(Assets.SHADOW_ARROW_ICON));
 		
 		switch (level) {

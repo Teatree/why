@@ -26,7 +26,7 @@ public class SPEED_BOOST extends Slot implements PositiveEffectInterface{
 
 	public SPEED_BOOST() {
 		sprite = new Sprite(Assets.manager.get(Assets.SPEED_BOOST_ICON));
-		
+		name = Constants.SPEED_BOOST_Name;
 		switch (level) {
 		case 0:
 			lifeTime = Constants.SPEED_BOOST_LifeTime_L1;

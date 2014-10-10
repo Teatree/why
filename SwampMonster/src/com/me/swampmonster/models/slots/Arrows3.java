@@ -1,6 +1,7 @@
 package com.me.swampmonster.models.slots;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -34,6 +35,7 @@ public class Arrows3 extends Slot{
 		sprite = new Sprite(Assets.manager.get(Assets.THREEARROW_ICON));
 		description = Constants.Arrows3_Description_L1;
 		coolDown = Constants.Arrows3_CoolDown_L1;
+		name = Constants.Arrows3_Name;
 	}
 	
 	@Override
@@ -49,5 +51,11 @@ public class Arrows3 extends Slot{
 	@Override
 	public String getDescriptionForSaved() {
 		return descriptionByLevel.get(level-1);
+	}
+
+	@Override
+	public List<String> getStats(Player player) {
+		
+		return null;
 	}
 }

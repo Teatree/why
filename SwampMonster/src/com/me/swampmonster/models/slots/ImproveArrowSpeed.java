@@ -30,6 +30,7 @@ public class ImproveArrowSpeed extends Slot implements Perks{
 	}	
 	
 	public ImproveArrowSpeed() {
+		name = Constants.ImproveArrowSpeed_Name;
 		sprite = new Sprite(Assets.manager.get(Assets.IMPROVEARROWSPEED_ICON));
 	}
 	

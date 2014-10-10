@@ -1,11 +1,15 @@
 package com.me.swampmonster.models.slots;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Scaling;
 import com.badlogic.gdx.utils.viewport.ScalingViewport;
 import com.me.swampmonster.animations.AnimationControl;
@@ -18,6 +22,7 @@ import com.me.swampmonster.utils.Assets;
 public abstract class Slot extends InputAdapter {
 	
 	public Sprite sprite;
+	public String name;
 	public int lifeTime;
 	protected String description;
 	public void execute (Player target){};
@@ -75,6 +80,8 @@ public abstract class Slot extends InputAdapter {
 			}
 		}
 	}
+	
+	public abstract List<String> getStats(Player player);
 	
 	@Override
 	public boolean equals (Object slot){

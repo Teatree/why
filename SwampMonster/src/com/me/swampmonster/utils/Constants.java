@@ -7,6 +7,8 @@ public class Constants {
 	public static final float VIEWPORT_HEIGHT = Gdx.graphics.getHeight();
 	public static final float VIEWPORT_GUI_WIDTH = Gdx.graphics.getWidth();
 	public static final float VIEWPORT_GUI_HEIGHT = Gdx.graphics.getHeight();
+	public static final int SLOT_DESC_WINDOW_HEIGHT = 300;
+	public static final int SLOT_DESC_WINDOW_WIDTH = 400;
 	
 	public static final String sufficateMessage1 = "You forgot your oxygen mask, you big dummy!";
 	public static final String sufficateMessage2 = "I gues the absence of oxygen has left you... breathless.";
@@ -27,6 +29,8 @@ public class Constants {
 	
 	//:TODO THE AWESOME SLOT DATA!
 //  Arrows3:
+	public static final String Arrows3_Name = "Triple Arrows!";
+	
 	public static final int Arrows3_CoolDown_L1 = 1000;
 	public static final int Arrows3_CoolDown_L2 = 900;
 	public static final int Arrows3_CoolDown_L3 = 800;
@@ -41,6 +45,8 @@ public class Constants {
 	
 	
 //  DamageTrap:
+	public static final String DamageTrap_Name = "Damage Trap";
+	
 	public static final int DamageTrap_CoolDown_L1 = 5000;
 	public static final int DamageTrap_CoolDown_L2 = 4000;
 	public static final int DamageTrap_CoolDown_L3 = 3000;
@@ -73,6 +79,8 @@ public class Constants {
 	
 	
 //	ExplosiveArrow:
+	public static final String ExplosiveArrow_Name = "Explosive Arrow";
+	
 	public static final int ExplosiveArrow_CoolDown_L1 = 600;
 	public static final int ExplosiveArrow_CoolDown_L2 = 500;
 	public static final int ExplosiveArrow_CoolDown_L3 = 400;
@@ -111,54 +119,54 @@ public class Constants {
 	
 	
 	
-//	ExplozionTrap:
-	public static final int ExplozionTrap_CoolDown_L1 = 1000;
-	public static final int ExplozionTrap_CoolDown_L2 = 800;
-	public static final int ExplozionTrap_CoolDown_L3 = 600;
-	public static final int ExplozionTrap_CoolDown_L4 = 400;
-	public static final int ExplozionTrap_CoolDown_L5 = 200;
+//	NUKE:
+	public static final int NUKE_CoolDown_L1 = 1000;
+	public static final int NUKE_CoolDown_L2 = 800;
+	public static final int NUKE_CoolDown_L3 = 600;
+	public static final int NUKE_CoolDown_L4 = 400;
+	public static final int NUKE_CoolDown_L5 = 200;
 	
-	public static final float ExplozionTrap_CircleRadius_L1 = 16;
-	public static final float ExplozionTrap_CircleRadius_L2 = 20;
-	public static final float ExplozionTrap_CircleRadius_L3 = 25;
-	public static final float ExplozionTrap_CircleRadius_L4 = 30;
-	public static final float ExplozionTrap_CircleRadius_L5 = 35;
+	public static final float NUKE_CircleRadius_L1 = 16;
+	public static final float NUKE_CircleRadius_L2 = 20;
+	public static final float NUKE_CircleRadius_L3 = 25;
+	public static final float NUKE_CircleRadius_L4 = 30;
+	public static final float NUKE_CircleRadius_L5 = 35;
 	
-	public static final int ExplozionTrap_LifeTime_L1 = 900;
-	public static final int ExplozionTrap_LifeTime_L2 = 900;
-	public static final int ExplozionTrap_LifeTime_L3 = 900;
-	public static final int ExplozionTrap_LifeTime_L4 = 1200;
-	public static final int ExplozionTrap_LifeTime_L5 = 1600;
+	public static final int NUKE_LifeTime_L1 = 900;
+	public static final int NUKE_LifeTime_L2 = 900;
+	public static final int NUKE_LifeTime_L3 = 900;
+	public static final int NUKE_LifeTime_L4 = 1200;
+	public static final int NUKE_LifeTime_L5 = 1600;
 	
-	public static final String ExplozionTrap_Description_L1 = "ExplosionTrap Level 1";
-	public static final String ExplozionTrap_Description_L2 = "ExplosionTrap Level 2";
-	public static final String ExplozionTrap_Description_L3 = "ExplosionTrap Level 3";
-	public static final String ExplozionTrap_Description_L4 = "ExplosionTrap Level 4";
-	public static final String ExplozionTrap_Description_L5 = "ExplosionTrap Level 5";
+	public static final String NUKE_Description_L1 = "ExplosionTrap Level 1";
+	public static final String NUKE_Description_L2 = "ExplosionTrap Level 2";
+	public static final String NUKE_Description_L3 = "ExplosionTrap Level 3";
+	public static final String NUKE_Description_L4 = "ExplosionTrap Level 4";
+	public static final String NUKE_Description_L5 = "ExplosionTrap Level 5";
 	
-	public static final float ExplozionTrap_explCircleRadius_L1 = 10;
-	public static final float ExplozionTrap_explCircleRadius_L2 = 12;
-	public static final float ExplozionTrap_explCircleRadius_L3 = 14;
-	public static final float ExplozionTrap_explCircleRadius_L4 = 16;
-	public static final float ExplozionTrap_explCircleRadius_L5 = 18;
+	public static final float NUKE_explCircleRadius_L1 = 10;
+	public static final float NUKE_explCircleRadius_L2 = 12;
+	public static final float NUKE_explCircleRadius_L3 = 14;
+	public static final float NUKE_explCircleRadius_L4 = 16;
+	public static final float NUKE_explCircleRadius_L5 = 18;
 	
-	public static final float ExplozionTrap_damage_L1 = 3;
-	public static final float ExplozionTrap_damage_L2 = 3f;
-	public static final float ExplozionTrap_damage_L3 = 4f;
-	public static final float ExplozionTrap_damage_L4 = 4f;
-	public static final float ExplozionTrap_damage_L5 = 5f;
+	public static final float NUKE_damage_L1 = 3;
+	public static final float NUKE_damage_L2 = 3f;
+	public static final float NUKE_damage_L3 = 4f;
+	public static final float NUKE_damage_L4 = 4f;
+	public static final float NUKE_damage_L5 = 5f;
 	
-	public static final float ExplozionTrap_incrementExplosionRadius_L1 = 3f;
-	public static final float ExplozionTrap_incrementExplosionRadius_L2 = 4f;
-	public static final float ExplozionTrap_incrementExplosionRadius_L3 = 5f;
-	public static final float ExplozionTrap_incrementExplosionRadius_L4 = 6f;
-	public static final float ExplozionTrap_incrementExplosionRadius_L5 = 7f;
+	public static final float NUKE_incrementExplosionRadius_L1 = 3f;
+	public static final float NUKE_incrementExplosionRadius_L2 = 4f;
+	public static final float NUKE_incrementExplosionRadius_L3 = 5f;
+	public static final float NUKE_incrementExplosionRadius_L4 = 6f;
+	public static final float NUKE_incrementExplosionRadius_L5 = 7f;
 	
-	public static final float ExplozionTrap_incrementDamage_L1 = 0.13f;
-	public static final float ExplozionTrap_incrementDamage_L2 = 0.11f;
-	public static final float ExplozionTrap_incrementDamage_L3 = 0.10f;
-	public static final float ExplozionTrap_incrementDamage_L4 = 0.09f;
-	public static final float ExplozionTrap_incrementDamage_L5 = 0.08f;
+	public static final float NUKE_incrementDamage_L1 = 0.13f;
+	public static final float NUKE_incrementDamage_L2 = 0.11f;
+	public static final float NUKE_incrementDamage_L3 = 0.10f;
+	public static final float NUKE_incrementDamage_L4 = 0.09f;
+	public static final float NUKE_incrementDamage_L5 = 0.08f;
 	
 	
 //	FADE:
@@ -182,6 +190,8 @@ public class Constants {
 	
 	
 //	TURRET:
+	public static final String TURRET_Name = "Gun Turret";
+	
 	public static final int TURRET_CoolDown_L1 = 222;
 	public static final int TURRET_CoolDown_L2 = 222;
 	public static final int TURRET_CoolDown_L3 = 800;
@@ -220,6 +230,8 @@ public class Constants {
 	
 	
 //	FrostTrap:
+	public static final String FrostTrap_Name = "Frost Trap";
+
 	public static final int FrostTrap_CoolDown_L1 = 2000;
 	public static final int FrostTrap_CoolDown_L2 = 1700;
 	public static final int FrostTrap_CoolDown_L3 = 1400;
@@ -246,6 +258,8 @@ public class Constants {
 	
 	
 //	ImproveArrowDamage:
+	public static final String ImproveArrowDamage_Name = "Improve Arrow Damage";
+	
 	public static final float ImproveArrowDamage_value_L1 = 1;
 	public static final float ImproveArrowDamage_value_L2 = 2;
 	public static final float ImproveArrowDamage_value_L3 = 3;
@@ -259,6 +273,8 @@ public class Constants {
 	public static final String ImproveArrowDamage_Description_l5 = "Increase Arrow Damage by " + ImproveArrowDamage_value_L5;
 
 //	ImproveArrowSpeed:
+	public static final String ImproveArrowSpeed_Name = "Improve Arrow Speed";
+	
 	public static final float ImproveArrowSpeed_value_L1 = 1;
 	public static final float ImproveArrowSpeed_value_L2 = 2;
 	public static final float ImproveArrowSpeed_value_L3 = 3;
@@ -273,6 +289,8 @@ public class Constants {
 
 	
 //	ImproveMaxHealth:
+	public static final String ImproveMaxHealth_Name = "Improve Health";
+	
 	public static final int ImproveMaxHealth_HealthValue_L1 = 1;
 	public static final int ImproveMaxHealth_HealthValue_L2 = 2;
 	public static final int ImproveMaxHealth_HealthValue_L3 = 3;
@@ -287,6 +305,8 @@ public class Constants {
 	
 	
 //	ImproveMaxOxygen:
+	public static final String ImproveMaxOxygen_Name = "Improve Oxygen";
+	
 	public static final float ImproveMaxOxygen_OxygenValue_L1 = 10f;
 	public static final float ImproveMaxOxygen_OxygenValue_L2 = 15f;
 	public static final float ImproveMaxOxygen_OxygenValue_L3 = 20f;
@@ -301,6 +321,8 @@ public class Constants {
 
 	
 	//	ImproveMaxSpeed:
+	public static final String ImproveMaxSpeed_Name = "Improve Speed";
+	
 	public static final float ImproveMaxSpeed_SpeedValue_L1 = 1;
 	public static final float ImproveMaxSpeed_SpeedValue_L2 = 2f;
 	public static final float ImproveMaxSpeed_SpeedValue_L3 = 3f;
@@ -315,6 +337,8 @@ public class Constants {
 
 	
 //	PoisonArrow:
+	public static final String PoisonArrow_Name = "Position Arrow";
+	
 	public static final int PoisonArrow_CoolDown_L1 = 3000;
 	public static final int PoisonArrow_CoolDown_L2 = 2600;
 	public static final int PoisonArrow_CoolDown_L3 = 2000;
@@ -329,6 +353,8 @@ public class Constants {
 	
 	
 //	PoisonTrap:
+	public static final String PoisonTrap_Name = "Position Trap";
+	
 	public static final int PoisonTrap_CoolDown_L1 = 3000;
 	public static final int PoisonTrap_CoolDown_L2 = 2600;
 	public static final int PoisonTrap_CoolDown_L3 = 2000;
@@ -387,6 +413,8 @@ public class Constants {
 	
 	
 //	PLASMA_SHIELD:
+	public static final String PLASMA_SHIELD_Name = "Plasma Shield";
+	
 	public static final int PLASMA_SHIELD_CoolDown_L1 = 1000;
 	public static final int PLASMA_SHIELD_CoolDown_L2 = 2500;
 	public static final int PLASMA_SHIELD_CoolDown_L3 = 2000;
@@ -406,6 +434,8 @@ public class Constants {
 	public static final String PLASMA_SHIELD_Description_L5 = "PLASMA_SHIELD SA Level 5";
 
 //	PANIC_TELEPORT:
+	public static final String PANIC_TELEPORT_Name = "Panic Teleport";
+	
 	public static final int PANIC_TELEPORT_CoolDown_L1 = 1000;
 	public static final int PANIC_TELEPORT_CoolDown_L2 = 2500;
 	public static final int PANIC_TELEPORT_CoolDown_L3 = 2000;
@@ -419,6 +449,8 @@ public class Constants {
 	public static final String PANIC_TELEPORT_Description_L5 = "PANIC_TELEPORT SA Level 5";
 	
 //	SPEED_BOOST:
+	public static final String SPEED_BOOST_Name = "Speed Boost";
+	
 	public static final int SPEED_BOOST_CoolDown_L1 = 3000;
 	public static final int SPEED_BOOST_CoolDown_L2 = 2500;
 	public static final int SPEED_BOOST_CoolDown_L3 = 2000;

@@ -24,7 +24,7 @@ public class PanicTeleport extends Slot{
 	}
 	public PanicTeleport() {
 		sprite = new Sprite(Assets.manager.get(Assets.PANIC_TELEPORT_ICON));
-		
+		name = Constants.PANIC_TELEPORT_Name;
 		switch (level) {
 		case 0:
 			coolDown = Constants.PANIC_TELEPORT_CoolDown_L1;
