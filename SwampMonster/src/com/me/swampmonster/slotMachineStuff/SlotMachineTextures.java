@@ -117,8 +117,9 @@ public class SlotMachineTextures extends Group {
 				animCounter = 0;
 			}
 		});
-		rerollButton.setSize(90, 90);
-		rerollButton.setPosition(Constants.VIEWPORT_GUI_WIDTH*0.45f, Constants.VIEWPORT_GUI_HEIGHT*0.18f);
+//		rerollButton.setSize(90, 90);
+//		rerollButton.setPosition(Constants.VIEWPORT_GUI_WIDTH*0.45f, Constants.VIEWPORT_GUI_HEIGHT*0.18f);
+		rerollButton.setPosition(368, 90);
 		SlotMachineScreen.stage.addActor(rerollButton);
 		
 		font = Assets.manager.get(Assets.font);

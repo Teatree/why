@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
@@ -12,7 +13,14 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Scaling;
+import com.badlogic.gdx.utils.viewport.ExtendViewport;
+import com.badlogic.gdx.utils.viewport.FillViewport;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.ScalingViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.me.swampmonster.game.TheController;
 import com.me.swampmonster.models.slots.Perks;
@@ -33,18 +41,21 @@ public class SlotMachineScreen extends AbstractGameScreen {
 	public Dialog slotDescWindow;
 	public static boolean isSlotDescWindowOpen;
 //	public static boolean rewritenSlot = false;
-	private ScreenViewport viewport;
+	private Array<Viewport> viewports;
+	private Array<String> names;
 
 	public SlotMachineScreen(Game game) {
 		super(game);
 		savedSlots = new ArrayList<Slot>();
-		viewport = new ScreenViewport();
-		viewport.setScreenWidth((int) Constants.VIEWPORT_WIDTH);
-		viewport.setScreenHeight((int) Constants.VIEWPORT_HEIGHT);
 		batch = new SpriteBatch();
-		stage = new Stage(viewport, batch);
+		stage = new Stage();
 		slotMachineTextures = new SlotMachineTextures(player);
 		stage.addActor(slotMachineTextures);
+		viewports = getViewports(stage.getCamera());
+		names = getViewportNames();
+		
+//		viewport.setScreenWidth((int) Constants.VIEWPORT_WIDTH);
+//		viewport.setScreenHeight((int) Constants.VIEWPORT_HEIGHT);
 //		Gdx.input.setInputProcessor(stage);
 	}
 
@@ -86,9 +97,12 @@ public class SlotMachineScreen extends AbstractGameScreen {
 						slotDescWindow.debug();
 						slotDescWindow.getButtonTable().debug();
 						slotDescWindow.getContentTable().debug();
-						slotDescWindow.setSize(Constants.VIEWPORT_GUI_WIDTH/2f, Constants.VIEWPORT_GUI_HEIGHT/1.7f);
-						slotDescWindow.setX(Constants.VIEWPORT_GUI_WIDTH/2f-slotDescWindow.getWidth()/2);
-						slotDescWindow.setY(Constants.VIEWPORT_GUI_HEIGHT/2f-slotDescWindow.getHeight()/2);
+//						slotDescWindow.setSize(Constants.VIEWPORT_GUI_WIDTH/2f, Constants.VIEWPORT_GUI_HEIGHT/1.7f);
+//						slotDescWindow.setX(Constants.VIEWPORT_GUI_WIDTH/2f-slotDescWindow.getWidth()/2);
+//						slotDescWindow.setY(Constants.VIEWPORT_GUI_HEIGHT/2f-slotDescWindow.getHeight()/2);
+						slotDescWindow.setSize(100,100);
+						slotDescWindow.setX(100);
+						slotDescWindow.setY(100);
 						SlotMachineTextures.peru = false;
 						isSlotDescWindowOpen = true;
 //						Gdx.input.setInputProcessor(null);
@@ -167,7 +181,7 @@ public class SlotMachineScreen extends AbstractGameScreen {
 
 	@Override
 	public void resize(int width, int height) {
-
+		stage.getViewport().update(width, height, true);
 	}
 
 	@Override
@@ -188,8 +202,46 @@ public class SlotMachineScreen extends AbstractGameScreen {
 //			slotMachineTextures.slotDescWindow.remove();
 //		}
 		Gdx.input.setInputProcessor(stage);
+		stage.setViewport(viewports.first());
 	}
 
+	static public Array<String> getViewportNames () {
+		Array<String> names = new Array();
+		names.add("FillViewport");
+		names.add("StretchViewport");
+		names.add("FitViewport");
+		names.add("ExtendViewport: no max");
+		names.add("ExtendViewport: max");
+		names.add("ScreenViewport: 1:1");
+		names.add("ScreenViewport: 0.75:1");
+		names.add("ScalingViewport: none");
+		return names;
+	}
+
+	static public Array<Viewport> getViewports (Camera camera) {
+		int minWorldWidth = 800;
+		int minWorldHeight = 480;
+//		int minWorldWidth = 1280;
+//		int minWorldHeight = 768;
+		int maxWorldWidth = 640;
+		int maxWorldHeight = 480;
+
+		Array<Viewport> viewports = new Array();
+		viewports.add(new FillViewport(minWorldWidth, minWorldHeight, camera));
+		viewports.add(new StretchViewport(minWorldWidth, minWorldHeight, camera));
+		viewports.add(new FitViewport(minWorldWidth, minWorldHeight, camera));
+		viewports.add(new ExtendViewport(minWorldWidth, minWorldHeight, camera));
+		viewports.add(new ExtendViewport(minWorldWidth, minWorldHeight, maxWorldWidth, maxWorldHeight, camera));
+		viewports.add(new ScreenViewport(camera));
+
+		ScreenViewport screenViewport = new ScreenViewport(camera);
+		screenViewport.setUnitsPerPixel(0.75f);
+		viewports.add(screenViewport);
+
+		viewports.add(new ScalingViewport(Scaling.none, minWorldWidth, minWorldHeight, camera));
+		return viewports;
+	}
+	
 	@Override
 	public void hide() {
 
