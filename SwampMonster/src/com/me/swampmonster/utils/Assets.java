@@ -10,17 +10,17 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 public class Assets {
 
 	public static final AssetManager manager = new AssetManager();
+	//characters
+	public static final AssetDescriptor<Texture> nastyaSpriteStandard = new AssetDescriptor<Texture>("data\\EnemyTemp.png", Texture.class);
+	public static final AssetDescriptor<Texture> nastyaSpriteGun = new AssetDescriptor<Texture>("data\\EnemyTemp.png", Texture.class);
 	public static final AssetDescriptor<Texture> bow = new AssetDescriptor<Texture>("data\\BowNArrow.png", Texture.class);
 	public static final AssetDescriptor<Texture> enemyLeech = new AssetDescriptor<Texture>("data\\EnemyLeech_new.png", Texture.class);
 	public static final AssetDescriptor<Texture> enemyZombie = new AssetDescriptor<Texture>("data\\EnemyZombie_new.png", Texture.class);
-	public static final AssetDescriptor<Texture> nastyaSpriteStandard = new AssetDescriptor<Texture>("data\\EnemyTemp.png", Texture.class);
-	public static final AssetDescriptor<Texture> nastyaSpriteGun = new AssetDescriptor<Texture>("data\\EnemyTemp.png", Texture.class);
 	public static final AssetDescriptor<Texture> aimingAuraSprite = new AssetDescriptor<Texture>("data\\aimingAura.png", Texture.class);
 	public static final AssetDescriptor<Texture> enemyMaggot = new AssetDescriptor<Texture>("data\\EnemyMaggot_new.png", Texture.class);
 	public static final AssetDescriptor<Texture> enemy = new AssetDescriptor<Texture>("data\\EnemyTemp.png", Texture.class);
-	public static final AssetDescriptor<Texture> turretImg = new AssetDescriptor<Texture>("data\\turret.png", Texture.class);
-	public static final AssetDescriptor<Texture> turretProjectile = new AssetDescriptor<Texture>("data\\turretProjectile.png", Texture.class);
-	public static final AssetDescriptor<Texture> TURRET_ICON = new AssetDescriptor<Texture>("data\\slotIcons\\TURRET_ICON.png", Texture.class);
+	
+	//GUI
 	public static final AssetDescriptor<Texture> HealthBarIcon = new AssetDescriptor<Texture>("data\\HealthBarIcon.png", Texture.class);
 	public static final AssetDescriptor<Texture> HealthBarTail = new AssetDescriptor<Texture>("data\\HealthBarTail.png", Texture.class);
 	public static final AssetDescriptor<Texture> HealthBarMiddle = new AssetDescriptor<Texture>("data\\HealthBarMiddle.png", Texture.class);
@@ -30,34 +30,55 @@ public class Assets {
 	public static final AssetDescriptor<Texture> OxygenBarMiddle = new AssetDescriptor<Texture>("data\\OxygenBarMiddle.png", Texture.class);
 	public static final AssetDescriptor<Texture> OxygenBarHead = new AssetDescriptor<Texture>("data\\OxygenBarHead.png", Texture.class);
 	public static final AssetDescriptor<Texture> PointerHead = new AssetDescriptor<Texture>("data\\PointerHead.png", Texture.class);
-	public static final AssetDescriptor<Texture> plasmaShield = new AssetDescriptor<Texture>("data\\plasmaShieldAnimation.png", Texture.class);
-	public static final AssetDescriptor<Texture> propExplosiveBarrel = new AssetDescriptor<Texture>("data\\propBarrelAnimation.png", Texture.class);
-	public static final AssetDescriptor<Texture> propTreasure = new AssetDescriptor<Texture>("data\\propTreasureAnimation.png", Texture.class);
+	public static final AssetDescriptor<Texture> weaponizerButton = new AssetDescriptor<Texture>("data\\Weaponizer.png", Texture.class);
+	public static final AssetDescriptor<BitmapFont> font = new AssetDescriptor<BitmapFont>("data\\font.fnt", BitmapFont.class);
+	public static final AssetDescriptor<Music> menuBackgroundMusic = new AssetDescriptor<Music>("data\\backgroundMusic.mp3", Music.class);
+	
+	//tutorial
 	public static final AssetDescriptor<Texture> moveHere = new AssetDescriptor<Texture>("data\\tutorialStuff\\moveHere.png", Texture.class);
 	public static final AssetDescriptor<Texture> aFinger = new AssetDescriptor<Texture>("data\\tutorialStuff\\aGoodLookingFinger.png", Texture.class);
 	public static final AssetDescriptor<Texture> greenPointerArrow = new AssetDescriptor<Texture>("data\\tutorialStuff\\greenPointerArrow.png", Texture.class);
-	public static final AssetDescriptor<Music> menuBackgroundMusic = new AssetDescriptor<Music>("data\\backgroundMusic.mp3", Music.class);
-	//:TODO change this!
-	public static final AssetDescriptor<Texture> propToxicPuddle = new AssetDescriptor<Texture>("data\\googleSaysItIsAPool.png", Texture.class);
 	
+	//props
+	public static final AssetDescriptor<Texture> propExplosiveBarrel = new AssetDescriptor<Texture>("data\\propBarrelAnimation.png", Texture.class);
+	public static final AssetDescriptor<Texture> propTreasure = new AssetDescriptor<Texture>("data\\propTreasureAnimation.png", Texture.class);
+	public static final AssetDescriptor<Texture> propToxicPuddle = new AssetDescriptor<Texture>("data\\googleSaysItIsAPool.png", Texture.class);
+	public static final AssetDescriptor<Texture> FROZEN_TRAP = new AssetDescriptor<Texture>("data\\Frozen.png", Texture.class);
+	public static final AssetDescriptor<Texture> DAMAGE_TRAP = new AssetDescriptor<Texture>("data\\appleTrap.png", Texture.class);
+	public static final AssetDescriptor<Texture> POISON_TRAP = new AssetDescriptor<Texture>("data\\googleSaysItIsAPool.png", Texture.class);
+	
+	public static final AssetDescriptor<Texture> turretImg = new AssetDescriptor<Texture>("data\\turret.png", Texture.class);
+	public static final AssetDescriptor<Texture> plasmaShield = new AssetDescriptor<Texture>("data\\plasmaShieldAnimation.png", Texture.class);
+	public static final AssetDescriptor<Texture> iceCube = new AssetDescriptor<Texture>("data\\iceCube.png", Texture.class);
+
+	//projectiles
 	public static final AssetDescriptor<Texture> arrow = new AssetDescriptor<Texture>("data\\arrrrow.png", Texture.class);
 	public static final AssetDescriptor<Texture> arrowPoisoned = new AssetDescriptor<Texture>("data\\arrrrowPoisoned.png", Texture.class);
 	public static final AssetDescriptor<Texture> arrowExplosive = new AssetDescriptor<Texture>("data\\arrrrowExplosive.png", Texture.class);
-	public static final AssetDescriptor<Texture> oxygenKitItem = new AssetDescriptor<Texture>("data\\Items\\OxygenKitItem.png", Texture.class);
-	public static final AssetDescriptor<Texture> healthKitItem = new AssetDescriptor<Texture>("data\\Items\\HealthKitItem.png", Texture.class);
-	public static final AssetDescriptor<Texture> blueItem = new AssetDescriptor<Texture>("data\\Items\\blue.png", Texture.class);
-	public static final AssetDescriptor<Texture> greenItem = new AssetDescriptor<Texture>("data\\Items\\green.png", Texture.class);
-	public static final AssetDescriptor<Texture> yellowItem = new AssetDescriptor<Texture>("data\\Items\\yellow.png", Texture.class);
-	public static final AssetDescriptor<Texture> purpleItem = new AssetDescriptor<Texture>("data\\Items\\purple.png", Texture.class);
-	public static final AssetDescriptor<Texture> redItem = new AssetDescriptor<Texture>("data\\Items\\red.png", Texture.class);
-	public static final AssetDescriptor<Texture> weaponizerButton = new AssetDescriptor<Texture>("data\\Weaponizer.png", Texture.class);
-	public static final AssetDescriptor<Texture> iceCube = new AssetDescriptor<Texture>("data\\iceCube.png", Texture.class);
-	public static final AssetDescriptor<Texture> tiles = new AssetDescriptor<Texture>("data\\Tiles.png", Texture.class);
-	public static final AssetDescriptor<Texture> tileSet_SAND_WORLD = new AssetDescriptor<Texture>("data\\tileSet_SAND_WORLD.png", Texture.class);
+	public static final AssetDescriptor<Texture> leachProjectile = new AssetDescriptor<Texture>("data\\leechProjectile.png", Texture.class);
+	public static final AssetDescriptor<Texture> turretProjectile = new AssetDescriptor<Texture>("data\\turretProjectile.png", Texture.class);
+	public static final AssetDescriptor<Texture> projectileHydra = new AssetDescriptor<Texture>("data\\ProjectileHydra.png", Texture.class);
+	public static final AssetDescriptor<Texture> trailEffect = new AssetDescriptor<Texture>("data\\trailEffect.png", Texture.class);
+	
+	//Slotmachine
 	public static final AssetDescriptor<Texture> slotMachineCase = new AssetDescriptor<Texture>("data\\slotMachineUI\\slotMachineCase.png", Texture.class);
 	public static final AssetDescriptor<Texture> saveSlotBar = new AssetDescriptor<Texture>("data\\slotMachineUI\\savedSlotsBar.png", Texture.class);
+	public static final AssetDescriptor<Texture> selectedSavedSlot = new AssetDescriptor<Texture>("data\\slotMachineUI\\selectedSavedSlot.png", Texture.class);
+	public static final AssetDescriptor<Texture> addedSavedSlotAnimation = new AssetDescriptor<Texture>("data\\slotMachineUI\\addedSavedSlotAnimation.png", Texture.class);
+	public static final AssetDescriptor<Texture> slotAnimation = new AssetDescriptor<Texture>("data\\slotMachineUI\\slotAnimation.png", Texture.class);
+	
+	//effects
 	public static final AssetDescriptor<Texture> FADE_ICON = new AssetDescriptor<Texture>("data\\slotIcons\\FADE_ICON.png", Texture.class);
 	public static final AssetDescriptor<Texture> RADIOACTIVE_AURA_ICON = new AssetDescriptor<Texture>("data\\slotIcons\\RADIOACTIVE_AURA_ICON.png", Texture.class);
+	public static final AssetDescriptor<Texture> FROZENNEGATIVEEFFECT_ICON = new AssetDescriptor<Texture>("data\\slotIcons\\FROZEN_NEGATIVE_EFFECT_ICON.png", Texture.class);
+	public static final AssetDescriptor<Texture> POISONEDNEGATIVEEFFECT_ICON = new AssetDescriptor<Texture>("data\\slotIcons\\POISONED_NEGATIVE_EFFECT_ICON.png", Texture.class);
+	public static final AssetDescriptor<Texture> SCAREDNEGATIVEEFFECT_ICON = new AssetDescriptor<Texture>("data\\slotIcons\\SCARED_NEGATIVE_EFFECT_ICON.png", Texture.class);
+	public static final AssetDescriptor<Texture> STUNNEGATIVEEFFECT_ICON = new AssetDescriptor<Texture>("data\\slotIcons\\STUN_NEGATIVE_EFFECT_ICON.png", Texture.class);
+	public static final AssetDescriptor<Texture> HASTE_ICON = new AssetDescriptor<Texture>("data\\slotIcons\\HASTE_ICON.png", Texture.class);
+
+	//slots
+	public static final AssetDescriptor<Texture> TURRET_ICON = new AssetDescriptor<Texture>("data\\slotIcons\\TURRET_ICON.png", Texture.class);
+	public static final AssetDescriptor<Texture> PANIC_TELEPORT_ICON = new AssetDescriptor<Texture>("data\\slotIcons\\PANIC_TELEPORT__ICON.png", Texture.class);
 	public static final AssetDescriptor<Texture> SPEED_BOOST_ICON = new AssetDescriptor<Texture>("data\\slotIcons\\SPEED_BOOST_ICON.png", Texture.class);
 	public static final AssetDescriptor<Texture> THREEARROW_ICON = new AssetDescriptor<Texture>("data\\slotIcons\\3ARROW_ARROW_ICON.png", Texture.class);
 	public static final AssetDescriptor<Texture> EXPLOSIVE_ARROW_ICON = new AssetDescriptor<Texture>("data\\slotIcons\\EXPLOSIVE_ARROW_ICON.png", Texture.class);
@@ -71,37 +92,27 @@ public class Assets {
 	public static final AssetDescriptor<Texture> IMPROVEMAXOXYGEN_ICON = new AssetDescriptor<Texture>("data\\slotIcons\\IMPROVEMAXOXYGEN_ICON2.png", Texture.class);
 	public static final AssetDescriptor<Texture> IMPROVEARROWDAMAGE_ICON = new AssetDescriptor<Texture>("data\\slotIcons\\IMPROVEARROWDAMAGE_ICON.png", Texture.class);
 	public static final AssetDescriptor<Texture> IMPROVEARROWSPEED_ICON = new AssetDescriptor<Texture>("data\\slotIcons\\IMPROVEARROWSPEED_ICON.png", Texture.class);
-	public static final AssetDescriptor<Texture> HASTE_ICON = new AssetDescriptor<Texture>("data\\slotIcons\\HASTE_ICON.png", Texture.class);
 	public static final AssetDescriptor<Texture> IMPROVEMOVEMENTSPEED_ICON = new AssetDescriptor<Texture>("data\\slotIcons\\IMPROVE_MOVEMENT_SPEED_ICON.png", Texture.class);
-	public static final AssetDescriptor<Texture> FROZENNEGATIVEEFFECT_ICON = new AssetDescriptor<Texture>("data\\slotIcons\\FROZEN_NEGATIVE_EFFECT_ICON.png", Texture.class);
-	public static final AssetDescriptor<Texture> POISONEDNEGATIVEEFFECT_ICON = new AssetDescriptor<Texture>("data\\slotIcons\\POISONED_NEGATIVE_EFFECT_ICON.png", Texture.class);
-	public static final AssetDescriptor<Texture> SCAREDNEGATIVEEFFECT_ICON = new AssetDescriptor<Texture>("data\\slotIcons\\SCARED_NEGATIVE_EFFECT_ICON.png", Texture.class);
-	public static final AssetDescriptor<Texture> STUNNEGATIVEEFFECT_ICON = new AssetDescriptor<Texture>("data\\slotIcons\\STUN_NEGATIVE_EFFECT_ICON.png", Texture.class);
+	
+	
+	//levels
 	public static final AssetDescriptor<Texture> slotLevel1 = new AssetDescriptor<Texture>("data\\slotIcons\\slotLevel1.png", Texture.class);
 	public static final AssetDescriptor<Texture> slotLevel2 = new AssetDescriptor<Texture>("data\\slotIcons\\slotLevel2.png", Texture.class);
 	public static final AssetDescriptor<Texture> slotLevel3 = new AssetDescriptor<Texture>("data\\slotIcons\\slotLevel3.png", Texture.class);
 	public static final AssetDescriptor<Texture> slotLevel4 = new AssetDescriptor<Texture>("data\\slotIcons\\slotLevel4.png", Texture.class);
 	public static final AssetDescriptor<Texture> slotLevel5 = new AssetDescriptor<Texture>("data\\slotIcons\\slotLevel5.png", Texture.class);
-	public static final AssetDescriptor<Texture> selectedSavedSlot = new AssetDescriptor<Texture>("data\\slotMachineUI\\selectedSavedSlot.png", Texture.class);
-	public static final AssetDescriptor<Texture> addedSavedSlotAnimation = new AssetDescriptor<Texture>("data\\slotMachineUI\\addedSavedSlotAnimation.png", Texture.class);
-	public static final AssetDescriptor<Texture> slotAnimation = new AssetDescriptor<Texture>("data\\slotMachineUI\\slotAnimation.png", Texture.class);
-	public static final AssetDescriptor<Texture> POISON_TRAP = new AssetDescriptor<Texture>("data\\googleSaysItIsAPool.png", Texture.class);
-	public static final AssetDescriptor<Texture> FROZEN_TRAP = new AssetDescriptor<Texture>("data\\Frozen.png", Texture.class);
-	public static final AssetDescriptor<Texture> DAMAGE_TRAP = new AssetDescriptor<Texture>("data\\appleTrap.png", Texture.class);
-	public static final AssetDescriptor<Texture> slotMachineWindow = new AssetDescriptor<Texture>("data\\slotMachineUI\\slotMachineWindow.png", Texture.class);
-	public static final AssetDescriptor<Texture> slotMachineWindowYes = new AssetDescriptor<Texture>("data\\slotMachineUI\\slotMachineWindowYES.png", Texture.class);
-	public static final AssetDescriptor<Texture> slotMachineWindowNo = new AssetDescriptor<Texture>("data\\slotMachineUI\\slotMachineWindowNO.png", Texture.class);
-	public static final AssetDescriptor<Texture> leachProjectile = new AssetDescriptor<Texture>("data\\leechProjectile.png", Texture.class);
-	public static final AssetDescriptor<Texture> projectileHydra = new AssetDescriptor<Texture>("data\\ProjectileHydra.png", Texture.class);
-//	public static final AssetDescriptor<TiledMap> map = new AssetDescriptor<TiledMap>("data\\Map.tmx", TiledMap.class);
-	public static final AssetDescriptor<BitmapFont> font = new AssetDescriptor<BitmapFont>("data\\font.fnt", BitmapFont.class);
-	public static final AssetDescriptor<Texture> explosiveTrap = new AssetDescriptor<Texture>("data\\explosiveTrap.png", Texture.class); 
-	public static final AssetDescriptor<Texture> exitMessageWindow = new AssetDescriptor<Texture>("data\\ExitMessageWindow.png", Texture.class); 
-	//effects
-	public static final AssetDescriptor<Texture> trailEffect = new AssetDescriptor<Texture>("data\\trailEffect.png", Texture.class);
 	
-	public static final AssetDescriptor<Texture> goButton = new AssetDescriptor<Texture>("data\\goButton.png", Texture.class);
-	public static final AssetDescriptor<Texture> PANIC_TELEPORT_ICON = new AssetDescriptor<Texture>("data\\slotIcons\\PANIC_TELEPORT__ICON.png", Texture.class);
+	//items
+	public static final AssetDescriptor<Texture> oxygenKitItem = new AssetDescriptor<Texture>("data\\Items\\OxygenKitItem.png", Texture.class);
+	public static final AssetDescriptor<Texture> healthKitItem = new AssetDescriptor<Texture>("data\\Items\\HealthKitItem.png", Texture.class);
+	public static final AssetDescriptor<Texture> blueItem = new AssetDescriptor<Texture>("data\\Items\\blue.png", Texture.class);
+	public static final AssetDescriptor<Texture> greenItem = new AssetDescriptor<Texture>("data\\Items\\green.png", Texture.class);
+	public static final AssetDescriptor<Texture> yellowItem = new AssetDescriptor<Texture>("data\\Items\\yellow.png", Texture.class);
+	public static final AssetDescriptor<Texture> purpleItem = new AssetDescriptor<Texture>("data\\Items\\purple.png", Texture.class);
+	public static final AssetDescriptor<Texture> redItem = new AssetDescriptor<Texture>("data\\Items\\red.png", Texture.class);
+	
+//	public static final AssetDescriptor<Texture> tiles = new AssetDescriptor<Texture>("data\\Tiles.png", Texture.class);
+//	public static final AssetDescriptor<Texture> tileSet_SAND_WORLD = new AssetDescriptor<Texture>("data\\tileSet_SAND_WORLD.png", Texture.class);
 	
 	public static void load(){
 		manager.load(menuBackgroundMusic);
@@ -142,8 +153,8 @@ public class Assets {
 		manager.load(redItem);
 		manager.load(purpleItem);
 		manager.load(weaponizerButton);
-		manager.load(tiles);
-		manager.load(tileSet_SAND_WORLD);
+//		manager.load(tiles);
+//		manager.load(tileSet_SAND_WORLD);
 		manager.load(slotMachineCase);
 		manager.load(saveSlotBar);
 		manager.load(FADE_ICON);
@@ -179,23 +190,16 @@ public class Assets {
 		manager.load(POISON_TRAP);
 		manager.load(FROZEN_TRAP);
 		manager.load(DAMAGE_TRAP);
-		manager.load(slotMachineWindow);
-		manager.load(slotMachineWindowYes);
-		manager.load(slotMachineWindowNo);
 		manager.load(arrowPoisoned);
 		manager.load(arrowExplosive);
 		manager.load(leachProjectile);
 		manager.load(projectileHydra);
-		manager.load(explosiveTrap);
 		
 		manager.setLoader(BitmapFont.class, new BitmapFontLoader(new InternalFileHandleResolver()));
 		manager.load(font);
-		manager.load(exitMessageWindow);
 //		manager.setLoader(TiledMap.class, new TmxMapLoader());
 		//Effects load
 		manager.load(trailEffect);
-		
-		manager.load(goButton);
 //		manager.load(map);
 	}
 

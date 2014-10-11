@@ -19,7 +19,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.me.swampmonster.GUI.GUI;
 import com.me.swampmonster.models.AbstractGameObject.NegativeEffects;
@@ -54,10 +53,7 @@ public class GShape extends Group {
 	public Sprite feedbackWindow;
 	public Sprite feedbackWindowYes;
 	
-//	public Sprite exitMessageWindow;
 	public Dialog exitDialog;
-//	public Sprite gotoMenu;
-//	public Sprite backToGame;
 	
 	public ImageButton slotMachineButton;
 	
@@ -93,12 +89,9 @@ public class GShape extends Group {
 		L1Renderer.stage.addActor(slotMachineButton);
 		this.theController = theController;
 		waveNotificationAnimationCounter = 240;
-		feedbackWindow = new Sprite(Assets.manager.get(Assets.slotMachineWindow));
-		feedbackWindowYes = new Sprite(Assets.manager.get(Assets.slotMachineWindowYes));
-//		exitMessageWindow = new Sprite(Assets.manager.get(Assets.exitMessageWindow));
+//		feedbackWindow = new Sprite(Assets.manager.get(Assets.slotMachineWindow));
+//		feedbackWindowYes = new Sprite(Assets.manager.get(Assets.slotMachineWindowYes));
 		exitDialog = new ExitDialog("", skin);
-//		gotoMenu = new Sprite(Assets.manager.get(Assets.slotMachineWindowYes));
-//		backToGame = new Sprite(Assets.manager.get(Assets.slotMachineWindowNo));
 	}
 	
 	
@@ -203,9 +196,6 @@ public class GShape extends Group {
 		point.y = Constants.VIEWPORT_HEIGHT
 				- (Gdx.input.getY() * Constants.VIEWPORT_HEIGHT)
 				/ Gdx.graphics.getHeight();
-		// System.out.println("width: " + Gdx.graphics.getWidth() + ", height: "
-		// + Gdx.graphics.getHeight());
-		// System.out.println("point.x: " + point.x + ", point.y: " + point.y);
 
 		sr.rect(point.x, point.y, 10, 10);
 
@@ -419,32 +409,7 @@ public class GShape extends Group {
 		
 		batch.begin();
 		if (TheController.paused){
-//			exitMessageWindow.setSize(Constants.VIEWPORT_WIDTH/2.1f, Constants.VIEWPORT_HEIGHT/1.4f);
-//			exitMessageWindow.setPosition(Constants.VIEWPORT_WIDTH/4f, Constants.VIEWPORT_HEIGHT/5f);
-//			exitMessageWindow.draw(batch);
-//			font.setColor(Color.RED);
-//			font.draw(batch, Constants.EXIT_MESSAGE, exitMessageWindow.getBoundingRectangle().x+20, exitMessageWindow.getBoundingRectangle().y+280);
-			
-//			gotoMenu.setPosition(exitMessageWindow.getBoundingRectangle().x+90, exitMessageWindow.getBoundingRectangle().y+20);
-//			gotoMenu.draw(batch);
-			
-			
-//			backToGame.setPosition(exitMessageWindow.getBoundingRectangle().x+290, exitMessageWindow.getBoundingRectangle().y+20);
-//			backToGame.draw(batch);
-			
-			Vector2 victor2 = new Vector2(Gdx.input.getX(), Constants.VIEWPORT_HEIGHT - Gdx.input.getY());
-			
-//			if (Gdx.input.justTouched()
-//					&& gotoMenu.getBoundingRectangle().contains(victor2)){
-//				TheController.gotoMenu = true;
-//				TheController.paused = false;
-//			}
-//			if (Gdx.input.justTouched()
-//					&& backToGame.getBoundingRectangle().contains(victor2)){
-//				TheController.gotoMenu = false;
-//				TheController.paused = false;
-//			}
-//			
+//			Vector2 victor2 = new Vector2(Gdx.input.getX(), Constants.VIEWPORT_HEIGHT - Gdx.input.getY());
 		}
 		if(TutorialLevel.aFingure != null){
 			batch.draw(TutorialLevel.aFingure, TutorialLevel.aFingure.getX(), TutorialLevel.aFingure.getY(), TutorialLevel.aFingure.getWidth(), TutorialLevel.aFingure.getHeight());

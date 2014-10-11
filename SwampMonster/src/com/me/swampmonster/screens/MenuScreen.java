@@ -4,7 +4,6 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Camera;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.GL30;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -48,7 +47,7 @@ public class MenuScreen extends AbstractGameScreen{
 	public static boolean soundsEnabled = true;
 	public Music menuMusic;
 	private Array<Viewport> viewports;
-	private Array<String> names;
+	private  static  Array<String> names;
 	
 	public MenuScreen(Game game) {
 		super(game);
@@ -157,7 +156,7 @@ public class MenuScreen extends AbstractGameScreen{
 	}
 	
 	static public Array<String> getViewportNames () {
-		Array<String> names = new Array();
+		/*Array<String> */names = new Array();
 		names.add("StretchViewport");
 		names.add("FillViewport");
 		names.add("FitViewport");

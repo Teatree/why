@@ -12,35 +12,24 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener.ChangeEvent;
-import com.badlogic.gdx.utils.Scaling;
-import com.badlogic.gdx.utils.viewport.ScalingViewport;
 import com.me.swampmonster.animations.AnimationControl;
 import com.me.swampmonster.game.TheController;
+import com.me.swampmonster.models.AbstractGameObject.State;
 import com.me.swampmonster.models.L1;
 import com.me.swampmonster.models.Player;
-import com.me.swampmonster.models.AbstractGameObject.State;
 import com.me.swampmonster.models.slots.ImproveArrowDamage;
 import com.me.swampmonster.models.slots.ImproveMaxHealth;
 import com.me.swampmonster.models.slots.ImproveMaxOxygen;
@@ -49,7 +38,6 @@ import com.me.swampmonster.models.slots.Perks;
 import com.me.swampmonster.models.slots.Slot;
 import com.me.swampmonster.screens.SlotMachineScreen;
 import com.me.swampmonster.utils.Assets;
-import com.me.swampmonster.utils.Constants;
 import com.me.swampmonster.utils.GeneralUtils;
 import com.me.swampmonster.utils.ScreenContainer;
 import com.me.swampmonster.utils.SlotsGenerator;
@@ -61,9 +49,9 @@ public class SlotMachineTextures extends Group {
 	public static Map<Integer, Sprite> slotLevelPic;
 	int [] slotPositionsX = {159, 328, 497};
 	int slotPositionY = 174;
-	public Sprite slotMachineWindow;
-	public Sprite slotMachineWindowYes;
-	public Sprite slotMachineWindowNo;
+//	public Sprite slotMachineWindow;
+//	public Sprite slotMachineWindowYes;
+//	public Sprite slotMachineWindowNo;
 	public Sprite savedSlotBar;
 	public Sprite slotLevel1;
 	public Sprite slotLevel2;
@@ -72,8 +60,8 @@ public class SlotMachineTextures extends Group {
 	public Sprite slotLevel5;
 	public Sprite selectedSavedSlotRectangle;
 	public ShapeRenderer sr;
-	public Rectangle yes;
-	public Rectangle no;
+//	public Rectangle yes;
+//	public Rectangle no;
 	public AnimationControl animantionCtlr;
 	public boolean[] notAnimating;
 	public static boolean peru;
@@ -128,10 +116,10 @@ public class SlotMachineTextures extends Group {
 		font = Assets.manager.get(Assets.font);
 		slotsGen = SlotsGenerator.getSlotGenerator();
 		
-		// do you still need this?
-		slotMachineWindow = new Sprite(Assets.manager.get(Assets.slotMachineWindow));
-		slotMachineWindowYes = new Sprite(Assets.manager.get(Assets.slotMachineWindowYes));
-		slotMachineWindowNo = new Sprite(Assets.manager.get(Assets.slotMachineWindowNo));
+//		// do you still need this?
+//		slotMachineWindow = new Sprite(Assets.manager.get(Assets.slotMachineWindow));
+//		slotMachineWindowYes = new Sprite(Assets.manager.get(Assets.slotMachineWindowYes));
+//		slotMachineWindowNo = new Sprite(Assets.manager.get(Assets.slotMachineWindowNo));
 		selectedSavedSlotRectangle = new Sprite (Assets.manager.get(Assets.selectedSavedSlot));
 		savedSlotBar = new Sprite(Assets.manager.get(Assets.saveSlotBar));
 		
@@ -151,12 +139,12 @@ public class SlotMachineTextures extends Group {
 		slotLevelPic.put(3, slotLevel4);
 		slotLevelPic.put(4, slotLevel5);
 		
-		yes = new Rectangle();
-		yes.width = slotMachineWindowYes.getWidth();
-		yes.height = slotMachineWindowYes.getHeight();
-		no = new Rectangle();
-		no.width = slotMachineWindowNo.getWidth();
-		no.height = slotMachineWindowNo.getHeight();
+//		yes = new Rectangle();
+//		yes.width = slotMachineWindowYes.getWidth();
+//		yes.height = slotMachineWindowYes.getHeight();
+//		no = new Rectangle();
+//		no.width = slotMachineWindowNo.getWidth();
+//		no.height = slotMachineWindowNo.getHeight();
 		slots = new Slot[3];
 		
 		
@@ -295,12 +283,10 @@ public class SlotMachineTextures extends Group {
 					}
 					if(s.animSlotCounter==49){
 						s.position = new Vector2(selectedSlot.sprite.getX(), selectedSlot.sprite.getY());
-//						System.out.println("rewrite the fuckign pos! " + s.position);
-//						System.err.println("position: " + s.position);
 						s.width = 146;
 						s.height = 146;
-						animDx = /*selectedSlot.sprite.getX() -*/ s.savedSlotPosition.x - selectedSlot.sprite.getX();
-						animDy = /*selectedSlot.sprite.getY() -*/ s.savedSlotPosition.y - selectedSlot.sprite.getY();
+						animDx = s.savedSlotPosition.x - selectedSlot.sprite.getX();
+						animDy = s.savedSlotPosition.y - selectedSlot.sprite.getY();
 						
 						float length1 = (float) Math.sqrt(animDx * animDx + animDy * animDy);
 						slotAnimSpeed = length1 / 50;
@@ -333,18 +319,20 @@ public class SlotMachineTextures extends Group {
 				slot.sprite.setSize(146, 146);
 				slot.sprite.draw(batch);
 				try {
-					Sprite s;
+					if (slot.levelSprite == null){
+						slot.levelSprite = new Sprite();
+					}
 					if(slot.selected && SlotMachineScreen.yesWasJustPressed){
-						s = new Sprite(slotLevelPic.get(slot.getClass()
+						slot.levelSprite.setRegion(slotLevelPic.get(slot.getClass()
 								.getField("level").getInt(null)-1));
 						rerollButton.setDisabled(true);
 					}else{
-						s = new Sprite(slotLevelPic.get(slot.getClass()
+						slot.levelSprite.setRegion(slotLevelPic.get(slot.getClass()
 								.getField("level").getInt(null)));
 					}
-					s.setPosition(slot.sprite.getX(), slot.sprite.getY());
-					s.setSize(32, 32);
-					s.draw(batch);
+					slot.levelSprite.setPosition(slot.sprite.getX(), slot.sprite.getY());
+					slot.levelSprite.setSize(32, 32);
+					slot.levelSprite.draw(batch);
 
 				} catch (Exception e) {
 					e.printStackTrace();

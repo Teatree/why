@@ -25,8 +25,6 @@ public class Constants {
 	
 	public static final int Max_slot_level = 4;
 	
-	//
-	
 	//:TODO THE AWESOME SLOT DATA!
 //  Arrows3:
 	public static final String Arrows3_Name = "Triple Arrows!";

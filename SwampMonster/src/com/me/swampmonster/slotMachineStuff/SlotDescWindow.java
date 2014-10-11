@@ -19,9 +19,10 @@ public class SlotDescWindow extends Dialog {
 	public Slot slot;
 	private Image image;
 	private Image imageLevel;
-
+	
 	public SlotDescWindow(String title, Skin skin, final Slot slot) {
 		super("", skin);
+		
 		this.slot = slot;
 //		fadeDuration = 0;
 		image = new Image(slot.sprite.getTexture());
@@ -35,7 +36,9 @@ public class SlotDescWindow extends Dialog {
 		ImageButton noButton = new ImageButton(skin, "no");
 		Label text = new Label(slot.getDescription(), skin);
 		text.setWrap(true);
-		Label text3 = new Label("someDAY!", skin);
+		Label textI = new Label("a 19", skin, "stats");
+		Label textO = new Label("g 11", skin, "stats");
+		Label textP = new Label("m 1(+1)", skin, "stats");
 		Label text2 = new Label(slot.name, skin);
 		text.setWrap(true);
 		
@@ -48,7 +51,11 @@ public class SlotDescWindow extends Dialog {
 		
 		Table firstColumn = new Table();
 		firstColumn.add(image).size(100).left().top().row();
-		firstColumn.add(text3).left().top();
+//		for(String sS: slot.getStats(L1.player)){
+			firstColumn.add(textI).left().top().row();
+			firstColumn.add(textO).left().top().row();
+			firstColumn.add(textP).left().top().row();
+//		}
 		System.out.println((float)(this.getHeight()));
 		getContentTable().add(firstColumn).top();
 		

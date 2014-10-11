@@ -22,13 +22,10 @@ import com.badlogic.gdx.utils.viewport.ScalingViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.me.swampmonster.game.TheController;
-import com.me.swampmonster.models.slots.Perks;
 import com.me.swampmonster.models.slots.Slot;
 import com.me.swampmonster.slotMachineStuff.SlotDescWindow;
 import com.me.swampmonster.slotMachineStuff.SlotMachineTextures;
 import com.me.swampmonster.utils.Constants;
-import com.me.swampmonster.utils.ScreenContainer;
 
 public class SlotMachineScreen extends AbstractGameScreen {
 	
@@ -61,8 +58,6 @@ public class SlotMachineScreen extends AbstractGameScreen {
 			inputMultiplexer.addProcessor(s);
 		}
 		
-//		viewport.setScreenWidth((int) Constants.VIEWPORT_WIDTH);
-//		viewport.setScreenHeight((int) Constants.VIEWPORT_HEIGHT);
 //		Gdx.input.setInputProcessor(stage);
 	}
 
@@ -72,16 +67,6 @@ public class SlotMachineScreen extends AbstractGameScreen {
 		Gdx.gl.glClear(GL30.GL_COLOR_BUFFER_BIT);
 		victor = new Vector2(Gdx.input.getX(), Constants.VIEWPORT_HEIGHT
 				- Gdx.input.getY());
-//		if (Gdx.input.justTouched()
-//				&& slotMachineTextures.rerollButton.getBoundingRectangle()
-//						.contains(victor) && !yesWasJustPressed && !isSlotDescWindowOpen) {
-//			slotMachineTextures.generateSlots(player);
-//			yesWasJustPressed = false;
-//			for (int i = 0; i < slotMachineTextures.notAnimating.length; i++) {
-//				slotMachineTextures.notAnimating[i] = false;
-//			}
-//			slotMachineTextures.animCounter = 0;
-//		} else {
 			for (Slot slot : slotMachineTextures.slots) {
 				selectSlot(slot);
 			}
@@ -94,7 +79,6 @@ public class SlotMachineScreen extends AbstractGameScreen {
 			
 			stage.act();
 			stage.draw();
-//			Table.drawDebug(stage);
 			
 			if (SlotMachineTextures.peru && !SlotMachineScreen.yesWasJustPressed) {
 				for(Slot s: slotMachineTextures.slots){
@@ -104,16 +88,11 @@ public class SlotMachineScreen extends AbstractGameScreen {
 						slotDescWindow.debug();
 						slotDescWindow.getButtonTable().debug();
 						slotDescWindow.getContentTable().debug();
-//						slotDescWindow.setSize(Constants.VIEWPORT_GUI_WIDTH/2f, Constants.VIEWPORT_GUI_HEIGHT/1.7f);
-//						slotDescWindow.setX(Constants.VIEWPORT_GUI_WIDTH/2f-slotDescWindow.getWidth()/2);
-//						slotDescWindow.setY(Constants.VIEWPORT_GUI_HEIGHT/2f-slotDescWindow.getHeight()/2);
 						slotDescWindow.setSize(Constants.SLOT_DESC_WINDOW_WIDTH, Constants.SLOT_DESC_WINDOW_HEIGHT);
 						slotDescWindow.setX(200);
 						slotDescWindow.setY(100);
 						SlotMachineTextures.peru = false;
 						isSlotDescWindowOpen = true;
-//						Gdx.input.setInputProcessor(null);
-						System.out.println("creating the fuckign slotDesc");
 					}
 				}
 				
@@ -136,7 +115,7 @@ public class SlotMachineScreen extends AbstractGameScreen {
 					slot.selected = true;
 
 				}
-			} else if (Gdx.input.justTouched()
+			}/* else if (Gdx.input.justTouched()
 					&& slotMachineTextures.slotMachineWindowNo
 							.getBoundingRectangle().contains(victor)) {
 				for (Slot s : slotMachineTextures.slots) {
@@ -146,9 +125,8 @@ public class SlotMachineScreen extends AbstractGameScreen {
 			} else if (Gdx.input.justTouched()
 					&& slotMachineTextures.slotMachineWindowYes
 							.getBoundingRectangle().contains(victor)) {
-	}}
+	}*/}
 		}
-//		stage.addActor(new Image(slot.sprite));
 	}
 
 	private void selectSavedSlot(Slot slot) {
@@ -159,7 +137,7 @@ public class SlotMachineScreen extends AbstractGameScreen {
 				slotMachineTextures.selectedSlot = slot;
 				slot.selectedSaved = true;
 			}
-		} else if (slotMachineTextures.slotMachineWindowNo
+		} /*else if (slotMachineTextures.slotMachineWindowNo
 				.getBoundingRectangle().contains(victor)) {
 			for (Slot s : savedSlots) {
 				s.selected = false;
@@ -183,7 +161,7 @@ public class SlotMachineScreen extends AbstractGameScreen {
 					yesWasJustPressed = false;
 				}
 			}
-		}
+		}*/
 		}
 	}
 
@@ -194,7 +172,6 @@ public class SlotMachineScreen extends AbstractGameScreen {
 
 	@Override
 	public void show() {
-//		stage.addActor(slotMachineTextures);
 		for(Actor a : stage.getActors()){
 			if(a instanceof SlotMachineTextures){
 				a.remove();
@@ -202,13 +179,7 @@ public class SlotMachineScreen extends AbstractGameScreen {
 			}
 		}
 		slotMachineTextures = new SlotMachineTextures(player);
-//		if(slotMachineTextures.slotDescWindow != null){
-//			stage.addActor(slotMachineTextures.slotDescWindow);
-//		}
 		stage.addActor(slotMachineTextures);
-//		if(yesWasJustPressed){
-//			slotMachineTextures.slotDescWindow.remove();
-//		}
 		Gdx.input.setInputProcessor(inputMultiplexer);
 		stage.setViewport(viewports.first());
 	}

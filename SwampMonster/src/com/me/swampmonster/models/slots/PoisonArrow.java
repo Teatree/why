@@ -1,6 +1,7 @@
 package com.me.swampmonster.models.slots;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -58,5 +59,11 @@ public class PoisonArrow extends Slot{
 	@Override
 	public String getDescriptionForSaved() {
 		return descriptionByLevel.get(level-1);
+	}
+
+	@Override
+	public List<String> getStats(Player player) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

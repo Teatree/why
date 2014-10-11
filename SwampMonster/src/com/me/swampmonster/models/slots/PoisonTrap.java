@@ -1,11 +1,13 @@
 package com.me.swampmonster.models.slots;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Circle;
 import com.me.swampmonster.models.AbstractGameObject.NegativeEffects;
+import com.me.swampmonster.models.Player;
 import com.me.swampmonster.models.enemies.Enemy;
 import com.me.swampmonster.utils.Assets;
 import com.me.swampmonster.utils.Constants;
@@ -78,5 +80,11 @@ public class PoisonTrap extends Trap{
 	@Override
 	public String getDescriptionForSaved() {
 		return descriptionByLevel.get(level-1);
+	}
+
+	@Override
+	public List<String> getStats(Player player) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
