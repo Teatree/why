@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.me.swampmonster.animations.AnimationControl;
 import com.me.swampmonster.models.AbstractGameObject.State;
 import com.me.swampmonster.models.Player;
+import com.me.swampmonster.screens.SlotMachineScreen;
 import com.me.swampmonster.slotMachineStuff.SlotMachineTextures;
 import com.me.swampmonster.utils.Assets;
 
@@ -71,6 +72,12 @@ public abstract class Slot extends InputAdapter {
 				rewritten = false;
 				animSavedSelectedCounter = 0;
 				state = null;
+				if(!(this instanceof Perks)){
+					for(Slot s: SlotMachineScreen.savedSlots){
+						s.selectedSaved = false;
+					}
+					this.selectedSaved = true;
+				}
 			}
 		}
 	}

@@ -22,6 +22,8 @@ import com.badlogic.gdx.utils.viewport.ScalingViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.me.swampmonster.game.TheController;
+import com.me.swampmonster.models.slots.Perks;
 import com.me.swampmonster.models.slots.Slot;
 import com.me.swampmonster.slotMachineStuff.SlotDescWindow;
 import com.me.swampmonster.slotMachineStuff.SlotMachineTextures;
@@ -113,7 +115,6 @@ public class SlotMachineScreen extends AbstractGameScreen {
 					SlotMachineTextures.peru = true;
 					slotMachineTextures.selectedSlot = slot;
 					slot.selected = true;
-
 				}
 			}/* else if (Gdx.input.justTouched()
 					&& slotMachineTextures.slotMachineWindowNo
@@ -132,12 +133,17 @@ public class SlotMachineScreen extends AbstractGameScreen {
 	private void selectSavedSlot(Slot slot) {
 		if(!isSlotDescWindowOpen){
 		if (slot.sprite.getBoundingRectangle().contains(victor)) {
-			if (!SlotMachineTextures.peru) {
-				SlotMachineTextures.peru = true;
+			if (!(slot instanceof Perks)) {
 				slotMachineTextures.selectedSlot = slot;
+				for(Slot s: savedSlots){
+					s.selectedSaved = false;
+				}
 				slot.selectedSaved = true;
+//			slot.selected = false;
 			}
-		} /*else if (slotMachineTextures.slotMachineWindowNo
+			// miniWindow place
+		}  
+		/*else if (slotMachineTextures.slotMachineWindowNo
 				.getBoundingRectangle().contains(victor)) {
 			for (Slot s : savedSlots) {
 				s.selected = false;

@@ -247,7 +247,7 @@ public class TheController extends InputAdapter {
 
 	private void inputNav() {
 		if (!L1.player.state.equals(State.DEAD) && !paused && !pausedTutorial) {
-			if (!doesIntersect(point, gui.getWeaponizer().getPosition(),
+			if (!doesIntersect(point, gui.getWeaponizer().position,
 					gui.getWeaponizer().circle.radius)) {
 				touchPos.y = Gdx.input.getY();
 				touchPos.x = Gdx.input.getX();
@@ -255,7 +255,7 @@ public class TheController extends InputAdapter {
 				touchPos.z = 0;
 				L1.player.pointGathered = true;
 			} else if (Intersector.intersectSegmentCircle(point, point, gui
-					.getWeaponizer().getPosition(),
+					.getWeaponizer().position,
 					gui.getWeaponizer().circle.radius
 							* gui.getWeaponizer().circle.radius)) {
 				if (skill != null && coolDownCounter == 0) {

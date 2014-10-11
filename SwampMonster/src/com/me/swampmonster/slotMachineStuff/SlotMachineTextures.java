@@ -88,6 +88,7 @@ public class SlotMachineTextures extends Group {
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
 				Gdx.input.setInputProcessor(null);
+				TheController.skill = selectedSlot;
 				selectedSlot = null;
 				((Game) Gdx.app.getApplicationListener()).setScreen(ScreenContainer.SS);
 			}
@@ -307,7 +308,9 @@ public class SlotMachineTextures extends Group {
 				Oppa += 37;
 			}
 			if(s.selectedSaved){
-				batch.draw(selectedSavedSlotRectangle, s.sprite.getX(), s.sprite.getY());
+				if (!(s instanceof Perks)) {
+					batch.draw(selectedSavedSlotRectangle, s.sprite.getX(), s.sprite.getY());
+				}
 			}
 		}
 		

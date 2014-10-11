@@ -11,6 +11,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Json;
+import com.me.swampmonster.game.TheController;
 import com.me.swampmonster.models.L1;
 import com.me.swampmonster.models.Player;
 import com.me.swampmonster.models.slots.Slot;
@@ -48,6 +49,7 @@ public class SaveManager {
 	    	somPlayer.movementSpeed = L1.player.movementSpeed;
 	    	somPlayer.damage = Player.damage;
     	}
+    	somPlayer.skill = TheController.skill.getClass().getName();
     	somPlayer.lastMap = LGenerator.lastMap;
     	somPlayer.hadLastAtmosphere = LGenerator.hadLastAtmosphere;
     	somPlayer.lastTileSet = LGenerator.lastTileSet;
@@ -119,6 +121,13 @@ public class SaveManager {
 					e.printStackTrace();
 				}
 	        }
+	        if (somPlayer.skill != null){
+	        	try {
+					Slot slot = (Slot) Class.forName(somPlayer.skill).newInstance();
+					TheController.skill = slot;
+				} catch (Exception e) {
+				}
+	        }
 	        return player;
         } else {
         	return new Player(new Vector2());
@@ -133,6 +142,7 @@ public class SaveManager {
     	public String saved;
     	public float movementSpeed;
     	public float damage;
+    	public String skill;
     	
     	public String lastTileSet;
     	public String lastMap;
