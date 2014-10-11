@@ -21,6 +21,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.me.swampmonster.GUI.GUI;
+import com.me.swampmonster.GUI.Weaponizer;
 import com.me.swampmonster.models.AbstractGameObject.NegativeEffects;
 import com.me.swampmonster.models.AbstractGameObject.State;
 import com.me.swampmonster.models.L1;
@@ -52,6 +53,7 @@ public class GShape extends Group {
 
 	public Sprite feedbackWindow;
 	public Sprite feedbackWindowYes;
+	public static Weaponizer weaponizer;
 	
 	public Dialog exitDialog;
 	
@@ -61,6 +63,7 @@ public class GShape extends Group {
 		super();
 		sr = new ShapeRenderer();
 		Skin skin = new Skin(Gdx.files.internal("skins\\slotMachineUI.json"), new TextureAtlas(Gdx.files.internal("skins\\slotMachineUI.pack")));
+		weaponizer = new Weaponizer();
 		slotMachineButton = new ImageButton(skin, "yes");
 		slotMachineButton.debug();
 		slotMachineButton.addListener(new ClickListener() {
@@ -98,7 +101,8 @@ public class GShape extends Group {
 	@Override
 	public void draw(Batch batch, float parentAlpha) {
 	super.draw(batch, parentAlpha);
-		
+	
+	weaponizer.update(L1.player, theController.point);
 	slotMachineButton.setX(720);
 	slotMachineButton.setY(370);
 	slotMachineButton.setWidth(64);
@@ -167,16 +171,16 @@ public class GShape extends Group {
 			sr.rect(16, 422, Player.maxOxygen, 22);
 		}
 		if (L1.player.state != State.DEAD) {
-			if (TheController.gui.getWeaponizer().on == false) {
+			if (weaponizer != null && weaponizer.on == false) {
 				sr.setColor(Color.WHITE);
-			} else if (TheController.gui.getWeaponizer().on == true) {
+			} else if (weaponizer != null && weaponizer.on == true) {
 				sr.setColor(Color.WHITE);
 			}
 
-			if (TheController.skill != null) {
-				sr.circle(TheController.gui.getWeaponizer().circle.x,
-						TheController.gui.getWeaponizer().circle.y,
-						TheController.gui.getWeaponizer().circle.radius);
+			if (weaponizer != null && TheController.skill != null) {
+				sr.circle(weaponizer.circle.x,
+						weaponizer.circle.y,
+						weaponizer.circle.radius);
 			}
 		}
 
@@ -190,21 +194,21 @@ public class GShape extends Group {
 		sr.begin(ShapeType.Line);
 		sr.setColor(Color.MAGENTA);
 
-		Vector2 point = new Vector2();
-		point.x = (Gdx.input.getX() * Constants.VIEWPORT_WIDTH)
-				/ Gdx.graphics.getWidth();
-		point.y = Constants.VIEWPORT_HEIGHT
-				- (Gdx.input.getY() * Constants.VIEWPORT_HEIGHT)
-				/ Gdx.graphics.getHeight();
+//		Vector2 point = new Vector2();
+//		point.x = (Gdx.input.getX() * Constants.VIEWPORT_WIDTH)
+//				/ Gdx.graphics.getWidth();
+//		point.y = Constants.VIEWPORT_HEIGHT
+//				- (Gdx.input.getY() * Constants.VIEWPORT_HEIGHT)
+//				/ Gdx.graphics.getHeight();
+//
+//		sr.rect(point.x, point.y, 10, 10);
 
-		sr.rect(point.x, point.y, 10, 10);
-
-		if (theController.doesIntersect(point, new Vector2(
-				L1.player.circle.x,
-				L1.player.circle.y),
-				L1.player.circle.radius * 2)) {
-			sr.setColor(Color.WHITE);
-		}
+//		if (theController.doesIntersect(point, new Vector2(
+//				L1.player.circle.x,
+//				L1.player.circle.y),
+//				L1.player.circle.radius * 2)) {
+//			sr.setColor(Color.WHITE);
+//		}
 
 		sr.setColor(Color.PINK);
 		sr.rect(theController.pointRect.x, theController.pointRect.y, 2, 2);
@@ -228,10 +232,10 @@ public class GShape extends Group {
 		if (assRevert >= 0.45f
 				&& L1.player.state == State.DEAD) {
 			sr.setColor(Color.GREEN);
-			if (TheController.gui.getGameoverGUI().circle.contains(point)) {
-				sr.setColor(new Color(0, 200, 0.5f, 100));
-				TheController.showFeedback = true;
-			}
+//			if (TheController.gui.getGameoverGUI().circle.contains(point)) {
+//				sr.setColor(new Color(0, 200, 0.5f, 100));
+//				TheController.showFeedback = true;
+//			}
 			sr.circle(TheController.gui.getGameoverGUI().circle.x,
 					TheController.gui.getGameoverGUI().circle.y,
 					TheController.gui.getGameoverGUI().circle.radius);
@@ -266,8 +270,8 @@ public class GShape extends Group {
 		for (Sprite s: TheController.gui.getOxygenBar().sprites){
 			batch.draw(s, s.getX(), s.getY(), s.getWidth(), s.getHeight()+6);
 		}
-		if (TheController.skill != null){
-			batch.draw(TheController.gui.getWeaponizer().sprite, 0, 0);
+		if (weaponizer != null && TheController.skill != null){
+			batch.draw(weaponizer.sprite, 0, 0);
 		}
 		
 		if (L1.player.positiveEffectsState != null
@@ -288,27 +292,27 @@ public class GShape extends Group {
 					.toString(), Constants.VIEWPORT_WIDTH - 64,
 					Constants.VIEWPORT_HEIGHT - 184);
 		}
-		if (TheController.skill != null && !(TheController.skill instanceof Perks)) {
+		if (weaponizer != null &&TheController.skill != null && !(TheController.skill instanceof Perks)) {
 			batch.draw(
 					TheController.skill.sprite,
-					TheController.gui.getWeaponizer().sprite.getX()
-							+ TheController.gui.getWeaponizer().sprite
+					weaponizer.sprite.getX()
+							+ weaponizer.sprite
 									.getWidth() / 4,
-					TheController.gui.getWeaponizer().sprite.getY()
-							+ TheController.gui.getWeaponizer().sprite
+									weaponizer.sprite.getY()
+							+ weaponizer.sprite
 									.getHeight() / 4, 64, 64);
 			
 		}
 		
 		try {
-			if (TheController.skill != null) {
+			if (weaponizer != null && TheController.skill != null) {
 				Sprite s = new Sprite(
 						SlotMachineTextures.slotLevelPic
 								.get(TheController.skill.getClass()
 										.getField("level").getInt(null) - 1));
 				s.setPosition(
-						TheController.gui.getWeaponizer().position.x - 35,
-						TheController.gui.getWeaponizer().position.y - 35);
+						weaponizer.position.x - 35,
+						weaponizer.position.y - 35);
 				s.setSize(27, 27);
 				s.draw(batch);
 			}
@@ -394,10 +398,10 @@ public class GShape extends Group {
 		Gdx.gl.glEnable(GL20.GL_BLEND);
 		Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
 		sr.setColor(new Color(0.1f,  0.1f, 0.1f, 0.57f));
-		if (TheController.skill != null) {
-			sr.arc(TheController.gui.getWeaponizer().position.x,
-					TheController.gui.getWeaponizer().position.y,
-					TheController.gui.getWeaponizer().circle.radius, 90,
+		if (weaponizer != null && TheController.skill != null) {
+			sr.arc(weaponizer.position.x,
+					weaponizer.position.y,
+					weaponizer.circle.radius, 90,
 					TheController.coolDownAngle);
 		}
 		if(TheController.paused || TheController.pausedTutorial){

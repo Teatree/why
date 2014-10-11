@@ -9,6 +9,7 @@ import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.GL30;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -56,19 +57,20 @@ public class SlotMachineScreen extends AbstractGameScreen {
 		
 		inputMultiplexer = new InputMultiplexer();
 		inputMultiplexer.addProcessor(stage);
-		for(Slot s: slotMachineTextures.slots){
-			inputMultiplexer.addProcessor(s);
-		}
+//		for(Slot s: slotMachineTextures.slots){
+//			inputMultiplexer.addProcessor(s);
+//		}
 		
 //		Gdx.input.setInputProcessor(stage);
+		stage.setViewport(viewports.first());
 	}
 
 	@Override
 	public void render(float deltaTime) {
 		Gdx.gl.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		Gdx.gl.glClear(GL30.GL_COLOR_BUFFER_BIT);
-		victor = new Vector2(Gdx.input.getX(), Constants.VIEWPORT_HEIGHT
-				- Gdx.input.getY());
+		victor = new Vector2(Gdx.input.getX(), Gdx.input.getY());
+		victor = stage.screenToStageCoordinates(victor);
 			for (Slot slot : slotMachineTextures.slots) {
 				selectSlot(slot);
 			}
@@ -106,6 +108,7 @@ public class SlotMachineScreen extends AbstractGameScreen {
 		// System.out.println("yesWasJustPressed: " + yesWasJustPressed);
 		if(!isSlotDescWindowOpen){
 		if (!yesWasJustPressed && !SlotMachineTextures.peru) {
+			
 			if (Gdx.input.justTouched()
 					&& slot.sprite.getBoundingRectangle().contains(victor)
 					&& slotMachineTextures.notAnimating[0]
@@ -187,7 +190,7 @@ public class SlotMachineScreen extends AbstractGameScreen {
 		slotMachineTextures = new SlotMachineTextures(player);
 		stage.addActor(slotMachineTextures);
 		Gdx.input.setInputProcessor(inputMultiplexer);
-		stage.setViewport(viewports.first());
+		
 	}
 
 	static public Array<String> getViewportNames () {

@@ -246,18 +246,19 @@ public class TheController extends InputAdapter {
 	}
 
 	private void inputNav() {
-		if (!L1.player.state.equals(State.DEAD) && !paused && !pausedTutorial) {
-			if (!doesIntersect(point, gui.getWeaponizer().position,
-					gui.getWeaponizer().circle.radius)) {
+		if (!L1.player.state.equals(State.DEAD) && !paused && !pausedTutorial ) {
+			
+			if (GShape.weaponizer == null || (!doesIntersect(point, GShape.weaponizer.position,
+					GShape.weaponizer.circle.radius))) {
+//			if (GShape.weaponizer == null || (GShape.weaponizer.circle.contains(point))) {
+				
 				touchPos.y = Gdx.input.getY();
 				touchPos.x = Gdx.input.getX();
 				l1Renderer.getCam().unproject(touchPos);
 				touchPos.z = 0;
 				L1.player.pointGathered = true;
-			} else if (Intersector.intersectSegmentCircle(point, point, gui
-					.getWeaponizer().position,
-					gui.getWeaponizer().circle.radius
-							* gui.getWeaponizer().circle.radius)) {
+//			} else if (GShape.weaponizer != null && Intersector.intersectSegmentCircle(L1Renderer.stage.screenToStageCoordinates(point), L1Renderer.stage.screenToStageCoordinates(point), GShape.weaponizer.position,
+			} else if (GShape.weaponizer != null && GShape.weaponizer.circle.contains(L1Renderer.stage.screenToStageCoordinates(point))){
 				if (skill != null && coolDownCounter == 0) {
 					skill.execute(L1.player);
 					coolDownAngle = 360;

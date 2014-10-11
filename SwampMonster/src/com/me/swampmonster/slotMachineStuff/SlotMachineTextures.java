@@ -19,6 +19,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
@@ -81,6 +82,8 @@ public class SlotMachineTextures extends Group {
 	public ImageButton goButtonButton;
 	public ImageButton rerollButton;
 
+	public Rectangle r = new Rectangle();
+	
 	public SlotMachineTextures(Player player) {
 		skin = new Skin(Gdx.files.internal("skins\\slotMachineUI.json"), new TextureAtlas(Gdx.files.internal("skins\\slotMachineUI.pack")));
 		goButtonButton = new ImageButton(skin, "go");
@@ -320,6 +323,10 @@ public class SlotMachineTextures extends Group {
 				slot.sprite.setPosition(slotPositionsX[i], slotPositionY);
 				i++;
 				slot.sprite.setSize(146, 146);
+				r.width = slot.sprite.getWidth();
+				r.height = slot.sprite.getHeight();
+				r.setX(slot.sprite.getX());
+				r.setY(slot.sprite.getY());
 				slot.sprite.draw(batch);
 				try {
 					if (slot.levelSprite == null){
