@@ -9,7 +9,6 @@ import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.GL30;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -23,11 +22,11 @@ import com.badlogic.gdx.utils.viewport.ScalingViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.me.swampmonster.game.TheController;
 import com.me.swampmonster.models.slots.Perks;
 import com.me.swampmonster.models.slots.Slot;
 import com.me.swampmonster.slotMachineStuff.SlotDescWindow;
 import com.me.swampmonster.slotMachineStuff.SlotMachineTextures;
+import com.me.swampmonster.slotMachineStuff.SlotMiniWindow;
 import com.me.swampmonster.utils.Constants;
 
 public class SlotMachineScreen extends AbstractGameScreen {
@@ -142,6 +141,12 @@ public class SlotMachineScreen extends AbstractGameScreen {
 					s.selectedSaved = false;
 				}
 				slot.selectedSaved = true;
+				SlotMiniWindow slotMiniWindow = new SlotMiniWindow("", slotMachineTextures.skin, "miniWindow", slot);
+				stage.addActor(slotMiniWindow);
+				slotMiniWindow.debug();
+				slotMiniWindow.setSize(Constants.SLOT_DESC_WINDOW_WIDTH, Constants.SLOT_DESC_WINDOW_HEIGHT);
+				slotMiniWindow.setX(200);
+				slotMiniWindow.setY(100);
 //			slot.selected = false;
 			}
 			// miniWindow place

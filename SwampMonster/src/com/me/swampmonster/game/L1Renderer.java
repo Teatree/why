@@ -51,6 +51,7 @@ public class L1Renderer {
 
 	public static Stage stage;
 	private Array<Viewport> viewports;
+	Viewport viewport1;
 	private Array<String> names;
 	private GShape gshape;
 
@@ -61,8 +62,8 @@ public class L1Renderer {
 
 	public L1Renderer(TheController theController) {
 		this.theController = theController;
-		this.cam = new OrthographicCamera(Constants.VIEWPORT_WIDTH,
-				Constants.VIEWPORT_HEIGHT);
+		this.cam = new OrthographicCamera(800,
+				480);
 		viewport = new ScreenViewport();
 		viewport.setScreenWidth((int) Constants.VIEWPORT_WIDTH);
 		viewport.setScreenHeight((int) Constants.VIEWPORT_HEIGHT);

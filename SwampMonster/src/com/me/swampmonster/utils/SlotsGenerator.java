@@ -18,8 +18,8 @@ import com.me.swampmonster.models.slots.PanicTeleport;
 import com.me.swampmonster.models.slots.PlasmaShieldSkill;
 import com.me.swampmonster.models.slots.PoisonArrow;
 import com.me.swampmonster.models.slots.PoisonTrap;
-import com.me.swampmonster.models.slots.SPEED_BOOST;
 import com.me.swampmonster.models.slots.Slot;
+import com.me.swampmonster.models.slots.SpeedBoost;
 import com.me.swampmonster.models.slots.TurretSkill;
 
 public class SlotsGenerator {
@@ -53,7 +53,7 @@ public class SlotsGenerator {
 		random = new Random();
 		slots = new HashMap<Integer, Class<? extends Slot>>();
 		//:TODO Dmitriy, order is essential in this biatch, it determines what the player will receive.
-		slots.put(0, SPEED_BOOST.class);
+		slots.put(0, SpeedBoost.class);
 		slots.put(1, PoisonTrap.class);
 		slots.put(2, DamageTrap.class);
 		slots.put(3, FrostTrap.class);

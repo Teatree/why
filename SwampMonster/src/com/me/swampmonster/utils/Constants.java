@@ -236,8 +236,8 @@ public class Constants {
 	public static final int FrostTrap_CoolDown_L4 = 1100;
 	public static final int FrostTrap_CoolDown_L5 = 800;
 
-	public static final int FrostTrap_LifeTime_L1 = 300;
-	public static final int FrostTrap_LifeTime_L2 = 600;
+	public static final int FrostTrap_LifeTime_L1 = 900;
+	public static final int FrostTrap_LifeTime_L2 = 900;
 	public static final int FrostTrap_LifeTime_L3 = 900;
 	public static final int FrostTrap_LifeTime_L4 = 1200;
 	public static final int FrostTrap_LifeTime_L5 = 1500;

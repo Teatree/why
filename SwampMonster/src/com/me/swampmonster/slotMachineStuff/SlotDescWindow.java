@@ -34,7 +34,7 @@ public class SlotDescWindow extends Dialog {
 		imageLevel.setSize(16, 16);
 		ImageButton yesButton = new ImageButton(skin, "yes");
 		ImageButton noButton = new ImageButton(skin, "no");
-		Label text = new Label(slot.getDescription(), skin);
+		Label text = new Label(slot.getDescription() + "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", skin);
 		text.setWrap(true);
 		Label textI = new Label("a 19", skin, "stats");
 		Label textO = new Label("g 11", skin, "stats");
@@ -61,7 +61,6 @@ public class SlotDescWindow extends Dialog {
 		
 		columnDefaults(1);
 		Table secondColumn = new Table();
-		System.out.println(this.getHeight() + " - " + this.getWidth());
 		secondColumn.add(text2).padLeft(5).height((float)((Constants.SLOT_DESC_WINDOW_HEIGHT-getButtonTable().getHeight())*0.13f)).
 		width((float)((Constants.SLOT_DESC_WINDOW_WIDTH*0.6))).bottom();
 		

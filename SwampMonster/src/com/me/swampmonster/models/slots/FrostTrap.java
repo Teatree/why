@@ -67,7 +67,7 @@ public class FrostTrap extends Trap{
 
 	@Override
 	public void catchEnemy(Enemy enemy) {
-		if (!cuba) {
+		if (!cuba && position!= null) {
 			explosion = new Explosion(this.position, Explosion.EXPLOSION_TYPE_FROST);
 			explosion.damage = 0;
 			explosion.incrementalDamageValue = 0;

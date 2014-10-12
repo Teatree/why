@@ -369,24 +369,26 @@ public class SlotMachineTextures extends Group {
 		font.setScale(0.5f, 0.5f);
 
 		
-		batch.end();
-		Gdx.gl.glEnable(GL20.GL_BLEND);
-		Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
-		sr = new ShapeRenderer();
-		sr.begin(ShapeType.Filled);
-		sr.setColor(0.5f, 0.5f, 0.5f, 0.5f);
+//		batch.end();
+//		Gdx.gl.glEnable(GL20.GL_BLEND);
+//		Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
+//		sr = new ShapeRenderer();
+//		sr.begin(ShapeType.Filled);
+//		sr.setColor(0.5f, 0.5f, 0.5f, 0.5f);
 		if(SlotMachineScreen.yesWasJustPressed){
 			goButtonButton.setDisabled(false);
-			int ka = 0;
-			while(ka<3){
-				sr.rect(slotPositionsX[ka], slotPositionY, 146, 146);
-				ka++;
-			}
+//			int ka = 0;
+//			while(ka<3){
+//				sr.rect(SlotMachineScreen.stage.screenToStageCoordinates(new Vector2((float) slotPositionsX[ka],
+//						(float) slotPositionY)).x, SlotMachineScreen.stage.screenToStageCoordinates(new Vector2(
+//						(float) slotPositionsX[ka], (float) slotPositionY)).y, 146, 146);
+//				ka++;
+//			}
 		}else{
 			goButtonButton.setDisabled(true);
 		}
-		sr.end();
-		batch.begin();
+//		sr.end();
+//		batch.begin();
 	}
 
 	// Method to be used whenever the slot Machine page is to be loaded.

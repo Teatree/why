@@ -160,7 +160,7 @@ public class TheController extends InputAdapter {
 		gui.update(L1.player, point, V3point);
 		handleDebugInput(deltaTime);
 		point.x = Gdx.input.getX();
-		point.y = 480 - Gdx.input.getY();
+		point.y = Gdx.input.getY();
 
 		V3point.x = Gdx.input.getX();
 		V3point.y = Gdx.input.getY();
@@ -246,19 +246,25 @@ public class TheController extends InputAdapter {
 	}
 
 	private void inputNav() {
+		Vector2 pint = new Vector2();
+		pint.x = Gdx.input.getX();
+		pint.y = Gdx.input.getY();
+		pint = L1Renderer.stage.screenToStageCoordinates(pint);
 		if (!L1.player.state.equals(State.DEAD) && !paused && !pausedTutorial ) {
 			
-			if (GShape.weaponizer == null || (!doesIntersect(point, GShape.weaponizer.position,
+			if (GShape.weaponizer == null || (!doesIntersect(pint, GShape.weaponizer.position,
 					GShape.weaponizer.circle.radius))) {
-//			if (GShape.weaponizer == null || (GShape.weaponizer.circle.contains(point))) {
+//			if (GShape.weaponizer == null || (GShape.weaponizer.sprite.getBoundingRectangle().contains(pint))) {
 				
 				touchPos.y = Gdx.input.getY();
 				touchPos.x = Gdx.input.getX();
 				l1Renderer.getCam().unproject(touchPos);
 				touchPos.z = 0;
 				L1.player.pointGathered = true;
-//			} else if (GShape.weaponizer != null && Intersector.intersectSegmentCircle(L1Renderer.stage.screenToStageCoordinates(point), L1Renderer.stage.screenToStageCoordinates(point), GShape.weaponizer.position,
-			} else if (GShape.weaponizer != null && GShape.weaponizer.circle.contains(L1Renderer.stage.screenToStageCoordinates(point))){
+			} else if (Intersector.intersectSegmentCircle(pint, pint, GShape.weaponizer.position,
+										GShape.weaponizer.circle.radius
+												* GShape.weaponizer.circle.radius)) {
+//				 } else if (GShape.weaponizer != null && GShape.weaponizer.sprite.getBoundingRectangle().contains(pint)){
 				if (skill != null && coolDownCounter == 0) {
 					skill.execute(L1.player);
 					coolDownAngle = 360;
@@ -463,13 +469,6 @@ public class TheController extends InputAdapter {
 		}
 	}
 
-	public Vector2 getPoint() {
-		return point;
-	}
-
-	public void setPoint(Vector2 point) {
-		this.point = point;
-	}
 
 	public Vector3 getV3point() {
 		return V3point;

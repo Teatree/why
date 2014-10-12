@@ -16,6 +16,7 @@
     },
     com.badlogic.gdx.scenes.scene2d.ui.Window$WindowStyle: {
 	    default: { titleFont: "default", background: "slotMachineWindow",  titleFontColor: red },
+	    miniWindow: { titleFont: "default", background: "slotMachineMiniWindow", titleFontColor: red}
 	},
      "com.badlogic.gdx.scenes.scene2d.ui.ImageButton$ImageButtonStyle": { 
         "default": { "up": "slotMachineWindowYES" , "down": "slotMachineWindowYES_pressed"},

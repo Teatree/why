@@ -9,6 +9,7 @@ import com.me.swampmonster.utils.Assets;
 
 public class PlasmaShield extends AbstractGameObject{
 	
+	public static Integer level;
 	public int lifeTime;
 	public int spawnTime;
 	public AnimationControl animControl;

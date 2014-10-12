@@ -458,7 +458,7 @@ public class Player extends AbstractGameObject {
 						p.position.y), Explosion.EXPLOSION_TYPE_INVERTED);
 				L1.explosions.add(expl);
 				L1.hasAtmosphere = false;
-				prj.remove();
+				p.state = State.DEAD;
 			} if (p != null && p.state == State.DEAD) {
 				prj.remove();
 			}

@@ -13,8 +13,23 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Json;
 import com.me.swampmonster.game.TheController;
 import com.me.swampmonster.models.L1;
+import com.me.swampmonster.models.PlasmaShield;
 import com.me.swampmonster.models.Player;
+import com.me.swampmonster.models.slots.Arrows3;
+import com.me.swampmonster.models.slots.DamageTrap;
+import com.me.swampmonster.models.slots.ExplosiveArrow;
+import com.me.swampmonster.models.slots.FrostTrap;
+import com.me.swampmonster.models.slots.ImproveArrowDamage;
+import com.me.swampmonster.models.slots.ImproveArrowSpeed;
+import com.me.swampmonster.models.slots.ImproveMaxHealth;
+import com.me.swampmonster.models.slots.ImproveMaxOxygen;
+import com.me.swampmonster.models.slots.ImproveMovementSpeed;
+import com.me.swampmonster.models.slots.PanicTeleport;
+import com.me.swampmonster.models.slots.PoisonArrow;
+import com.me.swampmonster.models.slots.PoisonTrap;
 import com.me.swampmonster.models.slots.Slot;
+import com.me.swampmonster.models.slots.SpeedBoost;
+import com.me.swampmonster.models.slots.TurretSkill;
 import com.me.swampmonster.screens.MenuScreen;
 import com.me.swampmonster.screens.SlotMachineScreen;
 
@@ -71,6 +86,9 @@ public class SaveManager {
     	if (ItemGenerator.usedTextures !=null){
     		somPlayer.usedSpritesForItems = ItemGenerator.usedTextures;
     	}
+    	
+    	saveSlotsLevels(somPlayer);
+    	
     	writeFile("player.sav", json.toJson(somPlayer));
     }
     
@@ -151,6 +169,7 @@ public class SaveManager {
     	public List <JsomSlot> savedSlots;
     	
     	public Map<Integer, String> usedSpritesForItems;
+    	public Map<Class, Integer> slotsLevels;
     	
     	public boolean soundEnabled;
     }
@@ -159,4 +178,25 @@ public class SaveManager {
     	public String className;
     	public int level;
     }
+    
+	private static void saveSlotsLevels(JsomPlayer somPlayer) {
+		somPlayer.slotsLevels = new HashMap<Class, Integer>();
+    	somPlayer.slotsLevels.put(Arrows3.class, Arrows3.level);
+    	somPlayer.slotsLevels.put(DamageTrap.class, DamageTrap.level);
+    	somPlayer.slotsLevels.put(ExplosiveArrow.class, ExplosiveArrow.level);
+    	somPlayer.slotsLevels.put(FrostTrap.class, FrostTrap.level);
+    	somPlayer.slotsLevels.put(ImproveArrowDamage.class, ImproveArrowDamage.level);
+    	somPlayer.slotsLevels.put(ImproveArrowSpeed.class, ImproveArrowSpeed.level);
+    	somPlayer.slotsLevels.put(ImproveMaxHealth.class, ImproveMaxHealth.level);
+    	somPlayer.slotsLevels.put(ImproveMaxOxygen.class, ImproveMaxOxygen.level);
+    	somPlayer.slotsLevels.put(ImproveMovementSpeed.class, ImproveMovementSpeed.level);
+    	somPlayer.slotsLevels.put(PanicTeleport.class, PanicTeleport.level);
+    	somPlayer.slotsLevels.put(PlasmaShield.class, PlasmaShield.level);
+    	somPlayer.slotsLevels.put(PoisonArrow.class, PoisonArrow.level);
+    	somPlayer.slotsLevels.put(PoisonTrap.class, PoisonTrap.level);
+    	somPlayer.slotsLevels.put(SpeedBoost.class, SpeedBoost.level);
+    	somPlayer.slotsLevels.put(TurretSkill.class, TurretSkill.level);
+	}
+	
+	
 }

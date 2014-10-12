@@ -9,7 +9,7 @@ import com.me.swampmonster.models.Player;
 import com.me.swampmonster.utils.Assets;
 import com.me.swampmonster.utils.Constants;
 
-public class SPEED_BOOST extends Slot implements PositiveEffectInterface{
+public class SpeedBoost extends Slot implements PositiveEffectInterface{
 	public static int level;
 	private static Map <Integer, String> descriptionByLevel;
 	static {
@@ -25,7 +25,7 @@ public class SPEED_BOOST extends Slot implements PositiveEffectInterface{
 		target.setPositiveEffect(PositiveEffects.SPEED_BOOST);
 	}
 
-	public SPEED_BOOST() {
+	public SpeedBoost() {
 		sprite = new Sprite(Assets.manager.get(Assets.SPEED_BOOST_ICON));
 		name = Constants.SPEED_BOOST_Name;
 		switch (level) {

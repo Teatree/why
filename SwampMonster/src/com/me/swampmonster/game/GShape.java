@@ -102,7 +102,8 @@ public class GShape extends Group {
 	public void draw(Batch batch, float parentAlpha) {
 	super.draw(batch, parentAlpha);
 	
-	weaponizer.update(L1.player, theController.point);
+//	weaponizer.update(L1.player, theController.point);
+	
 	slotMachineButton.setX(720);
 	slotMachineButton.setY(370);
 	slotMachineButton.setWidth(64);
@@ -277,20 +278,16 @@ public class GShape extends Group {
 		if (L1.player.positiveEffectsState != null
 				&& L1.player.positiveEffectsState != PositiveEffects.NONE) {
 			batch.draw(L1.player.positiveEffectSprite,
-					Constants.VIEWPORT_WIDTH - 64,
-					Constants.VIEWPORT_HEIGHT - 100, 64, 64);
+					736, 380, 64, 64);
 			font.draw(batch, L1.player.positiveEffectCounter
-					.toString(), Constants.VIEWPORT_WIDTH - 64,
-					Constants.VIEWPORT_HEIGHT - 110);
+					.toString(), 736, 380);
 		}
 		if (L1.player.negativeEffectsState != null
 				&& L1.player.negativeEffectsState != NegativeEffects.NONE) {
 			batch.draw(L1.player.negativeEffectsState.sprite,
-					Constants.VIEWPORT_WIDTH - 64,
-					Constants.VIEWPORT_HEIGHT - 174, 64, 64);
+					736, 300, 64, 64);
 			font.draw(batch, L1.player.negativeEffectCounter
-					.toString(), Constants.VIEWPORT_WIDTH - 64,
-					Constants.VIEWPORT_HEIGHT - 184);
+					.toString(), 736, 300);
 		}
 		if (weaponizer != null &&TheController.skill != null && !(TheController.skill instanceof Perks)) {
 			batch.draw(
