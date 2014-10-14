@@ -64,7 +64,9 @@ public class SaveManager {
 	    	somPlayer.movementSpeed = L1.player.movementSpeed;
 	    	somPlayer.damage = Player.damage;
     	}
-    	somPlayer.skill = TheController.skill.getClass().getName();
+    	if(TheController.skill != null){
+    		somPlayer.skill = TheController.skill.getClass().getName();
+    	}
     	somPlayer.lastMap = LGenerator.lastMap;
     	somPlayer.hadLastAtmosphere = LGenerator.hadLastAtmosphere;
     	somPlayer.lastTileSet = LGenerator.lastTileSet;

@@ -10,10 +10,8 @@ public class GUI {
 	private HealthBar healthBar;
 //	private Weaponizer weaponizer;
 	private Croshair croshair;
-	private GameOverGUI gameoverGUI;
 	
 	public GUI(Player player){
-		gameoverGUI = new GameOverGUI();
 		oxygenBar = new OxygenBar(player);
 		healthBar = new HealthBar(player);
 //		weaponizer = new Weaponizer();
@@ -24,7 +22,6 @@ public class GUI {
 		healthBar.update(player);
 		oxygenBar = new OxygenBar(player);
 //		weaponizer.update(player, point);
-		gameoverGUI.update(player);
 //		if(croshair.isAiming())
 		croshair.update(player, point, V3point);
 	
@@ -53,12 +50,5 @@ public class GUI {
 		this.croshair = croshair;
 	}
 
-	public GameOverGUI getGameoverGUI() {
-		return gameoverGUI;
-	}
-
-	public void setGameoverGUI(GameOverGUI gameoverGUI) {
-		this.gameoverGUI = gameoverGUI;
-	}
 }
 

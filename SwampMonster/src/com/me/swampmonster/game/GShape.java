@@ -1,5 +1,7 @@
 package com.me.swampmonster.game;
 
+import java.util.Random;
+
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
@@ -16,9 +18,11 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.me.swampmonster.GUI.GUI;
 import com.me.swampmonster.GUI.Weaponizer;
@@ -29,6 +33,7 @@ import com.me.swampmonster.models.Player;
 import com.me.swampmonster.models.TutorialLevel;
 import com.me.swampmonster.models.slots.Perks;
 import com.me.swampmonster.models.slots.PositiveEffects;
+import com.me.swampmonster.models.slots.Slot;
 import com.me.swampmonster.screens.AbstractGameScreen;
 import com.me.swampmonster.slotMachineStuff.SlotMachineTextures;
 import com.me.swampmonster.utils.Assets;
@@ -51,18 +56,19 @@ public class GShape extends Group {
 	private CharSequence str2;
 	private CharSequence str3;
 
-	public Sprite feedbackWindow;
-	public Sprite feedbackWindowYes;
 	public static Weaponizer weaponizer;
 	
 	public Dialog exitDialog;
+	public Dialog feeDialog;
+	
+	public Skin skin;
 	
 	public ImageButton slotMachineButton;
 	
 	public GShape(TheController theController) {
 		super();
 		sr = new ShapeRenderer();
-		Skin skin = new Skin(Gdx.files.internal("skins\\slotMachineUI.json"), new TextureAtlas(Gdx.files.internal("skins\\slotMachineUI.pack")));
+		skin = new Skin(Gdx.files.internal("skins\\slotMachineUI.json"), new TextureAtlas(Gdx.files.internal("skins\\slotMachineUI.pack")));
 		weaponizer = new Weaponizer();
 		slotMachineButton = new ImageButton(skin, "yes");
 		slotMachineButton.debug();
@@ -220,43 +226,10 @@ public class GShape extends Group {
 		sr.setTransformMatrix(batch.getTransformMatrix());
 		sr.translate(getX(), getY(), 0);
 		sr.begin(ShapeType.Filled);
-		if (L1.player.isDead()) {
-			sr.setColor(new Color(200, 0, 0, assRevert));
-			sr.rect(TheController.gui.getGameoverGUI().rectanlge.x,
-					TheController.gui.getGameoverGUI().rectanlge.y,
-					TheController.gui.getGameoverGUI().rectanlge.width + 200,
-					TheController.gui.getGameoverGUI().rectanlge.height + 200);
-			if (assRevert < 0.5f && L1.player.state == State.DEAD) {
-				assRevert = assRevert + 0.002f;
-			}
-		}
-		if (assRevert >= 0.45f
-				&& L1.player.state == State.DEAD) {
-			sr.setColor(Color.GREEN);
-//			if (TheController.gui.getGameoverGUI().circle.contains(point)) {
-//				sr.setColor(new Color(0, 200, 0.5f, 100));
-//				TheController.showFeedback = true;
-//			}
-			sr.circle(TheController.gui.getGameoverGUI().circle.x,
-					TheController.gui.getGameoverGUI().circle.y,
-					TheController.gui.getGameoverGUI().circle.radius);
-		}
 
 		sr.end();
 		Gdx.gl.glDisable(GL20.GL_BLEND);
 
-		sr.begin(ShapeType.Line);
-
-		if (assRevert >= 0.45f
-				&& L1.player.state == State.DEAD) {
-			sr.setColor(Color.BLACK);
-			sr.circle(TheController.gui.getGameoverGUI().circle.x,
-					TheController.gui.getGameoverGUI().circle.y,
-					TheController.gui.getGameoverGUI().circle.radius);
-		}
-
-		sr.end();
-			
 		batch.begin();
 		
 		if (theController.unlockNotificationSprite != null && unlockNotificationCounter > 0){
@@ -335,56 +308,23 @@ public class GShape extends Group {
 		
 		font.setColor(Color.YELLOW);
 		font.setScale(1);
-		if(assRevert >= 0.4f && L1.player.state == State.DEAD){
-			font.draw(batch, TheController.gui.getGameoverGUI().getGameOverString(), 310, 280);
-		}
 //		if(assRevert >= 0.4f && TheController.level1.player.state == State.DEAD){
 //			font.setScale(1);
 //			font.draw(batch, TheController.gui.getGameoverGUI().getWittyMessage(), 240-TheController.gui.getGameoverGUI().getWittyMessage().length(), 230);
 //		}
-		if(assRevert >= 0.45f && L1.player.state == State.DEAD){
-			font.setScale(1);
-			font.draw(batch, TheController.gui.getGameoverGUI().getRestartString(), 361, 170);
+		if(L1.player.state == State.DEAD){
+			TheController.showFeedback=true;
 		}
 		
 		if(TheController.showFeedback){
 			
-			feedbackWindow.setSize(Constants.VIEWPORT_WIDTH/2.1f, Constants.VIEWPORT_HEIGHT/1.4f);
-			feedbackWindow.setPosition(Constants.VIEWPORT_WIDTH/4f, Constants.VIEWPORT_HEIGHT/5f);
-			feedbackWindow.draw(batch);
-			font.setColor(Color.RED);
-			String wittyMessage;
-			String nextMessage;
-			if(assRevert >= 0.4f && L1.player.state == State.DEAD){
-				wittyMessage = TheController.gui.getGameoverGUI().getWittyMessage();
-				nextMessage = Constants.TRY_AGAIN;
-			} else {
-				wittyMessage = Constants.ONE_MORE_WORLD_CONQUERED;
-				nextMessage = Constants.GET_REWARD;
-			}
-			font.draw(batch, wittyMessage, feedbackWindow.getBoundingRectangle().x+20, feedbackWindow.getBoundingRectangle().y+280);
-			font.setColor(Color.BLACK);
-			font.setScale(0.75f);
-			font.draw(batch, Constants.SCORE + Player.levelsScore, feedbackWindow.getBoundingRectangle().x+25, feedbackWindow.getBoundingRectangle().y+240);
-			font.draw(batch, Constants.ENEMIES_KILLED + Player.enemiesKilled, feedbackWindow.getBoundingRectangle().x+25, feedbackWindow.getBoundingRectangle().y+215);
-			font.draw(batch, Constants.SHOT_ARROWS + Player.shotArrows, feedbackWindow.getBoundingRectangle().x+25, feedbackWindow.getBoundingRectangle().y+190);
-			font.setColor(Color.GREEN);
-			font.setScale(1f);
-			font.draw(batch, nextMessage, feedbackWindow.getBoundingRectangle().x+10, feedbackWindow.getBoundingRectangle().y+50);
-			feedbackWindowYes.setPosition(feedbackWindow.getBoundingRectangle().x+290, feedbackWindow.getBoundingRectangle().y+20);
-			feedbackWindowYes.draw(batch);
-			Vector2 victor = new Vector2(Gdx.input.getX(), Constants.VIEWPORT_HEIGHT - Gdx.input.getY());
-			if (Gdx.input.justTouched()
-					&& feedbackWindowYes.getBoundingRectangle().contains(victor)){
-				if (L1.player.state != State.DEAD){
-					LGenerator.lastMap = null;
-					LGenerator.lastTileSet = null;
-					LGenerator.hadLastAtmosphere = false;
-					LGenerator.wasLastElite = false;
-				}
-				TheController.germany = true;
-				TheController.showFeedback = false;
-			}
+			feeDialog = new FeedBackWindow("", skin);
+			feeDialog.setX(200);
+			feeDialog.setY(200);
+			feeDialog.setWidth(200);
+			feeDialog.setHeight(200);
+			L1Renderer.stage.addActor(feeDialog);
+			
 		}
 		
 		
@@ -467,6 +407,84 @@ public class GShape extends Group {
 		} else if (timer <= 1) {
 			timer = 60;
 		}
+	}
+	
+	
+	public class FeedBackWindow extends Dialog {
+
+		private Label header;
+		private Label score;
+		private Label enemies_killed;
+		private Label shot_arrows;
+		private Table ourTable;
+		private String[] WittyEnemyMessages;
+		private String[] WittySuffocationMessages;
+		private String[] WittyPoisonMessages;
+		
+		private ImageButton ok;
+		
+		public FeedBackWindow(String title, Skin skin) {
+			super(title, skin);
+			
+			Random randomGenerator = new Random();
+			int i = randomGenerator.nextInt(3);
+			
+			WittyEnemyMessages = new String[3];
+			WittySuffocationMessages = new String[3];
+			WittyPoisonMessages = new String[3];
+			WittyEnemyMessages[0] = Constants.enemyMessage1;
+			WittyEnemyMessages[1] = Constants.enemyMessage2;
+			WittyEnemyMessages[2] = Constants.enemyMessage3;
+			WittySuffocationMessages[0] = Constants.sufficateMessage1;
+			WittySuffocationMessages[1] = Constants.sufficateMessage2;
+			WittySuffocationMessages[2] = Constants.sufficateMessage3;
+			WittyPoisonMessages[0] = Constants.poisionedMessage1;
+			WittyPoisonMessages[1] = Constants.poisionedMessage2;
+			WittyPoisonMessages[2] = Constants.poisionedMessage3;
+			
+			String wittyMessage = null;
+			
+			if(L1.player.state == State.DEAD){
+				if (L1.player.damageTypeOxygen == "lackOfOxygen") {
+					wittyMessage = WittySuffocationMessages[i];
+				} else if (L1.player.damageType == "enemy") {
+					wittyMessage = WittyEnemyMessages[i];
+				} else if (L1.player.damageType == "Poisoned") {
+					wittyMessage = WittyPoisonMessages[i];
+				}
+			} else {
+				wittyMessage = Constants.ONE_MORE_WORLD_CONQUERED;
+			}
+			header = new Label(wittyMessage, skin);
+			score = new Label(Constants.SCORE, skin);
+			enemies_killed = new Label(Constants.ENEMIES_KILLED, skin);
+			shot_arrows = new Label(Constants.SHOT_ARROWS, skin);
+			ok = new ImageButton(skin);
+			ourTable = new Table();
+			
+			ourTable.add(header).top().row();
+			ourTable.add(score).top().row();
+			ourTable.add(enemies_killed).top().row();
+			ourTable.add(shot_arrows).top().row();
+			
+			getContentTable().add(ourTable);
+			
+			getButtonTable().add(ok);
+			button(ok, "Nastya");
+		
+		}
+		@Override
+		protected void result(Object object) {
+			if (L1.player.state != State.DEAD){
+				LGenerator.lastMap = null;
+				LGenerator.lastTileSet = null;
+				LGenerator.hadLastAtmosphere = false;
+				LGenerator.wasLastElite = false;
+			}
+			TheController.germany = true;
+			TheController.showFeedback = false;
+		}
+		
 	}
 	
 	public class ExitDialog extends Dialog {
