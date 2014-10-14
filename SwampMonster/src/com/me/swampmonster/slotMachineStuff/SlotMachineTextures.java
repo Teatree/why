@@ -263,6 +263,54 @@ public class SlotMachineTextures extends Group {
 			}
 		});
 		
+		while (i < 3) {
+			if (notAnimating[i]) {
+				Slot slot = slots[i];
+				slot.sprite.setPosition(slotPositionsX[i], slotPositionY);
+				i++;
+				slot.sprite.setSize(146, 146);
+				r.width = slot.sprite.getWidth();
+				r.height = slot.sprite.getHeight();
+				r.setX(slot.sprite.getX());
+				r.setY(slot.sprite.getY());
+				slot.sprite.draw(batch);
+				try {
+					if (slot.levelSprite == null){
+						slot.levelSprite = new Sprite();
+					}
+					if(slot.selected && SlotMachineScreen.yesWasJustPressed){
+						slot.levelSprite.setRegion(slotLevelPic.get(slot.getClass()
+								.getField("level").getInt(null)-1));
+						rerollButton.setDisabled(true);
+					}else{
+						slot.levelSprite.setRegion(slotLevelPic.get(slot.getClass()
+								.getField("level").getInt(null)));
+					}
+					slot.levelSprite.setPosition(slot.sprite.getX(), slot.sprite.getY());
+					slot.levelSprite.setSize(32, 32);
+					slot.levelSprite.draw(batch);
+
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			} else {
+				batch.draw(animantionCtlr.getCurrentFrame(), slotPositionsX[i],
+						slotPositionY, 146, 146);
+				animCounter++;
+
+				if (animCounter == 25) {
+					notAnimating[i] = true;
+				}
+				if (animCounter == 50) {
+					notAnimating[i] = true;
+				}
+				if (animCounter == 75) {
+					notAnimating[i] = true;
+				}
+				i++;
+			}
+		}
+		
 		int Oppa = 5;
 		for(Slot s: SlotMachineScreen.savedSlots){
 			if(s.state != State.ANIMATING){
@@ -317,53 +365,7 @@ public class SlotMachineTextures extends Group {
 			}
 		}
 		
-		while (i < 3) {
-			if (notAnimating[i]) {
-				Slot slot = slots[i];
-				slot.sprite.setPosition(slotPositionsX[i], slotPositionY);
-				i++;
-				slot.sprite.setSize(146, 146);
-				r.width = slot.sprite.getWidth();
-				r.height = slot.sprite.getHeight();
-				r.setX(slot.sprite.getX());
-				r.setY(slot.sprite.getY());
-				slot.sprite.draw(batch);
-				try {
-					if (slot.levelSprite == null){
-						slot.levelSprite = new Sprite();
-					}
-					if(slot.selected && SlotMachineScreen.yesWasJustPressed){
-						slot.levelSprite.setRegion(slotLevelPic.get(slot.getClass()
-								.getField("level").getInt(null)-1));
-						rerollButton.setDisabled(true);
-					}else{
-						slot.levelSprite.setRegion(slotLevelPic.get(slot.getClass()
-								.getField("level").getInt(null)));
-					}
-					slot.levelSprite.setPosition(slot.sprite.getX(), slot.sprite.getY());
-					slot.levelSprite.setSize(32, 32);
-					slot.levelSprite.draw(batch);
-
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			} else {
-				batch.draw(animantionCtlr.getCurrentFrame(), slotPositionsX[i],
-						slotPositionY, 146, 146);
-				animCounter++;
-
-				if (animCounter == 25) {
-					notAnimating[i] = true;
-				}
-				if (animCounter == 50) {
-					notAnimating[i] = true;
-				}
-				if (animCounter == 75) {
-					notAnimating[i] = true;
-				}
-				i++;
-			}
-		}
+	
 
 		font.setColor(Color.BLACK);
 		font.setScale(0.5f, 0.5f);

@@ -76,7 +76,10 @@ public abstract class Slot extends InputAdapter {
 					for(Slot s: SlotMachineScreen.savedSlots){
 						s.selectedSaved = false;
 					}
+//					sprite.setX(position.x);
+//					sprite.setY(position.y);
 					this.selectedSaved = true;
+					System.out.println(this.sprite.getX() + " : " + this.sprite.getY());
 				}
 			}
 		}
