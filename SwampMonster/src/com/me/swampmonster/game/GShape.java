@@ -317,14 +317,14 @@ public class GShape extends Group {
 		}
 		
 		if(TheController.showFeedback){
-			
-			feeDialog = new FeedBackWindow("", skin);
-			feeDialog.setX(200);
-			feeDialog.setY(200);
-			feeDialog.setWidth(200);
-			feeDialog.setHeight(200);
-			L1Renderer.stage.addActor(feeDialog);
-			
+			if (feeDialog == null){
+				feeDialog = new FeedBackWindow("", skin);
+				feeDialog.setX(200);
+				feeDialog.setY(200);
+				feeDialog.setWidth(200);
+				feeDialog.setHeight(200);
+				L1Renderer.stage.addActor(feeDialog);
+			}
 		}
 		
 		
@@ -473,6 +473,7 @@ public class GShape extends Group {
 			button(ok, "Nastya");
 		
 		}
+		
 		@Override
 		protected void result(Object object) {
 			if (L1.player.state != State.DEAD){
