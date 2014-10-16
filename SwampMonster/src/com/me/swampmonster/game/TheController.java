@@ -53,6 +53,8 @@ public class TheController extends InputAdapter {
 	public Vector3 V3playerPos;
 	public Vector3 V3enemyPos;
 	public Vector2 randVector2;
+	
+	public static int savedScore;
 
 	public HashMap<Integer, Sprite> unlockNotifications;
 	public Sprite unlockNotificationSprite;
@@ -218,7 +220,7 @@ public class TheController extends InputAdapter {
 			// System.err.println("points: " + Player.score);
 			// System.err.println("getKey: " + e.getKey());
 
-			if (e != null && e.getKey() <= Player.levelsScore) {
+			if (e != null && e.getKey() <= Player.absoluteScore) {
 //				System.out.println("in da if");
 				unlockNotificationSprite = e.getValue();
 				GShape.unlockNotificationCounter = 240;

@@ -20,7 +20,7 @@ public class SlotMiniWindow extends Window{
 		super("", skin, style);
 		
 		try {
-			image = new Image(SlotMachineTextures.slotLevelPic.get(slot.getClass().getField("level").getInt(null)));
+			image = new Image(SlotMachineTextures.slotLevelPic.get(slot.getClass().getField("level").getInt(null)-1));
 		} catch (Exception e) {
 		}
 		contentTable = new Table();
@@ -36,5 +36,4 @@ public class SlotMiniWindow extends Window{
 		add(contentTable).width(250).height(200).top().right();
 		
 	}
-	
 }

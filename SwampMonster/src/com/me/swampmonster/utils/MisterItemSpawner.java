@@ -39,10 +39,10 @@ public class MisterItemSpawner {
 		// if (haveIitem < 100) {
 		if (haveItem > 10){
 		 if (player.oxygen <= 13) {
-		 item = itemGenerator.getMoreLikelyOxugenItem(Player.levelsScore);
+		 item = itemGenerator.getMoreLikelyOxugenItem(Player.absoluteScore);
 		 } else {
 //			 item = itemGenerator.getPlainItem(Player.levelsScore);
-			 item = itemGenerator.getItem(Player.levelsScore);
+			 item = itemGenerator.getItem(Player.absoluteScore);
 		 }
 		} else {
 			 return null;
@@ -64,7 +64,7 @@ public class MisterItemSpawner {
 	public static Item spawnPropsItem(Player player, Prop prop) {
 		ItemGenerator itemGenerator = new ItemGenerator();
 		Item item;
-		item = itemGenerator.getItem(Player.levelsScore);
+		item = itemGenerator.getItem(Player.absoluteScore);
 		if (item != null) {
 			item.position = new Vector2(prop.position);
 			setItemTargetPos(item, player, prop);

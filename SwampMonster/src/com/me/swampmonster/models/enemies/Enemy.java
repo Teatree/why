@@ -583,6 +583,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 	}
 
 	private void rewardPlayer(AbstractGameObject player) {
+		Player.absoluteScore += this.points;
 		Player.levelsScore += this.points;
 
 	}

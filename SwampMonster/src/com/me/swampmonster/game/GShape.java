@@ -1,5 +1,7 @@
 package com.me.swampmonster.game;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
 
 import com.badlogic.gdx.Game;
@@ -35,9 +37,11 @@ import com.me.swampmonster.models.slots.Perks;
 import com.me.swampmonster.models.slots.PositiveEffects;
 import com.me.swampmonster.models.slots.Slot;
 import com.me.swampmonster.screens.AbstractGameScreen;
+import com.me.swampmonster.screens.SlotMachineScreen;
 import com.me.swampmonster.slotMachineStuff.SlotMachineTextures;
 import com.me.swampmonster.utils.Assets;
 import com.me.swampmonster.utils.Constants;
+import com.me.swampmonster.utils.ItemGenerator;
 import com.me.swampmonster.utils.LGenerator;
 import com.me.swampmonster.utils.ScreenContainer;
 
@@ -117,7 +121,7 @@ public class GShape extends Group {
 	
 		font = Assets.manager.get(Assets.font);
 		
-		str = "points: " + Player.levelsScore;
+		str = "points: " + Player.absoluteScore;
 		str2 = "Wave:" + TheController.level1.currentWave + "/" + TheController.level1.wavesAmount;
 		str3 = "Wave:" + TheController.level1.currentWave;
 		
@@ -315,7 +319,7 @@ public class GShape extends Group {
 		if(L1.player.state == State.DEAD){
 			TheController.showFeedback=true;
 		}
-		
+			
 		if(TheController.showFeedback){
 			if (feeDialog == null){
 				feeDialog = new FeedBackWindow("", skin);
@@ -422,6 +426,7 @@ public class GShape extends Group {
 		private String[] WittyPoisonMessages;
 		
 		private ImageButton ok;
+		private ImageButton ad;
 		
 		public FeedBackWindow(String title, Skin skin) {
 			super(title, skin);
@@ -460,6 +465,7 @@ public class GShape extends Group {
 			enemies_killed = new Label(Constants.ENEMIES_KILLED, skin);
 			shot_arrows = new Label(Constants.SHOT_ARROWS, skin);
 			ok = new ImageButton(skin);
+			ad = new ImageButton(skin);
 			ourTable = new Table();
 			
 			ourTable.add(header).top().row();
@@ -469,9 +475,10 @@ public class GShape extends Group {
 			
 			getContentTable().add(ourTable);
 			
-			getButtonTable().add(ok);
 			button(ok, "Nastya");
-		
+			if(L1.player.state == State.DEAD){
+				button(ad, "Advertisement");
+			}
 		}
 		
 		@Override
@@ -481,6 +488,39 @@ public class GShape extends Group {
 				LGenerator.lastTileSet = null;
 				LGenerator.hadLastAtmosphere = false;
 				LGenerator.wasLastElite = false;
+			}else{
+				if(object == "Nastya"){
+					Player.maxOxygen = Player.DEFAULT_MAX_O2;
+					L1.player.maxHealth = Player.DEFAULT_MAX_HEALTH;
+					Player.damage = Player.DEFAULT_DAMAGE;
+					Player.arrowMovementSpeed = Player.DEFAULT_ARROW_MOVEMENT_SPEED;
+					L1.player.movementSpeed = Player.DEFAULT_MOVEMENT_SPEED;
+					Player.absoluteScore = 0;
+					Player.levelsScore = 0;
+					L1.player.trap = null;
+					L1.player.turret = null;
+					L1.hydra = null;
+					L1.plasmaShield = null;
+					for(Slot s: SlotMachineScreen.savedSlots){
+						try {
+							s.getClass().getField("level").setInt(null, 0);
+						} catch(Exception e) {
+							
+						}
+					}
+					ItemGenerator.usedTextures = new HashMap<Integer, String>();
+					SlotMachineScreen.savedSlots = new ArrayList<Slot>();
+					TheController.skill = null;
+					
+					LGenerator.lastMap = null;
+					LGenerator.lastTileSet = null;
+					LGenerator.hadLastAtmosphere = false;
+					LGenerator.wasLastElite = false;
+				}else{
+					System.out.println("ps: " + Player.absoluteScore  + " pls: " + Player.levelsScore ) ;
+					Player.absoluteScore -= Player.levelsScore;
+					Player.levelsScore = 0;
+				}
 			}
 			TheController.germany = true;
 			TheController.showFeedback = false;
