@@ -6,10 +6,21 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
 
+import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener.ChangeEvent;
+import com.me.swampmonster.game.GShape;
+import com.me.swampmonster.game.L1Renderer;
 import com.me.swampmonster.game.TheController;
 import com.me.swampmonster.models.AbstractGameObject.State;
 import com.me.swampmonster.models.Projectile.EffectCarriers;
@@ -18,6 +29,7 @@ import com.me.swampmonster.utils.CameraHelper;
 import com.me.swampmonster.utils.Constants;
 import com.me.swampmonster.utils.MisterItemSpawner;
 import com.me.swampmonster.utils.MisterSpawner;
+import com.me.swampmonster.utils.ScreenContainer;
 import com.me.swampmonster.utils.WaveGenerator;
 
 public class L1 {
@@ -214,12 +226,37 @@ public class L1 {
 	private void updateItems(TiledMapTileLayer collisionLayer) {
 		Iterator<Item> itm = items.iterator();
 		while(itm.hasNext()){
-			Item item = itm.next();
+			final Item item = itm.next();
 			if(item.state == State.DEAD){
 				itm.remove();
 			}else{
-				if(Intersector.overlaps(item.circle, player.rectanlge) && item.state != State.SPAWNING){
-					item.pickMeUp(player);
+				if(Intersector.overlaps(item.circle, player.rectanlge) && item.state != State.SPAWNING && item.pickUpButton == null){
+				    item.pickUpButton = new ImageButton(GShape.skin, "yes");
+					item.pickUpButton.setSize(100, 100);
+					item.pickUpButton.setX(200);
+					item.pickUpButton.setY(20);
+					item.pickUpButton.addListener(new ChangeListener() {
+						@Override
+						public void changed(ChangeEvent event, Actor actor) {
+							item.pickMeUp(player);
+							for(Actor a: L1Renderer.stage.getActors()){
+								if(a.equals(item.pickUpButton)){
+									a.remove();
+									item.pickUpButton = null;
+								}
+							}
+//							Gdx.input.setInputProcessor(null);
+						}
+					});
+					L1Renderer.stage.addActor(item.pickUpButton);
+				}
+				else if(!Intersector.overlaps(item.circle, player.rectanlge)){
+					for(Actor a: L1Renderer.stage.getActors()){
+						if(a.equals(item.pickUpButton)){
+							a.remove();
+						}
+					}
+					item.pickUpButton = null;
 				}
 				for (Explosion expl : explosions) {
 					if (item.sprite != null && Intersector.overlaps(expl.explCircle, item.sprite.getBoundingRectangle())) {

@@ -61,7 +61,7 @@ public class GShape extends Group {
 	public Dialog exitDialog;
 	public Dialog feeDialog;
 	
-	public Skin skin;
+	public static Skin skin;
 	
 	public ImageButton slotMachineButton;
 	
@@ -324,6 +324,7 @@ public class GShape extends Group {
 				feeDialog.setWidth(200);
 				feeDialog.setHeight(200);
 				L1Renderer.stage.addActor(feeDialog);
+				
 			}
 		}
 		

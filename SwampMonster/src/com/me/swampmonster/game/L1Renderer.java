@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.tiles.AnimatedTiledMapTile;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Scaling;
@@ -36,7 +37,7 @@ import com.me.swampmonster.models.enemies.Enemy;
 import com.me.swampmonster.utils.Constants;
 
 public class L1Renderer {
-	private OrthographicCamera cam;
+	private static OrthographicCamera cam;
 	private ScreenViewport viewport;
 	private TheController theController;
 
@@ -240,8 +241,21 @@ public class L1Renderer {
 				batch.draw(item.sprite, item.getPosition().x,
 						item.getPosition().y, item.sprite.getWidth() / 2,
 						item.sprite.getHeight() / 2);
+//				if(item.pickUpButton != null){
+//					item.pickUpButton.draw(batch, 1);
+//				}
+				if(item.pickUpButton!=null){
+//					item.pickUpButton.setX(L1Renderer.getCam().unproject(
+//							new Vector3(L1Renderer.stage.screenToStageCoordinates(item.position).x, L1Renderer.stage
+//									.screenToStageCoordinates(item.position).y, 0)).x);
+//					item.pickUpButton.setY(L1Renderer.getCam().unproject(
+//							new Vector3(L1Renderer.stage.screenToStageCoordinates(item.position).x, L1Renderer.stage
+//									.screenToStageCoordinates(item.position).y, 0)).y+32);
+					
+				}
 			}
 		}
+		
 
 		for (Enemy enemy : L1.enemiesOnStage) {
 			if (enemy.getPosition().y + 42 > L1.player.getPosition().y + 42) {
@@ -462,6 +476,12 @@ public class L1Renderer {
 			}
 		}
 
+		for (Item item : L1.items) {
+			if (item.sprite != null) {
+				sr.circle(item.circle.x, item.circle.y, item.circle.radius);
+			}
+			
+		}
 		sr.rect(theController.point.x, theController.point.y, 32, 32);
 		sr.rect(L1.player.rectanlge.x, L1.player.rectanlge.y,
 				L1.player.rectanlge.width, L1.player.rectanlge.height);
@@ -626,7 +646,7 @@ public class L1Renderer {
 		stage.dispose();
 	}
 
-	public OrthographicCamera getCam() {
+	public static OrthographicCamera getCam() {
 		return cam;
 	}
 

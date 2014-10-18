@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.me.swampmonster.game.collision.CollisionHelper;
 
 public abstract class Item extends AbstractGameObject{
@@ -24,13 +25,14 @@ public abstract class Item extends AbstractGameObject{
 	public Vector2 spawnPos;
 	public Vector2 targetPos;
 	public TiledMapTileLayer collisionLayer;
+	public ImageButton pickUpButton;
 	
 	//Animations
 	public Item(){
 		state = State.SPAWNING;
 		
 		circle = new Circle();
-		circle.radius = 16;
+		circle.radius = 35;
 		
 		Random random = new Random();
 		this.lifeTime = random.nextInt((800-600) + 600);
@@ -40,8 +42,8 @@ public abstract class Item extends AbstractGameObject{
 	}
 	
 	public void update(){
-		circle.x = position.x;
-		circle.y = position.y;
+		circle.x = position.x+8;
+		circle.y = position.y+8;
 		
 		if(state.equals(State.STANDARD)){
 			pendingTimer++;

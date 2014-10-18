@@ -28,7 +28,7 @@ public class CameraHelper {
 	
 	public CameraHelper(){
 		position = new Vector2(400, 140);
-		zoom = 50.0f;
+		zoom = 2.0f;
 		hasTarget = true;
 	}
 	public void upadate(float x, float y, int delta){
