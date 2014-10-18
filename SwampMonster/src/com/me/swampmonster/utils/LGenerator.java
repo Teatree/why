@@ -80,7 +80,11 @@ public class LGenerator {
 			if (isLevelElite) {
 				hasLevelAtmosphere = false;
 			} else {
-				hasLevelAtmosphere = random.nextBoolean();
+				if(player.points > 2000){
+					hasLevelAtmosphere = random.nextBoolean();
+				}else{
+					hasLevelAtmosphere = false;
+				}
 			}
 			hadLastAtmosphere = hasLevelAtmosphere;
 		} else {
@@ -136,6 +140,7 @@ public class LGenerator {
 			TheController.coolDownAngle = 0;
 			TheController.coolDownStep = 0;
 		}
+		player.levelsScore = 0;
 		return level;
 	}
 	

@@ -173,7 +173,7 @@ public class L1 {
 		
 		if (waveTemp == null && needTogenerateNewWave) {
 			needTogenerateNewWave = false;
-			waveTemp = waveGenerator.generateWave(Player.levelsScore, hasAtmosphere, isElite);
+			waveTemp = waveGenerator.generateWave(Player.absoluteScore, hasAtmosphere, isElite);
 		}
 
 		if (enemiesOnStage.empty() && waveTemp != null

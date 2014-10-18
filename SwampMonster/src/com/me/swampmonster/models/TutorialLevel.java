@@ -93,6 +93,7 @@ public class TutorialLevel extends L1 {
 				TheController.gotoMenu = false;
 				L1.player = new Player(null);
 				Player.levelsScore = 0;
+				Player.absoluteScore = 0;
 				TheController.showFeedback = false;
 				MenuScreen.showTutorialButton = true;
 				((Game) Gdx.app.getApplicationListener()).setScreen(ScreenContainer.SS);

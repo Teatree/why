@@ -30,18 +30,19 @@ import com.me.swampmonster.models.slots.PositiveEffects;
 import com.me.swampmonster.models.slots.Slot;
 import com.me.swampmonster.models.slots.Trap;
 import com.me.swampmonster.screens.SlotMachineScreen;
+import com.me.swampmonster.slotMachineStuff.SlotMachineTextures;
 import com.me.swampmonster.utils.Assets;
 import com.me.swampmonster.utils.ItemGenerator;
 
 public class Player extends AbstractGameObject {
 
-	private static final float DEFAULT_DAMAGE = 1f;
-	private static final float DEFAULT_ARROW_MOVEMENT_SPEED = 1.8f;
-	private static final float DEFAULT_MOVEMENT_SPEED = 1.5f;
-	private static final int DEFAULT_MAX_HEALTH = 7;
-	private static final int DEFAULT_MAX_O2 = 96;
-	private static final float FROZEN_MOVEMENT = 0.16f;
-	private static final float SPEED_BOOST_EFFECT = 1.1f;
+	public static final float DEFAULT_DAMAGE = 1f;
+	public static final float DEFAULT_ARROW_MOVEMENT_SPEED = 1.8f;
+	public static final float DEFAULT_MOVEMENT_SPEED = 1.5f;
+	public static final int DEFAULT_MAX_HEALTH = 7;
+	public static final int DEFAULT_MAX_O2 = 96;
+	public static final float FROZEN_MOVEMENT = 0.16f;
+	public static final float SPEED_BOOST_EFFECT = 1.1f;
 
 	// feedback
 	public static int enemiesKilled;
@@ -293,20 +294,27 @@ public class Player extends AbstractGameObject {
 
 		// DEAD
 		if (state.equals(State.DEAD)) {
-			maxOxygen = DEFAULT_MAX_O2;
-			maxHealth = DEFAULT_MAX_HEALTH;
-			damage = DEFAULT_DAMAGE;
-			arrowMovementSpeed = DEFAULT_ARROW_MOVEMENT_SPEED;
-			movementSpeed = DEFAULT_MOVEMENT_SPEED;
-			absoluteScore = 0;
-			levelsScore = 0;
-			trap = null;
-			turret = null;
-			L1.hydra = null;
-			L1.plasmaShield = null;
-			ItemGenerator.usedTextures = new HashMap<Integer, String>();
-			SlotMachineScreen.savedSlots = new ArrayList<Slot>();
-			TheController.skill = null;
+//			maxOxygen = DEFAULT_MAX_O2;
+//			maxHealth = DEFAULT_MAX_HEALTH;
+//			damage = DEFAULT_DAMAGE;
+//			arrowMovementSpeed = DEFAULT_ARROW_MOVEMENT_SPEED;
+//			movementSpeed = DEFAULT_MOVEMENT_SPEED;
+//			absoluteScore = 0;
+//			levelsScore = 0;
+//			trap = null;
+//			turret = null;
+//			L1.hydra = null;
+//			L1.plasmaShield = null;
+//			for(Slot s: SlotMachineScreen.savedSlots){
+//				try {
+//					s.getClass().getField("level").setInt(null, 0);
+//				} catch(Exception e) {
+//					
+//				}
+//			}
+//			ItemGenerator.usedTextures = new HashMap<Integer, String>();
+//			SlotMachineScreen.savedSlots = new ArrayList<Slot>();
+//			TheController.skill = null;
 			dying();
 		}
 
@@ -447,7 +455,7 @@ public class Player extends AbstractGameObject {
 				if (p.effect == EffectCarriers.EXPLOSIVE) {
 					TheController.skill.explode(p.position);
 				}
-				prj.remove();
+				p.state = State.DEAD;
 			} else if(L1.plasmaShield!= null && p.circle.overlaps(L1.plasmaShield.circle)){
 				if(!L1.plasmaShield.circle.contains(circle)){
 					p.state = State.DEAD;
