@@ -41,8 +41,8 @@ public class MisterItemSpawner {
 		 if (player.oxygen <= 13) {
 		 item = itemGenerator.getMoreLikelyOxugenItem(Player.absoluteScore);
 		 } else {
-//			 item = itemGenerator.getPlainItem(Player.levelsScore);
 			 item = itemGenerator.getItem(Player.absoluteScore);
+//			 item = itemGenerator.generateSpecialItem(Player.absoluteScore);
 		 }
 		} else {
 			 return null;

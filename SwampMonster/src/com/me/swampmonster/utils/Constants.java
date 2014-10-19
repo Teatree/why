@@ -467,6 +467,21 @@ public class Constants {
 	public static final int SPEED_BOOST_LifeTime_L4 = 1200;
 	public static final int SPEED_BOOST_LifeTime_L5 = 1600;
 	
+// ----------------- ITEMS ---------------------
+	//HASTE
+	public static final int HASTE_LifeTime_L1 = 300;
+	public static final int HASTE_LifeTime_L2 = 500;
+	public static final int HASTE_LifeTime_L3 = 800;
+	public static final int HASTE_LifeTime_L4 = 1200;
+	public static final int HASTE_LifeTime_L5 = 1600;
+	
+	//WEAKENED
+	public static final int WEAKENED_LifeTime_L1 = 300;
+	public static final int WEAKENED_LifeTime_L2 = 500;
+	public static final int WEAKENED_LifeTime_L3 = 800;
+	public static final int WEAKENED_LifeTime_L4 = 1200;
+	public static final int WEAKENED_LifeTime_L5 = 1600;
+	
 	//feedback
 	public static final String SHOT_ARROWS = "Shot arrows: ";
 	public static final String ENEMIES_KILLED = "Enemies killed: ";

@@ -18,6 +18,7 @@ import com.me.swampmonster.game.collision.CollisionHelper;
 import com.me.swampmonster.models.AbstractGameObject.NegativeEffects;
 import com.me.swampmonster.models.AbstractGameObject.State;
 import com.me.swampmonster.models.Explosion;
+import com.me.swampmonster.models.Item;
 import com.me.swampmonster.models.L1;
 import com.me.swampmonster.models.Player;
 import com.me.swampmonster.models.Projectile;
@@ -257,12 +258,19 @@ public class TheController extends InputAdapter {
 			if (GShape.weaponizer == null || (!doesIntersect(pint, GShape.weaponizer.position,
 					GShape.weaponizer.circle.radius))) {
 //			if (GShape.weaponizer == null || (GShape.weaponizer.sprite.getBoundingRectangle().contains(pint))) {
-				
-				touchPos.y = Gdx.input.getY();
-				touchPos.x = Gdx.input.getX();
-				l1Renderer.getCam().unproject(touchPos);
-				touchPos.z = 0;
-				L1.player.pointGathered = true;
+				boolean updateTouchPos = true;
+				for(Item i: L1.items){
+					if(i.pickUpButton != null && i.pickUpButton.isPressed()){
+						updateTouchPos = false;
+					}
+				}
+				if(updateTouchPos){
+					touchPos.y = Gdx.input.getY();
+					touchPos.x = Gdx.input.getX();
+					L1Renderer.getCam().unproject(touchPos);
+					touchPos.z = 0;
+					L1.player.pointGathered = true;
+				}
 			} else if (Intersector.intersectSegmentCircle(pint, pint, GShape.weaponizer.position,
 										GShape.weaponizer.circle.radius
 												* GShape.weaponizer.circle.radius)) {

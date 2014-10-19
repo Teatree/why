@@ -17,6 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener.ChangeEvent;
 import com.me.swampmonster.game.GShape;
@@ -25,6 +26,8 @@ import com.me.swampmonster.game.TheController;
 import com.me.swampmonster.models.AbstractGameObject.State;
 import com.me.swampmonster.models.Projectile.EffectCarriers;
 import com.me.swampmonster.models.enemies.Enemy;
+import com.me.swampmonster.models.items.HealthKit;
+import com.me.swampmonster.models.items.Oxygen;
 import com.me.swampmonster.utils.CameraHelper;
 import com.me.swampmonster.utils.Constants;
 import com.me.swampmonster.utils.MisterItemSpawner;
@@ -43,6 +46,8 @@ public class L1 {
 	public Bunker bunker;
 	public boolean korea;
 	public static PlasmaShield plasmaShield;
+	private List<Integer> yPositionsForButton; 
+	private int i;
 
 	public Wave waveTemp;
 	private boolean needTogenerateNewWave = false;
@@ -69,6 +74,11 @@ public class L1 {
 		this.isElite = isElite;
 		wavesAmount = waveGenerator.getWavesAmount(Player.absoluteScore, hasAtmosphere, isElite);
 		currentWave = 1;
+		yPositionsForButton = new ArrayList<Integer>();
+		yPositionsForButton.add(20);
+		yPositionsForButton.add(80);
+		yPositionsForButton.add(140);
+		yPositionsForButton.add(200);
 		wave = waveGenerator.generateWave(Player.absoluteScore, hasAtmosphere, isElite);
 		enemiesOnStage = new Stack<Enemy>();
 		bunker = new Bunker(tileSet, tileMap);
@@ -229,12 +239,23 @@ public class L1 {
 			final Item item = itm.next();
 			if(item.state == State.DEAD){
 				itm.remove();
+				for(Actor a: L1Renderer.stage.getActors()){
+					if(a.equals(item.pickUpButton)){
+						a.remove();
+						i--;
+					}
+				}
 			}else{
-				if(Intersector.overlaps(item.circle, player.rectanlge) && item.state != State.SPAWNING && item.pickUpButton == null){
-				    item.pickUpButton = new ImageButton(GShape.skin, "yes");
-					item.pickUpButton.setSize(100, 100);
-					item.pickUpButton.setX(200);
-					item.pickUpButton.setY(20);
+				if (Intersector.overlaps(item.circle, player.rectanlge)
+						&& item.state != State.SPAWNING
+						&& item.pickUpButton == null && !(item instanceof Oxygen)
+								&& !(item instanceof HealthKit)) {
+					item.pickUpButton = new TextButton("Pick up " + item.name,
+							GShape.skin);
+					item.pickUpButton.setSize(200, 50);
+					item.pickUpButton.setX(300);
+					item.pickUpButton.setY(yPositionsForButton.get(i));
+					i++;
 					item.pickUpButton.addListener(new ChangeListener() {
 						@Override
 						public void changed(ChangeEvent event, Actor actor) {
@@ -243,6 +264,7 @@ public class L1 {
 								if(a.equals(item.pickUpButton)){
 									a.remove();
 									item.pickUpButton = null;
+									i--;
 								}
 							}
 //							Gdx.input.setInputProcessor(null);
@@ -254,10 +276,16 @@ public class L1 {
 					for(Actor a: L1Renderer.stage.getActors()){
 						if(a.equals(item.pickUpButton)){
 							a.remove();
+							i--;
 						}
 					}
 					item.pickUpButton = null;
 				}
+				if(Intersector.overlaps(item.circle, player.rectanlge) && (item instanceof Oxygen
+						|| item instanceof HealthKit) ){
+					item.pickMeUp(player);
+				}
+				
 				for (Explosion expl : explosions) {
 					if (item.sprite != null && Intersector.overlaps(expl.explCircle, item.sprite.getBoundingRectangle())) {
 						boolean fudge = expl.cause(item, collisionLayer);

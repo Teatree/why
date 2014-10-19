@@ -26,6 +26,8 @@ public class ICE_THING extends Item{
 		negativeEffectLifeTime = 500;
 		
 		sprite = new Sprite(animationsStandard.get(state).getCurrentFrame());
+		
+		constatName = "ICE THING";
 	}
 
 	@Override

@@ -764,6 +764,10 @@ public class Player extends AbstractGameObject {
 				negativeEffectsState = negativeEffect;
 				negativeEffectCounter = negativeEffect.lifetime;
 				break;
+			case WEAKENED:
+				negativeEffectsState = negativeEffect;
+				negativeEffectCounter = negativeEffect.lifetime;
+				break;
 			case NONE:
 				if (positiveEffectsState == PositiveEffects.NONE
 						|| positiveEffectsState == null) {

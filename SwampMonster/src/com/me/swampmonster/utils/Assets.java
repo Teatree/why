@@ -74,6 +74,7 @@ public class Assets {
 	public static final AssetDescriptor<Texture> POISONEDNEGATIVEEFFECT_ICON = new AssetDescriptor<Texture>("data\\slotIcons\\POISONED_NEGATIVE_EFFECT_ICON.png", Texture.class);
 	public static final AssetDescriptor<Texture> SCAREDNEGATIVEEFFECT_ICON = new AssetDescriptor<Texture>("data\\slotIcons\\SCARED_NEGATIVE_EFFECT_ICON.png", Texture.class);
 	public static final AssetDescriptor<Texture> STUNNEGATIVEEFFECT_ICON = new AssetDescriptor<Texture>("data\\slotIcons\\STUN_NEGATIVE_EFFECT_ICON.png", Texture.class);
+	public static final AssetDescriptor<Texture> WEAKENED_ICON = new AssetDescriptor<Texture>("data\\slotIcons\\WEAKENED_ICON.png", Texture.class);
 	public static final AssetDescriptor<Texture> HASTE_ICON = new AssetDescriptor<Texture>("data\\slotIcons\\HASTE_ICON.png", Texture.class);
 
 	//slots
@@ -110,6 +111,10 @@ public class Assets {
 	public static final AssetDescriptor<Texture> yellowItem = new AssetDescriptor<Texture>("data\\Items\\yellow.png", Texture.class);
 	public static final AssetDescriptor<Texture> purpleItem = new AssetDescriptor<Texture>("data\\Items\\purple.png", Texture.class);
 	public static final AssetDescriptor<Texture> redItem = new AssetDescriptor<Texture>("data\\Items\\red.png", Texture.class);
+	public static final AssetDescriptor<Texture> orangeItem = new AssetDescriptor<Texture>("data\\Items\\orange.png", Texture.class);
+	public static final AssetDescriptor<Texture> greyItem = new AssetDescriptor<Texture>("data\\Items\\grey.png", Texture.class);
+	public static final AssetDescriptor<Texture> lightBlueItem = new AssetDescriptor<Texture>("data\\Items\\lightBlue.png", Texture.class);
+	public static final AssetDescriptor<Texture> pinkItem = new AssetDescriptor<Texture>("data\\Items\\pink.png", Texture.class);
 	
 //	public static final AssetDescriptor<Texture> tiles = new AssetDescriptor<Texture>("data\\Tiles.png", Texture.class);
 //	public static final AssetDescriptor<Texture> tileSet_SAND_WORLD = new AssetDescriptor<Texture>("data\\tileSet_SAND_WORLD.png", Texture.class);
@@ -152,12 +157,17 @@ public class Assets {
 		manager.load(yellowItem);
 		manager.load(redItem);
 		manager.load(purpleItem);
+		manager.load(orangeItem);
+		manager.load(pinkItem);
+		manager.load(greyItem);
+		manager.load(lightBlueItem);
 		manager.load(weaponizerButton);
 //		manager.load(tiles);
 //		manager.load(tileSet_SAND_WORLD);
 		manager.load(slotMachineCase);
 		manager.load(saveSlotBar);
 		manager.load(FADE_ICON);
+		manager.load(WEAKENED_ICON);
 		manager.load(RADIOACTIVE_AURA_ICON);
 		manager.load(HASTE_ICON);
 		manager.load(SPEED_BOOST_ICON);

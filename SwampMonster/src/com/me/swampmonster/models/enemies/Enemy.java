@@ -631,7 +631,11 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 						player.damageType = "enemy";
 						player.harmfulEnemy = this;
 						player.hurt = true;
-						player.health -= damage;
+						if(player.negativeEffectsState == NegativeEffects.WEAKENED){
+							player.health -= damage*2;
+						}else{
+							player.health -= damage;
+						}
 					}
 
 					timer = 0;

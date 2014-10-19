@@ -10,12 +10,15 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.me.swampmonster.game.collision.CollisionHelper;
 
 public abstract class Item extends AbstractGameObject{
 	public String itemType;
 	public static int lifeTime;
 	public int deadAnimTimer;
+	public String name;
+	public String constatName;
 	public boolean spawned;
 	
 	private int animTimer2;
@@ -25,7 +28,7 @@ public abstract class Item extends AbstractGameObject{
 	public Vector2 spawnPos;
 	public Vector2 targetPos;
 	public TiledMapTileLayer collisionLayer;
-	public ImageButton pickUpButton;
+	public TextButton pickUpButton;
 	
 	//Animations
 	public Item(){
@@ -39,6 +42,7 @@ public abstract class Item extends AbstractGameObject{
 //		this.itemType = itemType;
 		pendingTimer = 180;
 		
+		name = "unidentified";
 	}
 	
 	public void update(){

@@ -21,6 +21,10 @@ public class HealthKit extends Item{
 		animationsStandard.put(State.DESPAWNING, new AnimationControl(Assets.manager.get(Assets.healthKitItem), 4, 2, 4));
 		
 		sprite = new Sprite(animationsStandard.get(state).getCurrentFrame());
+		
+		circle.radius = 16;
+		
+		constatName = "HEALTH KIT";
 	}
 
 	@Override

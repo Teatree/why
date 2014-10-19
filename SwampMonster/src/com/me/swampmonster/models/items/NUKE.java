@@ -71,6 +71,8 @@ public class NUKE extends Item{
 		}
 		
 		sprite = new Sprite(Assets.manager.get(Assets.EXPLOSIVE_TRAP_ICON));
+		
+		constatName = "NUKE";
 	}
 
 	@Override

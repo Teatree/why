@@ -1,22 +1,44 @@
 package com.me.swampmonster.models.items;
 
+import java.util.Random;
+
 import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.math.Vector2;
 import com.me.swampmonster.animations.AnimationControl;
 import com.me.swampmonster.models.Item;
-import com.me.swampmonster.models.L1;
 import com.me.swampmonster.models.Player;
-import com.me.swampmonster.models.ProjectileHydra;
+import com.me.swampmonster.models.slots.PositiveEffects;
 import com.me.swampmonster.utils.Assets;
-import com.sun.org.apache.bcel.internal.classfile.ConstantNameAndType;
+import com.me.swampmonster.utils.Constants;
 
-public class CHAIN_ARROWS extends Item{
+public class SLOWED extends Item{
+
 	public static AssetDescriptor<Texture> poisonSprite;
 	
-	public CHAIN_ARROWS() {
+	public SLOWED() {
 		super();
+				
+				
+		Random random = new Random();
+		int level = random.nextInt(5);
+		switch (level) {
+		case 0:
+			lifeTime = Constants.WEAKENED_LifeTime_L1;
+			break;
+		case 1:
+			lifeTime = Constants.WEAKENED_LifeTime_L2;
+			break;
+		case 2:
+			lifeTime = Constants.WEAKENED_LifeTime_L3;
+			break;
+		case 3:
+			lifeTime = Constants.WEAKENED_LifeTime_L4;
+			break;
+		case 4:
+			lifeTime = Constants.WEAKENED_LifeTime_L5;
+			break;
+		}
 		
 		animationsStandard.put(State.SPAWNING, new AnimationControl(Assets.manager.get(poisonSprite), 4, 2, 4));
 		animationsStandard.put(State.STANDARD, new AnimationControl(Assets.manager.get(poisonSprite), 4, 2, 4));
@@ -25,14 +47,15 @@ public class CHAIN_ARROWS extends Item{
 		
 		sprite = new Sprite(animationsStandard.get(state).getCurrentFrame());
 		
-		constatName = "HYDRA";
+		constatName = "SLOWED";
 	}
 
+	@Override
 	public void pickMeUp(Player player) {
-		this.state = State.DEAD;
-		System.out.println("Hello, I am Chain arrows! and multiplyCounter is: " + ProjectileHydra.musltiplyCounter);
-		L1.hydra  = new ProjectileHydra(new Vector2(position.x, position.y));
-		ProjectileHydra.musltiplyCounter = 3;
+		this.state=State.DEAD;
+		player.positiveEffectSprite = new Sprite(Assets.manager.get(Assets.FROZENNEGATIVEEFFECT_ICON));
+		player.setNegativeEffect(NegativeEffects.FROZEN);
+		System.out.println("I am Haste, biatch");
 	}
 
 }

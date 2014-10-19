@@ -16,7 +16,11 @@ import com.me.swampmonster.models.items.HealthKit;
 import com.me.swampmonster.models.items.ICE_THING;
 import com.me.swampmonster.models.items.NUKE;
 import com.me.swampmonster.models.items.Oxygen;
+import com.me.swampmonster.models.items.POISONED;
 import com.me.swampmonster.models.items.RADIOACTIVE;
+import com.me.swampmonster.models.items.SCARED;
+import com.me.swampmonster.models.items.SLOWED;
+import com.me.swampmonster.models.items.WEAKENED;
 
 public class ItemGenerator {
 	HashMap<Integer, String> itemTypeParams = new HashMap<Integer, String>();
@@ -33,13 +37,17 @@ public class ItemGenerator {
 		poisonTextures.put(2, Assets.redItem);
 		poisonTextures.put(3, Assets.yellowItem);
 		poisonTextures.put(4, Assets.purpleItem);
+		poisonTextures.put(5, Assets.orangeItem);
+		poisonTextures.put(6, Assets.pinkItem);
+		poisonTextures.put(7, Assets.lightBlueItem);
+		poisonTextures.put(8, Assets.greyItem);
 	}
 	
 	private static enum Items{
-		p0_500(2, 7),
-		p500_1000(2, 7),
-		p1000_2000(2, 7),
-		p2000_4000(2, 7);
+		p0_500(2, 12),
+		p500_1000(2, 12),
+		p1000_2000(2, 12),
+		p2000_4000(2, 12);
 		
 		public int minItemGenerate;
 		public int maxItemGenerate;
@@ -61,6 +69,10 @@ public class ItemGenerator {
 		items.put(5, ICE_THING.class);
 		items.put(6, NUKE.class);
 		items.put(7, RADIOACTIVE.class);
+		items.put(8, WEAKENED.class);
+		items.put(9, POISONED.class);
+		items.put(10, SCARED.class);
+		items.put(11, SLOWED.class);
 	}
 	
 	public Item getItem(int playersScore){
@@ -75,7 +87,7 @@ public class ItemGenerator {
 				+ itEmsTypes.minItemGenerate;
 		Item item = null;
 		try {
-			 Class<? extends Item> itemClass = items.get(number);
+			Class<? extends Item> itemClass = items.get(number);
 //			Class<? extends Item> itemClass = CHAIN_ARROWS.class;
 			int randomTextureNumber;
 			if (itemClass.getDeclaredField("poisonSprite").get(null) == null) {
@@ -91,9 +103,12 @@ public class ItemGenerator {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
+				item = itemClass.getConstructor().newInstance();
 				System.out.println("poisonSprite: " + randomTextureNumber);
+			}else{
+				item = itemClass.getConstructor().newInstance();
+				item.name = item.constatName;
 			}
-			item = itemClass.getConstructor().newInstance();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

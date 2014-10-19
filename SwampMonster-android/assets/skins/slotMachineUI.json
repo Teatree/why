@@ -18,6 +18,9 @@
 	    default: { titleFont: "default", background: "slotMachineWindow",  titleFontColor: red },
 	    miniWindow: { titleFont: "default", background: "slotMachineMiniWindow", titleFontColor: red}
 	},
+	"com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle": { 
+        "default": { "up": "pickUpButtonDown" , "down": "pickUpButton", "font": default, "pressedOffsetY": -4, "fontColor": red }
+    },
      "com.badlogic.gdx.scenes.scene2d.ui.ImageButton$ImageButtonStyle": { 
         "default": { "up": "slotMachineWindowYES" , "down": "slotMachineWindowYES_pressed"},
         "yes": { "up": "slotMachineWindowYES" , "down": "slotMachineWindowYES_pressed"},

@@ -57,6 +57,8 @@ public class RADIOACTIVE extends Item{
 			RADIOACTIVE_Radius = Constants.RADIOACTIVE_Radius_L5;
 			break;
 		}
+		
+		constatName = "RADIOACTIVE";
 	}
 	
 

@@ -24,19 +24,19 @@ public class HASTE extends Item{
 		int level = random.nextInt(5);
 		switch (level) {
 		case 0:
-			lifeTime = Constants.SPEED_BOOST_LifeTime_L1;
+			lifeTime = Constants.HASTE_LifeTime_L1;
 			break;
 		case 1:
-			lifeTime = Constants.SPEED_BOOST_LifeTime_L2;
+			lifeTime = Constants.HASTE_LifeTime_L2;
 			break;
 		case 2:
-			lifeTime = Constants.SPEED_BOOST_LifeTime_L3;
+			lifeTime = Constants.HASTE_LifeTime_L3;
 			break;
 		case 3:
-			lifeTime = Constants.SPEED_BOOST_LifeTime_L4;
+			lifeTime = Constants.HASTE_LifeTime_L4;
 			break;
 		case 4:
-			lifeTime = Constants.SPEED_BOOST_LifeTime_L5;
+			lifeTime = Constants.HASTE_LifeTime_L5;
 			break;
 		}
 		
@@ -46,6 +46,8 @@ public class HASTE extends Item{
 		animationsStandard.put(State.DESPAWNING, new AnimationControl(Assets.manager.get(poisonSprite), 4, 2, 4));
 		
 		sprite = new Sprite(animationsStandard.get(state).getCurrentFrame());
+		
+		constatName = "HASTE";
 	}
 
 	@Override

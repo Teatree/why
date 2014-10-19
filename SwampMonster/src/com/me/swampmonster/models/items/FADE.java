@@ -49,6 +49,8 @@ public class FADE extends Item {
 				Assets.manager.get(poisonSprite), 4, 2, 4));
 
 		sprite = new Sprite(animationsStandard.get(state).getCurrentFrame());
+		
+		constatName = "FADE";
 	}
 
 	public static int level;
