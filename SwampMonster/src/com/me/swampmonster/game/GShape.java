@@ -323,10 +323,10 @@ public class GShape extends Group {
 		if(TheController.showFeedback){
 			if (feeDialog == null){
 				feeDialog = new FeedBackWindow("", skin);
-				feeDialog.setX(200);
-				feeDialog.setY(200);
-				feeDialog.setWidth(200);
-				feeDialog.setHeight(200);
+				feeDialog.setX(250);
+				feeDialog.setY(350);
+				feeDialog.setWidth(300);
+				feeDialog.setHeight(300);
 				L1Renderer.stage.addActor(feeDialog);
 				
 			}
@@ -419,6 +419,7 @@ public class GShape extends Group {
 
 		private Label header;
 		private Label score;
+		private Label levelScore;
 		private Label enemies_killed;
 		private Label shot_arrows;
 		private Table ourTable;
@@ -462,15 +463,17 @@ public class GShape extends Group {
 				wittyMessage = Constants.ONE_MORE_WORLD_CONQUERED;
 			}
 			header = new Label(wittyMessage, skin);
-			score = new Label(Constants.SCORE, skin);
-			enemies_killed = new Label(Constants.ENEMIES_KILLED, skin);
-			shot_arrows = new Label(Constants.SHOT_ARROWS, skin);
+			score = new Label(Constants.SCORE + L1.player.absoluteScore, skin);
+			levelScore = new Label("level " + Constants.SCORE + L1.player.levelsScore, skin);
+			enemies_killed = new Label(Constants.ENEMIES_KILLED + L1.player.enemiesKilled, skin);
+			shot_arrows = new Label(Constants.SHOT_ARROWS + L1.player.shotArrows, skin);
 			ok = new ImageButton(skin);
-			ad = new ImageButton(skin);
+			ad = new ImageButton(skin, "ad");
 			ourTable = new Table();
 			
 			ourTable.add(header).top().row();
 			ourTable.add(score).top().row();
+			ourTable.add(levelScore).top().row();
 			ourTable.add(enemies_killed).top().row();
 			ourTable.add(shot_arrows).top().row();
 			

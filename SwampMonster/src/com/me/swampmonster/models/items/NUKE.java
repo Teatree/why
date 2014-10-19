@@ -34,35 +34,30 @@ public class NUKE extends Item{
 		level = random.nextInt(5);
 		switch (level) {
 		case 0:
-			circle.radius = Constants.NUKE_CircleRadius_L1;
 			explosion.explCircle.radius = Constants.NUKE_explCircleRadius_L1;
 			explosion.damage = Constants.NUKE_damage_L1;
 			explosion.incrementalCircleValue = Constants.NUKE_incrementExplosionRadius_L1;
 			explosion.incrementalDamageValue = Constants.NUKE_incrementDamage_L1;
 			break;
 		case 1:
-			circle.radius = Constants.NUKE_CircleRadius_L2;
 			explosion.explCircle.radius = Constants.NUKE_explCircleRadius_L2;
 			explosion.damage = Constants.NUKE_damage_L2;
 			explosion.incrementalCircleValue = Constants.NUKE_incrementExplosionRadius_L2;
 			explosion.incrementalDamageValue = Constants.NUKE_incrementDamage_L2;
 			break;
 		case 2:
-			circle.radius = Constants.NUKE_CircleRadius_L3;
 			explosion.explCircle.radius = Constants.NUKE_explCircleRadius_L3;
 			explosion.damage = Constants.NUKE_damage_L3;
 			explosion.incrementalCircleValue = Constants.NUKE_incrementExplosionRadius_L3;
 			explosion.incrementalDamageValue = Constants.NUKE_incrementDamage_L3;
 			break;
 		case 3:
-			circle.radius = Constants.NUKE_CircleRadius_L4;
 			explosion.explCircle.radius = Constants.NUKE_explCircleRadius_L4;
 			explosion.damage = Constants.NUKE_damage_L4;
 			explosion.incrementalCircleValue = Constants.NUKE_incrementExplosionRadius_L4;
 			explosion.incrementalDamageValue = Constants.NUKE_incrementDamage_L4;
 			break;
 		case 4:
-			circle.radius = Constants.NUKE_CircleRadius_L5;
 			explosion.explCircle.radius = Constants.NUKE_explCircleRadius_L5;
 			explosion.damage = Constants.NUKE_damage_L5;
 			explosion.incrementalCircleValue = Constants.NUKE_incrementExplosionRadius_L5;

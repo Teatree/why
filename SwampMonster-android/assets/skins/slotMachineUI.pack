@@ -31,30 +31,44 @@ pickUpButtonDown
   orig: 120, 45
   offset: 0, 0
   index: -1
-slotMachineWindowNO
+moneyMePLSdown
   rotate: false
   xy: 259, 395
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-slotMachineWindowNO_pressed
+moneyMePLSup
   rotate: false
   xy: 259, 329
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-slotMachineWindowYES
+slotMachineWindowNO
   rotate: false
   xy: 259, 263
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-slotMachineWindowYES_pressed
+slotMachineWindowNO_pressed
   rotate: false
   xy: 203, 184
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+slotMachineWindowYES
+  rotate: false
+  xy: 203, 118
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+slotMachineWindowYES_pressed
+  rotate: false
+  xy: 203, 52
   size: 64, 64
   orig: 64, 64
   offset: 0, 0

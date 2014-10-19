@@ -26,6 +26,7 @@
         "yes": { "up": "slotMachineWindowYES" , "down": "slotMachineWindowYES_pressed"},
         "no": { "up": "slotMachineWindowNO" , "down": "slotMachineWindowNO_pressed"},
         "go": { "up": "goButton" , "down": "goButton_blocked", "checked": "goButton_blocked", "disabled": "goButton_blocked"},
-        "reroll": { "up": "slotMachineWindowYES" , "down": "slotMachineWindowYES_pressed", "disabled": "slotMachineWindowYES_pressed"}
+        "reroll": { "up": "slotMachineWindowYES" , "down": "slotMachineWindowYES_pressed", "disabled": "slotMachineWindowYES_pressed"},
+        "ad": { "up": "moneyMePLSup" , "down": "moneyMePLSdown"}
     }
  }

@@ -5,49 +5,84 @@ filter: Nearest,Nearest
 repeat: none
 slotMachineWindow
   rotate: false
-  xy: 1, 133
+  xy: 1, 250
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
+slotMachineMiniWindow
+  rotate: false
+  xy: 1, 48
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+pickUpButton
+  rotate: false
+  xy: 259, 461
+  size: 120, 45
+  orig: 120, 45
+  offset: 0, 0
+  index: -1
+pickUpButtonDown
+  rotate: false
+  xy: 1, 1
+  size: 120, 45
+  orig: 120, 45
+  offset: 0, 0
+  index: -1
+moneyMePLSdown
+  rotate: false
+  xy: 259, 395
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+moneyMePLSup
+  rotate: false
+  xy: 259, 329
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
 slotMachineWindowNO
   rotate: false
-  xy: 1, 67
+  xy: 259, 263
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 slotMachineWindowNO_pressed
   rotate: false
-  xy: 259, 325
+  xy: 203, 184
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 slotMachineWindowYES
   rotate: false
-  xy: 1, 1
+  xy: 203, 118
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 slotMachineWindowYES_pressed
   rotate: false
-  xy: 67, 67
+  xy: 203, 52
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 goButton
   rotate: false
-  xy: 259, 291
+  xy: 381, 474
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 goButton_blocked
   rotate: false
-  xy: 325, 357
+  xy: 123, 14
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
