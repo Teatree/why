@@ -131,6 +131,7 @@ public class TheController extends InputAdapter {
 		pointRectV3.x = touchPos.x;
 		pointRectV3.y = touchPos.y;
 		
+//		System.out.println("deltatime: " + Gdx.graphics.getFramesPerSecond());
 //		System.err.println("toughtPos: " + touchPos);
 		
 		pointRect.x = point.x;

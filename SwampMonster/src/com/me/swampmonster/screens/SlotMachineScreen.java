@@ -22,6 +22,10 @@ import com.badlogic.gdx.utils.viewport.ScalingViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.me.swampmonster.game.GShape.FeedBackWindow;
+import com.me.swampmonster.game.GShape;
+import com.me.swampmonster.game.L1Renderer;
+import com.me.swampmonster.game.TheController;
 import com.me.swampmonster.models.slots.Perks;
 import com.me.swampmonster.models.slots.Slot;
 import com.me.swampmonster.slotMachineStuff.SlotDescWindow;
@@ -58,6 +62,7 @@ public class SlotMachineScreen extends AbstractGameScreen {
 		inputMultiplexer = new InputMultiplexer();
 		inputMultiplexer.addProcessor(stage);
 		stage.setViewport(viewports.first());
+		
 	}
 
 	@Override
@@ -158,6 +163,12 @@ public class SlotMachineScreen extends AbstractGameScreen {
 				break;
 			}
 		}
+		for(Actor a: L1Renderer.stage.getActors()){
+			if(a instanceof FeedBackWindow){
+				a.remove();
+			}
+		}
+		TheController.showFeedback = false;
 		slotMachineTextures = new SlotMachineTextures(player);
 		stage.addActor(slotMachineTextures);
 		Gdx.input.setInputProcessor(inputMultiplexer);

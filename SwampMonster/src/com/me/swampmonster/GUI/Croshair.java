@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.me.swampmonster.models.AbstractGameObject;
+import com.me.swampmonster.models.L1;
 import com.me.swampmonster.models.Player;
 import com.me.swampmonster.utils.Assets;
 
@@ -83,11 +84,11 @@ public class Croshair extends AbstractGameObject{
 //		}
 		
 		if(doesIntersect(new Vector2(player.circle.x, player.circle.y), player.circle.radius*2, new Vector2(V3point.x, V3point.y))
-				&& !aiming && Gdx.input.isTouched() && Player.shootingSwitch){
+				&& !aiming && Gdx.input.isTouched() && Player.shootingSwitch && L1.player.state != State.DEAD){
 			player.state = State.GUNMOVEMENT;
 			aiming = true;
 		}else if(!doesIntersect(new Vector2(player.circle.x, player.circle.y), player.circle.radius*2, new Vector2(V3point.x, V3point.y))
-				&& aiming && !Gdx.input.isTouched()){
+				&& aiming && L1.player.state != State.DEAD && !Gdx.input.isTouched()){
 			aiming = false;
 		}
 	}

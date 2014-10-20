@@ -1,5 +1,8 @@
 package com.me.swampmonster.slotMachineStuff;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
@@ -19,9 +22,12 @@ public class SlotDescWindow extends Dialog {
 	public Slot slot;
 	private Image image;
 	private Image imageLevel;
+	private List<Label> stats;
 	
 	public SlotDescWindow(String title, Skin skin, final Slot slot) {
 		super("", skin);
+		
+		stats = new ArrayList<Label>();
 		
 		this.slot = slot;
 //		fadeDuration = 0;
@@ -36,9 +42,14 @@ public class SlotDescWindow extends Dialog {
 		ImageButton noButton = new ImageButton(skin, "no");
 		Label text = new Label(slot.getDescription() + "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", skin);
 		text.setWrap(true);
-		Label textI = new Label("a 19", skin, "stats");
-		Label textO = new Label("g 11", skin, "stats");
-		Label textP = new Label("m 1(+1)", skin, "stats");
+		System.out.println(L1.player);
+//		for(String s: slot.getStats(L1.player)){
+//			stats.add(new Label(s, skin, "stats"));
+//		}
+		
+//		stats.add(new Label("a 1", skin, "stats"));
+//		stats.add(new Label("t 10sec", skin, "stats"));
+//		stats.add(new Label("x 2p/s", skin, "stats"));
 		Label text2 = new Label(slot.name, skin);
 		text.setWrap(true);
 		
@@ -52,10 +63,9 @@ public class SlotDescWindow extends Dialog {
 		Table firstColumn = new Table();
 		firstColumn.add(image).size(100).left().top().row();
 //		for(String sS: slot.getStats(L1.player)){
-			firstColumn.add(textI).left().top().row();
-			firstColumn.add(textO).left().top().row();
-			firstColumn.add(textP).left().top().row();
-//		}
+		for(Label l: stats){
+			firstColumn.add(l).left().top().row();
+		}
 		System.out.println((float)(this.getHeight()));
 		getContentTable().add(firstColumn).top();
 		

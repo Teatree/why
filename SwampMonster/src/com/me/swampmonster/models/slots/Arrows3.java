@@ -1,5 +1,6 @@
 package com.me.swampmonster.models.slots;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -55,7 +56,18 @@ public class Arrows3 extends Slot{
 
 	@Override
 	public List<String> getStats(Player player) {
+		List<String> stats = new ArrayList<String>();
+		String intuhaString = "";
+		if(level>0){
+			int intuha = collDownByLevel.get(new Integer(level))-collDownByLevel.get(new Integer(level)-1);
+			if(intuha>0){
+				intuhaString = "(+" + intuha + ")"; 
+			}else if(intuha<0){
+				intuhaString = "(" + intuha + ")"; 
+			}
+		}
+		stats.add("t " + coolDown + intuhaString);
 		
-		return null;
+		return stats;
 	}
 }

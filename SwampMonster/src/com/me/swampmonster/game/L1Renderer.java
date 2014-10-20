@@ -63,8 +63,7 @@ public class L1Renderer {
 
 	public L1Renderer(TheController theController) {
 		this.theController = theController;
-		this.cam = new OrthographicCamera(800,
-				480);
+		this.cam = new OrthographicCamera(800, 480);
 		viewport = new ScreenViewport();
 		viewport.setScreenWidth((int) Constants.VIEWPORT_WIDTH);
 		viewport.setScreenHeight((int) Constants.VIEWPORT_HEIGHT);
@@ -78,13 +77,13 @@ public class L1Renderer {
 		sr = new ShapeRenderer();
 		// System.out.println(TheController.level1);
 		mapRenderer = new OrthogonalTiledMapRenderer(
-			TheController.level1.bunker.getMap());
+				TheController.level1.bunker.getMap());
 
 		viewports = getViewports(stage.getCamera());
 		names = getViewportNames();
-		
+
 		stage.setViewport(viewports.first());
-		
+
 		gshape = new GShape(theController);
 		stage.addActor(gshape);
 		Gdx.input.setInputProcessor(stage);
@@ -241,21 +240,24 @@ public class L1Renderer {
 				batch.draw(item.sprite, item.getPosition().x,
 						item.getPosition().y, item.sprite.getWidth() / 2,
 						item.sprite.getHeight() / 2);
-//				if(item.pickUpButton != null){
-//					item.pickUpButton.draw(batch, 1);
-//				}
-				if(item.pickUpButton!=null){
-//					item.pickUpButton.setX(L1Renderer.getCam().unproject(
-//							new Vector3(L1Renderer.stage.screenToStageCoordinates(item.position).x, L1Renderer.stage
-//									.screenToStageCoordinates(item.position).y, 0)).x);
-//					item.pickUpButton.setY(L1Renderer.getCam().unproject(
-//							new Vector3(L1Renderer.stage.screenToStageCoordinates(item.position).x, L1Renderer.stage
-//									.screenToStageCoordinates(item.position).y, 0)).y+32);
-					
+				// if(item.pickUpButton != null){
+				// item.pickUpButton.draw(batch, 1);
+				// }
+				if (item.pickUpButton != null) {
+					// item.pickUpButton.setX(L1Renderer.getCam().unproject(
+					// new
+					// Vector3(L1Renderer.stage.screenToStageCoordinates(item.position).x,
+					// L1Renderer.stage
+					// .screenToStageCoordinates(item.position).y, 0)).x);
+					// item.pickUpButton.setY(L1Renderer.getCam().unproject(
+					// new
+					// Vector3(L1Renderer.stage.screenToStageCoordinates(item.position).x,
+					// L1Renderer.stage
+					// .screenToStageCoordinates(item.position).y, 0)).y+32);
+
 				}
 			}
 		}
-		
 
 		for (Enemy enemy : L1.enemiesOnStage) {
 			if (enemy.getPosition().y + 42 > L1.player.getPosition().y + 42) {
@@ -460,15 +462,16 @@ public class L1Renderer {
 					L1.player.turret.circle.radius);
 		}
 
-//		for (Projectile p : L1.player.projectiles) {
-//			if (p != null) {
-//				sr.rect(p.position.x + p.sprite.getWidth() / 2, p.position.y+ p.sprite.getHeight() / 2, 3, 3, 1, 1,p.sprite.getRotation());
-//				sr.setColor(Color.RED);
-//				sr.rect(p.position.x - p.sprite.getRotation(), p.position.y
-//						- p.sprite.getRotation(), 2, 2, 1, 1,
-//						p.sprite.getRotation());
-//			}
-//		}
+		// for (Projectile p : L1.player.projectiles) {
+		// if (p != null) {
+		// sr.rect(p.position.x + p.sprite.getWidth() / 2, p.position.y+
+		// p.sprite.getHeight() / 2, 3, 3, 1, 1,p.sprite.getRotation());
+		// sr.setColor(Color.RED);
+		// sr.rect(p.position.x - p.sprite.getRotation(), p.position.y
+		// - p.sprite.getRotation(), 2, 2, 1, 1,
+		// p.sprite.getRotation());
+		// }
+		// }
 		sr.setColor(Color.WHITE);
 		for (Projectile p : L1.player.projectiles) {
 			if (p != null) {
@@ -480,7 +483,7 @@ public class L1Renderer {
 			if (item.sprite != null) {
 				sr.circle(item.circle.x, item.circle.y, item.circle.radius);
 			}
-			
+
 		}
 		sr.rect(theController.point.x, theController.point.y, 32, 32);
 		sr.rect(L1.player.rectanlge.x, L1.player.rectanlge.y,
@@ -592,8 +595,8 @@ public class L1Renderer {
 			timer = 60;
 		}
 	}
-	
-	static public Array<String> getViewportNames () {
+
+	static public Array<String> getViewportNames() {
 		Array<String> names = new Array();
 		names.add("FillViewport");
 		names.add("StretchViewport");
@@ -606,27 +609,31 @@ public class L1Renderer {
 		return names;
 	}
 
-	static public Array<Viewport> getViewports (Camera camera) {
+	static public Array<Viewport> getViewports(Camera camera) {
 		int minWorldWidth = 800;
 		int minWorldHeight = 480;
-//		int minWorldWidth = 1280;
-//		int minWorldHeight = 768;
+		// int minWorldWidth = 1280;
+		// int minWorldHeight = 768;
 		int maxWorldWidth = 640;
 		int maxWorldHeight = 480;
 
 		Array<Viewport> viewports = new Array();
 		viewports.add(new FillViewport(minWorldWidth, minWorldHeight, camera));
-		viewports.add(new StretchViewport(minWorldWidth, minWorldHeight, camera));
+		viewports
+				.add(new StretchViewport(minWorldWidth, minWorldHeight, camera));
 		viewports.add(new FitViewport(minWorldWidth, minWorldHeight, camera));
-		viewports.add(new ExtendViewport(minWorldWidth, minWorldHeight, camera));
-		viewports.add(new ExtendViewport(minWorldWidth, minWorldHeight, maxWorldWidth, maxWorldHeight, camera));
+		viewports
+				.add(new ExtendViewport(minWorldWidth, minWorldHeight, camera));
+		viewports.add(new ExtendViewport(minWorldWidth, minWorldHeight,
+				maxWorldWidth, maxWorldHeight, camera));
 		viewports.add(new ScreenViewport(camera));
 
 		ScreenViewport screenViewport = new ScreenViewport(camera);
 		screenViewport.setUnitsPerPixel(0.75f);
 		viewports.add(screenViewport);
 
-		viewports.add(new ScalingViewport(Scaling.none, minWorldWidth, minWorldHeight, camera));
+		viewports.add(new ScalingViewport(Scaling.none, minWorldWidth,
+				minWorldHeight, camera));
 		return viewports;
 	}
 

@@ -17,6 +17,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
@@ -33,6 +34,7 @@ import com.me.swampmonster.models.AbstractGameObject.State;
 import com.me.swampmonster.models.L1;
 import com.me.swampmonster.models.Player;
 import com.me.swampmonster.models.TutorialLevel;
+import com.me.swampmonster.models.items.FADE;
 import com.me.swampmonster.models.slots.Perks;
 import com.me.swampmonster.models.slots.PositiveEffects;
 import com.me.swampmonster.models.slots.Slot;
@@ -322,13 +324,17 @@ public class GShape extends Group {
 			
 		if(TheController.showFeedback){
 			if (feeDialog == null){
+				for(Actor a: L1Renderer.stage.getActors()){
+					if(a.equals(feeDialog)){
+						a.remove();
+					}
+				}
 				feeDialog = new FeedBackWindow("", skin);
 				feeDialog.setX(250);
 				feeDialog.setY(350);
 				feeDialog.setWidth(300);
 				feeDialog.setHeight(300);
 				L1Renderer.stage.addActor(feeDialog);
-				
 			}
 		}
 		
@@ -363,7 +369,10 @@ public class GShape extends Group {
 		
 		if ((Gdx.input.isKeyPressed(Keys.BACK) || Gdx.input.isKeyPressed(Keys.ESCAPE))/*&& TheController.showExitMessage*/){
 //			TheController.showExitMessage = false;
-			exitDialog.setPosition(Constants.VIEWPORT_WIDTH/2 - exitDialog.getWidth()/2, Constants.VIEWPORT_HEIGHT/2 - exitDialog.getHeight()/2);
+			exitDialog.setWidth(250);
+			exitDialog.setHeight(150);
+			exitDialog.getColor().a = 1f;
+			exitDialog.setPosition(300, 300);
 			L1Renderer.stage.addActor(exitDialog);
 		} 
 		batch.end();
@@ -478,20 +487,37 @@ public class GShape extends Group {
 			ourTable.add(shot_arrows).top().row();
 			
 			getContentTable().add(ourTable);
+			getButtonTable().debug();
 			
 			button(ok, "Nastya");
+			getButtonTable().getCell(ok).padLeft(23);
 			if(L1.player.state == State.DEAD){
 				button(ad, "Advertisement");
+				getButtonTable().getCell(ad).padLeft(100).padRight(23);
 			}
 		}
 		
 		@Override
 		protected void result(Object object) {
+			for(Actor a: L1Renderer.stage.getActors()){
+				if(a.equals(feeDialog)){
+					System.out.println(a);
+				}
+			}
+			System.out.println("player state: " + L1.player.state + " player object: " + object);
 			if (L1.player.state != State.DEAD){
 				LGenerator.lastMap = null;
 				LGenerator.lastTileSet = null;
 				LGenerator.hadLastAtmosphere = false;
 				LGenerator.wasLastElite = false;
+				
+				TheController.showFeedback = false;
+				feeDialog = null;
+				for(Actor a: L1Renderer.stage.getActors()){
+					if(a.equals(feeDialog)){
+						a.remove();
+					}
+				}
 			}else{
 				if(object == "Nastya"){
 					Player.maxOxygen = Player.DEFAULT_MAX_O2;
@@ -520,14 +546,36 @@ public class GShape extends Group {
 					LGenerator.lastTileSet = null;
 					LGenerator.hadLastAtmosphere = false;
 					LGenerator.wasLastElite = false;
+					TheController.gotoMenu = true;
+					
+					TheController.showFeedback = false;
+					feeDialog = null;
+					for(Actor a: L1Renderer.stage.getActors()){
+						if(a.equals(feeDialog)){
+							a.remove();
+						}
+					}
 				}else{
-					System.out.println("ps: " + Player.absoluteScore  + " pls: " + Player.levelsScore ) ;
+//					System.out.println("ps: " + Player.absoluteScore  + " pls: " + Player.levelsScore ) ;
 					Player.absoluteScore -= Player.levelsScore;
 					Player.levelsScore = 0;
+					TheController.showFeedback = false;
+					feeDialog = null;
+					for(Actor a: L1Renderer.stage.getActors()){
+						if(a.equals(feeDialog)){
+							a.remove();
+						}
+					}
 				}
 			}
 			TheController.germany = true;
 			TheController.showFeedback = false;
+			feeDialog = null;
+			for(Actor a: L1Renderer.stage.getActors()){
+				if(a.equals(feeDialog)){
+					a.remove();
+				}
+			}
 		}
 		
 	}
@@ -536,9 +584,9 @@ public class GShape extends Group {
 
 		public ExitDialog(String title, Skin skin) {
 			super(title, skin);
-			Label message = new Label("why?", skin);
-			message.setWrap(true);
-			getContentTable().add(message).center();
+			Label message = new Label("Are you sure you want to quit?", skin);
+//			message.setWrap(true);
+			getContentTable().add(message).left();
 			ImageButton yes = new ImageButton(skin, "yes");
 			button(yes, "penis");
 			ImageButton no = new ImageButton(skin, "no");
@@ -550,7 +598,8 @@ public class GShape extends Group {
 			if (object.equals("penis")){
 				TheController.gotoMenu = true;
 				TheController.paused = false;
-			} else if (object.equals("poop")) {
+			}
+			if (object.equals("poop")) {
 				TheController.gotoMenu = false;
 				TheController.paused = false;
 			}
