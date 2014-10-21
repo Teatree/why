@@ -38,11 +38,11 @@ public class Player extends AbstractGameObject {
 
 	public static final float DEFAULT_DAMAGE = 1f;
 	public static final float DEFAULT_ARROW_MOVEMENT_SPEED = 1.8f;
-	public static final float DEFAULT_MOVEMENT_SPEED = 1.5f;
+	public static final float DEFAULT_MOVEMENT_SPEED = 1.2f;
 	public static final int DEFAULT_MAX_HEALTH = 7;
 	public static final int DEFAULT_MAX_O2 = 96;
-	public static final float FROZEN_MOVEMENT = 0.16f;
-	public static final float SPEED_BOOST_EFFECT = 1.1f;
+	public static final float FROZEN_MOVEMENT = 0.5f;
+	public static final float SPEED_BOOST_EFFECT = 1.8f;
 
 	// feedback
 	public static int enemiesKilled;
@@ -224,7 +224,7 @@ public class Player extends AbstractGameObject {
 		aimingAuraSprite.setY(position.y - 8);
 
 		if (!L1.hasAtmosphere) {
-			oxygen -= 0.005f;
+			oxygen -= 0.03f;
 		}
 
 		if (Gdx.input.justTouched()) {
@@ -565,6 +565,11 @@ public class Player extends AbstractGameObject {
 			}
 			arrowEffectCarrier = EffectCarriers.NONE;
 		}
+//		if(aimL){
+//			shooting = false;
+//			state = State.STANDARD;
+//			System.out.println("boom");
+//		}
 	}
 
 	private void dying() {
@@ -670,9 +675,11 @@ public class Player extends AbstractGameObject {
 					0.5f, Gdx.graphics.getDeltaTime(), Animation.PlayMode.NORMAL);
 		}
 
-		if (!Gdx.input.isTouched() && aiming) {
+		if (!Gdx.input.isTouched() && aiming && 
+				!circle.contains(new Vector2(V3point.x, V3point.y))) {
 			shooting = true;
 		}
+		
 		if (!aiming && timeShooting == 0) {
 			shooting = false;
 			state = State.STANDARD;
@@ -757,14 +764,17 @@ public class Player extends AbstractGameObject {
 				break;
 			case POISONED:
 				poisoning();
+				fearRectangle = null;
 				negativeEffectsState = negativeEffect;
 				negativeEffectCounter = negativeEffect.lifetime;
 				break;
 			case STUN:
+				fearRectangle = null;
 				negativeEffectsState = negativeEffect;
 				negativeEffectCounter = negativeEffect.lifetime;
 				break;
 			case WEAKENED:
+				fearRectangle = null;
 				negativeEffectsState = negativeEffect;
 				negativeEffectCounter = negativeEffect.lifetime;
 				break;

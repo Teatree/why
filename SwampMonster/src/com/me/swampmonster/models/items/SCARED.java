@@ -53,7 +53,6 @@ public class SCARED extends Item{
 	@Override
 	public void pickMeUp(Player player) {
 		this.state=State.DEAD;
-		player.positiveEffectSprite = new Sprite(Assets.manager.get(Assets.SCAREDNEGATIVEEFFECT_ICON));
 		player.setNegativeEffect(NegativeEffects.FEAR);
 		System.out.println("I am Haste, biatch");
 	}

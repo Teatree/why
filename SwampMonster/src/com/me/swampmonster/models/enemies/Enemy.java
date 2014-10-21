@@ -139,7 +139,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 		damage = 1;
 		points = 0;
 		attackSpeed = 40;
-		movementSpeed = 0.3f;
+		movementSpeed = 0.5f;
 	}
 
 	public void update(TiledMapTileLayer collisionLayer, Player player,
@@ -310,12 +310,12 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 									* Constants.NodeSize + 120
 							|| player.position.y < path[0].y
 									* Constants.NodeSize - 120) {
-						System.out
-								.println("You are officially outside the last seen zone!");
+						System.out.println("You are officially outside the last seen zone!");
 						state = State.STANDARD;
 						for (int i = 0; i < path.length; i++) {
 							path[i] = null;
 						}
+						currentlyMovingOnPath = false;
 					}
 				}
 			}

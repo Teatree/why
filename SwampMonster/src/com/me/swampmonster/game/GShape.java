@@ -135,7 +135,7 @@ public class GShape extends Group {
 		sr.setTransformMatrix(batch.getTransformMatrix());
 		sr.translate(getX(), getY(), 0);
 		sr.begin(ShapeType.Filled);
-		if (L1.player.fearRectangle != null){
+		if (L1.player.negativeEffectsState == NegativeEffects.FEAR){
 			sr.setColor(new Color(84/255f,84/255f,84/255f, 0.5f));
 			sr.rect(0, 0, Constants.VIEWPORT_WIDTH, Constants.VIEWPORT_HEIGHT);
 		}

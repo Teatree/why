@@ -53,7 +53,6 @@ public class POISONED extends Item{
 	@Override
 	public void pickMeUp(Player player) {
 		this.state=State.DEAD;
-		player.positiveEffectSprite = new Sprite(Assets.manager.get(Assets.POISONEDNEGATIVEEFFECT_ICON));
 		player.setNegativeEffect(NegativeEffects.POISONED);
 		System.out.println("I am Haste, biatch");
 	}

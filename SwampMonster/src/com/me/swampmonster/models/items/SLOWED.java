@@ -53,7 +53,6 @@ public class SLOWED extends Item{
 	@Override
 	public void pickMeUp(Player player) {
 		this.state=State.DEAD;
-		player.positiveEffectSprite = new Sprite(Assets.manager.get(Assets.FROZENNEGATIVEEFFECT_ICON));
 		player.setNegativeEffect(NegativeEffects.FROZEN);
 		System.out.println("I am Haste, biatch");
 	}

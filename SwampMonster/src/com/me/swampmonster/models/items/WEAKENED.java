@@ -53,7 +53,6 @@ public class WEAKENED extends Item{
 	@Override
 	public void pickMeUp(Player player) {
 		this.state=State.DEAD;
-		player.positiveEffectSprite = new Sprite(Assets.manager.get(Assets.WEAKENED_ICON));
 		player.setNegativeEffect(NegativeEffects.WEAKENED);
 		System.out.println("I am Haste, biatch");
 	}

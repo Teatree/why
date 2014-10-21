@@ -17,7 +17,7 @@ public class EnemyZombie extends Enemy{
 		health = 2;
 		damage = 2;
 		points = 20;
-		movementSpeed = 0.15f;
+		movementSpeed = 0.25f;
 		attackSpeed = 50;
 	}
 }

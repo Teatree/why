@@ -42,7 +42,7 @@ public class EnemyMaggot extends Enemy {
 		animationsStandard.put(State.PURSUIT, new AnimationControl(Assets.manager.get(Assets.enemyMaggot), 8, 32, 7)); 
 		animationsStandard.put(State.DEAD, new AnimationControl(Assets.manager.get(Assets.enemyMaggot), 8, 32, 4)); 
 		sprite = new Sprite(animationsStandard.get(state).getCurrentFrame());
-		movementSpeed = 0.16f;
+		movementSpeed = 0.7f;
 		health = 1;
 		damage = 1;
 		points = 10;

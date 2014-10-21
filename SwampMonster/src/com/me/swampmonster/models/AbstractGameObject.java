@@ -21,11 +21,11 @@ public abstract class AbstractGameObject {
 		ATTACKING, PURSUIT, GUNMOVEMENT, SPAWNING, DESPAWNING, ONFIRE, ICECUBESDEAD;
 	}
 	public enum NegativeEffects {
-		POISONED(900, new Sprite(Assets.manager.get(Assets.POISONEDNEGATIVEEFFECT_ICON))),
-				FEAR(100, new Sprite(Assets.manager.get(Assets.SCAREDNEGATIVEEFFECT_ICON))),
-				FROZEN(830, new Sprite(Assets.manager.get(Assets.FROZENNEGATIVEEFFECT_ICON))),
-				STUN(200, new Sprite(Assets.manager.get(Assets.STUNNEGATIVEEFFECT_ICON))),
-				WEAKENED(800, new Sprite(Assets.manager.get(Assets.WEAKENED_ICON))),
+		POISONED(500, new Sprite(Assets.manager.get(Assets.POISONEDNEGATIVEEFFECT_ICON))),
+				FEAR(300, new Sprite(Assets.manager.get(Assets.SCAREDNEGATIVEEFFECT_ICON))),
+				FROZEN(300, new Sprite(Assets.manager.get(Assets.FROZENNEGATIVEEFFECT_ICON))),
+				STUN(100, new Sprite(Assets.manager.get(Assets.STUNNEGATIVEEFFECT_ICON))),
+				WEAKENED(200, new Sprite(Assets.manager.get(Assets.WEAKENED_ICON))),
 				NONE(0, null);
 		
 		public int lifetime;
