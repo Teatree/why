@@ -258,15 +258,15 @@ public class GShape extends Group {
 				&& L1.player.positiveEffectsState != PositiveEffects.NONE) {
 			batch.draw(L1.player.positiveEffectSprite,
 					736, 380, 64, 64);
-			font.draw(batch, L1.player.positiveEffectCounter
-					.toString(), 736, 380);
+			font.draw(batch, L1.player.positiveEffectCounter/60 + " s"
+					.toString(), 737, 380);
 		}
 		if (L1.player.negativeEffectsState != null
 				&& L1.player.negativeEffectsState != NegativeEffects.NONE) {
 			batch.draw(L1.player.negativeEffectsState.sprite,
 					736, 300, 64, 64);
-			font.draw(batch, L1.player.negativeEffectCounter
-					.toString(), 736, 300);
+			font.draw(batch, L1.player.negativeEffectCounter/60 + " s"
+					.toString(), 737, 300);
 		}
 		if (weaponizer != null &&TheController.skill != null && !(TheController.skill instanceof Perks)) {
 			batch.draw(
