@@ -37,12 +37,12 @@ import com.me.swampmonster.utils.ItemGenerator;
 public class Player extends AbstractGameObject {
 
 	public static final float DEFAULT_DAMAGE = 1f;
-	public static final float DEFAULT_ARROW_MOVEMENT_SPEED = 1.8f;
+	public static final float DEFAULT_ARROW_MOVEMENT_SPEED = 1.5f;
 	public static final float DEFAULT_MOVEMENT_SPEED = 1.2f;
-	public static final int DEFAULT_MAX_HEALTH = 7;
+	public static final int DEFAULT_MAX_HEALTH = 6;
 	public static final int DEFAULT_MAX_O2 = 96;
-	public static final float FROZEN_MOVEMENT = 0.5f;
-	public static final float SPEED_BOOST_EFFECT = 1.8f;
+	public static final float FROZEN_MOVEMENT = 0.7f;
+	public static final float SPEED_BOOST_EFFECT = 2.7f;
 
 	// feedback
 	public static int enemiesKilled;

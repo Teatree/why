@@ -43,9 +43,9 @@ public class SlotDescWindow extends Dialog {
 		Label text = new Label(slot.getDescription() + "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", skin);
 		text.setWrap(true);
 		System.out.println(L1.player);
-//		for(String s: slot.getStats(L1.player)){
-//			stats.add(new Label(s, skin, "stats"));
-//		}
+		for(String s: slot.getStats(L1.player)){
+			stats.add(new Label(s, skin, "stats"));
+		}
 		
 //		stats.add(new Label("a 1", skin, "stats"));
 //		stats.add(new Label("t 10sec", skin, "stats"));

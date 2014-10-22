@@ -1,5 +1,6 @@
 package com.me.swampmonster.models.slots;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,6 +18,9 @@ public class FrostTrap extends Trap{
 
 	public static int level;
 	
+	public static Map<Integer, Integer> radiusByLevel;
+	public static Map<Integer, Integer> collDownByLevel;
+	public static Map<Integer, Integer> lifeTimeByLevel;
 	private static Map <Integer, String> descriptionByLevel;
 	private boolean cuba;
 	
@@ -27,6 +31,27 @@ public class FrostTrap extends Trap{
 		descriptionByLevel.put(2, Constants.FrostTrap_Description_L3);
 		descriptionByLevel.put(3, Constants.FrostTrap_Description_L4);
 		descriptionByLevel.put(4, Constants.FrostTrap_Description_L5);
+		
+		radiusByLevel = new HashMap<Integer, Integer>();
+		radiusByLevel.put(0, Constants.FrostTrap_CircleRadius_L1);
+		radiusByLevel.put(1, Constants.FrostTrap_CircleRadius_L2);
+		radiusByLevel.put(2, Constants.FrostTrap_CircleRadius_L3);
+		radiusByLevel.put(3, Constants.FrostTrap_CircleRadius_L4);
+		radiusByLevel.put(4, Constants.FrostTrap_CircleRadius_L5);
+		
+		lifeTimeByLevel = new HashMap<Integer, Integer>();
+		lifeTimeByLevel.put(0, Constants.FrostTrap_LifeTime_L1);
+		lifeTimeByLevel.put(1, Constants.FrostTrap_LifeTime_L2);
+		lifeTimeByLevel.put(2, Constants.FrostTrap_LifeTime_L3);
+		lifeTimeByLevel.put(3, Constants.FrostTrap_LifeTime_L4);
+		lifeTimeByLevel.put(4, Constants.FrostTrap_LifeTime_L5);
+		
+		collDownByLevel = new HashMap<Integer, Integer>();
+		collDownByLevel.put(0, Constants.FrostTrap_CoolDown_L1);
+		collDownByLevel.put(1, Constants.FrostTrap_CoolDown_L2);
+		collDownByLevel.put(2, Constants.FrostTrap_CoolDown_L3);
+		collDownByLevel.put(3, Constants.FrostTrap_CoolDown_L4);
+		collDownByLevel.put(4, Constants.FrostTrap_CoolDown_L5);
 	}
 	
 	public FrostTrap() {
@@ -34,34 +59,9 @@ public class FrostTrap extends Trap{
 		sprite = new Sprite(Assets.manager.get(Assets.FROST_TRAP_ICON));
 		circle = new Circle();
 		
-		switch (level) {
-		case 0:
-			lifeTimeMax = Constants.FrostTrap_LifeTime_L1;
-			coolDown = Constants.FrostTrap_CoolDown_L1;
-			circle.radius = Constants.FrostTrap_CircleRadius_L1;
-			break;
-		case 1:
-			lifeTimeMax = Constants.FrostTrap_LifeTime_L2;
-			coolDown = Constants.FrostTrap_CoolDown_L2;
-			circle.radius = Constants.FrostTrap_CircleRadius_L2;
-			break;
-		case 2:
-			lifeTimeMax = Constants.FrostTrap_LifeTime_L3;
-			coolDown = Constants.FrostTrap_CoolDown_L3;
-			circle.radius = Constants.FrostTrap_CircleRadius_L3;
-			break;
-		case 3:
-			lifeTimeMax = Constants.FrostTrap_LifeTime_L4;
-			coolDown = Constants.FrostTrap_CoolDown_L4;
-			circle.radius = Constants.FrostTrap_CircleRadius_L4;
-			break;
-		case 4:
-			lifeTimeMax = Constants.FrostTrap_LifeTime_L5;
-			coolDown = Constants.FrostTrap_CoolDown_L5;
-			circle.radius = Constants.FrostTrap_CircleRadius_L5;
-			break;
-		}
-		
+		circle.radius = Constants.FrostTrap_CircleRadius_L1;
+		lifeTime = Constants.FrostTrap_LifeTime_L1;
+		coolDown = Constants.FrostTrap_CoolDown_L1;
 		trapSprite = new Sprite(Assets.manager.get(Assets.FROST_TRAP_ICON));
 	}
 
@@ -99,7 +99,36 @@ public class FrostTrap extends Trap{
 
 	@Override
 	public List<String> getStats(Player player) {
-		// TODO Auto-generated method stub
-		return null;
+		List<String> stats = new ArrayList<String>();
+		String intuhaString = "";
+		String dmgDifString = "";
+		String lifeTimeString = "";
+		String radiusString = "";
+		if(level>0){
+			int intuha = collDownByLevel.get(new Integer(level))-collDownByLevel.get(new Integer(level)-1);
+			int lifeTdiff = lifeTimeByLevel.get(new Integer(level))-lifeTimeByLevel.get(new Integer(level)-1);
+			int radiusDiff = radiusByLevel.get(new Integer(level))-radiusByLevel.get(new Integer(level)-1);
+			intuha = intuha/60;
+			if(intuha>0){
+				intuhaString = "(+" + intuha + ")"; 
+			}else if(intuha<0){
+				intuhaString = "(" + intuha + ")"; 
+			}
+			if(lifeTdiff>0){
+				lifeTimeString = "(+" + lifeTdiff + ")";
+			}else if(lifeTdiff<0){
+				lifeTimeString = "(" + lifeTdiff + ")";
+			}
+			if(radiusDiff>0){
+				radiusString = "(+" + radiusDiff + ")";
+			}else if(radiusDiff<0){
+				radiusString = "(" + radiusDiff + ")";
+			}
+		}
+		stats.add("t " + coolDown/60 + intuhaString);
+		stats.add("h " + lifeTime/60 + lifeTimeString);
+		stats.add("a " + circle.radius + radiusString);
+		
+		return stats;
 	}
 }

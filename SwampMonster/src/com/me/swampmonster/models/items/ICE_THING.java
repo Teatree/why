@@ -23,7 +23,7 @@ public class ICE_THING extends Item{
 		animationsStandard.put(State.DEAD, new AnimationControl(Assets.manager.get(poisonSprite), 4, 2, 4));
 		animationsStandard.put(State.DESPAWNING, new AnimationControl(Assets.manager.get(poisonSprite), 4, 2, 4));
 		
-		negativeEffectLifeTime = 500;
+		negativeEffectLifeTime = 480;
 		
 		sprite = new Sprite(animationsStandard.get(state).getCurrentFrame());
 		

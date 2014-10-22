@@ -14,7 +14,7 @@ public class EnemyZombie extends Enemy{
 		animationsStandard.put(State.STANDARD, new AnimationControl(Assets.manager.get(Assets.enemyZombie), 8, 32, 7)); 
 		animationsStandard.put(State.DEAD, new AnimationControl(Assets.manager.get(Assets.enemyZombie), 8, 32, 4)); 
 		sprite = new Sprite(animationsStandard.get(state).getCurrentFrame());
-		health = 2;
+		health = 3;
 		damage = 2;
 		points = 20;
 		movementSpeed = 0.25f;

@@ -20,10 +20,10 @@ public class EnemyLeech extends Enemy{
 		yellowAura.radius = yellowAura.radius*20;
 		sprite = new Sprite(animationsStandard.get(state).getCurrentFrame());
 		movementSpeed = 0.4f;
-		health = 1;
-		damage = 1;
+		health = 2;
+		damage = 2;
 		points = 50;
-		attackSpeed = 150;
+		attackSpeed = 120;
 		STANDART_MOVEMENT_SPEED = movementSpeed;
 	}
 	

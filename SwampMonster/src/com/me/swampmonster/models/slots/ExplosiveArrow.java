@@ -1,5 +1,6 @@
 package com.me.swampmonster.models.slots;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,9 +18,17 @@ public class ExplosiveArrow extends Slot{
 	
 	public static int level;
 	public static int actualLevel;
+	public static Map<Integer, Integer> collDownByLevel;
 	private static Map <Integer, String> descriptionByLevel;
 	public Explosion explosion; 
 	static {
+		collDownByLevel = new HashMap<Integer, Integer>();
+		collDownByLevel.put(0, Constants.ExplosiveArrow_CoolDown_L1);
+		collDownByLevel.put(1, Constants.ExplosiveArrow_CoolDown_L2);
+		collDownByLevel.put(2, Constants.ExplosiveArrow_CoolDown_L3);
+		collDownByLevel.put(3, Constants.ExplosiveArrow_CoolDown_L4);
+		collDownByLevel.put(4, Constants.ExplosiveArrow_CoolDown_L5);
+		
 		descriptionByLevel = new HashMap<Integer, String>();
 		descriptionByLevel.put(0, Constants.ExplosiveArrow_Description_L1);
 		descriptionByLevel.put(1, Constants.ExplosiveArrow_Description_L2);
@@ -30,23 +39,7 @@ public class ExplosiveArrow extends Slot{
 	
 	public ExplosiveArrow() {
 		name = Constants.ExplosiveArrow_Name;
-		switch (level) {
-			case 0:
-				coolDown = Constants.ExplosiveArrow_CoolDown_L1;
-				break;
-			case 1:
-				coolDown = Constants.ExplosiveArrow_CoolDown_L2;
-				break;
-			case 2:
-				coolDown = Constants.ExplosiveArrow_CoolDown_L3;
-				break;
-			case 3:
-				coolDown = Constants.ExplosiveArrow_CoolDown_L4;
-				break;
-			case 4:
-				coolDown = Constants.ExplosiveArrow_CoolDown_L5;
-				break;
-		}
+		coolDown = Constants.ExplosiveArrow_CoolDown_L1;
 		sprite = new Sprite(Assets.manager.get(Assets.EXPLOSIVE_ARROW_ICON));
 	}
 	
@@ -108,7 +101,19 @@ public class ExplosiveArrow extends Slot{
 
 	@Override
 	public List<String> getStats(Player player) {
-		// TODO Auto-generated method stub
-		return null;
+		List<String> stats = new ArrayList<String>();
+		String intuhaString = "";
+		if(level>0){
+			int intuha = collDownByLevel.get(new Integer(level))-collDownByLevel.get(new Integer(level)-1);
+			intuha = intuha/60;
+			if(intuha>0){
+				intuhaString = "(+" + intuha + ")"; 
+			}else if(intuha<0){
+				intuhaString = "(" + intuha + ")"; 
+			}
+		}
+		stats.add("t " + coolDown/60 + intuhaString);
+		
+		return stats;
 	}
 }

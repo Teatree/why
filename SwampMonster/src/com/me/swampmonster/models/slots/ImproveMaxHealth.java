@@ -1,5 +1,6 @@
 package com.me.swampmonster.models.slots;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -51,7 +52,19 @@ public class ImproveMaxHealth extends Slot implements Perks{
 
 	@Override
 	public List<String> getStats(Player player) {
-		// TODO Auto-generated method stub
-		return null;
+		List<String> stats = new ArrayList<String>();
+		String valueString = "";
+//		if(level>0){
+//			float valueDiff = valuesByLevel.get(new Integer(level))-valuesByLevel.get(new Integer(level)-1);
+//			if(valueDiff>0){
+//				valueString = "(+" + valueDiff + ")"; 
+//			}else if(valueDiff<0){
+//				valueString = "(" + valueDiff + ")"; 
+//			}
+//			
+//		}
+		stats.add("+" + valuesByLevel.get(level) + valueString);
+		
+		return stats;
 	}
 }

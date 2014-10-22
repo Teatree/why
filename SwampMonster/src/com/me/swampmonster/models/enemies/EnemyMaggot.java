@@ -34,7 +34,7 @@ public class EnemyMaggot extends Enemy {
 		super(position);
 		
 		rand = new Random();
-		randomChargeCounter = 100;
+		randomChargeCounter = 300;
 		counter = 0;
 		preparingToCharge = false;
 		
@@ -42,11 +42,11 @@ public class EnemyMaggot extends Enemy {
 		animationsStandard.put(State.PURSUIT, new AnimationControl(Assets.manager.get(Assets.enemyMaggot), 8, 32, 7)); 
 		animationsStandard.put(State.DEAD, new AnimationControl(Assets.manager.get(Assets.enemyMaggot), 8, 32, 4)); 
 		sprite = new Sprite(animationsStandard.get(state).getCurrentFrame());
-		movementSpeed = 0.7f;
-		health = 1;
+		movementSpeed = 0.8f;
+		health = 2;
 		damage = 1;
 		points = 10;
-		attackSpeed = 30;
+		attackSpeed = 15;
 		STANDART_MOVEMENT_SPEED = movementSpeed;
 	}
 	
@@ -54,7 +54,7 @@ public class EnemyMaggot extends Enemy {
 	public void update(TiledMapTileLayer collisionLayer, Player player, CameraHelper cameraHelper, List<Enemy> enemies) {
 		super.update(collisionLayer, player, cameraHelper, enemies);
 		
-		movementSpeed = 0.16f;
+//		movementSpeed = 0.16f;
 		
 		if(!aiming && !preparingToCharge){
 			aimerBot.x = position.x;

@@ -60,13 +60,14 @@ public class Arrows3 extends Slot{
 		String intuhaString = "";
 		if(level>0){
 			int intuha = collDownByLevel.get(new Integer(level))-collDownByLevel.get(new Integer(level)-1);
+			intuha = intuha/60;
 			if(intuha>0){
 				intuhaString = "(+" + intuha + ")"; 
 			}else if(intuha<0){
 				intuhaString = "(" + intuha + ")"; 
 			}
 		}
-		stats.add("t " + coolDown + intuhaString);
+		stats.add("t " + coolDown/60 + intuhaString);
 		
 		return stats;
 	}

@@ -376,7 +376,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 			if (negativeEffectsState == NegativeEffects.POISONED) {
 				sprite.setColor(Color.GREEN);
 				if (timerPoisoned == 45) {
-					health -= 0.03f;
+					health -= 0.5f;
 					timerPoisoned = 0;
 				} else {
 					timerPoisoned++;
@@ -1158,7 +1158,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 		case FROZEN:
 			if (negativeEffectsState != NegativeEffects.FROZEN) {
 				sprite.setColor(4 / 255f, 180 / 255f, 1f, 1f);
-				movementSpeed *= 0.4f;
+				movementSpeed *= 0.5f;
 				negativeEffectsState = negativeEffect;
 				negativeEffectTimer = negativeEffect.lifetime;
 			}

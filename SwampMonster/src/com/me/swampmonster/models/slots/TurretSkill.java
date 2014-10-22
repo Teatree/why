@@ -1,5 +1,6 @@
 package com.me.swampmonster.models.slots;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,8 +18,48 @@ public class TurretSkill extends Slot {
 
 	public Turret turret;
 	public static int level;
-	private static Map<Integer, String> descriptionByLevel;
+	public static Map<Integer, Integer> collDownByLevel;
+	public static Map<Integer, Float> damageByLevel;
+	public static Map<Integer, Integer> lifeTimeByLevel;
+	public static Map<Integer, Integer> attackSpeedByLevel;
+	public static Map<Integer, Integer> healthByLevel;
+	private static Map <Integer, String> descriptionByLevel;
 	static {
+		damageByLevel = new HashMap<Integer, Float>();
+		damageByLevel.put(0, Constants.TURRET_Damage_L1);
+		damageByLevel.put(1, Constants.TURRET_Damage_L2);
+		damageByLevel.put(2, Constants.TURRET_Damage_L3);
+		damageByLevel.put(3, Constants.TURRET_Damage_L4);
+		damageByLevel.put(4, Constants.TURRET_Damage_L5);
+		
+		attackSpeedByLevel = new HashMap<Integer, Integer>();
+		attackSpeedByLevel.put(0, Constants.TURRET_AttackSpeed_L1);
+		attackSpeedByLevel.put(1, Constants.TURRET_AttackSpeed_L1);
+		attackSpeedByLevel.put(2, Constants.TURRET_AttackSpeed_L1);
+		attackSpeedByLevel.put(3, Constants.TURRET_AttackSpeed_L1);
+		attackSpeedByLevel.put(4, Constants.TURRET_AttackSpeed_L1);
+		
+		healthByLevel = new HashMap<Integer, Integer>();
+		healthByLevel.put(0, Constants.TURRET_Health_L1);
+		healthByLevel.put(1, Constants.TURRET_Health_L2);
+		healthByLevel.put(2, Constants.TURRET_Health_L3);
+		healthByLevel.put(3, Constants.TURRET_Health_L4);
+		healthByLevel.put(4, Constants.TURRET_Health_L5);
+		
+		lifeTimeByLevel = new HashMap<Integer, Integer>();
+		lifeTimeByLevel.put(0, Constants.TURRET_LifeTime_L1);
+		lifeTimeByLevel.put(1, Constants.TURRET_LifeTime_L2);
+		lifeTimeByLevel.put(2, Constants.TURRET_LifeTime_L3);
+		lifeTimeByLevel.put(3, Constants.TURRET_LifeTime_L4);
+		lifeTimeByLevel.put(4, Constants.TURRET_LifeTime_L5);
+		
+		collDownByLevel = new HashMap<Integer, Integer>();
+		collDownByLevel.put(0, Constants.TURRET_CoolDown_L1);
+		collDownByLevel.put(1, Constants.TURRET_CoolDown_L2);
+		collDownByLevel.put(2, Constants.TURRET_CoolDown_L3);
+		collDownByLevel.put(3, Constants.TURRET_CoolDown_L4);
+		collDownByLevel.put(4, Constants.TURRET_CoolDown_L5);
+		
 		descriptionByLevel = new HashMap<Integer, String>();
 		descriptionByLevel.put(0, Constants.TURRET_Description_L1);
 		descriptionByLevel.put(1, Constants.TURRET_Description_L2);
@@ -32,7 +73,12 @@ public class TurretSkill extends Slot {
 		sprite = new Sprite(Assets.manager.get(Assets.TURRET_ICON));
 		turret = new Turret();
 		turret.state = State.SPAWNING;
-
+		turret.health = Constants.TURRET_Health_L1;
+		turret.damage = Constants.TURRET_Damage_L1;
+		turret.attackSpeed = Constants.TURRET_AttackSpeed_L1;
+		
+		lifeTime = Constants.TURRET_LifeTime_L1;
+		coolDown = Constants.TURRET_CoolDown_L1;
 	}
 
 	@Override
@@ -114,7 +160,51 @@ public class TurretSkill extends Slot {
 
 	@Override
 	public List<String> getStats(Player player) {
-		// TODO Auto-generated method stub
-		return null;
+		List<String> stats = new ArrayList<String>();
+		String intuhaString = "";
+		String dmgDifString = "";
+		String lifeTimeString = "";
+		String healthString = "";
+		String attackSpeedString = "";
+		if(level>0){
+			int intuha = collDownByLevel.get(new Integer(level))-collDownByLevel.get(new Integer(level)-1);
+			float dmgDif = damageByLevel.get(new Integer(level))-damageByLevel.get(new Integer(level)-1);
+			int lifeTdiff = lifeTimeByLevel.get(new Integer(level))-lifeTimeByLevel.get(new Integer(level)-1);
+			int healthDiff = healthByLevel.get(new Integer(level))-healthByLevel.get(new Integer(level)-1);
+			int aSDiff = attackSpeedByLevel.get(new Integer(level))-attackSpeedByLevel.get(new Integer(level)-1);
+			intuha = intuha/60;
+			if(intuha>0){
+				intuhaString = "(+" + intuha + ")"; 
+			}else if(intuha<0){
+				intuhaString = "(" + intuha + ")"; 
+			}
+			if(dmgDif>0){
+				dmgDifString = "(+" + dmgDif + ")";
+			}else if(dmgDif<0){
+				dmgDifString = "(" + dmgDif + ")";
+			}
+			if(lifeTdiff>0){
+				lifeTimeString = "(+" + lifeTdiff + ")";
+			}else if(lifeTdiff<0){
+				lifeTimeString = "(" + lifeTdiff + ")";
+			}
+			if(healthDiff>0){
+				healthString = "(+" + healthDiff + ")";
+			}else if(healthDiff<0){
+				healthString = "(" + healthDiff + ")";
+			}
+			if(aSDiff>0){
+				attackSpeedString = "(+" + aSDiff + ")";
+			}else if(aSDiff<0){
+				attackSpeedString = "(" + aSDiff + ")";
+			}
+		}
+		stats.add("t " + coolDown/60 + intuhaString);
+		stats.add("d " + turret.damage + dmgDifString);
+		stats.add("m " + turret.attackSpeed/60 + attackSpeedString);
+		stats.add("g " + turret.health/60 + healthString);
+		stats.add("h " + lifeTime/60 + lifeTimeString);
+		
+		return stats;
 	}
 }
