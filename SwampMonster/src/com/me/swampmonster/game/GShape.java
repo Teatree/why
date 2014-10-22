@@ -75,7 +75,9 @@ public class GShape extends Group {
 		super();
 		sr = new ShapeRenderer();
 		skin = new Skin(Gdx.files.internal("skins\\slotMachineUI.json"), new TextureAtlas(Gdx.files.internal("skins\\slotMachineUI.pack")));
-		weaponizer = new Weaponizer();
+		if(!(TheController.skill instanceof Perks)){
+			weaponizer = new Weaponizer();
+		}
 		slotMachineButton = new ImageButton(skin, "yes");
 		slotMachineButton.debug();
 		slotMachineButton.addListener(new ClickListener() {
@@ -522,7 +524,8 @@ public class GShape extends Group {
 				if(object == "Nastya"){
 					Player.maxOxygen = Player.DEFAULT_MAX_O2;
 					L1.player.maxHealth = Player.DEFAULT_MAX_HEALTH;
-					Player.damage = Player.DEFAULT_DAMAGE;
+					Player.damage = Constants.DEFAULT_PLAYER_DAMAGE;
+					Player.DEFAULT_DAMAGE = Constants.DEFAULT_PLAYER_DAMAGE;
 					Player.arrowMovementSpeed = Player.DEFAULT_ARROW_MOVEMENT_SPEED;
 					L1.player.movementSpeed = Player.DEFAULT_MOVEMENT_SPEED;
 					Player.absoluteScore = 0;

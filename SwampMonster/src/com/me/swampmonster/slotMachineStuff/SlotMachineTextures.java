@@ -91,7 +91,9 @@ public class SlotMachineTextures extends Group {
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
 				Gdx.input.setInputProcessor(null);
-				TheController.skill = selectedSlot;
+				if(!(selectedSlot instanceof Perks)){
+					TheController.skill = selectedSlot;
+				}
 				selectedSlot = null;
 				((Game) Gdx.app.getApplicationListener()).setScreen(ScreenContainer.SS);
 			}

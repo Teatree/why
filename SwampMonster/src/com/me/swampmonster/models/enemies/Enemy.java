@@ -1063,7 +1063,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 				health -= RADIOACTIVE.RADIOACTIVE_Damage;
 			}
 			health -= Player.damage;
-			System.out.println("Player.damage" + Player.damage);
+			System.out.println("Player.damage " + Player.damage);
 		}
 	}
 

@@ -36,7 +36,7 @@ import com.me.swampmonster.utils.ItemGenerator;
 
 public class Player extends AbstractGameObject {
 
-	public static final float DEFAULT_DAMAGE = 1f;
+	public static float DEFAULT_DAMAGE = 1f;
 	public static final float DEFAULT_ARROW_MOVEMENT_SPEED = 1.5f;
 	public static final float DEFAULT_MOVEMENT_SPEED = 1.2f;
 	public static final int DEFAULT_MAX_HEALTH = 6;
@@ -154,8 +154,10 @@ public class Player extends AbstractGameObject {
 				Assets.manager.get(Assets.nastyaSpriteGun), 8, 32, 7));
 		animationsStandard.put(State.TELEPORTING, new AnimationControl(
 				Assets.manager.get(Assets.nastyaSpriteGun), 8, 32, 7));
-		animationsStandard.put(State.DEAD, new AnimationControl(
-				Assets.manager.get(Assets.nastyaSpriteStandard), 8, 32, 8));
+		animationsStandard.put(
+				State.DEAD,
+				new AnimationControl(Assets.manager
+						.get(Assets.nastyaSpriteStandard), 8, 32, 8));
 
 		oldPos = position;
 
@@ -248,25 +250,28 @@ public class Player extends AbstractGameObject {
 				}
 			}
 		}
-		
+
 		// TELEPORTING
-		if (state.equals(State.TELEPORTING)){
-			
-			if(!teleported){
-					currentFrame = animationsStandard.get(state).animate(136);
-					sprite.setRegion(animationsStandard.get(state).getCurrentFrame());
-					sprite.setBounds(sprite.getX(), sprite.getY(), 32, 32);
-				if(!animationsStandard.get(state).animating2){
+		if (state.equals(State.TELEPORTING)) {
+
+			if (!teleported) {
+				currentFrame = animationsStandard.get(state).animate(136);
+				sprite.setRegion(animationsStandard.get(state)
+						.getCurrentFrame());
+				sprite.setBounds(sprite.getX(), sprite.getY(), 32, 32);
+				if (!animationsStandard.get(state).animating2) {
 					position = L1.misterSpawner.teleportPlayerPos();
 					animationsStandard.get(state).animating2 = true;
 					teleported = true;
 				}
-			}else{
+			} else {
 				currentFrame = animationsStandard.get(state).animate(128);
-				sprite.setRegion(animationsStandard.get(state).getCurrentFrame());
+				sprite.setRegion(animationsStandard.get(state)
+						.getCurrentFrame());
 				sprite.setBounds(sprite.getX(), sprite.getY(), 32, 32);
-				if(!PanicTeleport.explCreated){
-					Explosion expl = new Explosion(position, Explosion.EXPLOSION_TYPE_STANDART);
+				if (!PanicTeleport.explCreated) {
+					Explosion expl = new Explosion(position,
+							Explosion.EXPLOSION_TYPE_STANDART);
 					expl.damage = 0f;
 					expl.explosionLifeTime = 15;
 					expl.explCircle.radius = 0;
@@ -274,7 +279,7 @@ public class Player extends AbstractGameObject {
 					L1.explosions.add(expl);
 					PanicTeleport.explCreated = true;
 				}
-				if(!animationsStandard.get(state).animating2){
+				if (!animationsStandard.get(state).animating2) {
 					teleported = false;
 					state = State.STANDARD;
 				}
@@ -294,27 +299,27 @@ public class Player extends AbstractGameObject {
 
 		// DEAD
 		if (state.equals(State.DEAD)) {
-//			maxOxygen = DEFAULT_MAX_O2;
-//			maxHealth = DEFAULT_MAX_HEALTH;
-//			damage = DEFAULT_DAMAGE;
-//			arrowMovementSpeed = DEFAULT_ARROW_MOVEMENT_SPEED;
-//			movementSpeed = DEFAULT_MOVEMENT_SPEED;
-//			absoluteScore = 0;
-//			levelsScore = 0;
-//			trap = null;
-//			turret = null;
-//			L1.hydra = null;
-//			L1.plasmaShield = null;
-//			for(Slot s: SlotMachineScreen.savedSlots){
-//				try {
-//					s.getClass().getField("level").setInt(null, 0);
-//				} catch(Exception e) {
-//					
-//				}
-//			}
-//			ItemGenerator.usedTextures = new HashMap<Integer, String>();
-//			SlotMachineScreen.savedSlots = new ArrayList<Slot>();
-//			TheController.skill = null;
+			// maxOxygen = DEFAULT_MAX_O2;
+			// maxHealth = DEFAULT_MAX_HEALTH;
+			// damage = DEFAULT_DAMAGE;
+			// arrowMovementSpeed = DEFAULT_ARROW_MOVEMENT_SPEED;
+			// movementSpeed = DEFAULT_MOVEMENT_SPEED;
+			// absoluteScore = 0;
+			// levelsScore = 0;
+			// trap = null;
+			// turret = null;
+			// L1.hydra = null;
+			// L1.plasmaShield = null;
+			// for(Slot s: SlotMachineScreen.savedSlots){
+			// try {
+			// s.getClass().getField("level").setInt(null, 0);
+			// } catch(Exception e) {
+			//
+			// }
+			// }
+			// ItemGenerator.usedTextures = new HashMap<Integer, String>();
+			// SlotMachineScreen.savedSlots = new ArrayList<Slot>();
+			// TheController.skill = null;
 			dying();
 		}
 
@@ -358,8 +363,7 @@ public class Player extends AbstractGameObject {
 			float edx = e.position.x - V3playerPos.x;
 			float edy = e.position.y - V3playerPos.y;
 
-			float length1 = (float) Math
-					.sqrt(edx * edx + edy * edy);
+			float length1 = (float) Math.sqrt(edx * edx + edy * edy);
 			edx /= length1;
 			edy /= length1;
 
@@ -367,34 +371,35 @@ public class Player extends AbstractGameObject {
 					this.sprite.getBoundingRectangle())) {
 
 				if (e.negativeEffectsState == NegativeEffects.STUN) {
-					Collidable cL = CollisionHelper.isCollidable(
-							e.position.x,
+					Collidable cL = CollisionHelper.isCollidable(e.position.x,
 							e.position.y + e.sprite.getHeight() / 2,
 							collisionLayer);
-					Collidable cR = CollisionHelper.isCollidable(
-							e.position.x + e.sprite.getWidth(),
+					Collidable cR = CollisionHelper.isCollidable(e.position.x
+							+ e.sprite.getWidth(),
 							e.position.y + e.sprite.getHeight() / 2,
 							collisionLayer);
-					Collidable cU = CollisionHelper.isCollidable(
-							e.position.x + e.sprite.getWidth() / 2,
-							e.position.y + e.sprite.getHeight(),
+					Collidable cU = CollisionHelper
+							.isCollidable(e.position.x + e.sprite.getWidth()
+									/ 2, e.position.y + e.sprite.getHeight(),
+									collisionLayer);
+					Collidable cD = CollisionHelper.isCollidable(e.position.x
+							+ e.sprite.getWidth() / 2, e.position.y,
 							collisionLayer);
-					Collidable cD = CollisionHelper.isCollidable(
-							e.position.x + e.sprite.getWidth() / 2,
-							e.position.y, collisionLayer);
 
 					if (cL == null && edx <= 0 || cR == null && edx > 0) {
-						e.position.x += edx / 2 /** movementSpeed*4 */;
+						e.position.x += edx / 2 /** movementSpeed*4 */
+						;
 						e.iceCube.setX(e.position.x);
 					}
 					if (cD == null && edy <= 0 || cU == null && edy > 0) {
-						e.position.y += edy / 2 /** movementSpeed*4 */;
+						e.position.y += edy / 2 /** movementSpeed*4 */
+						;
 						e.iceCube.setY(e.position.y);
 					}
 				}
 			}
 		}
-		
+
 		Iterator<Prop> propItr = L1.props.iterator();
 		while (propItr.hasNext()) {
 			Prop prop = propItr.next();
@@ -456,8 +461,9 @@ public class Player extends AbstractGameObject {
 					TheController.skill.explode(p.position);
 				}
 				p.state = State.DEAD;
-			} else if(L1.plasmaShield!= null && p.circle.overlaps(L1.plasmaShield.circle)){
-				if(!L1.plasmaShield.circle.contains(circle)){
+			} else if (L1.plasmaShield != null
+					&& p.circle.overlaps(L1.plasmaShield.circle)) {
+				if (!L1.plasmaShield.circle.contains(circle)) {
 					p.state = State.DEAD;
 				}
 			} else if (p.isCollisionNBreakable(collisionLayer)
@@ -467,7 +473,8 @@ public class Player extends AbstractGameObject {
 				L1.explosions.add(expl);
 				L1.hasAtmosphere = false;
 				p.state = State.DEAD;
-			} if (p != null && p.state == State.DEAD) {
+			}
+			if (p != null && p.state == State.DEAD) {
 				prj.remove();
 			}
 		}
@@ -565,11 +572,11 @@ public class Player extends AbstractGameObject {
 			}
 			arrowEffectCarrier = EffectCarriers.NONE;
 		}
-//		if(aimL){
-//			shooting = false;
-//			state = State.STANDARD;
-//			System.out.println("boom");
-//		}
+		// if(aimL){
+		// shooting = false;
+		// state = State.STANDARD;
+		// System.out.println("boom");
+		// }
 	}
 
 	private void dying() {
@@ -643,7 +650,8 @@ public class Player extends AbstractGameObject {
 
 		if (!aiming) {
 			currentFrame = animationsStandard.get(state).doComplexAnimation(0,
-					0.5f, Gdx.graphics.getDeltaTime(), Animation.PlayMode.NORMAL);
+					0.5f, Gdx.graphics.getDeltaTime(),
+					Animation.PlayMode.NORMAL);
 			aimingAuraSprite.setRegion(aimingAuraFrames[0][0]);
 		}
 
@@ -661,25 +669,29 @@ public class Player extends AbstractGameObject {
 				&& V3point.x > position.x) {
 
 			currentFrame = animationsStandard.get(state).doComplexAnimation(24,
-					0.5f, Gdx.graphics.getDeltaTime(), Animation.PlayMode.NORMAL);
+					0.5f, Gdx.graphics.getDeltaTime(),
+					Animation.PlayMode.NORMAL);
 		} else if (aiming && V3point.y < position.y + 8
 				&& V3point.x < position.x + 32 && V3point.x > position.x) {
 			currentFrame = animationsStandard.get(state).doComplexAnimation(0,
-					0.5f, Gdx.graphics.getDeltaTime(), Animation.PlayMode.NORMAL);
+					0.5f, Gdx.graphics.getDeltaTime(),
+					Animation.PlayMode.NORMAL);
 		}
 		if (aiming && V3point.x < position.x) {
 			currentFrame = animationsStandard.get(state).doComplexAnimation(8,
-					0.5f, Gdx.graphics.getDeltaTime(), Animation.PlayMode.NORMAL);
+					0.5f, Gdx.graphics.getDeltaTime(),
+					Animation.PlayMode.NORMAL);
 		} else if (aiming && V3point.x > position.x + 32) {
 			currentFrame = animationsStandard.get(state).doComplexAnimation(16,
-					0.5f, Gdx.graphics.getDeltaTime(), Animation.PlayMode.NORMAL);
+					0.5f, Gdx.graphics.getDeltaTime(),
+					Animation.PlayMode.NORMAL);
 		}
 
-		if (!Gdx.input.isTouched() && aiming && 
-				!circle.contains(new Vector2(V3point.x, V3point.y))) {
+		if (!Gdx.input.isTouched() && aiming
+				&& !circle.contains(new Vector2(V3point.x, V3point.y))) {
 			shooting = true;
 		}
-		
+
 		if (!aiming && timeShooting == 0) {
 			shooting = false;
 			state = State.STANDARD;
@@ -705,7 +717,8 @@ public class Player extends AbstractGameObject {
 			radioactiveAura = new Circle(position.x + sprite.getWidth() / 2,
 					position.y + sprite.getHeight() / 2,
 					RADIOACTIVE.RADIOACTIVE_Radius);
-			System.out.println("radioactiveRadius: " + RADIOACTIVE.RADIOACTIVE_Radius);
+			System.out.println("radioactiveRadius: "
+					+ RADIOACTIVE.RADIOACTIVE_Radius);
 			positiveEffectsState = positiveEffect;
 			positiveEffectCounter = positiveEffect.lifetime;
 			break;
@@ -723,9 +736,9 @@ public class Player extends AbstractGameObject {
 			if (negativeEffectsState == NegativeEffects.FROZEN) {
 				setNegativeEffect(NegativeEffects.NONE);
 			}
-			this.sprite.setColor(220f/255, 20f/255, 60f/255, 1f);
+			this.sprite.setColor(220f / 255, 20f / 255, 60f / 255, 1f);
 			radioactiveAura = null;
-			damage = damage+2;
+			damage = damage + 2;
 			positiveEffectsState = positiveEffect;
 			positiveEffectCounter = HASTE.lifeTime;
 			break;
@@ -837,7 +850,8 @@ public class Player extends AbstractGameObject {
 		if (enemy.playerMovementDirection == "right" && collidableUp == null) {
 			currentFrame = animationsStandard.get(State.STANDARD)
 					.doComplexAnimation(108, 0.2f,
-							Gdx.graphics.getDeltaTime() / 2, Animation.PlayMode.NORMAL);
+							Gdx.graphics.getDeltaTime() / 2,
+							Animation.PlayMode.NORMAL);
 
 			sprite.setRegion(animationsStandard.get(state).getCurrentFrame());
 			sprite.setBounds(sprite.getX(), sprite.getY(), 32, 32);
@@ -852,7 +866,8 @@ public class Player extends AbstractGameObject {
 		if (enemy.playerMovementDirection == "left" && collidableUp == null) {
 			currentFrame = animationsStandard.get(State.STANDARD)
 					.doComplexAnimation(106, 0.2f,
-							Gdx.graphics.getDeltaTime() / 2, Animation.PlayMode.NORMAL);
+							Gdx.graphics.getDeltaTime() / 2,
+							Animation.PlayMode.NORMAL);
 
 			sprite.setRegion(animationsStandard.get(state).getCurrentFrame());
 			sprite.setBounds(sprite.getX(), sprite.getY(), 32, 32);
@@ -867,7 +882,8 @@ public class Player extends AbstractGameObject {
 		if (enemy.playerMovementDirection == "down" && collidableUp == null) {
 			currentFrame = animationsStandard.get(State.STANDARD)
 					.doComplexAnimation(110, 0.2f,
-							Gdx.graphics.getDeltaTime() / 2, Animation.PlayMode.NORMAL);
+							Gdx.graphics.getDeltaTime() / 2,
+							Animation.PlayMode.NORMAL);
 
 			sprite.setRegion(animationsStandard.get(state).getCurrentFrame());
 			sprite.setBounds(sprite.getX(), sprite.getY(), 32, 32);
@@ -882,7 +898,8 @@ public class Player extends AbstractGameObject {
 		if (enemy.playerMovementDirection == "up" && collidableUp == null) {
 			currentFrame = animationsStandard.get(State.STANDARD)
 					.doComplexAnimation(104, 0.2f,
-							Gdx.graphics.getDeltaTime() / 2, Animation.PlayMode.NORMAL);
+							Gdx.graphics.getDeltaTime() / 2,
+							Animation.PlayMode.NORMAL);
 
 			sprite.setRegion(animationsStandard.get(state).getCurrentFrame());
 			sprite.setBounds(sprite.getX(), sprite.getY(), 32, 32);

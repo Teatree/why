@@ -3,6 +3,7 @@ package com.me.swampmonster.utils;
 import com.badlogic.gdx.Gdx;
 
 public class Constants {
+	public static final float DEFAULT_PLAYER_DAMAGE = 1f;
 	public static final float VIEWPORT_WIDTH = Gdx.graphics.getWidth();
 	public static final float VIEWPORT_HEIGHT = Gdx.graphics.getHeight();
 	public static final float VIEWPORT_GUI_WIDTH = Gdx.graphics.getWidth();
@@ -190,11 +191,11 @@ public class Constants {
 //	TURRET:
 	public static final String TURRET_Name = "Gun Turret";
 	
-	public static final int TURRET_CoolDown_L1 = 222;
-	public static final int TURRET_CoolDown_L2 = 222;
-	public static final int TURRET_CoolDown_L3 = 800;
-	public static final int TURRET_CoolDown_L4 = 600;
-	public static final int TURRET_CoolDown_L5 = 400;
+	public static final int TURRET_CoolDown_L1 = 2100;
+	public static final int TURRET_CoolDown_L2 = 1800;
+	public static final int TURRET_CoolDown_L3 = 1200;
+	public static final int TURRET_CoolDown_L4 = 900;
+	public static final int TURRET_CoolDown_L5 = 900;
 	
 	public static final int TURRET_LifeTime_L1 = 900;
 	public static final int TURRET_LifeTime_L2 = 900;
@@ -258,11 +259,11 @@ public class Constants {
 //	ImproveArrowDamage:
 	public static final String ImproveArrowDamage_Name = "Improve Arrow Damage";
 	
-	public static final float ImproveArrowDamage_value_L1 = 0.5f;
-	public static final float ImproveArrowDamage_value_L2 = 0.5f;
-	public static final float ImproveArrowDamage_value_L3 = 1f;
-	public static final float ImproveArrowDamage_value_L4 = 1f;
-	public static final float ImproveArrowDamage_value_L5 = 2f;
+	public static final float ImproveArrowDamage_value_L1 = 12f;
+	public static final float ImproveArrowDamage_value_L2 = 12f;
+	public static final float ImproveArrowDamage_value_L3 = 12f;
+	public static final float ImproveArrowDamage_value_L4 = 12f;
+	public static final float ImproveArrowDamage_value_L5 = 12f;
 	
 	public static final String ImproveArrowDamage_Description_l1 = "Increase Arrow Damage by " + ImproveArrowDamage_value_L1;
 	public static final String ImproveArrowDamage_Description_l2 = "Increase Arrow Damage by " + ImproveArrowDamage_value_L2;
@@ -337,11 +338,11 @@ public class Constants {
 //	PoisonArrow:
 	public static final String PoisonArrow_Name = "Position Arrow";
 	
-	public static final int PoisonArrow_CoolDown_L1 = 2600;
-	public static final int PoisonArrow_CoolDown_L2 = 2000;
-	public static final int PoisonArrow_CoolDown_L3 = 2000;
-	public static final int PoisonArrow_CoolDown_L4 = 1500;
-	public static final int PoisonArrow_CoolDown_L5 = 1000;
+	public static final int PoisonArrow_CoolDown_L1 = 2100;
+	public static final int PoisonArrow_CoolDown_L2 = 1800;
+	public static final int PoisonArrow_CoolDown_L3 = 1200;
+	public static final int PoisonArrow_CoolDown_L4 = 900;
+	public static final int PoisonArrow_CoolDown_L5 = 900;
 	
 	public static final String PoisonArrow_Description_L1 = "I am poisonedArrow of Level 1!";
 	public static final String PoisonArrow_Description_L2 = "I am poisonedArrow of Level 2!";
@@ -379,11 +380,11 @@ public class Constants {
 	
 	
 //	RADIOACTIVE:
-	public static final int RADIOACTIVE_CoolDown_L1 = 3000;
-	public static final int RADIOACTIVE_CoolDown_L2 = 2500;
-	public static final int RADIOACTIVE_CoolDown_L3 = 2000;
-	public static final int RADIOACTIVE_CoolDown_L4 = 1500;
-	public static final int RADIOACTIVE_CoolDown_L5 = 1000;
+	public static final int RADIOACTIVE_CoolDown_L1 = 1800;
+	public static final int RADIOACTIVE_CoolDown_L2 = 1500;
+	public static final int RADIOACTIVE_CoolDown_L3 = 1200;
+	public static final int RADIOACTIVE_CoolDown_L4 = 900;
+	public static final int RADIOACTIVE_CoolDown_L5 = 900;
 	
 	public static final int RADIOACTIVE_Damage_L1 = 1;
 	public static final int RADIOACTIVE_Damage_L2 = 2;
@@ -413,11 +414,11 @@ public class Constants {
 //	PLASMA_SHIELD:
 	public static final String PLASMA_SHIELD_Name = "Plasma Shield";
 	
-	public static final int PLASMA_SHIELD_CoolDown_L1 = 1000;
-	public static final int PLASMA_SHIELD_CoolDown_L2 = 2500;
-	public static final int PLASMA_SHIELD_CoolDown_L3 = 2000;
-	public static final int PLASMA_SHIELD_CoolDown_L4 = 1500;
-	public static final int PLASMA_SHIELD_CoolDown_L5 = 1000;
+	public static final int PLASMA_SHIELD_CoolDown_L1 = 1800;
+	public static final int PLASMA_SHIELD_CoolDown_L2 = 1600;
+	public static final int PLASMA_SHIELD_CoolDown_L3 = 1200;
+	public static final int PLASMA_SHIELD_CoolDown_L4 = 900;
+	public static final int PLASMA_SHIELD_CoolDown_L5 = 600;
 	
 	public static final int PLASMA_SHIELD_LifeTime_L1 = 600;
 	public static final int PLASMA_SHIELD_LifeTime_L2 = 600;
@@ -434,11 +435,11 @@ public class Constants {
 //	PANIC_TELEPORT:
 	public static final String PANIC_TELEPORT_Name = "Panic Teleport";
 	
-	public static final int PANIC_TELEPORT_CoolDown_L1 = 1000;
-	public static final int PANIC_TELEPORT_CoolDown_L2 = 2500;
-	public static final int PANIC_TELEPORT_CoolDown_L3 = 2000;
-	public static final int PANIC_TELEPORT_CoolDown_L4 = 1500;
-	public static final int PANIC_TELEPORT_CoolDown_L5 = 1000;
+	public static final int PANIC_TELEPORT_CoolDown_L1 = 1800;
+	public static final int PANIC_TELEPORT_CoolDown_L2 = 1400;
+	public static final int PANIC_TELEPORT_CoolDown_L3 = 1200;
+	public static final int PANIC_TELEPORT_CoolDown_L4 = 900;
+	public static final int PANIC_TELEPORT_CoolDown_L5 = 600;
 	public static final String PANIC_TELEPORT_Description_L1 = "PANIC_TELEPORT SA Level 1";
 	public static final String PANIC_TELEPORT_Description_L2 = "PANIC_TELEPORT SA Level 2";
 	public static final String PANIC_TELEPORT_Description_L3 = "PANIC_TELEPORT SA Level 3";
@@ -448,11 +449,11 @@ public class Constants {
 //	SPEED_BOOST:
 	public static final String SPEED_BOOST_Name = "Speed Boost";
 	
-	public static final int SPEED_BOOST_CoolDown_L1 = 3000;
-	public static final int SPEED_BOOST_CoolDown_L2 = 2500;
-	public static final int SPEED_BOOST_CoolDown_L3 = 2000;
-	public static final int SPEED_BOOST_CoolDown_L4 = 1500;
-	public static final int SPEED_BOOST_CoolDown_L5 = 1000;
+	public static final int SPEED_BOOST_CoolDown_L1 = 1800;
+	public static final int SPEED_BOOST_CoolDown_L2 = 1800;
+	public static final int SPEED_BOOST_CoolDown_L3 = 1200;
+	public static final int SPEED_BOOST_CoolDown_L4 = 1200;
+	public static final int SPEED_BOOST_CoolDown_L5 = 900;
 
 	public static final String SPEED_BOOST_Description_L1 = "Speed Boost LEVEL: 1";
 	public static final String SPEED_BOOST_Description_L2 = "Speed Boost LEVEL: 2";
@@ -468,18 +469,18 @@ public class Constants {
 	
 // ----------------- ITEMS ---------------------
 	//HASTE
-	public static final int HASTE_LifeTime_L1 = 300;
-	public static final int HASTE_LifeTime_L2 = 500;
-	public static final int HASTE_LifeTime_L3 = 800;
+	public static final int HASTE_LifeTime_L1 = 600;
+	public static final int HASTE_LifeTime_L2 = 900;
+	public static final int HASTE_LifeTime_L3 = 900;
 	public static final int HASTE_LifeTime_L4 = 1200;
 	public static final int HASTE_LifeTime_L5 = 1600;
 	
 	//WEAKENED
 	public static final int WEAKENED_LifeTime_L1 = 300;
-	public static final int WEAKENED_LifeTime_L2 = 500;
-	public static final int WEAKENED_LifeTime_L3 = 800;
+	public static final int WEAKENED_LifeTime_L2 = 300;
+	public static final int WEAKENED_LifeTime_L3 = 600;
 	public static final int WEAKENED_LifeTime_L4 = 1200;
-	public static final int WEAKENED_LifeTime_L5 = 1600;
+	public static final int WEAKENED_LifeTime_L5 = 1200;
 	
 	//feedback
 	public static final String SHOT_ARROWS = "Shot arrows: ";
