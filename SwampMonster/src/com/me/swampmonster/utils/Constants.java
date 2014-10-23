@@ -30,17 +30,22 @@ public class Constants {
 //  Arrows3:
 	public static final String Arrows3_Name = "Triple Arrows!";
 	
-	public static final int Arrows3_CoolDown_L1 = 1200;
-	public static final int Arrows3_CoolDown_L2 = 900;
-	public static final int Arrows3_CoolDown_L3 = 900;
-	public static final int Arrows3_CoolDown_L4 = 600;
-	public static final int Arrows3_CoolDown_L5 = 600;
-	
-	public static final String Arrows3_Description_L1 = "I shoot 3 arrows at thee l1 ";
-	public static final String Arrows3_Description_L2 = "I shoot 3 arrows at thee l2 ";
-	public static final String Arrows3_Description_L3 = "I shoot 3 arrows at thee l3 ";
-	public static final String Arrows3_Description_L4 = "I shoot 3 arrows at thee l4 ";
-	public static final String Arrows3_Description_L5 = "I shoot 3 arrows at thee l4 "; 
+	public static final int Arrows3_CoolDown_L1 = 1800;
+	public static final int Arrows3_CoolDown_L2 = 1600;
+	public static final int Arrows3_CoolDown_L3 = 1600;
+	public static final int Arrows3_CoolDown_L4 = 1200;
+	public static final int Arrows3_CoolDown_L5 = 1200;
+
+	public static final String Arrows3_Description_L1 = "Loads bow with 3 arrows, next time you"
+			+ " shoot, instead of 1 arrow, 3 come out L1";
+	public static final String Arrows3_Description_L2 = "Loads bow with 3 arrows, next time you"
+			+ " shoot, instead of 1 arrow, 3 come out L2";
+	public static final String Arrows3_Description_L3 = "Loads bow with 3 arrows, next time you"
+			+ " shoot, instead of 1 arrow, 3 come out L3 ";
+	public static final String Arrows3_Description_L4 = "Loads bow with 3 arrows, next time you"
+			+ " shoot, instead of 1 arrow, 3 come out L4";
+	public static final String Arrows3_Description_L5 = "Loads bow with 3 arrows, next time you"
+			+ " shoot, instead of 1 arrow, 3 come out L5"; 
 	
 	
 //  DamageTrap:
@@ -48,54 +53,47 @@ public class Constants {
 	
 	public static final int DamageTrap_CoolDown_L1 = 1800;
 	public static final int DamageTrap_CoolDown_L2 = 1800;
-	public static final int DamageTrap_CoolDown_L3 = 1200;
+	public static final int DamageTrap_CoolDown_L3 = 1500;
 	public static final int DamageTrap_CoolDown_L4 = 1200;
-	public static final int DamageTrap_CoolDown_L5 = 900;
+	public static final int DamageTrap_CoolDown_L5 = 1200;
 	
 	public static final float DamageTrap_Damage_L1 = 2f;
 	public static final float DamageTrap_Damage_L2 = 2f;
 	public static final float DamageTrap_Damage_L3 = 3f;
 	public static final float DamageTrap_Damage_L4 = 4f;
-	public static final float DamageTrap_Damage_L5 = 5f;
+	public static final float DamageTrap_Damage_L5 = 4f;
 	
-	public static final int DamageTrap_CircleRadius_L1 = 10;
-	public static final int DamageTrap_CircleRadius_L2 = 20;
-	public static final int DamageTrap_CircleRadius_L3 = 30;
-	public static final int DamageTrap_CircleRadius_L4 = 40;
-	public static final int DamageTrap_CircleRadius_L5 = 50;
+	public static final int DamageTrap_LifeTimeMax_L1 = 1500;
+	public static final int DamageTrap_LifeTimeMax_L2 = 1800;
+	public static final int DamageTrap_LifeTimeMax_L3 = 1800;
+	public static final int DamageTrap_LifeTimeMax_L4 = 1800;
+	public static final int DamageTrap_LifeTimeMax_L5 = 2400;
 	
-	public static final int DamageTrap_LifeTimeMax_L1 = 300;
-	public static final int DamageTrap_LifeTimeMax_L2 = 400;
-	public static final int DamageTrap_LifeTimeMax_L3 = 500;
-	public static final int DamageTrap_LifeTimeMax_L4 = 600;
-	public static final int DamageTrap_LifeTimeMax_L5 = 700;
-	
-	public static final String DamageTrap_Description_L1 = "Cause " + DamageTrap_Damage_L1 +" damage  to enemy " ;
-	public static final String DamageTrap_Description_L2 = "Cause " + DamageTrap_Damage_L2 +" damage  to enemy ";
-	public static final String DamageTrap_Description_L3 = "Cause " + DamageTrap_Damage_L3 +" damage  to enemy ";
-	public static final String DamageTrap_Description_L4 = "Cause " + DamageTrap_Damage_L4 +" damage  to enemy ";
-	public static final String DamageTrap_Description_L5 = "Cause " + DamageTrap_Damage_L5 +" damage  to enemy ";
+	public static final String DamageTrap_Description_L1 = "Spawns a trap, which deals " + DamageTrap_Damage_L1 + 
+			"damage to the enemy if stepped on L1";
+	public static final String DamageTrap_Description_L2 = "Spawns a trap, which deals " + DamageTrap_Damage_L2 + 
+			"damage to the enemy if stepped on L2";
+	public static final String DamageTrap_Description_L3 = "Spawns a trap, which deals " + DamageTrap_Damage_L3 + 
+			"damage to the enemy if stepped on L3";
+	public static final String DamageTrap_Description_L4 = "Spawns a trap, which deals " + DamageTrap_Damage_L4 + 
+			"damage to the enemy if stepped on L4";
+	public static final String DamageTrap_Description_L5 = "Spawns a trap, which deals " + DamageTrap_Damage_L5 + 
+			"damage to the enemy if stepped on";
 	
 	
 //	ExplosiveArrow:
 	public static final String ExplosiveArrow_Name = "Explosive Arrow";
 	
-	public static final int ExplosiveArrow_CoolDown_L1 = 600;
-	public static final int ExplosiveArrow_CoolDown_L2 = 500;
-	public static final int ExplosiveArrow_CoolDown_L3 = 400;
-	public static final int ExplosiveArrow_CoolDown_L4 = 300;
-	public static final int ExplosiveArrow_CoolDown_L5 = 200;
-	
-	public static final String ExplosiveArrow_Description_L1 = "I am explosive arrow l1";
-	public static final String ExplosiveArrow_Description_L2 = "I am explosive arrow l2";
-	public static final String ExplosiveArrow_Description_L3 = "I am explosive arrow l3";
-	public static final String ExplosiveArrow_Description_L4 = "I am explosive arrow l4";
-	public static final String ExplosiveArrow_Description_L5 = "I am explosive arrow l5";
+	public static final int ExplosiveArrow_CoolDown_L1 = 2400;
+	public static final int ExplosiveArrow_CoolDown_L2 = 2100;
+	public static final int ExplosiveArrow_CoolDown_L3 = 2100;
+	public static final int ExplosiveArrow_CoolDown_L4 = 1800;
+	public static final int ExplosiveArrow_CoolDown_L5 = 1800;
 	
 	public static final float ExplosiveArrow_explCircleRadius_L1 = 10;
-	public static final float ExplosiveArrow_explCircleRadius_L2 = 12;
+	public static final float ExplosiveArrow_explCircleRadius_L2 = 10;
 	public static final float ExplosiveArrow_explCircleRadius_L3 = 14;
-	public static final float ExplosiveArrow_explCircleRadius_L4 = 16;
+	public static final float ExplosiveArrow_explCircleRadius_L4 = 14;
 	public static final float ExplosiveArrow_explCircleRadius_L5 = 18;
 	
 	public static final float ExplosiveArrow_damage_L1 = 2f;
@@ -103,6 +101,22 @@ public class Constants {
 	public static final float ExplosiveArrow_damage_L3 = 3f;
 	public static final float ExplosiveArrow_damage_L4 = 3f;
 	public static final float ExplosiveArrow_damage_L5 = 4f;
+	
+	public static final String ExplosiveArrow_Description_L1 = "Loads bow with an explosive arrow,"
+			+ " that deals " + ExplosiveArrow_damage_L1 + " damage upon impact in a " +
+			ExplosiveArrow_explCircleRadius_L1 + " pixel radius around it L1";
+	public static final String ExplosiveArrow_Description_L2 = "Loads bow with an explosive arrow,"
+			+ " that deals " + ExplosiveArrow_damage_L2 + " damage upon impact in a " +
+			ExplosiveArrow_explCircleRadius_L2 + " pixel radius around it L2";
+	public static final String ExplosiveArrow_Description_L3 = "Loads bow with an explosive arrow,"
+			+ " that deals " + ExplosiveArrow_damage_L3 + " damage upon impact in a " +
+			ExplosiveArrow_explCircleRadius_L3 + " pixel radius around it L3";
+	public static final String ExplosiveArrow_Description_L4 = "Loads bow with an explosive arrow,"
+			+ " that deals " + ExplosiveArrow_damage_L4 + " damage upon impact in a " +
+			ExplosiveArrow_explCircleRadius_L4 + " pixel radius around it L4";
+	public static final String ExplosiveArrow_Description_L5 = "Loads bow with an explosive arrow,"
+			+ " that deals " + ExplosiveArrow_damage_L5 + " damage upon impact in a " +
+			ExplosiveArrow_explCircleRadius_L5 + " pixel radius around it L5";
 	
 	public static final float ExplosiveArrow_incrementExplosionRadius_L1 = 3f;
 	public static final float ExplosiveArrow_incrementExplosionRadius_L2 = 4f;
@@ -193,15 +207,15 @@ public class Constants {
 	
 	public static final int TURRET_CoolDown_L1 = 2100;
 	public static final int TURRET_CoolDown_L2 = 1800;
-	public static final int TURRET_CoolDown_L3 = 1200;
-	public static final int TURRET_CoolDown_L4 = 900;
+	public static final int TURRET_CoolDown_L3 = 1800;
+	public static final int TURRET_CoolDown_L4 = 1200;
 	public static final int TURRET_CoolDown_L5 = 900;
 	
 	public static final int TURRET_LifeTime_L1 = 900;
 	public static final int TURRET_LifeTime_L2 = 900;
-	public static final int TURRET_LifeTime_L3 = 1400;
-	public static final int TURRET_LifeTime_L4 = 1600;
-	public static final int TURRET_LifeTime_L5 = 2000;
+	public static final int TURRET_LifeTime_L3 = 1200;
+	public static final int TURRET_LifeTime_L4 = 1200;
+	public static final int TURRET_LifeTime_L5 = 2100;
 	
 	public static final int TURRET_Health_L1 = 3;
 	public static final int TURRET_Health_L2 = 3;
@@ -212,8 +226,8 @@ public class Constants {
 	public static final float TURRET_Damage_L1 = 0.5f;
 	public static final float TURRET_Damage_L2 = 0.5f;
 	public static final float TURRET_Damage_L3 = 1f;
-	public static final float TURRET_Damage_L4 = 2f;
-	public static final float TURRET_Damage_L5 = 3f;
+	public static final float TURRET_Damage_L4 = 1f;
+	public static final float TURRET_Damage_L5 = 2f;
 	
 	public static final int TURRET_AttackSpeed_L1 = 100;
 	public static final int TURRET_AttackSpeed_L2 = 80;
@@ -221,21 +235,31 @@ public class Constants {
 	public static final int TURRET_AttackSpeed_L4 = 60;
 	public static final int TURRET_AttackSpeed_L5 = 45;
 	
-	public static final String TURRET_Description_L1 = "Turret of da Level 1";
-	public static final String TURRET_Description_L2 = "Turret of da Level 2";
-	public static final String TURRET_Description_L3 = "Turret of da Level 3";
-	public static final String TURRET_Description_L4 = "Turret of da Level 4";
-	public static final String TURRET_Description_L5 = "Turret of da Level 5";
+	public static final String TURRET_Description_L1 = "Spawns a turret that shoots nearby enemies,"
+			+ " causing " + TURRET_Damage_L1 + " dmg per hit, lives for " + TURRET_LifeTime_L1 + " "
+					+ "seconds. Level 1.";
+	public static final String TURRET_Description_L2 = "Spawns a turret that shoots nearby enemies,"
+			+ " causing " + TURRET_Damage_L2 + " dmg per hit, lives for " + TURRET_LifeTime_L2 + " "
+			+ "seconds. Level 2.";
+	public static final String TURRET_Description_L3 = "Spawns a turret that shoots nearby enemies,"
+			+ " causing " + TURRET_Damage_L3 + " dmg per hit, lives for " + TURRET_LifeTime_L3 + " "
+			+ "seconds. Level 3."; 
+	public static final String TURRET_Description_L4 = "Spawns a turret that shoots nearby enemies,"
+			+ " causing " + TURRET_Damage_L4 + " dmg per hit, lives for " + TURRET_LifeTime_L4 + " "
+			+ "seconds. Level 4."; 
+	public static final String TURRET_Description_L5 = "Spawns a turret that shoots nearby enemies,"
+			+ " causing " + TURRET_Damage_L5 + " dmg per hit, lives for " + TURRET_LifeTime_L5 + " "
+			+ "seconds. Level 5."; 
 	
 	
 //	FrostTrap:
 	public static final String FrostTrap_Name = "Frost Trap";
 
-	public static final int FrostTrap_CoolDown_L1 = 2000;
-	public static final int FrostTrap_CoolDown_L2 = 1700;
-	public static final int FrostTrap_CoolDown_L3 = 1400;
-	public static final int FrostTrap_CoolDown_L4 = 1100;
-	public static final int FrostTrap_CoolDown_L5 = 800;
+	public static final int FrostTrap_CoolDown_L1 = 1800;
+	public static final int FrostTrap_CoolDown_L2 = 1800;
+	public static final int FrostTrap_CoolDown_L3 = 1500;
+	public static final int FrostTrap_CoolDown_L4 = 1200;
+	public static final int FrostTrap_CoolDown_L5 = 900;
 
 	public static final int FrostTrap_LifeTime_L1 = 900;
 	public static final int FrostTrap_LifeTime_L2 = 900;
@@ -245,94 +269,104 @@ public class Constants {
 
 	public static final int FrostTrap_CircleRadius_L1 = 12;
 	public static final int FrostTrap_CircleRadius_L2 = 16;
-	public static final int FrostTrap_CircleRadius_L3 = 20;
-	public static final int FrostTrap_CircleRadius_L4 = 24;
-	public static final int FrostTrap_CircleRadius_L5 = 28;
+	public static final int FrostTrap_CircleRadius_L3 = 16;
+	public static final int FrostTrap_CircleRadius_L4 = 20;
+	public static final int FrostTrap_CircleRadius_L5 = 24;
 	
-	public static final String FrostTrap_Description_L1 = "FrostTrap of Level 1";
-	public static final String FrostTrap_Description_L2 = "FrostTrap of Level 2";
-	public static final String FrostTrap_Description_L3 = "FrostTrap of Level 3";
-	public static final String FrostTrap_Description_L4 = "FrostTrap of Level 4";
-	public static final String FrostTrap_Description_L5 = "FrostTrap of Level 5";
+	public static final String FrostTrap_Description_L1 = "Spawns a frost trap that explodes if stepped on, causing eveyone in the "
+	+ FrostTrap_CircleRadius_L1 + " radius to slow down at half their speed, for " + 
+			FrostTrap_LifeTime_L1/60 + " seconds L1";
+	public static final String  FrostTrap_Description_L2 = "Spawns a frost trap that explodes if stepped on, causing eveyone in the "
+	+ FrostTrap_CircleRadius_L2 + " radius to slow down at half their speed, for " + 
+			FrostTrap_LifeTime_L2/60 + " seconds L2";
+	public static final String FrostTrap_Description_L3 = "Spawns a frost trap that explodes if stepped on, causing eveyone in the "
+	+ FrostTrap_CircleRadius_L3 + " radius to slow down at half their speed, for " + 
+			FrostTrap_LifeTime_L3/60 + " seconds L3";
+	public static final String FrostTrap_Description_L4 = "Spawns a frost trap that explodes if stepped on, causing eveyone in the "
+	+ FrostTrap_CircleRadius_L4 + " radius to slow down at half their speed, for " + 
+			FrostTrap_LifeTime_L4/60 + " seconds L4";
+	public static final String FrostTrap_Description_L5 = "Spawns a frost trap that explodes if stepped on, causing eveyone in the "
+	+ FrostTrap_CircleRadius_L5 + " radius to slow down at half their speed, for " + 
+			FrostTrap_LifeTime_L5/60 + " seconds L5";
 	
 	
 //	ImproveArrowDamage:
 	public static final String ImproveArrowDamage_Name = "Improve Arrow Damage";
 	
-	public static final float ImproveArrowDamage_value_L1 = 12f;
-	public static final float ImproveArrowDamage_value_L2 = 12f;
-	public static final float ImproveArrowDamage_value_L3 = 12f;
-	public static final float ImproveArrowDamage_value_L4 = 12f;
-	public static final float ImproveArrowDamage_value_L5 = 12f;
+	public static final float ImproveArrowDamage_value_L1 = 0.5f;
+	public static final float ImproveArrowDamage_value_L2 = 0.5f;
+	public static final float ImproveArrowDamage_value_L3 = 0.5f;
+	public static final float ImproveArrowDamage_value_L4 = 1f;
+	public static final float ImproveArrowDamage_value_L5 = 1f;
 	
-	public static final String ImproveArrowDamage_Description_l1 = "Increase Arrow Damage by " + ImproveArrowDamage_value_L1;
-	public static final String ImproveArrowDamage_Description_l2 = "Increase Arrow Damage by " + ImproveArrowDamage_value_L2;
-	public static final String ImproveArrowDamage_Description_l3 = "Increase Arrow Damage by " + ImproveArrowDamage_value_L3;
-	public static final String ImproveArrowDamage_Description_l4 = "Increase Arrow Damage by " + ImproveArrowDamage_value_L4;
-	public static final String ImproveArrowDamage_Description_l5 = "Increase Arrow Damage by " + ImproveArrowDamage_value_L5;
+	public static final String ImproveArrowDamage_Description_l1 = "Increases Arrow Damage by " + ImproveArrowDamage_value_L1 + " L1";
+	public static final String ImproveArrowDamage_Description_l2 = "Increases Arrow Damage by " + ImproveArrowDamage_value_L2 + " L2";
+	public static final String ImproveArrowDamage_Description_l3 = "Increases Arrow Damage by " + ImproveArrowDamage_value_L3 + " L3";;
+	public static final String ImproveArrowDamage_Description_l4 = "Increases Arrow Damage by " + ImproveArrowDamage_value_L4 + " L4";
+	public static final String ImproveArrowDamage_Description_l5 = "Increases Arrow Damage by " + ImproveArrowDamage_value_L5 + " L5";
 
 //	ImproveArrowSpeed:
 	public static final String ImproveArrowSpeed_Name = "Improve Arrow Speed";
 	
 	public static final float ImproveArrowSpeed_value_L1 = 1;
-	public static final float ImproveArrowSpeed_value_L2 = 2;
-	public static final float ImproveArrowSpeed_value_L3 = 3;
-	public static final float ImproveArrowSpeed_value_L4 = 4;
-	public static final float ImproveArrowSpeed_value_L5 = 5;
+	public static final float ImproveArrowSpeed_value_L2 = 1;
+	public static final float ImproveArrowSpeed_value_L3 = 1;
+	public static final float ImproveArrowSpeed_value_L4 = 1;
+	public static final float ImproveArrowSpeed_value_L5 = 1;
 	
-	public static final String ImproveArrowSpeed_Description_l1 = "Increase Arrow Speed by " + ImproveArrowSpeed_value_L1;
-	public static final String ImproveArrowSpeed_Description_l2 = "Increase Arrow Speed by " + ImproveArrowSpeed_value_L2;
-	public static final String ImproveArrowSpeed_Description_l3 = "Increase Arrow Speed by " + ImproveArrowSpeed_value_L3;
-	public static final String ImproveArrowSpeed_Description_l4 = "Increase Arrow Speed by " + ImproveArrowSpeed_value_L4;
-	public static final String ImproveArrowSpeed_Description_l5 = "Increase Arrow Speed by " + ImproveArrowSpeed_value_L5;
+	public static final String ImproveArrowSpeed_Description_l1 = "Increase Arrow Speed by " + ImproveArrowSpeed_value_L1 + " L1";
+	public static final String ImproveArrowSpeed_Description_l2 = "Increase Arrow Speed by " + ImproveArrowSpeed_value_L2 + " L2";
+	public static final String ImproveArrowSpeed_Description_l3 = "Increase Arrow Speed by " + ImproveArrowSpeed_value_L3 + " L3";
+	public static final String ImproveArrowSpeed_Description_l4 = "Increase Arrow Speed by " + ImproveArrowSpeed_value_L4 + " L4";
+	public static final String ImproveArrowSpeed_Description_l5 = "Increase Arrow Speed by " + ImproveArrowSpeed_value_L5 + " L5";
 
 	
 //	ImproveMaxHealth:
 	public static final String ImproveMaxHealth_Name = "Improve Health";
 	
 	public static final int ImproveMaxHealth_HealthValue_L1 = 1;
-	public static final int ImproveMaxHealth_HealthValue_L2 = 2;
-	public static final int ImproveMaxHealth_HealthValue_L3 = 3;
-	public static final int ImproveMaxHealth_HealthValue_L4 = 4;
-	public static final int ImproveMaxHealth_HealthValue_L5 = 5;
+	public static final int ImproveMaxHealth_HealthValue_L2 = 1;
+	public static final int ImproveMaxHealth_HealthValue_L3 = 1;
+	public static final int ImproveMaxHealth_HealthValue_L4 = 1;
+	public static final int ImproveMaxHealth_HealthValue_L5 = 2;
 	
-	public static final String ImproveMaxHealth_Description_l1 = "Increase max health value by " + ImproveMaxHealth_HealthValue_L1;
-	public static final String ImproveMaxHealth_Description_l2 = "Increase max health value by "  + ImproveMaxHealth_HealthValue_L2;
-	public static final String ImproveMaxHealth_Description_l3 = "Increase max health value by " + ImproveMaxHealth_HealthValue_L3;
-	public static final String ImproveMaxHealth_Description_l4 = "Increase max health value by " + ImproveMaxHealth_HealthValue_L4;
-	public static final String ImproveMaxHealth_Description_l5 = "Increase max health value by " + ImproveMaxHealth_HealthValue_L5;
+	public static final String ImproveMaxHealth_Description_l1 = "Increase max health value by " + ImproveMaxHealth_HealthValue_L1 + " L1";
+	public static final String ImproveMaxHealth_Description_l2 = "Increase max health value by "  + ImproveMaxHealth_HealthValue_L2 + " L2";
+	public static final String ImproveMaxHealth_Description_l3 = "Increase max health value by " + ImproveMaxHealth_HealthValue_L3 + " L3";
+	public static final String ImproveMaxHealth_Description_l4 = "Increase max health value by " + ImproveMaxHealth_HealthValue_L4 + " L4";
+	public static final String ImproveMaxHealth_Description_l5 = "Increase max health value by " + ImproveMaxHealth_HealthValue_L5 + " L5";
 	
 	
 //	ImproveMaxOxygen:
 	public static final String ImproveMaxOxygen_Name = "Improve Oxygen";
 	
-	public static final float ImproveMaxOxygen_OxygenValue_L1 = 10f;
-	public static final float ImproveMaxOxygen_OxygenValue_L2 = 15f;
-	public static final float ImproveMaxOxygen_OxygenValue_L3 = 20f;
-	public static final float ImproveMaxOxygen_OxygenValue_L4 = 25f;
-	public static final float ImproveMaxOxygen_OxygenValue_L5 = 30f;
+	public static final float ImproveMaxOxygen_OxygenValue_L1 = 16f;
+	public static final float ImproveMaxOxygen_OxygenValue_L2 = 16f;
+	public static final float ImproveMaxOxygen_OxygenValue_L3 = 16f;
+	public static final float ImproveMaxOxygen_OxygenValue_L4 = 32f;
+	public static final float ImproveMaxOxygen_OxygenValue_L5 = 32f;
 	
-	public static final String ImproveMaxOxygen_Description_l1 = "Increase max oxygen value by " + ImproveMaxOxygen_OxygenValue_L1;
-	public static final String ImproveMaxOxygen_Description_l2 = "Increase max oxygen value by "  + ImproveMaxOxygen_OxygenValue_L2;
-	public static final String ImproveMaxOxygen_Description_l3 = "Increase max oxygen value by " + ImproveMaxOxygen_OxygenValue_L3;
-	public static final String ImproveMaxOxygen_Description_l4 = "Increase max oxygen value by " + ImproveMaxOxygen_OxygenValue_L4;
-	public static final String ImproveMaxOxygen_Description_l5 = "Increase max oxygen value by " + ImproveMaxOxygen_OxygenValue_L5;
+	public static final String ImproveMaxOxygen_Description_l1 = "Increase max oxygen value by " + ImproveMaxOxygen_OxygenValue_L1 + " L1";
+	public static final String ImproveMaxOxygen_Description_l2 = "Increase max oxygen value by "  + ImproveMaxOxygen_OxygenValue_L2 + " L2";
+	public static final String ImproveMaxOxygen_Description_l3 = "Increase max oxygen value by " + ImproveMaxOxygen_OxygenValue_L3 + " L3";
+	public static final String ImproveMaxOxygen_Description_l4 = "Increase max oxygen value by " + ImproveMaxOxygen_OxygenValue_L4 + " L4";
+	public static final String ImproveMaxOxygen_Description_l5 = "Increase max oxygen value by " + ImproveMaxOxygen_OxygenValue_L5 + " L5";
 
 	
 	//	ImproveMaxSpeed:
 	public static final String ImproveMaxSpeed_Name = "Improve Speed";
 	
 	public static final float ImproveMaxSpeed_SpeedValue_L1 = 0.2f;
-	public static final float ImproveMaxSpeed_SpeedValue_L2 = 0.4f;
-	public static final float ImproveMaxSpeed_SpeedValue_L3 = 0.4f;
-	public static final float ImproveMaxSpeed_SpeedValue_L4 = 0.4f;
-	public static final float ImproveMaxSpeed_SpeedValue_L5 = 1f;
+	public static final float ImproveMaxSpeed_SpeedValue_L2 = 0.2f;
+	public static final float ImproveMaxSpeed_SpeedValue_L3 = 0.3f;
+	public static final float ImproveMaxSpeed_SpeedValue_L4 = 0.3f;
+	public static final float ImproveMaxSpeed_SpeedValue_L5 = 0.4f;
 	
-	public static final String ImproveMaxSpeed_Description_l1 = "Increase max Speed by " + ImproveMaxSpeed_SpeedValue_L1;
-	public static final String ImproveMaxSpeed_Description_l2 = "Increase max Speed by " + ImproveMaxSpeed_SpeedValue_L2;
-	public static final String ImproveMaxSpeed_Description_l3 = "Increase max Speed by " + ImproveMaxSpeed_SpeedValue_L3;
-	public static final String ImproveMaxSpeed_Description_l4 = "Increase max Speed by " + ImproveMaxSpeed_SpeedValue_L4;
-	public static final String ImproveMaxSpeed_Description_l5 = "Increase max Speed by " + ImproveMaxSpeed_SpeedValue_L5;
+	public static final String ImproveMaxSpeed_Description_l1 = "Increase max Speed by " + ImproveMaxSpeed_SpeedValue_L1 + " L1";
+	public static final String ImproveMaxSpeed_Description_l2 = "Increase max Speed by " + ImproveMaxSpeed_SpeedValue_L2 + " L2";
+	public static final String ImproveMaxSpeed_Description_l3 = "Increase max Speed by " + ImproveMaxSpeed_SpeedValue_L3 + " L3";
+	public static final String ImproveMaxSpeed_Description_l4 = "Increase max Speed by " + ImproveMaxSpeed_SpeedValue_L4 + " L4";
+	public static final String ImproveMaxSpeed_Description_l5 = "Increase max Speed by " + ImproveMaxSpeed_SpeedValue_L5 + " L5";
 
 	
 //	PoisonArrow:
@@ -340,15 +374,25 @@ public class Constants {
 	
 	public static final int PoisonArrow_CoolDown_L1 = 2100;
 	public static final int PoisonArrow_CoolDown_L2 = 1800;
-	public static final int PoisonArrow_CoolDown_L3 = 1200;
-	public static final int PoisonArrow_CoolDown_L4 = 900;
+	public static final int PoisonArrow_CoolDown_L3 = 1800;
+	public static final int PoisonArrow_CoolDown_L4 = 1200;
 	public static final int PoisonArrow_CoolDown_L5 = 900;
 	
-	public static final String PoisonArrow_Description_L1 = "I am poisonedArrow of Level 1!";
-	public static final String PoisonArrow_Description_L2 = "I am poisonedArrow of Level 2!";
-	public static final String PoisonArrow_Description_L3 = "I am poisonedArrow of Level 3!";
-	public static final String PoisonArrow_Description_L4 = "I am poisonedArrow of Level 4!";
-	public static final String PoisonArrow_Description_L5 = "I am poisonedArrow of Level 5!";
+	public static final String PoisonArrow_Description_L1 = "Loads bow with a poisoned arrow,"
+			+ " deals no damage upon impact, but poisons the victim causing 0.5 dmg every second,"
+			+ " for 5 seconds Level 1!";
+	public static final String PoisonArrow_Description_L2 = "Loads bow with a poisoned arrow,"
+			+ " deals no damage upon impact, but poisons the victim causing 0.5 dmg every second,"
+			+ " for 5 seconds Level 2!!";
+	public static final String PoisonArrow_Description_L3 = "Loads bow with a poisoned arrow,"
+			+ " deals no damage upon impact, but poisons the victim causing 0.5 dmg every second,"
+			+ " for 5 seconds Level 3!";
+	public static final String PoisonArrow_Description_L4 = "Loads bow with a poisoned arrow,"
+			+ " deals no damage upon impact, but poisons the victim causing 0.5 dmg every second,"
+			+ " for 5 seconds Level 4!";
+	public static final String PoisonArrow_Description_L5 = "Loads bow with a poisoned arrow,"
+			+ " deals no damage upon impact, but poisons the victim causing 0.5 dmg every second,"
+			+ " for 5 seconds Level 5!";
 	
 	
 //	PoisonTrap:
@@ -356,27 +400,39 @@ public class Constants {
 	
 	public static final int PoisonTrap_CoolDown_L1 = 1800;
 	public static final int PoisonTrap_CoolDown_L2 = 1800;
-	public static final int PoisonTrap_CoolDown_L3 = 1200;
-	public static final int PoisonTrap_CoolDown_L4 = 1200;
-	public static final int PoisonTrap_CoolDown_L5 = 900;
+	public static final int PoisonTrap_CoolDown_L3 = 1500;
+	public static final int PoisonTrap_CoolDown_L4 = 1500;
+	public static final int PoisonTrap_CoolDown_L5 = 1200;
 	
-	public static final int PoisonTrap_Radius_L1 = 16;
-	public static final int PoisonTrap_Radius_L2 = 20;
-	public static final int PoisonTrap_Radius_L3 = 24;
-	public static final int PoisonTrap_Radius_L4 = 24;
-	public static final int PoisonTrap_Radius_L5 = 28;
+	public static final int PoisonTrap_Radius_L1 = 12;
+	public static final int PoisonTrap_Radius_L2 = 12;
+	public static final int PoisonTrap_Radius_L3 = 16;
+	public static final int PoisonTrap_Radius_L4 = 19;
+	public static final int PoisonTrap_Radius_L5 = 20;
 	
-	public static final int PoisonTrap_LifeTime_L1 = 1000;
-	public static final int PoisonTrap_LifeTime_L2 = 1500;
-	public static final int PoisonTrap_LifeTime_L3 = 2000;
-	public static final int PoisonTrap_LifeTime_L4 = 2500;
-	public static final int PoisonTrap_LifeTime_L5 = 3000;
+	public static final int PoisonTrap_LifeTime_L1 = 900;
+	public static final int PoisonTrap_LifeTime_L2 = 1200;
+	public static final int PoisonTrap_LifeTime_L3 = 1200;
+	public static final int PoisonTrap_LifeTime_L4 = 1500;
+	public static final int PoisonTrap_LifeTime_L5 = 2100;
 	
-	public static final String PoisonTrap_Description_L1 = "I am poisoned Trap of Level 1!";
-	public static final String PoisonTrap_Description_L2 = "I am poisoned Trap of Level 2!";
-	public static final String PoisonTrap_Description_L3 = "I am poisoned Trap of Level 3!";
-	public static final String PoisonTrap_Description_L4 = "I am poisoned Trap of Level 4!";
-	public static final String PoisonTrap_Description_L5 = "I am poisoned Trap of Level 5!";
+	// POISON DAMAGE ??? And EFFECT TIME
+	
+	public static final String PoisonTrap_Description_L1 = "Spawns a trap that deals no damage"
+			+ " upon collide, but poisons the victim causing 0.5 dmg per second util he dies "
+			+ "Level 1!";
+	public static final String PoisonTrap_Description_L2 = "Spawns a trap that deals no damage"
+			+ " upon collide, but poisons the victim causing 0.5 dmg per second util he dies "
+			+ "Level 2!";
+	public static final String PoisonTrap_Description_L3 = "Spawns a trap that deals no damage"
+			+ " upon collide, but poisons the victim causing 0.5 dmg per second util he dies "
+			+ "Level 3!";
+	public static final String PoisonTrap_Description_L4 = "Spawns a trap that deals no damage"
+			+ " upon collide, but poisons the victim causing 0.5 dmg per second util he dies "
+			+ "Level 4!";
+	public static final String PoisonTrap_Description_L5 = "Spawns a trap that deals no damage"
+			+ " upon collide, but poisons the victim causing 0.5 dmg per second util he dies "
+			+ "Level 5!";
 	
 	
 //	RADIOACTIVE:
@@ -415,36 +471,49 @@ public class Constants {
 	public static final String PLASMA_SHIELD_Name = "Plasma Shield";
 	
 	public static final int PLASMA_SHIELD_CoolDown_L1 = 1800;
-	public static final int PLASMA_SHIELD_CoolDown_L2 = 1600;
-	public static final int PLASMA_SHIELD_CoolDown_L3 = 1200;
-	public static final int PLASMA_SHIELD_CoolDown_L4 = 900;
-	public static final int PLASMA_SHIELD_CoolDown_L5 = 600;
+	public static final int PLASMA_SHIELD_CoolDown_L2 = 1500;
+	public static final int PLASMA_SHIELD_CoolDown_L3 = 1500;
+	public static final int PLASMA_SHIELD_CoolDown_L4 = 1200;
+	public static final int PLASMA_SHIELD_CoolDown_L5 = 900;
 	
 	public static final int PLASMA_SHIELD_LifeTime_L1 = 600;
 	public static final int PLASMA_SHIELD_LifeTime_L2 = 600;
 	public static final int PLASMA_SHIELD_LifeTime_L3 = 900;
-	public static final int PLASMA_SHIELD_LifeTime_L4 = 1200;
-	public static final int PLASMA_SHIELD_LifeTime_L5 = 1500;
+	public static final int PLASMA_SHIELD_LifeTime_L4 = 900;
+	public static final int PLASMA_SHIELD_LifeTime_L5 = 1200;
 
-	public static final String PLASMA_SHIELD_Description_L1 = "PLASMA_SHIELD SA Level 1";
-	public static final String PLASMA_SHIELD_Description_L2 = "PLASMA_SHIELD SA Level 2";
-	public static final String PLASMA_SHIELD_Description_L3 = "PLASMA_SHIELD SA Level 3";
-	public static final String PLASMA_SHIELD_Description_L4 = "PLASMA_SHIELD SA Level 4";
-	public static final String PLASMA_SHIELD_Description_L5 = "PLASMA_SHIELD SA Level 5";
+	public static final String PLASMA_SHIELD_Description_L1 = "Creates a plasma shield around the"
+			+ " player that stops enemy projectiles from fying in, stays for " +
+			PLASMA_SHIELD_LifeTime_L1 + " seconds Level 1";
+	public static final String PLASMA_SHIELD_Description_L2 = "Creates a plasma shield around the"
+			+ " player that stops enemy projectiles from fying in, stays for " +
+			PLASMA_SHIELD_LifeTime_L2 + " seconds Level 2";
+	public static final String PLASMA_SHIELD_Description_L3 = "Creates a plasma shield around the"
+			+ " player that stops enemy projectiles from fying in, stays for " +
+			PLASMA_SHIELD_LifeTime_L3 + " seconds Level 3";
+	public static final String PLASMA_SHIELD_Description_L4 = "Creates a plasma shield around the"
+			+ " player that stops enemy projectiles from fying in, stays for " +
+			PLASMA_SHIELD_LifeTime_L4 + " seconds Level 4";
+	public static final String PLASMA_SHIELD_Description_L5 = "Creates a plasma shield around the"
+			+ " player that stops enemy projectiles from fying in, stays for " +
+			PLASMA_SHIELD_LifeTime_L5 + " seconds Level 5";
 
 //	PANIC_TELEPORT:
 	public static final String PANIC_TELEPORT_Name = "Panic Teleport";
 	
 	public static final int PANIC_TELEPORT_CoolDown_L1 = 1800;
-	public static final int PANIC_TELEPORT_CoolDown_L2 = 1400;
+	public static final int PANIC_TELEPORT_CoolDown_L2 = 1500;
 	public static final int PANIC_TELEPORT_CoolDown_L3 = 1200;
 	public static final int PANIC_TELEPORT_CoolDown_L4 = 900;
-	public static final int PANIC_TELEPORT_CoolDown_L5 = 600;
-	public static final String PANIC_TELEPORT_Description_L1 = "PANIC_TELEPORT SA Level 1";
-	public static final String PANIC_TELEPORT_Description_L2 = "PANIC_TELEPORT SA Level 2";
-	public static final String PANIC_TELEPORT_Description_L3 = "PANIC_TELEPORT SA Level 3";
-	public static final String PANIC_TELEPORT_Description_L4 = "PANIC_TELEPORT SA Level 4";
-	public static final String PANIC_TELEPORT_Description_L5 = "PANIC_TELEPORT SA Level 5";
+	public static final int PANIC_TELEPORT_CoolDown_L5 = 900;
+	
+	// Damage explosion ??? 
+	
+	public static final String PANIC_TELEPORT_Description_L1 = "Teleports the player to a random position on the map Level 1";
+	public static final String PANIC_TELEPORT_Description_L2 = "Teleports the player to a random position on the map Level 2";
+	public static final String PANIC_TELEPORT_Description_L3 = "Teleports the player to a random position on the map Level 3";
+	public static final String PANIC_TELEPORT_Description_L4 = "Teleports the player to a random position on the map Level 4";
+	public static final String PANIC_TELEPORT_Description_L5 = "Teleports the player to a random position on the map Level 5";
 	
 //	SPEED_BOOST:
 	public static final String SPEED_BOOST_Name = "Speed Boost";
@@ -455,17 +524,23 @@ public class Constants {
 	public static final int SPEED_BOOST_CoolDown_L4 = 1200;
 	public static final int SPEED_BOOST_CoolDown_L5 = 900;
 
-	public static final String SPEED_BOOST_Description_L1 = "Speed Boost LEVEL: 1";
-	public static final String SPEED_BOOST_Description_L2 = "Speed Boost LEVEL: 2";
-	public static final String SPEED_BOOST_Description_L3 = "Speed Boost LEVEL: 3";
-	public static final String SPEED_BOOST_Description_L4 = "Speed Boost LEVEL: 4";
-	public static final String SPEED_BOOST_Description_L5 = "Speed Boost LEVEL: 5";
-
 	public static final int SPEED_BOOST_LifeTime_L1 = 600;
 	public static final int SPEED_BOOST_LifeTime_L2 = 600;
 	public static final int SPEED_BOOST_LifeTime_L3 = 900;
 	public static final int SPEED_BOOST_LifeTime_L4 = 1200;
 	public static final int SPEED_BOOST_LifeTime_L5 = 1600;
+	
+	public static final String SPEED_BOOST_Description_L1 = "Doubles the player speed for " 
+	+ SPEED_BOOST_LifeTime_L1 + " 10 seconds, LVL 1";
+	public static final String SPEED_BOOST_Description_L2 = "Doubles the player speed for " 
+			+ SPEED_BOOST_LifeTime_L2 + " 10 seconds, LVL 2";
+	public static final String SPEED_BOOST_Description_L3 = "Doubles the player speed for " 
+			+ SPEED_BOOST_LifeTime_L3 + " 10 seconds, LVL 3";
+	public static final String SPEED_BOOST_Description_L4 = "Doubles the player speed for " 
+			+ SPEED_BOOST_LifeTime_L4 + " 10 seconds, LVL 4";
+	public static final String SPEED_BOOST_Description_L5 = "Doubles the player speed for " 
+			+ SPEED_BOOST_LifeTime_L5 + " 10 seconds, LVL 5";
+
 	
 // ----------------- ITEMS ---------------------
 	//HASTE

@@ -22,13 +22,6 @@ public class DamageTrap extends Trap {
 	public static Map<Integer, Integer> lifeTimeByLevel;
 	private static Map <Integer, String> descriptionByLevel;
 	static {
-		radiusByLevel = new HashMap<Integer, Integer>();
-		radiusByLevel.put(0, Constants.DamageTrap_CircleRadius_L1);
-		radiusByLevel.put(1, Constants.DamageTrap_CircleRadius_L2);
-		radiusByLevel.put(2, Constants.DamageTrap_CircleRadius_L3);
-		radiusByLevel.put(3, Constants.DamageTrap_CircleRadius_L4);
-		radiusByLevel.put(4, Constants.DamageTrap_CircleRadius_L5);
-		
 		lifeTimeByLevel = new HashMap<Integer, Integer>();
 		lifeTimeByLevel.put(0, Constants.DamageTrap_LifeTimeMax_L1);
 		lifeTimeByLevel.put(1, Constants.DamageTrap_LifeTimeMax_L2);
@@ -62,7 +55,6 @@ public class DamageTrap extends Trap {
 		name = Constants.DamageTrap_Name;
 		circle = new Circle();
 		
-		circle.radius = Constants.DamageTrap_CircleRadius_L1;
 		lifeTime = Constants.DamageTrap_LifeTimeMax_L1;
 		damage = Constants.DamageTrap_Damage_L1;
 		coolDown = Constants.DamageTrap_CoolDown_L1;
@@ -96,7 +88,6 @@ public class DamageTrap extends Trap {
 		String intuhaString = "";
 		String dmgDifString = "";
 		String lifeTimeString = "";
-		String radiusString = "";
 		if(level>0){
 			int intuha = collDownByLevel.get(new Integer(level))-collDownByLevel.get(new Integer(level)-1);
 			float dmgDif = damageByLevel.get(new Integer(level))-damageByLevel.get(new Integer(level)-1);
@@ -118,16 +109,10 @@ public class DamageTrap extends Trap {
 			}else if(lifeTdiff<0){
 				lifeTimeString = "(" + lifeTdiff + ")";
 			}
-			if(radiusDiff>0){
-				radiusString = "(+" + radiusDiff + ")";
-			}else if(radiusDiff<0){
-				radiusString = "(" + radiusDiff + ")";
-			}
 		}
 		stats.add("t " + coolDown/60 + intuhaString);
 		stats.add("d " + damage + dmgDifString);
 		stats.add("h " + lifeTime/60 + lifeTimeString);
-		stats.add("a " + circle.radius + radiusString);
 		
 		return stats;
 	}
