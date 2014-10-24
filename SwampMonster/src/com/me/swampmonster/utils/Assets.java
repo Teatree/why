@@ -32,6 +32,8 @@ public class Assets {
 	public static final AssetDescriptor<Texture> PointerHead = new AssetDescriptor<Texture>("data\\PointerHead.png", Texture.class);
 	public static final AssetDescriptor<Texture> weaponizerButton = new AssetDescriptor<Texture>("data\\Weaponizer.png", Texture.class);
 	public static final AssetDescriptor<BitmapFont> font = new AssetDescriptor<BitmapFont>("data\\font.fnt", BitmapFont.class);
+	public static final AssetDescriptor<BitmapFont> font1 = new AssetDescriptor<BitmapFont>("data\\font.fnt", BitmapFont.class);
+	public static final AssetDescriptor<BitmapFont> font2 = new AssetDescriptor<BitmapFont>("data\\slotMachineUI\\fontPics\\bitMapForStats.fnt", BitmapFont.class);
 	public static final AssetDescriptor<Music> menuBackgroundMusic = new AssetDescriptor<Music>("data\\backgroundMusic.mp3", Music.class);
 	
 	//tutorial
@@ -207,6 +209,8 @@ public class Assets {
 		
 		manager.setLoader(BitmapFont.class, new BitmapFontLoader(new InternalFileHandleResolver()));
 		manager.load(font);
+		manager.load(font2);
+		manager.load(font1);
 //		manager.setLoader(TiledMap.class, new TmxMapLoader());
 		//Effects load
 		manager.load(trailEffect);

@@ -32,6 +32,7 @@ import com.me.swampmonster.models.slots.Trap;
 import com.me.swampmonster.screens.SlotMachineScreen;
 import com.me.swampmonster.slotMachineStuff.SlotMachineTextures;
 import com.me.swampmonster.utils.Assets;
+import com.me.swampmonster.utils.Constants;
 import com.me.swampmonster.utils.ItemGenerator;
 
 public class Player extends AbstractGameObject {
@@ -226,7 +227,7 @@ public class Player extends AbstractGameObject {
 		aimingAuraSprite.setY(position.y - 8);
 
 		if (!L1.hasAtmosphere) {
-			oxygen -= 0.03f;
+			oxygen -= Constants.OXYGEN_DECREASE;
 		}
 
 		if (Gdx.input.justTouched()) {
@@ -250,7 +251,9 @@ public class Player extends AbstractGameObject {
 				}
 			}
 		}
-
+		
+		
+		
 		// TELEPORTING
 		if (state.equals(State.TELEPORTING)) {
 
@@ -1157,9 +1160,11 @@ public class Player extends AbstractGameObject {
 				trapTimer++;
 				if (trap.effect != null /* && trap.effect.isComplete() */) {
 					trap.position = null;
+					System.out.println("Player.java trap.position" + trap.position);
 				}
 			} else {
 				trap.position = null;
+				System.out.println("Player.java trap.position2" + trap.position);
 				trapTimer = 0;
 			}
 		}

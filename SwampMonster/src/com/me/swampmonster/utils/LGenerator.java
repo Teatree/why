@@ -80,7 +80,7 @@ public class LGenerator {
 			if (isLevelElite) {
 				hasLevelAtmosphere = false;
 			} else {
-				if(player.points > 2000){
+				if(player.points > 3000){
 					hasLevelAtmosphere = random.nextBoolean();
 				}else{
 					hasLevelAtmosphere = false;

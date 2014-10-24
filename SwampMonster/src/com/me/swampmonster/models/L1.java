@@ -98,10 +98,18 @@ public class L1 {
 			}
 		}
 				
+		
 		Iterator<Prop> propItr = props.iterator();
 		while (propItr.hasNext()){
 			Prop p = propItr.next();
 			if (p.state != State.DEAD){
+				if (player.radioactiveAura != null
+						&& Intersector.overlaps(player.radioactiveAura,
+								p.sprite.getBoundingRectangle())) {
+					p.state = State.ONFIRE;
+					p.onFireCounter = 20;					
+				}
+				
 				p.update();
 				
 				for (Explosion expl : explosions) {
@@ -114,7 +122,10 @@ public class L1 {
 //							propItr.remove();
 						}
 						
-						if(p instanceof ExplosiveProp && !expl.type.equals(Explosion.EXPLOSION_TYPE_INVERTED) && !expl.equals(((ExplosiveProp) p).explosion)){
+						if (p instanceof ExplosiveProp
+								&& !expl.type
+										.equals(Explosion.EXPLOSION_TYPE_INVERTED)
+								&& !expl.equals(((ExplosiveProp) p).explosion)) {
 							p.state = State.ONFIRE;
 							p.onFireCounter = 80;
 						}

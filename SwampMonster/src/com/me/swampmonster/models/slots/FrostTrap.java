@@ -60,7 +60,7 @@ public class FrostTrap extends Trap{
 		circle = new Circle();
 		
 		circle.radius = Constants.FrostTrap_CircleRadius_L1;
-		lifeTime = Constants.FrostTrap_LifeTime_L1;
+		lifeTimeMax = Constants.FrostTrap_LifeTime_L1;
 		coolDown = Constants.FrostTrap_CoolDown_L1;
 		trapSprite = new Sprite(Assets.manager.get(Assets.FROST_TRAP_ICON));
 	}

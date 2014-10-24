@@ -124,6 +124,7 @@ public class GShape extends Group {
 	slotMachineButton.setHeight(64);
 	
 		font = Assets.manager.get(Assets.font);
+		font.setScale(1);
 		
 		str = "points: " + Player.absoluteScore;
 		str2 = "Wave:" + TheController.level1.currentWave + "/" + TheController.level1.wavesAmount;
@@ -260,6 +261,7 @@ public class GShape extends Group {
 				&& L1.player.positiveEffectsState != PositiveEffects.NONE) {
 			batch.draw(L1.player.positiveEffectSprite,
 					736, 380, 64, 64);
+			font.setScale(1);
 			font.draw(batch, L1.player.positiveEffectCounter/60 + " s"
 					.toString(), 737, 380);
 		}
@@ -267,6 +269,7 @@ public class GShape extends Group {
 				&& L1.player.negativeEffectsState != NegativeEffects.NONE) {
 			batch.draw(L1.player.negativeEffectsState.sprite,
 					736, 300, 64, 64);
+			font.setScale(1);
 			font.draw(batch, L1.player.negativeEffectCounter/60 + " s"
 					.toString(), 737, 300);
 		}
@@ -300,6 +303,7 @@ public class GShape extends Group {
 		}
 		
 		font.setColor(1.0f, 0f, 1.0f, 1.0f);
+		font.setScale(1);
 		font.draw(batch, str, 580, 460);
 		font.draw(batch, str2, 580, 420);
 		if(L1.enemiesOnStage.empty() && TheController.level1.waveTemp != null

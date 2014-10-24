@@ -50,7 +50,7 @@ public class PoisonTrap extends Trap{
 	}
 	
 	public PoisonTrap() {
-		lifeTime = Constants.PoisonTrap_LifeTime_L1;
+		lifeTimeMax = Constants.PoisonTrap_LifeTime_L1;
 		circle = new Circle();
 		circle.radius = Constants.PoisonTrap_Radius_L1;
 		name = Constants.PoisonTrap_Name;

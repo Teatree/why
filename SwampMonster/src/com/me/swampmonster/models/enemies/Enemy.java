@@ -228,20 +228,21 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 		}
 
 		if (player.radioactiveAura != null
-				&& Intersector.overlaps(player.radioactiveAura, rectanlge)) {
+				&& Intersector.overlaps(player.radioactiveAura, rectanlge) && state != State.DEAD) {
 			hurt = true;
 			damageType = "player";
-			enemyHurt(player);
+			enemyHurt(RADIOACTIVE.RADIOACTIVE_Damage);
 		}
 
-		if (player.projectiles != null)
+		if (state != State.DEAD && player.projectiles != null)
 			for (Projectile projectile : player.projectiles) {
 				if (projectile != null
 						&& Intersector.overlaps(projectile.circle, rectanlge)
-						&& !hurt ) {
+						&& !hurt || (iceCube != null
+						&& Intersector.overlaps(projectile.circle, iceCube.getBoundingRectangle()))) {
 					hurt = true;
 					damageType = "player";
-					enemyHurt(player);
+					enemyHurt(player.damage);
 					if (projectile.effect == EffectCarriers.POISONED) {
 						this.setNegativeEffect(NegativeEffects.POISONED);
 					}
@@ -1056,15 +1057,11 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 		}
 	}
 
-	public void enemyHurt(Player player) {
+	public void enemyHurt(float dmg) {
 		state = State.STANDARD;
-		float dmg = Player.damage;
 		if (health >= 0) {
-			if (player.positiveEffectsState == PositiveEffects.RADIOACTIVE_AURA) {
-				health -= RADIOACTIVE.RADIOACTIVE_Damage;
-			}
 			health -= dmg;
-			System.out.println("Player.damage " + Player.damage);
+			System.out.println("Player.damage " + dmg);
 		}
 	}
 

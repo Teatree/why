@@ -29,6 +29,7 @@ public abstract class Trap extends Slot{
 		player.trap.position = new Vector2(player.position.x, player.position.y);
 		player.trap.circle.x = player.trap.position.x + trapSprite.getWidth()/2;
 		player.trap.circle.y = player.trap.position.y + trapSprite.getHeight()/2; 
+		System.out.println("TRAP: position is " + player.trap.position + " lifeTime: " + player.trap.lifeTime + " trapTimer " + player.trapTimer);
 	}
 
 	@Override

@@ -56,7 +56,7 @@ public class DamageTrap extends Trap {
 		name = Constants.DamageTrap_Name;
 		circle = new Circle();
 		
-		lifeTime = Constants.DamageTrap_LifeTimeMax_L1;
+		lifeTimeMax = Constants.DamageTrap_LifeTimeMax_L1;
 		damage = Constants.DamageTrap_Damage_L1;
 		coolDown = Constants.DamageTrap_CoolDown_L1;
 		sprite = new Sprite(Assets.manager.get(Assets.DAMAGE_TRAP_ICON));

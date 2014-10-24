@@ -46,7 +46,7 @@ public class L1Renderer {
 	// Temporary debug feature
 	private ShapeRenderer sr;
 	// Temporary debug feature
-	private BitmapFont font;
+	private BitmapFont fontss;
 
 	private SpriteBatch batch;
 	// private ParticleEffect effect;
@@ -70,7 +70,8 @@ public class L1Renderer {
 		viewport = new ScreenViewport();
 		viewport.setScreenWidth((int) Constants.VIEWPORT_WIDTH);
 		viewport.setScreenHeight((int) Constants.VIEWPORT_HEIGHT);
-		font = Assets.manager.get(Assets.font);
+		fontss = Assets.manager.get(Assets.font1);
+		fontss.setScale(0.002f);
 		// stage.setViewport(Constants.VIEWPORT_WIDTH, Constants.VIEWPORT_WIDTH,
 		// true);
 		// Temporary debug feature
@@ -159,13 +160,11 @@ public class L1Renderer {
 
 		for (Enemy enemy : L1.enemiesOnStage) {
 			if (enemy.hurt) {
-				if(enemy.state != State.DEAD){
-					font.setColor(Color.RED);
-					font.setScale(1);
-					font.draw(batch, L1.player.damage + " DMG",
+					fontss.setColor(Color.RED);
+					fontss.setScale(0.52f);
+					fontss.draw(batch, (int)L1.player.damage + " DMG",
 							enemy.position.x,
-							enemy.position.y + enemy.sprite.getHeight() + 10);
-				}
+							enemy.position.y + enemy.sprite.getHeight() + 5 + enemy.time/5);
 				if (enemy.toughness == null) {
 					if (enemy.time == 4 || enemy.time == 24) {
 						enemy.getSprite().setColor(

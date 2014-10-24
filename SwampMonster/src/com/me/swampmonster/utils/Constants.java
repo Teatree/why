@@ -10,6 +10,7 @@ public class Constants {
 	public static final float VIEWPORT_GUI_HEIGHT = Gdx.graphics.getHeight();
 	public static final int SLOT_DESC_WINDOW_HEIGHT = 300;
 	public static final int SLOT_DESC_WINDOW_WIDTH = 400;
+	public static final float OXYGEN_DECREASE = 0.02f;
 	
 	public static final String sufficateMessage1 = "You forgot your oxygen mask, you big dummy!";
 	public static final String sufficateMessage2 = "I gues the absence of oxygen has left you... breathless.";
@@ -519,7 +520,7 @@ public class Constants {
 	public static final String SPEED_BOOST_Name = "Speed Boost";
 	
 	public static final int SPEED_BOOST_CoolDown_L1 = 1800;
-	public static final int SPEED_BOOST_CoolDown_L2 = 1800;
+	public static final int SPEED_BOOST_CoolDown_L2 = 1500;
 	public static final int SPEED_BOOST_CoolDown_L3 = 1200;
 	public static final int SPEED_BOOST_CoolDown_L4 = 1200;
 	public static final int SPEED_BOOST_CoolDown_L5 = 900;
@@ -528,7 +529,7 @@ public class Constants {
 	public static final int SPEED_BOOST_LifeTime_L2 = 600;
 	public static final int SPEED_BOOST_LifeTime_L3 = 900;
 	public static final int SPEED_BOOST_LifeTime_L4 = 1200;
-	public static final int SPEED_BOOST_LifeTime_L5 = 1600;
+	public static final int SPEED_BOOST_LifeTime_L5 = 1500;
 	
 	public static final String SPEED_BOOST_Description_L1 = "Doubles the player speed for " 
 	+ SPEED_BOOST_LifeTime_L1 + " 10 seconds, LVL 1";
