@@ -322,6 +322,7 @@ public class L1 {
 				}
 				
 				if (player.trap != null && Intersector.overlaps(player.trap.circle, e.yellowAura)){
+					System.out.println(player.trap + ": caught one!");
 					player.trap.catchEnemy(e);
 					player.trap.position = null;
 				}

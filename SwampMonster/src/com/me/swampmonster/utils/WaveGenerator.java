@@ -12,19 +12,30 @@ public class WaveGenerator {
 	private Random random = new Random();
 	
 	private enum WaveParams{
-		
-		p0_500(0, 1, 1, 5, 10, 12, 5, 6, 8, 9, 3.0f, 50, 3, 4),
-		p0_500_Elite(0, 1, 1, 5, 10, 12, 5, 6, 5, 6, 3.0f, 50, 3, 4),
-		p0_500_A(4, 5, 1, 5, 10, 12, 5, 6, 4, 6, 3.0f, 50, 3, 4),
-		p500_1000(0, 2, 0, 7, 12, 14, 6, 8, 9, 11, 2.5f, 50, 6, 8),
-		p500_1000_Elite(1, 2, 0, 7, 12, 14, 6, 8, 9, 11, 2.5f, 50, 6, 8),
-		p500_1000_A(4, 5, 0, 7, 13, 14, 6, 8, 9, 11, 2.5f, 50, 6, 8),
-		p1000_2000(0, 3, 0, 5, 14, 16, 6, 8, 10, 12, 2.0f, 50, 5, 6),
-		p1000_2000_Elite(0, 3, 0, 5, 14, 16, 6, 8, 10, 12, 2.0f, 50, 5, 6),
-		p1000_2000_A(4, 5, 0, 5, 14, 16, 6, 8, 10, 12, 2.0f, 50, 5, 6),
-		p2000_4000(0, 4, 0, 5, 10, 12, 6, 9, 8, 10, 1.0f, 50, 5, 7),
-		p2000_4000_Elite(0, 4, 0, 5, 10, 12, 6, 9, 8, 10, 1.0f, 50, 5, 7),
-		p2000_4000_A(4, 5, 0, 5, 10, 12, 6, 9, 8, 10, 1.0f, 50, 5, 7);
+		//                     *-et*+et*-tt*+tt*-ws*+ws*-tw*+tw**-eb*+eb**rate***perd*-w**+w*
+		p0_1000					(0,  1,  0,  2,  6,  12,  0,  1,  6,  7,  12.0f,  50,  2,  3),
+		p0_1000_Elite			(0,  1,  1,  2,  6,  12,  0,  1,  6,  7,  12.0f,  50,  2,  3),
+		p0_1000_A				(4,  5,  0,  2,  6,  12,  0,  1,  6,  7,  12.0f,  50,  2,  3),
+		//     				   *-et*+et*-tt*+tt*-ws**+ws*-tw*+tw**-eb**+eb***rate**perd*-w**+w*
+		p1000_3000				(0,  2,  0,  3,  10,  20,  0,  5,  11,  18,  9.5f,  50,  3,  4),
+		p1000_3000_Elite		(0,  1,  1,  3,  10,  20, 10, 20,  11,  18,  9.5f,  50,  3,  4),
+		p1000_3000_A			(4,  5,  0,  3,  10,  20,  0,  5,  11,  18,  9.5f,  50,  3,  4),
+		//     				   *-et*+et*-tt*+tt*-ws**+ws*-tw**+tw**-eb**+eb***rate**perd*-w**+w*
+		p3000_5000				(0,  3,  0,  4,  18,  30,  3,  11,  15,  25,  6.0f,  50,  3,  5),
+		p3000_5000_Elite		(0,  3,  1,  4,  18,  30,  18, 30,  15,  25,  6.0f,  50,  3,  5),
+		p3000_5000_A			(4,  5,  0,  4,  18,  30,  3,  11,  15,  25,  6.0f,  50,  3,  5),
+//     						   *-et*+et*-tt*+tt*-ws**+ws*-tw**+tw**-eb**+eb***rate**perd*-w**+w*
+		p5000_7000				(0,  3,  0,  5,  25,  32,  8,  20,  15,  25,  6.0f,  50,  3,  6),
+		p5000_7000_Elite		(0,  3,  1,  5,  25,  32,  25, 35,  15,  25,  6.0f,  50,  3,  6),
+		p5000_7000_A			(4,  5,  0,  5,  25,  32,  8,  20,  15,  25,  6.0f,  50,  3,  6),
+//		  					   *-et*+et*-tt*+tt*-ws**+ws**-tw**+tw**-eb**+eb***rate**perd*-w**+w*	
+		p7000_9000				(0,  3,  0,  5,  32,  48,  14,  26,  15,  25,  3.0f,  50,  4,  7),
+		p7000_9000_Elite		(0,  3,  1,  5,  32,  48,  32,  48,  15,  25,  3.0f,  50,  4,  7),
+		p7000_9000_A			(4,  5,  0,  5,  40,  40,  14,  26,  15,  25,  3.0f,  50,  4,  7),
+//							   *-et*+et*-tt*+tt*-ws**+ws**-tw**+tw**-eb**+eb***rate**perd*-w**+w*	
+		p9000_0					(0,  3,  0,  5,  40,  52,  18,  29,  20,  35,  1.0f,  50,  5,  7),
+		p9000_0_Elite			(0,  3,  1,  5,  40,  52,  40,  52,  20,  35,  1.0f,  50,  5,  7),
+		p9000_0_A				(4,  5,  0,  5,  40,  52,  18,  29,  20,  35,  1.0f,  50,  5,  7);
 			
 		public final int minEnemyType;
 		public final int maxEnemyType;
@@ -104,40 +115,58 @@ public class WaveGenerator {
 	
 
 	private void setWaveParams(int playersScore, boolean hasAtmosphere, boolean isElite) {
-		if(playersScore>=0 && playersScore<500){
+		if(playersScore>=0 && playersScore<1000){
 			if (hasAtmosphere){
-				waveParams = WaveParams.p0_500_A;
+				waveParams = WaveParams.p0_1000_A;
 			} else if (isElite){
-				waveParams = WaveParams.p0_500_Elite;
+				waveParams = WaveParams.p0_1000_Elite;
 			} else {
-				waveParams = WaveParams.p0_500;
+				waveParams = WaveParams.p0_1000;
 			}
 		}
-		if(playersScore>=500 && playersScore<1000){
+		if(playersScore>=1000 && playersScore<3000){
 			if (hasAtmosphere){
-				waveParams = WaveParams.p500_1000_A;
+				waveParams = WaveParams.p1000_3000_A;
 			} else if (isElite){
-				waveParams = WaveParams.p500_1000_Elite;
+				waveParams = WaveParams.p1000_3000_Elite;
 			} else {
-				waveParams = WaveParams.p500_1000;
+				waveParams = WaveParams.p1000_3000;
 			}
 		}
-		if(playersScore>=1000 && playersScore<2000){
+		if(playersScore>=3000 && playersScore<5000){
 			if (hasAtmosphere) {
-				waveParams = WaveParams.p1000_2000;
+				waveParams = WaveParams.p3000_5000_A;
 			} else if (isElite) {
-				waveParams = WaveParams.p1000_2000_Elite;
+				waveParams = WaveParams.p3000_5000_Elite;
 			} else {
-				waveParams = WaveParams.p1000_2000;
+				waveParams = WaveParams.p3000_5000;
 			}
 		}
-		if(playersScore>=2000){
+		if(playersScore>=5000 && playersScore<7000){
 			if (hasAtmosphere){
-				waveParams = WaveParams.p2000_4000_A;
+				waveParams = WaveParams.p5000_7000_A;
 			} else if (isElite){
-				waveParams = WaveParams.p2000_4000_Elite;
+				waveParams = WaveParams.p5000_7000_Elite;
 			} else {
-				waveParams = WaveParams.p2000_4000;
+				waveParams = WaveParams.p5000_7000;
+			}
+		}
+		if(playersScore>=7000 && playersScore<9000){
+			if (hasAtmosphere){
+				waveParams = WaveParams.p7000_9000_A;
+			} else if (isElite){
+				waveParams = WaveParams.p7000_9000_Elite;
+			} else {
+				waveParams = WaveParams.p7000_9000;
+			}
+		}
+		if(playersScore>=9000){
+			if (hasAtmosphere){
+				waveParams = WaveParams.p9000_0_A;
+			} else if (isElite){
+				waveParams = WaveParams.p9000_0_Elite;
+			} else {
+				waveParams = WaveParams.p9000_0;
 			}
 		}
 	}

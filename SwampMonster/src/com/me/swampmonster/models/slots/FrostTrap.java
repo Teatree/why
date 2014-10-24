@@ -109,6 +109,7 @@ public class FrostTrap extends Trap{
 			int lifeTdiff = lifeTimeByLevel.get(new Integer(level))-lifeTimeByLevel.get(new Integer(level)-1);
 			int radiusDiff = radiusByLevel.get(new Integer(level))-radiusByLevel.get(new Integer(level)-1);
 			intuha = intuha/60;
+			lifeTdiff = lifeTdiff/60;
 			if(intuha>0){
 				intuhaString = "(+" + intuha + ")"; 
 			}else if(intuha<0){

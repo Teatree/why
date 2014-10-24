@@ -20,8 +20,8 @@ public class EnemyGenerator {
 	public EnemyGenerator () {
 		
 		enemyTypes = new HashMap<Integer, Class<? extends Enemy>>();
-		enemyTypes.put(0, EnemyZombie.class);
-		enemyTypes.put(1, EnemyMaggot.class);
+		enemyTypes.put(0, EnemyMaggot.class);
+		enemyTypes.put(1, EnemyZombie.class);
 		enemyTypes.put(2, EnemyLeech.class);
 		enemyTypes.put(3, EnemySofa.class);
 		enemyTypes.put(4, EnemyBreather.class);
@@ -33,8 +33,8 @@ public class EnemyGenerator {
 		toughtnessParams.put(3, Toughness.ANGRY_GUY);
 		toughtnessParams.put(4, Toughness.POISONOUS_GUY);
 		toughtnessParams.put(5, Toughness.FREEZER_GUY);
-		toughtnessParams.put(6, Toughness.EXPLOSIVE_GUY);
-		toughtnessParams.put(7, Toughness.PLASMA_GUY);
+//		toughtnessParams.put(6, Toughness.EXPLOSIVE_GUY);
+//		toughtnessParams.put(7, Toughness.PLASMA_GUY);
 		random = new Random();
 	}
 	

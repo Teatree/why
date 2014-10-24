@@ -7,6 +7,7 @@ import java.util.Map;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Circle;
+import com.me.swampmonster.models.L1;
 import com.me.swampmonster.models.Player;
 import com.me.swampmonster.models.enemies.Enemy;
 import com.me.swampmonster.utils.Assets;
@@ -60,6 +61,7 @@ public class DamageTrap extends Trap {
 		coolDown = Constants.DamageTrap_CoolDown_L1;
 		sprite = new Sprite(Assets.manager.get(Assets.DAMAGE_TRAP_ICON));
 		trapSprite = new Sprite(Assets.manager.get(Assets.DAMAGE_TRAP));
+		System.out.println("placing a dmg trap, pos: " + position);
 	}
 
 	@Override
@@ -70,6 +72,7 @@ public class DamageTrap extends Trap {
 //		showEffect = true;
 		enemy.health -= damage;
 		position = null;
+	
 	}
 
 	@Override
@@ -92,8 +95,8 @@ public class DamageTrap extends Trap {
 			int intuha = collDownByLevel.get(new Integer(level))-collDownByLevel.get(new Integer(level)-1);
 			float dmgDif = damageByLevel.get(new Integer(level))-damageByLevel.get(new Integer(level)-1);
 			int lifeTdiff = lifeTimeByLevel.get(new Integer(level))-lifeTimeByLevel.get(new Integer(level)-1);
-			int radiusDiff = radiusByLevel.get(new Integer(level))-radiusByLevel.get(new Integer(level)-1);
 			intuha = intuha/60;
+			lifeTdiff = lifeTdiff/60;
 			if(intuha>0){
 				intuhaString = "(+" + intuha + ")"; 
 			}else if(intuha<0){

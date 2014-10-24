@@ -69,6 +69,7 @@ public class SpeedBoost extends Slot implements PositiveEffectInterface{
 			int intuha = collDownByLevel.get(new Integer(level))-collDownByLevel.get(new Integer(level)-1);
 			int lifeTdiff = lifeTimeByLevel.get(new Integer(level))-lifeTimeByLevel.get(new Integer(level)-1);
 			intuha = intuha/60;
+			lifeTdiff = lifeTdiff/60;
 			if(intuha>0){
 				intuhaString = "(+" + intuha + ")"; 
 			}else if(intuha<0){

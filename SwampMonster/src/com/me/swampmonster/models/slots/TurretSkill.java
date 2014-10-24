@@ -173,6 +173,7 @@ public class TurretSkill extends Slot {
 			int healthDiff = healthByLevel.get(new Integer(level))-healthByLevel.get(new Integer(level)-1);
 			int aSDiff = attackSpeedByLevel.get(new Integer(level))-attackSpeedByLevel.get(new Integer(level)-1);
 			intuha = intuha/60;
+			lifeTdiff = lifeTdiff/60;
 			if(intuha>0){
 				intuhaString = "(+" + intuha + ")"; 
 			}else if(intuha<0){
@@ -202,7 +203,7 @@ public class TurretSkill extends Slot {
 		stats.add("t " + coolDown/60 + intuhaString);
 		stats.add("d " + turret.damage + dmgDifString);
 		stats.add("m " + turret.attackSpeed/60 + attackSpeedString);
-		stats.add("g " + turret.health/60 + healthString);
+		stats.add("g " + turret.health + healthString);
 		stats.add("h " + lifeTime/60 + lifeTimeString);
 		
 		return stats;
