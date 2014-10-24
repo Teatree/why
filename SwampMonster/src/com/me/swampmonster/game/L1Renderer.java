@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
@@ -34,6 +35,7 @@ import com.me.swampmonster.models.ProjectileHydra.hydraTrailAnimation;
 import com.me.swampmonster.models.Prop;
 import com.me.swampmonster.models.TutorialLevel;
 import com.me.swampmonster.models.enemies.Enemy;
+import com.me.swampmonster.utils.Assets;
 import com.me.swampmonster.utils.Constants;
 
 public class L1Renderer {
@@ -44,6 +46,7 @@ public class L1Renderer {
 	// Temporary debug feature
 	private ShapeRenderer sr;
 	// Temporary debug feature
+	private BitmapFont font;
 
 	private SpriteBatch batch;
 	// private ParticleEffect effect;
@@ -67,6 +70,7 @@ public class L1Renderer {
 		viewport = new ScreenViewport();
 		viewport.setScreenWidth((int) Constants.VIEWPORT_WIDTH);
 		viewport.setScreenHeight((int) Constants.VIEWPORT_HEIGHT);
+		font = Assets.manager.get(Assets.font);
 		// stage.setViewport(Constants.VIEWPORT_WIDTH, Constants.VIEWPORT_WIDTH,
 		// true);
 		// Temporary debug feature
@@ -155,6 +159,13 @@ public class L1Renderer {
 
 		for (Enemy enemy : L1.enemiesOnStage) {
 			if (enemy.hurt) {
+				if(enemy.state != State.DEAD){
+					font.setColor(Color.RED);
+					font.setScale(1);
+					font.draw(batch, L1.player.damage + " DMG",
+							enemy.position.x,
+							enemy.position.y + enemy.sprite.getHeight() + 10);
+				}
 				if (enemy.toughness == null) {
 					if (enemy.time == 4 || enemy.time == 24) {
 						enemy.getSprite().setColor(
@@ -287,7 +298,6 @@ public class L1Renderer {
 				if (enemy.timeRemove > 170 && enemy.timeRemove < 175) {
 					enemy.getSprite().draw(batch);
 				}
-
 			}
 		}
 

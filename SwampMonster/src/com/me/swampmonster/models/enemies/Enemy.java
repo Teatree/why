@@ -1058,11 +1058,12 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 
 	public void enemyHurt(Player player) {
 		state = State.STANDARD;
+		float dmg = Player.damage;
 		if (health >= 0) {
 			if (player.positiveEffectsState == PositiveEffects.RADIOACTIVE_AURA) {
 				health -= RADIOACTIVE.RADIOACTIVE_Damage;
 			}
-			health -= Player.damage;
+			health -= dmg;
 			System.out.println("Player.damage " + Player.damage);
 		}
 	}
@@ -1115,6 +1116,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 	public void doCollide(AbstractGameObject abstractGameObject,
 			TiledMapTileLayer collisionLayer) {
 	}
+	
 
 	@Override
 	public void doCollideAbstactObject(AbstractGameObject abstractGameObject) {
