@@ -26,8 +26,28 @@ public class SlotsGenerator {
 
 	private static SlotsGenerator effectsGenerator;
 	private Random random;
-	Map<Integer, Class<? extends Slot>> slots;
+	public static Map<Integer, Class<? extends Slot>> slots;
 	SlotParams slotParams;
+	
+	static{
+		slots = new HashMap<Integer, Class<? extends Slot>>();
+		//:TODO Dmitriy, order is essential in this biatch, it determines what the player will receive.
+		slots.put(0, SpeedBoost.class);
+		slots.put(1, PoisonTrap.class);
+		slots.put(2, DamageTrap.class);
+		slots.put(3, FrostTrap.class);
+		slots.put(4, PanicTeleport.class);
+		slots.put(5, Arrows3.class);
+		slots.put(6, PlasmaShieldSkill.class);
+		slots.put(7, PoisonArrow.class);
+		slots.put(8, TurretSkill.class);
+		slots.put(9, ExplosiveArrow.class);
+		slots.put(10, ImproveArrowDamage.class);
+		slots.put(11, ImproveArrowSpeed.class);
+		slots.put(12, ImproveMaxHealth.class);
+		slots.put(13, ImproveMaxOxygen.class);
+		slots.put(14, ImproveMovementSpeed.class);
+	}
 	
 	private static enum SlotParams{
 		p0_500(0, 10, 10, 14),
@@ -51,23 +71,7 @@ public class SlotsGenerator {
 	
 	private SlotsGenerator() {
 		random = new Random();
-		slots = new HashMap<Integer, Class<? extends Slot>>();
-		//:TODO Dmitriy, order is essential in this biatch, it determines what the player will receive.
-		slots.put(0, SpeedBoost.class);
-		slots.put(1, PoisonTrap.class);
-		slots.put(2, DamageTrap.class);
-		slots.put(3, FrostTrap.class);
-		slots.put(4, PanicTeleport.class);
-		slots.put(5, Arrows3.class);
-		slots.put(6, PlasmaShieldSkill.class);
-		slots.put(7, PoisonArrow.class);
-		slots.put(8, TurretSkill.class);
-		slots.put(9, ExplosiveArrow.class);
-		slots.put(10, ImproveArrowDamage.class);
-		slots.put(11, ImproveArrowSpeed.class);
-		slots.put(12, ImproveMaxHealth.class);
-		slots.put(13, ImproveMaxOxygen.class);
-		slots.put(14, ImproveMovementSpeed.class);
+		
 	}
 
 	public static SlotsGenerator getSlotGenerator() {

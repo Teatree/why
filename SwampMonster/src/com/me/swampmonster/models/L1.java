@@ -105,7 +105,7 @@ public class L1 {
 			if (p.state != State.DEAD){
 				if (player.radioactiveAura != null
 						&& Intersector.overlaps(player.radioactiveAura,
-								p.sprite.getBoundingRectangle())) {
+								p.sprite.getBoundingRectangle()) && p instanceof ExplosiveProp) {
 					p.state = State.ONFIRE;
 					p.onFireCounter = 20;					
 				}

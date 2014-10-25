@@ -36,6 +36,7 @@ public class PanicTeleport extends Slot{
 		sprite = new Sprite(Assets.manager.get(Assets.PANIC_TELEPORT_ICON));
 		name = Constants.PANIC_TELEPORT_Name;
 		coolDown = Constants.PANIC_TELEPORT_CoolDown_L1;
+		unlockScore = Constants.PANIC_TELEPORT_unlockScore;
 	}
 	
 	@Override

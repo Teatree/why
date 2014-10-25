@@ -62,6 +62,7 @@ public class DamageTrap extends Trap {
 		sprite = new Sprite(Assets.manager.get(Assets.DAMAGE_TRAP_ICON));
 		trapSprite = new Sprite(Assets.manager.get(Assets.DAMAGE_TRAP));
 		System.out.println("placing a dmg trap, pos: " + position);
+		unlockScore = Constants.DamageTrap_unlockScore;
 	}
 
 	@Override

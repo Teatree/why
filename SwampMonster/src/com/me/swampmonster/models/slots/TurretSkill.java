@@ -79,6 +79,7 @@ public class TurretSkill extends Slot {
 		
 		lifeTime = Constants.TURRET_LifeTime_L1;
 		coolDown = Constants.TURRET_CoolDown_L1;
+		unlockScore = Constants.TURRET_unlockScore;
 	}
 
 	@Override

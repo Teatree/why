@@ -37,6 +37,7 @@ public class Arrows3 extends Slot{
 		description = Constants.Arrows3_Description_L1;
 		coolDown = Constants.Arrows3_CoolDown_L1;
 		name = Constants.Arrows3_Name;
+		unlockScore = Constants.Arrow3_unlockScore;
 	}
 	
 	@Override

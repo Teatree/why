@@ -63,6 +63,7 @@ public class FrostTrap extends Trap{
 		lifeTimeMax = Constants.FrostTrap_LifeTime_L1;
 		coolDown = Constants.FrostTrap_CoolDown_L1;
 		trapSprite = new Sprite(Assets.manager.get(Assets.FROST_TRAP_ICON));
+		unlockScore = Constants.FrostTrap_unlockScore;
 	}
 
 	@Override

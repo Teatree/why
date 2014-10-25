@@ -18,6 +18,9 @@ public class PoisonTrap extends Trap{
 	public static Map<Integer, Integer> radiusByLevel;
 	public static Map<Integer, Integer> collDownByLevel;
 	public static Map<Integer, Integer> lifeTimeByLevel;
+	public static Map<Integer, Float> poisonDamageByLVL;
+	public static Map<Integer, Integer> poisonIntervalByLVL;
+	public static Map<Integer, Integer> poisonLifeTimeByLVL;
 	private static Map <Integer, String> descriptionByLevel;
 	static {
 		radiusByLevel = new HashMap<Integer, Integer>();
@@ -33,6 +36,27 @@ public class PoisonTrap extends Trap{
 		lifeTimeByLevel.put(2, Constants.PoisonTrap_LifeTime_L3);
 		lifeTimeByLevel.put(3, Constants.PoisonTrap_LifeTime_L4);
 		lifeTimeByLevel.put(4, Constants.PoisonTrap_LifeTime_L5);
+		
+		poisonDamageByLVL = new HashMap<Integer, Float>();
+		poisonDamageByLVL.put(0, Constants.PoisonTrap_poisonDamage_L1);
+		poisonDamageByLVL.put(1, Constants.PoisonTrap_poisonDamage_L2);
+		poisonDamageByLVL.put(2, Constants.PoisonTrap_poisonDamage_L3);
+		poisonDamageByLVL.put(3, Constants.PoisonTrap_poisonDamage_L4);
+		poisonDamageByLVL.put(4, Constants.PoisonTrap_poisonDamage_L5);
+		
+		poisonIntervalByLVL = new HashMap<Integer, Integer>();
+		poisonIntervalByLVL.put(0, Constants.PoisonTrap_poisonInterval_L1);
+		poisonIntervalByLVL.put(1, Constants.PoisonTrap_poisonInterval_L2);
+		poisonIntervalByLVL.put(2, Constants.PoisonTrap_poisonInterval_L3);
+		poisonIntervalByLVL.put(3, Constants.PoisonTrap_poisonInterval_L4);
+		poisonIntervalByLVL.put(4, Constants.PoisonTrap_poisonInterval_L5);
+		
+		poisonLifeTimeByLVL = new HashMap<Integer, Integer>();
+		poisonLifeTimeByLVL.put(0, Constants.PoisonTrap_poisonLifeTime_L1);
+		poisonLifeTimeByLVL.put(1, Constants.PoisonTrap_poisonLifeTime_L2);
+		poisonLifeTimeByLVL.put(2, Constants.PoisonTrap_poisonLifeTime_L3);
+		poisonLifeTimeByLVL.put(3, Constants.PoisonTrap_poisonLifeTime_L4);
+		poisonLifeTimeByLVL.put(4, Constants.PoisonTrap_poisonLifeTime_L5);
 		
 		collDownByLevel = new HashMap<Integer, Integer>();
 		collDownByLevel.put(0, Constants.PoisonTrap_CoolDown_L1);
@@ -58,12 +82,21 @@ public class PoisonTrap extends Trap{
 		
 		trapSprite = new Sprite(Assets.manager.get(Assets.POISON_TRAP));
 		sprite = new Sprite(Assets.manager.get(Assets.POISONED_TRAP_ICON));
-		
+		unlockScore = Constants.PoisonTrap_unlockScore;
 	}
 
 	@Override
 	public void catchEnemy(Enemy enemy) {
 		enemy.setNegativeEffect(NegativeEffects.POISONED);
+		NegativeEffects.POISONED.lifetime = poisonLifeTimeByLVL.get(PoisonTrap.level-1);
+		
+		if(PoisonTrap.level>=1){
+			enemy.poisonDamage = poisonDamageByLVL.get(PoisonTrap.level-1);
+			enemy.poisonDamageInterval = poisonIntervalByLVL.get(PoisonTrap.level-1);
+		}else{
+			enemy.poisonDamage = poisonDamageByLVL.get(PoisonTrap.level);
+			enemy.poisonDamageInterval = poisonIntervalByLVL.get(PoisonTrap.level);
+		}
 		this.position = null;
 	}
 

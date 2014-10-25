@@ -50,9 +50,6 @@ public class SlotMachineTextures extends Group {
 	public static Map<Integer, Sprite> slotLevelPic;
 	int [] slotPositionsX = {159, 328, 497};
 	int slotPositionY = 174;
-//	public Sprite slotMachineWindow;
-//	public Sprite slotMachineWindowYes;
-//	public Sprite slotMachineWindowNo;
 	public Sprite savedSlotBar;
 	public Sprite slotLevel1;
 	public Sprite slotLevel2;
@@ -61,8 +58,6 @@ public class SlotMachineTextures extends Group {
 	public Sprite slotLevel5;
 	public Sprite selectedSavedSlotRectangle;
 	public ShapeRenderer sr;
-//	public Rectangle yes;
-//	public Rectangle no;
 	public AnimationControl animantionCtlr;
 	public boolean[] notAnimating;
 	public static boolean peru;
@@ -71,11 +66,8 @@ public class SlotMachineTextures extends Group {
 	public int timeCOutner;
 	
 	public int animCounter;
-//	public int animSlotCounter = 50;
 	public float animDx;
 	public float animDy;
-//	public static float width = 146;
-//	public static float height = 146;
 	public static float slotAnimSpeed;
 	
 	public Skin skin;

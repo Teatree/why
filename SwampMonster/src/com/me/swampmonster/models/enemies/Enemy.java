@@ -31,6 +31,7 @@ import com.me.swampmonster.models.ToxicPuddle;
 import com.me.swampmonster.models.Turret;
 import com.me.swampmonster.models.items.ICE_THING;
 import com.me.swampmonster.models.items.RADIOACTIVE;
+import com.me.swampmonster.models.slots.PoisonArrow;
 import com.me.swampmonster.models.slots.PositiveEffects;
 import com.me.swampmonster.utils.Assets;
 import com.me.swampmonster.utils.CameraHelper;
@@ -46,6 +47,8 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 	public boolean waiting;
 	public boolean injuredByHydra;
 	public boolean isAimedByHydra;
+	public float poisonDamage;
+	public int poisonDamageInterval;
 	int timer;
 	public int time;
 	int timeDead = 0;
@@ -103,6 +106,8 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 		aimerBot.width = 5;
 		aimerBot.height = 5;
 		state = State.STANDARD;
+		poisonDamage = 0.5f;
+		poisonDamageInterval = 60;
 		animationsStandard.put(State.PURSUIT, new AnimationControl(
 				Assets.manager.get(Assets.enemy), 8, 32, 8));
 		animationsStandard.put(State.STANDARD, new AnimationControl(
@@ -244,6 +249,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 					damageType = "player";
 					enemyHurt(player.damage);
 					if (projectile.effect == EffectCarriers.POISONED) {
+						PoisonArrow.injectPoison(this);
 						this.setNegativeEffect(NegativeEffects.POISONED);
 					}
 				}
@@ -281,7 +287,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 		// MOVEMENT + COLLISION PROCESSING AND DETECTION
 
 		// PURSUIT!
-		if (!hurt ||(damageType != null && damageType.equals("turret"))) {
+		if (!hurt ||(damageType != null && (damageType.equals("turret") || damageType.equals("poison")))) {
 			if (state.equals(State.PURSUIT)  && negativeEffectsState != NegativeEffects.STUN) {
 				
 
@@ -326,7 +332,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 		if (state.equals(State.STANDARD) && !aiming && negativeEffectsState != NegativeEffects.STUN) {
 			sprite.setRegion(animations.get(state).getCurrentFrame());
 			sprite.setBounds(sprite.getX(), sprite.getY(), 32, 32);
-			if (!hurt ||(damageType != null && damageType.equals("turret"))) {
+			if (!hurt ||(damageType != null && (damageType.equals("turret") || damageType.equals("poison")))) {
 				if (timer == 0 && timer2 == 0
 						&& !(yellowAura.overlaps(player.circle) || player.turret!=null && yellowAura.overlaps(player.turret.circle))
 						&& player.state != State.DEAD) {
@@ -374,10 +380,12 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 
 		if (negativeEffectsState != NegativeEffects.NONE
 				&& negativeEffectTimer > 0) {
-			if (negativeEffectsState == NegativeEffects.POISONED) {
+			if (negativeEffectsState == NegativeEffects.POISONED && state != State.DEAD) {
 				sprite.setColor(Color.GREEN);
-				if (timerPoisoned == 45) {
-					health -= 0.5f;
+				if (timerPoisoned == poisonDamageInterval) {
+					hurt = true;
+					damageType = "poison";
+					health -= poisonDamage;
 					timerPoisoned = 0;
 				} else {
 					timerPoisoned++;

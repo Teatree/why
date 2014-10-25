@@ -241,7 +241,7 @@ public class GShape extends Group {
 
 		batch.begin();
 		
-		if (theController.unlockNotificationSprite != null && unlockNotificationCounter > 0){
+		if (L1.player.absoluteScore>1 && theController.unlockNotificationSprite != null && unlockNotificationCounter > 0){
 //			System.out.println("unlockNotification " + theController.unlockNotificationSprite);
 			batch.draw(theController.unlockNotificationSprite, 700, 100);
 			unlockNotificationCounter--;

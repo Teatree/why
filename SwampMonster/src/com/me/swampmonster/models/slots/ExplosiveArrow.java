@@ -41,6 +41,7 @@ public class ExplosiveArrow extends Slot{
 		name = Constants.ExplosiveArrow_Name;
 		coolDown = Constants.ExplosiveArrow_CoolDown_L1;
 		sprite = new Sprite(Assets.manager.get(Assets.EXPLOSIVE_ARROW_ICON));
+		unlockScore = Constants.ExplosiveArrow_unlockScore;
 	}
 	
 	@Override

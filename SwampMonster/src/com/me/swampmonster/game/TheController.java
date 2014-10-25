@@ -34,6 +34,7 @@ import com.me.swampmonster.utils.Assets;
 import com.me.swampmonster.utils.CameraHelper;
 import com.me.swampmonster.utils.LGenerator;
 import com.me.swampmonster.utils.ScreenContainer;
+import com.me.swampmonster.utils.SlotsGenerator;
 
 
 public class TheController extends InputAdapter {
@@ -57,7 +58,11 @@ public class TheController extends InputAdapter {
 	
 	public static int savedScore;
 
-	public HashMap<Integer, Sprite> unlockNotifications;
+	public static HashMap<Integer, Sprite> unlockNotifications;
+	static{
+		unlockNotifications = new HashMap<Integer, Sprite>();
+		fillNotifications();	
+	}
 	public Sprite unlockNotificationSprite;
 
 	float dx;
@@ -109,10 +114,6 @@ public class TheController extends InputAdapter {
 		V3point = new Vector3();
 		V3playerPos = new Vector3();
 
-		//vqwe
-		unlockNotifications = new HashMap<Integer, Sprite>();
-		fillNotifications();
-
 		timer3hurt = 0;
 
 		// debug feature!!!
@@ -157,7 +158,7 @@ public class TheController extends InputAdapter {
 
 		// I don't fucking know if thsi is better, I just spent 2 hours on this
 		// solution, so deal with it!
-		if (Gdx.input.justTouched() && !L1.player.justSpawned) {
+		if (Gdx.input.isTouched() && !L1.player.justSpawned) {
 			inputNav();
 		}
 
@@ -454,14 +455,20 @@ public class TheController extends InputAdapter {
 		return questionMark;
 	}
 
-	public void fillNotifications() {
-		unlockNotifications.put(500,
-				new Sprite(Assets.manager.get(Assets.SHADOW_ARROW_ICON)));
-		unlockNotifications.put(1000,
-				new Sprite(Assets.manager.get(Assets.POISONED_ARROW_ICON)));
-		unlockNotifications.put(2000,
-				new Sprite(Assets.manager.get(Assets.EXPLOSIVE_ARROW_ICON)));
-
+	public static void fillNotifications() {
+		for(Class<? extends Slot> s : SlotsGenerator.slots.values()){ 
+			Slot slot;
+			try {
+				slot = s.newInstance();
+				if(slot.unlockScore>L1.player.absoluteScore){
+					unlockNotifications.put(slot.unlockScore, slot.sprite);
+				}
+			} catch (InstantiationException e) {
+				e.printStackTrace();
+			} catch (IllegalAccessException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 	// TODO You also gotta change stuff here in orde to load tutorial level, bro!

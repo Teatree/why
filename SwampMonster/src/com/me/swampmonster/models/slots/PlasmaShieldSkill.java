@@ -36,6 +36,7 @@ public class PlasmaShieldSkill extends Slot{
 		name = Constants.PLASMA_SHIELD_Name;
 		sprite = new Sprite(Assets.manager.get(Assets.SHADOW_ARROW_ICON));
 		coolDown = Constants.PLASMA_SHIELD_CoolDown_L1;
+		unlockScore = Constants.PLASMA_SHIELD_unlockScore;
 	}
 	
 	@Override

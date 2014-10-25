@@ -87,8 +87,8 @@ public class ItemGenerator {
 				+ itEmsTypes.minItemGenerate;
 		Item item = null;
 		try {
-//			Class<? extends Item> itemClass = items.get(number);
-			Class<? extends Item> itemClass = RADIOACTIVE.class;
+			Class<? extends Item> itemClass = items.get(number);
+//			Class<? extends Item> itemClass = RADIOACTIVE.class;
 			int randomTextureNumber;
 			if (itemClass.getDeclaredField("poisonSprite").get(null) == null) {
 				randomTextureNumber = random.nextInt(poisonTextures.size());

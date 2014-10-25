@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.me.swampmonster.animations.AnimationControl;
 import com.me.swampmonster.models.AbstractGameObject.State;
+import com.me.swampmonster.models.L1;
 import com.me.swampmonster.models.Player;
 import com.me.swampmonster.screens.SlotMachineScreen;
 import com.me.swampmonster.slotMachineStuff.SlotMachineTextures;
@@ -23,6 +24,7 @@ public abstract class Slot extends InputAdapter {
 	public boolean selected;
 	public boolean selectedSaved;
 	public int actualLevel;
+	public int unlockScore;
 	public State state;
 	public Vector2 savedSlotPosition;
 	public Vector2 position;
@@ -61,7 +63,6 @@ public abstract class Slot extends InputAdapter {
 		}
 	}
 	public void update(){
-		
 		if(state == State.SPAWNING){
 			if(animSavedSelectedCounter<90){
 				animSavedSelectedCounter++;

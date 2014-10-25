@@ -48,6 +48,7 @@ public class SpeedBoost extends Slot implements PositiveEffectInterface{
 
 		lifeTime = Constants.SPEED_BOOST_LifeTime_L1;
 		coolDown = Constants.SPEED_BOOST_CoolDown_L1;
+		unlockScore = Constants.SPEED_BOOST_unlockScore;
 	}
 	
 	@Override
