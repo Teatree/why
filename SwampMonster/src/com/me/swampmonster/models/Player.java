@@ -723,7 +723,8 @@ public class Player extends AbstractGameObject {
 			System.out.println("radioactiveRadius: "
 					+ RADIOACTIVE.RADIOACTIVE_Radius);
 			positiveEffectsState = positiveEffect;
-			positiveEffectCounter = positiveEffect.lifetime;
+//			positiveEffectCounter = positiveEffect.lifetime;
+			
 			break;
 		case SPEED_BOOST:
 			if (negativeEffectsState == NegativeEffects.FROZEN) {

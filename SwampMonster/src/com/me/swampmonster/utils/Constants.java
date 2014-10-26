@@ -84,7 +84,7 @@ public class Constants {
 
 	// ExplosiveArrow:
 	public static final String ExplosiveArrow_Name = "Explosive Arrow";
-	public static final int ExplosiveArrow_unlockScore = 2090;
+	public static final int ExplosiveArrow_unlockScore = 1000;
 
 	public static final int ExplosiveArrow_CoolDown_L1 = 2400;
 	public static final int ExplosiveArrow_CoolDown_L2 = 2100;
@@ -217,7 +217,7 @@ public class Constants {
 
 	// TURRET:
 	public static final String TURRET_Name = "Gun Turret";
-	public static final int TURRET_unlockScore = 200;
+	public static final int TURRET_unlockScore = 1750;
 
 	public static final int TURRET_CoolDown_L1 = 2100;
 	public static final int TURRET_CoolDown_L2 = 1800;
@@ -277,7 +277,7 @@ public class Constants {
 
 	// FrostTrap:
 	public static final String FrostTrap_Name = "Frost Trap";
-	public static final int FrostTrap_unlockScore = 3000;
+	public static final int FrostTrap_unlockScore = 1500;
 
 	public static final int FrostTrap_CoolDown_L1 = 1800;
 	public static final int FrostTrap_CoolDown_L2 = 1800;
@@ -320,7 +320,7 @@ public class Constants {
 
 	// ImproveArrowDamage:
 	public static final String ImproveArrowDamage_Name = "Improve Arrow Damage";
-	public static final int ImproveArrowDamage_unlockScore = 1500;
+	public static final int ImproveArrowDamage_unlockScore = 1200;
 
 	public static final float ImproveArrowDamage_value_L1 = 0.5f;
 	public static final float ImproveArrowDamage_value_L2 = 0.5f;
@@ -362,7 +362,7 @@ public class Constants {
 
 	// ImproveMaxHealth:
 	public static final String ImproveMaxHealth_Name = "Improve Health";
-	public static final int ImproveMaxHealth_unlockScore = 0;
+	public static final int ImproveMaxHealth_unlockScore = 750;
 
 	public static final int ImproveMaxHealth_HealthValue_L1 = 1;
 	public static final int ImproveMaxHealth_HealthValue_L2 = 1;
@@ -404,7 +404,7 @@ public class Constants {
 
 	// ImproveMaxSpeed:
 	public static final String ImproveMaxSpeed_Name = "Improve Speed";
-	public static final int ImproveMaxSpeed_unlockScore = 3000;
+	public static final int ImproveMaxSpeed_unlockScore = 0;
 
 	public static final float ImproveMaxSpeed_SpeedValue_L1 = 0.2f;
 	public static final float ImproveMaxSpeed_SpeedValue_L2 = 0.2f;
@@ -425,7 +425,7 @@ public class Constants {
 
 	// PoisonArrow:
 	public static final String PoisonArrow_Name = "Position Arrow";
-	public static final int PoisonArrow_unlockScore = 0;
+	public static final int PoisonArrow_unlockScore = 1350;
 
 	public static final int PoisonArrow_CoolDown_L1 = 2100;
 	public static final int PoisonArrow_CoolDown_L2 = 1800;
@@ -469,7 +469,7 @@ public class Constants {
 
 	// PoisonTrap:
 	public static final String PoisonTrap_Name = "Position Trap";
-	public static final int PoisonTrap_unlockScore = 0;
+	public static final int PoisonTrap_unlockScore = 4200;
 
 	public static final int PoisonTrap_CoolDown_L1 = 1800;
 	public static final int PoisonTrap_CoolDown_L2 = 1800;
@@ -558,7 +558,7 @@ public class Constants {
 
 	// PLASMA_SHIELD:
 	public static final String PLASMA_SHIELD_Name = "Plasma Shield";
-	public static final int PLASMA_SHIELD_unlockScore = 1200;
+	public static final int PLASMA_SHIELD_unlockScore = 200;
 
 	public static final int PLASMA_SHIELD_CoolDown_L1 = 1800;
 	public static final int PLASMA_SHIELD_CoolDown_L2 = 1500;
@@ -590,7 +590,7 @@ public class Constants {
 
 	// PANIC_TELEPORT:
 	public static final String PANIC_TELEPORT_Name = "Panic Teleport";
-	public static final int PANIC_TELEPORT_unlockScore = 0;
+	public static final int PANIC_TELEPORT_unlockScore = 500;
 
 	public static final int PANIC_TELEPORT_CoolDown_L1 = 1800;
 	public static final int PANIC_TELEPORT_CoolDown_L2 = 1500;

@@ -12,13 +12,17 @@ public class WaveGenerator {
 	private Random random = new Random();
 	
 	private enum WaveParams{
-		//                     *-et*+et*-tt*+tt*-ws*+ws*-tw*+tw**-eb*+eb**rate***perd*-w**+w*
-		p0_1000					(0,  1,  0,  2,  6,  12,  0,  1,  6,  7,  12.0f,  50,  2,  3),
-		p0_1000_Elite			(0,  1,  1,  2,  6,  12,  0,  1,  6,  7,  12.0f,  50,  2,  3),
-		p0_1000_A				(4,  5,  0,  2,  6,  12,  0,  1,  6,  7,  12.0f,  50,  2,  3),
-		//     				   *-et*+et*-tt*+tt*-ws**+ws*-tw*+tw**-eb**+eb***rate**perd*-w**+w*
-		p1000_3000				(0,  2,  0,  3,  10,  20,  0,  5,  11,  18,  9.5f,  50,  3,  4),
-		p1000_3000_Elite		(0,  1,  1,  3,  10,  20, 10, 20,  11,  18,  9.5f,  50,  3,  4),
+		//                     *-et*+et*-tt*+tt*-ws**+ws*-tw*+tw**-eb*+eb**rate***perd*-w**+w*
+		p0_500					(0,  1,  0,  2,  10,  17,  2,  5,  6,  7,  12.0f,  50,  2,  3),
+		p0_500_Elite			(0,  1,  1,  2,  7,   13,  7,  13, 6,  7,  12.0f,  50,  2,  3),
+		p0_500_A				(4,  5,  0,  2,  10,  17,  0,  1,  6,  7,  12.0f,  50,  2,  3),
+		//                     *-et*+et*-tt*+tt*-ws**+ws*-tw*+tw***-eb*+eb**rate***perd*-w**+w*
+		p500_1000				(0,  1,  0,  2,  15,  23,  8,  16,  6,  7,  12.0f,  50,  2,  3),
+		p500_1000_Elite			(0,  1,  1,  2,  10,  17,  10, 17,  6,  7,  12.0f,  50,  2,  3),
+		p500_1000_A				(4,  5,  0,  2,  15,  23,  0,  1,   6,  7,  12.0f,  50,  2,  3),
+		//     				   *-et*+et*-tt*+tt*-ws**+ws**-tw*+tw**-eb**+eb***rate**perd*-w**+w*
+		p1000_3000				(0,  2,  0,  3,  20,  30,  12, 25,  11,  18,  9.5f,  50,  3,  4),
+		p1000_3000_Elite		(0,  1,  1,  3,  14,  22,  14, 22,  11,  18,  9.5f,  50,  3,  4),
 		p1000_3000_A			(4,  5,  0,  3,  10,  20,  0,  5,  11,  18,  9.5f,  50,  3,  4),
 		//     				   *-et*+et*-tt*+tt*-ws**+ws*-tw**+tw**-eb**+eb***rate**perd*-w**+w*
 		p3000_5000				(0,  3,  0,  4,  18,  30,  3,  11,  15,  25,  6.0f,  50,  3,  5),
@@ -115,13 +119,22 @@ public class WaveGenerator {
 	
 
 	private void setWaveParams(int playersScore, boolean hasAtmosphere, boolean isElite) {
-		if(playersScore>=0 && playersScore<1000){
+		if(playersScore>=0 && playersScore<500){
 			if (hasAtmosphere){
-				waveParams = WaveParams.p0_1000_A;
+				waveParams = WaveParams.p0_500_A;
 			} else if (isElite){
-				waveParams = WaveParams.p0_1000_Elite;
+				waveParams = WaveParams.p0_500_Elite;
 			} else {
-				waveParams = WaveParams.p0_1000;
+				waveParams = WaveParams.p0_500;
+			}
+		}
+		if(playersScore>=500 && playersScore<1000){
+			if (hasAtmosphere){
+				waveParams = WaveParams.p500_1000_A;
+			} else if (isElite){
+				waveParams = WaveParams.p500_1000_Elite;
+			} else {
+				waveParams = WaveParams.p500_1000;
 			}
 		}
 		if(playersScore>=1000 && playersScore<3000){

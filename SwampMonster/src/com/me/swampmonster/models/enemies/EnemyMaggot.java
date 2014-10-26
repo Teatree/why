@@ -45,7 +45,7 @@ public class EnemyMaggot extends Enemy {
 		movementSpeed = 0.8f;
 		health = 2;
 		damage = 1;
-		points = 10;
+		points = 15;
 		attackSpeed = 15;
 		STANDART_MOVEMENT_SPEED = movementSpeed;
 	}

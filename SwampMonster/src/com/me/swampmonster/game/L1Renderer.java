@@ -448,91 +448,91 @@ public class L1Renderer {
 
 		// Temporary deBug feature
 		sr.begin(ShapeType.Line);
-		if (L1.plasmaShield != null) {
-			sr.circle(L1.plasmaShield.circle.x, L1.plasmaShield.circle.y,
-					L1.plasmaShield.circle.radius);
-		}
-		for (Enemy enemy : L1.enemiesOnStage) {
-			// sr.setColor(Color.GREEN);
-			// sr.circle(enemy.getgReenAura().x, enemy.getgReenAura().y,
-			// enemy.getgReenAura().radius);
-			// sr.setColor(Color.BLUE);
-			// sr.circle(enemy.getoRangeAura().x, enemy.getoRangeAura().y,
-			// enemy.getoRangeAura().radius);
-			sr.setColor(Color.YELLOW);
-			sr.circle(enemy.yellowAura.x, enemy.yellowAura.y,
-					enemy.yellowAura.radius);
-			// sr.setColor(Color.BLACK);
-			// sr.circle(theController.explosion.position.x,
-			// theController.explosion.position.y,
-			// theController.explosion.explCircle.radius);
-			// sr.circle(enemy.aimingAura.x, enemy.aimingAura.y,
-			// enemy.aimingAura.radius);
-		}
-
-		if (L1.player.turret != null) {
-			sr.rect(L1.player.turret.turretAimerBot.x,
-					L1.player.turret.turretAimerBot.y,
-					L1.player.turret.turretAimerBot.width,
-					L1.player.turret.turretAimerBot.height);
-			sr.circle(L1.player.turret.circle.x, L1.player.turret.circle.y,
-					L1.player.turret.circle.radius);
-		}
-
-		// for (Projectile p : L1.player.projectiles) {
-		// if (p != null) {
-		// sr.rect(p.position.x + p.sprite.getWidth() / 2, p.position.y+
-		// p.sprite.getHeight() / 2, 3, 3, 1, 1,p.sprite.getRotation());
-		// sr.setColor(Color.RED);
-		// sr.rect(p.position.x - p.sprite.getRotation(), p.position.y
-		// - p.sprite.getRotation(), 2, 2, 1, 1,
-		// p.sprite.getRotation());
-		// }
-		// }
-		sr.setColor(Color.WHITE);
-		for (Projectile p : L1.player.projectiles) {
-			if (p != null) {
-				sr.circle(p.circle.x, p.circle.y, p.circle.radius);
-			}
-		}
-
-		for (Item item : L1.items) {
-			if (item.sprite != null) {
-				sr.circle(item.circle.x, item.circle.y, item.circle.radius);
-			}
-
-		}
-		sr.rect(theController.point.x, theController.point.y, 32, 32);
-		sr.rect(L1.player.rectanlge.x, L1.player.rectanlge.y,
-				L1.player.rectanlge.width, L1.player.rectanlge.height);
-		// sr.circle(TheController.level1.player.invalidSpawnArea.x,
-		// TheController.level1.player.invalidSpawnArea.y,
-		// TheController.level1.player.invalidSpawnArea.radius);
-		for (Enemy enemy : L1.enemiesOnStage) {
-			sr.rect(enemy.rectanlge.x, enemy.rectanlge.y,
-					enemy.rectanlge.width, enemy.rectanlge.height);
-		}
-		for (Prop p : L1.props) {
-			sr.rect(p.sprite.getBoundingRectangle().x,
-					p.sprite.getBoundingRectangle().y,
-					p.sprite.getBoundingRectangle().width,
-					p.sprite.getBoundingRectangle().height);
-		}
-		sr.setColor(Color.WHITE);
-		if (L1.player.state == State.GUNMOVEMENT) {
-			sr.line(theController.V3playerPos, L1.player.shotDir);
-		}
-		if (TheController.gui.getCroshair().isAiming()) {
-			sr.line(theController.V3playerPos, L1.player.aimLineHead);
-		}
-		sr.circle(L1.player.circle.x, L1.player.circle.y,
-				L1.player.circle.radius);
-		sr.setColor(Color.YELLOW);
-		// sr.circle(TheController.level1.player.aimingArea.x,
-		// TheController.level1.player.aimingArea.y,
-		// TheController.level1.player.aimingArea.radius);
+//		if (L1.plasmaShield != null) {
+//			sr.circle(L1.plasmaShield.circle.x, L1.plasmaShield.circle.y,
+//					L1.plasmaShield.circle.radius);
+//		}
+//		for (Enemy enemy : L1.enemiesOnStage) {
+//			// sr.setColor(Color.GREEN);
+//			// sr.circle(enemy.getgReenAura().x, enemy.getgReenAura().y,
+//			// enemy.getgReenAura().radius);
+//			// sr.setColor(Color.BLUE);
+//			// sr.circle(enemy.getoRangeAura().x, enemy.getoRangeAura().y,
+//			// enemy.getoRangeAura().radius);
+//			sr.setColor(Color.YELLOW);
+//			sr.circle(enemy.yellowAura.x, enemy.yellowAura.y,
+//					enemy.yellowAura.radius);
+//			// sr.setColor(Color.BLACK);
+//			// sr.circle(theController.explosion.position.x,
+//			// theController.explosion.position.y,
+//			// theController.explosion.explCircle.radius);
+//			// sr.circle(enemy.aimingAura.x, enemy.aimingAura.y,
+//			// enemy.aimingAura.radius);
+//		}
+//
+//		if (L1.player.turret != null) {
+//			sr.rect(L1.player.turret.turretAimerBot.x,
+//					L1.player.turret.turretAimerBot.y,
+//					L1.player.turret.turretAimerBot.width,
+//					L1.player.turret.turretAimerBot.height);
+//			sr.circle(L1.player.turret.circle.x, L1.player.turret.circle.y,
+//					L1.player.turret.circle.radius);
+//		}
+//
+//		// for (Projectile p : L1.player.projectiles) {
+//		// if (p != null) {
+//		// sr.rect(p.position.x + p.sprite.getWidth() / 2, p.position.y+
+//		// p.sprite.getHeight() / 2, 3, 3, 1, 1,p.sprite.getRotation());
+//		// sr.setColor(Color.RED);
+//		// sr.rect(p.position.x - p.sprite.getRotation(), p.position.y
+//		// - p.sprite.getRotation(), 2, 2, 1, 1,
+//		// p.sprite.getRotation());
+//		// }
+//		// }
+//		sr.setColor(Color.WHITE);
+//		for (Projectile p : L1.player.projectiles) {
+//			if (p != null) {
+//				sr.circle(p.circle.x, p.circle.y, p.circle.radius);
+//			}
+//		}
+//
+//		for (Item item : L1.items) {
+//			if (item.sprite != null) {
+//				sr.circle(item.circle.x, item.circle.y, item.circle.radius);
+//			}
+//
+//		}
+//		sr.rect(theController.point.x, theController.point.y, 32, 32);
+//		sr.rect(L1.player.rectanlge.x, L1.player.rectanlge.y,
+//				L1.player.rectanlge.width, L1.player.rectanlge.height);
+//		// sr.circle(TheController.level1.player.invalidSpawnArea.x,
+//		// TheController.level1.player.invalidSpawnArea.y,
+//		// TheController.level1.player.invalidSpawnArea.radius);
+//		for (Enemy enemy : L1.enemiesOnStage) {
+//			sr.rect(enemy.rectanlge.x, enemy.rectanlge.y,
+//					enemy.rectanlge.width, enemy.rectanlge.height);
+//		}
+//		for (Prop p : L1.props) {
+//			sr.rect(p.sprite.getBoundingRectangle().x,
+//					p.sprite.getBoundingRectangle().y,
+//					p.sprite.getBoundingRectangle().width,
+//					p.sprite.getBoundingRectangle().height);
+//		}
+//		sr.setColor(Color.WHITE);
+//		if (L1.player.state == State.GUNMOVEMENT) {
+//			sr.line(theController.V3playerPos, L1.player.shotDir);
+//		}
+//		if (TheController.gui.getCroshair().isAiming()) {
+//			sr.line(theController.V3playerPos, L1.player.aimLineHead);
+//		}
+//		sr.circle(L1.player.circle.x, L1.player.circle.y,
+//				L1.player.circle.radius);
+//		sr.setColor(Color.YELLOW);
+//		// sr.circle(TheController.level1.player.aimingArea.x,
+//		// TheController.level1.player.aimingArea.y,
+//		// TheController.level1.player.aimingArea.radius);
 		sr.end();
-
+//
 		Gdx.gl.glEnable(GL20.GL_BLEND);
 		Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
 		sr.begin(ShapeType.Filled);
@@ -541,19 +541,18 @@ public class L1Renderer {
 			if (!e.type.equals(Explosion.EXPLOSION_TYPE_INVERTED))
 				sr.circle(e.position.x, e.position.y, e.explCircle.radius);
 		}
-		sr.setColor(Color.RED);
-		for (Enemy enemy : L1.enemiesOnStage) {
-			if (enemy.getPath() != null) {
-				for (Node n : enemy.getPath()) {
-					if (n != null) {
-						sr.rect((n.x * Constants.NodeSize),
-								(n.y * Constants.NodeSize), 4, 4);
-					}
-				}
-			}
-		}
-		sr.setColor(Color.BLACK);
-		sr.rect(theController.pointRectV3.x, theController.pointRectV3.y, 1, 1);
+//		for (Enemy enemy : L1.enemiesOnStage) {
+//			if (enemy.getPath() != null) {
+//				for (Node n : enemy.getPath()) {
+//					if (n != null) {
+//						sr.rect((n.x * Constants.NodeSize),
+//								(n.y * Constants.NodeSize), 4, 4);
+//					}
+//				}
+//			}
+//		}
+//		sr.setColor(Color.BLACK);
+//		sr.rect(theController.pointRectV3.x, theController.pointRectV3.y, 1, 1);
 		if (L1.player.radioactiveAura != null) {
 			sr.setColor(new Color(1f, 0, 0.07f, 0.5f));
 			sr.circle(L1.player.radioactiveAura.x, L1.player.radioactiveAura.y,

@@ -20,8 +20,8 @@ public class EnemyGenerator {
 	public EnemyGenerator () {
 		
 		enemyTypes = new HashMap<Integer, Class<? extends Enemy>>();
-		enemyTypes.put(0, EnemyMaggot.class);
-		enemyTypes.put(1, EnemyZombie.class);
+		enemyTypes.put(0, EnemyZombie.class);
+		enemyTypes.put(1, EnemyMaggot.class);
 		enemyTypes.put(2, EnemyLeech.class);
 		enemyTypes.put(3, EnemySofa.class);
 		enemyTypes.put(4, EnemyBreather.class);

@@ -32,28 +32,34 @@ public class SlotsGenerator {
 	static{
 		slots = new HashMap<Integer, Class<? extends Slot>>();
 		//:TODO Dmitriy, order is essential in this biatch, it determines what the player will receive.
-		slots.put(0, SpeedBoost.class);
-		slots.put(1, PoisonTrap.class);
-		slots.put(2, DamageTrap.class);
-		slots.put(3, FrostTrap.class);
+		slots.put(0, Arrows3.class);
+		slots.put(1, DamageTrap.class);
+		slots.put(2, SpeedBoost.class);
+		slots.put(3, PlasmaShieldSkill.class);
 		slots.put(4, PanicTeleport.class);
-		slots.put(5, Arrows3.class);
-		slots.put(6, PlasmaShieldSkill.class);
-		slots.put(7, PoisonArrow.class);
+		slots.put(5, ExplosiveArrow.class);
+		slots.put(6, PoisonArrow.class);
+		slots.put(7, FrostTrap.class);
 		slots.put(8, TurretSkill.class);
-		slots.put(9, ExplosiveArrow.class);
-		slots.put(10, ImproveArrowDamage.class);
+		slots.put(9, PoisonTrap.class);
+		slots.put(10, ImproveMovementSpeed.class);
 		slots.put(11, ImproveArrowSpeed.class);
-		slots.put(12, ImproveMaxHealth.class);
-		slots.put(13, ImproveMaxOxygen.class);
-		slots.put(14, ImproveMovementSpeed.class);
+		slots.put(12, ImproveMaxOxygen.class);
+		slots.put(13, ImproveArrowDamage.class);
+		slots.put(14, ImproveMaxHealth.class);
 	}
 	
 	private static enum SlotParams{
-		p0_500(0, 10, 10, 14),
-		p500_1000(0, 10, 10, 14),
-		p1000_2000(0, 10, 10, 14),
-		p2000_4000(0, 10, 10, 14);
+		p0_200(0, 3, 10, 12),
+		p200_500(0, 4, 10, 12),
+		p500_750(0, 4, 10, 13),
+		p750_1000(0, 5, 10, 13),
+		p1000_1200(0, 6, 10, 13),
+		p1200_1350(0, 6, 10, 14),
+		p1350_1500(0, 7, 10, 14),
+		p1500_1750(0, 8, 10, 14),
+		p1750_4200(0, 9, 10, 14),
+		p4200_(0, 10, 10, 14);
 		
 		public final int minRandActiveSkillValue;
 		public final int maxRandActiveSkillValue;
@@ -109,17 +115,35 @@ public class SlotsGenerator {
 	}
 	
 	private void setDemParams(int playersScore) {
-		if(playersScore>=0 && playersScore<500){
-			slotParams = SlotParams.p0_500;
+		if(playersScore>=0 && playersScore<200){
+			slotParams = SlotParams.p0_200;
 		}
-		else if(playersScore>100 && playersScore<1000){
-			slotParams = SlotParams.p500_1000;
+		else if(playersScore>=200 && playersScore<500){
+			slotParams = SlotParams.p200_500;
 		}
-		else if(playersScore>1000 && playersScore<2000){
-			slotParams = SlotParams.p1000_2000;
+		else if(playersScore>=500 && playersScore<750){
+			slotParams = SlotParams.p500_750;
 		}
-		else if(playersScore>2000){
-			slotParams = SlotParams.p2000_4000;
+		else if(playersScore>=750 && playersScore<1000){
+			slotParams = SlotParams.p750_1000;
+		}
+		else if(playersScore>=1000 && playersScore<1200){
+			slotParams = SlotParams.p1000_1200;
+		}
+		else if(playersScore>=1200 && playersScore<1350){
+			slotParams = SlotParams.p1200_1350;
+		}
+		else if(playersScore>=1350 && playersScore<1500){
+			slotParams = SlotParams.p1350_1500;
+		}
+		else if(playersScore>=1500 && playersScore<1750){
+			slotParams = SlotParams.p1500_1750;
+		}
+		else if(playersScore>=1750 && playersScore<4200){
+			slotParams = SlotParams.p1750_4200;
+		}
+		else if(playersScore>=4200){
+			slotParams = SlotParams.p4200_;
 		}
 	}
 }
