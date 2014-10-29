@@ -16,7 +16,7 @@ public class LeechProjectile extends Projectile{
 		circle = new Circle();
 		circle.radius = 8;
 		
-		movementSpeed = 3f;
+		movementSpeed = 2f;
 		
 		direction_x = 0;
 		direction_y = 0;

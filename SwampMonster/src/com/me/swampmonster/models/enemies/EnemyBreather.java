@@ -14,7 +14,7 @@ public class EnemyBreather extends Enemy {
 		super(position);
 		points = 25;
 		health = 1;
-		damage = 1;
+		damage = 2;
 	}
 	
 	@Override

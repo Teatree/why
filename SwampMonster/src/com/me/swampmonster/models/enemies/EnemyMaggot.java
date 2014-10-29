@@ -171,11 +171,11 @@ public class EnemyMaggot extends Enemy {
 					
 					if (cL == null && savedEnemyDx <= 0 ||
 							cR == null && savedEnemyDx > 0){
-						position.x += savedEnemyDx * movementSpeed*4;
+						position.x += savedEnemyDx * movementSpeed*3;
 					} 
 					if (cD == null && savedEnemyDy < 0 
 							|| cU == null && savedEnemyDy >= 0){
-						position.y += savedEnemyDy * movementSpeed*4;
+						position.y += savedEnemyDy * movementSpeed*3;
 					} 
 					
 //					if (cU == null && savedEnemyDy >= 0){ 

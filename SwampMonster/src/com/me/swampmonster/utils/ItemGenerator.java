@@ -44,10 +44,10 @@ public class ItemGenerator {
 	}
 	
 	private static enum Items{
-		p0_500(2, 12),
-		p500_1000(2, 12),
-		p1000_2000(2, 12),
-		p2000_4000(2, 12);
+		p0_500(2, 8),
+		p500_1500(2, 10),
+		p1500_3000(2, 11),
+		p3000_plus(2, 12);
 		
 		public int minItemGenerate;
 		public int maxItemGenerate;
@@ -64,15 +64,15 @@ public class ItemGenerator {
 		items.put(0, Oxygen.class);
 		items.put(1, HealthKit.class);
 		items.put(2, FADE.class);
-		items.put(3, CHAIN_ARROWS.class);
-		items.put(4, HASTE.class);
-		items.put(5, ICE_THING.class);
-		items.put(6, NUKE.class);
-		items.put(7, RADIOACTIVE.class);
-		items.put(8, WEAKENED.class);
-		items.put(9, POISONED.class);
-		items.put(10, SCARED.class);
-		items.put(11, SLOWED.class);
+		items.put(3, ICE_THING.class);
+		items.put(4, NUKE.class);
+		items.put(5, POISONED.class);
+		items.put(6, SCARED.class);
+		items.put(7, HASTE.class);
+		items.put(8, SLOWED.class);
+		items.put(9, CHAIN_ARROWS.class);
+		items.put(10, WEAKENED.class);
+		items.put(11, RADIOACTIVE.class);
 	}
 	
 	public Item getItem(int playersScore){
@@ -138,14 +138,14 @@ public class ItemGenerator {
 		if(playersScore>=0 && playersScore<500){
 			itEmsTypes = Items.p0_500;
 		}
-		else if(playersScore>=100 && playersScore<1000){
-			itEmsTypes = Items.p500_1000;
+		else if(playersScore>=500 && playersScore<1500){
+			itEmsTypes = Items.p500_1500;
 		}
-		else if(playersScore>=1000 && playersScore<2000){
-			itEmsTypes = Items.p1000_2000;
+		else if(playersScore>=1500 && playersScore<3000){
+			itEmsTypes = Items.p1500_3000;
 		}
-		else if(playersScore>=2000){
-			itEmsTypes = Items.p2000_4000;
+		else if(playersScore>=3000){
+			itEmsTypes = Items.p3000_plus;
 		}
 	}
 	

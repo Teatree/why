@@ -17,7 +17,8 @@ public class EnemyZombie extends Enemy{
 		health = 3;
 		damage = 2;
 		points = 15;
-		movementSpeed = 0.25f;
+		movementSpeed = 0.4f;
 		attackSpeed = 50;
+		yellowAura.radius = 16;
 	}
 }

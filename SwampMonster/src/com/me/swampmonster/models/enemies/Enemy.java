@@ -160,8 +160,10 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 		aimingAura.y = position.y + sprite.getHeight() / 2;
 		oRangeAura.x = position.x + sprite.getWidth() / 2;
 		oRangeAura.y = position.y + sprite.getHeight() / 2;
-		yellowAura.x = position.x + sprite.getWidth() / 2;
-		yellowAura.y = position.y + sprite.getHeight() / 2;
+		if(!(this instanceof EnemySofa)){
+			yellowAura.x = position.x + sprite.getWidth() / 2;
+			yellowAura.y = position.y + sprite.getHeight() / 2;
+		}
 
 		rectanlge.x = sprite.getX();
 		rectanlge.y = sprite.getY();
@@ -466,7 +468,6 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 		while (prj.hasNext()) {
 			Projectile p = prj.next();
 			if (p != null) {
-				p.movementSpeed = 1f;
 				if (p.isCollision(collisionLayer)
 						|| Intersector.overlaps(p.circle, player.aimingArea)) {
 					p.state = State.DEAD;

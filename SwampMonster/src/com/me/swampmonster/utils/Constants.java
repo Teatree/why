@@ -53,11 +53,11 @@ public class Constants {
 	public static final String DamageTrap_Name = "Damage Trap";
 	public static final int DamageTrap_unlockScore = 0;
 	
-	public static final int DamageTrap_CoolDown_L1 = 1800;
-	public static final int DamageTrap_CoolDown_L2 = 1800;
-	public static final int DamageTrap_CoolDown_L3 = 1500;
-	public static final int DamageTrap_CoolDown_L4 = 1200;
-	public static final int DamageTrap_CoolDown_L5 = 1200;
+	public static final int DamageTrap_CoolDown_L1 = 900;
+	public static final int DamageTrap_CoolDown_L2 = 900;
+	public static final int DamageTrap_CoolDown_L3 = 720;
+	public static final int DamageTrap_CoolDown_L4 = 600;
+	public static final int DamageTrap_CoolDown_L5 = 600;
 
 	public static final float DamageTrap_Damage_L1 = 2f;
 	public static final float DamageTrap_Damage_L2 = 2f;
@@ -279,11 +279,11 @@ public class Constants {
 	public static final String FrostTrap_Name = "Frost Trap";
 	public static final int FrostTrap_unlockScore = 1500;
 
-	public static final int FrostTrap_CoolDown_L1 = 1800;
-	public static final int FrostTrap_CoolDown_L2 = 1800;
-	public static final int FrostTrap_CoolDown_L3 = 1500;
-	public static final int FrostTrap_CoolDown_L4 = 1200;
-	public static final int FrostTrap_CoolDown_L5 = 900;
+	public static final int FrostTrap_CoolDown_L1 = 900;
+	public static final int FrostTrap_CoolDown_L2 = 900;
+	public static final int FrostTrap_CoolDown_L3 = 720;
+	public static final int FrostTrap_CoolDown_L4 = 720;
+	public static final int FrostTrap_CoolDown_L5 = 600;
 
 	public static final int FrostTrap_LifeTime_L1 = 900;
 	public static final int FrostTrap_LifeTime_L2 = 900;
@@ -471,11 +471,11 @@ public class Constants {
 	public static final String PoisonTrap_Name = "Position Trap";
 	public static final int PoisonTrap_unlockScore = 4200;
 
-	public static final int PoisonTrap_CoolDown_L1 = 1800;
-	public static final int PoisonTrap_CoolDown_L2 = 1800;
-	public static final int PoisonTrap_CoolDown_L3 = 1500;
-	public static final int PoisonTrap_CoolDown_L4 = 1500;
-	public static final int PoisonTrap_CoolDown_L5 = 1200;
+	public static final int PoisonTrap_CoolDown_L1 = 900;
+	public static final int PoisonTrap_CoolDown_L2 = 900;
+	public static final int PoisonTrap_CoolDown_L3 = 720;
+	public static final int PoisonTrap_CoolDown_L4 = 720;
+	public static final int PoisonTrap_CoolDown_L5 = 600;
 
 	public static final int PoisonTrap_Radius_L1 = 12;
 	public static final int PoisonTrap_Radius_L2 = 12;
@@ -533,20 +533,20 @@ public class Constants {
 	public static final int RADIOACTIVE_CoolDown_L5 = 900;
 
 	public static final int RADIOACTIVE_Damage_L1 = 1;
-	public static final int RADIOACTIVE_Damage_L2 = 2;
+	public static final int RADIOACTIVE_Damage_L2 = 1;
 	public static final int RADIOACTIVE_Damage_L3 = 2;
-	public static final int RADIOACTIVE_Damage_L4 = 3;
-	public static final int RADIOACTIVE_Damage_L5 = 4;
+	public static final int RADIOACTIVE_Damage_L4 = 2;
+	public static final int RADIOACTIVE_Damage_L5 = 2;
 
-	public static final int RADIOACTIVE_LifeTime_L1 = 300;
-	public static final int RADIOACTIVE_LifeTime_L2 = 500;
-	public static final int RADIOACTIVE_LifeTime_L3 = 700;
+	public static final int RADIOACTIVE_LifeTime_L1 = 600;
+	public static final int RADIOACTIVE_LifeTime_L2 = 600;
+	public static final int RADIOACTIVE_LifeTime_L3 = 900;
 	public static final int RADIOACTIVE_LifeTime_L4 = 900;
-	public static final int RADIOACTIVE_LifeTime_L5 = 1220;
+	public static final int RADIOACTIVE_LifeTime_L5 = 1200;
 
 	public static final float RADIOACTIVE_Radius_L1 = 16;
 	public static final float RADIOACTIVE_Radius_L2 = 20;
-	public static final float RADIOACTIVE_Radius_L3 = 23;
+	public static final float RADIOACTIVE_Radius_L3 = 20;
 	public static final float RADIOACTIVE_Radius_L4 = 24;
 	public static final float RADIOACTIVE_Radius_L5 = 30;
 

@@ -15,6 +15,7 @@ public class Assets {
 	public static final AssetDescriptor<Texture> nastyaSpriteGun = new AssetDescriptor<Texture>("data\\EnemyTemp.png", Texture.class);
 	public static final AssetDescriptor<Texture> bow = new AssetDescriptor<Texture>("data\\BowNArrow.png", Texture.class);
 	public static final AssetDescriptor<Texture> enemyLeech = new AssetDescriptor<Texture>("data\\EnemyLeech_new.png", Texture.class);
+	public static final AssetDescriptor<Texture> enemySofa = new AssetDescriptor<Texture>("data\\EnemySOFA.png", Texture.class);
 	public static final AssetDescriptor<Texture> enemyZombie = new AssetDescriptor<Texture>("data\\EnemyZombie_new.png", Texture.class);
 	public static final AssetDescriptor<Texture> aimingAuraSprite = new AssetDescriptor<Texture>("data\\aimingAura.png", Texture.class);
 	public static final AssetDescriptor<Texture> enemyMaggot = new AssetDescriptor<Texture>("data\\EnemyMaggot_new.png", Texture.class);
@@ -47,7 +48,7 @@ public class Assets {
 	public static final AssetDescriptor<Texture> propToxicPuddle = new AssetDescriptor<Texture>("data\\googleSaysItIsAPool.png", Texture.class);
 	public static final AssetDescriptor<Texture> FROZEN_TRAP = new AssetDescriptor<Texture>("data\\Frozen.png", Texture.class);
 	public static final AssetDescriptor<Texture> DAMAGE_TRAP = new AssetDescriptor<Texture>("data\\appleTrap.png", Texture.class);
-	public static final AssetDescriptor<Texture> POISON_TRAP = new AssetDescriptor<Texture>("data\\googleSaysItIsAPool.png", Texture.class);
+	public static final AssetDescriptor<Texture> POISON_TRAP = new AssetDescriptor<Texture>("data\\slotIcons\\POISON_TRAP_ICON.png", Texture.class);
 	
 	public static final AssetDescriptor<Texture> turretImg = new AssetDescriptor<Texture>("data\\turret.png", Texture.class);
 	public static final AssetDescriptor<Texture> plasmaShield = new AssetDescriptor<Texture>("data\\plasmaShieldAnimation.png", Texture.class);
@@ -133,6 +134,7 @@ public class Assets {
 		manager.load(aFinger);
 		manager.load(plasmaShield);
 		manager.load(enemyLeech);
+		manager.load(enemySofa);
 		manager.load(nastyaSpriteStandard);
 		manager.load(nastyaSpriteGun);
 		manager.load(enemyZombie);

@@ -452,32 +452,32 @@ public class L1Renderer {
 //			sr.circle(L1.plasmaShield.circle.x, L1.plasmaShield.circle.y,
 //					L1.plasmaShield.circle.radius);
 //		}
-//		for (Enemy enemy : L1.enemiesOnStage) {
-//			// sr.setColor(Color.GREEN);
-//			// sr.circle(enemy.getgReenAura().x, enemy.getgReenAura().y,
-//			// enemy.getgReenAura().radius);
-//			// sr.setColor(Color.BLUE);
-//			// sr.circle(enemy.getoRangeAura().x, enemy.getoRangeAura().y,
-//			// enemy.getoRangeAura().radius);
-//			sr.setColor(Color.YELLOW);
-//			sr.circle(enemy.yellowAura.x, enemy.yellowAura.y,
-//					enemy.yellowAura.radius);
-//			// sr.setColor(Color.BLACK);
-//			// sr.circle(theController.explosion.position.x,
-//			// theController.explosion.position.y,
-//			// theController.explosion.explCircle.radius);
-//			// sr.circle(enemy.aimingAura.x, enemy.aimingAura.y,
-//			// enemy.aimingAura.radius);
-//		}
-//
-//		if (L1.player.turret != null) {
-//			sr.rect(L1.player.turret.turretAimerBot.x,
-//					L1.player.turret.turretAimerBot.y,
-//					L1.player.turret.turretAimerBot.width,
-//					L1.player.turret.turretAimerBot.height);
-//			sr.circle(L1.player.turret.circle.x, L1.player.turret.circle.y,
-//					L1.player.turret.circle.radius);
-//		}
+		for (Enemy enemy : L1.enemiesOnStage) {
+			// sr.setColor(Color.GREEN);
+			// sr.circle(enemy.getgReenAura().x, enemy.getgReenAura().y,
+			// enemy.getgReenAura().radius);
+			// sr.setColor(Color.BLUE);
+			// sr.circle(enemy.getoRangeAura().x, enemy.getoRangeAura().y,
+			// enemy.getoRangeAura().radius);
+			sr.setColor(Color.YELLOW);
+			sr.circle(enemy.yellowAura.x, enemy.yellowAura.y,
+					enemy.yellowAura.radius);
+			// sr.setColor(Color.BLACK);
+			// sr.circle(theController.explosion.position.x,
+			// theController.explosion.position.y,
+			// theController.explosion.explCircle.radius);
+			// sr.circle(enemy.aimingAura.x, enemy.aimingAura.y,
+			// enemy.aimingAura.radius);
+		}
+
+		if (L1.player.turret != null) {
+			sr.rect(L1.player.turret.turretAimerBot.x,
+					L1.player.turret.turretAimerBot.y,
+					L1.player.turret.turretAimerBot.width,
+					L1.player.turret.turretAimerBot.height);
+			sr.circle(L1.player.turret.circle.x, L1.player.turret.circle.y,
+					L1.player.turret.circle.radius);
+		}
 //
 //		// for (Projectile p : L1.player.projectiles) {
 //		// if (p != null) {

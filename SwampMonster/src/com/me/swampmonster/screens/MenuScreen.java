@@ -97,7 +97,7 @@ public class MenuScreen extends AbstractGameScreen{
 		}
 		table = new Table().right();
 		stage = new Stage();
-		Image img = new Image(new Texture("data/ui/wrldcnqr.png"));
+		Image img = new Image(new Texture("data/ui/bgImage.png"));
 		img.toBack();
 		img.setHeight(Constants.VIEWPORT_GUI_HEIGHT);
 		img.setWidth(Constants.VIEWPORT_GUI_WIDTH);
