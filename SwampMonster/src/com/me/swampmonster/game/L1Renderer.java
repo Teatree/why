@@ -489,7 +489,7 @@ public class L1Renderer {
 //		// p.sprite.getRotation());
 //		// }
 //		// }
-//		sr.setColor(Color.WHITE);
+		sr.setColor(Color.WHITE);
 //		for (Projectile p : L1.player.projectiles) {
 //			if (p != null) {
 //				sr.circle(p.circle.x, p.circle.y, p.circle.radius);
@@ -508,10 +508,10 @@ public class L1Renderer {
 //		// sr.circle(TheController.level1.player.invalidSpawnArea.x,
 //		// TheController.level1.player.invalidSpawnArea.y,
 //		// TheController.level1.player.invalidSpawnArea.radius);
-//		for (Enemy enemy : L1.enemiesOnStage) {
-//			sr.rect(enemy.rectanlge.x, enemy.rectanlge.y,
-//					enemy.rectanlge.width, enemy.rectanlge.height);
-//		}
+		for (Enemy enemy : L1.enemiesOnStage) {
+			sr.rect(enemy.rectanlge.x, enemy.rectanlge.y,
+					enemy.rectanlge.width, enemy.rectanlge.height);
+		}
 //		for (Prop p : L1.props) {
 //			sr.rect(p.sprite.getBoundingRectangle().x,
 //					p.sprite.getBoundingRectangle().y,

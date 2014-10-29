@@ -18,6 +18,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.me.swampmonster.AI.Node;
 import com.me.swampmonster.AI.Pathfinder;
 import com.me.swampmonster.animations.AnimationControl;
+import com.me.swampmonster.game.TheController;
 import com.me.swampmonster.game.collision.Collidable;
 import com.me.swampmonster.game.collision.CollisionHelper;
 import com.me.swampmonster.models.AbstractGameObject;
@@ -72,7 +73,6 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 	boolean attackSequenceStarted = false;
 	boolean turretAttackSequenceStarted = false;
 
-	public Circle gReenAura;
 	public Circle oRangeAura;
 	public Circle yellowAura;
 	public Circle aimingAura;
@@ -90,8 +90,6 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 	public Enemy(Vector2 position) {
 		this.position = position;
 		rectanlge = new Rectangle();
-		gReenAura = new Circle();
-		gReenAura.radius = 164;
 		oRangeAura = new Circle();
 		oRangeAura.radius = 16;
 		yellowAura = new Circle();
@@ -154,8 +152,6 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 		oldPos.x = position.x;
 		oldPos.y = position.y;
 
-		gReenAura.x = position.x;
-		gReenAura.y = position.y;
 		aimingAura.x = position.x + sprite.getWidth() / 2;
 		aimingAura.y = position.y + sprite.getHeight() / 2;
 		oRangeAura.x = position.x + sprite.getWidth() / 2;
@@ -241,22 +237,28 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 			enemyHurt(RADIOACTIVE.RADIOACTIVE_Damage);
 		}
 
-		if (state != State.DEAD && player.projectiles != null)
-			for (Projectile projectile : player.projectiles) {
-				if (projectile != null
-						&& Intersector.overlaps(projectile.circle, rectanlge)
-						&& !hurt || (iceCube != null
-						&& Intersector.overlaps(projectile.circle, iceCube.getBoundingRectangle()))) {
-					hurt = true;
-					damageType = "player";
-					enemyHurt(player.damage);
-					if (projectile.effect == EffectCarriers.POISONED) {
-						PoisonArrow.injectPoison(this);
-						this.setNegativeEffect(NegativeEffects.POISONED);
-					}
-				}
-			}
-
+//		if (state != State.DEAD && player.projectiles != null) {
+//			Iterator<Projectile> prj = player.projectiles.iterator();
+//			while (prj.hasNext()) {
+//				Projectile p = prj.next();
+//				if (Intersector.overlaps(p.circle, rectanlge)
+//						&& !hurt
+//						|| (iceCube != null && Intersector.overlaps(p.circle,
+//								iceCube.getBoundingRectangle()))) {
+//					if (p.effect == EffectCarriers.EXPLOSIVE) {
+//						TheController.skill.explode(p.position);
+//					}
+//					hurt = true;
+//					damageType = "player";
+//					enemyHurt(player.damage);
+//					if (p.effect == EffectCarriers.POISONED) {
+//						PoisonArrow.injectPoison(this);
+//						this.setNegativeEffect(NegativeEffects.POISONED);
+//					}
+//					prj.remove();
+//				}
+//			}
+//		}
 		if (player.turret != null && player.turret.projectiles != null && !player.turret.projectiles.isEmpty()){
 				Iterator<Projectile> itrTP = player.turret.projectiles.iterator(); 
 				while(itrTP.hasNext()){
@@ -418,7 +420,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 			}
 			if (timeDead == 1) {
 				rewardPlayer(player);
-				// "points: " + Player.score);
+				// "pointfAura " + Player.score);
 			}
 			if (timeDead > 64) {
 				dead = true;
@@ -464,22 +466,23 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 				time = 0;
 			}
 		}
-		Iterator<Projectile> prj = enemyProjectiles.iterator();
-		while (prj.hasNext()) {
-			Projectile p = prj.next();
-			if (p != null) {
-				if (p.isCollision(collisionLayer)
-						|| Intersector.overlaps(p.circle, player.aimingArea)) {
-					p.state = State.DEAD;
-				} else if(L1.plasmaShield!= null && p.circle.overlaps(L1.plasmaShield.circle)){
-					if(!L1.plasmaShield.circle.contains(oRangeAura)){
-						p.state = State.DEAD;
+		Iterator<Projectile> prj2 = enemyProjectiles.iterator();
+		while (prj2.hasNext()) {
+			Projectile p2 = prj2.next();
+			if (p2 != null) {
+				if (p2.isCollision(collisionLayer)
+						|| Intersector.overlaps(p2.circle, player.aimingArea)) {
+					p2.state = State.DEAD;
+				} else if (L1.plasmaShield != null
+						&& p2.circle.overlaps(L1.plasmaShield.circle)) {
+					if (!L1.plasmaShield.circle.contains(oRangeAura)) {
+						p2.state = State.DEAD;
 					}
-				} 
-				if(p.state == State.DEAD){
-					prj.remove();
 				}
-				p.update();
+				if (p2.state == State.DEAD) {
+					prj2.remove();
+				}
+				p2.update();
 			}
 		}
 
@@ -630,7 +633,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 						.getCurrentFrame());
 				sprite.setBounds(sprite.getX(), sprite.getY(), 32, 32);
 				timer++;
-				if (timer == 30 && timer2 >= attackSpeed) {
+				if (timer == 30 && timer2 == attackSpeed) {
 					currentFrame = animationsStandard.get(state).animate(
 							standing);
 					// And may be inflict different hurts, direction/ kinds of

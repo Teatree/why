@@ -39,13 +39,13 @@ public class EnemyLeech extends Enemy{
 //            			// System.out.println("timer2: " + timer2 );
 				currentFrame = animationsStandard.get(state).animate(standing);
 			}
-			if(timer2 >= attackSpeed && timer < 30){
+			if(timer2 == attackSpeed && timer < 30){
 				currentFrame = animationsStandard.get(state).doComplexAnimation(animation, 1.8f, Gdx.graphics.getDeltaTime(), Animation.PlayMode.NORMAL);
 				
 				sprite.setRegion(animationsStandard.get(state).getCurrentFrame());
 				sprite.setBounds(sprite.getX(), sprite.getY(), 32, 32);
 				timer++;
-				if(timer == 30 && timer2 >= attackSpeed){
+				if(timer == 30){
 					float direction_x = player.position.x - position.x;
 					float direction_y = player.position.y - position.y;
 					
@@ -68,8 +68,10 @@ public class EnemyLeech extends Enemy{
 					player.damageType = "enemy";
 					player.harmfulEnemy = this;
 					
-					timer = 0;
 					timer2 = 0;
+					timer =  0;
+					attackSequenceStarted = false;
+					System.out.println("making 0");
 				}
 			}
 		}

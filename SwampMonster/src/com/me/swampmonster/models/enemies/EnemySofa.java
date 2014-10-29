@@ -20,14 +20,12 @@ public class EnemySofa extends Enemy {
 		animationsStandard.put(State.PURSUIT, new AnimationControl(Assets.manager.get(Assets.enemySofa), 8, 32, 7)); 
 		animationsStandard.put(State.DEAD, new AnimationControl(Assets.manager.get(Assets.enemySofa), 8, 32, 4)); 
 		sprite = new Sprite(animationsStandard.get(state).getCurrentFrame());
-		sprite.scale(1);
 		movementSpeed = 0.5f;
 		health = 6;
 		damage = 3;
 		points = 50;
 		attackSpeed = 15;
 		STANDART_MOVEMENT_SPEED = movementSpeed;
-		yellowAura = new Circle();
 		yellowAura.radius = 32;
 		yellowAura.x = position.x + sprite.getWidth() / 2;
 		yellowAura.y = position.y + sprite.getHeight() / 2;
@@ -36,8 +34,13 @@ public class EnemySofa extends Enemy {
 	public void update(TiledMapTileLayer collisionLayer, Player player,
 			CameraHelper cameraHelper, List<Enemy> enemies){
 		super.update(collisionLayer, player, cameraHelper, enemies);
-		yellowAura.x = position.x;
-		yellowAura.y = position.y;
+		sprite.setSize(55, 55);
+		yellowAura.x = position.x+sprite.getWidth()/2;
+		yellowAura.y = position.y+sprite.getHeight()/2;
+		rectanlge.x = position.x;
+		rectanlge.y = position.y;
+		rectanlge.width = 55;
+		rectanlge.height = 55;
 	}
 
 }

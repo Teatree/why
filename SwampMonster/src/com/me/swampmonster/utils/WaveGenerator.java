@@ -5,6 +5,7 @@ import java.util.Stack;
 
 import com.me.swampmonster.models.Wave;
 import com.me.swampmonster.models.enemies.Enemy;
+import com.me.swampmonster.models.enemies.EnemySofa;
 
 public class WaveGenerator {
 	EnemyGenerator enemyGenerator = new EnemyGenerator();
@@ -13,11 +14,11 @@ public class WaveGenerator {
 	
 	private enum WaveParams{
 		//                     *-et*+et*-tt*+tt*-ws**+ws*-tw*+tw**-eb*+eb**rate***perd*-w**+w*
-		p0_500					(0,  1,  0,  2,  10,  17,  2,  5,  6,  7,  12.0f,  50,  2,  3),
+		p0_500					(2,  4,  0,  2,  7, 8,  2,  5,  6,  7,  12.0f,  50,  2,  3),
 		p0_500_Elite			(0,  1,  1,  2,  7,   13,  7,  13, 6,  7,  12.0f,  50,  2,  3),
 		p0_500_A				(4,  5,  0,  2,  10,  17,  0,  1,  6,  7,  12.0f,  50,  2,  3),
 		//                     *-et*+et*-tt*+tt*-ws**+ws*-tw*+tw***-eb*+eb**rate***perd*-w**+w*
-		p500_1000				(0,  2,  0,  2,  15,  23,  8,  16,  6,  7,  12.0f,  50,  2,  3),
+		p500_1000				(2,  4,  0,  2,  15,  23,  8,  16,  6,  7,  12.0f,  50,  2,  3),
 		p500_1000_Elite			(0,  1,  1,  2,  10,  17,  10, 17,  6,  7,  12.0f,  50,  2,  3),
 		p500_1000_A				(4,  5,  0,  2,  15,  23,  0,  1,   6,  7,  12.0f,  50,  2,  3),
 		//     				   *-et*+et*-tt*+tt*-ws**+ws**-tw*+tw**-eb**+eb***rate**perd*-w**+w*
@@ -101,12 +102,44 @@ public class WaveGenerator {
 		int maxAmountOfToughGuysInAWave = calcMaxAmountOfToughGuysInAWave(playersScore);
 		Enemy [] tempEnemies = new Enemy[waveSize];
 		
-		for (int i = 0; i < waveSize - maxAmountOfToughGuysInAWave; i++){
-			tempEnemies[i] = enemyGenerator.getPlainEnemy(minEnemy, maxEnemy);
-		}
+		int sofaCounter = 0;
+		double maxSofaAmount = waveSize*0.02;
 		
-		for (int i = waveSize - maxAmountOfToughGuysInAWave; i < waveSize; i++){
-			tempEnemies [i] = enemyGenerator.getToughEnemy(minEnemy, maxEnemy, minTough, maxTough);
+		for (int i = 0; i < waveSize - maxAmountOfToughGuysInAWave; i++) {
+			while (tempEnemies[i] == null) {
+				Enemy enemy = enemyGenerator.getPlainEnemy(minEnemy, maxEnemy);
+				if (enemy.getClass().equals(EnemySofa.class)) {
+					if (sofaCounter < maxSofaAmount) {
+						sofaCounter++;
+						tempEnemies[i] = enemy;
+						break;
+					}
+				} else {
+					tempEnemies[i] = enemy;
+					break;
+				}
+			}
+			System.out.println("maxSofaAmount " + maxSofaAmount);
+			System.out.println("sofaCoutner " + sofaCounter);
+			System.out.println("temps " + tempEnemies);
+		}
+
+		
+		for (int i = waveSize - maxAmountOfToughGuysInAWave; i < waveSize; i++) {
+			while (tempEnemies[i] == null) {
+				Enemy enemy = enemyGenerator.getToughEnemy(minEnemy, maxEnemy,
+						minTough, maxTough);
+				if (enemy.getClass().equals(EnemySofa.class)) {
+					if (sofaCounter < maxSofaAmount) {
+						sofaCounter++;
+						tempEnemies[i] = enemy;
+						break;
+					} 
+				} else {
+					tempEnemies[i] = enemy;
+					break;
+				}
+			}
 		}
 		GeneralUtils.shuffle(tempEnemies);
 		for (Enemy e : tempEnemies){

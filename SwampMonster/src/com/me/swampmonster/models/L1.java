@@ -23,11 +23,13 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener.ChangeEvent;
 import com.me.swampmonster.game.GShape;
 import com.me.swampmonster.game.L1Renderer;
 import com.me.swampmonster.game.TheController;
+import com.me.swampmonster.models.AbstractGameObject.NegativeEffects;
 import com.me.swampmonster.models.AbstractGameObject.State;
 import com.me.swampmonster.models.Projectile.EffectCarriers;
 import com.me.swampmonster.models.enemies.Enemy;
 import com.me.swampmonster.models.items.HealthKit;
 import com.me.swampmonster.models.items.Oxygen;
+import com.me.swampmonster.models.slots.PoisonArrow;
 import com.me.swampmonster.utils.CameraHelper;
 import com.me.swampmonster.utils.Constants;
 import com.me.swampmonster.utils.MisterItemSpawner;
@@ -320,18 +322,28 @@ public class L1 {
 						&& Intersector.overlaps(player.radioactiveAura,
 								e.rectanlge)) {
 				}
-				Iterator<Projectile> prj = player.projectiles.iterator();
-				while (prj.hasNext()) {
-					Projectile p = prj.next();
-					if (Intersector.overlaps(p.circle, e.rectanlge)) {
-						if (p.effect == EffectCarriers.EXPLOSIVE){
-							TheController.skill.explode(p.position);
+				if (e.state != State.DEAD && player.projectiles != null) {
+					Iterator<Projectile> prj = player.projectiles.iterator();
+					while (prj.hasNext()) {
+						Projectile p = prj.next();
+						if (Intersector.overlaps(p.circle, e.rectanlge)
+								&& !e.hurt
+								|| (e.iceCube != null && Intersector.overlaps(p.circle,
+										e.iceCube.getBoundingRectangle()))) {
+							if (p.effect == EffectCarriers.EXPLOSIVE) {
+								TheController.skill.explode(p.position);
+							}
+							e.hurt = true;
+							e.damageType = "player";
+							e.enemyHurt(player.damage);
+							if (p.effect == EffectCarriers.POISONED) {
+								PoisonArrow.injectPoison(e);
+								e.setNegativeEffect(NegativeEffects.POISONED);
+							}
+							prj.remove();
 						}
-						prj.remove();
-						break;
 					}
-				}
-				
+				}				
 				if (player.trap != null && Intersector.overlaps(player.trap.circle, e.yellowAura)){
 					System.out.println(player.trap + ": caught one!");
 					player.trap.catchEnemy(e);
