@@ -14,7 +14,7 @@ public class WaveGenerator {
 	
 	private enum WaveParams{
 		//                     *-et*+et*-tt*+tt*-ws**+ws*-tw*+tw**-eb*+eb**rate***perd*-w**+w*
-		p0_500					(2,  4,  0,  2,  7, 8,  2,  5,  6,  7,  12.0f,  50,  2,  3),
+		p0_500					(0,  1,  0,  2,  2,   3,   0,  1,  2,  3,  12.0f,  50,  2,  3),
 		p0_500_Elite			(0,  1,  1,  2,  7,   13,  7,  13, 6,  7,  12.0f,  50,  2,  3),
 		p0_500_A				(4,  5,  0,  2,  10,  17,  0,  1,  6,  7,  12.0f,  50,  2,  3),
 		//                     *-et*+et*-tt*+tt*-ws**+ws*-tw*+tw***-eb*+eb**rate***perd*-w**+w*

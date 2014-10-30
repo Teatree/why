@@ -479,22 +479,12 @@ public class L1Renderer {
 					L1.player.turret.circle.radius);
 		}
 //
-//		// for (Projectile p : L1.player.projectiles) {
-//		// if (p != null) {
-//		// sr.rect(p.position.x + p.sprite.getWidth() / 2, p.position.y+
-//		// p.sprite.getHeight() / 2, 3, 3, 1, 1,p.sprite.getRotation());
-//		// sr.setColor(Color.RED);
-//		// sr.rect(p.position.x - p.sprite.getRotation(), p.position.y
-//		// - p.sprite.getRotation(), 2, 2, 1, 1,
-//		// p.sprite.getRotation());
-//		// }
-//		// }
 		sr.setColor(Color.WHITE);
-//		for (Projectile p : L1.player.projectiles) {
-//			if (p != null) {
-//				sr.circle(p.circle.x, p.circle.y, p.circle.radius);
-//			}
-//		}
+		for (Projectile p : L1.player.projectiles) {
+			if (p != null) {
+				sr.circle(p.circle.x, p.circle.y, p.circle.radius);
+			}
+		}
 //
 //		for (Item item : L1.items) {
 //			if (item.sprite != null) {
@@ -511,6 +501,9 @@ public class L1Renderer {
 		for (Enemy enemy : L1.enemiesOnStage) {
 			sr.rect(enemy.rectanlge.x, enemy.rectanlge.y,
 					enemy.rectanlge.width, enemy.rectanlge.height);
+			for(Projectile p: enemy.enemyProjectiles){
+				sr.circle(p.circle.x, p.circle.y, p.circle.radius);
+			}
 		}
 //		for (Prop p : L1.props) {
 //			sr.rect(p.sprite.getBoundingRectangle().x,

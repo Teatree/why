@@ -9,6 +9,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.me.swampmonster.game.collision.Collidable;
 import com.me.swampmonster.game.collision.CollisionHelper;
 import com.me.swampmonster.models.AbstractGameObject.NegativeEffects;
+import com.me.swampmonster.models.slots.PoisonTrap;
 import com.me.swampmonster.models.slots.PositiveEffects;
 
 public class Explosion {
@@ -31,6 +32,7 @@ public class Explosion {
 	public int explosionLifeTime;
 	private int explodionLifeTimeCounter;
 	public float explosionPushForce;
+	public int frozenLifeTime;
 	
 	public boolean isNuke;
 	
@@ -40,6 +42,7 @@ public class Explosion {
 		explosionPushForce = EXPLOSION_PUSH_FORCE;
 		random = new Random();
 		this.damage = random.nextFloat()+0.7f;
+		frozenLifeTime = 0;
 		explCircle = new Circle();
 		explCircle.setPosition(new Vector2(position.x, position.y));
 		if(!type.equals(EXPLOSION_TYPE_INVERTED)){
@@ -89,6 +92,7 @@ public class Explosion {
 		} 
 		if (type == EXPLOSION_TYPE_FROST){
 			if (!(ago instanceof Player)){
+				NegativeEffects.FROZEN.lifetime = frozenLifeTime;
 				ago.setNegativeEffect(NegativeEffects.FROZEN);
 			}
 		}

@@ -104,6 +104,8 @@ public class PoisonArrow extends Slot{
 			}else if(intuha<0){
 				intuhaString = "(" + intuha + ")"; 
 			}
+			//WHAT ABOUT THE POISON DAMAGE !?
+			
 		}
 		stats.add("t " + coolDown/60 + intuhaString);
 		

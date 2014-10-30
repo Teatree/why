@@ -122,6 +122,7 @@ public class Projectile extends AbstractGameObject {
 	}
 
 	public boolean isCollision(TiledMapTileLayer collisionLayer) {
+//		System.out.println("yes collision!");
 		return CollisionHelper.isCollidableLevel(position.x + sprite.getWidth()
 				/ 2, position.y + sprite.getHeight() / 2, collisionLayer, this) != null;
 	}

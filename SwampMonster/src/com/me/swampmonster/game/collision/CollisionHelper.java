@@ -3,6 +3,7 @@ package com.me.swampmonster.game.collision;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import com.me.swampmonster.models.Projectile;
+import com.me.swampmonster.models.enemies.LeechProjectile;
 
 public class CollisionHelper {
 	
@@ -11,14 +12,12 @@ public class CollisionHelper {
 		return (String) (cell != null && cell.getTile() != null ? cell.getTile().getProperties().get("blocked") : null);
 	}
 	
-	
 	public static Collidable isCollidable(float x, float y, TiledMapTileLayer collisionLayer){
 		Solid solid = null;
 		if(isCellBlocked(x, y, collisionLayer)!=null){
 			solid = new Solid();
 		}
 		return solid;
-		
 	}
 	
 	public static String isCellBreakable(float x, float y, TiledMapTileLayer collisionLayer){
@@ -33,9 +32,7 @@ public class CollisionHelper {
 			
 		}
 		return solid;
-		
 	}
-	
 	
 	public static int getSurfaceLevel(float x, float y, TiledMapTileLayer collisionLayer){
 		Cell cell = collisionLayer.getCell(
@@ -43,6 +40,7 @@ public class CollisionHelper {
 				(int) (y / collisionLayer.getTileHeight()));
 		int i = Integer.parseInt((String) cell.getTile().getProperties()
 				.get("level"));
+		System.out.println("collision layer level: " + i);
 		return i;
 	}
 	
@@ -58,15 +56,13 @@ public class CollisionHelper {
 			if ((String) cell.getTile().getProperties().get("level") != null) {
 				int i = Integer.parseInt((String) cell.getTile()
 						.getProperties().get("level"));
-//				System.out.println("sufraceLevel: " + p.currentSurfaceLevel
-//						+ " i " + i);
+				System.out.println("sufraceLevel: " + p.currentSurfaceLevel
+						+ " i " + i);
 				if (p.initialSurfaceLevel <= i) {
 					solid = new Solid();
-				} 
+				}
 			}
 		}
 		return solid;
-		
 	}
-	
 }

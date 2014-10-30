@@ -25,6 +25,7 @@ import com.me.swampmonster.models.AbstractGameObject;
 import com.me.swampmonster.models.L1;
 import com.me.swampmonster.models.Player;
 import com.me.swampmonster.models.Projectile;
+import com.me.swampmonster.models.AbstractGameObject.State;
 import com.me.swampmonster.models.Projectile.EffectCarriers;
 import com.me.swampmonster.models.ProjectileHydra;
 import com.me.swampmonster.models.Prop;
@@ -57,7 +58,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 	int timereskin = 0;
 	public int timeRemove = 0;
 	public String projectileLocation;
-	public List<Projectile> enemyProjectiles;
+	public List<LeechProjectile> enemyProjectiles;
 	public Toughness toughness;
 	public Vector2 target;
 	public Sprite iceCube;
@@ -89,7 +90,6 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 
 	Random random = new Random();
 	int generateNewRandomPosForScared;
-	public int negativeEffectCounter;
 
 	public Enemy(Vector2 position) {
 		this.position = position;
@@ -129,7 +129,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 		timer2 = 0;
 		path = new Node[99];
 
-		enemyProjectiles = new LinkedList<Projectile>();
+		enemyProjectiles = new LinkedList<LeechProjectile>();
 
 		// ***Character stats board, probably need to delete this***
 		characterStatsBoard();
@@ -363,10 +363,6 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 					atackLogic(player, cameraHelper);
 				}
 		}
-		// ANIMATING
-		if (state.equals(State.ANIMATING)) {
-
-		}
 
 		if (negativeEffectsState != NegativeEffects.NONE
 				&& negativeEffectTimer > 0) {
@@ -466,22 +462,26 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 
 			} else if (time > 39) {
 				hurt = false;
-				movementSpeed = STANDART_MOVEMENT_SPEED;
+				if(!negativeEffectsState.equals(NegativeEffects.FROZEN)){
+					movementSpeed = STANDART_MOVEMENT_SPEED;
+				}else if(negativeEffectsState.equals(NegativeEffects.FROZEN)){
+					movementSpeed = STANDART_MOVEMENT_SPEED/2;
+				}
 				time = 0;
 			}
 		}
-		Iterator<Projectile> prj2 = enemyProjectiles.iterator();
+		Iterator<LeechProjectile> prj2 = enemyProjectiles.iterator();
 		while (prj2.hasNext()) {
-			Projectile p2 = prj2.next();
-			if (p2 != null) {
+			LeechProjectile p2 = prj2.next();
 				if (p2.isCollision(collisionLayer)
 						|| Intersector.overlaps(p2.circle, player.aimingArea)) {
+					System.out.println("colision");
 					player.damage_dx = L1.player.position.x - position.x;
 					player.damage_dy = L1.player.position.y - position.y;
 					float length3 = (float) Math.sqrt(L1.player.damage_dx * L1.player.damage_dx + L1.player.damage_dy * L1.player.damage_dy);
 					player.damage_dx /= length3;
 					player.damage_dy /= length3;
-					player.damagePushForce = damage/5;
+					player.damagePushForce = damage/10;
 					p2.state = State.DEAD;
 				} else if (L1.plasmaShield != null
 						&& p2.circle.overlaps(L1.plasmaShield.circle)) {
@@ -489,11 +489,12 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 						p2.state = State.DEAD;
 					}
 				}
+				p2.update();
+				p2.getSurfaceLevelProjectile(collisionLayer);
+				System.out.println("p2.getSurfaceLevelProjectile " + p2.getSurfaceLevelProjectile(collisionLayer));
 				if (p2.state == State.DEAD) {
 					prj2.remove();
 				}
-				p2.update();
-			}
 		}
 
 		Iterator<Prop> propItr = L1.props.iterator();
@@ -661,10 +662,10 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 						player.damage_dy /= length1;
 						if(player.negativeEffectsState == NegativeEffects.WEAKENED){
 							player.health -= damage*2;
-							player.damagePushForce = damage/5;
+							player.damagePushForce = damage/10;
 						}else{
 							player.health -= damage;
-							player.damagePushForce = damage/5;
+							player.damagePushForce = damage/10;
 						}
 					}
 
@@ -1187,9 +1188,10 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 		case FROZEN:
 			if (negativeEffectsState != NegativeEffects.FROZEN) {
 				sprite.setColor(4 / 255f, 180 / 255f, 1f, 1f);
-				movementSpeed *= 0.5f;
-				negativeEffectsState = negativeEffect;
+				movementSpeed = movementSpeed/2;
+				negativeEffectsState = NegativeEffects.FROZEN;
 				negativeEffectTimer = negativeEffect.lifetime;
+				System.out.println("negative effect timer " + negativeEffectTimer);
 			}
 			break;
 		case POISONED:
@@ -1204,7 +1206,6 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 			path = new Node[99];
 			negativeEffectsState = negativeEffect;
 			negativeEffectTimer = negativeEffect.lifetime;
-			System.out.println("negativeEffectCounter" + negativeEffectCounter);
 			break;
 		case STUN:
 			if (negativeEffectsState != NegativeEffects.STUN) {

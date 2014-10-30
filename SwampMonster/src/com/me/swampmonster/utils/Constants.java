@@ -296,6 +296,12 @@ public class Constants {
 	public static final int FrostTrap_CircleRadius_L3 = 16;
 	public static final int FrostTrap_CircleRadius_L4 = 20;
 	public static final int FrostTrap_CircleRadius_L5 = 24;
+	
+	public static final int FrostTrap_FrostLifeTime_L1 = 900;
+	public static final int FrostTrap_FrostLifeTime_L2 = 9000;
+	public static final int FrostTrap_FrostLifeTime_L3 = 1200;
+	public static final int FrostTrap_FrostLifeTime_L4 = 1200;
+	public static final int FrostTrap_FrostLifeTime_L5 = 1500;
 
 	public static final String FrostTrap_Description_L1 = "Spawns a frost trap that explodes if stepped on, causing eveyone in the "
 			+ FrostTrap_CircleRadius_L1

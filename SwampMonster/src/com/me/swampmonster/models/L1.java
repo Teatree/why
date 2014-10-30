@@ -27,6 +27,7 @@ import com.me.swampmonster.models.AbstractGameObject.NegativeEffects;
 import com.me.swampmonster.models.AbstractGameObject.State;
 import com.me.swampmonster.models.Projectile.EffectCarriers;
 import com.me.swampmonster.models.enemies.Enemy;
+import com.me.swampmonster.models.enemies.EnemySofa;
 import com.me.swampmonster.models.items.HealthKit;
 import com.me.swampmonster.models.items.Oxygen;
 import com.me.swampmonster.models.slots.PoisonArrow;
@@ -334,7 +335,11 @@ public class L1 {
 								TheController.skill.explode(p.position);
 							}
 							e.hurt = true;
-							e.damagePushForce = p.force-e.health/10;
+							if(e instanceof EnemySofa){
+								e.damagePushForce = 0;
+							}else{
+								e.damagePushForce = p.force-e.health/5;
+							}
 							e.damageType = "player";
 							e.enemyHurt(player.damage);
 							if (p.effect == EffectCarriers.POISONED) {

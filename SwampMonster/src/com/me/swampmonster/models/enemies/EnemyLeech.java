@@ -1,8 +1,11 @@
 package com.me.swampmonster.models.enemies;
 
+import java.util.List;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Vector2;
 import com.me.swampmonster.animations.AnimationControl;
 import com.me.swampmonster.models.Player;
@@ -30,6 +33,13 @@ public class EnemyLeech extends Enemy{
 	}
 	
 	@Override
+	public void update(TiledMapTileLayer collisionLayer, Player player,
+			CameraHelper cameraHelper, List<Enemy> enemies) {
+		// TODO Auto-generated method stub
+		super.update(collisionLayer, player, cameraHelper, enemies);
+	}
+	
+	@Override
 	protected void inflictOnThe(int standing, int animation, Player player, CameraHelper cameraHelper, int attackSpeed) {
 		// Timer is for the length of the actual animation
 		// Timer2 is for the waiting period
@@ -49,7 +59,9 @@ public class EnemyLeech extends Enemy{
 					float direction_x = player.position.x - position.x;
 					float direction_y = player.position.y - position.y;
 					
-					LeechProjectile p = new LeechProjectile(new Vector2(100, 100), getRotation(player.position));
+					LeechProjectile p = new LeechProjectile(new Vector2(position.x
+							+ direction_x / 100 - 8, position.y + direction_y / 100
+							- 8), getRotation(player.position));
 					if(this.toughness != null){
 						p.setColour(this.toughness.red, this.toughness.green, this.toughness.blue, this.toughness.alpha);
 					}
@@ -76,4 +88,5 @@ public class EnemyLeech extends Enemy{
 			}
 		}
 	}
+
 }

@@ -21,6 +21,7 @@ public class FrostTrap extends Trap{
 	public static Map<Integer, Integer> radiusByLevel;
 	public static Map<Integer, Integer> collDownByLevel;
 	public static Map<Integer, Integer> lifeTimeByLevel;
+	public static Map<Integer, Integer> frostLifeTimeByLevel;
 	private static Map <Integer, String> descriptionByLevel;
 	private boolean cuba;
 	
@@ -38,6 +39,13 @@ public class FrostTrap extends Trap{
 		radiusByLevel.put(2, Constants.FrostTrap_CircleRadius_L3);
 		radiusByLevel.put(3, Constants.FrostTrap_CircleRadius_L4);
 		radiusByLevel.put(4, Constants.FrostTrap_CircleRadius_L5);
+		
+		frostLifeTimeByLevel = new HashMap<Integer, Integer>();
+		frostLifeTimeByLevel.put(0, Constants.FrostTrap_FrostLifeTime_L1);
+		frostLifeTimeByLevel.put(1, Constants.FrostTrap_FrostLifeTime_L2);
+		frostLifeTimeByLevel.put(2, Constants.FrostTrap_FrostLifeTime_L3);
+		frostLifeTimeByLevel.put(3, Constants.FrostTrap_FrostLifeTime_L4);
+		frostLifeTimeByLevel.put(4, Constants.FrostTrap_FrostLifeTime_L5);
 		
 		lifeTimeByLevel = new HashMap<Integer, Integer>();
 		lifeTimeByLevel.put(0, Constants.FrostTrap_LifeTime_L1);
@@ -70,6 +78,11 @@ public class FrostTrap extends Trap{
 	public void catchEnemy(Enemy enemy) {
 		if (!cuba && position!= null) {
 			explosion = new Explosion(this.position, Explosion.EXPLOSION_TYPE_FROST);
+			if(FrostTrap.level>=1){
+				explosion.frozenLifeTime = frostLifeTimeByLevel.get(FrostTrap.level-1);
+			}else{
+				explosion.frozenLifeTime = frostLifeTimeByLevel.get(FrostTrap.level);
+			}
 			explosion.damage = 0;
 			explosion.incrementalDamageValue = 0;
 			explosion.incrementalCircleValue = 6;
