@@ -163,13 +163,13 @@ public class L1Renderer {
 					if(enemy.negativeEffectsState == NegativeEffects.POISONED){
 						fontss.setColor(Color.MAGENTA);
 						fontss.setScale(0.52f);
-						fontss.draw(batch, enemy.poisonDamage + " DMG",
+						fontss.draw(batch, enemy.poisonDamage*10 + " DMG",
 								enemy.position.x,
 								enemy.position.y + enemy.sprite.getHeight() + 5 + enemy.time/5);
 					}else{
 						fontss.setColor(Color.RED);
 						fontss.setScale(0.52f);
-						fontss.draw(batch, (int)L1.player.damage + " DMG",
+						fontss.draw(batch, (int)L1.player.damage*10 + " DMG",
 								enemy.position.x,
 								enemy.position.y + enemy.sprite.getHeight() + 5 + enemy.time/5);
 					}
