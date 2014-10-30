@@ -61,13 +61,17 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 	public Toughness toughness;
 	public Vector2 target;
 	public Sprite iceCube;
-
+	float damage_dx;
+	float damage_dy;
+	
 	float enemyDx;
 	float enemyDy;
 
 	float enemyPathDx;
 	float enemyPathDy;
 
+	public float damagePushForce;
+		
 	boolean iAmWaiting = false;
 	boolean currentlyMovingOnPath = false;
 	boolean attackSequenceStarted = false;
@@ -133,7 +137,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 
 		sprite = new Sprite(animationsStandard.get(State.STANDARD)
 				.getCurrentFrame());
-
+		
 	}
 
 	public void characterStatsBoard() {
@@ -165,6 +169,12 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 		rectanlge.y = sprite.getY();
 		rectanlge.width = sprite.getWidth();
 		rectanlge.height = sprite.getHeight();
+		
+		damage_dx = position.x - L1.player.position.x;
+		damage_dy = position.y - L1.player.position.y;
+		float length1 = (float) Math.sqrt(damage_dx * damage_dx + damage_dy * damage_dy);
+		damage_dx /= length1;
+		damage_dy /= length1;
 
 //		if (negativeEffectCounter <= 0) {
 //			setNegativeEffect(NegativeEffects.NONE);
@@ -237,28 +247,6 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 			enemyHurt(RADIOACTIVE.RADIOACTIVE_Damage);
 		}
 
-//		if (state != State.DEAD && player.projectiles != null) {
-//			Iterator<Projectile> prj = player.projectiles.iterator();
-//			while (prj.hasNext()) {
-//				Projectile p = prj.next();
-//				if (Intersector.overlaps(p.circle, rectanlge)
-//						&& !hurt
-//						|| (iceCube != null && Intersector.overlaps(p.circle,
-//								iceCube.getBoundingRectangle()))) {
-//					if (p.effect == EffectCarriers.EXPLOSIVE) {
-//						TheController.skill.explode(p.position);
-//					}
-//					hurt = true;
-//					damageType = "player";
-//					enemyHurt(player.damage);
-//					if (p.effect == EffectCarriers.POISONED) {
-//						PoisonArrow.injectPoison(this);
-//						this.setNegativeEffect(NegativeEffects.POISONED);
-//					}
-//					prj.remove();
-//				}
-//			}
-//		}
 		if (player.turret != null && player.turret.projectiles != null && !player.turret.projectiles.isEmpty()){
 				Iterator<Projectile> itrTP = player.turret.projectiles.iterator(); 
 				while(itrTP.hasNext()){
@@ -336,7 +324,6 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 		if (state.equals(State.STANDARD) && !aiming && negativeEffectsState != NegativeEffects.STUN) {
 			sprite.setRegion(animations.get(state).getCurrentFrame());
 			sprite.setBounds(sprite.getX(), sprite.getY(), 32, 32);
-			if (!hurt ||(damageType != null && (damageType.equals("turret") || damageType.equals("poison")))) {
 				if (timer == 0 && timer2 == 0
 						&& !(yellowAura.overlaps(player.circle) || player.turret!=null && yellowAura.overlaps(player.turret.circle))
 						&& player.state != State.DEAD) {
@@ -375,7 +362,6 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 					
 					atackLogic(player, cameraHelper);
 				}
-			}
 		}
 		// ANIMATING
 		if (state.equals(State.ANIMATING)) {
@@ -433,36 +419,54 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 			if (time < 40) {
 				time++;
 				if (damageType == "player" && state != State.DEAD) {
-					Collidable collidableUp = null;
+					movementSpeed = movementSpeed/2;
+//					Collidable collidableUp = null;
+					// TERRIBLE! 
+					//:TODO CHANGE ALL OF THIS
+					
+					Collidable cL = CollisionHelper.isCollidable(position.x, position.y + sprite.getHeight()/2, collisionLayer);
+					Collidable cR = CollisionHelper.isCollidable(position.x + sprite.getWidth(), position.y + sprite.getHeight()/2, collisionLayer);
+					Collidable cU = CollisionHelper.isCollidable(position.x + sprite.getWidth()/2, position.y + sprite.getHeight(), collisionLayer);
+					Collidable cD = CollisionHelper.isCollidable(position.x + sprite.getWidth()/2, position.y, collisionLayer);
+//					explosionPushForce -= 0.01f;
+					if (cL == null && getDx() <= 0 ||
+							cR == null && getDx() > 0){
+//						position.x += 0.2f;
+						position.x += damage_dx * damagePushForce/10;
+					} 
+					if (cD == null && getDy() < 0 
+							|| cU == null && getDy() >= 0){
+//						position.y += 0.2f;
+						position.y += damage_dy * damagePushForce/10;
+					}
+									
+//					collidableUp = collisionCheckerTop(collisionLayer, enemies);
+//					collisionCheck(collidableUp, collisionLayer, player);
 
-					damagedFromTop(collidableUp, animationsStandard);
-					collidableUp = collisionCheckerTop(collisionLayer, enemies);
-					collisionCheck(collidableUp, collisionLayer, player);
+//					Collidable collidableDown = null;
 
-					Collidable collidableDown = null;
+//					collidableDown = collisionCheckerBottom(collisionLayer,
+//							enemies);
+//					collisionCheck(collidableDown, collisionLayer, player);
+//
+//					Collidable collidableLeft = null;
 
-					damageFromBottom(collidableDown, animationsStandard);
-					collidableDown = collisionCheckerBottom(collisionLayer,
-							enemies);
-					collisionCheck(collidableDown, collisionLayer, player);
+//					damageFromLeft(collidableLeft, animationsStandard);
+//					collidableLeft = collisionCheckerLeft(collisionLayer,
+//							enemies);
+//					collisionCheck(collidableLeft, collisionLayer, player);
+//
+//					Collidable collidableRight = null;
 
-					Collidable collidableLeft = null;
-
-					damageFromLeft(collidableLeft, animationsStandard);
-					collidableLeft = collisionCheckerLeft(collisionLayer,
-							enemies);
-					collisionCheck(collidableLeft, collisionLayer, player);
-
-					Collidable collidableRight = null;
-
-					damageFromRight(collidableRight, animationsStandard);
-					collidableRight = collisionCheckerRight(collisionLayer,
-							enemies);
-					collisionCheck(collidableRight, collisionLayer, player);
+//					damageFromRight(collidableRight, animationsStandard);
+//					collidableRight = collisionCheckerRight(collisionLayer,
+//							enemies);
+//					collisionCheck(collidableRight, collisionLayer, player);
 				}
 
 			} else if (time > 39) {
 				hurt = false;
+				movementSpeed = STANDART_MOVEMENT_SPEED;
 				time = 0;
 			}
 		}
@@ -472,6 +476,12 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 			if (p2 != null) {
 				if (p2.isCollision(collisionLayer)
 						|| Intersector.overlaps(p2.circle, player.aimingArea)) {
+					player.damage_dx = L1.player.position.x - position.x;
+					player.damage_dy = L1.player.position.y - position.y;
+					float length3 = (float) Math.sqrt(L1.player.damage_dx * L1.player.damage_dx + L1.player.damage_dy * L1.player.damage_dy);
+					player.damage_dx /= length3;
+					player.damage_dy /= length3;
+					player.damagePushForce = damage/5;
 					p2.state = State.DEAD;
 				} else if (L1.plasmaShield != null
 						&& p2.circle.overlaps(L1.plasmaShield.circle)) {
@@ -644,10 +654,17 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 						player.damageType = "enemy";
 						player.harmfulEnemy = this;
 						player.hurt = true;
+						player.damage_dx = player.position.x - position.x;
+						player.damage_dy = player.position.y - position.y;
+						float length1 = (float) Math.sqrt(damage_dx * damage_dx + damage_dy * damage_dy);
+						player.damage_dx /= length1;
+						player.damage_dy /= length1;
 						if(player.negativeEffectsState == NegativeEffects.WEAKENED){
 							player.health -= damage*2;
+							player.damagePushForce = damage/5;
 						}else{
 							player.health -= damage;
+							player.damagePushForce = damage/5;
 						}
 					}
 
@@ -1072,6 +1089,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 	public void enemyHurt(float dmg) {
 		state = State.STANDARD;
 		if (health >= 0) {
+//			movementSpeed = movementSpeed/2;
 			health -= dmg;
 			System.out.println("Player.damage " + dmg);
 		}

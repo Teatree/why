@@ -81,6 +81,7 @@ public class Player extends AbstractGameObject {
 	public Vector3 V3playerPos;
 	public Vector3 aimLineHead;
 	public float oxygen;
+	public float damagePushForce;
 	public static float maxOxygen;
 	public static int absoluteScore;
 	public static int levelsScore;
@@ -101,6 +102,8 @@ public class Player extends AbstractGameObject {
 
 	private float playerDy;
 	private float playerDx;
+	public float damage_dx;
+	public float damage_dy;
 
 	public Trap trap;
 	public int trapTimer;
@@ -226,6 +229,8 @@ public class Player extends AbstractGameObject {
 		aimingAuraSprite.setX(position.x - 9);
 		aimingAuraSprite.setY(position.y - 8);
 
+		
+		
 		if (!L1.hasAtmosphere) {
 			oxygen -= Constants.OXYGEN_DECREASE;
 		}
@@ -366,9 +371,9 @@ public class Player extends AbstractGameObject {
 			float edx = e.position.x - V3playerPos.x;
 			float edy = e.position.y - V3playerPos.y;
 
-			float length1 = (float) Math.sqrt(edx * edx + edy * edy);
-			edx /= length1;
-			edy /= length1;
+			float length2 = (float) Math.sqrt(edx * edx + edy * edy);
+			edx /= length2;
+			edy /= length2;
 
 			if (e.sprite.getBoundingRectangle().overlaps(
 					this.sprite.getBoundingRectangle())) {
@@ -410,10 +415,10 @@ public class Player extends AbstractGameObject {
 			float propDx = prop.position.x - V3playerPos.x;
 			float propDy = prop.position.y - V3playerPos.y;
 
-			float length1 = (float) Math
+			float length2 = (float) Math
 					.sqrt(propDx * propDx + propDy * propDy);
-			propDx /= length1;
-			propDy /= length1;
+			propDx /= length2;
+			propDy /= length2;
 
 			if (prop.sprite.getBoundingRectangle().overlaps(
 					this.sprite.getBoundingRectangle())) {
@@ -824,29 +829,47 @@ public class Player extends AbstractGameObject {
 				break;
 			}
 		}
-		Collidable collidableUp = null;
+//		Collidable collidableUp = null;
 
-		damagedFromTop(collidableUp, enemy, touchPos);
-		collidableUp = collisionCheckerUp(collisionLayer);
-		collisionCheck(collidableUp, collisionLayer);
-
-		Collidable collidableDown = null;
-
-		damageFromBottom(collidableDown, enemy, touchPos);
-		collidableDown = collisionCheckerDown(collisionLayer);
-		collisionCheck(collidableDown, collisionLayer);
-
-		Collidable collidableLeft = null;
-
-		damageFromLeft(collidableLeft, enemy, touchPos);
-		collidableLeft = collisionCheckerLeft(collisionLayer);
-		collisionCheck(collidableLeft, collisionLayer);
-
-		Collidable collidableRight = null;
-
-		damageFromRight(collidableRight, enemy, touchPos);
-		collidableRight = collisionCheckerRight(collisionLayer);
-		collisionCheck(collidableRight, collisionLayer);
+		Collidable cL = CollisionHelper.isCollidable(position.x, position.y + sprite.getHeight()/2, collisionLayer);
+		Collidable cR = CollisionHelper.isCollidable(position.x + sprite.getWidth(), position.y + sprite.getHeight()/2, collisionLayer);
+		Collidable cU = CollisionHelper.isCollidable(position.x + sprite.getWidth()/2, position.y + sprite.getHeight(), collisionLayer);
+		Collidable cD = CollisionHelper.isCollidable(position.x + sprite.getWidth()/2, position.y, collisionLayer);
+//		explosionPushForce -= 0.01f;
+		if (cL == null && getDx() <= 0 ||
+				cR == null && getDx() > 0){
+//			position.x += 0.2f;
+			position.x += damage_dx * damagePushForce/5;
+			touchPos.x += damage_dx * damagePushForce/5;
+		} 
+		if (cD == null && getDy() < 0 
+				|| cU == null && getDy()  >= 0){
+//			position.y += 0.2f;
+			position.y += damage_dy * damagePushForce/5;
+			touchPos.y += damage_dy * damagePushForce/5;
+		}
+		
+//		damagedFromTop(collidableUp, enemy, touchPos);
+//		collidableUp = collisionCheckerUp(collisionLayer);
+//		collisionCheck(collidableUp, collisionLayer);
+//
+//		Collidable collidableDown = null;
+//
+//		damageFromBottom(collidableDown, enemy, touchPos);
+//		collidableDown = collisionCheckerDown(collisionLayer);
+//		collisionCheck(collidableDown, collisionLayer);
+//
+//		Collidable collidableLeft = null;
+//
+//		damageFromLeft(collidableLeft, enemy, touchPos);
+//		collidableLeft = collisionCheckerLeft(collisionLayer);
+//		collisionCheck(collidableLeft, collisionLayer);
+//
+//		Collidable collidableRight = null;
+//
+//		damageFromRight(collidableRight, enemy, touchPos);
+//		collidableRight = collisionCheckerRight(collisionLayer);
+//		collisionCheck(collidableRight, collisionLayer);
 	}
 
 	private void damageFromRight(Collidable collidableUp,

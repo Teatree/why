@@ -30,12 +30,14 @@ public class Explosion {
 	float explosion_dy;
 	public int explosionLifeTime;
 	private int explodionLifeTimeCounter;
+	public float explosionPushForce;
 	
 	public boolean isNuke;
 	
 	public Explosion(Vector2 position, String type){
 		this.position = position;
 		this.type = type;
+		explosionPushForce = EXPLOSION_PUSH_FORCE;
 		random = new Random();
 		this.damage = random.nextFloat()+0.7f;
 		explCircle = new Circle();
@@ -124,13 +126,14 @@ public class Explosion {
 		Collidable cU = CollisionHelper.isCollidable(ago.position.x + ago.sprite.getWidth()/2, ago.position.y + ago.sprite.getHeight(), collisionLayer);
 		Collidable cD = CollisionHelper.isCollidable(ago.position.x + ago.sprite.getWidth()/2, ago.position.y, collisionLayer);
 		if (!((ago instanceof Player) && isNuke)){
+			explosionPushForce -= 0.01f;
 			if (cL == null && ago.getDx() <= 0 ||
 					cR == null && ago.getDx() > 0){
-				ago.position.x += explosion_dx * EXPLOSION_PUSH_FORCE;
+				ago.position.x += explosion_dx * explosionPushForce;
 			} 
 			if (cD == null && ago.getDy() < 0 
 					|| cU == null && ago.getDy()  >= 0){
-				ago.position.y += explosion_dy * EXPLOSION_PUSH_FORCE;
+				ago.position.y += explosion_dy * explosionPushForce;
 			}
 		}
 	}

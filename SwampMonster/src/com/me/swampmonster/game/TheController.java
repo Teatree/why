@@ -242,6 +242,12 @@ public class TheController extends InputAdapter {
 					cameraHelper.setShakeAmt(25);
 					cameraHelper.cameraShake();
 
+//					L1.player.damage_dx = L1.player.position.x - e.position.x;
+//					L1.player.damage_dy = L1.player.position.y - e.position.y;
+//					float length1 = (float) Math.sqrt(L1.player.damage_dx * L1.player.damage_dx + L1.player.damage_dy * L1.player.damage_dy);
+//					L1.player.damage_dx /= length1;
+//					L1.player.damage_dy /= length1;
+//					L1.player.damagePushForce = e.damage;
 					L1.player.hurt = true;
 					L1.player.damageType = "enemy";
 					L1.player.health -= e.damage;

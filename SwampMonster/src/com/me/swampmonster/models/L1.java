@@ -334,6 +334,7 @@ public class L1 {
 								TheController.skill.explode(p.position);
 							}
 							e.hurt = true;
+							e.damagePushForce = p.force-e.health/10;
 							e.damageType = "player";
 							e.enemyHurt(player.damage);
 							if (p.effect == EffectCarriers.POISONED) {

@@ -103,7 +103,7 @@ public class GShape extends Group {
 				((Game) Gdx.app.getApplicationListener()).setScreen(sl);
 			}
 		});
-//		L1Renderer.stage.addActor(slotMachineButton);
+		L1Renderer.stage.addActor(slotMachineButton);
 		this.theController = theController;
 		waveNotificationAnimationCounter = 240;
 //		feedbackWindow = new Sprite(Assets.manager.get(Assets.slotMachineWindow));
