@@ -48,6 +48,9 @@ public class EnemySofa extends Enemy {
 		yellowAura.radius = 32;
 		yellowAura.x = position.x + sprite.getWidth() / 2;
 		yellowAura.y = position.y + sprite.getHeight() / 2;
+		oRangeAura.radius = 34;
+		oRangeAura.x = position.x + sprite.getWidth() / 2;
+		oRangeAura.y = position.y + sprite.getHeight() / 2;
 	}
 	
 	@Override

@@ -94,10 +94,10 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 	public Enemy(Vector2 position) {
 		this.position = position;
 		rectanlge = new Rectangle();
-		oRangeAura = new Circle();
-		oRangeAura.radius = 16;
 		yellowAura = new Circle();
 		yellowAura.radius = 8;
+		oRangeAura = new Circle();
+		oRangeAura.radius = yellowAura.radius*2;
 		aimingAura = new Circle();
 		aimingAura.radius = 140;
 		aimingAura.x = position.x;

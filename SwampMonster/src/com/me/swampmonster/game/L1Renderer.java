@@ -462,6 +462,9 @@ public class L1Renderer {
 			sr.setColor(Color.YELLOW);
 			sr.circle(enemy.yellowAura.x, enemy.yellowAura.y,
 					enemy.yellowAura.radius);
+			sr.setColor(Color.ORANGE);
+			sr.circle(enemy.oRangeAura.x, enemy.oRangeAura.y,
+					enemy.oRangeAura.radius);
 			// sr.setColor(Color.BLACK);
 			// sr.circle(theController.explosion.position.x,
 			// theController.explosion.position.y,
@@ -534,16 +537,16 @@ public class L1Renderer {
 			if (!e.type.equals(Explosion.EXPLOSION_TYPE_INVERTED))
 				sr.circle(e.position.x, e.position.y, e.explCircle.radius);
 		}
-//		for (Enemy enemy : L1.enemiesOnStage) {
-//			if (enemy.getPath() != null) {
-//				for (Node n : enemy.getPath()) {
-//					if (n != null) {
-//						sr.rect((n.x * Constants.NodeSize),
-//								(n.y * Constants.NodeSize), 4, 4);
-//					}
-//				}
-//			}
-//		}
+		for (Enemy enemy : L1.enemiesOnStage) {
+			if (enemy.getPath() != null) {
+				for (Node n : enemy.getPath()) {
+					if (n != null) {
+						sr.rect((n.x * Constants.NodeSize),
+								(n.y * Constants.NodeSize), 4, 4);
+					}
+				}
+			}
+		}
 //		sr.setColor(Color.BLACK);
 //		sr.rect(theController.pointRectV3.x, theController.pointRectV3.y, 1, 1);
 		if (L1.player.radioactiveAura != null) {
