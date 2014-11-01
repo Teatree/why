@@ -118,7 +118,6 @@ public class L1 {
 				for (Explosion expl : explosions) {
 					if (Intersector.overlaps(expl.explCircle, p.sprite.getBoundingRectangle()) && !(p instanceof ToxicPuddle) && p.state != State.DESPAWNING) {
 						boolean fudge = expl.cause(p, collisionLayer);
-						
 						if (fudge)
 						{
 							p.state = State.DEAD;
@@ -128,6 +127,8 @@ public class L1 {
 						if (p instanceof ExplosiveProp
 								&& !expl.type
 										.equals(Explosion.EXPLOSION_TYPE_INVERTED)
+								&& !expl.type
+										.equals(Explosion.EXPLOSION_TYPE_STUN)
 								&& !expl.equals(((ExplosiveProp) p).explosion)) {
 							p.state = State.ONFIRE;
 							p.onFireCounter = 80;

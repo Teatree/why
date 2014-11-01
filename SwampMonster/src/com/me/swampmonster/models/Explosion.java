@@ -9,6 +9,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.me.swampmonster.game.collision.Collidable;
 import com.me.swampmonster.game.collision.CollisionHelper;
 import com.me.swampmonster.models.AbstractGameObject.NegativeEffects;
+import com.me.swampmonster.models.enemies.Enemy;
 import com.me.swampmonster.models.slots.PoisonTrap;
 import com.me.swampmonster.models.slots.PositiveEffects;
 
@@ -16,6 +17,7 @@ public class Explosion {
 	public static final String EXPLOSION_TYPE_STANDART = "standart";
 	public static final String EXPLOSION_TYPE_FROST = "frost";
 	public static final String EXPLOSION_TYPE_INVERTED = "inverted";
+	public static final String EXPLOSION_TYPE_STUN = "stun";
 	private static final float EXPLOSION_PUSH_FORCE = 2.2f;
 	
 	public Circle explCircle;
@@ -68,11 +70,14 @@ public class Explosion {
 		}else if(/*explosionEffect != null && */explodionLifeTimeCounter >= explosionLifeTime /*explosionEffect.isComplete()*/){
 			explCircle.radius = 0;
 		}
+		System.out.println("type of explosion:" + type);
 	}
 	
 	public boolean cause(AbstractGameObject ago, TiledMapTileLayer collisionLayer){
 		if(!((ago instanceof Player) && isNuke)){
-			ago.hurt = true;
+			if(!((ago instanceof Enemy) && type == "stun")){
+				ago.hurt = true;
+			}
 		}
 		ago.exploding = true;
 		
@@ -96,6 +101,15 @@ public class Explosion {
 				ago.setNegativeEffect(NegativeEffects.FROZEN);
 			}
 		}
+		if (type == EXPLOSION_TYPE_STUN){
+			if (ago instanceof Player){
+				ago.setNegativeEffect(NegativeEffects.STUN);
+			}
+			if (ago instanceof Enemy){
+				
+			}
+		}
+		
 		
 		if (type.equals(EXPLOSION_TYPE_INVERTED)){
 //			System.out.println("bla");
