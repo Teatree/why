@@ -316,9 +316,7 @@ public class TheController extends InputAdapter {
 			}
 		}
 		if (Gdx.input.isKeyPressed(Keys.SPACE)) {
-			for (Enemy enemy : L1.enemiesOnStage) {
-				enemy.setNegativeEffect(NegativeEffects.FEAR);
-			}
+			L1.player.setNegativeEffect(NegativeEffects.STUN);
 		}
 		if (Gdx.input.isKeyPressed(Keys.P)) {
 			L1.player.state = State.DEAD;

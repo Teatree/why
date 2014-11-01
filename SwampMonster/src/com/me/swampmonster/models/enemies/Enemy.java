@@ -1212,6 +1212,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 				negativeEffectsState = negativeEffect;
 				negativeEffectTimer = ICE_THING.negativeEffectLifeTime;
 				iceCube = new Sprite(Assets.manager.get(Assets.iceCube));
+				iceCube.setSize(rectanlge.width, rectanlge.height);
 				iceCube.setX(position.x);
 				iceCube.setY(position.y);
 			}

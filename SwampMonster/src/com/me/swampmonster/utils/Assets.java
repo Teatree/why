@@ -98,6 +98,8 @@ public class Assets {
 	public static final AssetDescriptor<Texture> IMPROVEARROWSPEED_ICON = new AssetDescriptor<Texture>("data\\slotIcons\\IMPROVEARROWSPEED_ICON.png", Texture.class);
 	public static final AssetDescriptor<Texture> IMPROVEMOVEMENTSPEED_ICON = new AssetDescriptor<Texture>("data\\slotIcons\\IMPROVE_MOVEMENT_SPEED_ICON.png", Texture.class);
 	
+	//effects
+	public static final AssetDescriptor<Texture> stunEffectAnimation = new AssetDescriptor<Texture>("data\\stunEFFECTanimation.png", Texture.class);
 	
 	//levels
 	public static final AssetDescriptor<Texture> slotLevel1 = new AssetDescriptor<Texture>("data\\slotIcons\\slotLevel1.png", Texture.class);
@@ -124,6 +126,7 @@ public class Assets {
 	
 	public static void load(){
 		manager.load(menuBackgroundMusic);
+		manager.load(stunEffectAnimation);
 		manager.load(turretImg);
 		manager.load(TURRET_ICON);
 		manager.load(turretProjectile);

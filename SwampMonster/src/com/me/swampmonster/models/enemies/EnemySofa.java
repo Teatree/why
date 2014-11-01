@@ -119,7 +119,7 @@ public class EnemySofa extends Enemy {
 		
 		
 		if(roaringTimer>0){
-			movementSpeed = STANDART_MOVEMENT_SPEED*6;
+			movementSpeed = STANDART_MOVEMENT_SPEED*2;
 			roaringTimer --;
 		}else{
 			movementSpeed = STANDART_MOVEMENT_SPEED;

@@ -91,6 +91,9 @@ public class Player extends AbstractGameObject {
 	public Rectangle fearRectangle;
 	public Turret turret;
 	public boolean teleported;
+	
+	public Sprite effectCarrier;
+	public AnimationControl effectAnimator;
 
 	public Circle aimingArea;
 	// public Circle invalidSpawnArea;
@@ -163,6 +166,9 @@ public class Player extends AbstractGameObject {
 				new AnimationControl(Assets.manager
 						.get(Assets.nastyaSpriteStandard), 8, 32, 8));
 
+		effectAnimator = new AnimationControl(Assets.manager.get(Assets.stunEffectAnimation), 4, 1, 12);
+		effectCarrier = new Sprite(effectAnimator.getCertainFrame(0));
+		
 		oldPos = position;
 
 		dead = false;
@@ -201,6 +207,11 @@ public class Player extends AbstractGameObject {
 	public void update(boolean aiming, Vector3 touchPos, Vector3 V3point,
 			TiledMapTileLayer collisionLayer, float dx, float dy) {
 
+		if(negativeEffectsState == NegativeEffects.STUN){
+			effectAnimator.doComplexAnimation(8, 1f, 0.009f, Animation.PlayMode.LOOP);
+			effectCarrier = new Sprite(effectAnimator.getCurrentFrame());
+		}
+		
 		// System.out.println("player pos: " + position.x + " : " + position.y +
 		// " __ " + position);
 		oldPos.x = position.x;

@@ -35,6 +35,7 @@ import com.me.swampmonster.models.ProjectileHydra.hydraTrailAnimation;
 import com.me.swampmonster.models.Prop;
 import com.me.swampmonster.models.TutorialLevel;
 import com.me.swampmonster.models.enemies.Enemy;
+import com.me.swampmonster.models.enemies.EnemySofa;
 import com.me.swampmonster.utils.Assets;
 import com.me.swampmonster.utils.Constants;
 
@@ -590,6 +591,10 @@ public class L1Renderer {
 					}
 				}
 			}
+		}
+		if (L1.player.negativeEffectsState == NegativeEffects.STUN) {
+			batch.draw(L1.player.effectCarrier, L1.player.position.x+5,
+					L1.player.position.y + L1.player.sprite.getHeight() - 6, 25, 25);
 		}
 		batch.end();
 		stage.act();
