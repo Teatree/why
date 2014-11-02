@@ -23,7 +23,6 @@ import com.me.swampmonster.models.items.SLOWED;
 import com.me.swampmonster.models.items.WEAKENED;
 
 public class ItemGenerator {
-	HashMap<Integer, String> itemTypeParams = new HashMap<Integer, String>();
 	Map<Integer, Class<? extends Item>> items;
 	Items itEmsTypes;
 	private Random random = new Random();

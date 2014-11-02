@@ -324,8 +324,8 @@ public class L1 {
 						&& Intersector.overlaps(player.radioactiveAura,
 								e.sprite.getBoundingRectangle())) {
 				}
-				if (e.state != State.DEAD && player.projectiles != null) {
-					Iterator<Projectile> prj = player.projectiles.iterator();
+				if (e.state != State.DEAD && player.weapon.projectiles != null) {
+					Iterator<Projectile> prj = player.weapon.projectiles.iterator();
 					while (prj.hasNext()) {
 						Projectile p = prj.next();
 						if (Intersector.overlaps(p.circle, e.sprite.getBoundingRectangle())

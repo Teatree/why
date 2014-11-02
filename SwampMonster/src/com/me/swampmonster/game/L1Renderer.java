@@ -431,7 +431,7 @@ public class L1Renderer {
 			}
 		}
 
-		for (Projectile p : L1.player.projectiles) {
+		for (Projectile p : L1.player.weapon.projectiles) {
 			if (p != null) {
 				batch.draw(p.getSprite(), p.getPosition().x, p.getPosition().y,
 						p.getSprite().getOriginX(), p.getSprite().getOriginY(),
@@ -490,7 +490,7 @@ public class L1Renderer {
 		}
 //
 		sr.setColor(Color.WHITE);
-		for (Projectile p : L1.player.projectiles) {
+		for (Projectile p : L1.player.weapon.projectiles) {
 			if (p != null) {
 				sr.circle(p.circle.x, p.circle.y, p.circle.radius);
 			}

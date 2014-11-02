@@ -23,8 +23,10 @@ import com.me.swampmonster.game.collision.Collidable;
 import com.me.swampmonster.game.collision.CollisionHelper;
 import com.me.swampmonster.models.Projectile.EffectCarriers;
 import com.me.swampmonster.models.enemies.Enemy;
+import com.me.swampmonster.models.items.Bow;
 import com.me.swampmonster.models.items.HASTE;
 import com.me.swampmonster.models.items.RADIOACTIVE;
+import com.me.swampmonster.models.items.Weapon;
 import com.me.swampmonster.models.slots.PanicTeleport;
 import com.me.swampmonster.models.slots.PositiveEffects;
 import com.me.swampmonster.models.slots.Slot;
@@ -76,7 +78,7 @@ public class Player extends AbstractGameObject {
 	public boolean pointGathered;
 	public boolean ThreeArrowsFlag;
 	public boolean stuned;
-	public List<Projectile> projectiles;
+//	public List<Projectile> projectiles;
 	public Vector3 shotDir;
 	public Vector3 V3playerPos;
 	public Vector3 aimLineHead;
@@ -110,6 +112,7 @@ public class Player extends AbstractGameObject {
 
 	public Trap trap;
 	public int trapTimer;
+	public Weapon weapon;
 
 	public EffectCarriers arrowEffectCarrier;
 	public static float arrowMovementSpeed;
@@ -119,6 +122,7 @@ public class Player extends AbstractGameObject {
 		maxHealth = DEFAULT_MAX_HEALTH;
 		arrowMovementSpeed = DEFAULT_ARROW_MOVEMENT_SPEED;
 
+		weapon = new Bow();
 		levelsScore = absoluteScore;
 		state = State.STANDARD;
 		positiveEffectsState = PositiveEffects.NONE;
@@ -144,7 +148,7 @@ public class Player extends AbstractGameObject {
 		circle.radius = 16;
 		V3playerPos = new Vector3();
 		rectanlge = new Rectangle();
-		projectiles = new LinkedList<Projectile>();
+//		projectiles = new LinkedList<Projectile>();
 		aimLineHead = new Vector3();
 
 		arrowEffectCarrier = EffectCarriers.NONE;
@@ -206,6 +210,8 @@ public class Player extends AbstractGameObject {
 
 	public void update(boolean aiming, Vector3 touchPos, Vector3 V3point,
 			TiledMapTileLayer collisionLayer, float dx, float dy) {
+		damage = weapon.damage;
+		DEFAULT_DAMAGE = weapon.damage;
 
 		if(negativeEffectsState == NegativeEffects.STUN){
 			effectAnimator.doComplexAnimation(8, 1f, 0.009f, Animation.PlayMode.LOOP);
@@ -241,7 +247,7 @@ public class Player extends AbstractGameObject {
 		aimingAuraSprite.setX(position.x - 9);
 		aimingAuraSprite.setY(position.y - 8);
 
-		
+		weapon.update(collisionLayer);
 		
 		if (!L1.hasAtmosphere) {
 			oxygen -= Constants.OXYGEN_DECREASE;
@@ -362,7 +368,7 @@ public class Player extends AbstractGameObject {
 		// if (!rectanlge.contains(V3point.x, V3point.y))
 		shooting(V3point);
 
-		updateProjectiles(collisionLayer);
+//		updateProjectiles(collisionLayer);
 
 		checkEffects(touchPos);
 		if (radioactiveAura != null) {
@@ -469,36 +475,36 @@ public class Player extends AbstractGameObject {
 		}
 	}
 
-	private void updateProjectiles(TiledMapTileLayer collisionLayer) {
-		Iterator<Projectile> prj = projectiles.iterator();
-		while (prj.hasNext()) {
-			// System.err.println("player");
-			Projectile p = prj.next();
-			p.update();
-			p.getSurfaceLevelProjectile(collisionLayer);
-			if (p.isCollision(collisionLayer)) {
-				if (p.effect == EffectCarriers.EXPLOSIVE) {
-					TheController.skill.explode(p.position);
-				}
-				p.state = State.DEAD;
-			} else if (L1.plasmaShield != null
-					&& p.circle.overlaps(L1.plasmaShield.circle)) {
-				if (!L1.plasmaShield.circle.contains(circle)) {
-					p.state = State.DEAD;
-				}
-			} else if (p.isCollisionNBreakable(collisionLayer)
-					&& L1.hasAtmosphere) {
-				Explosion expl = new Explosion(new Vector2(p.position.x,
-						p.position.y), Explosion.EXPLOSION_TYPE_INVERTED);
-				L1.explosions.add(expl);
-				L1.hasAtmosphere = false;
-				p.state = State.DEAD;
-			}
-			if (p != null && p.state == State.DEAD) {
-				prj.remove();
-			}
-		}
-	}
+//	private void updateProjectiles(TiledMapTileLayer collisionLayer) {
+//		Iterator<Projectile> prj = projectiles.iterator();
+//		while (prj.hasNext()) {
+//			// System.err.println("player");
+//			Projectile p = prj.next();
+//			p.update();
+//			p.getSurfaceLevelProjectile(collisionLayer);
+//			if (p.isCollision(collisionLayer)) {
+//				if (p.effect == EffectCarriers.EXPLOSIVE) {
+//					TheController.skill.explode(p.position);
+//				}
+//				p.state = State.DEAD;
+//			} else if (L1.plasmaShield != null
+//					&& p.circle.overlaps(L1.plasmaShield.circle)) {
+//				if (!L1.plasmaShield.circle.contains(circle)) {
+//					p.state = State.DEAD;
+//				}
+//			} else if (p.isCollisionNBreakable(collisionLayer)
+//					&& L1.hasAtmosphere) {
+//				Explosion expl = new Explosion(new Vector2(p.position.x,
+//						p.position.y), Explosion.EXPLOSION_TYPE_INVERTED);
+//				L1.explosions.add(expl);
+//				L1.hasAtmosphere = false;
+//				p.state = State.DEAD;
+//			}
+//			if (p != null && p.state == State.DEAD) {
+//				prj.remove();
+//			}
+//		}
+//	}
 
 	private void shooting(Vector3 V3point) {
 		if (shooting && timeShooting < 30) {
@@ -526,71 +532,72 @@ public class Player extends AbstractGameObject {
 
 		// PROJECTILE
 		if (shooting && timeShooting < 2) {
-			float direction_x = shotDir.x - V3playerPos.x;
-			float direction_y = shotDir.y - V3playerPos.y;
-
-			// : TODO This look terrible, make it better bro...
-			Projectile p = new Projectile(new Vector2(aimingArea.x
-					+ direction_x / 100 - 8, aimingArea.y + direction_y / 100
-					- 8), getRotation(shotDir), arrowEffectCarrier);
-			shotArrows++;
-
-			p.setPosition(new Vector2(aimingArea.x + direction_x / 100 - 8,
-					aimingArea.y + direction_y / 100 - 8));
-
-			p.force = (float) Math.sqrt(Math.pow((V3point.x - position.x), 2)
-					+ Math.pow((V3point.y - position.y), 2)) / 50;
-
-			float length = (float) Math.sqrt(direction_x * direction_x
-					+ direction_y * direction_y);
-			direction_x /= length;
-			direction_y /= length;
-
-			p.setDirection(direction_x, direction_y);
-
-			projectiles.add(p);
-			if (ThreeArrowsFlag) {
-				float direction_x2 = shotDir.x - 40 - V3playerPos.x;
-				float direction_y2 = shotDir.y - 40 - V3playerPos.y;
-				float direction_x3 = shotDir.x + 48 - V3playerPos.x;
-				float direction_y3 = shotDir.y + 48 - V3playerPos.y;
-
-				Projectile p2 = new Projectile(new Vector2(aimingArea.x
-						+ direction_x2 / 100 - 8, aimingArea.y + direction_y2
-						/ 100 - 8), getRotation(new Vector3(shotDir.x - 40,
-						shotDir.y - 40, 0)), arrowEffectCarrier);
-				Projectile p3 = new Projectile(new Vector2(aimingArea.x
-						+ direction_x3 / 100 - 8, aimingArea.y + direction_y3
-						/ 100 - 8), getRotation(new Vector3(shotDir.x + 48,
-						shotDir.y + 48, 0)), arrowEffectCarrier);
-
-				p2.setPosition(new Vector2(aimingArea.x + direction_x2 / 100
-						- 8, aimingArea.y + direction_y2 / 100 - 8));
-				p3.setPosition(new Vector2(aimingArea.x + direction_x3 / 100
-						- 8, aimingArea.y + direction_y3 / 100 - 8));
-
-				p2.force = (float) Math.sqrt(Math.pow((V3point.x - position.x),
-						2) + Math.pow((V3point.y - position.y), 2)) / 50;
-				p3.force = (float) Math.sqrt(Math.pow((V3point.x - position.x),
-						2) + Math.pow((V3point.y - position.y), 2)) / 50;
-
-				float length2 = (float) Math.sqrt(direction_x2 * direction_x2
-						+ direction_y2 * direction_y2);
-				direction_x2 /= length2;
-				direction_y2 /= length2;
-				float length3 = (float) Math.sqrt(direction_x3 * direction_x3
-						+ direction_y3 * direction_y3);
-				direction_x3 /= length3;
-				direction_y3 /= length3;
-
-				p2.setDirection(direction_x2, direction_y2);
-				p3.setDirection(direction_x3, direction_y3);
-
-				projectiles.add(p2);
-				projectiles.add(p3);
-				ThreeArrowsFlag = false;
-			}
-			arrowEffectCarrier = EffectCarriers.NONE;
+			weapon.shoot(V3point);
+//			float direction_x = shotDir.x - V3playerPos.x;
+//			float direction_y = shotDir.y - V3playerPos.y;
+//
+//			// : TODO This look terrible, make it better bro...
+//			Projectile p = new Projectile(new Vector2(aimingArea.x
+//					+ direction_x / 100 - 8, aimingArea.y + direction_y / 100
+//					- 8), getRotation(shotDir), arrowEffectCarrier);
+//			shotArrows++;
+//
+//			p.setPosition(new Vector2(aimingArea.x + direction_x / 100 - 8,
+//					aimingArea.y + direction_y / 100 - 8));
+//
+//			p.force = (float) Math.sqrt(Math.pow((V3point.x - position.x), 2)
+//					+ Math.pow((V3point.y - position.y), 2)) / 50;
+//
+//			float length = (float) Math.sqrt(direction_x * direction_x
+//					+ direction_y * direction_y);
+//			direction_x /= length;
+//			direction_y /= length;
+//
+//			p.setDirection(direction_x, direction_y);
+//
+//			projectiles.add(p);
+//			if (ThreeArrowsFlag) {
+//				float direction_x2 = shotDir.x - 40 - V3playerPos.x;
+//				float direction_y2 = shotDir.y - 40 - V3playerPos.y;
+//				float direction_x3 = shotDir.x + 48 - V3playerPos.x;
+//				float direction_y3 = shotDir.y + 48 - V3playerPos.y;
+//
+//				Projectile p2 = new Projectile(new Vector2(aimingArea.x
+//						+ direction_x2 / 100 - 8, aimingArea.y + direction_y2
+//						/ 100 - 8), getRotation(new Vector3(shotDir.x - 40,
+//						shotDir.y - 40, 0)), arrowEffectCarrier);
+//				Projectile p3 = new Projectile(new Vector2(aimingArea.x
+//						+ direction_x3 / 100 - 8, aimingArea.y + direction_y3
+//						/ 100 - 8), getRotation(new Vector3(shotDir.x + 48,
+//						shotDir.y + 48, 0)), arrowEffectCarrier);
+//
+//				p2.setPosition(new Vector2(aimingArea.x + direction_x2 / 100
+//						- 8, aimingArea.y + direction_y2 / 100 - 8));
+//				p3.setPosition(new Vector2(aimingArea.x + direction_x3 / 100
+//						- 8, aimingArea.y + direction_y3 / 100 - 8));
+//
+//				p2.force = (float) Math.sqrt(Math.pow((V3point.x - position.x),
+//						2) + Math.pow((V3point.y - position.y), 2)) / 50;
+//				p3.force = (float) Math.sqrt(Math.pow((V3point.x - position.x),
+//						2) + Math.pow((V3point.y - position.y), 2)) / 50;
+//
+//				float length2 = (float) Math.sqrt(direction_x2 * direction_x2
+//						+ direction_y2 * direction_y2);
+//				direction_x2 /= length2;
+//				direction_y2 /= length2;
+//				float length3 = (float) Math.sqrt(direction_x3 * direction_x3
+//						+ direction_y3 * direction_y3);
+//				direction_x3 /= length3;
+//				direction_y3 /= length3;
+//
+//				p2.setDirection(direction_x2, direction_y2);
+//				p3.setDirection(direction_x3, direction_y3);
+//
+//				projectiles.add(p2);
+//				projectiles.add(p3);
+//				ThreeArrowsFlag = false;
+//			}
+//			arrowEffectCarrier = EffectCarriers.NONE;
 		}
 		// if(aimL){
 		// shooting = false;
