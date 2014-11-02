@@ -23,7 +23,6 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.me.swampmonster.game.GShape.FeedBackWindow;
-import com.me.swampmonster.game.GShape;
 import com.me.swampmonster.game.L1Renderer;
 import com.me.swampmonster.game.TheController;
 import com.me.swampmonster.models.slots.Perks;
@@ -88,7 +87,6 @@ public class SlotMachineScreen extends AbstractGameScreen {
 				}
 			}
 			
-			
 			stage.act();
 			stage.draw();
 			
@@ -115,7 +113,6 @@ public class SlotMachineScreen extends AbstractGameScreen {
 	private void selectSlot(Slot slot) {
 		if (!isSlotDescWindowOpen) {
 			if (!yesWasJustPressed && !SlotMachineTextures.peru) {
-
 				if (Gdx.input.justTouched() && slot.sprite.getBoundingRectangle().contains(victor)
 						&& slotMachineTextures.notAnimating[0] && slotMachineTextures.notAnimating[1]
 						&& slotMachineTextures.notAnimating[2]) {
@@ -176,7 +173,7 @@ public class SlotMachineScreen extends AbstractGameScreen {
 	}
 
 	static public Array<String> getViewportNames () {
-		Array<String> names = new Array();
+		Array<String> names = new Array<String>();
 		names.add("FillViewport");
 		names.add("StretchViewport");
 		names.add("FitViewport");
@@ -194,7 +191,7 @@ public class SlotMachineScreen extends AbstractGameScreen {
 		int maxWorldWidth = 640;
 		int maxWorldHeight = 480;
 
-		Array<Viewport> viewports = new Array();
+		Array<Viewport> viewports = new Array<Viewport>();
 		viewports.add(new FillViewport(minWorldWidth, minWorldHeight, camera));
 		viewports.add(new StretchViewport(minWorldWidth, minWorldHeight, camera));
 		viewports.add(new FitViewport(minWorldWidth, minWorldHeight, camera));

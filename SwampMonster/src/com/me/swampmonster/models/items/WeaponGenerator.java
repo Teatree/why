@@ -1,13 +1,8 @@
 package com.me.swampmonster.models.items;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
-
-import com.me.swampmonster.models.Item;
-import com.me.swampmonster.models.Player;
 
 public class WeaponGenerator {
 	Map<Integer, Class<? extends Weapon>> weapons;

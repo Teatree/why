@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.Map;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.me.swampmonster.models.Player;
 import com.me.swampmonster.models.AbstractGameObject.NegativeEffects;
+import com.me.swampmonster.models.Player;
 import com.me.swampmonster.models.Projectile.EffectCarriers;
 import com.me.swampmonster.models.enemies.Enemy;
 import com.me.swampmonster.utils.Assets;

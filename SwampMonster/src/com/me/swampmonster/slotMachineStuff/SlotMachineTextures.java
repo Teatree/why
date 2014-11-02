@@ -11,14 +11,12 @@ import java.util.Set;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -73,8 +71,8 @@ public class SlotMachineTextures extends Group {
 	public Skin skin;
 	public ImageButton goButtonButton;
 	public ImageButton rerollButton;
-
-	public Rectangle r = new Rectangle();
+	Random r = new Random();
+	public Rectangle rectangle = new Rectangle();
 	
 	public SlotMachineTextures(Player player) {
 		skin = new Skin(Gdx.files.internal("skins\\slotMachineUI.json"), new TextureAtlas(Gdx.files.internal("skins\\slotMachineUI.pack")));
@@ -114,10 +112,6 @@ public class SlotMachineTextures extends Group {
 		font = Assets.manager.get(Assets.font);
 		slotsGen = SlotsGenerator.getSlotGenerator();
 		
-//		// do you still need this?
-//		slotMachineWindow = new Sprite(Assets.manager.get(Assets.slotMachineWindow));
-//		slotMachineWindowYes = new Sprite(Assets.manager.get(Assets.slotMachineWindowYes));
-//		slotMachineWindowNo = new Sprite(Assets.manager.get(Assets.slotMachineWindowNo));
 		selectedSavedSlotRectangle = new Sprite (Assets.manager.get(Assets.selectedSavedSlot));
 		savedSlotBar = new Sprite(Assets.manager.get(Assets.saveSlotBar));
 		
@@ -137,22 +131,12 @@ public class SlotMachineTextures extends Group {
 		slotLevelPic.put(3, slotLevel4);
 		slotLevelPic.put(4, slotLevel5);
 		
-//		yes = new Rectangle();
-//		yes.width = slotMachineWindowYes.getWidth();
-//		yes.height = slotMachineWindowYes.getHeight();
-//		no = new Rectangle();
-//		no.width = slotMachineWindowNo.getWidth();
-//		no.height = slotMachineWindowNo.getHeight();
 		slots = new Slot[3];
-		
-		
-		
 		generateSlots(player);
 	}
 
 	public void generateSlots(Player player) {
 		Slot temp;
-		Random r = new Random();
 		boolean argentina = false;
 		boolean madagascar = false;
 		Set<Slot>slotsSet = new HashSet<Slot>();
@@ -263,10 +247,10 @@ public class SlotMachineTextures extends Group {
 				slot.sprite.setPosition(slotPositionsX[i], slotPositionY);
 				i++;
 				slot.sprite.setSize(146, 146);
-				r.width = slot.sprite.getWidth();
-				r.height = slot.sprite.getHeight();
-				r.setX(slot.sprite.getX());
-				r.setY(slot.sprite.getY());
+				rectangle.width = slot.sprite.getWidth();
+				rectangle.height = slot.sprite.getHeight();
+				rectangle.setX(slot.sprite.getX());
+				rectangle.setY(slot.sprite.getY());
 				slot.sprite.draw(batch);
 				try {
 					if (slot.levelSprite == null){

@@ -11,7 +11,6 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.tiles.AnimatedTiledMapTile;
-import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Scaling;
@@ -35,7 +34,6 @@ import com.me.swampmonster.models.ProjectileHydra.hydraTrailAnimation;
 import com.me.swampmonster.models.Prop;
 import com.me.swampmonster.models.TutorialLevel;
 import com.me.swampmonster.models.enemies.Enemy;
-import com.me.swampmonster.models.enemies.EnemySofa;
 import com.me.swampmonster.utils.Assets;
 import com.me.swampmonster.utils.Constants;
 

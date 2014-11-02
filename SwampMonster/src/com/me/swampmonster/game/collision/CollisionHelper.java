@@ -3,7 +3,6 @@ package com.me.swampmonster.game.collision;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import com.me.swampmonster.models.Projectile;
-import com.me.swampmonster.models.enemies.LeechProjectile;
 
 public class CollisionHelper {
 	

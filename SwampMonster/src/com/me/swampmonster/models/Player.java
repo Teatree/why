@@ -1,10 +1,7 @@
 package com.me.swampmonster.models;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Random;
 
 import com.badlogic.gdx.Gdx;
@@ -18,7 +15,6 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.me.swampmonster.animations.AnimationControl;
-import com.me.swampmonster.game.TheController;
 import com.me.swampmonster.game.collision.Collidable;
 import com.me.swampmonster.game.collision.CollisionHelper;
 import com.me.swampmonster.models.Projectile.EffectCarriers;
@@ -29,13 +25,9 @@ import com.me.swampmonster.models.items.RADIOACTIVE;
 import com.me.swampmonster.models.items.Weapon;
 import com.me.swampmonster.models.slots.PanicTeleport;
 import com.me.swampmonster.models.slots.PositiveEffects;
-import com.me.swampmonster.models.slots.Slot;
 import com.me.swampmonster.models.slots.Trap;
-import com.me.swampmonster.screens.SlotMachineScreen;
-import com.me.swampmonster.slotMachineStuff.SlotMachineTextures;
 import com.me.swampmonster.utils.Assets;
 import com.me.swampmonster.utils.Constants;
-import com.me.swampmonster.utils.ItemGenerator;
 
 public class Player extends AbstractGameObject {
 

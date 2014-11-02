@@ -6,20 +6,13 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
 
-import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener.ChangeEvent;
 import com.me.swampmonster.game.GShape;
 import com.me.swampmonster.game.L1Renderer;
 import com.me.swampmonster.game.TheController;
@@ -35,7 +28,6 @@ import com.me.swampmonster.utils.CameraHelper;
 import com.me.swampmonster.utils.Constants;
 import com.me.swampmonster.utils.MisterItemSpawner;
 import com.me.swampmonster.utils.MisterSpawner;
-import com.me.swampmonster.utils.ScreenContainer;
 import com.me.swampmonster.utils.WaveGenerator;
 
 public class L1 {
@@ -121,7 +113,6 @@ public class L1 {
 						if (fudge)
 						{
 							p.state = State.DEAD;
-//							propItr.remove();
 						}
 						
 						if (p instanceof ExplosiveProp
@@ -356,12 +347,6 @@ public class L1 {
 					player.trap.catchEnemy(e);
 					player.trap.position = null;
 				}
-				
-				
-//				List<Enemy> eNeMes = new ArrayList<Enemy>();
-//				for(Enemy x : enemiesOnStage){
-//					eNeMes.add(x);
-//				}
 				
 				for (Explosion expl : explosions) {
 					if (Intersector.overlaps(expl.explCircle, e.sprite.getBoundingRectangle())) {

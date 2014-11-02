@@ -6,7 +6,6 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.me.swampmonster.game.L1Renderer;
 import com.me.swampmonster.game.TheController;
-import com.me.swampmonster.models.L1;
 import com.me.swampmonster.utils.ScreenContainer;
 
 public class SwampScreen extends AbstractGameScreen  implements Screen {

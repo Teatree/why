@@ -10,7 +10,6 @@ import com.me.swampmonster.models.L1;
 import com.me.swampmonster.models.Player;
 import com.me.swampmonster.models.ProjectileHydra;
 import com.me.swampmonster.utils.Assets;
-import com.sun.org.apache.bcel.internal.classfile.ConstantNameAndType;
 
 public class CHAIN_ARROWS extends Item{
 	public static AssetDescriptor<Texture> poisonSprite;

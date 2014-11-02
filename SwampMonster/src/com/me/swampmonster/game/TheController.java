@@ -30,7 +30,6 @@ import com.me.swampmonster.models.slots.Slot;
 import com.me.swampmonster.screens.AbstractGameScreen;
 import com.me.swampmonster.screens.MenuScreen;
 import com.me.swampmonster.slotMachineStuff.SlotMachineTextures;
-import com.me.swampmonster.utils.Assets;
 import com.me.swampmonster.utils.CameraHelper;
 import com.me.swampmonster.utils.LGenerator;
 import com.me.swampmonster.utils.ScreenContainer;
@@ -90,7 +89,6 @@ public class TheController extends InputAdapter {
 	// INIT METHOD!
 	public void init(Player player) {
 		Gdx.input.setInputProcessor(this);
-//		System.err.println("lessBytes: " + MenuScreen.lessBytes);
 		if(MenuScreen.lessBytes == 1 && !MenuScreen.showTutorialButton){
 //			level1 = LGenerator.createTutorialLevel();
 			level1 = LGenerator.createLevel(player);
