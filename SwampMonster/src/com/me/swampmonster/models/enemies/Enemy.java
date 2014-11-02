@@ -68,6 +68,17 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 	float enemyDx;
 	float enemyDy;
 
+	public int minDamage;
+	public int maxDamage;
+	public int minHealth;
+	public int maxHealth;
+	public int minScale;
+	public int maxScale;
+	public int minSpeed;
+	public int maxSpeed;
+	public float maxColour;
+	public float minColour;
+	
 	float enemyPathDx;
 	float enemyPathDy;
 
@@ -93,7 +104,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 
 	public Enemy(Vector2 position) {
 		this.position = position;
-		rectanlge = new Rectangle();
+//		rectanlge = new Rectangle();
 		yellowAura = new Circle();
 		yellowAura.radius = 8;
 		oRangeAura = new Circle();
@@ -132,21 +143,30 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 		enemyProjectiles = new LinkedList<LeechProjectile>();
 
 		// ***Character stats board, probably need to delete this***
-		characterStatsBoard();
 		// ***Character stats board, probably need to delete this***
 
 		sprite = new Sprite(animationsStandard.get(State.STANDARD)
 				.getCurrentFrame());
+		characterStatsBoard();
 		
 	}
 
 	public void characterStatsBoard() {
 		// HEALTH, DAMAGE, TYPE, TOUGHGUY, COLORSCHEME, ETC.
-		health = 2;
-		damage = 1;
+//		minHealth = 1;
+//		maxHealth = 3;
+//		minDamage = 1;
+//		maxDamage = 3;
+//		minSpeed = 3;
+//		maxSpeed = 7;
+//		minScale = 0;
+//		maxScale = 2;
 		points = 0;
 		attackSpeed = 40;
-		movementSpeed = 0.5f;
+//		health = random.nextInt(maxHealth - minHealth) + minHealth;
+//		damage = random.nextInt(maxDamage - minDamage) + minDamage;
+//		movementSpeed = (random.nextInt(maxSpeed - minSpeed) + minSpeed)/10;
+//		sprite.setScale((random.nextInt(maxScale - minScale) + minScale)/10);
 	}
 
 	public void update(TiledMapTileLayer collisionLayer, Player player,
@@ -165,10 +185,10 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 			yellowAura.y = position.y + sprite.getHeight() / 2;
 		}
 
-		rectanlge.x = sprite.getX();
-		rectanlge.y = sprite.getY();
-		rectanlge.width = sprite.getWidth();
-		rectanlge.height = sprite.getHeight();
+//		rectanlge.x = sprite.getX();
+//		rectanlge.y = sprite.getY();
+//		rectanlge.width = sprite.getWidth()*sprite.getScaleX();
+//		rectanlge.height = sprite.getHeight()*sprite.getScaleY();
 		
 		damage_dx = position.x - L1.player.position.x;
 		damage_dy = position.y - L1.player.position.y;
@@ -241,7 +261,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 		}
 
 		if (player.radioactiveAura != null
-				&& Intersector.overlaps(player.radioactiveAura, rectanlge) && state != State.DEAD) {
+				&& Intersector.overlaps(player.radioactiveAura, sprite.getBoundingRectangle()) && state != State.DEAD) {
 			hurt = true;
 			damageType = "player";
 			enemyHurt(RADIOACTIVE.RADIOACTIVE_Damage);
@@ -251,7 +271,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 				Iterator<Projectile> itrTP = player.turret.projectiles.iterator(); 
 				while(itrTP.hasNext()){
 					Projectile tp = itrTP.next();
-					if (Intersector.overlaps(tp.circle, rectanlge)
+					if (Intersector.overlaps(tp.circle, sprite.getBoundingRectangle())
 							&& !hurt) {
 						hurt = true;
 						damageType = "turret";
@@ -1173,7 +1193,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 
 	private boolean souldIWait(List<Enemy> enemies) {
 		for (Enemy e : enemies) {
-			if (e != this && Intersector.overlaps(e.rectanlge, this.rectanlge)
+			if (e != this && Intersector.overlaps(e.sprite.getBoundingRectangle(), this.sprite.getBoundingRectangle())
 					&& !e.iAmWaiting) {
 				this.iAmWaiting = true;
 				return true;
@@ -1212,7 +1232,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 				negativeEffectsState = negativeEffect;
 				negativeEffectTimer = ICE_THING.negativeEffectLifeTime;
 				iceCube = new Sprite(Assets.manager.get(Assets.iceCube));
-				iceCube.setSize(rectanlge.width, rectanlge.height);
+				iceCube.setSize(sprite.getBoundingRectangle().width, sprite.getBoundingRectangle().height);
 				iceCube.setX(position.x);
 				iceCube.setY(position.y);
 			}

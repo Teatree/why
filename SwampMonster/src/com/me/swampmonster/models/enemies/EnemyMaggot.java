@@ -42,11 +42,25 @@ public class EnemyMaggot extends Enemy {
 		animationsStandard.put(State.PURSUIT, new AnimationControl(Assets.manager.get(Assets.enemyMaggot), 8, 32, 7)); 
 		animationsStandard.put(State.DEAD, new AnimationControl(Assets.manager.get(Assets.enemyMaggot), 8, 32, 4)); 
 		sprite = new Sprite(animationsStandard.get(state).getCurrentFrame());
-		movementSpeed = 0.8f;
-		health = 2;
-		damage = 1;
+//		movementSpeed = 0.8f;
+//		health = 2;
+//		damage = 1;
 		points = 15;
 		attackSpeed = 15;
+		minHealth = 1;
+		maxHealth = 3;
+		minDamage = 1;
+		maxDamage = 2;
+		minSpeed = 7;
+		maxSpeed = 12;
+		health = random.nextInt(maxHealth - minHealth) + minHealth;
+		damage = random.nextInt(maxDamage - minDamage) + minDamage;
+		movementSpeed = (float)(((float)(random.nextInt(maxSpeed - minSpeed) + minSpeed))/10);
+		minScale = (int) (17+health+damage-(int)(movementSpeed*10));
+		maxScale = (int) (19+health+damage-(int)(movementSpeed*10));
+		System.out.println("minscale: " + minScale +  " maxScale: " + maxScale);
+		sprite.setScale((float)(((float)(random.nextInt(maxScale - minScale) + minScale)))/10);
+//		rectanlge.setSize(sprite.getBoundingRectangle().getWidth()*sprite.getScaleX(), sprite.getBoundingRectangle().getHeight()*sprite.getScaleY());
 		STANDART_MOVEMENT_SPEED = movementSpeed;
 	}
 	
@@ -215,7 +229,7 @@ public class EnemyMaggot extends Enemy {
 				charging = false;
 			}
 			
-			if(rectanlge.overlaps(player.rectanlge)){
+			if(sprite.getBoundingRectangle().overlaps(player.rectanlge)){
 				player.setNegativeEffect(NegativeEffects.STUN);
 			}
 		}

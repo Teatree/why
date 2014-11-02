@@ -160,6 +160,12 @@ public class L1Renderer {
 		// temporary drawing of a projectile
 
 		for (Enemy enemy : L1.enemiesOnStage) {
+			fontss.setColor(Color.RED);
+			fontss.setScale(0.52f);
+			fontss.draw(batch, "dmg: " + enemy.damage, enemy.position.x+enemy.sprite.getWidth()+5, enemy.position.y);
+			fontss.draw(batch, "hp: " + enemy.health, enemy.position.x+enemy.sprite.getWidth()+5, enemy.position.y+12);
+			fontss.draw(batch, "sp: " + enemy.movementSpeed, enemy.position.x+enemy.sprite.getWidth()+5, enemy.position.y+24);
+			fontss.draw(batch, "size: " + enemy.sprite.getScaleX(), enemy.position.x+enemy.sprite.getWidth()+5, enemy.position.y+36);
 			if (enemy.hurt) {
 					if(enemy.negativeEffectsState == NegativeEffects.POISONED){
 						fontss.setColor(Color.MAGENTA);
@@ -503,8 +509,12 @@ public class L1Renderer {
 //		// TheController.level1.player.invalidSpawnArea.y,
 //		// TheController.level1.player.invalidSpawnArea.radius);
 		for (Enemy enemy : L1.enemiesOnStage) {
-			sr.rect(enemy.rectanlge.x, enemy.rectanlge.y,
-					enemy.rectanlge.width, enemy.rectanlge.height);
+			sr.setColor(Color.WHITE);
+//			sr.rect(enemy.rectanlge.x, enemy.rectanlge.y,
+//					enemy.rectanlge.width, enemy.rectanlge.height);
+			sr.setColor(Color.BLACK);
+			sr.rect(enemy.sprite.getBoundingRectangle().x, enemy.sprite.getBoundingRectangle().y,
+					enemy.sprite.getBoundingRectangle().width, enemy.sprite.getBoundingRectangle().height);
 			for(Projectile p: enemy.enemyProjectiles){
 				sr.circle(p.circle.x, p.circle.y, p.circle.radius);
 			}

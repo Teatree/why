@@ -106,7 +106,7 @@ public class ProjectileHydra extends Projectile {
 			circle.y = position.y + sprite.getHeight() / 2;
 
 			for (Enemy e : L1.enemiesOnStage) {
-				if (Intersector.overlaps(this.circle, e.rectanlge)
+				if (Intersector.overlaps(this.circle, e.sprite.getBoundingRectangle())
 						&& !e.injuredByHydra && e.state != State.DEAD) {
 					e.health--;
 					state = State.DESPAWNING;

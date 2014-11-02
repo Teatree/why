@@ -68,10 +68,10 @@ public class EnemySofa extends Enemy {
 		sprite.setSize(55, 55);
 		yellowAura.x = position.x+sprite.getWidth()/2;
 		yellowAura.y = position.y+sprite.getHeight()/2;
-		rectanlge.x = position.x;
-		rectanlge.y = position.y;
-		rectanlge.width = 55;
-		rectanlge.height = 55;
+//		rectanlge.x = position.x;
+//		rectanlge.y = position.y;
+//		rectanlge.width = 55;
+//		rectanlge.height = 55;
 		
 		sofa_dx = L1.player.position.x - position.x;
 		sofa_dy = L1.player.position.y - position.y;

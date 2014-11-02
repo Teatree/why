@@ -322,13 +322,13 @@ public class L1 {
 			if (!e.isDead()) {
 				if (player.radioactiveAura != null
 						&& Intersector.overlaps(player.radioactiveAura,
-								e.rectanlge)) {
+								e.sprite.getBoundingRectangle())) {
 				}
 				if (e.state != State.DEAD && player.projectiles != null) {
 					Iterator<Projectile> prj = player.projectiles.iterator();
 					while (prj.hasNext()) {
 						Projectile p = prj.next();
-						if (Intersector.overlaps(p.circle, e.rectanlge)
+						if (Intersector.overlaps(p.circle, e.sprite.getBoundingRectangle())
 								&& !e.hurt
 								|| (e.iceCube != null && Intersector.overlaps(p.circle,
 										e.iceCube.getBoundingRectangle()))) {
@@ -364,7 +364,7 @@ public class L1 {
 //				}
 				
 				for (Explosion expl : explosions) {
-					if (Intersector.overlaps(expl.explCircle, e.rectanlge)) {
+					if (Intersector.overlaps(expl.explCircle, e.sprite.getBoundingRectangle())) {
 						
 //						System.err.println("Enemy position: " + e.position);
 						boolean fudge = expl.cause(e, collisionLayer);

@@ -143,7 +143,7 @@ public class Turret extends AbstractGameObject {
 							victimEnemy = null;
 						}
 					}
-					if (victimEnemy!= null && turretAimerBot.overlaps(victimEnemy.rectanlge)){
+					if (victimEnemy!= null && turretAimerBot.overlaps(victimEnemy.sprite.getBoundingRectangle())){
 						turretAimerBot.x = position.x + victimEnemy.sprite.getWidth()/2;
 						turretAimerBot.y = position.y + victimEnemy.sprite.getHeight()/2;
 						

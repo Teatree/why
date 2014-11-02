@@ -234,8 +234,9 @@ public class Player extends AbstractGameObject {
 
 		rectanlge.x = position.x;
 		rectanlge.y = position.y;
-		rectanlge.width = sprite.getWidth();
-		rectanlge.height = sprite.getHeight();
+		rectanlge.width = sprite.getWidth()*sprite.getScaleX();
+		rectanlge.height = sprite.getHeight()*sprite.getScaleY();
+		
 
 		aimingAuraSprite.setX(position.x - 9);
 		aimingAuraSprite.setY(position.y - 8);
@@ -834,9 +835,6 @@ public class Player extends AbstractGameObject {
 				break;
 			case POISONOUS_GUY:
 				setNegativeEffect(NegativeEffects.POISONED);
-				break;
-			case PLASMA_GUY:
-				setNegativeEffect(NegativeEffects.FEAR);
 				break;
 			}
 		}
