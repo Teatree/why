@@ -21,10 +21,13 @@ import com.me.swampmonster.models.items.RADIOACTIVE;
 import com.me.swampmonster.models.items.SCARED;
 import com.me.swampmonster.models.items.SLOWED;
 import com.me.swampmonster.models.items.WEAKENED;
+import com.me.swampmonster.models.items.WeaponGenerator;
+import com.me.swampmonster.models.items.WeaponItem;
 
 public class ItemGenerator {
 	Map<Integer, Class<? extends Item>> items;
 	Items itEmsTypes;
+	WeaponGenerator wepGenerator = new WeaponGenerator();
 	private Random random = new Random();
 	public static Map<Integer, AssetDescriptor<Texture>> poisonTextures;
 	public static HashMap<Integer, String> usedTextures = new HashMap<Integer, String>(); 
@@ -78,6 +81,12 @@ public class ItemGenerator {
 		Item resulItem = generateItem(playersScore);
 		return resulItem;
 	}
+	public Item getWeaponItem(int playersScore){
+		
+		WeaponItem resulItem = new WeaponItem();
+		resulItem.weapon = wepGenerator.generateSpecialWep(playersScore);
+		return resulItem;
+	}
 	
 	public Item generateSpecialItem(int playerScore){
 		setItemParams(Player.absoluteScore);
@@ -118,7 +127,8 @@ public class ItemGenerator {
 	public Item generateItem(int playersScore) {
 		int probability = random.nextInt(100);
 //		if (probability > 70){
-			return generateSpecialItem(playersScore);
+//			return generateSpecialItem(playersScore);
+			return getWeaponItem(playersScore);
 //		} else {
 //			return getPlainItem(playersScore);
 //		}

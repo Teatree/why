@@ -28,8 +28,6 @@ import com.me.swampmonster.models.ProjectileHydra;
 import com.me.swampmonster.models.Prop;
 import com.me.swampmonster.models.ToxicPuddle;
 import com.me.swampmonster.models.Turret;
-import com.me.swampmonster.models.AbstractGameObject.NegativeEffects;
-import com.me.swampmonster.models.items.HASTE;
 import com.me.swampmonster.models.items.ICE_THING;
 import com.me.swampmonster.models.items.RADIOACTIVE;
 import com.me.swampmonster.models.slots.PositiveEffects;

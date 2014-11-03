@@ -9,14 +9,13 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.me.swampmonster.game.TheController;
+import com.me.swampmonster.models.AbstractGameObject;
 import com.me.swampmonster.models.Explosion;
-import com.me.swampmonster.models.Item;
 import com.me.swampmonster.models.L1;
-import com.me.swampmonster.models.Player;
 import com.me.swampmonster.models.Projectile;
 import com.me.swampmonster.models.Projectile.EffectCarriers;
 
-public class Weapon extends Item{
+public class Weapon extends AbstractGameObject{
 	
 	public List<Projectile> projectiles = new ArrayList<Projectile>();
 	public int minDD; // minimun damage dealt
@@ -25,11 +24,13 @@ public class Weapon extends Item{
 	public int force;
 	public String name;
 	public Sprite weaponSprite;
+	public Modificator mod1;
+	public Modificator mod2;
 	
 	// different force
 	
 	public Weapon(){
-		
+		super();
 	}
 	
 	public void update(TiledMapTileLayer collisionLayer){
@@ -138,17 +139,4 @@ public class Weapon extends Item{
 			}
 		}
 	}
-
-	@Override
-	public void pickMeUp(Player player) {
-		player.weapon = this;
-	}
-
-	@Override
-	public void parametersForThrowing(Player player) {
-		// TODO Auto-generated method stub
-		
-	}
-	
-
 }

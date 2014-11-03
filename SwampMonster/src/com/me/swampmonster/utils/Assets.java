@@ -121,6 +121,7 @@ public class Assets {
 	public static final AssetDescriptor<Texture> greyItem = new AssetDescriptor<Texture>("data\\Items\\grey.png", Texture.class);
 	public static final AssetDescriptor<Texture> lightBlueItem = new AssetDescriptor<Texture>("data\\Items\\lightBlue.png", Texture.class);
 	public static final AssetDescriptor<Texture> pinkItem = new AssetDescriptor<Texture>("data\\Items\\pink.png", Texture.class);
+	public static final AssetDescriptor<Texture> wepBOW = new AssetDescriptor<Texture>("data\\wepBOW.png", Texture.class);
 	
 //	public static final AssetDescriptor<Texture> tiles = new AssetDescriptor<Texture>("data\\Tiles.png", Texture.class);
 //	public static final AssetDescriptor<Texture> tileSet_SAND_WORLD = new AssetDescriptor<Texture>("data\\tileSet_SAND_WORLD.png", Texture.class);
@@ -170,6 +171,7 @@ public class Assets {
 		manager.load(pinkItem);
 		manager.load(greyItem);
 		manager.load(lightBlueItem);
+		manager.load(wepBOW);
 		manager.load(weaponizerButton);
 //		manager.load(tiles);
 //		manager.load(tileSet_SAND_WORLD);

@@ -8,8 +8,8 @@ import com.me.swampmonster.animations.AnimationControl;
 import com.me.swampmonster.models.Item;
 import com.me.swampmonster.models.L1;
 import com.me.swampmonster.models.Player;
-import com.me.swampmonster.models.ProjectileHydra;
 import com.me.swampmonster.models.Projectile.EffectCarriers;
+import com.me.swampmonster.models.ProjectileHydra;
 import com.me.swampmonster.utils.Assets;
 
 public class CHAIN_ARROWS extends Item{

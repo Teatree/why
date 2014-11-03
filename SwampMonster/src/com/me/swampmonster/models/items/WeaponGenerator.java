@@ -4,23 +4,42 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
+import com.me.swampmonster.models.Player;
+import com.me.swampmonster.models.items.Modificator.DamagePlayerMod;
+import com.me.swampmonster.models.items.Modificator.EnemyBleedMod;
+import com.me.swampmonster.models.items.Modificator.ExtraDamageMod;
+import com.me.swampmonster.models.items.Modificator.ExtraDamageToEnemyTypeMod;
+import com.me.swampmonster.models.items.Modificator.ExtraDamageToToughguyTypeMod;
+import com.me.swampmonster.models.items.Modificator.HealEnemyMod;
+import com.me.swampmonster.models.items.Modificator.ShadowProjectileMod;
+import com.me.swampmonster.models.items.Modificator.ShootThoughCollisionMod;
+import com.me.swampmonster.models.items.Modificator.SpeedUpEnemyMod;
+import com.me.swampmonster.models.items.Modificator.StunEnemyMod;
+import com.me.swampmonster.models.items.Modificator.StunPlayerMod;
+import com.me.swampmonster.models.items.Modificator.VampireMod;
+
 public class WeaponGenerator {
 	Map<Integer, Class<? extends Weapon>> weapons;
+	Map<Integer, Class<? extends Modificator>> mods;
 	Weapons weaponTypes;
 	private Random random = new Random();
 	
 	private static enum Weapons{
-		p0_500(0, 2),
-		p500_1500(0, 3),
-		p1500_3000(0, 4),
-		p3000_plus(0, 4);
+		p0_500(0, 2, 1, 2),
+		p500_1500(0, 3, 1, 2),
+		p1500_3000(0, 4, 1, 2),
+		p3000_plus(0, 4, 1, 2);
 		
-		public int minItemGenerate;
-		public int maxItemGenerate;
+		public int minWepGenerate;
+		public int maxWepGenerate;
+		public int firstModificatorChance;
+		public int secondModificatorChance;
 		
-		private Weapons(int minWepGenerate, int maxWepGenerate){
-			this.maxItemGenerate = maxWepGenerate;
-			this.minItemGenerate = minWepGenerate;
+		private Weapons(int minWepGenerate, int maxWepGenerate, int minModificator, int maxModificator){
+			this.maxWepGenerate = maxWepGenerate;
+			this.minWepGenerate = minWepGenerate;
+			this.firstModificatorChance = firstModificatorChance;
+			this.secondModificatorChance = secondModificatorChance;
 		}
 	}
 	
@@ -32,6 +51,20 @@ public class WeaponGenerator {
 		weapons.put(2, Spear.class);
 		weapons.put(3, CrossBow.class);
 		weapons.put(4, BuzzShot.class);
+		
+		mods = new HashMap<Integer, Class<? extends Modificator>>();
+		mods.put(0, EnemyBleedMod.class);
+		mods.put(1, StunEnemyMod.class);
+		mods.put(2, ExtraDamageToEnemyTypeMod.class);
+		mods.put(3, ExtraDamageToToughguyTypeMod.class);
+		mods.put(4, VampireMod.class);
+		mods.put(5, ExtraDamageMod.class);
+		mods.put(6, ShootThoughCollisionMod.class);
+		mods.put(7, DamagePlayerMod.class);
+		mods.put(8, HealEnemyMod.class);
+		mods.put(9, SpeedUpEnemyMod.class);
+		mods.put(10, StunPlayerMod.class);
+		mods.put(11, ShadowProjectileMod.class);
 	}
 	
 	public Weapon generateWep(int playersScore) {
@@ -44,57 +77,46 @@ public class WeaponGenerator {
 	}
 	//
 	public Weapon getWep(int playersScore){
-		Weapon resultWep = generateWeapon(playersScore);
+		Weapon resultWep = generateWep(playersScore);
 		return resultWep;
 	}
 	
-//	public Item generateSpecialWep(int playerScore){
-//		setItemParams(Player.absoluteScore);
-//		int number = random.nextInt(weaponTypes.maxItemGenerate
-//				- weaponTypes.minItemGenerate)
-//				+ weaponTypes.minItemGenerate;
-//		Item item = null;
-//		try {
-//			Class<? extends Item> itemClass = weapons.get(number);
-////			Class<? extends Item> itemClass = RADIOACTIVE.class;
-//			int randomTextureNumber;
-//			if (itemClass.getDeclaredField("poisonSprite").get(null) == null) {
-//				randomTextureNumber = random.nextInt(poisonTextures.size());
-//				while (usedTextures.keySet().contains(randomTextureNumber)) {
-//					randomTextureNumber = random.nextInt(poisonTextures.size());
-//				}
-//				usedTextures.put(randomTextureNumber, itemClass.getName());
-//				try {
-//					Field hack = itemClass.getDeclaredField("poisonSprite");
-//					hack.setAccessible(true);
-//					hack.set(null, poisonTextures.get(randomTextureNumber));
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//				item = itemClass.getConstructor().newInstance();
-//				System.out.println("poisonSprite: " + randomTextureNumber);
-//			}else{
-//				item = itemClass.getConstructor().newInstance();
-//				item.name = item.constatName;
-//			}
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		return item;
-//	}
-	
-	
-	public Weapon generateWeapon(int playersScore) {
-		int probability = random.nextInt(100);
-//		if (probability > 70){
-//			return generateSpecialItem(playersScore);
-//		} else {
-			return getPlainWep(playersScore);
-//		}
+	public Weapon generateSpecialWep(int playerScore){
+		setWepParams(Player.absoluteScore);
+		Weapon weapon = getPlainWep(playerScore);
+		int rNumberFirst = random.nextInt(1000);
+		
+		if(rNumberFirst<weaponTypes.firstModificatorChance){
+			int modNumber = random.nextInt(mods.size());
+			Modificator mod1 = null;
+			try {
+				mod1 = mods.get(modNumber).getConstructor().newInstance();
+			} catch (Exception e) {
+				e.printStackTrace();
+			} 
+			weapon.mod1 = mod1;
+		}
+		
+		int rNumberSecond = random.nextInt(1000);
+		
+		if(rNumberSecond<weaponTypes.firstModificatorChance){
+			int modNumber = random.nextInt(mods.size());
+			Modificator mod2 = null;
+			try {
+				mod2 = mods.get(modNumber).getConstructor().newInstance();
+			} catch (Exception e) {
+				e.printStackTrace();
+			} 
+			if(mod2 != null && !mod2.equals(weapon.mod1)){
+				weapon.mod2 = mod2;
+			}
+		}
+		return weapon;
 	}
 	
 	
-	private void setItemParams(int playersScore) {
+	
+	private void setWepParams(int playersScore) {
 		if(playersScore>=0 && playersScore<500){
 			weaponTypes = Weapons.p0_500;
 		}
