@@ -11,6 +11,8 @@ import com.me.swampmonster.models.Explosion;
 import com.me.swampmonster.models.Item;
 import com.me.swampmonster.models.L1;
 import com.me.swampmonster.models.Player;
+import com.me.swampmonster.models.AbstractGameObject.State;
+import com.me.swampmonster.models.Projectile.EffectCarriers;
 import com.me.swampmonster.utils.Assets;
 import com.me.swampmonster.utils.Constants;
 
@@ -77,6 +79,13 @@ public class NUKE extends Item{
 		explosion.explCircle.setPosition(this.position.x, this.position.y);
 		L1.explosions.add(explosion);
 		state=State.DEAD;
+	}
+
+	@Override
+	public void parametersForThrowing(Player player) {
+		player.arrowEffectCarrier = EffectCarriers.NUKE;
+		this.state = State.DEAD;
+		
 	}
 
 }

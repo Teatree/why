@@ -9,6 +9,8 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.me.swampmonster.animations.AnimationControl;
 import com.me.swampmonster.models.Item;
 import com.me.swampmonster.models.Player;
+import com.me.swampmonster.models.AbstractGameObject.State;
+import com.me.swampmonster.models.Projectile.EffectCarriers;
 import com.me.swampmonster.models.slots.PositiveEffects;
 import com.me.swampmonster.utils.Assets;
 import com.me.swampmonster.utils.Constants;
@@ -69,6 +71,14 @@ public class RADIOACTIVE extends Item{
 		player.positiveEffectCounter = lifeTime;
 //		System.out.println("Hi! I am RADIOACTIVE aura, circle radius: ");
 		this.state=State.DEAD;
+	}
+
+
+	@Override
+	public void parametersForThrowing(Player player) {
+		this.state = State.DEAD;
+		player.arrowEffectCarrier = EffectCarriers.RADIOACTIVE;
+		
 	}
 	
 //	@Override

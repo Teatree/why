@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 import java.util.Stack;
 
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
@@ -40,9 +41,11 @@ public class L1 {
 	public int currentWave;
 	public Bunker bunker;
 	public boolean korea;
+	public Vector2 pos;
 	public static PlasmaShield plasmaShield;
 	private List<Integer> yPositionsForButton; 
 	private int i;
+	public Random random;
 
 	public Wave waveTemp;
 	private boolean needTogenerateNewWave = false;
@@ -78,6 +81,7 @@ public class L1 {
 		enemiesOnStage = new Stack<Enemy>();
 		bunker = new Bunker(tileSet, tileMap);
 		items = new LinkedList<Item>();
+		random = new Random();
 		explosions = new ArrayList<Explosion>();
 	}
 
@@ -250,17 +254,27 @@ public class L1 {
 						a.remove();
 						i--;
 					}
+				}for(Actor a: L1Renderer.stage.getActors()){
+					if(a.equals(item.throwButton)){
+						a.remove();
+					}
 				}
 			}else{
 				if (Intersector.overlaps(item.circle, player.rectanlge)
 						&& item.state != State.SPAWNING
-						&& item.pickUpButton == null && !(item instanceof Oxygen)
+						&& item.pickUpButton == null 
+						&& item.throwButton == null && !(item instanceof Oxygen)
 								&& !(item instanceof HealthKit)) {
 					item.pickUpButton = new TextButton("Pick up " + item.name,
 							GShape.skin);
-					item.pickUpButton.setSize(200, 50);
-					item.pickUpButton.setX(300);
+					item.pickUpButton.setSize(150, 50);
+					item.pickUpButton.setX(220);
 					item.pickUpButton.setY(yPositionsForButton.get(i));
+					item.throwButton = new TextButton("Throw " + item.name,
+							GShape.skin);
+					item.throwButton.setSize(150, 50);
+					item.throwButton.setX(380);
+					item.throwButton.setY(yPositionsForButton.get(i));
 					i++;
 					item.pickUpButton.addListener(new ChangeListener() {
 						@Override
@@ -273,10 +287,38 @@ public class L1 {
 									i--;
 								}
 							}
+							for(Actor a: L1Renderer.stage.getActors()){
+								if(a.equals(item.throwButton)){
+									a.remove();
+									item.throwButton = null;
+								}
+							}
+//							Gdx.input.setInputProcessor(null);
+						}
+					});
+					item.throwButton.addListener(new ChangeListener() {
+						@Override
+						public void changed(ChangeEvent event, Actor actor) {
+							System.out.println("item: " + item);
+							item.parametersForThrowing(player);
+							for(Actor a: L1Renderer.stage.getActors()){
+								if(a.equals(item.pickUpButton)){
+									a.remove();
+									item.pickUpButton = null;
+									i--;
+								}
+							}
+							for(Actor a: L1Renderer.stage.getActors()){
+								if(a.equals(item.throwButton)){
+									a.remove();
+									item.throwButton = null;
+								}
+							}
 //							Gdx.input.setInputProcessor(null);
 						}
 					});
 					L1Renderer.stage.addActor(item.pickUpButton);
+					L1Renderer.stage.addActor(item.throwButton);
 				}
 				else if(!Intersector.overlaps(item.circle, player.rectanlge)){
 					for(Actor a: L1Renderer.stage.getActors()){
@@ -285,6 +327,12 @@ public class L1 {
 							i--;
 						}
 					}
+					for(Actor a: L1Renderer.stage.getActors()){
+						if(a.equals(item.throwButton)){
+							a.remove();
+						}
+					}
+					item.throwButton = null;
 					item.pickUpButton = null;
 				}
 				if(Intersector.overlaps(item.circle, player.rectanlge) && (item instanceof Oxygen
@@ -319,10 +367,14 @@ public class L1 {
 					Iterator<Projectile> prj = player.weapon.projectiles.iterator();
 					while (prj.hasNext()) {
 						Projectile p = prj.next();
+						if(p.position!=null){
+							pos = new Vector2(p.position);
+						}
 						if (Intersector.overlaps(p.circle, e.sprite.getBoundingRectangle())
 								&& !e.hurt
 								|| (e.iceCube != null && Intersector.overlaps(p.circle,
 										e.iceCube.getBoundingRectangle()))) {
+							
 							if (p.effect == EffectCarriers.EXPLOSIVE) {
 								TheController.skill.explode(p.position);
 							}
@@ -333,11 +385,57 @@ public class L1 {
 								e.damagePushForce = p.force-e.health/5;
 							}
 							e.damageType = "player";
-							e.enemyHurt(player.damage);
+							
+							
+							// might be some issues with this
+							if(p.effect == EffectCarriers.NONE){
+								e.enemyHurt(random.nextInt((int) (player.maxDD-player.minDD))+player.minDD);
+							}
+							
+							
 							if (p.effect == EffectCarriers.POISONED) {
 								PoisonArrow.injectPoison(e);
 								e.setNegativeEffect(NegativeEffects.POISONED);
 							}
+							if (p.effect == EffectCarriers.FADE) {
+								e.setNegativeEffect(NegativeEffects.FADE_N);
+							}
+							if (p.effect == EffectCarriers.RADIOACTIVE) {
+								e.setNegativeEffect(NegativeEffects.RADIOACTIVE_N);
+							}
+							if (p.effect == EffectCarriers.SCARED) {
+								// that's right, nothin
+							}
+							if (p.effect == EffectCarriers.CHAIN_ARROWS) {
+								hydra  = new ProjectileHydra(new Vector2(p.position.x, p.position.y));
+								ProjectileHydra.musltiplyCounter = 3;
+							}
+							if (p.effect == EffectCarriers.FROST_EXPLOSIVE) {
+								Explosion explosion = new Explosion(new Vector2(), Explosion.EXPLOSION_TYPE_FROST);
+								explosion.explCircle.setPosition(pos.x, pos.y);
+								L1.explosions.add(explosion);
+							}
+							if (p.effect == EffectCarriers.HASTE) {
+								e.setNegativeEffect(NegativeEffects.HASTE_N);
+							}
+							if (p.effect == EffectCarriers.WEAKENED) {
+								e.setNegativeEffect(NegativeEffects.WEAKENED);
+							}
+							if (p.effect == EffectCarriers.ICE_CUBE) {
+//								for(Enemy e1 : L1.enemiesOnStage){
+									e.setNegativeEffect(NegativeEffects.STUN);
+//								}
+							}
+							if (p.effect == EffectCarriers.NUKE) {
+								Explosion explosion = new Explosion(new Vector2(), Explosion.EXPLOSION_TYPE_STANDART);
+								explosion.explCircle.setPosition(pos.x, pos.y);
+								System.out.println("pos: " + pos);
+								L1.explosions.add(explosion);
+							}
+							if (p.effect == EffectCarriers.POISON) {
+								e.setNegativeEffect(NegativeEffects.POISONED);
+							}
+							
 							prj.remove();
 						}
 					}

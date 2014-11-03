@@ -19,18 +19,26 @@ public class TurretSkill extends Slot {
 	public Turret turret;
 	public static int level;
 	public static Map<Integer, Integer> collDownByLevel;
-	public static Map<Integer, Float> damageByLevel;
+	public static Map<Integer, Float> minDamageByLevel;
+	public static Map<Integer, Float> maxDamageByLevel;
 	public static Map<Integer, Integer> lifeTimeByLevel;
 	public static Map<Integer, Integer> attackSpeedByLevel;
 	public static Map<Integer, Integer> healthByLevel;
 	private static Map <Integer, String> descriptionByLevel;
 	static {
-		damageByLevel = new HashMap<Integer, Float>();
-		damageByLevel.put(0, Constants.TURRET_Damage_L1);
-		damageByLevel.put(1, Constants.TURRET_Damage_L2);
-		damageByLevel.put(2, Constants.TURRET_Damage_L3);
-		damageByLevel.put(3, Constants.TURRET_Damage_L4);
-		damageByLevel.put(4, Constants.TURRET_Damage_L5);
+		minDamageByLevel = new HashMap<Integer, Float>();
+		minDamageByLevel.put(0, Constants.TURRET_min_Damage_L1);
+		minDamageByLevel.put(1, Constants.TURRET_min_Damage_L2);
+		minDamageByLevel.put(2, Constants.TURRET_min_Damage_L3);
+		minDamageByLevel.put(3, Constants.TURRET_min_Damage_L4);
+		minDamageByLevel.put(4, Constants.TURRET_min_Damage_L5);
+		
+		maxDamageByLevel = new HashMap<Integer, Float>();
+		maxDamageByLevel.put(0, Constants.TURRET_max_Damage_L1);
+		maxDamageByLevel.put(1, Constants.TURRET_max_Damage_L2);
+		maxDamageByLevel.put(2, Constants.TURRET_max_Damage_L3);
+		maxDamageByLevel.put(3, Constants.TURRET_max_Damage_L4);
+		maxDamageByLevel.put(4, Constants.TURRET_max_Damage_L5);
 		
 		attackSpeedByLevel = new HashMap<Integer, Integer>();
 		attackSpeedByLevel.put(0, Constants.TURRET_AttackSpeed_L1);
@@ -74,7 +82,8 @@ public class TurretSkill extends Slot {
 		turret = new Turret();
 		turret.state = State.SPAWNING;
 		turret.health = Constants.TURRET_Health_L1;
-		turret.damage = Constants.TURRET_Damage_L1;
+		turret.minDD = Constants.TURRET_min_Damage_L1;
+		turret.maxDD = Constants.TURRET_max_Damage_L1;
 		turret.attackSpeed = Constants.TURRET_AttackSpeed_L1;
 		
 		lifeTime = Constants.TURRET_LifeTime_L1;
@@ -88,35 +97,40 @@ public class TurretSkill extends Slot {
 		
 		switch (level) {
 		case 0:
-			turret.damage = Constants.TURRET_Damage_L1;
+			turret.minDD = Constants.TURRET_min_Damage_L1;
+			turret.maxDD = Constants.TURRET_max_Damage_L1;
 			turret.health = Constants.TURRET_Health_L1;
 			turret.attackSpeed = Constants.TURRET_AttackSpeed_L1;
 			turret.lifeTime = Constants.TURRET_LifeTime_L1;
 			coolDown = Constants.TURRET_CoolDown_L1;
 			break;
 		case 1:
-			turret.damage = Constants.TURRET_Damage_L2;
+			turret.minDD = Constants.TURRET_min_Damage_L2;
+			turret.maxDD = Constants.TURRET_max_Damage_L2;
 			turret.health = Constants.TURRET_Health_L2;
 			turret.attackSpeed = Constants.TURRET_AttackSpeed_L2;
 			turret.lifeTime = Constants.TURRET_LifeTime_L2;
 			coolDown = Constants.TURRET_CoolDown_L2;
 			break;
 		case 2:
-			turret.damage = Constants.TURRET_Damage_L3;
+			turret.minDD = Constants.TURRET_min_Damage_L3;
+			turret.maxDD = Constants.TURRET_max_Damage_L3;
 			turret.health = Constants.TURRET_Health_L3;
 			turret.attackSpeed = Constants.TURRET_AttackSpeed_L3;
 			turret.lifeTime = Constants.TURRET_LifeTime_L3;
 			coolDown = Constants.TURRET_CoolDown_L3;
 			break;
 		case 3:
-			turret.damage = Constants.TURRET_Damage_L4;
+			turret.minDD = Constants.TURRET_min_Damage_L4;
+			turret.maxDD = Constants.TURRET_max_Damage_L4;
 			turret.health = Constants.TURRET_Health_L4;
 			turret.attackSpeed = Constants.TURRET_AttackSpeed_L4;
 			turret.lifeTime = Constants.TURRET_LifeTime_L4;
 			coolDown = Constants.TURRET_CoolDown_L4;
 			break;
 		case 4:
-			turret.damage = Constants.TURRET_Damage_L5;
+			turret.minDD = Constants.TURRET_min_Damage_L5;
+			turret.maxDD = Constants.TURRET_max_Damage_L5;
 			turret.health = Constants.TURRET_Health_L5;
 			turret.attackSpeed = Constants.TURRET_AttackSpeed_L5;
 			turret.lifeTime = Constants.TURRET_LifeTime_L5;
@@ -169,7 +183,7 @@ public class TurretSkill extends Slot {
 		String attackSpeedString = "";
 		if(level>0){
 			int intuha = collDownByLevel.get(new Integer(level))-collDownByLevel.get(new Integer(level)-1);
-			float dmgDif = damageByLevel.get(new Integer(level))-damageByLevel.get(new Integer(level)-1);
+			float dmgDif = maxDamageByLevel.get(new Integer(level))-maxDamageByLevel.get(new Integer(level)-1);
 			int lifeTdiff = lifeTimeByLevel.get(new Integer(level))-lifeTimeByLevel.get(new Integer(level)-1);
 			int healthDiff = healthByLevel.get(new Integer(level))-healthByLevel.get(new Integer(level)-1);
 			int aSDiff = attackSpeedByLevel.get(new Integer(level))-attackSpeedByLevel.get(new Integer(level)-1);
@@ -202,7 +216,7 @@ public class TurretSkill extends Slot {
 			}
 		}
 		stats.add("t " + coolDown/60 + intuhaString);
-		stats.add("d " + turret.damage + dmgDifString);
+		stats.add("d " + turret.maxDD + dmgDifString);
 		stats.add("m " + turret.attackSpeed/60 + attackSpeedString);
 		stats.add("g " + turret.health + healthString);
 		stats.add("h " + lifeTime/60 + lifeTimeString);

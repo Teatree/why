@@ -269,6 +269,9 @@ public class TheController extends InputAdapter {
 					if(i.pickUpButton != null && i.pickUpButton.isPressed()){
 						updateTouchPos = false;
 					}
+					if(i.throwButton != null && i.throwButton.isPressed()){
+						updateTouchPos = false;
+					}
 				}
 				if(updateTouchPos){
 					touchPos.y = Gdx.input.getY();

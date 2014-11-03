@@ -7,6 +7,8 @@ import com.me.swampmonster.animations.AnimationControl;
 import com.me.swampmonster.models.Item;
 import com.me.swampmonster.models.L1;
 import com.me.swampmonster.models.Player;
+import com.me.swampmonster.models.AbstractGameObject.State;
+import com.me.swampmonster.models.Projectile.EffectCarriers;
 import com.me.swampmonster.models.enemies.Enemy;
 import com.me.swampmonster.utils.Assets;
 
@@ -37,6 +39,13 @@ public class ICE_THING extends Item{
 			e.setNegativeEffect(NegativeEffects.STUN);
 		}
 		System.out.println("IceThing");
+	}
+
+	@Override
+	public void parametersForThrowing(Player player) {
+		this.state = State.DEAD;
+		player.arrowEffectCarrier = EffectCarriers.ICE_CUBE;
+		
 	}
 
 }

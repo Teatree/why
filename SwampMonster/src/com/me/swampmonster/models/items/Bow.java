@@ -3,7 +3,8 @@ package com.me.swampmonster.models.items;
 public class Bow extends Weapon{
 	
 	public Bow(){
-		damage = 1;
+		minDD = 1;
+		maxDD = 3;
 	}
 
 }

@@ -70,7 +70,8 @@ public class EnemyGenerator {
 			enemy.setPlayerMovementSpeed((float)(enemy.getPlayerMovementSpeed() + toughtness.speed));
 			enemy.points +=toughtness.points;
 			//: TODO enemy.damag is static
-			enemy.damage += toughtness.damage;
+			enemy.minDD += toughtness.damage;
+			enemy.maxDD += toughtness.damage;
 			enemy.health += toughtness.health;
 			enemy.attackSpeed += toughtness.attackSpeed;
 			enemy.setColour(toughtness.red, toughtness.green, toughtness.blue, toughtness.alpha);

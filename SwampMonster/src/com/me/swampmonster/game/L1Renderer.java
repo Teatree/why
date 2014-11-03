@@ -158,7 +158,7 @@ public class L1Renderer {
 		// temporary drawing of a projectile
 
 		for (Enemy enemy : L1.enemiesOnStage) {
-			fontss.setColor(Color.RED);
+			fontss.setColor(Color.GREEN);
 			fontss.setScale(0.52f);
 			fontss.draw(batch, "dmg: " + enemy.damage, enemy.position.x+enemy.sprite.getWidth()+5, enemy.position.y);
 			fontss.draw(batch, "hp: " + enemy.health, enemy.position.x+enemy.sprite.getWidth()+5, enemy.position.y+12);
@@ -174,7 +174,7 @@ public class L1Renderer {
 					}else{
 						fontss.setColor(Color.RED);
 						fontss.setScale(0.52f);
-						fontss.draw(batch, (int)L1.player.damage*10 + " DMG",
+						fontss.draw(batch, (int)enemy.floatingOutputDamage*10 + " DMG",
 								enemy.position.x,
 								enemy.position.y + enemy.sprite.getHeight() + 5 + enemy.time/5);
 					}

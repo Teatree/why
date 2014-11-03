@@ -39,9 +39,9 @@ public class ImproveArrowDamage extends Slot implements Perks{
 	
 	@Override
 	public void execute (Player player){
-		System.out.println("before player damage: " + player.damage);
-		Player.DEFAULT_DAMAGE += valuesByLevel.get(level);
-		System.out.println("execute arrow speed, player damage: " + player.damage);
+		Player.DEFAULT_MINIMUM_DAMAGE += valuesByLevel.get(level);
+		Player.DEFAULT_MAXIMUM_DAMAGE += valuesByLevel.get(level);
+//		System.out.println("execute arrow speed, player damage: " + player.damage);
 	}
 
 	@Override

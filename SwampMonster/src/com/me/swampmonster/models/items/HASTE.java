@@ -6,8 +6,10 @@ import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.me.swampmonster.animations.AnimationControl;
+import com.me.swampmonster.models.AbstractGameObject;
 import com.me.swampmonster.models.Item;
 import com.me.swampmonster.models.Player;
+import com.me.swampmonster.models.Projectile.EffectCarriers;
 import com.me.swampmonster.models.slots.PositiveEffects;
 import com.me.swampmonster.utils.Assets;
 import com.me.swampmonster.utils.Constants;
@@ -57,5 +59,14 @@ public class HASTE extends Item{
 		player.setPositiveEffect(PositiveEffects.HASTE);
 		System.out.println("I am Haste, biatch");
 	}
+
+	@Override
+	public void parametersForThrowing(Player player) {
+		this.state = State.DEAD;
+		player.arrowEffectCarrier = EffectCarriers.HASTE;
+		
+	}
+	
+	
 
 }

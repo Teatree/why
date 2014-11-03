@@ -62,7 +62,8 @@ public class SaveManager {
     	somPlayer.arrowMovementSpeed = Player.arrowMovementSpeed;
     	if (L1.player != null){
 	    	somPlayer.movementSpeed = L1.player.movementSpeed;
-	    	somPlayer.damage = Player.damage;
+	    	somPlayer.minDD = Player.minDD;
+	    	somPlayer.maxDD = Player.maxDD;
     	}
     	if(TheController.skill != null){
     		somPlayer.skill = TheController.skill.getClass().getName();
@@ -108,7 +109,8 @@ public class SaveManager {
 	        Player.arrowMovementSpeed = somPlayer.arrowMovementSpeed;
 	        player.oxygen = Player.maxOxygen;
 	        player.health = Player.maxHealth;
-	        Player.damage = somPlayer.damage;
+	        Player.minDD = somPlayer.minDD;
+	        Player.maxDD = somPlayer.maxDD;
 	        player.movementSpeed = somPlayer.movementSpeed;
 	        LGenerator.hadLastAtmosphere = somPlayer.hadLastAtmosphere;
 	        LGenerator.wasLastElite = somPlayer.wasLastElite;
@@ -161,7 +163,8 @@ public class SaveManager {
     	public float arrowMovementSpeed;
     	public String saved;
     	public float movementSpeed;
-    	public float damage;
+    	public float minDD;
+    	public float maxDD;
     	public String skill;
     	
     	public String lastTileSet;

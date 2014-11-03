@@ -24,11 +24,22 @@ public class EnemyLeech extends Enemy{
 		
 		yellowAura.radius = yellowAura.radius*20;
 		sprite = new Sprite(animationsStandard.get(state).getCurrentFrame());
-		movementSpeed = 0.4f;
-		health = 2;
-		damage = 2;
 		points = 35;
 		attackSpeed = 120;
+		minHealth = 2;
+		maxHealth = 3;
+		minDamage = 1;
+		maxDamage = 2;
+		minSpeed = 3;
+		maxSpeed = 4;
+		health = random.nextInt(maxHealth - minHealth) + minHealth;
+		damage = random.nextInt(maxDamage - minDamage) + minDamage;
+		movementSpeed = (float)(((float)(random.nextInt(maxSpeed - minSpeed) + minSpeed))/10);
+		minScale = (int) (11+health+damage-(int)(movementSpeed*10));
+		maxScale = (int) (14+health+damage-(int)(movementSpeed*10));
+		System.out.println("minscale: " + minScale +  " maxScale: " + maxScale);
+		sprite.setScale((float)(((float)(random.nextInt(maxScale - minScale) + minScale)))/10);
+//		rectanlge.setSize(sprite.getBoundingRectangle().getWidth()*sprite.getScaleX(), sprite.getBoundingRectangle().getHeight()*sprite.getScaleY());
 		STANDART_MOVEMENT_SPEED = movementSpeed;
 	}
 	

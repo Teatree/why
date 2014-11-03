@@ -41,22 +41,33 @@ public class EnemySofa extends Enemy {
 		animationsStandard.put(State.ANIMATINGLARGE, new AnimationControl(Assets.manager.get(Assets.enemySofa), 8, 32, 7));
 		sprite = new Sprite(animationsStandard.get(state).getCurrentFrame());
 		animatingTimer = 300;
-		movementSpeed = 0.5f;
 		random = new Random();
 		roarCoolDown = 2100;
 //		roarCoolDown = random.nextInt(100-50)+50;
 		stunCoolDown = 2000;
-		health = 6;
-		damage = 3;
 		points = 50;
 		attackSpeed = 15;
-		STANDART_MOVEMENT_SPEED = movementSpeed;
 		yellowAura.radius = 32;
 		yellowAura.x = position.x + sprite.getWidth() / 2;
 		yellowAura.y = position.y + sprite.getHeight() / 2;
-		oRangeAura.radius = 34;
+		oRangeAura.radius = yellowAura.radius*1.3f;
 		oRangeAura.x = position.x + sprite.getWidth() / 2;
 		oRangeAura.y = position.y + sprite.getHeight() / 2;
+		minHealth = 6;
+		maxHealth = 8;
+		minDamage = 3;
+		maxDamage = 4;
+		minSpeed = 4;
+		maxSpeed = 5;
+		health = random.nextInt(maxHealth - minHealth) + minHealth;
+		damage = random.nextInt(maxDamage - minDamage) + minDamage;
+		movementSpeed = (float)(((float)(random.nextInt(maxSpeed - minSpeed) + minSpeed))/10);
+		minScale = (int) (16+health+damage-(int)(movementSpeed*10));
+		maxScale = (int) (18+health+damage-(int)(movementSpeed*10));
+		System.out.println("minscale: " + minScale +  " maxScale: " + maxScale);
+		sprite.setScale((float)(((float)(random.nextInt(maxScale - minScale) + minScale)))/10);
+//		rectanlge.setSize(sprite.getBoundingRectangle().getWidth()*sprite.getScaleX(), sprite.getBoundingRectangle().getHeight()*sprite.getScaleY());
+		STANDART_MOVEMENT_SPEED = movementSpeed;
 	}
 	
 	@Override

@@ -26,6 +26,17 @@ public class Projectile extends AbstractGameObject {
 	public enum EffectCarriers {
 		POISONED(new Sprite(Assets.manager.get(Assets.arrowPoisoned))), 
 		EXPLOSIVE(new Sprite(Assets.manager.get(Assets.arrowExplosive))),
+		
+		FROST_EXPLOSIVE(new Sprite(Assets.manager.get(Assets.itemProjectile))),
+		HASTE(new Sprite(Assets.manager.get(Assets.itemProjectile))),
+		POISON(new Sprite(Assets.manager.get(Assets.itemProjectile))),
+		NUKE(new Sprite(Assets.manager.get(Assets.itemProjectile))),
+		FADE(new Sprite(Assets.manager.get(Assets.itemProjectile))),
+		RADIOACTIVE(new Sprite(Assets.manager.get(Assets.itemProjectile))),
+		WEAKENED(new Sprite(Assets.manager.get(Assets.itemProjectile))),
+		ICE_CUBE(new Sprite(Assets.manager.get(Assets.itemProjectile))),
+		SCARED(new Sprite(Assets.manager.get(Assets.itemProjectile))),
+		CHAIN_ARROWS(new Sprite(Assets.manager.get(Assets.itemProjectile))),
 		NONE(new Sprite(Assets.manager.get(Assets.arrow)));
 
 		Sprite sprite;
@@ -42,7 +53,8 @@ public class Projectile extends AbstractGameObject {
 		sprite.setSize(32, 32);
 		circle = new Circle();
 		circle.radius = 6;
-		damage = 1f;
+		minDD = 1f;
+		maxDD = 3f;
 
 		state = State.STANDARD;
 //		arrowMovementSpeed = 1.8f;
@@ -64,7 +76,8 @@ public class Projectile extends AbstractGameObject {
 		sprite.setRotation(rot * 57.29f);
 		circle = new Circle();
 		circle.radius = 6;
-		damage = 1f;
+		minDD = 1f;
+		maxDD = 3f;
 		this.effect = effect;
 
 		state = State.STANDARD;

@@ -40,4 +40,10 @@ public class Oxygen extends Item{
 		}
 	}
 
+	@Override
+	public void parametersForThrowing(Player player) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

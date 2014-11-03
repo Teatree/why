@@ -26,6 +26,9 @@ public abstract class AbstractGameObject {
 				FROZEN(300, new Sprite(Assets.manager.get(Assets.FROZENNEGATIVEEFFECT_ICON))),
 				STUN(100, new Sprite(Assets.manager.get(Assets.STUNNEGATIVEEFFECT_ICON))),
 				WEAKENED(200, new Sprite(Assets.manager.get(Assets.WEAKENED_ICON))),
+				FADE_N(200, new Sprite(Assets.manager.get(Assets.WEAKENED_ICON))),
+				RADIOACTIVE_N(200, new Sprite(Assets.manager.get(Assets.WEAKENED_ICON))),
+				HASTE_N(200, new Sprite(Assets.manager.get(Assets.WEAKENED_ICON))),
 				NONE(0, null);
 		
 		public int lifetime;
@@ -64,7 +67,9 @@ public abstract class AbstractGameObject {
 	
 	public float health;
 	public static int maxHealth;
-	public float damage;
+	public static float minDD;
+	public static float maxDD;
+	public int damage;
 	public int points;
 	public int reloadSpeed;
 	public int attackSpeed;

@@ -3,7 +3,8 @@ package com.me.swampmonster.utils;
 import com.badlogic.gdx.Gdx;
 
 public class Constants {
-	public static final float DEFAULT_PLAYER_DAMAGE = 1f;
+	public static final float DEFAULT_PLAYER_min_DAMAGE = 1f;
+	public static final float DEFAULT_PLAYER_max_DAMAGE = 3f;
 	public static final float VIEWPORT_WIDTH = Gdx.graphics.getWidth();
 	public static final float VIEWPORT_HEIGHT = Gdx.graphics.getHeight();
 	public static final float VIEWPORT_GUI_WIDTH = Gdx.graphics.getWidth();
@@ -237,11 +238,17 @@ public class Constants {
 	public static final int TURRET_Health_L4 = 4;
 	public static final int TURRET_Health_L5 = 5;
 
-	public static final float TURRET_Damage_L1 = 0.5f;
-	public static final float TURRET_Damage_L2 = 0.5f;
-	public static final float TURRET_Damage_L3 = 1f;
-	public static final float TURRET_Damage_L4 = 1f;
-	public static final float TURRET_Damage_L5 = 2f;
+	public static final float TURRET_min_Damage_L1 = 0.5f;
+	public static final float TURRET_min_Damage_L2 = 0.5f;
+	public static final float TURRET_min_Damage_L3 = 1f;
+	public static final float TURRET_min_Damage_L4 = 1f;
+	public static final float TURRET_min_Damage_L5 = 2f;
+	
+	public static final float TURRET_max_Damage_L1 = 1f;
+	public static final float TURRET_max_Damage_L2 = 1f;
+	public static final float TURRET_max_Damage_L3 = 2f;
+	public static final float TURRET_max_Damage_L4 = 2f;
+	public static final float TURRET_max_Damage_L5 = 3f;
 
 	public static final int TURRET_AttackSpeed_L1 = 100;
 	public static final int TURRET_AttackSpeed_L2 = 80;
@@ -251,27 +258,27 @@ public class Constants {
 
 	public static final String TURRET_Description_L1 = "Spawns a turret that shoots nearby enemies,"
 			+ " causing "
-			+ TURRET_Damage_L1
+			+ TURRET_min_Damage_L1 + " - " + TURRET_max_Damage_L1
 			+ " dmg per hit, lives for "
 			+ TURRET_LifeTime_L1 + " " + "seconds. Level 1.";
 	public static final String TURRET_Description_L2 = "Spawns a turret that shoots nearby enemies,"
 			+ " causing "
-			+ TURRET_Damage_L2
+			+ TURRET_min_Damage_L2 + " - " + TURRET_max_Damage_L2
 			+ " dmg per hit, lives for "
 			+ TURRET_LifeTime_L2 + " " + "seconds. Level 2.";
 	public static final String TURRET_Description_L3 = "Spawns a turret that shoots nearby enemies,"
 			+ " causing "
-			+ TURRET_Damage_L3
+			+ TURRET_min_Damage_L3 + " - " + TURRET_max_Damage_L3
 			+ " dmg per hit, lives for "
 			+ TURRET_LifeTime_L3 + " " + "seconds. Level 3.";
 	public static final String TURRET_Description_L4 = "Spawns a turret that shoots nearby enemies,"
 			+ " causing "
-			+ TURRET_Damage_L4
+			+ TURRET_min_Damage_L4 + " - " + TURRET_max_Damage_L4
 			+ " dmg per hit, lives for "
 			+ TURRET_LifeTime_L4 + " " + "seconds. Level 4.";
 	public static final String TURRET_Description_L5 = "Spawns a turret that shoots nearby enemies,"
 			+ " causing "
-			+ TURRET_Damage_L5
+			+ TURRET_min_Damage_L5 + " - " + TURRET_max_Damage_L5
 			+ " dmg per hit, lives for "
 			+ TURRET_LifeTime_L5 + " " + "seconds. Level 5.";
 

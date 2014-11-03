@@ -28,6 +28,8 @@ import com.me.swampmonster.models.ProjectileHydra;
 import com.me.swampmonster.models.Prop;
 import com.me.swampmonster.models.ToxicPuddle;
 import com.me.swampmonster.models.Turret;
+import com.me.swampmonster.models.AbstractGameObject.NegativeEffects;
+import com.me.swampmonster.models.items.HASTE;
 import com.me.swampmonster.models.items.ICE_THING;
 import com.me.swampmonster.models.items.RADIOACTIVE;
 import com.me.swampmonster.models.slots.PositiveEffects;
@@ -47,6 +49,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 	public boolean isAimedByHydra;
 	public float poisonDamage;
 	public int poisonDamageInterval;
+	public Circle radioactiveAura;
 	int timer;
 	public int time;
 	int timeDead = 0;
@@ -60,6 +63,8 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 	public Sprite iceCube;
 	float damage_dx;
 	float damage_dy;
+	
+	public static float floatingOutputDamage;
 	
 	float enemyDx;
 	float enemyDy;
@@ -497,7 +502,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 					float length3 = (float) Math.sqrt(L1.player.damage_dx * L1.player.damage_dx + L1.player.damage_dy * L1.player.damage_dy);
 					player.damage_dx /= length3;
 					player.damage_dy /= length3;
-					player.damagePushForce = damage/10;
+					player.damagePushForce = random.nextInt((int) (((maxDD-minDD))+minDD));
 					p2.state = State.DEAD;
 				} else if (L1.plasmaShield != null
 						&& p2.circle.overlaps(L1.plasmaShield.circle)) {
@@ -507,7 +512,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 				}
 				p2.update();
 				p2.getSurfaceLevelProjectile(collisionLayer);
-				System.out.println("p2.getSurfaceLevelProjectile " + p2.getSurfaceLevelProjectile(collisionLayer));
+//				System.out.println("p2.getSurfaceLevelProjectile " + p2.getSurfaceLevelProjectile(collisionLayer));
 				if (p2.state == State.DEAD) {
 					prj2.remove();
 				}
@@ -677,11 +682,11 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 						player.damage_dx /= length1;
 						player.damage_dy /= length1;
 						if(player.negativeEffectsState == NegativeEffects.WEAKENED){
-							player.health -= damage*2;
-							player.damagePushForce = damage/10;
+							player.health -= random.nextInt((int) (maxDD*2-minDD*2))+minDD*2;
+							player.damagePushForce = random.nextInt((int) (((maxDD-minDD))+minDD));
 						}else{
-							player.health -= damage;
-							player.damagePushForce = damage/10;
+							player.health -= random.nextInt((int) (maxDD-minDD))+minDD;;
+							player.damagePushForce = random.nextInt((int) (((maxDD-minDD))+minDD));
 						}
 					}
 
@@ -724,7 +729,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 					if (turret!=null && oRangeAura.overlaps(turret.circle)
 							&& !turret.hurt) {
 						turret.hurt = true;
-						turret.health -= damage;
+						turret.health -= random.nextInt((int) (maxDD-minDD))+minDD;
 						System.out.println("turret health has been decreased by 1 + " + turret.health );
 					}
 					
@@ -1108,6 +1113,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 		if (health >= 0) {
 //			movementSpeed = movementSpeed/2;
 			health -= dmg;
+			floatingOutputDamage = dmg;
 			System.out.println("Player.damage " + dmg);
 		}
 	}
@@ -1115,7 +1121,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 	public void enemyTurretHurt(Turret turret) {
 		state = State.STANDARD;
 		if (health >= 0) {
-			health -= turret.damage;
+			health -= random.nextInt((int) (turret.maxDD-turret.minDD*2))+turret.minDD*2;;
 		}
 	}
 	
@@ -1209,6 +1215,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 				negativeEffectTimer = negativeEffect.lifetime;
 				System.out.println("negative effect timer " + negativeEffectTimer);
 			}
+			radioactiveAura = null;
 			break;
 		case POISONED:
 			if (negativeEffectsState != NegativeEffects.POISONED) {
@@ -1216,12 +1223,44 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 				negativeEffectsState = NegativeEffects.POISONED;
 				negativeEffectTimer = negativeEffect.lifetime;
 			}
+			radioactiveAura = null;
 			break;
-		case FEAR:
-			sprite.setColor(0.6f, 0.1f, 0.9f, 1);
-			path = new Node[99];
-			negativeEffectsState = negativeEffect;
-			negativeEffectTimer = negativeEffect.lifetime;
+		case FADE_N:
+			if (negativeEffectsState != NegativeEffects.FADE_N) {
+				movementSpeed = STANDART_MOVEMENT_SPEED;
+				this.sprite.setColor(sprite.getColor().r, sprite.getColor().g,
+						sprite.getColor().b, 0.5f);
+				radioactiveAura = null;
+			}
+			break;
+		case HASTE_N:
+			if (negativeEffectsState != NegativeEffects.HASTE_N) {
+				movementSpeed = STANDART_MOVEMENT_SPEED;
+				this.sprite.setColor(220f / 255, 20f / 255, 60f / 255, 1f);
+				radioactiveAura = null;
+				minDD = minDD + 2;
+				maxDD = maxDD + 2;
+				negativeEffectTimer = 900;
+				//: TODO possible change the timer to something else;
+			}
+			break;
+		case RADIOACTIVE_N:
+			if (negativeEffectsState != NegativeEffects.RADIOACTIVE_N) {
+				movementSpeed = STANDART_MOVEMENT_SPEED;
+				radioactiveAura = new Circle(position.x + sprite.getWidth() / 2,
+						position.y + sprite.getHeight() / 2,
+						RADIOACTIVE.RADIOACTIVE_Radius);
+				negativeEffectTimer = 900;
+				//: TODO possible change the timer to something else;
+			}
+			break;
+		case WEAKENED:
+			if (negativeEffectsState != NegativeEffects.WEAKENED) {
+				this.sprite.setColor(220f / 255, 20f / 255, 170f / 255, 1f);
+				movementSpeed = STANDART_MOVEMENT_SPEED;
+				negativeEffectTimer = 900;
+				//: TODO possible change the timer to something else;
+			}
 			break;
 		case STUN:
 			if (negativeEffectsState != NegativeEffects.STUN) {
@@ -1229,14 +1268,16 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 				negativeEffectTimer = ICE_THING.negativeEffectLifeTime;
 				iceCube = new Sprite(Assets.manager.get(Assets.iceCube));
 				iceCube.setSize(sprite.getBoundingRectangle().width, sprite.getBoundingRectangle().height);
-				iceCube.setX(position.x);
-				iceCube.setY(position.y);
+				iceCube.setX(sprite.getX());
+				iceCube.setY(sprite.getY());
 			}
+			radioactiveAura = null;
 			break;
 		case NONE:
 			if(toughness==null){
 				sprite.setColor(1, 1, 1, 1);
 			}
+			radioactiveAura = null;
 			iceCube = null;
 			movementSpeed = STANDART_MOVEMENT_SPEED;
 			negativeEffectsState = negativeEffect;

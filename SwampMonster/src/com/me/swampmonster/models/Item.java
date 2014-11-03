@@ -28,6 +28,7 @@ public abstract class Item extends AbstractGameObject{
 	public Vector2 targetPos;
 	public TiledMapTileLayer collisionLayer;
 	public TextButton pickUpButton;
+	public TextButton throwButton;
 	
 	//Animations
 	public Item(){
@@ -112,4 +113,6 @@ public abstract class Item extends AbstractGameObject{
 	}
 	
 	public abstract void pickMeUp(Player player);
+	
+	public abstract void parametersForThrowing(Player player);
 }

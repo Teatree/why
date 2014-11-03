@@ -62,6 +62,7 @@ public class Assets {
 	public static final AssetDescriptor<Texture> turretProjectile = new AssetDescriptor<Texture>("data\\turretProjectile.png", Texture.class);
 	public static final AssetDescriptor<Texture> projectileHydra = new AssetDescriptor<Texture>("data\\ProjectileHydra.png", Texture.class);
 	public static final AssetDescriptor<Texture> trailEffect = new AssetDescriptor<Texture>("data\\trailEffect.png", Texture.class);
+	public static final AssetDescriptor<Texture> itemProjectile = new AssetDescriptor<Texture>("data\\itemProjectile.png", Texture.class);
 	
 	//Slotmachine
 	public static final AssetDescriptor<Texture> slotMachineCase = new AssetDescriptor<Texture>("data\\slotMachineUI\\slotMachineCase.png", Texture.class);
@@ -147,6 +148,7 @@ public class Assets {
 		manager.load(propToxicPuddle);
 		manager.load(iceCube);
 		manager.load(arrow);
+		manager.load(itemProjectile);
 		manager.load(moveHere);
 		manager.load(HealthBarIcon);
 		manager.load(HealthBarTail);

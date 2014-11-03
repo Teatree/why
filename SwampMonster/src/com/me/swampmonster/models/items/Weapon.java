@@ -19,7 +19,8 @@ import com.me.swampmonster.models.Projectile.EffectCarriers;
 public class Weapon extends Item{
 	
 	public List<Projectile> projectiles = new ArrayList<Projectile>();
-	public int damage;
+	public int minDD; // minimun damage dealt
+	public int maxDD; // maximum damage dealt
 	public int coolDown;
 	public int force;
 	public String name;
@@ -141,6 +142,12 @@ public class Weapon extends Item{
 	@Override
 	public void pickMeUp(Player player) {
 		player.weapon = this;
+	}
+
+	@Override
+	public void parametersForThrowing(Player player) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 

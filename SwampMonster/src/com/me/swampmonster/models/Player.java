@@ -31,7 +31,8 @@ import com.me.swampmonster.utils.Constants;
 
 public class Player extends AbstractGameObject {
 
-	public static float DEFAULT_DAMAGE = 1f;
+	public static float DEFAULT_MINIMUM_DAMAGE = 1f;
+	public static float DEFAULT_MAXIMUM_DAMAGE = 2f;
 	public static final float DEFAULT_ARROW_MOVEMENT_SPEED = 1.5f;
 	public static final float DEFAULT_MOVEMENT_SPEED = 1.2f;
 	public static final int DEFAULT_MAX_HEALTH = 6;
@@ -43,7 +44,7 @@ public class Player extends AbstractGameObject {
 	public static int enemiesKilled;
 	public static int playerKilled;
 	public static int shotArrows;
-	public static float damage;
+//	public static float damage;
 
 	public static boolean shootingSwitch;
 
@@ -181,6 +182,8 @@ public class Player extends AbstractGameObject {
 		// shotDir = new Vector3();
 		// sprite.setSize(sprite.getWidth() / 2, sprite.getHeight() / 2);
 		// allowedToShoot = true;
+		DEFAULT_MINIMUM_DAMAGE = weapon.minDD;
+		DEFAULT_MAXIMUM_DAMAGE = weapon.maxDD;
 	}
 
 	public void characterStatsBoard() {
@@ -202,8 +205,9 @@ public class Player extends AbstractGameObject {
 
 	public void update(boolean aiming, Vector3 touchPos, Vector3 V3point,
 			TiledMapTileLayer collisionLayer, float dx, float dy) {
-		damage = weapon.damage;
-		DEFAULT_DAMAGE = weapon.damage;
+		minDD = weapon.minDD;
+		maxDD = weapon.maxDD;
+
 
 		if(negativeEffectsState == NegativeEffects.STUN){
 			effectAnimator.doComplexAnimation(8, 1f, 0.009f, Animation.PlayMode.LOOP);
@@ -758,7 +762,8 @@ public class Player extends AbstractGameObject {
 			}
 			this.sprite.setColor(220f / 255, 20f / 255, 60f / 255, 1f);
 			radioactiveAura = null;
-			damage = damage + 2;
+			weapon.minDD = weapon.minDD + 2;
+			weapon.maxDD = weapon.maxDD + 2;
 			positiveEffectsState = positiveEffect;
 			positiveEffectCounter = HASTE.lifeTime;
 			break;
@@ -769,7 +774,8 @@ public class Player extends AbstractGameObject {
 				movementSpeed = STANDART_MOVEMENT_SPEED;
 			}
 			radioactiveAura = null;
-			damage = DEFAULT_DAMAGE;
+			weapon.minDD = (int) DEFAULT_MINIMUM_DAMAGE;
+			weapon.maxDD = (int) DEFAULT_MAXIMUM_DAMAGE;
 			positiveEffectsState = PositiveEffects.NONE;
 		}
 
@@ -847,14 +853,14 @@ public class Player extends AbstractGameObject {
 		if (cL == null && getDx() <= 0 ||
 				cR == null && getDx() > 0){
 //			position.x += 0.2f;
-			position.x += damage_dx * damagePushForce/5;
-			touchPos.x += damage_dx * damagePushForce/5;
+			position.x += damage_dx * damagePushForce/15;
+			touchPos.x += damage_dx * damagePushForce/15;
 		} 
 		if (cD == null && getDy() < 0 
 				|| cU == null && getDy()  >= 0){
 //			position.y += 0.2f;
-			position.y += damage_dy * damagePushForce/5;
-			touchPos.y += damage_dy * damagePushForce/5;
+			position.y += damage_dy * damagePushForce/15;
+			touchPos.y += damage_dy * damagePushForce/15;
 		}
 		
 //		damagedFromTop(collidableUp, enemy, touchPos);
