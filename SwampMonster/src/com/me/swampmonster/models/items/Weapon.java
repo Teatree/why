@@ -14,12 +14,13 @@ import com.me.swampmonster.models.Explosion;
 import com.me.swampmonster.models.L1;
 import com.me.swampmonster.models.Projectile;
 import com.me.swampmonster.models.Projectile.EffectCarriers;
+import com.me.swampmonster.models.items.wepMods.Modificator;
 
 public class Weapon extends AbstractGameObject{
 	
 	public List<Projectile> projectiles = new ArrayList<Projectile>();
-	public int minDD; // minimun damage dealt
-	public int maxDD; // maximum damage dealt
+	public static int minDD; // minimun damage dealt
+	public static int maxDD; // maximum damage dealt
 	public int coolDown;
 	public int force;
 	public String name;
@@ -106,7 +107,6 @@ public class Weapon extends AbstractGameObject{
 		L1.player.arrowEffectCarrier = EffectCarriers.NONE;
 		
 	}
-	
 	
 	
 	private void updateProjectiles(TiledMapTileLayer collisionLayer) {

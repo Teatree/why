@@ -68,9 +68,8 @@ public class FADE extends Item {
 
 	@Override
 	public void parametersForThrowing(Player player) {
-		this.state = State.DEAD;
 		player.arrowEffectCarrier = EffectCarriers.FADE;
-		
+		this.state = State.DEAD;
 	}
 
 	// @Override

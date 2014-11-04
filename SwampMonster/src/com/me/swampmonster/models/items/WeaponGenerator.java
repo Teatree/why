@@ -5,18 +5,19 @@ import java.util.Map;
 import java.util.Random;
 
 import com.me.swampmonster.models.Player;
-import com.me.swampmonster.models.items.Modificator.DamagePlayerMod;
-import com.me.swampmonster.models.items.Modificator.EnemyBleedMod;
-import com.me.swampmonster.models.items.Modificator.ExtraDamageMod;
-import com.me.swampmonster.models.items.Modificator.ExtraDamageToEnemyTypeMod;
-import com.me.swampmonster.models.items.Modificator.ExtraDamageToToughguyTypeMod;
-import com.me.swampmonster.models.items.Modificator.HealEnemyMod;
-import com.me.swampmonster.models.items.Modificator.ShadowProjectileMod;
-import com.me.swampmonster.models.items.Modificator.ShootThoughCollisionMod;
-import com.me.swampmonster.models.items.Modificator.SpeedUpEnemyMod;
-import com.me.swampmonster.models.items.Modificator.StunEnemyMod;
-import com.me.swampmonster.models.items.Modificator.StunPlayerMod;
-import com.me.swampmonster.models.items.Modificator.VampireMod;
+import com.me.swampmonster.models.items.wepMods.DamagePlayerMod;
+import com.me.swampmonster.models.items.wepMods.EnemyBleedMod;
+import com.me.swampmonster.models.items.wepMods.ExtraDamageMod;
+import com.me.swampmonster.models.items.wepMods.ExtraDamageToEnemyTypeMod;
+import com.me.swampmonster.models.items.wepMods.ExtraDamageToToughguyTypeMod;
+import com.me.swampmonster.models.items.wepMods.HealEnemyMod;
+import com.me.swampmonster.models.items.wepMods.Modificator;
+import com.me.swampmonster.models.items.wepMods.ShadowProjectileMod;
+import com.me.swampmonster.models.items.wepMods.ShootThoughCollisionMod;
+import com.me.swampmonster.models.items.wepMods.SpeedUpEnemyMod;
+import com.me.swampmonster.models.items.wepMods.StunEnemyMod;
+import com.me.swampmonster.models.items.wepMods.StunPlayerMod;
+import com.me.swampmonster.models.items.wepMods.VampireMod;
 
 public class WeaponGenerator {
 	Map<Integer, Class<? extends Weapon>> weapons;
@@ -25,17 +26,17 @@ public class WeaponGenerator {
 	private Random random = new Random();
 	
 	private static enum Weapons{
-		p0_500(0, 2, 1, 2),
-		p500_1500(0, 3, 1, 2),
-		p1500_3000(0, 4, 1, 2),
-		p3000_plus(0, 4, 1, 2);
+		p0_500(0, 2, 900, 2000),
+		p500_1500(0, 3, 900, 2000),
+		p1500_3000(0, 4, 900, 2000),
+		p3000_plus(0, 4, 900, 2000);
 		
 		public int minWepGenerate;
 		public int maxWepGenerate;
 		public int firstModificatorChance;
 		public int secondModificatorChance;
 		
-		private Weapons(int minWepGenerate, int maxWepGenerate, int minModificator, int maxModificator){
+		private Weapons(int minWepGenerate, int maxWepGenerate, int firstModificatorChance, int secondModificatorChance){
 			this.maxWepGenerate = maxWepGenerate;
 			this.minWepGenerate = minWepGenerate;
 			this.firstModificatorChance = firstModificatorChance;
@@ -70,21 +71,18 @@ public class WeaponGenerator {
 	public Weapon generateWep(int playersScore) {
 		int probability = random.nextInt(100);
 //		if (probability > 70){
-//			return generateSpecialWep(playersScore);
+			return generateSpecialWep(playersScore);
 //		} else {
-			return getPlainWep(playersScore);
+//			return getPlainWep(playersScore);
 //		}
-	}
-	//
-	public Weapon getWep(int playersScore){
-		Weapon resultWep = generateWep(playersScore);
-		return resultWep;
 	}
 	
 	public Weapon generateSpecialWep(int playerScore){
 		setWepParams(Player.absoluteScore);
 		Weapon weapon = getPlainWep(playerScore);
 		int rNumberFirst = random.nextInt(1000);
+		System.out.println("rNumberFirst " + rNumberFirst);
+		System.out.println("weaponTypes.firstModificatorChance " + weaponTypes.firstModificatorChance);
 		
 		if(rNumberFirst<weaponTypes.firstModificatorChance){
 			int modNumber = random.nextInt(mods.size());
@@ -94,6 +92,7 @@ public class WeaponGenerator {
 			} catch (Exception e) {
 				e.printStackTrace();
 			} 
+			System.out.println("mod1 " + mod1.getClass().getSimpleName());
 			weapon.mod1 = mod1;
 		}
 		
@@ -145,5 +144,4 @@ public class WeaponGenerator {
 //		} else {
 //		}
 	}
-
 }

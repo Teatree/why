@@ -248,7 +248,7 @@ public class TheController extends InputAdapter {
 //					L1.player.damagePushForce = e.damage;
 					L1.player.hurt = true;
 					L1.player.damageType = "enemy";
-					L1.player.health -= e.damage;
+					L1.player.health -= e.random.nextInt((int) (e.maxDamage-e.minDamage))+e.minDamage;;
 				}
 			}
 		}

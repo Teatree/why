@@ -67,8 +67,8 @@ public abstract class AbstractGameObject {
 	
 	public float health;
 	public static int maxHealth;
-	public static float minDD;
-	public static float maxDD;
+	public float minDD;
+	public float maxDD;
 	public int damage;
 	public int points;
 	public int reloadSpeed;

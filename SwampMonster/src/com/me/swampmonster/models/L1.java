@@ -368,7 +368,7 @@ public class L1 {
 					while (prj.hasNext()) {
 						Projectile p = prj.next();
 						if(p.position!=null){
-							pos = new Vector2(p.position);
+							pos = new Vector2(p.position.x, p.position.y);
 						}
 						if (Intersector.overlaps(p.circle, e.sprite.getBoundingRectangle())
 								&& !e.hurt
@@ -378,17 +378,17 @@ public class L1 {
 							if (p.effect == EffectCarriers.EXPLOSIVE) {
 								TheController.skill.explode(p.position);
 							}
-							e.hurt = true;
 							if(e instanceof EnemySofa){
 								e.damagePushForce = 0;
 							}else{
 								e.damagePushForce = p.force-e.health/5;
 							}
-							e.damageType = "player";
 							
 							
 							// might be some issues with this
-							if(p.effect == EffectCarriers.NONE){
+							if(p.effect.equals(EffectCarriers.NONE) && !e.negativeEffectsState.equals(NegativeEffects.FADE_N)){
+								e.damageType = "player";
+								e.hurt = true;
 								e.enemyHurt(random.nextInt((int) (player.maxDD-player.minDD))+player.minDD);
 							}
 							
@@ -398,6 +398,7 @@ public class L1 {
 								e.setNegativeEffect(NegativeEffects.POISONED);
 							}
 							if (p.effect == EffectCarriers.FADE) {
+								System.out.println("FADE PROJECTIL!~");
 								e.setNegativeEffect(NegativeEffects.FADE_N);
 							}
 							if (p.effect == EffectCarriers.RADIOACTIVE) {
@@ -411,9 +412,7 @@ public class L1 {
 								ProjectileHydra.musltiplyCounter = 3;
 							}
 							if (p.effect == EffectCarriers.FROST_EXPLOSIVE) {
-								Explosion explosion = new Explosion(new Vector2(), Explosion.EXPLOSION_TYPE_FROST);
-								explosion.explCircle.setPosition(pos.x, pos.y);
-								L1.explosions.add(explosion);
+								e.setNegativeEffect(NegativeEffects.FROZEN);
 							}
 							if (p.effect == EffectCarriers.HASTE) {
 								e.setNegativeEffect(NegativeEffects.HASTE_N);
@@ -427,7 +426,7 @@ public class L1 {
 //								}
 							}
 							if (p.effect == EffectCarriers.NUKE) {
-								Explosion explosion = new Explosion(new Vector2(), Explosion.EXPLOSION_TYPE_STANDART);
+								Explosion explosion = new Explosion(pos, Explosion.EXPLOSION_TYPE_STANDART);
 								explosion.explCircle.setPosition(pos.x, pos.y);
 								System.out.println("pos: " + pos);
 								L1.explosions.add(explosion);
@@ -441,7 +440,7 @@ public class L1 {
 					}
 				}				
 				if (player.trap != null && Intersector.overlaps(player.trap.circle, e.yellowAura)){
-					System.out.println(player.trap + ": caught one!");
+//					System.out.println(player.trap + ": caught one!");
 					player.trap.catchEnemy(e);
 					player.trap.position = null;
 				}

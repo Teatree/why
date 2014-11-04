@@ -525,8 +525,8 @@ public class GShape extends Group {
 				if(object == "Nastya"){
 					Player.maxOxygen = Player.DEFAULT_MAX_O2;
 					L1.player.maxHealth = Player.DEFAULT_MAX_HEALTH;
-					Player.minDD = Constants.DEFAULT_PLAYER_min_DAMAGE;
-					Player.maxDD = Constants.DEFAULT_PLAYER_max_DAMAGE;
+					L1.player.weapon.minDD = (int) Constants.DEFAULT_PLAYER_min_DAMAGE;
+					L1.player.weapon.maxDD = (int) Constants.DEFAULT_PLAYER_max_DAMAGE;
 					Player.DEFAULT_MINIMUM_DAMAGE = Constants.DEFAULT_PLAYER_min_DAMAGE;
 					Player.DEFAULT_MAXIMUM_DAMAGE = Constants.DEFAULT_PLAYER_max_DAMAGE;
 					Player.arrowMovementSpeed = Player.DEFAULT_ARROW_MOVEMENT_SPEED;

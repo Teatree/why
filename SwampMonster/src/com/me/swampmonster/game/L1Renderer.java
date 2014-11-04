@@ -44,7 +44,6 @@ public class L1Renderer {
 
 	// Temporary debug feature
 	private ShapeRenderer sr;
-	// Temporary debug feature
 	private BitmapFont fontss;
 
 	private SpriteBatch batch;
@@ -464,6 +463,7 @@ public class L1Renderer {
 			// sr.setColor(Color.BLUE);
 			// sr.circle(enemy.getoRangeAura().x, enemy.getoRangeAura().y,
 			// enemy.getoRangeAura().radius);
+			
 			sr.setColor(Color.YELLOW);
 			sr.circle(enemy.yellowAura.x, enemy.yellowAura.y,
 					enemy.yellowAura.radius);
@@ -547,6 +547,11 @@ public class L1Renderer {
 				sr.circle(e.position.x, e.position.y, e.explCircle.radius);
 		}
 		for (Enemy enemy : L1.enemiesOnStage) {
+			if (enemy.radioactiveAura != null) {
+				sr.setColor(new Color(1f, 0, 0.07f, 0.5f));
+				sr.circle(enemy.radioactiveAura.x,enemy.radioactiveAura.y,
+						enemy.radioactiveAura.radius);
+			}
 			if (enemy.getPath() != null) {
 				for (Node n : enemy.getPath()) {
 					if (n != null) {
