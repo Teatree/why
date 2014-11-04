@@ -47,11 +47,11 @@ public class LGenerator {
 		random = new Random();
 		propsSpawnGenerator = new PropsSpawnGenerator();
 
-		maps.put(0, "Map2.tmx");
+		maps.put(0, "Map.tmx");
 		maps.put(1, "Map.tmx");
 		maps.put(2, "Map2.tmx");
-		maps.put(3, "Map.tmx");
-		maps.put(4, "Map2.tmx");
+		maps.put(3, "Map3.tmx");
+		maps.put(4, "Map3.tmx");
 
 		tileSets.put(0, "tileSet_SAND_WORLD");
 		tileSets.put(1, "tileSet_SAND_WORLD5");
