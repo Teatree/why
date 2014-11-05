@@ -56,6 +56,7 @@ public class Assets {
 
 	//projectiles
 	public static final AssetDescriptor<Texture> arrow = new AssetDescriptor<Texture>("data\\arrrrow.png", Texture.class);
+	public static final AssetDescriptor<Texture> arrowStuck = new AssetDescriptor<Texture>("data\\arrrrowStuck.png", Texture.class);
 	public static final AssetDescriptor<Texture> arrowPoisoned = new AssetDescriptor<Texture>("data\\arrrrowPoisoned.png", Texture.class);
 	public static final AssetDescriptor<Texture> arrowExplosive = new AssetDescriptor<Texture>("data\\arrrrowExplosive.png", Texture.class);
 	public static final AssetDescriptor<Texture> leachProjectile = new AssetDescriptor<Texture>("data\\leechProjectile.png", Texture.class);
@@ -149,6 +150,7 @@ public class Assets {
 		manager.load(propToxicPuddle);
 		manager.load(iceCube);
 		manager.load(arrow);
+		manager.load(arrowStuck);
 		manager.load(itemProjectile);
 		manager.load(moveHere);
 		manager.load(HealthBarIcon);

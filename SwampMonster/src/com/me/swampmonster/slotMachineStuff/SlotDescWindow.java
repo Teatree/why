@@ -40,7 +40,7 @@ public class SlotDescWindow extends Dialog {
 		imageLevel.setSize(16, 16);
 		ImageButton yesButton = new ImageButton(skin, "yes");
 		ImageButton noButton = new ImageButton(skin, "no");
-		Label text = new Label(slot.getDescription() + "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", skin);
+		Label text = new Label(slot.getDescription(), skin);
 		text.setWrap(true);
 		System.out.println(L1.player);
 		for(String s: slot.getStats(L1.player)){
@@ -83,8 +83,8 @@ public class SlotDescWindow extends Dialog {
 		getContentTable().add(secondColumn).top();
 		getContentTable().top();
 		
-		firstColumn.debug();
-		secondColumn.debug();
+//		firstColumn.debug();
+//		secondColumn.debug();
 	}
 
 	@Override

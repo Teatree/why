@@ -322,7 +322,8 @@ public class GShape extends Group {
 //			font.draw(batch, TheController.gui.getGameoverGUI().getWittyMessage(), 240-TheController.gui.getGameoverGUI().getWittyMessage().length(), 230);
 //		}
 		if(L1.player.state == State.DEAD){
-			TheController.showFeedback=true;
+			TheController.showFeedback = true;
+			TheController.paused = true;
 		}
 			
 		if(TheController.showFeedback){

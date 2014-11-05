@@ -22,6 +22,7 @@ public class Projectile extends AbstractGameObject {
 	public EffectCarriers effect;
 	public int currentSurfaceLevel;
 	public int initialSurfaceLevel;
+	public int despawningCounter;
 
 	public enum EffectCarriers {
 		POISONED(new Sprite(Assets.manager.get(Assets.arrowPoisoned))), 
@@ -101,8 +102,18 @@ public class Projectile extends AbstractGameObject {
 				force -= resistance;
 			} else {
 				force = 0;
-				state = State.DEAD;
+				state = State.DESPAWNING;
+				despawningCounter=0;
 			}
+		}
+		if(state == State.DESPAWNING){
+			sprite = new Sprite(Assets.manager.get(Assets.arrowStuck));
+			if(despawningCounter>120){
+				state = State.DEAD;
+			}else{
+				despawningCounter++;
+			}
+			
 		}
 
 		circle.x = position.x + sprite.getWidth() / 2;

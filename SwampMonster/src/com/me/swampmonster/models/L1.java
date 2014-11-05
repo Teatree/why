@@ -209,6 +209,7 @@ public class L1 {
 			}
 		}else if(enemiesOnStage.empty() && currentWave == wavesAmount){
 			TheController.showFeedback = true;
+			TheController.paused = true;
 //			TheController.germany = true;
 //			System.out.println("germany = " + TheController.germany);
 		}
@@ -265,7 +266,7 @@ public class L1 {
 						&& item.pickUpButton == null 
 						&& item.throwButton == null && !(item instanceof Oxygen)
 								&& !(item instanceof HealthKit)) {
-					item.pickUpButton = new TextButton("Pick up " + item.name,
+					item.pickUpButton = new TextButton("Use " + item.name,
 							GShape.skin);
 					item.pickUpButton.setSize(150, 50);
 					item.pickUpButton.setX(220);
@@ -386,7 +387,7 @@ public class L1 {
 							
 							
 							// might be some issues with this
-							if(p.effect.equals(EffectCarriers.NONE) && !e.negativeEffectsState.equals(NegativeEffects.FADE_N)){
+							if(p.effect.equals(EffectCarriers.NONE) && !e.negativeEffectsState.equals(NegativeEffects.FADE_N) && p.state!=State.DESPAWNING){
 								e.damageType = "player";
 								e.hurt = true;
 								e.enemyHurt(random.nextInt((int) (player.maxDD-player.minDD))+player.minDD);

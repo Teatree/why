@@ -35,7 +35,8 @@ public class SlotsGenerator {
 		slots.put(0, Arrows3.class);
 		slots.put(1, DamageTrap.class);
 		slots.put(2, SpeedBoost.class);
-		slots.put(3, PlasmaShieldSkill.class);
+//		slots.put(3, PlasmaShieldSkill.class);
+		slots.put(3, PanicTeleport.class);
 		slots.put(4, PanicTeleport.class);
 		slots.put(5, ExplosiveArrow.class);
 		slots.put(6, PoisonArrow.class);
@@ -50,8 +51,8 @@ public class SlotsGenerator {
 	}
 	
 	private static enum SlotParams{
-		p0_200(0, 10, 10, 14),
-		p200_500(0, 10, 10, 14),
+		p0_200(0, 3, 10, 12),
+		p200_500(0, 4, 10, 12),
 		p500_750(0, 4, 10, 13),
 		p750_1000(0, 5, 10, 13),
 		p1000_1200(0, 6, 10, 13),

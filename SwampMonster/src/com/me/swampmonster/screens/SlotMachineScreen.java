@@ -95,9 +95,9 @@ public class SlotMachineScreen extends AbstractGameScreen {
 					if(s.selected){
 						slotDescWindow = new SlotDescWindow("Slot description", slotMachineTextures.skin, s);
 						stage.addActor(slotDescWindow);
-						slotDescWindow.debug();
-						slotDescWindow.getButtonTable().debug();
-						slotDescWindow.getContentTable().debug();
+//						slotDescWindow.debug();
+//						slotDescWindow.getButtonTable().debug();
+//						slotDescWindow.getContentTable().debug();
 						slotDescWindow.setSize(Constants.SLOT_DESC_WINDOW_WIDTH, Constants.SLOT_DESC_WINDOW_HEIGHT);
 						slotDescWindow.setX(200);
 						slotDescWindow.setY(100);
@@ -139,7 +139,7 @@ public class SlotMachineScreen extends AbstractGameScreen {
 				}
 				slotMiniWindow = new SlotMiniWindow("", slotMachineTextures.skin, "miniWindow", slot);
 				stage.addActor(slotMiniWindow);
-				slotMiniWindow.debug();
+//				slotMiniWindow.debug();
 				slotMiniWindow.setSize(250, 200);
 				slotMiniWindow.setX(slot.sprite.getX());
 				slotMiniWindow.setY(slot.sprite.getY() + slot.sprite.getHeight() + 5);

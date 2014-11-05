@@ -126,12 +126,12 @@ public class ItemGenerator {
 	
 	public Item generateItem(int playersScore) {
 		int probability = random.nextInt(100);
-//		if (probability > 70){
+		if (probability > 70){
 			return generateSpecialItem(playersScore);
 //			return getWeaponItem(playersScore);
-//		} else {
-//			return getPlainItem(playersScore);
-//		}
+		} else {
+			return getPlainItem(playersScore);
+		}
 	}
 	
 	public Item getMoreLikelyOxugenItem(int playersScore){

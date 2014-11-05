@@ -260,27 +260,27 @@ public class Constants {
 			+ " causing "
 			+ TURRET_min_Damage_L1 + " - " + TURRET_max_Damage_L1
 			+ " dmg per hit, lives for "
-			+ TURRET_LifeTime_L1 + " " + "seconds. Level 1.";
+			+ TURRET_LifeTime_L1/60 + " " + "seconds. Level 1.";
 	public static final String TURRET_Description_L2 = "Spawns a turret that shoots nearby enemies,"
 			+ " causing "
 			+ TURRET_min_Damage_L2 + " - " + TURRET_max_Damage_L2
 			+ " dmg per hit, lives for "
-			+ TURRET_LifeTime_L2 + " " + "seconds. Level 2.";
+			+ TURRET_LifeTime_L2/60 + " " + "seconds. Level 2.";
 	public static final String TURRET_Description_L3 = "Spawns a turret that shoots nearby enemies,"
 			+ " causing "
 			+ TURRET_min_Damage_L3 + " - " + TURRET_max_Damage_L3
 			+ " dmg per hit, lives for "
-			+ TURRET_LifeTime_L3 + " " + "seconds. Level 3.";
+			+ TURRET_LifeTime_L3/60 + " " + "seconds. Level 3.";
 	public static final String TURRET_Description_L4 = "Spawns a turret that shoots nearby enemies,"
 			+ " causing "
 			+ TURRET_min_Damage_L4 + " - " + TURRET_max_Damage_L4
 			+ " dmg per hit, lives for "
-			+ TURRET_LifeTime_L4 + " " + "seconds. Level 4.";
+			+ TURRET_LifeTime_L4/60 + " " + "seconds. Level 4.";
 	public static final String TURRET_Description_L5 = "Spawns a turret that shoots nearby enemies,"
 			+ " causing "
 			+ TURRET_min_Damage_L5 + " - " + TURRET_max_Damage_L5
 			+ " dmg per hit, lives for "
-			+ TURRET_LifeTime_L5 + " " + "seconds. Level 5.";
+			+ TURRET_LifeTime_L5/60 + " " + "seconds. Level 5.";
 
 	// FrostTrap:
 	public static final String FrostTrap_Name = "Frost Trap";
@@ -587,19 +587,19 @@ public class Constants {
 
 	public static final String PLASMA_SHIELD_Description_L1 = "Creates a plasma shield around the"
 			+ " player that stops enemy projectiles from fying in, stays for "
-			+ PLASMA_SHIELD_LifeTime_L1 + " seconds Level 1";
+			+ PLASMA_SHIELD_LifeTime_L1/60 + " seconds Level 1";
 	public static final String PLASMA_SHIELD_Description_L2 = "Creates a plasma shield around the"
 			+ " player that stops enemy projectiles from fying in, stays for "
-			+ PLASMA_SHIELD_LifeTime_L2 + " seconds Level 2";
+			+ PLASMA_SHIELD_LifeTime_L2/60 + " seconds Level 2";
 	public static final String PLASMA_SHIELD_Description_L3 = "Creates a plasma shield around the"
 			+ " player that stops enemy projectiles from fying in, stays for "
-			+ PLASMA_SHIELD_LifeTime_L3 + " seconds Level 3";
+			+ PLASMA_SHIELD_LifeTime_L3/60 + " seconds Level 3";
 	public static final String PLASMA_SHIELD_Description_L4 = "Creates a plasma shield around the"
 			+ " player that stops enemy projectiles from fying in, stays for "
-			+ PLASMA_SHIELD_LifeTime_L4 + " seconds Level 4";
+			+ PLASMA_SHIELD_LifeTime_L4/60 + " seconds Level 4";
 	public static final String PLASMA_SHIELD_Description_L5 = "Creates a plasma shield around the"
 			+ " player that stops enemy projectiles from fying in, stays for "
-			+ PLASMA_SHIELD_LifeTime_L5 + " seconds Level 5";
+			+ PLASMA_SHIELD_LifeTime_L5/60 + " seconds Level 5";
 
 	// PANIC_TELEPORT:
 	public static final String PANIC_TELEPORT_Name = "Panic Teleport";
@@ -636,15 +636,15 @@ public class Constants {
 	public static final int SPEED_BOOST_LifeTime_L5 = 1500;
 
 	public static final String SPEED_BOOST_Description_L1 = "Doubles the player speed for "
-			+ SPEED_BOOST_LifeTime_L1 + " 10 seconds, LVL 1";
+			+ SPEED_BOOST_LifeTime_L1/60 + " seconds, LVL 1";
 	public static final String SPEED_BOOST_Description_L2 = "Doubles the player speed for "
-			+ SPEED_BOOST_LifeTime_L2 + " 10 seconds, LVL 2";
+			+ SPEED_BOOST_LifeTime_L2/60 + " seconds, LVL 2";
 	public static final String SPEED_BOOST_Description_L3 = "Doubles the player speed for "
-			+ SPEED_BOOST_LifeTime_L3 + " 10 seconds, LVL 3";
+			+ SPEED_BOOST_LifeTime_L3/60 + " seconds, LVL 3";
 	public static final String SPEED_BOOST_Description_L4 = "Doubles the player speed for "
-			+ SPEED_BOOST_LifeTime_L4 + " 10 seconds, LVL 4";
+			+ SPEED_BOOST_LifeTime_L4/60 + " seconds, LVL 4";
 	public static final String SPEED_BOOST_Description_L5 = "Doubles the player speed for "
-			+ SPEED_BOOST_LifeTime_L5 + " 10 seconds, LVL 5";
+			+ SPEED_BOOST_LifeTime_L5/60 + " seconds, LVL 5";
 
 	// ----------------- ITEMS ---------------------
 	// HASTE
