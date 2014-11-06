@@ -63,6 +63,7 @@ public class GShape extends Group {
 	
 	public Dialog exitDialog;
 	public Dialog feeDialog;
+	public static Dialog weaponDialog;
 	
 	public static Skin skin;
 	

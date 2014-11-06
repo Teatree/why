@@ -61,6 +61,7 @@ public class FADE extends Item {
 		player.positiveEffectSprite = new Sprite(
 				Assets.manager.get(Assets.FADE_ICON));
 		player.setPositiveEffect(PositiveEffects.FADE);
+		player.positiveEffectCounter = lifeTime;
 		// System.out.println("Hi! I am RADIOACTIVE aura, circle radius: ");
 		this.state = State.DEAD;
 

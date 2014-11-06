@@ -9,6 +9,8 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.me.swampmonster.game.collision.CollisionHelper;
 
@@ -27,8 +29,10 @@ public abstract class Item extends AbstractGameObject{
 	public Vector2 spawnPos;
 	public Vector2 targetPos;
 	public TiledMapTileLayer collisionLayer;
-	public TextButton pickUpButton;
-	public TextButton throwButton;
+	public ImageButton pickUpButton;
+	public ImageButton throwButton;
+	public ImageButton inspectButton;
+	public Label itemName;
 	
 	//Animations
 	public Item(){

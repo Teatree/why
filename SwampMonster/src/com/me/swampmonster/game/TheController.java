@@ -78,6 +78,7 @@ public class TheController extends InputAdapter {
 	public static Slot skill;
 	public static boolean germany;
 	public static boolean showFeedback;
+	public static boolean showWeaponInv;
 	public static boolean gotoMenu;
 	public static boolean paused;
 	public static boolean pausedTutorial;

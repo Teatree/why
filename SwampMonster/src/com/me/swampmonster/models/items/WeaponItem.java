@@ -2,6 +2,10 @@ package com.me.swampmonster.models.items;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.me.swampmonster.animations.AnimationControl;
+import com.me.swampmonster.game.GShape;
+import com.me.swampmonster.game.L1Renderer;
+import com.me.swampmonster.game.TheController;
+import com.me.swampmonster.game.WeaponUIWindow;
 import com.me.swampmonster.models.Item;
 import com.me.swampmonster.models.Player;
 import com.me.swampmonster.utils.Assets;
@@ -24,12 +28,19 @@ public class WeaponItem extends Item{
 	
 	@Override
 	public void pickMeUp(Player player) {
-		player.weapon = this.weapon;
+//		player.weapon = this.weapon;
+		TheController.showWeaponInv = true;
+		GShape.weaponDialog = new WeaponUIWindow("statuk'", GShape.skin, weapon);
+		GShape.weaponDialog.setSize(250, 250);
+		GShape.weaponDialog.setX(320);
+		GShape.weaponDialog.setY(50);
+		TheController.paused = true;
 		System.out.println("player weapon stats: type:"
 				+ player.weapon.getClass().getSimpleName() + " attack: "
 				+ player.weapon.minDD + " - " + player.weapon.maxDD + " mods: "
 				+ player.weapon.mod1 + " " + player.weapon.mod2);
 		state = State.DEAD;
+		L1Renderer.stage.addActor(GShape.weaponDialog);
 	}
 
 	@Override

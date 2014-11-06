@@ -7,11 +7,14 @@ import java.util.List;
 import java.util.Random;
 import java.util.Stack;
 
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.me.swampmonster.game.GShape;
@@ -24,7 +27,9 @@ import com.me.swampmonster.models.enemies.Enemy;
 import com.me.swampmonster.models.enemies.EnemySofa;
 import com.me.swampmonster.models.items.HealthKit;
 import com.me.swampmonster.models.items.Oxygen;
+import com.me.swampmonster.models.items.WeaponItem;
 import com.me.swampmonster.models.slots.PoisonArrow;
+import com.me.swampmonster.utils.Assets;
 import com.me.swampmonster.utils.CameraHelper;
 import com.me.swampmonster.utils.Constants;
 import com.me.swampmonster.utils.MisterItemSpawner;
@@ -259,23 +264,51 @@ public class L1 {
 					if(a.equals(item.throwButton)){
 						a.remove();
 					}
-				}
+				}for(Actor a: L1Renderer.stage.getActors()){
+					if(a.equals(item.itemName)){
+						a.remove();
+					}
+			}
 			}else{
 				if (Intersector.overlaps(item.circle, player.rectanlge)
 						&& item.state != State.SPAWNING
 						&& item.pickUpButton == null 
 						&& item.throwButton == null && !(item instanceof Oxygen)
 								&& !(item instanceof HealthKit)) {
-					item.pickUpButton = new TextButton("Use " + item.name,
-							GShape.skin);
-					item.pickUpButton.setSize(150, 50);
-					item.pickUpButton.setX(220);
+					item.itemName = new Label(item.name, GShape.skin);
+					item.itemName.setX(260);
+					item.itemName.setY(yPositionsForButton.get(i));
+					item.pickUpButton = new ImageButton(GShape.skin, "use");
+					item.pickUpButton.setSize(50, 50);
+					item.pickUpButton.setX(400);
 					item.pickUpButton.setY(yPositionsForButton.get(i));
-					item.throwButton = new TextButton("Throw " + item.name,
-							GShape.skin);
-					item.throwButton.setSize(150, 50);
-					item.throwButton.setX(380);
-					item.throwButton.setY(yPositionsForButton.get(i));
+					if(!(item instanceof WeaponItem)){
+						item.throwButton = new ImageButton(GShape.skin, "throw");
+						item.throwButton.setSize(50, 50);
+						item.throwButton.setX(460);
+						item.throwButton.setY(yPositionsForButton.get(i));
+						item.throwButton.addListener(new ChangeListener() {
+						@Override
+							public void changed(ChangeEvent event, Actor actor) {
+								System.out.println("item: " + item);
+								item.parametersForThrowing(player);
+								for(Actor a: L1Renderer.stage.getActors()){
+									if(a.equals(item.pickUpButton)){
+										a.remove();
+										item.pickUpButton = null;
+										i--;
+									}
+								}
+								for(Actor a: L1Renderer.stage.getActors()){
+									if(a.equals(item.throwButton)){
+										a.remove();
+										item.throwButton = null;
+									}
+								}
+	//							Gdx.input.setInputProcessor(null);
+							}
+						});
+					}
 					i++;
 					item.pickUpButton.addListener(new ChangeListener() {
 						@Override
@@ -297,29 +330,12 @@ public class L1 {
 //							Gdx.input.setInputProcessor(null);
 						}
 					});
-					item.throwButton.addListener(new ChangeListener() {
-						@Override
-						public void changed(ChangeEvent event, Actor actor) {
-							System.out.println("item: " + item);
-							item.parametersForThrowing(player);
-							for(Actor a: L1Renderer.stage.getActors()){
-								if(a.equals(item.pickUpButton)){
-									a.remove();
-									item.pickUpButton = null;
-									i--;
-								}
-							}
-							for(Actor a: L1Renderer.stage.getActors()){
-								if(a.equals(item.throwButton)){
-									a.remove();
-									item.throwButton = null;
-								}
-							}
-//							Gdx.input.setInputProcessor(null);
-						}
-					});
+					
 					L1Renderer.stage.addActor(item.pickUpButton);
-					L1Renderer.stage.addActor(item.throwButton);
+					if(!(item instanceof WeaponItem)){
+						L1Renderer.stage.addActor(item.throwButton);
+					}
+					L1Renderer.stage.addActor(item.itemName);
 				}
 				else if(!Intersector.overlaps(item.circle, player.rectanlge)){
 					for(Actor a: L1Renderer.stage.getActors()){
@@ -333,7 +349,13 @@ public class L1 {
 							a.remove();
 						}
 					}
+					for(Actor a: L1Renderer.stage.getActors()){
+						if(a.equals(item.itemName)){
+							a.remove();
+						}
+					}
 					item.throwButton = null;
+					item.itemName = null;
 					item.pickUpButton = null;
 				}
 				if(Intersector.overlaps(item.circle, player.rectanlge) && (item instanceof Oxygen

@@ -45,44 +45,65 @@ moneyMePLSup
   orig: 64, 64
   offset: 0, 0
   index: -1
-slotMachineWindowNO
+pressedImageButton
   rotate: false
   xy: 259, 263
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-slotMachineWindowNO_pressed
+slotMachineWindowNO
   rotate: false
   xy: 203, 184
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-slotMachineWindowYES
+slotMachineWindowNO_pressed
   rotate: false
   xy: 203, 118
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-slotMachineWindowYES_pressed
+slotMachineWindowYES
   rotate: false
   xy: 203, 52
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
+slotMachineWindowYES_pressed
+  rotate: false
+  xy: 325, 395
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+ThrowImageButton
+  rotate: false
+  xy: 325, 329
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+UseImageButton
+  rotate: false
+  xy: 325, 263
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
 goButton
   rotate: false
-  xy: 381, 474
+  xy: 123, 14
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 goButton_blocked
   rotate: false
-  xy: 123, 14
+  xy: 381, 474
   size: 32, 32
   orig: 32, 32
   offset: 0, 0

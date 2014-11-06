@@ -95,8 +95,8 @@ public class ItemGenerator {
 				+ itEmsTypes.minItemGenerate;
 		Item item = null;
 		try {
-			Class<? extends Item> itemClass = items.get(number);
-//			Class<? extends Item> itemClass = CHAIN_ARROWS.class;
+//			Class<? extends Item> itemClass = items.get(number);
+			Class<? extends Item> itemClass = HASTE.class;
 			int randomTextureNumber;
 			if (itemClass.getDeclaredField("poisonSprite").get(null) == null) {
 				randomTextureNumber = random.nextInt(poisonTextures.size());
@@ -126,12 +126,12 @@ public class ItemGenerator {
 	
 	public Item generateItem(int playersScore) {
 		int probability = random.nextInt(100);
-		if (probability > 70){
-			return generateSpecialItem(playersScore);
-//			return getWeaponItem(playersScore);
-		} else {
-			return getPlainItem(playersScore);
-		}
+//		if (probability > 70){
+//			return generateSpecialItem(playersScore);
+			return getWeaponItem(playersScore);
+//		} else {
+//			return getPlainItem(playersScore);
+//		}
 	}
 	
 	public Item getMoreLikelyOxugenItem(int playersScore){

@@ -56,6 +56,7 @@ public class HASTE extends Item{
 		this.state=State.DEAD;
 		player.positiveEffectSprite = new Sprite(Assets.manager.get(Assets.HASTE_ICON));
 		player.setPositiveEffect(PositiveEffects.HASTE);
+		player.positiveEffectCounter = lifeTime;
 		System.out.println("I am Haste, biatch");
 	}
 

@@ -27,6 +27,8 @@
         "no": { "up": "slotMachineWindowNO" , "down": "slotMachineWindowNO_pressed"},
         "go": { "up": "goButton" , "down": "goButton_blocked", "checked": "goButton_blocked", "disabled": "goButton_blocked"},
         "reroll": { "up": "slotMachineWindowYES" , "down": "slotMachineWindowYES_pressed", "disabled": "slotMachineWindowYES_pressed"},
-        "ad": { "up": "moneyMePLSup" , "down": "moneyMePLSdown"}
+        "ad": { "up": "moneyMePLSup" , "down": "moneyMePLSdown"},
+        "use": { "up": "UseImageButton" , "down": "pressedImageButton"},
+        "throw": { "up": "ThrowImageButton" , "down": "pressedImageButton"}
     }
  }

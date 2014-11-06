@@ -15,6 +15,7 @@ import com.me.swampmonster.models.L1;
 import com.me.swampmonster.models.Projectile;
 import com.me.swampmonster.models.Projectile.EffectCarriers;
 import com.me.swampmonster.models.items.wepMods.Modificator;
+import com.me.swampmonster.utils.Assets;
 
 public class Weapon extends AbstractGameObject{
 	
@@ -32,6 +33,9 @@ public class Weapon extends AbstractGameObject{
 	
 	public Weapon(){
 		super();
+		
+		sprite = new Sprite(Assets.manager.get(Assets.wepBOW));
+		name = this.getClass().getSimpleName();
 	}
 	
 	public void update(TiledMapTileLayer collisionLayer){

@@ -733,7 +733,7 @@ public class Player extends AbstractGameObject {
 					sprite.getColor().b, 0.5f);
 			radioactiveAura = null;
 			positiveEffectsState = positiveEffect;
-			positiveEffectCounter = positiveEffect.lifetime;
+//			positiveEffectCounter = positiveEffect.lifetime;
 			break;
 		case RADIOACTIVE_AURA:
 			movementSpeed = STANDART_MOVEMENT_SPEED;
@@ -765,7 +765,7 @@ public class Player extends AbstractGameObject {
 			weapon.minDD = weapon.minDD + 2;
 			weapon.maxDD = weapon.maxDD + 2;
 			positiveEffectsState = positiveEffect;
-			positiveEffectCounter = HASTE.lifeTime;
+//			positiveEffectCounter = positiveEffect.lifetime;
 			break;
 		case NONE:
 			if (negativeEffectsState == NegativeEffects.NONE
