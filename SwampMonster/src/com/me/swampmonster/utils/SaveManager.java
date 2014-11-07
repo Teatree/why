@@ -15,6 +15,8 @@ import com.me.swampmonster.game.TheController;
 import com.me.swampmonster.models.L1;
 import com.me.swampmonster.models.PlasmaShield;
 import com.me.swampmonster.models.Player;
+import com.me.swampmonster.models.items.Weapon;
+import com.me.swampmonster.models.items.wepMods.Modificator;
 import com.me.swampmonster.models.slots.Arrows3;
 import com.me.swampmonster.models.slots.DamageTrap;
 import com.me.swampmonster.models.slots.ExplosiveArrow;
@@ -62,6 +64,13 @@ public class SaveManager {
     	somPlayer.arrowMovementSpeed = Player.arrowMovementSpeed;
     	if (L1.player != null){
 	    	somPlayer.movementSpeed = L1.player.movementSpeed;
+	    	somPlayer.weaponClassName = L1.player.weapon.getClass().toString().replace("class ", "");
+	    	if (L1.player.weapon.mod1 != null){
+	    		somPlayer.weaponMod1ClassName = L1.player.weapon.mod1.getClass().toString().replace("class ", "");
+	    	}
+	     	if (L1.player.weapon.mod2 != null){
+	    		somPlayer.weaponMod2ClassName = L1.player.weapon.mod2.getClass().toString().replace("class ", "");
+	    	}
 	    	somPlayer.minDD = L1.player.weapon.minDD;
 	    	somPlayer.maxDD = L1.player.weapon.maxDD;
     	}
@@ -109,6 +118,15 @@ public class SaveManager {
 	        Player.arrowMovementSpeed = somPlayer.arrowMovementSpeed;
 	        player.oxygen = Player.maxOxygen;
 	        player.health = Player.maxHealth;
+	        try {
+				player.weapon = (Weapon) Class.forName(somPlayer.weaponClassName).newInstance();
+				if (somPlayer.weaponMod1ClassName != null)
+				player.weapon.mod1 = (Modificator) Class.forName(somPlayer.weaponMod1ClassName).newInstance();
+				if (somPlayer.weaponMod2ClassName != null)
+				player.weapon.mod2 = (Modificator) Class.forName(somPlayer.weaponMod2ClassName).newInstance();
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
 	        player.weapon.minDD = (int) somPlayer.minDD;
 	        player.weapon.maxDD = (int) somPlayer.maxDD;
 	        player.movementSpeed = somPlayer.movementSpeed;
@@ -157,7 +175,8 @@ public class SaveManager {
     }
     
     public static class JsomPlayer {
-    	public float maxOxygen;
+    	
+		public float maxOxygen;
     	public int playerMaxHealth;
     	public int score;
     	public float arrowMovementSpeed;
@@ -165,6 +184,9 @@ public class SaveManager {
     	public float movementSpeed;
     	public float minDD;
     	public float maxDD;
+    	public String weaponClassName;
+    	public String weaponMod1ClassName;
+		public String weaponMod2ClassName;
     	public String skill;
     	
     	public String lastTileSet;

@@ -9,10 +9,8 @@ import com.me.swampmonster.models.items.wepMods.DamagePlayerMod;
 import com.me.swampmonster.models.items.wepMods.EnemyBleedMod;
 import com.me.swampmonster.models.items.wepMods.ExtraDamageMod;
 import com.me.swampmonster.models.items.wepMods.ExtraDamageToEnemyTypeMod;
-import com.me.swampmonster.models.items.wepMods.ExtraDamageToToughguyTypeMod;
 import com.me.swampmonster.models.items.wepMods.HealEnemyMod;
 import com.me.swampmonster.models.items.wepMods.Modificator;
-import com.me.swampmonster.models.items.wepMods.ShadowProjectileMod;
 import com.me.swampmonster.models.items.wepMods.ShootThoughCollisionMod;
 import com.me.swampmonster.models.items.wepMods.SpeedUpEnemyMod;
 import com.me.swampmonster.models.items.wepMods.StunEnemyMod;
@@ -57,15 +55,13 @@ public class WeaponGenerator {
 		mods.put(0, EnemyBleedMod.class);
 		mods.put(1, StunEnemyMod.class);
 		mods.put(2, ExtraDamageToEnemyTypeMod.class);
-		mods.put(3, ExtraDamageToToughguyTypeMod.class);
-		mods.put(4, VampireMod.class);
-		mods.put(5, ExtraDamageMod.class);
-		mods.put(6, ShootThoughCollisionMod.class);
-		mods.put(7, DamagePlayerMod.class);
-		mods.put(8, HealEnemyMod.class);
-		mods.put(9, SpeedUpEnemyMod.class);
-		mods.put(10, StunPlayerMod.class);
-		mods.put(11, ShadowProjectileMod.class);
+		mods.put(3, VampireMod.class);
+		mods.put(4, ExtraDamageMod.class);
+		mods.put(5, ShootThoughCollisionMod.class);
+		mods.put(6, DamagePlayerMod.class);
+		mods.put(7, HealEnemyMod.class);
+		mods.put(8, SpeedUpEnemyMod.class);
+		mods.put(9, StunPlayerMod.class);
 	}
 	
 	public Weapon generateWep(int playersScore) {
@@ -89,6 +85,7 @@ public class WeaponGenerator {
 			Modificator mod1 = null;
 			try {
 				mod1 = mods.get(modNumber).getConstructor().newInstance();
+//				mod1 = new ShootThoughColli/sionMod();
 			} catch (Exception e) {
 				e.printStackTrace();
 			} 

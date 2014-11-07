@@ -28,6 +28,16 @@ public class Projectile extends AbstractGameObject {
 		POISONED(new Sprite(Assets.manager.get(Assets.arrowPoisoned))), 
 		EXPLOSIVE(new Sprite(Assets.manager.get(Assets.arrowExplosive))),
 		
+		//effect carriers for weapon mods
+		ENEMY_BLEED(new Sprite(Assets.manager.get(Assets.arrow))),
+		EXTRADAMAGE(new Sprite(Assets.manager.get(Assets.arrow))),
+		EXTRADAMAGE_BY_TYPE(new Sprite(Assets.manager.get(Assets.arrow))),
+		HEAL_ENEMY(new Sprite(Assets.manager.get(Assets.arrow))),
+		SHADOW(new Sprite(Assets.manager.get(Assets.arrow))),
+		SPEEDUP_ENEMY(new Sprite(Assets.manager.get(Assets.arrow))),
+		STUN_ENEMY(new Sprite(Assets.manager.get(Assets.arrow))),
+		VAMPIRE(new Sprite(Assets.manager.get(Assets.arrow))),
+		
 		FROST_EXPLOSIVE(new Sprite(Assets.manager.get(Assets.itemProjectile))),
 		HASTE(new Sprite(Assets.manager.get(Assets.itemProjectile))),
 		POISON(new Sprite(Assets.manager.get(Assets.itemProjectile))),

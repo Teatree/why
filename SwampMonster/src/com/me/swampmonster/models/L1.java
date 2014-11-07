@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Random;
 import java.util.Stack;
 
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector2;
@@ -15,7 +14,6 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.me.swampmonster.game.GShape;
 import com.me.swampmonster.game.L1Renderer;
@@ -29,7 +27,6 @@ import com.me.swampmonster.models.items.HealthKit;
 import com.me.swampmonster.models.items.Oxygen;
 import com.me.swampmonster.models.items.WeaponItem;
 import com.me.swampmonster.models.slots.PoisonArrow;
-import com.me.swampmonster.utils.Assets;
 import com.me.swampmonster.utils.CameraHelper;
 import com.me.swampmonster.utils.Constants;
 import com.me.swampmonster.utils.MisterItemSpawner;
@@ -279,12 +276,12 @@ public class L1 {
 					item.itemName.setX(260);
 					item.itemName.setY(yPositionsForButton.get(i));
 					item.pickUpButton = new ImageButton(GShape.skin, "use");
-					item.pickUpButton.setSize(50, 50);
+					item.pickUpButton.setSize(80, 80);
 					item.pickUpButton.setX(400);
 					item.pickUpButton.setY(yPositionsForButton.get(i));
 					if(!(item instanceof WeaponItem)){
 						item.throwButton = new ImageButton(GShape.skin, "throw");
-						item.throwButton.setSize(50, 50);
+						item.throwButton.setSize(80, 80);
 						item.throwButton.setX(460);
 						item.throwButton.setY(yPositionsForButton.get(i));
 						item.throwButton.addListener(new ChangeListener() {
@@ -458,6 +455,34 @@ public class L1 {
 								e.setNegativeEffect(NegativeEffects.POISONED);
 							}
 							
+							//Modificators
+							if (p.effect == EffectCarriers.ENEMY_BLEED) {
+								e.damageType = "player";
+								e.hurt = true;
+								e.enemyHurt(random.nextInt((int) (player.maxDD-player.minDD))+player.minDD);
+								e.setNegativeEffect(NegativeEffects.WEAKENED);
+							}
+							if (p.effect == EffectCarriers.EXTRADAMAGE) {
+								e.damageType = "player";
+								e.hurt = true;
+								e.enemyHurt(2*random.nextInt((int) (player.maxDD-player.minDD))+player.minDD);
+							}
+							if (p.effect == EffectCarriers.HEAL_ENEMY) {
+								e.health++;
+							}
+							if (p.effect == EffectCarriers.SPEEDUP_ENEMY) {
+								e.damageType = "player";
+								e.hurt = true;
+								e.enemyHurt(random.nextInt((int) (player.maxDD-player.minDD))+player.minDD);
+								e.movementSpeed*=2;
+							}
+							if (p.effect == EffectCarriers.EXTRADAMAGE_BY_TYPE 
+									&& ((L1.player.weapon.mod1.targetEnemy != null && this.getClass().equals(L1.player.weapon.mod1.targetEnemy.getClass())) 
+									|| (L1.player.weapon.mod1.targetEnemy != null && this.getClass().equals(L1.player.weapon.mod2.targetEnemy.getClass())))) {
+								e.damageType = "player";
+								e.hurt = true;
+								e.enemyHurt(2*random.nextInt((int) (player.maxDD-player.minDD))+player.minDD);
+							}
 							prj.remove();
 						}
 					}

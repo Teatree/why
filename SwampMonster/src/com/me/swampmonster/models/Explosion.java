@@ -69,7 +69,7 @@ public class Explosion {
 		}else if(/*explosionEffect != null && */explodionLifeTimeCounter >= explosionLifeTime /*explosionEffect.isComplete()*/){
 			explCircle.radius = 0;
 		}
-		System.out.println("type of explosion:" + type);
+//		System.out.println("type of explosion:" + type);
 	}
 	
 	public boolean cause(AbstractGameObject ago, TiledMapTileLayer collisionLayer){

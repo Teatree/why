@@ -20,7 +20,6 @@ import com.me.swampmonster.game.collision.CollisionHelper;
 import com.me.swampmonster.models.Projectile.EffectCarriers;
 import com.me.swampmonster.models.enemies.Enemy;
 import com.me.swampmonster.models.items.Bow;
-import com.me.swampmonster.models.items.HASTE;
 import com.me.swampmonster.models.items.RADIOACTIVE;
 import com.me.swampmonster.models.items.Weapon;
 import com.me.swampmonster.models.slots.PanicTeleport;

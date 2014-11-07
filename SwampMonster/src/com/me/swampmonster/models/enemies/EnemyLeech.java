@@ -9,7 +9,6 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Vector2;
 import com.me.swampmonster.animations.AnimationControl;
 import com.me.swampmonster.models.Player;
-import com.me.swampmonster.models.AbstractGameObject.NegativeEffects;
 import com.me.swampmonster.utils.Assets;
 import com.me.swampmonster.utils.CameraHelper;
 
@@ -38,7 +37,7 @@ public class EnemyLeech extends Enemy{
 		damage = random.nextInt(maxDamage - minDamage) + minDamage;
 		minScale = (int) (11+health+damage-(int)(movementSpeed*10));
 		maxScale = (int) (14+health+damage-(int)(movementSpeed*10));
-		System.out.println("minscale: " + minScale +  " maxScale: " + maxScale);
+//		System.out.println("minscale: " + minScale +  " maxScale: " + maxScale);
 		sprite.setScale((float)(((float)(random.nextInt(maxScale - minScale) + minScale)))/10);
 //		rectanlge.setSize(sprite.getBoundingRectangle().getWidth()*sprite.getScaleX(), sprite.getBoundingRectangle().getHeight()*sprite.getScaleY());
 		STANDART_MOVEMENT_SPEED = movementSpeed;

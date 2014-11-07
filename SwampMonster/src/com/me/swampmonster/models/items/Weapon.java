@@ -3,6 +3,7 @@ package com.me.swampmonster.models.items;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
@@ -14,6 +15,7 @@ import com.me.swampmonster.models.Explosion;
 import com.me.swampmonster.models.L1;
 import com.me.swampmonster.models.Projectile;
 import com.me.swampmonster.models.Projectile.EffectCarriers;
+import com.me.swampmonster.models.items.wepMods.DamagePlayerMod;
 import com.me.swampmonster.models.items.wepMods.Modificator;
 import com.me.swampmonster.utils.Assets;
 
@@ -28,6 +30,7 @@ public class Weapon extends AbstractGameObject{
 	public Sprite weaponSprite;
 	public Modificator mod1;
 	public Modificator mod2;
+	Random random = new Random();
 	
 	// different force
 	
@@ -36,6 +39,7 @@ public class Weapon extends AbstractGameObject{
 		
 		sprite = new Sprite(Assets.manager.get(Assets.wepBOW));
 		name = this.getClass().getSimpleName();
+		mod1 = new DamagePlayerMod();
 	}
 	
 	public void update(TiledMapTileLayer collisionLayer){
@@ -66,7 +70,17 @@ public class Weapon extends AbstractGameObject{
 		
 		p.setDirection(direction_x, direction_y);
 		
+		int shouldApplyMod1 = random.nextInt(1000);
+		if (mod1 != null && shouldApplyMod1 < mod1.probability){
+			mod1.applyModificator(p);
+		} else {
+			int shouldApplyMod2 = random.nextInt(1000);
+			if (mod2 != null && shouldApplyMod2 < mod1.probability){
+				mod2.applyModificator(p);
+			}
+		}
 		projectiles.add(p);
+		
 		if (L1.player.ThreeArrowsFlag) {
 			float direction_x2 = L1.player.shotDir.x - 40 - L1.player.V3playerPos.x;
 			float direction_y2 = L1.player.shotDir.y - 40 - L1.player.V3playerPos.y;
@@ -120,7 +134,7 @@ public class Weapon extends AbstractGameObject{
 			Projectile p = prj.next();
 			p.update();
 			p.getSurfaceLevelProjectile(collisionLayer);
-			if (p.isCollision(collisionLayer)) {
+			if (p.isCollision(collisionLayer) && !p.effect.equals(EffectCarriers.SHADOW)) {
 				if (p.effect == EffectCarriers.EXPLOSIVE) {
 					TheController.skill.explode(p.position);
 				}
