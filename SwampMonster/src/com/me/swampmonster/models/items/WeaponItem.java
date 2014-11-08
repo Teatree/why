@@ -31,14 +31,14 @@ public class WeaponItem extends Item{
 //		player.weapon = this.weapon;
 		TheController.showWeaponInv = true;
 		GShape.weaponDialog = new WeaponUIWindow("statuk'", GShape.skin, weapon);
-		GShape.weaponDialog.setSize(250, 250);
-		GShape.weaponDialog.setX(320);
-		GShape.weaponDialog.setY(50);
+		GShape.weaponDialog.setSize(400, 300);
+		GShape.weaponDialog.setX(220);
+		GShape.weaponDialog.setY(150);
 		TheController.paused = true;
-		System.out.println("player weapon stats: type:"
-				+ player.weapon.getClass().getSimpleName() + " attack: "
-				+ player.weapon.minDD + " - " + player.weapon.maxDD + " mods: "
-				+ player.weapon.mod1 + " " + player.weapon.mod2);
+//		System.out.println("player weapon stats: type:"
+//				+ player.weapon.getClass().getSimpleName() + " attack: "
+//				+ player.weapon.minDD + " - " + player.weapon.maxDD + " mods: "
+//				+ player.weapon.mod1 + " " + player.weapon.mod2);
 		state = State.DEAD;
 		L1Renderer.stage.addActor(GShape.weaponDialog);
 	}

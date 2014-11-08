@@ -14,7 +14,7 @@ public class StunPlayerMod extends Modificator{
 	@Override
 	public void applyModificator(Projectile prj) {
 		L1.player.setNegativeEffect(NegativeEffects.STUN);
-		L1.player.negativeEffectCounter = 180;
+		L1.player.negativeEffectCounter = 90;
 		System.out.println("mod: " + this.getClass().getSimpleName());
 	}
 	

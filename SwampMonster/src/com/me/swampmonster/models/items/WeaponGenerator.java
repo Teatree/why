@@ -77,8 +77,8 @@ public class WeaponGenerator {
 		setWepParams(Player.absoluteScore);
 		Weapon weapon = getPlainWep(playerScore);
 		int rNumberFirst = random.nextInt(1000);
-		System.out.println("rNumberFirst " + rNumberFirst);
-		System.out.println("weaponTypes.firstModificatorChance " + weaponTypes.firstModificatorChance);
+//		System.out.println("rNumberFirst " + rNumberFirst);
+//		System.out.println("weaponTypes.firstModificatorChance " + weaponTypes.firstModificatorChance);
 		
 		if(rNumberFirst<weaponTypes.firstModificatorChance){
 			int modNumber = random.nextInt(mods.size());
@@ -89,7 +89,7 @@ public class WeaponGenerator {
 			} catch (Exception e) {
 				e.printStackTrace();
 			} 
-			System.out.println("mod1 " + mod1.getClass().getSimpleName());
+//			System.out.println("mod1 " + mod1.getClass().getSimpleName());
 			weapon.mod1 = mod1;
 		}
 		

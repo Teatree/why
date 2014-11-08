@@ -35,7 +35,7 @@ public class ICE_THING extends Item{
 	public void pickMeUp(Player player) {
 		state=State.DEAD;
 		for(Enemy e : L1.enemiesOnStage){
-			e.setNegativeEffect(NegativeEffects.STUN);
+			e.setNegativeEffect(NegativeEffects.ICE);
 		}
 		System.out.println("IceThing");
 	}

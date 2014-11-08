@@ -30,7 +30,7 @@ public class PlasmaShield extends AbstractGameObject{
 	
 	public void update(){
 		lifeTime--;
-		System.out.println("state: " + state);
+//		System.out.println("state: " + state);
 		if(lifeTime>spawnTime){
 			state = State.SPAWNING;
 		}

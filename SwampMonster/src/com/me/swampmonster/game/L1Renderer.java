@@ -426,11 +426,19 @@ public class L1Renderer {
 			}
 		}
 		for (Enemy enemy : L1.enemiesOnStage) {
-			if (enemy.negativeEffectsState == NegativeEffects.STUN
+			if (enemy.negativeEffectsState == NegativeEffects.ICE
 					&& enemy.state != State.DEAD) {
 				enemy.iceCube.draw(batch);
 			}
-		}
+			
+			if (enemy.negativeEffectsState == NegativeEffects.STUN
+					&& enemy.state != State.DEAD){ 
+				batch.draw(enemy.effectCarrier, enemy.position.x + 5,
+						enemy.position.y + enemy.sprite.getHeight() - 6,
+						25, 25);
+			}
+			
+		}		
 
 		for (Projectile p : L1.player.weapon.projectiles) {
 			if (p != null) {
@@ -538,12 +546,14 @@ public class L1Renderer {
 		// if (TheController.gui.getCroshair().isAiming()) {
 		// sr.line(theController.V3playerPos, L1.player.aimLineHead);
 		// }
-		// sr.circle(L1.player.circle.x, L1.player.circle.y,
-		// L1.player.circle.radius);
-		// sr.setColor(Color.YELLOW);
-		// // sr.circle(TheController.level1.player.aimingArea.x,
-		// // TheController.level1.player.aimingArea.y,
-		// // TheController.level1.player.aimingArea.radius);
+//		 sr.circle(L1.player.circle.x, L1.player.circle.y,
+//		 L1.player.circle.radius);
+//		 sr.setColor(Color.YELLOW);
+//		  sr.circle(TheController.level1.player.aimingArea.x,
+//		  TheController.level1.player.aimingArea.y,
+//		  TheController.level1.player.aimingArea.radius);
+//		  sr.rect(L1.player.sprite.getBoundingRectangle().x, L1.player.sprite.getBoundingRectangle().y,
+//				  L1.player.sprite.getBoundingRectangle().width, L1.player.sprite.getBoundingRectangle().height);
 		sr.end();
 		//
 		Gdx.gl.glEnable(GL20.GL_BLEND);

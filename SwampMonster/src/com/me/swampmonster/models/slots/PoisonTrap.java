@@ -79,7 +79,6 @@ public class PoisonTrap extends Trap{
 		circle.radius = Constants.PoisonTrap_Radius_L1;
 		name = Constants.PoisonTrap_Name;
 		coolDown = Constants.PoisonTrap_CoolDown_L1;
-		
 		trapSprite = new Sprite(Assets.manager.get(Assets.POISON_TRAP));
 		sprite = new Sprite(Assets.manager.get(Assets.POISONED_TRAP_ICON));
 		unlockScore = Constants.PoisonTrap_unlockScore;

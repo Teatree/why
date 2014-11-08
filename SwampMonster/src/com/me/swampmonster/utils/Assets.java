@@ -127,6 +127,12 @@ public class Assets {
 //	public static final AssetDescriptor<Texture> tiles = new AssetDescriptor<Texture>("data\\Tiles.png", Texture.class);
 //	public static final AssetDescriptor<Texture> tileSet_SAND_WORLD = new AssetDescriptor<Texture>("data\\tileSet_SAND_WORLD.png", Texture.class);
 	
+	//weapon
+	public static final AssetDescriptor<Texture> bowDesc = new AssetDescriptor<Texture>("data\\weaponUI\\BowDescImage.png", Texture.class);
+	public static final AssetDescriptor<Texture> slingShotDesc = new AssetDescriptor<Texture>("data\\weaponUI\\SlingShotDescImage.png", Texture.class);
+	public static final AssetDescriptor<Texture> spearDesc = new AssetDescriptor<Texture>("data\\weaponUI\\SpearDescImage.png", Texture.class);
+	public static final AssetDescriptor<Texture> crossBowDesc = new AssetDescriptor<Texture>("data\\weaponUI\\CrossbowDescImage.png", Texture.class);
+	
 	public static void load(){
 		manager.load(menuBackgroundMusic);
 		manager.load(stunEffectAnimation);
@@ -217,6 +223,10 @@ public class Assets {
 		manager.load(arrowExplosive);
 		manager.load(leachProjectile);
 		manager.load(projectileHydra);
+		manager.load(bowDesc);
+		manager.load(crossBowDesc);
+		manager.load(slingShotDesc);
+		manager.load(spearDesc);
 		
 		manager.setLoader(BitmapFont.class, new BitmapFontLoader(new InternalFileHandleResolver()));
 		manager.load(font);

@@ -61,7 +61,6 @@ public class SlotMachineScreen extends AbstractGameScreen {
 		inputMultiplexer = new InputMultiplexer();
 		inputMultiplexer.addProcessor(stage);
 		stage.setViewport(viewports.first());
-		
 	}
 
 	@Override

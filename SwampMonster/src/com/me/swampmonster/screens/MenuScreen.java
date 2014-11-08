@@ -51,7 +51,8 @@ public class MenuScreen extends AbstractGameScreen{
 	
 	public MenuScreen(Game game) {
 		super(game);
-		skin = new Skin(Gdx.files.internal("skins\\style.json"), new TextureAtlas(Gdx.files.internal("skins\\main.pack")));
+		skin = new Skin(Gdx.files.internal("skins\\MenuStyle.json"), new TextureAtlas(Gdx.files.internal("skins\\main.pack")));
+		skin.getFont("title").scale(1.5f);
 		menuMusic = Assets.manager.get(Assets.menuBackgroundMusic);
 		wrldConqueror = new Label(Constants.WORLDS_CONQUERROR, skin);
 		Gdx.input.setInputProcessor(stage);
@@ -108,7 +109,7 @@ public class MenuScreen extends AbstractGameScreen{
 
 		stage.setViewport(viewports.first());
 		
-		table.add(wrldConqueror).padBottom(40).row();
+		table.add(wrldConqueror).padBottom(40).padRight(40).left().row();
 		playButton = new TextButton(Constants.PLAY, skin);
 		playButton.addListener(new ClickListener(){
 			@Override
@@ -120,7 +121,7 @@ public class MenuScreen extends AbstractGameScreen{
 	        }
 		});
 		
-		table.add(playButton).size(150,60).padBottom(20).row().right();
+		table.add(playButton).size(150,60).padBottom(20).right().row().right();
 //		showTutorialButton = true;
 		if(showTutorialButton){
 			tutorialButton = new TextButton(Constants.TUTORIAL, skin);

@@ -60,12 +60,14 @@ public class DamageTrap extends Trap {
 		coolDown = Constants.DamageTrap_CoolDown_L1;
 		sprite = new Sprite(Assets.manager.get(Assets.DAMAGE_TRAP_ICON));
 		trapSprite = new Sprite(Assets.manager.get(Assets.DAMAGE_TRAP));
+		
 		System.out.println("placing a dmg trap, pos: " + position);
 		unlockScore = Constants.DamageTrap_unlockScore;
 	}
 
 	@Override
 	public void catchEnemy(Enemy enemy) {
+		System.out.println("a dmg trap, pos: aaaaaaaaaaaaa " + position);
 //		effect.load(Gdx.files.local("effects/explosionEffect.p"), Gdx.files.local("effects"));
 //		effect.setPosition(position.x, position.y);
 //		effect.start();

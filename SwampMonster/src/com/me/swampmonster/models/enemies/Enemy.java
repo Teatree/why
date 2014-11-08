@@ -101,6 +101,9 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 	public Random random = new Random();
 	int generateNewRandomPosForScared;
 
+	public Sprite effectCarrier;
+	public AnimationControl effectAnimator;
+	
 	public Enemy(Vector2 position) {
 		this.position = position;
 //		rectanlge = new Rectangle();
@@ -146,8 +149,11 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 
 		sprite = new Sprite(animationsStandard.get(State.STANDARD)
 				.getCurrentFrame());
-		characterStatsBoard();
 		
+		effectAnimator = new AnimationControl(Assets.manager.get(Assets.stunEffectAnimation), 4, 1, 12);
+		effectCarrier = new Sprite(effectAnimator.getCertainFrame(0));
+		
+		characterStatsBoard();
 	}
 
 	public void characterStatsBoard() {
@@ -323,15 +329,11 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 					standAnimation(88, 72, 80, 64);
 				}
 
-				if (path[0] != null) {
-					if (player.position.x > path[0].x * Constants.NodeSize
-							+ 120
-							|| player.position.x < path[0].x
-									* Constants.NodeSize - 120
-							|| player.position.y > path[0].y
-									* Constants.NodeSize + 120
-							|| player.position.y < path[0].y
-									* Constants.NodeSize - 120) {
+				if (path != null && path[0] != null) {
+					if (player.position.x > path[0].x * Constants.NodeSize + 120
+							|| player.position.x < path[0].x * Constants.NodeSize - 120
+							|| player.position.y > path[0].y * Constants.NodeSize + 120
+							|| player.position.y < path[0].y * Constants.NodeSize - 120) {
 						System.out.println("You are officially outside the last seen zone!");
 						state = State.STANDARD;
 						for (int i = 0; i < path.length; i++) {
@@ -405,6 +407,10 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 			setNegativeEffect(NegativeEffects.NONE);
 		}
 
+		if(negativeEffectsState == NegativeEffects.STUN){
+			effectAnimator.doComplexAnimation(8, 1f, 0.009f, Animation.PlayMode.LOOP);
+			effectCarrier = new Sprite(effectAnimator.getCurrentFrame());
+		} 
 		// DEAD
 		if (state.equals(State.DEAD)) {
 			
@@ -555,6 +561,8 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 				}
 			}
 		}
+		
+		
 	}
 
 	public void atackLogic(Player player, CameraHelper cameraHelper) {
@@ -1123,7 +1131,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 			}
 			health -= dmg;
 			floatingOutputDamage = dmg;
-			System.out.println("Player.damage " + dmg);
+//			System.out.println("Player.damage " + dmg);
 		}
 	}
 
@@ -1275,8 +1283,8 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 				//: TODO possible change the timer to something else;
 			}
 			break;
-		case STUN:
-			if (negativeEffectsState != NegativeEffects.STUN) {
+		case ICE:
+			if (negativeEffectsState != NegativeEffects.ICE) {
 				negativeEffectsState = negativeEffect;
 				negativeEffectTimer = ICE_THING.negativeEffectLifeTime;
 				iceCube = new Sprite(Assets.manager.get(Assets.iceCube));

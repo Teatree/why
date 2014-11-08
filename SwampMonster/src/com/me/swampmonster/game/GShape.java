@@ -123,6 +123,7 @@ public class GShape extends Group {
 	
 		font = Assets.manager.get(Assets.font);
 		font.setScale(1);
+		font.setColor(Color.YELLOW);
 		
 		str = "points: " + Player.absoluteScore;
 		str2 = "Wave:" + TheController.level1.currentWave + "/" + TheController.level1.wavesAmount;
@@ -300,7 +301,7 @@ public class GShape extends Group {
 			e.printStackTrace();
 		}
 		
-		font.setColor(1.0f, 0f, 1.0f, 1.0f);
+		font.setColor(Color.ORANGE);
 		font.setScale(1);
 		font.draw(batch, str, 580, 460);
 		font.draw(batch, str2, 580, 420);
@@ -476,7 +477,7 @@ public class GShape extends Group {
 			} else {
 				wittyMessage = Constants.ONE_MORE_WORLD_CONQUERED;
 			}
-			header = new Label(wittyMessage, skin);
+			header = new Label(wittyMessage, skin, "title");
 			score = new Label(Constants.SCORE + L1.player.absoluteScore, skin);
 			levelScore = new Label("level " + Constants.SCORE + L1.player.levelsScore, skin);
 			enemies_killed = new Label(Constants.ENEMIES_KILLED + L1.player.enemiesKilled, skin);

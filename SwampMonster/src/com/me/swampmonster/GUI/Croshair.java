@@ -83,7 +83,7 @@ public class Croshair extends AbstractGameObject{
 //			}
 //		}
 		
-		if(doesIntersect(new Vector2(player.circle.x, player.circle.y), player.circle.radius, new Vector2(V3point.x, V3point.y))
+		if(doesIntersect(new Vector2(player.aimingArea.x, player.aimingArea.y), player.aimingArea.radius, new Vector2(V3point.x, V3point.y))
 				&& !aiming && Gdx.input.isTouched() && Player.shootingSwitch && L1.player.state != State.DEAD ){
 			player.state = State.GUNMOVEMENT;
 			aiming = true;

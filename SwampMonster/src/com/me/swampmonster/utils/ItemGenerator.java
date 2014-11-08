@@ -112,7 +112,7 @@ public class ItemGenerator {
 					e.printStackTrace();
 				}
 				item = itemClass.getConstructor().newInstance();
-				System.out.println("poisonSprite: " + randomTextureNumber);
+//				System.out.println("poisonSprite: " + randomTextureNumber);
 			}else{
 				item = itemClass.getConstructor().newInstance();
 				item.name = item.constatName;
@@ -126,12 +126,13 @@ public class ItemGenerator {
 	
 	public Item generateItem(int playersScore) {
 		int probability = random.nextInt(100);
-//		if (probability > 70){
-//			return generateSpecialItem(playersScore);
+		if (probability < 40){
+			return getPlainItem(playersScore);
+		} else if (probability >= 40 && probability <=70){
+			return generateSpecialItem(playersScore);
+		} else {
 			return getWeaponItem(playersScore);
-//		} else {
-//			return getPlainItem(playersScore);
-//		}
+		}
 	}
 	
 	public Item getMoreLikelyOxugenItem(int playersScore){

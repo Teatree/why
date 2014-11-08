@@ -4,6 +4,7 @@ import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.me.swampmonster.models.items.wepMods.VampireMod;
 import com.me.swampmonster.utils.Assets;
 
 public class Bow extends Weapon{
@@ -12,11 +13,11 @@ public class Bow extends Weapon{
 	
 	public Bow(){
 		super();
-		
+		weaponDescSprite = new Sprite(Assets.manager.get(Assets.bowDesc));
 		sprite = new Sprite(Assets.manager.get(Assets.wepBOW));
-		
 		minDD = 1;
 		maxDD = 3;
+		mod1 = new VampireMod();
 	}
 
 	public void update(TiledMapTileLayer collisionLayer) {

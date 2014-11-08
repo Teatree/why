@@ -272,22 +272,22 @@ public class L1 {
 						&& item.pickUpButton == null 
 						&& item.throwButton == null && !(item instanceof Oxygen)
 								&& !(item instanceof HealthKit)) {
-					item.itemName = new Label(item.name, GShape.skin);
+					item.itemName = new Label(item.name, GShape.skin, "title");
 					item.itemName.setX(260);
 					item.itemName.setY(yPositionsForButton.get(i));
 					item.pickUpButton = new ImageButton(GShape.skin, "use");
 					item.pickUpButton.setSize(80, 80);
-					item.pickUpButton.setX(400);
+					item.pickUpButton.setX(380);
 					item.pickUpButton.setY(yPositionsForButton.get(i));
 					if(!(item instanceof WeaponItem)){
 						item.throwButton = new ImageButton(GShape.skin, "throw");
 						item.throwButton.setSize(80, 80);
-						item.throwButton.setX(460);
+						item.throwButton.setX(470);
 						item.throwButton.setY(yPositionsForButton.get(i));
 						item.throwButton.addListener(new ChangeListener() {
 						@Override
 							public void changed(ChangeEvent event, Actor actor) {
-								System.out.println("item: " + item);
+//								System.out.println("item: " + item);
 								item.parametersForThrowing(player);
 								for(Actor a: L1Renderer.stage.getActors()){
 									if(a.equals(item.pickUpButton)){
@@ -406,10 +406,15 @@ public class L1 {
 							
 							
 							// might be some issues with this
-							if(p.effect.equals(EffectCarriers.NONE) && !e.negativeEffectsState.equals(NegativeEffects.FADE_N) && p.state!=State.DESPAWNING){
+							if ((p.effect.equals(EffectCarriers.NONE) 
+									|| p.effect.equals(EffectCarriers.SHADOW))
+									&& !e.negativeEffectsState.equals(NegativeEffects.FADE_N)
+									&& p.state != State.DESPAWNING) {
 								e.damageType = "player";
 								e.hurt = true;
-								e.enemyHurt(random.nextInt((int) (player.maxDD-player.minDD))+player.minDD);
+								e.enemyHurt(random
+										.nextInt((int) (player.maxDD - player.minDD))
+										+ player.minDD);
 							}
 							
 							
@@ -418,7 +423,7 @@ public class L1 {
 								e.setNegativeEffect(NegativeEffects.POISONED);
 							}
 							if (p.effect == EffectCarriers.FADE) {
-								System.out.println("FADE PROJECTIL!~");
+//								System.out.println("FADE PROJECTIL!~");
 								e.setNegativeEffect(NegativeEffects.FADE_N);
 							}
 							if (p.effect == EffectCarriers.RADIOACTIVE) {
@@ -441,14 +446,12 @@ public class L1 {
 								e.setNegativeEffect(NegativeEffects.WEAKENED);
 							}
 							if (p.effect == EffectCarriers.ICE_CUBE) {
-//								for(Enemy e1 : L1.enemiesOnStage){
-									e.setNegativeEffect(NegativeEffects.STUN);
-//								}
+								e.setNegativeEffect(NegativeEffects.ICE);
 							}
 							if (p.effect == EffectCarriers.NUKE) {
 								Explosion explosion = new Explosion(pos, Explosion.EXPLOSION_TYPE_STANDART);
 								explosion.explCircle.setPosition(pos.x, pos.y);
-								System.out.println("pos: " + pos);
+//								System.out.println("pos: " + pos);
 								L1.explosions.add(explosion);
 							}
 							if (p.effect == EffectCarriers.POISON) {
@@ -476,6 +479,18 @@ public class L1 {
 								e.enemyHurt(random.nextInt((int) (player.maxDD-player.minDD))+player.minDD);
 								e.movementSpeed*=2;
 							}
+							if (p.effect == EffectCarriers.VAMPIRE) {
+								e.damageType = "player";
+								e.hurt = true;
+								float hurtEnemy = random.nextInt((int) (player.maxDD-player.minDD))+player.minDD;
+								e.enemyHurt(hurtEnemy);
+								if (L1.player.health + hurtEnemy >= Player.maxHealth){
+									L1.player.health = Player.maxHealth;
+								} else {
+									L1.player.health += hurtEnemy;									
+								}
+							}
+							
 							if (p.effect == EffectCarriers.EXTRADAMAGE_BY_TYPE 
 									&& ((L1.player.weapon.mod1.targetEnemy != null && this.getClass().equals(L1.player.weapon.mod1.targetEnemy.getClass())) 
 									|| (L1.player.weapon.mod1.targetEnemy != null && this.getClass().equals(L1.player.weapon.mod2.targetEnemy.getClass())))) {

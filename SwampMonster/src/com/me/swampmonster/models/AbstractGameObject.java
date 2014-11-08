@@ -24,6 +24,7 @@ public abstract class AbstractGameObject {
 		POISONED(300, new Sprite(Assets.manager.get(Assets.POISONEDNEGATIVEEFFECT_ICON))),
 				FEAR(300, new Sprite(Assets.manager.get(Assets.SCAREDNEGATIVEEFFECT_ICON))),
 				FROZEN(300, new Sprite(Assets.manager.get(Assets.FROZENNEGATIVEEFFECT_ICON))),
+				ICE(100, new Sprite(Assets.manager.get(Assets.STUNNEGATIVEEFFECT_ICON))),
 				STUN(100, new Sprite(Assets.manager.get(Assets.STUNNEGATIVEEFFECT_ICON))),
 				WEAKENED(200, new Sprite(Assets.manager.get(Assets.WEAKENED_ICON))),
 				FADE_N(200, new Sprite(Assets.manager.get(Assets.WEAKENED_ICON))),

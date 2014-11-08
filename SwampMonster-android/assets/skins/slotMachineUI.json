@@ -11,8 +11,9 @@
         "red": { "r": 1, "g": 0, "b": 0, "a": 1 }
     },
     "com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle": {
-        "default": { "font": title , "fontColor": red},
+        "default": { "font": title , "fontColor": black},
         "stats": { "font": stats},
+        "title": { "font": title , "fontColor": red},
     },
     com.badlogic.gdx.scenes.scene2d.ui.Window$WindowStyle: {
 	    default: { titleFont: "default", background: "slotMachineWindow",  titleFontColor: red },

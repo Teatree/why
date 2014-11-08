@@ -15,7 +15,6 @@ import com.me.swampmonster.models.Explosion;
 import com.me.swampmonster.models.L1;
 import com.me.swampmonster.models.Projectile;
 import com.me.swampmonster.models.Projectile.EffectCarriers;
-import com.me.swampmonster.models.items.wepMods.DamagePlayerMod;
 import com.me.swampmonster.models.items.wepMods.Modificator;
 import com.me.swampmonster.utils.Assets;
 
@@ -27,7 +26,7 @@ public class Weapon extends AbstractGameObject{
 	public int coolDown;
 	public int force;
 	public String name;
-	public Sprite weaponSprite;
+	public Sprite weaponDescSprite;
 	public Modificator mod1;
 	public Modificator mod2;
 	Random random = new Random();
@@ -39,7 +38,6 @@ public class Weapon extends AbstractGameObject{
 		
 		sprite = new Sprite(Assets.manager.get(Assets.wepBOW));
 		name = this.getClass().getSimpleName();
-		mod1 = new DamagePlayerMod();
 	}
 	
 	public void update(TiledMapTileLayer collisionLayer){
@@ -75,7 +73,7 @@ public class Weapon extends AbstractGameObject{
 			mod1.applyModificator(p);
 		} else {
 			int shouldApplyMod2 = random.nextInt(1000);
-			if (mod2 != null && shouldApplyMod2 < mod1.probability){
+			if (mod2 != null && shouldApplyMod2 < mod2.probability){
 				mod2.applyModificator(p);
 			}
 		}
@@ -150,6 +148,13 @@ public class Weapon extends AbstractGameObject{
 						p.position.y), Explosion.EXPLOSION_TYPE_INVERTED);
 				L1.explosions.add(expl);
 				L1.hasAtmosphere = false;
+				p.state = State.DEAD;
+			}
+			if (EffectCarriers.SHADOW.equals(p.effect) && 
+					(p.position.x <= 0 ||
+					p.position.x  + sprite.getWidth() >= TheController.collisionLayer.getWidth()*TheController.collisionLayer.getTileWidth() ||
+					p.position.y <= 0 ||
+					p.position.y + sprite.getHeight() >= TheController.collisionLayer.getHeight()*TheController.collisionLayer.getTileHeight())){
 				p.state = State.DEAD;
 			}
 			if (p != null && p.state == State.DEAD) {

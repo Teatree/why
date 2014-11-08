@@ -135,9 +135,9 @@ public class Player extends AbstractGameObject {
 		aimingAuraSprite.setSize(48, 48);
 		hurt = false;
 		aimingArea = new Circle();
-		aimingArea.radius = 8;
+//		aimingArea.radius = 8;
 		circle = new Circle();
-		circle.radius = 16;
+//		circle.radius = 16;
 		V3playerPos = new Vector3();
 		rectanlge = new Rectangle();
 //		projectiles = new LinkedList<Projectile>();
@@ -183,6 +183,7 @@ public class Player extends AbstractGameObject {
 		// allowedToShoot = true;
 		DEFAULT_MINIMUM_DAMAGE = weapon.minDD;
 		DEFAULT_MAXIMUM_DAMAGE = weapon.maxDD;
+		
 	}
 
 	public void characterStatsBoard() {
@@ -194,16 +195,24 @@ public class Player extends AbstractGameObject {
 				.getCurrentFrame());
 		sprite.setColor(1, 1, 1, 1);
 		shotDir = new Vector3();
-		sprite.setSize(sprite.getWidth() / 2, sprite.getHeight() / 2);
+//		sprite.setSize(sprite.getWidth() / 2, sprite.getHeight() / 2);
 		// :TODO IN ORDER TO CHANGE THIS, YOU GOT TO GET DOWN TO WHERE SHOOTIGN
 		// IS HAPPENING!
 		// shotCoolDown = 90;
 		state = State.STANDARD;
 		movementSpeed = STANDART_MOVEMENT_SPEED;
+		
+		// to make player bigger
+		sprite.setScale(1.3f);
+		bow.setScale(2f);
+		aimingAuraSprite.setScale(2f);
+		aimingArea.radius = aimingAuraSprite.getBoundingRectangle().width/2;
+		circle.radius = sprite.getBoundingRectangle().width/2; 
 	}
 
 	public void update(boolean aiming, Vector3 touchPos, Vector3 V3point,
 			TiledMapTileLayer collisionLayer, float dx, float dy) {
+		
 		minDD = weapon.minDD;
 		maxDD = weapon.maxDD;
 
@@ -218,11 +227,13 @@ public class Player extends AbstractGameObject {
 		oldPos.x = position.x;
 		oldPos.y = position.y;
 
-		circle.x = position.x + sprite.getWidth() / 2;
-		circle.y = position.y + sprite.getHeight() / 2;
+//		circle.x = position.x + sprite.getBoundingRectangle().width/2;
+//		circle.y = position.y + sprite.getBoundingRectangle().height/2;
+		circle.x = sprite.getBoundingRectangle().x + sprite.getBoundingRectangle().width/2;
+		circle.y = sprite.getBoundingRectangle().y + sprite.getBoundingRectangle().height/2;
 
-		aimingArea.x = position.x + sprite.getWidth() / 2;
-		aimingArea.y = position.y + sprite.getHeight() / 2;
+		aimingArea.x = aimingAuraSprite.getBoundingRectangle().x + aimingAuraSprite.getBoundingRectangle().width/2;
+		aimingArea.y = aimingAuraSprite.getBoundingRectangle().y + aimingAuraSprite.getBoundingRectangle().height/2;
 		// invalidSpawnArea.x = position.x + 8;
 		// invalidSpawnArea.y = position.y + 16;
 
@@ -239,8 +250,8 @@ public class Player extends AbstractGameObject {
 		rectanlge.height = sprite.getHeight()*sprite.getScaleY();
 		
 
-		aimingAuraSprite.setX(position.x - 9);
-		aimingAuraSprite.setY(position.y - 8);
+		aimingAuraSprite.setX(position.x - sprite.getBoundingRectangle().width/7);
+		aimingAuraSprite.setY(position.y - sprite.getBoundingRectangle().height/5);
 
 		weapon.update(collisionLayer);
 		
@@ -665,7 +676,7 @@ public class Player extends AbstractGameObject {
 		} else {
 			bow = new Sprite(bowFrames[2][0]);
 		}
-		bow.setPosition(position.x - 10, position.y);
+		bow.setPosition(position.x + Math.signum(getRotation(shotDir))*sprite.getBoundingRectangle().width/5, position.y);
 		bow.setRotation(getRotation(shotDir) * 57.29f);
 
 		// System.out.println(bow.getRotation());
@@ -739,8 +750,8 @@ public class Player extends AbstractGameObject {
 			radioactiveAura = new Circle(position.x + sprite.getWidth() / 2,
 					position.y + sprite.getHeight() / 2,
 					RADIOACTIVE.RADIOACTIVE_Radius);
-			System.out.println("radioactiveRadius: "
-					+ RADIOACTIVE.RADIOACTIVE_Radius);
+//			System.out.println("radioactiveRadius: "
+//					+ RADIOACTIVE.RADIOACTIVE_Radius);
 			positiveEffectsState = positiveEffect;
 //			positiveEffectCounter = positiveEffect.lifetime;
 			
@@ -1197,11 +1208,11 @@ public class Player extends AbstractGameObject {
 				trapTimer++;
 				if (trap.effect != null /* && trap.effect.isComplete() */) {
 					trap.position = null;
-					System.out.println("Player.java trap.position" + trap.position);
+//					System.out.println("Player.java trap.position" + trap.position);
 				}
 			} else {
 				trap.position = null;
-				System.out.println("Player.java trap.position2" + trap.position);
+//				System.out.println("Player.java trap.position2" + trap.position);
 				trapTimer = 0;
 			}
 		}

@@ -42,7 +42,7 @@ public class SlotDescWindow extends Dialog {
 		ImageButton noButton = new ImageButton(skin, "no");
 		Label text = new Label(slot.getDescription(), skin);
 		text.setWrap(true);
-		System.out.println(L1.player);
+//		System.out.println(L1.player);
 		for(String s: slot.getStats(L1.player)){
 			stats.add(new Label(s, skin, "stats"));
 		}
@@ -66,7 +66,7 @@ public class SlotDescWindow extends Dialog {
 		for(Label l: stats){
 			firstColumn.add(l).left().top().row();
 		}
-		System.out.println((float)(this.getHeight()));
+//		System.out.println((float)(this.getHeight()));
 		getContentTable().add(firstColumn).top();
 		
 		columnDefaults(1);
@@ -91,7 +91,7 @@ public class SlotDescWindow extends Dialog {
 	protected void result(Object object) {
 		if (object == "penis sandwich") {
 			SlotMachineScreen.yesWasJustPressed = true;
-			System.out.println("pressed it");
+//			System.out.println("pressed it");
 
 			if (slot instanceof Perks) {
 				slot.execute(L1.player);

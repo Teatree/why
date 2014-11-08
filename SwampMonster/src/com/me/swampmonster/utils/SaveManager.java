@@ -15,6 +15,7 @@ import com.me.swampmonster.game.TheController;
 import com.me.swampmonster.models.L1;
 import com.me.swampmonster.models.PlasmaShield;
 import com.me.swampmonster.models.Player;
+import com.me.swampmonster.models.items.Bow;
 import com.me.swampmonster.models.items.Weapon;
 import com.me.swampmonster.models.items.wepMods.Modificator;
 import com.me.swampmonster.models.slots.Arrows3;
@@ -119,7 +120,11 @@ public class SaveManager {
 	        player.oxygen = Player.maxOxygen;
 	        player.health = Player.maxHealth;
 	        try {
-				player.weapon = (Weapon) Class.forName(somPlayer.weaponClassName).newInstance();
+	        	if (somPlayer.weaponClassName != null){
+	        		player.weapon = (Weapon) Class.forName(somPlayer.weaponClassName).newInstance();
+	        	} else {
+	        		player.weapon = new Bow();
+	        	}
 				if (somPlayer.weaponMod1ClassName != null)
 				player.weapon.mod1 = (Modificator) Class.forName(somPlayer.weaponMod1ClassName).newInstance();
 				if (somPlayer.weaponMod2ClassName != null)
