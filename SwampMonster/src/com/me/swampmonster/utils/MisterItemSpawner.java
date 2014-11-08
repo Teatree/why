@@ -11,7 +11,6 @@ import com.me.swampmonster.models.Item;
 import com.me.swampmonster.models.Player;
 import com.me.swampmonster.models.Prop;
 import com.me.swampmonster.models.enemies.Enemy;
-import com.me.swampmonster.models.items.WeaponGenerator;
 
 public class MisterItemSpawner {
 
@@ -23,7 +22,7 @@ public class MisterItemSpawner {
 	static int mapHeight;
 	// static TiledMapTileLayer collisionLayer;
 	static ItemGenerator itemGenerator = new ItemGenerator();
-	WeaponGenerator weaponGenerator = new WeaponGenerator();
+//	WeaponGenerator weaponGenerator = new WeaponGenerator();
 	
 	Item item;
 	int spawnRate;

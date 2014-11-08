@@ -13,7 +13,7 @@ public class StunEnemyMod extends Modificator{
 
 	@Override
 	public void applyModificator(Projectile prj) {
-		prj.effect = EffectCarriers.SPEEDUP_ENEMY;
+		prj.effect = EffectCarriers.STUN_ENEMY;
 		System.out.println("mod: " + this.getClass().getSimpleName());
 	}
 	

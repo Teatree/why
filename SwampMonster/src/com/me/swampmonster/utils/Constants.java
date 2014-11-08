@@ -557,10 +557,10 @@ public class Constants {
 	public static final int RADIOACTIVE_LifeTime_L4 = 900;
 	public static final int RADIOACTIVE_LifeTime_L5 = 1200;
 
-	public static final float RADIOACTIVE_Radius_L1 = 16;
-	public static final float RADIOACTIVE_Radius_L2 = 20;
-	public static final float RADIOACTIVE_Radius_L3 = 20;
-	public static final float RADIOACTIVE_Radius_L4 = 24;
+	public static final float RADIOACTIVE_Radius_L1 = 23;
+	public static final float RADIOACTIVE_Radius_L2 = 25;
+	public static final float RADIOACTIVE_Radius_L3 = 25;
+	public static final float RADIOACTIVE_Radius_L4 = 26;
 	public static final float RADIOACTIVE_Radius_L5 = 30;
 
 	public static final String RADIOACTIVE_Description_L1 = "Sup, name is RADIOACTIVE Aura Level 1!";

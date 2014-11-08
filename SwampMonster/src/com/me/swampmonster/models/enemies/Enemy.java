@@ -232,8 +232,12 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 			target = player.position;
 		}
 		
-		if(negativeEffectsState != NegativeEffects.STUN){
+		if(negativeEffectsState != NegativeEffects.ICE){
 			iceCube = null;
+		} else {
+			iceCube.setSize(sprite.getBoundingRectangle().width, sprite.getBoundingRectangle().height);
+			iceCube.setX(sprite.getX());
+			iceCube.setY(sprite.getY());
 		}
 		if (negativeEffectsState != NegativeEffects.FEAR) {
 			enemyDx = target.x - position.x;
@@ -309,8 +313,8 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 
 		// PURSUIT!
 		if (!hurt ||(damageType != null && (damageType.equals("turret") || damageType.equals("poison")))) {
-			if (state.equals(State.PURSUIT)  && negativeEffectsState != NegativeEffects.STUN) {
-				
+			if (state.equals(State.PURSUIT)  && negativeEffectsState != NegativeEffects.STUN 
+					&& negativeEffectsState != NegativeEffects.ICE) {
 
 				sprite.setRegion(animations.get(state).getCurrentFrame());
 
@@ -346,7 +350,8 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 		}
 
 		// THIS IS STANDARD!
-		if (state.equals(State.STANDARD) && !aiming && negativeEffectsState != NegativeEffects.STUN) {
+		if (state.equals(State.STANDARD) && !aiming && negativeEffectsState != NegativeEffects.ICE 
+				&& negativeEffectsState != NegativeEffects.STUN) {
 			sprite.setRegion(animations.get(state).getCurrentFrame());
 			sprite.setBounds(sprite.getX(), sprite.getY(), 32, 32);
 				if (timer == 0 && timer2 == 0
@@ -457,12 +462,12 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 					if (cL == null && getDx() <= 0 ||
 							cR == null && getDx() > 0){
 //						position.x += 0.2f;
-						position.x += damage_dx * damagePushForce/10;
+						position.x += damage_dx * damagePushForce/23;
 					} 
 					if (cD == null && getDy() < 0 
 							|| cU == null && getDy() >= 0){
 //						position.y += 0.2f;
-						position.y += damage_dy * damagePushForce/10;
+						position.y += damage_dy * damagePushForce/23;
 					}
 									
 //					collidableUp = collisionCheckerTop(collisionLayer, enemies);
@@ -1291,6 +1296,17 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 				iceCube.setSize(sprite.getBoundingRectangle().width, sprite.getBoundingRectangle().height);
 				iceCube.setX(sprite.getX());
 				iceCube.setY(sprite.getY());
+			}
+			radioactiveAura = null;
+			break;
+		case STUN:
+			if (negativeEffectsState != NegativeEffects.STUN && negativeEffectsState != NegativeEffects.ICE) {
+				negativeEffectsState = negativeEffect;
+				negativeEffectTimer = NegativeEffects.STUN.lifetime;
+			} else {
+				damageType = "player";
+				hurt = true;
+				enemyHurt(random.nextInt((int) (L1.player.maxDD - L1.player.minDD)) + L1.player.minDD);
 			}
 			radioactiveAura = null;
 			break;

@@ -46,7 +46,7 @@ public class ItemGenerator {
 	}
 	
 	private static enum Items{
-		p0_500(2, 8),
+		p0_500(2, 12),
 		p500_1500(2, 10),
 		p1500_3000(2, 11),
 		p3000_plus(2, 12);
@@ -81,8 +81,8 @@ public class ItemGenerator {
 		Item resulItem = generateItem(playersScore);
 		return resulItem;
 	}
+	
 	public Item getWeaponItem(int playersScore){
-		
 		WeaponItem resulItem = new WeaponItem();
 		resulItem.weapon = wepGenerator.generateSpecialWep(playersScore);
 		return resulItem;
@@ -95,8 +95,8 @@ public class ItemGenerator {
 				+ itEmsTypes.minItemGenerate;
 		Item item = null;
 		try {
-//			Class<? extends Item> itemClass = items.get(number);
-			Class<? extends Item> itemClass = HASTE.class;
+			Class<? extends Item> itemClass = items.get(number);
+//			Class<? extends Item> itemClass = ICE_THING.class;
 			int randomTextureNumber;
 			if (itemClass.getDeclaredField("poisonSprite").get(null) == null) {
 				randomTextureNumber = random.nextInt(poisonTextures.size());
@@ -128,7 +128,7 @@ public class ItemGenerator {
 		int probability = random.nextInt(100);
 		if (probability < 40){
 			return getPlainItem(playersScore);
-		} else if (probability >= 40 && probability <=70){
+		} else if (probability >= 40 && probability <=80){
 			return generateSpecialItem(playersScore);
 		} else {
 			return getWeaponItem(playersScore);

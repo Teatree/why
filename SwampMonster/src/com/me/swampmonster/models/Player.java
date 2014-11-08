@@ -402,7 +402,7 @@ public class Player extends AbstractGameObject {
 			if (e.sprite.getBoundingRectangle().overlaps(
 					this.sprite.getBoundingRectangle())) {
 
-				if (e.negativeEffectsState == NegativeEffects.STUN) {
+				if (e.negativeEffectsState == NegativeEffects.ICE) {
 					Collidable cL = CollisionHelper.isCollidable(e.position.x,
 							e.position.y + e.sprite.getHeight() / 2,
 							collisionLayer);
@@ -419,13 +419,11 @@ public class Player extends AbstractGameObject {
 							collisionLayer);
 
 					if (cL == null && edx <= 0 || cR == null && edx > 0) {
-						e.position.x += edx / 2 /** movementSpeed*4 */
-						;
+						e.position.x += edx / 2 /** movementSpeed*4 */;
 						e.iceCube.setX(e.position.x);
 					}
 					if (cD == null && edy <= 0 || cU == null && edy > 0) {
-						e.position.y += edy / 2 /** movementSpeed*4 */
-						;
+						e.position.y += edy / 2 /** movementSpeed*4 */;
 						e.iceCube.setY(e.position.y);
 					}
 				}

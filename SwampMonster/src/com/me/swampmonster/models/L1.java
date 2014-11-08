@@ -458,6 +458,11 @@ public class L1 {
 								e.setNegativeEffect(NegativeEffects.POISONED);
 							}
 							
+							if (p.effect == EffectCarriers.STUN_ENEMY) {
+								e.setNegativeEffect(NegativeEffects.STUN);
+							}
+							
+							
 							//Modificators
 							if (p.effect == EffectCarriers.ENEMY_BLEED) {
 								e.damageType = "player";

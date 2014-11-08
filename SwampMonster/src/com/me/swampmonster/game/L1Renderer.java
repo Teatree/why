@@ -434,8 +434,7 @@ public class L1Renderer {
 			if (enemy.negativeEffectsState == NegativeEffects.STUN
 					&& enemy.state != State.DEAD){ 
 				batch.draw(enemy.effectCarrier, enemy.position.x + 5,
-						enemy.position.y + enemy.sprite.getHeight() - 6,
-						25, 25);
+						enemy.position.y + enemy.sprite.getHeight() - 6, 25, 25);
 			}
 			
 		}		

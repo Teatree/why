@@ -77,7 +77,7 @@ public class GShape extends Group {
 			weaponizer = new Weaponizer();
 		}
 		slotMachineButton = new ImageButton(skin, "yes");
-		slotMachineButton.debug();
+//		slotMachineButton.debug();
 		slotMachineButton.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
@@ -493,7 +493,7 @@ public class GShape extends Group {
 			ourTable.add(shot_arrows).top().row();
 			
 			getContentTable().add(ourTable);
-			getButtonTable().debug();
+//			getButtonTable().debug();
 			
 			button(ok, "Nastya");
 			getButtonTable().getCell(ok).padLeft(23);
