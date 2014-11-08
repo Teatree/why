@@ -693,7 +693,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 						player.hurt = true;
 						player.damage_dx = player.position.x - position.x;
 						player.damage_dy = player.position.y - position.y;
-						float length1 = (float) Math.sqrt(damage_dx * damage_dx + damage_dy * damage_dy);
+						float length1 = (float) Math.sqrt(damage_dx * damage_dx/4 + damage_dy * damage_dy/4);
 						player.damage_dx /= length1;
 						player.damage_dy /= length1;
 						if(player.negativeEffectsState == NegativeEffects.WEAKENED){

@@ -51,8 +51,8 @@ public class EnemyMaggot extends Enemy {
 		maxHealth = 3;
 		minDamage = 1;
 		maxDamage = 2;
-		minSpeed = 7;
-		maxSpeed = 12;
+		minSpeed = 6;
+		maxSpeed = 10;
 		health = random.nextInt(maxHealth - minHealth) + minHealth;
 		damage = random.nextInt(maxDamage - minDamage) + minDamage;
 		movementSpeed = (float)(((float)(random.nextInt(maxSpeed - minSpeed) + minSpeed))/10);

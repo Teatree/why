@@ -442,6 +442,8 @@ public class GShape extends Group {
 		private String[] WittySuffocationMessages;
 		private String[] WittyPoisonMessages;
 		
+		
+		
 		private ImageButton ok;
 		private ImageButton ad;
 		

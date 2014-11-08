@@ -6,6 +6,10 @@ import com.me.swampmonster.models.Projectile;
 
 public class DamagePlayerMod extends Modificator{
 	
+	private int damage_dx;
+	private int damage_dy;
+
+
 	public DamagePlayerMod() {
 		setInfo();
 		probability = 900;

@@ -861,14 +861,14 @@ public class Player extends AbstractGameObject {
 		if (cL == null && getDx() <= 0 ||
 				cR == null && getDx() > 0){
 //			position.x += 0.2f;
-			position.x += damage_dx * damagePushForce/15;
-			touchPos.x += damage_dx * damagePushForce/15;
+			position.x += damage_dx * damagePushForce/25;
+			touchPos.x += damage_dx * damagePushForce/25;
 		} 
 		if (cD == null && getDy() < 0 
 				|| cU == null && getDy()  >= 0){
 //			position.y += 0.2f;
-			position.y += damage_dy * damagePushForce/15;
-			touchPos.y += damage_dy * damagePushForce/15;
+			position.y += damage_dy * damagePushForce/25;
+			touchPos.y += damage_dy * damagePushForce/25;
 		}
 		
 //		damagedFromTop(collidableUp, enemy, touchPos);
@@ -1157,7 +1157,7 @@ public class Player extends AbstractGameObject {
 		return (float) (angle2 - angle1);
 	}
 
-	private void painLogic() {
+	public void painLogic() {
 		if (timer2 > 0) {
 			damageTypeOxygen = "lackOfOxygen";
 			hurt();

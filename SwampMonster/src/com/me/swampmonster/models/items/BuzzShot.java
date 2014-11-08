@@ -7,7 +7,7 @@ public class BuzzShot extends Weapon{
 
 	public BuzzShot() {
 		super();
-		weaponDescSprite = new Sprite(Assets.manager.get(Assets.bowDesc));
+		weaponDescSprite = new Sprite(Assets.manager.get(Assets.buzzDesc));
 	}
 
 }

@@ -3,6 +3,7 @@ package com.me.swampmonster.models;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
@@ -31,6 +32,7 @@ public class ProjectileHydra extends Projectile {
 
 	private Vector2 target;
 	private List<ProjectileHydra> miniHydras = new ArrayList<ProjectileHydra>();
+	private Random random = new Random();
 
 	public static float damage;
 	
@@ -108,7 +110,9 @@ public class ProjectileHydra extends Projectile {
 			for (Enemy e : L1.enemiesOnStage) {
 				if (Intersector.overlaps(this.circle, e.sprite.getBoundingRectangle())
 						&& !e.injuredByHydra && e.state != State.DEAD) {
-					e.health--;
+					e.damageType = "player";
+					e.hurt = true;
+					e.enemyHurt((random).nextInt((int)(L1.player.maxDD-L1.player.minDD))+L1.player.minDD);
 					state = State.DESPAWNING;
 					musltiplyCounter--;
 					if (musltiplyCounter >= 0) {

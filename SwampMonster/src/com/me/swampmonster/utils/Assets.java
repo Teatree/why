@@ -132,6 +132,7 @@ public class Assets {
 	public static final AssetDescriptor<Texture> slingShotDesc = new AssetDescriptor<Texture>("data\\weaponUI\\SlingShotDescImage.png", Texture.class);
 	public static final AssetDescriptor<Texture> spearDesc = new AssetDescriptor<Texture>("data\\weaponUI\\SpearDescImage.png", Texture.class);
 	public static final AssetDescriptor<Texture> crossBowDesc = new AssetDescriptor<Texture>("data\\weaponUI\\CrossbowDescImage.png", Texture.class);
+	public static final AssetDescriptor<Texture> buzzDesc = new AssetDescriptor<Texture>("data\\weaponUI\\BuZZDescImage.png", Texture.class);
 	
 	public static void load(){
 		manager.load(menuBackgroundMusic);
@@ -227,6 +228,7 @@ public class Assets {
 		manager.load(crossBowDesc);
 		manager.load(slingShotDesc);
 		manager.load(spearDesc);
+		manager.load(buzzDesc);
 		
 		manager.setLoader(BitmapFont.class, new BitmapFontLoader(new InternalFileHandleResolver()));
 		manager.load(font);
