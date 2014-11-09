@@ -10,6 +10,7 @@ public class ExtraDamageToEnemyTypeMod extends Modificator{
 	public ExtraDamageToEnemyTypeMod() {
 		super();
 		setInfo();
+		name = "Slayer's";
 	}
 
 	@Override

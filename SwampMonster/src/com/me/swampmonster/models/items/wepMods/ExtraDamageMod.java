@@ -9,6 +9,7 @@ public class ExtraDamageMod extends Modificator{
 	public ExtraDamageMod() {
 		super();
 		setInfo();
+		name = "Warrior's";
 	}
 
 	@Override

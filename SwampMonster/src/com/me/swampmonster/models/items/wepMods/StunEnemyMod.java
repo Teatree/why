@@ -9,6 +9,7 @@ public class StunEnemyMod extends Modificator{
 	public StunEnemyMod() {
 		super();
 		setInfo();
+		name = "Stunning";
 	}
 
 	@Override

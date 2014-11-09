@@ -9,6 +9,7 @@ public class StunPlayerMod extends Modificator{
 	public StunPlayerMod() {
 		super();
 		setInfo();
+		name = "Bashing";
 	}
 
 	@Override

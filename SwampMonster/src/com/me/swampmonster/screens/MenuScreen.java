@@ -122,7 +122,7 @@ public class MenuScreen extends AbstractGameScreen{
 		});
 		
 		table.add(playButton).size(150,60).padBottom(20).right().row().right();
-//		showTutorialButton = true;
+		showTutorialButton = true;
 		if(showTutorialButton){
 			tutorialButton = new TextButton(Constants.TUTORIAL, skin);
 			tutorialButton.addListener(new ClickListener(){

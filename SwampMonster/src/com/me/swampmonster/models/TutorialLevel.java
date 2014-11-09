@@ -4,10 +4,17 @@ import java.util.ArrayList;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.me.swampmonster.animations.AnimationControl;
+import com.me.swampmonster.game.GShape;
+import com.me.swampmonster.game.L1Renderer;
 import com.me.swampmonster.game.TheController;
 import com.me.swampmonster.screens.MenuScreen;
 import com.me.swampmonster.utils.Assets;
@@ -24,7 +31,10 @@ public class TutorialLevel extends L1 {
 	private AnimationControl aControl;
 	static int fingerAnimCounter;
 	public static boolean animating;
-	
+	public Table windowForText;
+	public Label tutText;
+	public Image dudesFace;
+	public Label goalText;
 	
 	public TutorialLevel(String tileSet, String tileMap) {
 		super(tileSet, tileMap, false);
@@ -32,6 +42,8 @@ public class TutorialLevel extends L1 {
 		Player.shootingSwitch = false;
 		step = 1;
 		aControl = new AnimationControl(Assets.manager.get(Assets.moveHere), 4, 1, 2);
+		dudesFace = new Image(Assets.manager.get(Assets.dudeFace));
+		windowForText = new Table();
 	}
 	
 	public void update(boolean aiming, Vector3 touchPos, Vector3 V3point,
@@ -67,6 +79,22 @@ public class TutorialLevel extends L1 {
 		}
 		if(step == 3){
 			TheController.pausedTutorial = true;
+			for(Actor a : L1Renderer.stage.getActors()){
+				if(a.equals(windowForText)){
+					a.remove();
+				}
+			}
+			tutText = new Label(
+					"To walk simply tap where to go and the merc will go there",
+					GShape.skin, "white");
+			tutText.setWrap(true);
+			windowForText = new Table();
+			windowForText.setX(dudesFace.getX()+110);
+			windowForText.setY(dudesFace.getY()+10);
+			windowForText.setWidth(205);
+			windowForText.setHeight(95);
+			windowForText.add(tutText).height(100).width(205);
+			L1Renderer.stage.addActor(windowForText);
 			System.out.println("drawing Text 3");
 		}
 		if(step == 2){
@@ -76,10 +104,43 @@ public class TutorialLevel extends L1 {
 			greenArrow.setSize(64, 64);
 			greenArrow.rotate(45);
 			TheController.pausedTutorial = true;
+			for(Actor a : L1Renderer.stage.getActors()){
+				if(a.equals(windowForText)){
+					a.remove();
+				}
+			}
+			tutText = new Label(
+					"These two bars represent your HEALTH and your OXYGEN level. ",
+					GShape.skin, "white");
+			tutText.setWrap(true);
+			windowForText = new Table();
+			windowForText.setX(dudesFace.getX()+110);
+			windowForText.setY(dudesFace.getY()+10);
+			windowForText.setWidth(205);
+			windowForText.setHeight(95);
+			windowForText.add(tutText).height(100).width(205);
+			L1Renderer.stage.addActor(windowForText);
 			System.out.println("drawing Text 2");
 		}
 		if(step == 1){
 			TheController.pausedTutorial = true;
+			dudesFace.setX(450);
+			dudesFace.setY(30);
+			dudesFace.setScale(0.5f);
+			tutText = new Label(
+					"Hello and welcome to the tutorial level, I am going to be your guide. [Tap to continue]",
+					GShape.skin, "white");
+			tutText.setWrap(true);
+			windowForText = new Table();
+			windowForText.setX(dudesFace.getX()+110);
+			windowForText.setY(dudesFace.getY()+10);
+			windowForText.setWidth(205);
+			windowForText.setHeight(95);
+			windowForText.add(tutText).height(100).width(205);
+			L1Renderer.stage.addActor(dudesFace);
+			L1Renderer.stage.addActor(windowForText);
+			windowForText.debug();
+			dudesFace.debug();
 			System.out.println("drawing Text 1");
 		}
 		

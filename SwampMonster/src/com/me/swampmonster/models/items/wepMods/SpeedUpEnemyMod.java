@@ -9,6 +9,7 @@ public class SpeedUpEnemyMod extends Modificator{
 	public SpeedUpEnemyMod() {
 		super();
 		setInfo();
+		name = "Wailing";
 	}
 
 	@Override

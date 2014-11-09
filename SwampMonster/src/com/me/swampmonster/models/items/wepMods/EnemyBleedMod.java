@@ -9,6 +9,7 @@ public class EnemyBleedMod extends Modificator{
 	public EnemyBleedMod() {
 		super();
 		setInfo();
+		name = "Fine";
 	}
 
 	@Override

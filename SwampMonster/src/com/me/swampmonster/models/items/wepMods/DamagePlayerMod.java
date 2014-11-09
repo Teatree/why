@@ -13,6 +13,7 @@ public class DamagePlayerMod extends Modificator{
 	public DamagePlayerMod() {
 		setInfo();
 		probability = 900;
+		name = "Dangerous";
 	}
 	
 	

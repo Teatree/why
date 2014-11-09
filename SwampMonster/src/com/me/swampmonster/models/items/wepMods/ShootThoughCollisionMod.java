@@ -9,6 +9,7 @@ public class ShootThoughCollisionMod extends Modificator{
 	public ShootThoughCollisionMod() {
 		super();
 		setInfo();
+		name = "Ghost's";
 	}
 
 	@Override

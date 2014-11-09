@@ -9,6 +9,7 @@ public class HealEnemyMod extends Modificator{
 	public HealEnemyMod() {
 		super();
 		setInfo();
+		name = "Tricky";
 	}
 
 	@Override

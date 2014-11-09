@@ -41,6 +41,7 @@ public class Assets {
 	public static final AssetDescriptor<Texture> moveHere = new AssetDescriptor<Texture>("data\\tutorialStuff\\moveHere.png", Texture.class);
 	public static final AssetDescriptor<Texture> aFinger = new AssetDescriptor<Texture>("data\\tutorialStuff\\aGoodLookingFinger.png", Texture.class);
 	public static final AssetDescriptor<Texture> greenPointerArrow = new AssetDescriptor<Texture>("data\\tutorialStuff\\greenPointerArrow.png", Texture.class);
+	public static final AssetDescriptor<Texture> dudeFace = new AssetDescriptor<Texture>("data\\tutorialStuff\\dudesFaceWindow.png", Texture.class);
 	
 	//props
 	public static final AssetDescriptor<Texture> propExplosiveBarrel = new AssetDescriptor<Texture>("data\\propBarrelAnimation.png", Texture.class);
@@ -143,6 +144,7 @@ public class Assets {
 		manager.load(bow);
 		manager.load(aimingAuraSprite);
 		manager.load(greenPointerArrow);
+		manager.load(dudeFace);
 		manager.load(enemy);
 		manager.load(aFinger);
 		manager.load(plasmaShield);

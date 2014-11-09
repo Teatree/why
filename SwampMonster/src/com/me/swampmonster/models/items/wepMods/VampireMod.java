@@ -9,6 +9,7 @@ public class VampireMod extends Modificator{
 	public VampireMod() {
 		super();
 		setInfo();
+		name = "Vampire's";
 	}
 
 	@Override

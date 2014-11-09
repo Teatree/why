@@ -91,8 +91,8 @@ public class TheController extends InputAdapter {
 	public void init(Player player) {
 		Gdx.input.setInputProcessor(this);
 		if(MenuScreen.lessBytes == 1 && !MenuScreen.showTutorialButton){
-//			level1 = LGenerator.createTutorialLevel();
-			level1 = LGenerator.createLevel(player);
+			level1 = LGenerator.createTutorialLevel();
+//			level1 = LGenerator.createLevel(player);
 		}else if (MenuScreen.lessBytes == 1 && MenuScreen.showTutorialButton){
 			level1 = LGenerator.createLevel(player);
 			Player.shootingSwitch = true;
