@@ -89,7 +89,7 @@ public class L1Renderer {
 		gshape = new GShape(theController);
 		stage.addActor(gshape);
 		Gdx.input.setInputProcessor(stage);
-
+		
 		timer = 60;
 
 		// effect = new ParticleEffect();
@@ -154,6 +154,7 @@ public class L1Renderer {
 					L1.player.bow.getRotation());
 		}
 		// temporary drawing of a projectile
+		
 
 		for (Enemy enemy : L1.enemiesOnStage) {
 //			fontss.setColor(Color.GREEN);
@@ -458,7 +459,7 @@ public class L1Renderer {
 			batch.draw(TutorialLevel.movehere, TutorialLevel.movehere.getX(),
 					TutorialLevel.movehere.getY());
 		}
-
+		
 		batch.end();
 
 		// Temporary deBug feature
@@ -631,6 +632,15 @@ public class L1Renderer {
 		batch.end();
 		stage.act();
 		stage.draw();
+		batch.begin();
+		if(L1.player.bow != null && TutorialLevel.step == 8 || TutorialLevel.step == 9){
+			batch.draw(L1.player.bow, L1.player.bow.getX(),
+					L1.player.bow.getY(), L1.player.bow.getOriginX(),
+					L1.player.bow.getOriginY(), L1.player.bow.getWidth()*2,
+					L1.player.bow.getHeight()*2, 1, 1,
+					L1.player.bow.getRotation());
+		}
+		batch.end();
 	}
 
 	public void warningFlicker(ShapeRenderer Sr) {

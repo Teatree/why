@@ -163,9 +163,9 @@ public class LGenerator {
 		Wave wave = new Wave();
 		wave.enemies = new Stack<Enemy>();
 		wave.enemiesOnBattleField = 3;
-		wave.enemies.push(new EnemyMaggot(new Vector2(1520,944)));
+//		wave.enemies.push(new EnemyMaggot(new Vector2(1520,944)));
 		wave.enemies.push(new EnemyZombie(new Vector2(1560, 944)));
-		wave.enemies.push(new EnemyLeech(new Vector2(1610, 944)));
+//		wave.enemies.push(new EnemyLeech(new Vector2(1610, 944)));
 		tutorialLevel.wave = wave;
 		L1.enemiesOnStage = wave.enemies;
 		tutorialLevel.wave.enemies = new Stack<Enemy>();
