@@ -31,9 +31,10 @@ public class WeaponItem extends Item{
 //		player.weapon = this.weapon;
 		TheController.showWeaponInv = true;
 		GShape.weaponDialog = new WeaponUIWindow("statuk'", GShape.skin, weapon);
-		GShape.weaponDialog.setSize(400, 300);
-		GShape.weaponDialog.setX(220);
-		GShape.weaponDialog.setY(150);
+		GShape.weaponDialog.setSize(300, 350);
+		GShape.weaponDialog.setX(270);
+		GShape.weaponDialog.setY(100);
+		GShape.weaponDialog.debug();
 		TheController.paused = true;
 //		System.out.println("player weapon stats: type:"
 //				+ player.weapon.getClass().getSimpleName() + " attack: "

@@ -203,9 +203,7 @@ public class Player extends AbstractGameObject {
 		movementSpeed = STANDART_MOVEMENT_SPEED;
 		
 		// to make player bigger
-		sprite.setScale(1.3f);
 		bow.setScale(2f);
-		aimingAuraSprite.setScale(2f);
 		aimingArea.radius = aimingAuraSprite.getBoundingRectangle().width/2;
 		circle.radius = sprite.getBoundingRectangle().width/2; 
 	}
@@ -250,8 +248,14 @@ public class Player extends AbstractGameObject {
 		rectanlge.height = sprite.getHeight()*sprite.getScaleY();
 		
 
-		aimingAuraSprite.setX(position.x - sprite.getBoundingRectangle().width/7);
-		aimingAuraSprite.setY(position.y - sprite.getBoundingRectangle().height/5);
+		aimingAuraSprite
+				.setX((sprite.getX() - (aimingAuraSprite.getWidth() - sprite
+						.getWidth()) / 4)+3);
+		aimingAuraSprite
+				.setY((sprite.getY() - (aimingAuraSprite.getHeight() - sprite
+						.getHeight()) / 4)+3);
+		aimingAuraSprite.setScale(2f);
+		sprite.setScale(1.3f);
 
 		weapon.update(collisionLayer);
 		

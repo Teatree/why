@@ -57,6 +57,16 @@ public class TutorialLevel extends L1 {
 		
 		
 		if(step == 10){
+			for(Actor a : L1Renderer.stage.getActors()){
+				if(a.equals(windowForText)){
+					a.remove();
+				}
+			}
+			for(Actor a : L1Renderer.stage.getActors()){
+				if(a.equals(dudesFace)){
+					a.remove();
+				}
+			}
 			aFingure = null;
 			Player.shootingSwitch = true;
 		}

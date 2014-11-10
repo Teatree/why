@@ -124,7 +124,17 @@ public class Weapon extends AbstractGameObject{
 		
 	}
 	
-	
+	public String getName(){
+		String resultName; 
+		if(mod1!=null){
+			resultName = mod1.name + " " + this.name;
+		}else if(mod2!=null){
+			resultName = mod2.name + " " + this.name;
+		}else{
+			resultName = this.name;
+		}
+		return resultName;
+	}
 	private void updateProjectiles(TiledMapTileLayer collisionLayer) {
 		Iterator<Projectile> prj = projectiles.iterator();
 		while (prj.hasNext()) {
