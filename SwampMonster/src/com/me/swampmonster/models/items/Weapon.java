@@ -38,6 +38,7 @@ public class Weapon extends AbstractGameObject{
 		
 		sprite = new Sprite(Assets.manager.get(Assets.wepBOW));
 		name = this.getClass().getSimpleName();
+		
 	}
 	
 	public void update(TiledMapTileLayer collisionLayer){

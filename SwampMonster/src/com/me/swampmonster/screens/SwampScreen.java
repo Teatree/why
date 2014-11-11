@@ -4,8 +4,11 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.math.Vector2;
 import com.me.swampmonster.game.L1Renderer;
 import com.me.swampmonster.game.TheController;
+import com.me.swampmonster.models.Player;
+import com.me.swampmonster.utils.SaveManager;
 import com.me.swampmonster.utils.ScreenContainer;
 
 public class SwampScreen extends AbstractGameScreen  implements Screen {
@@ -16,6 +19,12 @@ public class SwampScreen extends AbstractGameScreen  implements Screen {
 	
 	public SwampScreen(Game game){
 		super(game);
+		
+		player = SaveManager.loadPlayer();
+		if (player == null) {
+			System.out.println("newPlayer4");
+			player = new Player(new Vector2());
+		} 
 	}
 	
 	@Override

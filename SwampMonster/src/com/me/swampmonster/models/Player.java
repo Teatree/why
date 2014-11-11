@@ -113,7 +113,8 @@ public class Player extends AbstractGameObject {
 		maxOxygen = DEFAULT_MAX_O2;
 		maxHealth = DEFAULT_MAX_HEALTH;
 		arrowMovementSpeed = DEFAULT_ARROW_MOVEMENT_SPEED;
-
+		
+		System.out.println("plaeyr");
 		weapon = new Bow();
 		levelsScore = absoluteScore;
 		state = State.STANDARD;

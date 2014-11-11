@@ -10,7 +10,9 @@ import com.me.swampmonster.models.AbstractGameObject;
 import com.me.swampmonster.models.Item;
 import com.me.swampmonster.models.Player;
 import com.me.swampmonster.models.Prop;
+import com.me.swampmonster.models.TutorialLevel;
 import com.me.swampmonster.models.enemies.Enemy;
+import com.me.swampmonster.models.items.Oxygen;
 
 public class MisterItemSpawner {
 
@@ -22,49 +24,54 @@ public class MisterItemSpawner {
 	static int mapHeight;
 	// static TiledMapTileLayer collisionLayer;
 	static ItemGenerator itemGenerator = new ItemGenerator();
-//	WeaponGenerator weaponGenerator = new WeaponGenerator();
-	
+	// WeaponGenerator weaponGenerator = new WeaponGenerator();
+
 	Item item;
 	int spawnRate;
 
 	public Item spawnItem(Player player, Enemy enmy) {
-//		spawnRate = itemGenerator.generateSpawnRate(Player.levelsScore);
-
-		int haveItem =0;
-
-		if (enmy.toughness != null) {
-			haveItem = random.nextInt(102);
+		// spawnRate = itemGenerator.generateSpawnRate(Player.levelsScore);
+		if (TutorialLevel.step == 12) {
+			item = new Oxygen();
 		} else {
-			haveItem = random.nextInt(100);
-		}
 
-		// if (haveIitem < 100) {
-		if (haveItem > 10){
-		 if (player.oxygen <= 13) {
-		 item = itemGenerator.getMoreLikelyOxugenItem(Player.absoluteScore);
-		 } else {
-			 item = itemGenerator.getItem(Player.absoluteScore);
-//			 item = itemGenerator.generateSpecialItem(Player.absoluteScore);
-		 }
-		} else {
-			 return null;
-		}
-			item.position = new Vector2(enmy.position);
-			mapWith = (int) TheController.collisionLayer.getTileWidth()
-					* TheController.collisionLayer.getWidth();
-			mapHeight = (int) TheController.collisionLayer.getTileHeight()
-					* TheController.collisionLayer.getHeight();
-	
-			setItemTargetPos(item, player, enmy);
-	
-			while (!isValidTargetPosition(item, player)) {
-				setItemTargetPos(item, player, enmy);
+			int haveItem = 0;
+
+			if (enmy.toughness != null) {
+				haveItem = random.nextInt(102);
+			} else {
+				haveItem = random.nextInt(100);
 			}
-			return item;
+			// if (haveIitem < 100) {
+			if (haveItem > 10) {
+				if (player.oxygen <= 13) {
+					item = itemGenerator
+							.getMoreLikelyOxugenItem(Player.absoluteScore);
+				} else {
+					item = itemGenerator.getItem(Player.absoluteScore);
+					// item =
+					// itemGenerator.generateSpecialItem(Player.absoluteScore);
+				}
+			} else {
+				return null;
+			}
 		}
+		item.position = new Vector2(enmy.position);
+		mapWith = (int) TheController.collisionLayer.getTileWidth()
+				* TheController.collisionLayer.getWidth();
+		mapHeight = (int) TheController.collisionLayer.getTileHeight()
+				* TheController.collisionLayer.getHeight();
+
+		setItemTargetPos(item, player, enmy);
+
+		while (!isValidTargetPosition(item, player)) {
+			setItemTargetPos(item, player, enmy);
+		}
+		return item;
+	}
 
 	public static Item spawnPropsItem(Player player, Prop prop) {
-//		ItemGenerator itemGenerator = new ItemGenerator();
+		// ItemGenerator itemGenerator = new ItemGenerator();
 		Item item;
 		item = itemGenerator.getItem(Player.absoluteScore);
 		if (item != null) {

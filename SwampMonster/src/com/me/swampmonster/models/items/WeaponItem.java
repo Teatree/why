@@ -30,7 +30,7 @@ public class WeaponItem extends Item{
 	public void pickMeUp(Player player) {
 //		player.weapon = this.weapon;
 		TheController.showWeaponInv = true;
-		GShape.weaponDialog = new WeaponUIWindow("statuk'", GShape.skin, weapon);
+		GShape.weaponDialog = new WeaponUIWindow("statuk'", GShape.skin, this);
 		GShape.weaponDialog.setSize(300, 350);
 		GShape.weaponDialog.setX(270);
 		GShape.weaponDialog.setY(100);
@@ -40,7 +40,7 @@ public class WeaponItem extends Item{
 //				+ player.weapon.getClass().getSimpleName() + " attack: "
 //				+ player.weapon.minDD + " - " + player.weapon.maxDD + " mods: "
 //				+ player.weapon.mod1 + " " + player.weapon.mod2);
-		state = State.DEAD;
+//		state = State.DEAD;
 		L1Renderer.stage.addActor(GShape.weaponDialog);
 	}
 

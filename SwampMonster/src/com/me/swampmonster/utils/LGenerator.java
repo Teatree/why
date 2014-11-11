@@ -145,10 +145,11 @@ public class LGenerator {
 	}
 	
 	public static L1 createTutorialLevel(){
-		String br = Gdx.files.internal("data\\" + "Map2.tmx").readString();
+		String br = Gdx.files.internal("data\\" + "Map_TUTORIAL.tmx").readString();
 		Gdx.files.local("MapTemp.tmx").writeString(br, false);
 		L1 tutorialLevel = new TutorialLevel("tileSet_SAND_WORLD", "MapTemp.tmx");
-		TutorialLevel.player = new Player(new Vector2(298,400));
+		System.out.println("newPlayer3");
+		TutorialLevel.player = new Player(new Vector2(318,375));
 		TutorialLevel.player.oxygen = Player.maxOxygen;
 		TutorialLevel.player.health = Player.maxHealth;
 		TutorialLevel.player.setPositiveEffect(PositiveEffects.NONE);
@@ -163,7 +164,7 @@ public class LGenerator {
 		Wave wave = new Wave();
 		wave.enemies = new Stack<Enemy>();
 		wave.enemiesOnBattleField = 3;
-//		wave.enemies.push(new EnemyMaggot(new Vector2(1520,944)));
+		wave.enemies.push(new EnemyMaggot(new Vector2(1520,944)));
 		wave.enemies.push(new EnemyZombie(new Vector2(1560, 944)));
 //		wave.enemies.push(new EnemyLeech(new Vector2(1610, 944)));
 		tutorialLevel.wave = wave;

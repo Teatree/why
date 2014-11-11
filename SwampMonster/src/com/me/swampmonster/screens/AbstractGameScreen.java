@@ -12,10 +12,11 @@ public abstract class AbstractGameScreen implements Screen {
 	
 	public AbstractGameScreen(Game game){
 		this.game = game;
-		player = SaveManager.loadPlayer();
-		if (player == null) {
-			player = new Player(new Vector2());
-		} 
+//		player = SaveManager.loadPlayer();
+//		if (player == null) {
+//			System.out.println("newPlayer4");
+//			player = new Player(new Vector2());
+//		} 
 	}
 	
 	@Override

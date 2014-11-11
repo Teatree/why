@@ -8,11 +8,15 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.GL30;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Scaling;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
@@ -23,6 +27,7 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.me.swampmonster.game.GShape.FeedBackWindow;
+import com.me.swampmonster.game.GShape;
 import com.me.swampmonster.game.L1Renderer;
 import com.me.swampmonster.game.TheController;
 import com.me.swampmonster.models.slots.Perks;
@@ -30,11 +35,20 @@ import com.me.swampmonster.models.slots.Slot;
 import com.me.swampmonster.slotMachineStuff.SlotDescWindow;
 import com.me.swampmonster.slotMachineStuff.SlotMachineTextures;
 import com.me.swampmonster.slotMachineStuff.SlotMiniWindow;
+import com.me.swampmonster.utils.Assets;
 import com.me.swampmonster.utils.Constants;
 
 public class SlotMachineScreen extends AbstractGameScreen {
 	
+	//- - - - - - - - - - - - - - - tutorial - - - - - - - - - - - - - - - - - 
+	public static Table windowForText;
+	public static Label tutText;
+	public Image dudesFace;
+	public Label goalText;
+	//
+	
 	SpriteBatch batch;
+	public static boolean tutorial;
 	public static Stage stage;
 	public static boolean yesWasJustPressed;
 	private SlotMachineTextures slotMachineTextures;
@@ -52,6 +66,8 @@ public class SlotMachineScreen extends AbstractGameScreen {
 		super(game);
 		savedSlots = new ArrayList<Slot>();
 		batch = new SpriteBatch();
+		dudesFace = new Image(Assets.manager.get(Assets.dudeFace));
+		windowForText = new Table();
 		stage = new Stage();
 		slotMachineTextures = new SlotMachineTextures(player);
 		stage.addActor(slotMachineTextures);
@@ -107,6 +123,24 @@ public class SlotMachineScreen extends AbstractGameScreen {
 				
 			}
 //		}
+			
+			if(tutorial){
+				dudesFace.setX(30);
+				dudesFace.setY(350);
+				dudesFace.setScale(0.5f);
+				tutText = new Label(
+						"Aaaah yes, welcome to the Slot Machine House! Here you can improve your self",
+						GShape.skin, "white");
+				tutText.setWrap(true);
+				windowForText = new Table();
+				windowForText.setX(dudesFace.getX()+110);
+				windowForText.setY(dudesFace.getY()+10);
+				windowForText.setWidth(205);
+				windowForText.setHeight(95);
+				windowForText.add(tutText).height(100).width(205);
+				stage.addActor(dudesFace);
+				stage.addActor(windowForText);
+			}
 	}
 
 	private void selectSlot(Slot slot) {

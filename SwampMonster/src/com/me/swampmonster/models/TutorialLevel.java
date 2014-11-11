@@ -1,6 +1,7 @@
 package com.me.swampmonster.models;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -16,7 +17,9 @@ import com.me.swampmonster.animations.AnimationControl;
 import com.me.swampmonster.game.GShape;
 import com.me.swampmonster.game.L1Renderer;
 import com.me.swampmonster.game.TheController;
+import com.me.swampmonster.models.AbstractGameObject.State;
 import com.me.swampmonster.screens.MenuScreen;
+import com.me.swampmonster.screens.SlotMachineScreen;
 import com.me.swampmonster.utils.Assets;
 import com.me.swampmonster.utils.CameraHelper;
 import com.me.swampmonster.utils.ScreenContainer;
@@ -48,6 +51,7 @@ public class TutorialLevel extends L1 {
 		arrowTut = new Sprite(Assets.manager.get(Assets.arrow));
 		windowForText = new Table();
 		timer = 0;
+		System.out.println("tutoriallevle");
 	}
 	
 	public void update(boolean aiming, Vector3 touchPos, Vector3 V3point,
@@ -56,6 +60,64 @@ public class TutorialLevel extends L1 {
 		super.update(aiming, touchPos, V3point, collisionLayer, cameraHelper, dx, dy);
 		
 		
+		if(step == 13){
+			TheController.pausedTutorial = true;
+			dudesFace.setX(450);
+			dudesFace.setY(30);
+			dudesFace.setScale(0.5f);
+			tutText = new Label(
+					"These guys can carry all sorts of things."
+					+ " Alright, enough of this, let's get out of here [Tap to Leave]",
+					GShape.skin, "white");
+			tutText.setWrap(true);
+			windowForText = new Table();
+			windowForText.setX(dudesFace.getX()+110);
+			windowForText.setY(dudesFace.getY()+10);
+			windowForText.setWidth(205);
+			windowForText.setHeight(95);
+			windowForText.add(tutText).height(100).width(205);
+			L1Renderer.stage.addActor(dudesFace);
+			L1Renderer.stage.addActor(windowForText);
+		}
+		if(step == 12){
+			TheController.pausedTutorial = false;
+			for(Actor a : L1Renderer.stage.getActors()){
+				if(a.equals(windowForText)){
+					a.remove();
+				}
+			}
+			for(Actor a : L1Renderer.stage.getActors()){
+				if(a.equals(dudesFace)){
+					a.remove();
+				}
+			}
+			if (L1.enemiesOnStage.size() < 2 && items.size()<1) {
+				System.out.println("yes the items is empty");
+				step++;
+			}
+			System.out.println("drawing Text 12");
+		}
+		if(step == 11){
+			TheController.pausedTutorial = true;
+			
+			dudesFace.setX(450);
+			dudesFace.setY(30);
+			dudesFace.setScale(0.5f);
+			tutText = new Label(
+					"Well Done! You killed that wild beast. Oh look, it dropped something! Quick go PICK IT UP",
+					GShape.skin, "white");
+			tutText.setWrap(true);
+			windowForText = new Table();
+			windowForText.setX(dudesFace.getX()+110);
+			windowForText.setY(dudesFace.getY()+10);
+			windowForText.setWidth(205);
+			windowForText.setHeight(95);
+			windowForText.add(tutText).height(100).width(205);
+			L1Renderer.stage.addActor(dudesFace);
+			L1Renderer.stage.addActor(windowForText);
+			System.out.println("drawing Text 11");
+			
+		}
 		if(step == 10){
 			for(Actor a : L1Renderer.stage.getActors()){
 				if(a.equals(windowForText)){
@@ -69,6 +131,10 @@ public class TutorialLevel extends L1 {
 			}
 			aFingure = null;
 			Player.shootingSwitch = true;
+			if(L1.enemiesOnStage.get(0).state == State.DEAD){
+				step++;
+			}
+			System.out.println("drawing Text 10");
 		}
 		if(step == 9){
 			TheController.pausedTutorial = true;
@@ -139,8 +205,8 @@ public class TutorialLevel extends L1 {
 			TheController.pausedTutorial = false;
 			aControl.animate(0);
 			movehere = new Sprite(aControl.getCurrentFrame());
-			movehere.setX(535);
-			movehere.setY(400);
+			movehere.setX(1135);
+			movehere.setY(520);
 			for(Actor a : L1Renderer.stage.getActors()){
 				if(a.equals(windowForText)){
 					a.remove();
@@ -168,7 +234,7 @@ public class TutorialLevel extends L1 {
 				}
 			}
 			tutText = new Label(
-					"Now move to that green arrow over there, you obedient chum...",
+					"Ok, we are done here. Go to the East, I have set up a rally point for you there...",
 					GShape.skin, "white");
 			tutText.setWrap(true);
 			windowForText = new Table();
@@ -340,10 +406,8 @@ public class TutorialLevel extends L1 {
 			if(fingerAnimCounter == 164){
 				fingerAnimCounter = 0;
 			}
-			System.out.println("finger" + fingerAnimCounter);
 		}
 		if(step == 9){
-			System.out.println("finger" + fingerAnimCounter);
 			fingerAnimCounter++;
 			if(fingerAnimCounter < 40){
 				aFingure.setX(180);

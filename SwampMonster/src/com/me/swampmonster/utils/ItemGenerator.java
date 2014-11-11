@@ -7,8 +7,11 @@ import java.util.Random;
 
 import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.graphics.Texture;
+import com.me.swampmonster.game.TheController;
 import com.me.swampmonster.models.Item;
+import com.me.swampmonster.models.L1;
 import com.me.swampmonster.models.Player;
+import com.me.swampmonster.models.TutorialLevel;
 import com.me.swampmonster.models.items.CHAIN_ARROWS;
 import com.me.swampmonster.models.items.FADE;
 import com.me.swampmonster.models.items.HASTE;
@@ -79,7 +82,13 @@ public class ItemGenerator {
 	
 	public Item getItem(int playersScore){
 		Item resulItem = generateItem(playersScore);
-		return resulItem;
+//		System.out.println("getItem");
+//		if(TutorialLevel.step == 10 || TutorialLevel.step == 11){
+//			System.out.println("YES");
+//			return new Oxygen();
+//		}else{
+			return resulItem;
+//		}
 	}
 	
 	public Item getWeaponItem(int playersScore){

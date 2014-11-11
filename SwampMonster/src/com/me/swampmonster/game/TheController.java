@@ -29,6 +29,7 @@ import com.me.swampmonster.models.slots.PositiveEffects;
 import com.me.swampmonster.models.slots.Slot;
 import com.me.swampmonster.screens.AbstractGameScreen;
 import com.me.swampmonster.screens.MenuScreen;
+import com.me.swampmonster.screens.SlotMachineScreen;
 import com.me.swampmonster.slotMachineStuff.SlotMachineTextures;
 import com.me.swampmonster.utils.CameraHelper;
 import com.me.swampmonster.utils.LGenerator;
@@ -332,9 +333,14 @@ public class TheController extends InputAdapter {
 		float camZoomSpeed = 0.1f * deltaTime;
 		float camZoomSpeedAccelerationFactor = 50;
 
-		if (pausedTutorial && Gdx.input.justTouched() && !TutorialLevel.animating){
+		if (pausedTutorial && Gdx.input.justTouched() && !TutorialLevel.animating && TutorialLevel.step != 13){
+			touchPos.x = L1.player.position.x +5;
+			touchPos.y = L1.player.position.y +5;
 			TutorialLevel.step++;
 			pausedTutorial = false;
+		}if(pausedTutorial && Gdx.input.justTouched() && TutorialLevel.step == 13){
+			SlotMachineScreen.tutorial = true;
+			((Game) Gdx.app.getApplicationListener()).setScreen(ScreenContainer.SMS);
 		}
 		
 		if (Gdx.input.isKeyPressed(Keys.BACK) || Gdx.input.isKeyPressed(Keys.ESCAPE)){

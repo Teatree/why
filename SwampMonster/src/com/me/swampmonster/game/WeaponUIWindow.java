@@ -6,8 +6,10 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.me.swampmonster.models.AbstractGameObject.State;
 import com.me.swampmonster.models.L1;
 import com.me.swampmonster.models.items.Weapon;
+import com.me.swampmonster.models.items.WeaponItem;
 
 public class WeaponUIWindow extends Dialog{
 
@@ -20,6 +22,7 @@ public class WeaponUIWindow extends Dialog{
 	public TextButton keepButton;
 	public TextButton takeButton;
 	public Weapon wep;
+	public WeaponItem wepItem;
 	public Label currentDamage;
 	public Label newDamage;
 	public Label currentCoolDown;
@@ -36,24 +39,25 @@ public class WeaponUIWindow extends Dialog{
 	public Label newMod2Desc;
 	
 	
-	public WeaponUIWindow(String title, Skin skin, Weapon weapon) {
+	public WeaponUIWindow(String title, Skin skin, WeaponItem weaponItem) {
 		super("", skin);
 		
-		wep = weapon;
+		wepItem = weaponItem;
+		wep = weaponItem.weapon;
 		
 		currentTabl = new Table();
 		newTabl = new Table();
 		newTabl.debug();
 		currentTabl.debug();
 		currentWepPicture = new Image(L1.player.weapon.weaponDescSprite);
-		newWepPicture = new Image(weapon.weaponDescSprite);
+		newWepPicture = new Image(wep.weaponDescSprite);
 		currentHeader = new Label(L1.player.weapon.getName(), skin, "title");
-		newHeader = new Label(weapon.getName(), skin, "title");
+		newHeader = new Label(wep.getName(), skin, "title");
 		
 		currentDamage = new Label("d" + L1.player.weapon.damage, skin, "stats");
-		newDamage = new Label("d" + weapon.damage, skin, "stats");
+		newDamage = new Label("d" + wep.damage, skin, "stats");
 		currentCoolDown = new Label("t" + L1.player.weapon.coolDown, skin, "stats");
-		newCoolDown = new Label("t" + weapon.coolDown, skin, "stats");
+		newCoolDown = new Label("t" + wep.coolDown, skin, "stats");
 		
 		keepButton = new TextButton("KEEP", skin);
 		takeButton = new TextButton("TAKE", skin);
@@ -86,15 +90,15 @@ public class WeaponUIWindow extends Dialog{
 			currentTabl.add(currentMod2Desc).row();
 		}
 		
-		if (weapon.mod1 != null){
+		if (wep.mod1 != null){
 //			newMod1Name = new Label(weapon.mod1.name, skin);
-			newMod1Desc = new Label(weapon.mod1.descriptio, skin);
+			newMod1Desc = new Label(wep.mod1.descriptio, skin);
 			newTabl.add(newMod1Name).row();
 			newTabl.add(newMod1Desc).row();
 		}
-		if (weapon.mod2 != null){
+		if (wep.mod2 != null){
 //			newMod2Name = new Label(weapon.mod2.name, skin);
-			newMod2Desc = new Label(weapon.mod2.descriptio, skin);
+			newMod2Desc = new Label(wep.mod2.descriptio, skin);
 			newTabl.add(newMod2Name).row();
 			newTabl.add(newMod2Desc).row();
 		}
@@ -109,7 +113,8 @@ public class WeaponUIWindow extends Dialog{
 	@Override
 	protected void result(Object object) {
 		if(object == "Take"){
-			L1.player.weapon = wep;
+			L1.player.weapon = wepItem.weapon;
+			wepItem.state = State.DEAD;
 		}
 			
 		TheController.paused = false;

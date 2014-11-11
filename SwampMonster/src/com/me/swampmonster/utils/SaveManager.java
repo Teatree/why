@@ -111,6 +111,7 @@ public class SaveManager {
 	    	Json json = new Json();
 	        JsomPlayer somPlayer = json.fromJson(JsomPlayer.class, save);
 	        MenuScreen.soundsEnabled = somPlayer.soundEnabled;
+	        System.out.println("newPlayer2");
 	        Player player = new Player(new Vector2());
 	        Player.maxOxygen = somPlayer.maxOxygen;
 	        Player.maxHealth = somPlayer.playerMaxHealth;
@@ -123,7 +124,7 @@ public class SaveManager {
 	        	if (somPlayer.weaponClassName != null){
 	        		player.weapon = (Weapon) Class.forName(somPlayer.weaponClassName).newInstance();
 	        	} else {
-	        		player.weapon = new Bow();
+//	        		player.weapon = new Bow();
 	        	}
 				if (somPlayer.weaponMod1ClassName != null)
 				player.weapon.mod1 = (Modificator) Class.forName(somPlayer.weaponMod1ClassName).newInstance();
@@ -175,6 +176,7 @@ public class SaveManager {
 	        }
 	        return player;
         } else {
+        	System.out.println("newPlayer1");
         	return new Player(new Vector2());
         }
     }
