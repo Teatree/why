@@ -22,7 +22,8 @@ public class Weapon extends AbstractGameObject{
 	
 	public List<Projectile> projectiles = new ArrayList<Projectile>();
 	public static int minDD; // minimun damage dealt
-	public static int maxDD; // maximum damage dealt
+	public static int maxDD; // minimun damage dealt
+	public static int randBetVal; 
 	public int coolDown;
 	public int force;
 	public String name;
@@ -124,7 +125,6 @@ public class Weapon extends AbstractGameObject{
 		L1.player.arrowEffectCarrier = EffectCarriers.NONE;
 		
 	}
-	
 	public String getName(){
 		String resultName; 
 		if(mod1!=null){
@@ -172,5 +172,8 @@ public class Weapon extends AbstractGameObject{
 				prj.remove();
 			}
 		}
+	}
+	public void setDamage(int playerScore){
+		
 	}
 }

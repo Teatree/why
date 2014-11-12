@@ -1,5 +1,7 @@
 package com.me.swampmonster.models.items;
 
+import java.util.Random;
+
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.me.swampmonster.animations.AnimationControl;
 import com.me.swampmonster.game.GShape;
@@ -13,6 +15,7 @@ import com.me.swampmonster.utils.Assets;
 public class WeaponItem extends Item{
 
 	public Weapon weapon;
+	Random random;
 	
 	public WeaponItem() {
 
@@ -24,11 +27,13 @@ public class WeaponItem extends Item{
 		sprite = new Sprite(animationsStandard.get(state).getCurrentFrame());
 		
 		circle.radius = 16;
+		
 	}
 	
 	@Override
 	public void pickMeUp(Player player) {
 //		player.weapon = this.weapon;
+		weapon.setDamage(player.absoluteScore);
 		TheController.showWeaponInv = true;
 		GShape.weaponDialog = new WeaponUIWindow("statuk'", GShape.skin, this);
 		GShape.weaponDialog.setSize(300, 350);

@@ -60,14 +60,37 @@ public class TutorialLevel extends L1 {
 		super.update(aiming, touchPos, V3point, collisionLayer, cameraHelper, dx, dy);
 		
 		
+		if(step == 14){
+			TheController.pausedTutorial = true;
+			for(Actor a : L1Renderer.stage.getActors()){
+				if(a.equals(windowForText)){
+					a.remove();
+				}
+			}
+			dudesFace.setX(450);
+			dudesFace.setY(30);
+			dudesFace.setScale(0.5f);
+			tutText = new Label(
+					" Alright, enough of this, let's get out of here [Tap to Leave]",
+							GShape.skin, "white");
+			tutText.setWrap(true);
+			windowForText = new Table();
+			windowForText.setX(dudesFace.getX()+110);
+			windowForText.setY(dudesFace.getY()+10);
+			windowForText.setWidth(205);
+			windowForText.setHeight(95);
+			windowForText.add(tutText).height(100).width(205);
+			L1Renderer.stage.addActor(dudesFace);
+			L1Renderer.stage.addActor(windowForText);
+		}
 		if(step == 13){
 			TheController.pausedTutorial = true;
 			dudesFace.setX(450);
 			dudesFace.setY(30);
 			dudesFace.setScale(0.5f);
 			tutText = new Label(
-					"These guys can carry all sorts of things."
-					+ " Alright, enough of this, let's get out of here [Tap to Leave]",
+					"Oh cool, an oxygen tank, you need those to replenish your oxygen level."
+					+ " These guys can carry all sorts of things.",
 					GShape.skin, "white");
 			tutText.setWrap(true);
 			windowForText = new Table();

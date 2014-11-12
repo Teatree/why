@@ -24,48 +24,42 @@ public class Bow extends Weapon{
 		weaponDescSprite = new Sprite(Assets.manager.get(Assets.bowDesc));
 		sprite = new Sprite(Assets.manager.get(Assets.wepBOW));
 		random = new Random();
-		setDamage(Player.absoluteScore);
 		System.out.println("minDD" + minDD);
 		System.out.println("maxDD" + maxDD);
+		
+		// temp
+		minDD = 1;
+		maxDD = 2;
 	}
 
 	public void update(TiledMapTileLayer collisionLayer) {
 		super.update(collisionLayer);
 	}
 	
-	private void setDamage(int playersScore) {
-		float randBetVal;
-		float randBetPers = (random.nextInt(30-5)+5);
-		int foundMin;
-		int foundMax;
-		if(playersScore>=0 && playersScore<500){
+	
+	@Override
+	public void setDamage(int playerScore) {
+
+		if(playerScore>=0 && playerScore<500){
 			randBetVal = random.nextInt(4-2)+2;
-			foundMin = (int) (randBetVal*(randBetPers/100));
-			foundMax = (int) (randBetVal/(randBetPers/100));
-			minDD = foundMin;
-			maxDD = foundMax;
+			minDD = randBetVal-1;
+			maxDD = randBetVal;
 		}
-		else if(playersScore>=500 && playersScore<1500){
+		else if(playerScore>=500 && playerScore<1500){
 			randBetVal = random.nextInt(8-4)+4;
-			foundMin = (int) (randBetVal*(randBetPers/100));
-			foundMax = (int) (randBetVal/(randBetPers/100));
-			minDD = foundMin;
-			maxDD = foundMax;
+			minDD = randBetVal-2;
+			maxDD = randBetVal;
 		}
-		else if(playersScore>=1500 && playersScore<3000){
+		else if(playerScore>=1500 && playerScore<3000){
 			randBetVal = random.nextInt(12-6)+6;
-			foundMin = (int) (randBetVal*(randBetPers/100));
-			foundMax = (int) (randBetVal/(randBetPers/100));
-			minDD = foundMin;
-			maxDD = foundMax;
+			minDD = randBetVal-4;
+			maxDD = randBetVal;
 		}
-		else if(playersScore>=3000){
+		else if(playerScore>=3000){
 			randBetVal = random.nextInt(20-10)+10;
-			foundMin = (int) (randBetVal*(randBetPers/100));
-			foundMax = (int) (randBetVal/(randBetPers/100));
-			minDD = foundMin;
-			maxDD = foundMax;
+			minDD = randBetVal-6;
+			maxDD = randBetVal;
 		}
 	}
-	
+
 }

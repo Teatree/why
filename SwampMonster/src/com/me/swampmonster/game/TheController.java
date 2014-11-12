@@ -338,7 +338,7 @@ public class TheController extends InputAdapter {
 			touchPos.y = L1.player.position.y +5;
 			TutorialLevel.step++;
 			pausedTutorial = false;
-		}if(pausedTutorial && Gdx.input.justTouched() && TutorialLevel.step == 13){
+		}if(pausedTutorial && Gdx.input.justTouched() && TutorialLevel.step == 14){
 			SlotMachineScreen.tutorial = true;
 			((Game) Gdx.app.getApplicationListener()).setScreen(ScreenContainer.SMS);
 		}
