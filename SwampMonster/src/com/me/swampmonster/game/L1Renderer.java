@@ -167,6 +167,13 @@ public class L1Renderer {
 //			 enemy.position.x+enemy.sprite.getWidth()+5, enemy.position.y+24);
 //			 fontss.draw(batch, "size: " + enemy.sprite.getScaleX(),
 //			 enemy.position.x+enemy.sprite.getWidth()+5, enemy.position.y+36);
+			if (enemy.heal) {
+				fontss.setColor(Color.GREEN);
+				fontss.setScale(0.52f);
+				fontss.draw(batch, 10
+						+ " +HP", enemy.position.x, enemy.position.y
+						+ enemy.sprite.getHeight() + 5 + enemy.healCounter / 5);
+			}
 			if (enemy.hurt) {
 				if (enemy.negativeEffectsState == NegativeEffects.POISONED) {
 					fontss.setColor(Color.MAGENTA);

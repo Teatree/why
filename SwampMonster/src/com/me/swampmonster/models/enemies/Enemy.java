@@ -63,6 +63,8 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 	float damage_dy;
 	
 	public static float floatingOutputDamage;
+	public boolean heal;
+	public int healCounter;
 	
 	float enemyDx;
 	float enemyDy;
@@ -106,6 +108,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 	
 	public Enemy(Vector2 position) {
 		this.position = position;
+		healCounter = 0;
 //		rectanlge = new Rectangle();
 		yellowAura = new Circle();
 		yellowAura.radius = 8;
@@ -259,6 +262,15 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 		enemyDx /= enemyLength;
 		enemyDy /= enemyLength;
 
+		if(heal){
+			healCounter++;
+			// play visual effect on enemy
+			if (healCounter == 60) {
+				health++;
+				healCounter = 0;
+				heal = false;
+			}
+		}
 		// // System.out.println("currentlyMovingOnPath " +
 		// currentlyMovingOnPath);
 

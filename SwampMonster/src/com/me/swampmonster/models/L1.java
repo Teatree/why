@@ -475,7 +475,7 @@ public class L1 {
 								e.enemyHurt(2*random.nextInt((int) (player.weapon.maxDD-player.weapon.minDD))+player.weapon.minDD);
 							}
 							if (p.effect == EffectCarriers.HEAL_ENEMY) {
-								e.health++;
+								e.heal = true;
 							}
 							if (p.effect == EffectCarriers.SPEEDUP_ENEMY) {
 								e.damageType = "player";
