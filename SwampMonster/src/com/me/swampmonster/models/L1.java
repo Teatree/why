@@ -412,8 +412,8 @@ public class L1 {
 								e.damageType = "player";
 								e.hurt = true;
 								e.enemyHurt(random
-										.nextInt((int) (player.maxDD - player.minDD))
-										+ player.minDD);
+										.nextInt((int) (player.weapon.maxDD - player.weapon.minDD))
+										+ player.weapon.minDD);
 							}
 							
 							
@@ -466,13 +466,13 @@ public class L1 {
 							if (p.effect == EffectCarriers.ENEMY_BLEED) {
 								e.damageType = "player";
 								e.hurt = true;
-								e.enemyHurt(random.nextInt((int) (player.maxDD-player.minDD))+player.minDD);
+								e.enemyHurt(random.nextInt((int) (player.weapon.maxDD-player.weapon.minDD))+player.weapon.minDD);
 								e.setNegativeEffect(NegativeEffects.WEAKENED);
 							}
 							if (p.effect == EffectCarriers.EXTRADAMAGE) {
 								e.damageType = "player";
 								e.hurt = true;
-								e.enemyHurt(2*random.nextInt((int) (player.maxDD-player.minDD))+player.minDD);
+								e.enemyHurt(2*random.nextInt((int) (player.weapon.maxDD-player.weapon.minDD))+player.weapon.minDD);
 							}
 							if (p.effect == EffectCarriers.HEAL_ENEMY) {
 								e.health++;
@@ -480,13 +480,13 @@ public class L1 {
 							if (p.effect == EffectCarriers.SPEEDUP_ENEMY) {
 								e.damageType = "player";
 								e.hurt = true;
-								e.enemyHurt(random.nextInt((int) (player.maxDD-player.minDD))+player.minDD);
+								e.enemyHurt(random.nextInt((int) (player.weapon.maxDD-player.weapon.minDD))+player.weapon.minDD);
 								e.movementSpeed*=2;
 							}
 							if (p.effect == EffectCarriers.VAMPIRE) {
 								e.damageType = "player";
 								e.hurt = true;
-								float hurtEnemy = random.nextInt((int) (player.maxDD-player.minDD))+player.minDD;
+								float hurtEnemy = random.nextInt((int) (player.weapon.maxDD-player.weapon.minDD))+player.weapon.minDD;
 								e.enemyHurt(hurtEnemy);
 								if (L1.player.health + hurtEnemy >= Player.maxHealth){
 									L1.player.health = Player.maxHealth;
@@ -500,7 +500,7 @@ public class L1 {
 									|| (L1.player.weapon.mod1.targetEnemy != null && this.getClass().equals(L1.player.weapon.mod2.targetEnemy.getClass())))) {
 								e.damageType = "player";
 								e.hurt = true;
-								e.enemyHurt(2*random.nextInt((int) (player.maxDD-player.minDD))+player.minDD);
+								e.enemyHurt(2*random.nextInt((int) (player.weapon.maxDD-player.weapon.minDD))+player.weapon.minDD);
 							}
 							prj.remove();
 						}

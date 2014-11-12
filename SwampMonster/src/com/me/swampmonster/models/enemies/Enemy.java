@@ -1306,7 +1306,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 			} else {
 				damageType = "player";
 				hurt = true;
-				enemyHurt(random.nextInt((int) (L1.player.maxDD - L1.player.minDD)) + L1.player.minDD);
+				enemyHurt(random.nextInt((int) (L1.player.weapon.maxDD - L1.player.weapon.minDD)) + L1.player.weapon.minDD);
 			}
 			radioactiveAura = null;
 			break;

@@ -334,8 +334,8 @@ public class TheController extends InputAdapter {
 		float camZoomSpeedAccelerationFactor = 50;
 
 		if (pausedTutorial && Gdx.input.justTouched() && !TutorialLevel.animating && TutorialLevel.step != 13){
-			touchPos.x = L1.player.position.x +5;
-			touchPos.y = L1.player.position.y +5;
+//			touchPos.x = L1.player.position.x +5;
+//			touchPos.y = L1.player.position.y +5;
 			TutorialLevel.step++;
 			pausedTutorial = false;
 		}if(pausedTutorial && Gdx.input.justTouched() && TutorialLevel.step == 14){

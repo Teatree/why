@@ -13,6 +13,7 @@ import com.me.swampmonster.game.TheController;
 import com.me.swampmonster.models.AbstractGameObject;
 import com.me.swampmonster.models.Explosion;
 import com.me.swampmonster.models.L1;
+import com.me.swampmonster.models.Player;
 import com.me.swampmonster.models.Projectile;
 import com.me.swampmonster.models.Projectile.EffectCarriers;
 import com.me.swampmonster.models.items.wepMods.Modificator;
@@ -21,10 +22,11 @@ import com.me.swampmonster.utils.Assets;
 public class Weapon extends AbstractGameObject{
 	
 	public List<Projectile> projectiles = new ArrayList<Projectile>();
-	public static int minDD; // minimun damage dealt
-	public static int maxDD; // minimun damage dealt
+	public int minDD; // minimun damage dealt
+	public int maxDD; // minimun damage dealt
 	public static int randBetVal; 
 	public int coolDown;
+	public int coolDownCounter;
 	public int force;
 	public String name;
 	public Sprite weaponDescSprite;
@@ -39,15 +41,25 @@ public class Weapon extends AbstractGameObject{
 		
 		sprite = new Sprite(Assets.manager.get(Assets.wepBOW));
 		name = this.getClass().getSimpleName();
+		coolDown = 120;
 		
 	}
 	
 	public void update(TiledMapTileLayer collisionLayer){
 		updateProjectiles(collisionLayer);
+		
+		if(coolDownCounter>0){
+			coolDownCounter--;
+			Player.shootingSwitch = false;
+		}else{
+			Player.shootingSwitch = true;
+		}
+		
 	}
 	
 	public void shoot(Vector3 V3point){
 		
+		coolDownCounter = coolDown;
 		float direction_x = L1.player.shotDir.x - L1.player.V3playerPos.x;
 		float direction_y = L1.player.shotDir.y - L1.player.V3playerPos.y;
 		

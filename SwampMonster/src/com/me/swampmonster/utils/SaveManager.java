@@ -135,6 +135,8 @@ public class SaveManager {
 			}
 	        player.weapon.minDD = (int) somPlayer.minDD;
 	        player.weapon.maxDD = (int) somPlayer.maxDD;
+//	        System.out.println("somPlayer.minDD " + somPlayer.minDD);
+//	        System.out.println("somPlayer.maxDD " + somPlayer.maxDD);
 	        player.movementSpeed = somPlayer.movementSpeed;
 	        LGenerator.hadLastAtmosphere = somPlayer.hadLastAtmosphere;
 	        LGenerator.wasLastElite = somPlayer.wasLastElite;

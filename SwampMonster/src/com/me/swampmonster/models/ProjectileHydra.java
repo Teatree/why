@@ -112,7 +112,7 @@ public class ProjectileHydra extends Projectile {
 						&& !e.injuredByHydra && e.state != State.DEAD) {
 					e.damageType = "player";
 					e.hurt = true;
-					e.enemyHurt((random).nextInt((int)(L1.player.maxDD-L1.player.minDD))+L1.player.minDD);
+					e.enemyHurt((random).nextInt((int)(L1.player.weapon.maxDD-L1.player.weapon.minDD))+L1.player.weapon.minDD);
 					state = State.DESPAWNING;
 					musltiplyCounter--;
 					if (musltiplyCounter >= 0) {

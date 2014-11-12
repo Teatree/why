@@ -24,16 +24,20 @@ public class Bow extends Weapon{
 		weaponDescSprite = new Sprite(Assets.manager.get(Assets.bowDesc));
 		sprite = new Sprite(Assets.manager.get(Assets.wepBOW));
 		random = new Random();
-		System.out.println("minDD" + minDD);
-		System.out.println("maxDD" + maxDD);
-		
+//		System.out.println("minDD" + minDD);
+//		System.out.println("maxDD" + maxDD);
+		coolDown = 120;
 		// temp
-		minDD = 1;
-		maxDD = 2;
+//		minDD = 1;
+//		maxDD = 2;
+		setDamage(L1.player.absoluteScore);
 	}
 
 	public void update(TiledMapTileLayer collisionLayer) {
 		super.update(collisionLayer);
+		
+		System.out.println("minDD" + minDD);
+		System.out.println("maxDD" + maxDD);
 	}
 	
 	

@@ -54,8 +54,8 @@ public class WeaponUIWindow extends Dialog{
 		currentHeader = new Label(L1.player.weapon.getName(), skin, "title");
 		newHeader = new Label(wep.getName(), skin, "title");
 		
-		currentDamage = new Label("d" + L1.player.weapon.damage, skin, "stats");
-		newDamage = new Label("d" + wep.damage, skin, "stats");
+		currentDamage = new Label("d" + L1.player.weapon.minDD + " - " + L1.player.weapon.maxDD, skin, "stats");
+		newDamage = new Label("d" + wep.minDD + " - " + wep.maxDD, skin, "stats");
 		currentCoolDown = new Label("t" + L1.player.weapon.coolDown, skin, "stats");
 		newCoolDown = new Label("t" + wep.coolDown, skin, "stats");
 		

@@ -300,7 +300,6 @@ public class TutorialLevel extends L1 {
 				L1Renderer.stage.addActor(dudesFace);
 				L1Renderer.stage.addActor(windowForText);
 			}
-			
 		}
 		if(step == 3){
 			TheController.pausedTutorial = true;

@@ -64,8 +64,6 @@ public class Projectile extends AbstractGameObject {
 		sprite.setSize(32, 32);
 		circle = new Circle();
 		circle.radius = 6;
-		minDD = 1f;
-		maxDD = 3f;
 
 		state = State.STANDARD;
 //		arrowMovementSpeed = 1.8f;
@@ -87,8 +85,6 @@ public class Projectile extends AbstractGameObject {
 		sprite.setRotation(rot * 57.29f);
 		circle = new Circle();
 		circle.radius = 6;
-		minDD = 1f;
-		maxDD = 3f;
 		this.effect = effect;
 
 		state = State.STANDARD;

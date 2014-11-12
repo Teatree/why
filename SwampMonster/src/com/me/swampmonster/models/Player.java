@@ -212,10 +212,6 @@ public class Player extends AbstractGameObject {
 	public void update(boolean aiming, Vector3 touchPos, Vector3 V3point,
 			TiledMapTileLayer collisionLayer, float dx, float dy) {
 		
-		minDD = weapon.minDD;
-		maxDD = weapon.maxDD;
-
-
 		if(negativeEffectsState == NegativeEffects.STUN){
 			effectAnimator.doComplexAnimation(8, 1f, 0.009f, Animation.PlayMode.LOOP);
 			effectCarrier = new Sprite(effectAnimator.getCurrentFrame());
@@ -260,7 +256,7 @@ public class Player extends AbstractGameObject {
 
 		weapon.update(collisionLayer);
 		
-		if (!L1.hasAtmosphere) {
+		if (!L1.hasAtmosphere && !positiveEffectsState.equals(PositiveEffects.FADE)) {
 			oxygen -= Constants.OXYGEN_DECREASE;
 		}
 
@@ -787,8 +783,10 @@ public class Player extends AbstractGameObject {
 				movementSpeed = STANDART_MOVEMENT_SPEED;
 			}
 			radioactiveAura = null;
-			weapon.minDD = (int) DEFAULT_MINIMUM_DAMAGE;
-			weapon.maxDD = (int) DEFAULT_MAXIMUM_DAMAGE;
+			if(positiveEffectsState.equals(PositiveEffects.HASTE)){
+				weapon.minDD = weapon.minDD - 2;
+				weapon.maxDD = weapon.maxDD - 2;
+			}
 			positiveEffectsState = PositiveEffects.NONE;
 		}
 
