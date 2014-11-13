@@ -111,25 +111,25 @@ public class MisterSpawner {
 		}
 
 		
-		if (maxPosX >= mapWith - player.getSprite().getWidth()-18) {
+		if (maxPosX >= mapWith - player.sprite.getWidth()-18) {
 			maxPosX = (int) (mapWith - player.getSprite().getWidth()-18);
 			minPosX = (int) (player.getPosition().x + Constants.VIEWPORT_GUI_WIDTH / 2);
 //			System.out.println("maxPosX >= mapWith - player.getSprite().getWidth() == " + player.position.x );
 		}
 		
-		if (maxPosY >= mapHeight - player.getSprite().getHeight()-18) {
+		if (maxPosY >= mapHeight - player.sprite.getHeight()-18) {
 			maxPosY = (int) (mapHeight - player.getSprite().getHeight()-18);
-			minPosY = (int) (player.position.y - player.getPosition().y + Constants.VIEWPORT_GUI_HEIGHT / 2/* - SPAWN_RADIUS*/);
+			minPosY = (int) (player.position.y + Constants.VIEWPORT_GUI_HEIGHT / 2/* - SPAWN_RADIUS*/);
 //			System.out.println("maxPosY >= mapHeight - player.getSprite().getHeight() == " + player.position.y);
 		}
 		
-		if (minPosX >= mapWith - player.getSprite().getWidth()) {
+		if (minPosX >= mapWith - player.sprite.getWidth()) {
 			maxPosX = (int) (player.getPosition().x - Constants.VIEWPORT_GUI_WIDTH / 2);
 			minPosX = MIN_SPAWN_POS;
 //			System.out.println("minPosX >= mapWith - player.getSprite().getWidth()");
 		}
 
-		if (minPosY >= mapHeight - player.getSprite().getHeight()) {
+		if (minPosY >= mapHeight - player.sprite.getHeight()) {
 			maxPosY = (int) (player.getPosition().y - Constants.VIEWPORT_GUI_HEIGHT / 2);
 			minPosY = MIN_SPAWN_POS;
 //			System.out.println("minPosY >= mapHeight - player.getSprite().getHeight()");
