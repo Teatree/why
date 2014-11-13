@@ -56,6 +56,13 @@ public class Assets {
 	public static final AssetDescriptor<Texture> iceCube = new AssetDescriptor<Texture>("data\\iceCube.png", Texture.class);
 
 	//projectiles
+	public static final AssetDescriptor<Texture> bolt = new AssetDescriptor<Texture>("data\\bollllllllt.png", Texture.class);
+	public static final AssetDescriptor<Texture> boltStuck = new AssetDescriptor<Texture>("data\\bolllllllltStuck.png", Texture.class);
+	public static final AssetDescriptor<Texture> buzz = new AssetDescriptor<Texture>("data\\buZZZZZ.png", Texture.class);
+	public static final AssetDescriptor<Texture> buzzStuck = new AssetDescriptor<Texture>("data\\buZZZZZstuck.png", Texture.class);
+	public static final AssetDescriptor<Texture> rock = new AssetDescriptor<Texture>("data\\roccccck.png", Texture.class);
+	public static final AssetDescriptor<Texture> spear = new AssetDescriptor<Texture>("data\\spearrrr.png", Texture.class);
+	public static final AssetDescriptor<Texture> spearStuck = new AssetDescriptor<Texture>("data\\spearrrrstuck.png", Texture.class);
 	public static final AssetDescriptor<Texture> arrow = new AssetDescriptor<Texture>("data\\arrrrow.png", Texture.class);
 	public static final AssetDescriptor<Texture> arrowStuck = new AssetDescriptor<Texture>("data\\arrrrowStuck.png", Texture.class);
 	public static final AssetDescriptor<Texture> arrowPoisoned = new AssetDescriptor<Texture>("data\\arrrrowPoisoned.png", Texture.class);
@@ -158,6 +165,13 @@ public class Assets {
 		manager.load(propTreasure);
 		manager.load(propToxicPuddle);
 		manager.load(iceCube);
+		manager.load(bolt);
+		manager.load(boltStuck);
+		manager.load(buzz);
+		manager.load(buzzStuck);
+		manager.load(rock);
+		manager.load(spear);
+		manager.load(spearStuck);
 		manager.load(arrow);
 		manager.load(arrowStuck);
 		manager.load(itemProjectile);

@@ -22,11 +22,14 @@ import com.me.swampmonster.utils.Assets;
 public class Weapon extends AbstractGameObject{
 	
 	public List<Projectile> projectiles = new ArrayList<Projectile>();
+	public Projectile p;
 	public int minDD; // minimun damage dealt
 	public int maxDD; // minimun damage dealt
 	public static int randBetVal; 
 	public int coolDown;
 	public int coolDownCounter;
+	public static float coolDownStep;
+	public static float coolDownAngle;
 	public int force;
 	public String name;
 	public Sprite weaponDescSprite;
@@ -48,6 +51,8 @@ public class Weapon extends AbstractGameObject{
 	public void update(TiledMapTileLayer collisionLayer){
 		updateProjectiles(collisionLayer);
 		
+		coolDownAngle = coolDownAngle - coolDownStep;
+		
 		if(coolDownCounter>0){
 			coolDownCounter--;
 			Player.shootingSwitch = false;
@@ -59,14 +64,18 @@ public class Weapon extends AbstractGameObject{
 	
 	public void shoot(Vector3 V3point){
 		
+		coolDownAngle = 360;
+		coolDownStep = 360f / coolDown;
 		coolDownCounter = coolDown;
 		float direction_x = L1.player.shotDir.x - L1.player.V3playerPos.x;
 		float direction_y = L1.player.shotDir.y - L1.player.V3playerPos.y;
 		
 		// : TODO This look terrible, make it better bro...
-		Projectile p = new Projectile(new Vector2(L1.player.aimingArea.x
-				+ direction_x / 100 - 8, L1.player.aimingArea.y + direction_y / 100
-				- 8), L1.player.getRotation(L1.player.shotDir), L1.player.arrowEffectCarrier);
+		p = new Projectile(new Vector2(L1.player.aimingArea.x + direction_x
+				/ 100 - 8, L1.player.aimingArea.y + direction_y / 100 - 8),
+				L1.player.getRotation(L1.player.shotDir),
+				L1.player.arrowEffectCarrier, new Sprite(
+						Assets.manager.get(Assets.arrow)));
 		L1.player.shotArrows++;
 		
 		p.setPosition(new Vector2(L1.player.aimingArea.x + direction_x / 100 - 8,
@@ -102,11 +111,13 @@ public class Weapon extends AbstractGameObject{
 			Projectile p2 = new Projectile(new Vector2(L1.player.aimingArea.x
 					+ direction_x2 / 100 - 8, L1.player.aimingArea.y + direction_y2
 					/ 100 - 8), L1.player.getRotation(new Vector3(L1.player.shotDir.x - 40,
-							L1.player.shotDir.y - 40, 0)), L1.player.arrowEffectCarrier);
+							L1.player.shotDir.y - 40, 0)), L1.player.arrowEffectCarrier, new Sprite(
+									Assets.manager.get(Assets.arrow)));
 			Projectile p3 = new Projectile(new Vector2(L1.player.aimingArea.x
 					+ direction_x3 / 100 - 8, L1.player.aimingArea.y + direction_y3
 					/ 100 - 8), L1.player.getRotation(new Vector3(L1.player.shotDir.x + 48,
-							L1.player.shotDir.y + 48, 0)), L1.player.arrowEffectCarrier);
+							L1.player.shotDir.y + 48, 0)), L1.player.arrowEffectCarrier, new Sprite(
+									Assets.manager.get(Assets.arrow)));
 			
 			p2.setPosition(new Vector2(L1.player.aimingArea.x + direction_x2 / 100
 					- 8, L1.player.aimingArea.y + direction_y2 / 100 - 8));
@@ -185,7 +196,7 @@ public class Weapon extends AbstractGameObject{
 			}
 		}
 	}
-	public void setDamage(int playerScore){
+	public void setStats(int playerScore){
 		
 	}
 }

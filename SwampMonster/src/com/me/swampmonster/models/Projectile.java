@@ -77,10 +77,10 @@ public class Projectile extends AbstractGameObject {
 		initialSurfaceLevel = getSurfaceLevelProjectile(TheController.collisionLayer);
 	}
 	
-	public Projectile(Vector2 position, float rot, EffectCarriers effect) {
+	public Projectile(Vector2 position, float rot, EffectCarriers effect, Sprite s) {
 
 		this.position = position;
-		sprite = new Sprite(effect.sprite);
+		sprite = new Sprite(s);
 		sprite.setSize(32, 32);
 		sprite.setRotation(rot * 57.29f);
 		circle = new Circle();
@@ -113,7 +113,19 @@ public class Projectile extends AbstractGameObject {
 			}
 		}
 		if(state == State.DESPAWNING){
-			sprite = new Sprite(Assets.manager.get(Assets.arrowStuck));
+			if(sprite.getTexture().equals(Assets.manager.get(Assets.arrow))){
+				sprite = new Sprite(Assets.manager.get(Assets.arrowStuck));
+			}
+			if(sprite.getTexture().equals(Assets.manager.get(Assets.spear))){
+				sprite = new Sprite(Assets.manager.get(Assets.spearStuck));
+			}
+			if(sprite.getTexture().equals(Assets.manager.get(Assets.bolt))){
+				sprite = new Sprite(Assets.manager.get(Assets.boltStuck));
+			}
+			if(sprite.getTexture().equals(Assets.manager.get(Assets.buzz))){
+				sprite = new Sprite(Assets.manager.get(Assets.buzzStuck));
+			}
+			
 			if(despawningCounter>120){
 				state = State.DEAD;
 			}else{

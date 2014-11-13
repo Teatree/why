@@ -400,7 +400,8 @@ public class L1Renderer {
 						L1.player.turret.position.y);
 			}
 		}
-
+		
+		
 		L1.player.getSprite().setPosition(L1.player.getPosition().x,
 				L1.player.getPosition().y);
 		L1.player.getSprite().draw(batch);
@@ -471,10 +472,16 @@ public class L1Renderer {
 
 		// Temporary deBug feature
 		sr.begin(ShapeType.Line);
-		 if (L1.plasmaShield != null) {
-		 sr.circle(L1.plasmaShield.circle.x, L1.plasmaShield.circle.y,
-		 L1.plasmaShield.circle.radius);
-		 }
+		if (L1.plasmaShield != null) {
+			sr.circle(L1.plasmaShield.circle.x, L1.plasmaShield.circle.y,
+					L1.plasmaShield.circle.radius);
+		}
+		if(!Player.shootingSwitch){
+			sr.arc(L1.player.aimingArea.x,
+					L1.player.aimingArea.y,
+					L1.player.aimingArea.radius, 90,
+					L1.player.weapon.coolDownAngle);
+		}
 		for (Enemy enemy : L1.enemiesOnStage) {
 			// sr.setColor(Color.GREEN);
 			// sr.circle(enemy.getgReenAura().x, enemy.getgReenAura().y,

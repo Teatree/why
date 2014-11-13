@@ -89,8 +89,12 @@ public class WeaponGenerator {
 			} catch (Exception e) {
 				e.printStackTrace();
 			} 
-//			System.out.println("mod1 " + mod1.getClass().getSimpleName());
-			weapon.mod1 = mod1;
+			System.out.println("wep " + weapon);
+			System.out.println("wepmod1 " + weapon.mod1);
+			System.out.println("mod1 " + mod1);
+			if(weapon.mod1 == null){
+				weapon.mod1 = mod1;
+			}
 		}
 		
 		int rNumberSecond = random.nextInt(1000);
@@ -105,6 +109,9 @@ public class WeaponGenerator {
 			} 
 			if(mod2 != null && !mod2.equals(weapon.mod1)){
 				weapon.mod2 = mod2;
+				if(weapon.mod1 == null){
+					weapon.mod1 = mod2;
+				}
 			}
 		}
 		return weapon;

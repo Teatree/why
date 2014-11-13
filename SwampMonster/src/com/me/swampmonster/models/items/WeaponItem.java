@@ -33,11 +33,11 @@ public class WeaponItem extends Item{
 	@Override
 	public void pickMeUp(Player player) {
 //		player.weapon = this.weapon;
-		weapon.setDamage(player.absoluteScore);
+		weapon.setStats(player.absoluteScore);
 		TheController.showWeaponInv = true;
 		GShape.weaponDialog = new WeaponUIWindow("statuk'", GShape.skin, this);
-		GShape.weaponDialog.setSize(300, 350);
-		GShape.weaponDialog.setX(270);
+		GShape.weaponDialog.setSize(400, 350);
+		GShape.weaponDialog.setX(170);
 		GShape.weaponDialog.setY(100);
 		GShape.weaponDialog.debug();
 		TheController.paused = true;

@@ -26,11 +26,10 @@ public class Bow extends Weapon{
 		random = new Random();
 //		System.out.println("minDD" + minDD);
 //		System.out.println("maxDD" + maxDD);
-		coolDown = 120;
 		// temp
 //		minDD = 1;
 //		maxDD = 2;
-		setDamage(L1.player.absoluteScore);
+		setStats(L1.player.absoluteScore);
 	}
 
 	public void update(TiledMapTileLayer collisionLayer) {
@@ -42,27 +41,31 @@ public class Bow extends Weapon{
 	
 	
 	@Override
-	public void setDamage(int playerScore) {
+	public void setStats(int playerScore) {
 
 		if(playerScore>=0 && playerScore<500){
 			randBetVal = random.nextInt(4-2)+2;
 			minDD = randBetVal-1;
 			maxDD = randBetVal;
+			coolDown = random.nextInt(100-60)+60;
 		}
 		else if(playerScore>=500 && playerScore<1500){
 			randBetVal = random.nextInt(8-4)+4;
 			minDD = randBetVal-2;
 			maxDD = randBetVal;
+			coolDown = random.nextInt(90-50)+50;
 		}
 		else if(playerScore>=1500 && playerScore<3000){
 			randBetVal = random.nextInt(12-6)+6;
 			minDD = randBetVal-4;
 			maxDD = randBetVal;
+			coolDown = random.nextInt(120-50)+50;
 		}
 		else if(playerScore>=3000){
 			randBetVal = random.nextInt(20-10)+10;
 			minDD = randBetVal-6;
 			maxDD = randBetVal;
+			coolDown = random.nextInt(100-50)+50;
 		}
 	}
 
