@@ -46,21 +46,21 @@ public class EnemyZombie extends Enemy {
 		}
 		if(difficultyLevel==1){
 			animationsStandard.put(State.PURSUIT, new AnimationControl(
-					Assets.manager.get(Assets.enemyZombie), 8, 32, 7));
+					Assets.manager.get(Assets.enemyZombie1), 8, 32, 7));
 			animationsStandard.put(State.STANDARD, new AnimationControl(
-					Assets.manager.get(Assets.enemyZombie), 8, 32, 7));
+					Assets.manager.get(Assets.enemyZombie1), 8, 32, 7));
 			animationsStandard.put(State.DEAD,
-					new AnimationControl(Assets.manager.get(Assets.enemyZombie), 8,
+					new AnimationControl(Assets.manager.get(Assets.enemyZombie1), 8,
 							32, 4));
 			sprite = new Sprite(animationsStandard.get(state).getCurrentFrame());
 			points = 15;
 			attackSpeed = 50;
 			yellowAura.radius = 16;
 			oRangeAura.radius = yellowAura.radius * 2;
-			minHealth = 20;
-			maxHealth = 35;
-			minDamage = 2;
-			maxDamage = 3;
+			minHealth = 60;
+			maxHealth = 80;
+			minDamage = 5;
+			maxDamage = 8;
 			minSpeed = 3;
 			maxSpeed = 5;
 			health = random.nextInt(maxHealth - minHealth) + minHealth;

@@ -160,7 +160,7 @@ public abstract class Enemy extends AbstractGameObject implements Cloneable, Col
 		if(Player.absoluteScore<1000){
 			difficultyLevel = 0;
 		}else if(Player.absoluteScore >= 1000 && Player.absoluteScore<3000){
-			difficultyLevel = random.nextInt(1);
+			difficultyLevel = random.nextInt(2);
 		}else if(Player.absoluteScore >= 3000){
 			difficultyLevel = random.nextInt(2);
 		}
