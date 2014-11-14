@@ -9,6 +9,8 @@ import com.badlogic.gdx.math.Vector3;
 import com.me.swampmonster.models.AbstractGameObject;
 import com.me.swampmonster.models.L1;
 import com.me.swampmonster.models.Player;
+import com.me.swampmonster.models.items.CrossBow;
+import com.me.swampmonster.models.items.Weapon;
 import com.me.swampmonster.utils.Assets;
 
 public class Croshair extends AbstractGameObject{
@@ -35,9 +37,15 @@ public class Croshair extends AbstractGameObject{
 //		player.shotDir.y = (player.getPosition().y + sprite.getHeight() / 2) * 2 - V3point.y;
 		
 		
+		double aimingLength;
+		if(L1.player.weapon instanceof CrossBow){
+			aimingLength = Math.sqrt(Math.pow(player.aimLineHead.x - player.position.x, 5)
+					+ Math.pow(player.aimLineHead.y - player.position.y, 5));
+		}else{
+			aimingLength = Math.sqrt(Math.pow(player.aimLineHead.x - player.position.x, 2)+Math.pow(player.aimLineHead.y - player.position.y, 2));
+		}
 		
-		double aimingLength = Math.sqrt(Math.pow(player.aimLineHead.x - player.position.x, 2)+Math.pow(player.aimLineHead.y - player.position.y, 2));
-		if(aimingLength<50){
+		if (aimingLength < 50) {
 			sprite = new Sprite(pointerFrames[0][0]);
 		}else if(aimingLength < 100){
 			sprite = new Sprite(pointerFrames[1][0]);

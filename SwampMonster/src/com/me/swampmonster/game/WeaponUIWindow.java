@@ -56,8 +56,8 @@ public class WeaponUIWindow extends Dialog{
 		
 		currentDamage = new Label("d" + L1.player.weapon.minDD + " - " + L1.player.weapon.maxDD, skin, "stats");
 		newDamage = new Label("d" + wep.minDD + " - " + wep.maxDD, skin, "stats");
-		currentCoolDown = new Label("t" + L1.player.weapon.coolDown/60 + " s", skin, "stats");
-		newCoolDown = new Label("t" + wep.coolDown/60 + " s", skin, "stats");
+		currentCoolDown = new Label("t" + (double)Math.round((float)L1.player.weapon.coolDown/60 * 10) / 10 + " s", skin, "stats");
+		newCoolDown = new Label("t" + (double)Math.round((float)wep.coolDown/60 *10) /10 + " s", skin, "stats");
 		
 		keepButton = new TextButton("KEEP", skin);
 		takeButton = new TextButton("TAKE", skin);
@@ -81,30 +81,30 @@ public class WeaponUIWindow extends Dialog{
 //			currentMod1Name = new Label(L1.player.weapon.mod1.name, skin);
 			currentMod1Desc = new Label(L1.player.weapon.mod1.descriptio, skin);
 			currentMod1Desc.setWrap(true);
-			currentTabl.add(currentMod1Desc).row().height(100).width(180);
+			currentTabl.add(currentMod1Desc).height(60).width(180).row();
 		}
 		if (L1.player.weapon.mod2 != null){
 //			currentMod2Name = new Label(L1.player.weapon.mod2.name, skin);
 			currentMod2Desc = new Label(L1.player.weapon.mod2.descriptio, skin);
 			currentMod2Desc.setWrap(true);
-			currentTabl.add(currentMod2Desc).row().height(100).width(180);
+			currentTabl.add(currentMod2Desc).height(60).width(180).row();
 		}
 		
 		if (wep.mod1 != null){
 //			newMod1Name = new Label(weapon.mod1.name, skin);
 			newMod1Desc = new Label(wep.mod1.descriptio, skin);
 			newMod1Desc.setWrap(true);
-			newTabl.add(newMod1Desc).row().height(100).width(180);
+			newTabl.add(newMod1Desc).height(60).width(180).row();
 		}
 		if (wep.mod2 != null){
 //			newMod2Name = new Label(weapon.mod2.name, skin);
 			newMod2Desc = new Label(wep.mod2.descriptio, skin);
 			newMod2Desc.setWrap(true);
-			newTabl.add(newMod2Desc).row().height(100).width(180);
+			newTabl.add(newMod2Desc).height(60).width(180).row();
 		}
 		
-		getContentTable().add(currentTabl).top().width(190).height(300).left();
-		getContentTable().add(newTabl).top().width(190).height(300).right();
+		getContentTable().add(currentTabl).top().width(190).height(350).left();
+		getContentTable().add(newTabl).top().width(190).height(350).right();
 		
 		button(keepButton, "Keep");
 		button(takeButton, "Take");

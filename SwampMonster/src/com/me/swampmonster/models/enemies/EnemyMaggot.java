@@ -33,35 +33,6 @@ public class EnemyMaggot extends Enemy {
 	public EnemyMaggot(Vector2 position) {
 		super(position);
 		
-		rand = new Random();
-		randomChargeCounter = 300;
-		counter = 0;
-		preparingToCharge = false;
-		
-		animationsStandard.put(State.STANDARD, new AnimationControl(Assets.manager.get(Assets.enemyMaggot), 8, 32, 7)); 
-		animationsStandard.put(State.PURSUIT, new AnimationControl(Assets.manager.get(Assets.enemyMaggot), 8, 32, 7)); 
-		animationsStandard.put(State.DEAD, new AnimationControl(Assets.manager.get(Assets.enemyMaggot), 8, 32, 4)); 
-		sprite = new Sprite(animationsStandard.get(state).getCurrentFrame());
-//		movementSpeed = 0.8f;
-//		health = 2;
-//		damage = 1;
-		points = 15;
-		attackSpeed = 15;
-		minHealth = 1;
-		maxHealth = 3;
-		minDamage = 1;
-		maxDamage = 2;
-		minSpeed = 6;
-		maxSpeed = 10;
-		health = random.nextInt(maxHealth - minHealth) + minHealth;
-		damage = random.nextInt(maxDamage - minDamage) + minDamage;
-		movementSpeed = (float)(((float)(random.nextInt(maxSpeed - minSpeed) + minSpeed))/10);
-		minScale = (int) (17+health+damage-(int)(movementSpeed*10));
-		maxScale = (int) (19+health+damage-(int)(movementSpeed*10));
-//		System.out.println("minscale: " + minScale +  " maxScale: " + maxScale);
-		sprite.setScale((float)(((float)(random.nextInt(maxScale - minScale) + minScale)))/10);
-//		rectanlge.setSize(sprite.getBoundingRectangle().getWidth()*sprite.getScaleX(), sprite.getBoundingRectangle().getHeight()*sprite.getScaleY());
-		STANDART_MOVEMENT_SPEED = movementSpeed;
 	}
 	
 	@Override
@@ -244,7 +215,7 @@ public class EnemyMaggot extends Enemy {
 			turretAttackSequenceStarted = true;
 		}
 		
-		if (aimingAura.overlaps(player.circle) && !attackSequenceStarted && player.state != State.DEAD && !charging) {
+		if (aimingAura.overlaps(player.circle) && !attackSequenceStarted && player.state != State.DEAD && !charging && difficultyLevel!=0) {
 			if (rand.nextInt(randomChargeCounter) == randomChargeCounter-1) {
 				aiming = true;
 				counter = 200;
@@ -279,6 +250,107 @@ public class EnemyMaggot extends Enemy {
 				inflictToTurret(64, 32, player.turret, cameraHelper, attackSpeed);
 			}
 		}
+	}
+
+	@Override
+	public void difficultyLevelParams() {
+		if(difficultyLevel == 0){
+
+			rand = new Random();
+			randomChargeCounter = 300;
+			counter = 0;
+			preparingToCharge = false;
+			
+			animationsStandard.put(State.STANDARD, new AnimationControl(Assets.manager.get(Assets.enemyMaggot), 8, 32, 7)); 
+			animationsStandard.put(State.PURSUIT, new AnimationControl(Assets.manager.get(Assets.enemyMaggot), 8, 32, 7)); 
+			animationsStandard.put(State.DEAD, new AnimationControl(Assets.manager.get(Assets.enemyMaggot), 8, 32, 4)); 
+			sprite = new Sprite(animationsStandard.get(state).getCurrentFrame());
+//			movementSpeed = 0.8f;
+//			health = 2;
+//			damage = 1;
+			points = 15;
+			attackSpeed = 15;
+			minHealth = 10;
+			maxHealth = 25;
+			minDamage = 1;
+			maxDamage = 2;
+			minSpeed = 6;
+			maxSpeed = 10;
+			health = random.nextInt(maxHealth - minHealth) + minHealth;
+			damage = random.nextInt(maxDamage - minDamage) + minDamage;
+			movementSpeed = (float)(((float)(random.nextInt(maxSpeed - minSpeed) + minSpeed))/10);
+			minScale = (int) (17+health/10+damage-(int)(movementSpeed*10));
+			maxScale = (int) (19+health/10+damage-(int)(movementSpeed*10));
+//			System.out.println("minscale: " + minScale +  " maxScale: " + maxScale);
+			sprite.setScale((float)(((float)(random.nextInt(maxScale - minScale) + minScale)))/10);
+//			rectanlge.setSize(sprite.getBoundingRectangle().getWidth()*sprite.getScaleX(), sprite.getBoundingRectangle().getHeight()*sprite.getScaleY());
+			STANDART_MOVEMENT_SPEED = movementSpeed;
+		}
+		if(difficultyLevel == 1){
+			
+			rand = new Random();
+			randomChargeCounter = 300;
+			counter = 0;
+			preparingToCharge = false;
+			
+			animationsStandard.put(State.STANDARD, new AnimationControl(Assets.manager.get(Assets.enemyMaggot), 8, 32, 7)); 
+			animationsStandard.put(State.PURSUIT, new AnimationControl(Assets.manager.get(Assets.enemyMaggot), 8, 32, 7)); 
+			animationsStandard.put(State.DEAD, new AnimationControl(Assets.manager.get(Assets.enemyMaggot), 8, 32, 4)); 
+			sprite = new Sprite(animationsStandard.get(state).getCurrentFrame());
+//			movementSpeed = 0.8f;
+//			health = 2;
+//			damage = 1;
+			points = 15;
+			attackSpeed = 15;
+			minHealth = 10;
+			maxHealth = 25;
+			minDamage = 1;
+			maxDamage = 2;
+			minSpeed = 6;
+			maxSpeed = 10;
+			health = random.nextInt(maxHealth - minHealth) + minHealth;
+			damage = random.nextInt(maxDamage - minDamage) + minDamage;
+			movementSpeed = (float)(((float)(random.nextInt(maxSpeed - minSpeed) + minSpeed))/10);
+			minScale = (int) (17+health/10+damage-(int)(movementSpeed*10));
+			maxScale = (int) (19+health/10+damage-(int)(movementSpeed*10));
+//			System.out.println("minscale: " + minScale +  " maxScale: " + maxScale);
+			sprite.setScale((float)(((float)(random.nextInt(maxScale - minScale) + minScale)))/10);
+//			rectanlge.setSize(sprite.getBoundingRectangle().getWidth()*sprite.getScaleX(), sprite.getBoundingRectangle().getHeight()*sprite.getScaleY());
+			STANDART_MOVEMENT_SPEED = movementSpeed;
+		}
+		if(difficultyLevel == 2){
+			
+			rand = new Random();
+			randomChargeCounter = 300;
+			counter = 0;
+			preparingToCharge = false;
+			
+			animationsStandard.put(State.STANDARD, new AnimationControl(Assets.manager.get(Assets.enemyMaggot), 8, 32, 7)); 
+			animationsStandard.put(State.PURSUIT, new AnimationControl(Assets.manager.get(Assets.enemyMaggot), 8, 32, 7)); 
+			animationsStandard.put(State.DEAD, new AnimationControl(Assets.manager.get(Assets.enemyMaggot), 8, 32, 4)); 
+			sprite = new Sprite(animationsStandard.get(state).getCurrentFrame());
+//			movementSpeed = 0.8f;
+//			health = 2;
+//			damage = 1;
+			points = 15;
+			attackSpeed = 15;
+			minHealth = 10;
+			maxHealth = 25;
+			minDamage = 1;
+			maxDamage = 2;
+			minSpeed = 6;
+			maxSpeed = 10;
+			health = random.nextInt(maxHealth - minHealth) + minHealth;
+			damage = random.nextInt(maxDamage - minDamage) + minDamage;
+			movementSpeed = (float)(((float)(random.nextInt(maxSpeed - minSpeed) + minSpeed))/10);
+			minScale = (int) (17+health/10+damage-(int)(movementSpeed*10));
+			maxScale = (int) (19+health/10+damage-(int)(movementSpeed*10));
+//			System.out.println("minscale: " + minScale +  " maxScale: " + maxScale);
+			sprite.setScale((float)(((float)(random.nextInt(maxScale - minScale) + minScale)))/10);
+//			rectanlge.setSize(sprite.getBoundingRectangle().getWidth()*sprite.getScaleX(), sprite.getBoundingRectangle().getHeight()*sprite.getScaleY());
+			STANDART_MOVEMENT_SPEED = movementSpeed;
+		}
+		
 	}
 
 }

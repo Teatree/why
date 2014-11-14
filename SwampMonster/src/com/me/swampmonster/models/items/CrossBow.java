@@ -54,8 +54,8 @@ public class CrossBow extends Weapon{
 		p.setPosition(new Vector2(L1.player.aimingArea.x + direction_x / 100 - 8,
 				L1.player.aimingArea.y + direction_y / 100 - 8));
 		
-		p.force = (float) Math.sqrt(Math.pow((V3point.x - L1.player.position.x), 2)
-				+ Math.pow((V3point.y - L1.player.position.y), 2)) / 50;
+		p.force = 7;
+//		System.out.println("crossbow force " + p.force); 
 		
 		float length = (float) Math.sqrt(direction_x * direction_x
 				+ direction_y * direction_y);
@@ -129,27 +129,27 @@ public class CrossBow extends Weapon{
 	public void setStats(int playerScore) {
 
 		if(playerScore>=0 && playerScore<500){
-			randBetVal = random.nextInt(4-2)+2;
-			minDD = randBetVal-1;
-			maxDD = randBetVal;
+			randBetVal = random.nextInt(30-18)+18;
+			minDD = randBetVal-random.nextInt(4);
+			maxDD = randBetVal+random.nextInt(4);
 			coolDown = random.nextInt(250-220)+220;
 		}
 		else if(playerScore>=500 && playerScore<1500){
-			randBetVal = random.nextInt(8-4)+4;
-			minDD = randBetVal-2;
-			maxDD = randBetVal;
+			randBetVal = random.nextInt(34-21)+21;
+			minDD = randBetVal-random.nextInt(4);
+			maxDD = randBetVal+random.nextInt(4);
 			coolDown = random.nextInt(260-210)+210;
 		}
 		else if(playerScore>=1500 && playerScore<3000){
-			randBetVal = random.nextInt(12-6)+6;
-			minDD = randBetVal-4;
-			maxDD = randBetVal;
+			randBetVal = random.nextInt(38-24)+24;
+			minDD = randBetVal-random.nextInt(4);
+			maxDD = randBetVal+random.nextInt(4);
 			coolDown = random.nextInt(260-190)+190;
 		}
 		else if(playerScore>=3000){
-			randBetVal = random.nextInt(20-10)+10;
-			minDD = randBetVal-6;
-			maxDD = randBetVal;
+			randBetVal = random.nextInt(41-29)+29;
+			minDD = randBetVal-random.nextInt(4);
+			maxDD = randBetVal+random.nextInt(4);
 			coolDown = random.nextInt(260-170)+170;
 		}
 	}

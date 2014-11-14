@@ -18,8 +18,6 @@ public class SlingShot extends Weapon{
 //		p.sprite = new Sprite(Assets.manager.get(Assets.spear));
 
 	}
-	
-	
 
 	@Override
 	public void shoot(Vector3 V3point) {
@@ -43,7 +41,7 @@ public class SlingShot extends Weapon{
 				L1.player.aimingArea.y + direction_y / 100 - 8));
 		
 		p.force = (float) Math.sqrt(Math.pow((V3point.x - L1.player.position.x), 2)
-				+ Math.pow((V3point.y - L1.player.position.y), 2)) / 50;
+				+ Math.pow((V3point.y - L1.player.position.y), 2)) / 40;
 		
 		float length = (float) Math.sqrt(direction_x * direction_x
 				+ direction_y * direction_y);
@@ -86,9 +84,9 @@ public class SlingShot extends Weapon{
 					- 8, L1.player.aimingArea.y + direction_y3 / 100 - 8));
 			
 			p2.force = (float) Math.sqrt(Math.pow((V3point.x - L1.player.position.x),
-					2) + Math.pow((V3point.y - L1.player.position.y), 2)) / 50;
+					2) + Math.pow((V3point.y - L1.player.position.y), 2)) / 40;
 			p3.force = (float) Math.sqrt(Math.pow((V3point.x - L1.player.position.x),
-					2) + Math.pow((V3point.y - L1.player.position.y), 2)) / 50;
+					2) + Math.pow((V3point.y - L1.player.position.y), 2)) / 40;
 			
 			float length2 = (float) Math.sqrt(direction_x2 * direction_x2
 					+ direction_y2 * direction_y2);
@@ -117,27 +115,27 @@ public class SlingShot extends Weapon{
 	public void setStats(int playerScore) {
 
 		if(playerScore>=0 && playerScore<500){
-			randBetVal = random.nextInt(4-2)+2;
-			minDD = randBetVal-1;
-			maxDD = randBetVal;
+			randBetVal = random.nextInt(12-7)+7;
+			minDD = randBetVal-random.nextInt(4);
+			maxDD = randBetVal+random.nextInt(4);
 			coolDown = random.nextInt(70-30)+30;
 		}
 		else if(playerScore>=500 && playerScore<1500){
-			randBetVal = random.nextInt(8-4)+4;
-			minDD = randBetVal-2;
-			maxDD = randBetVal;
+			randBetVal = random.nextInt(16-10)+10;
+			minDD = randBetVal-random.nextInt(4);
+			maxDD = randBetVal+random.nextInt(4);
 			coolDown = random.nextInt(70-20)+20;
 		}
 		else if(playerScore>=1500 && playerScore<3000){
-			randBetVal = random.nextInt(12-6)+6;
-			minDD = randBetVal-4;
-			maxDD = randBetVal;
+			randBetVal = random.nextInt(20-13)+13;
+			minDD = randBetVal-random.nextInt(4);
+			maxDD = randBetVal+random.nextInt(4);
 			coolDown = random.nextInt(60-20)+20;
 		}
 		else if(playerScore>=3000){
-			randBetVal = random.nextInt(20-10)+10;
-			minDD = randBetVal-6;
-			maxDD = randBetVal;
+			randBetVal = random.nextInt(24-16)+16;
+			minDD = randBetVal-random.nextInt(4);
+			maxDD = randBetVal+random.nextInt(4);
 			coolDown = random.nextInt(50-15)+15;
 		}
 	}

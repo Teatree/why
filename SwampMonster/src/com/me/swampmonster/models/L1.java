@@ -301,6 +301,12 @@ public class L1 {
 										item.throwButton = null;
 									}
 								}
+								for(Actor a: L1Renderer.stage.getActors()){
+									if(a.equals(item.itemName)){
+										a.remove();
+										item.itemName = null;
+									}
+								}
 	//							Gdx.input.setInputProcessor(null);
 							}
 						});
@@ -321,6 +327,12 @@ public class L1 {
 								if(a.equals(item.throwButton)){
 									a.remove();
 									item.throwButton = null;
+								}
+							}
+							for(Actor a: L1Renderer.stage.getActors()){
+								if(a.equals(item.itemName)){
+									a.remove();
+									item.itemName = null;
 								}
 							}
 //							Gdx.input.setInputProcessor(null);

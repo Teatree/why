@@ -17,30 +17,6 @@ public class EnemyLeech extends Enemy{
 	public EnemyLeech(Vector2 position) {
 		super(position);
 		
-		animationsStandard.put(State.STANDARD, new AnimationControl(Assets.manager.get(Assets.enemyLeech), 8, 32, 7)); 
-		animationsStandard.put(State.PURSUIT, new AnimationControl(Assets.manager.get(Assets.enemyLeech), 8, 32, 7)); 
-		animationsStandard.put(State.ATTACKING, new AnimationControl(Assets.manager.get(Assets.enemyLeech), 8, 32, 7)); 
-		animationsStandard.put(State.DEAD, new AnimationControl(Assets.manager.get(Assets.enemyLeech), 8, 32, 7)); 
-		
-		yellowAura.radius = yellowAura.radius*20;
-		sprite = new Sprite(animationsStandard.get(state).getCurrentFrame());
-		points = 35;
-		attackSpeed = 120;
-		minHealth = 2;
-		maxHealth = 3;
-		minDamage = 1;
-		maxDamage = 2;
-		minSpeed = 3;
-		maxSpeed = 4;
-		health = random.nextInt(maxHealth - minHealth) + minHealth;
-		movementSpeed = (float)(((float)(random.nextInt(maxSpeed - minSpeed) + minSpeed))/10);
-		damage = random.nextInt(maxDamage - minDamage) + minDamage;
-		minScale = (int) (11+health+damage-(int)(movementSpeed*10));
-		maxScale = (int) (14+health+damage-(int)(movementSpeed*10));
-//		System.out.println("minscale: " + minScale +  " maxScale: " + maxScale);
-		sprite.setScale((float)(((float)(random.nextInt(maxScale - minScale) + minScale)))/10);
-//		rectanlge.setSize(sprite.getBoundingRectangle().getWidth()*sprite.getScaleX(), sprite.getBoundingRectangle().getHeight()*sprite.getScaleY());
-		STANDART_MOVEMENT_SPEED = movementSpeed;
 	}
 	
 	@Override
@@ -98,6 +74,88 @@ public class EnemyLeech extends Enemy{
 					attackSequenceStarted = false;
 				}
 			}
+		}
+	}
+
+	@Override
+	public void difficultyLevelParams() {
+		if(difficultyLevel==0){
+			animationsStandard.put(State.STANDARD, new AnimationControl(Assets.manager.get(Assets.enemyLeech), 8, 32, 7)); 
+			animationsStandard.put(State.PURSUIT, new AnimationControl(Assets.manager.get(Assets.enemyLeech), 8, 32, 7)); 
+			animationsStandard.put(State.ATTACKING, new AnimationControl(Assets.manager.get(Assets.enemyLeech), 8, 32, 7)); 
+			animationsStandard.put(State.DEAD, new AnimationControl(Assets.manager.get(Assets.enemyLeech), 8, 32, 7)); 
+			
+			yellowAura.radius = yellowAura.radius*20;
+			sprite = new Sprite(animationsStandard.get(state).getCurrentFrame());
+			points = 35;
+			attackSpeed = 120;
+			minHealth = 20;
+			maxHealth = 35;
+			minDamage = 1;
+			maxDamage = 2;
+			minSpeed = 3;
+			maxSpeed = 4;
+			health = random.nextInt(maxHealth - minHealth) + minHealth;
+			movementSpeed = (float)(((float)(random.nextInt(maxSpeed - minSpeed) + minSpeed))/10);
+			damage = random.nextInt(maxDamage - minDamage) + minDamage;
+			minScale = (int) (11+health/10+damage-(int)(movementSpeed*10));
+			maxScale = (int) (14+health/10+damage-(int)(movementSpeed*10));
+	//		System.out.println("minscale: " + minScale +  " maxScale: " + maxScale);
+			sprite.setScale((float)(((float)(random.nextInt(maxScale - minScale) + minScale)))/10);
+	//		rectanlge.setSize(sprite.getBoundingRectangle().getWidth()*sprite.getScaleX(), sprite.getBoundingRectangle().getHeight()*sprite.getScaleY());
+			STANDART_MOVEMENT_SPEED = movementSpeed;
+		}
+		if(difficultyLevel==1){
+			animationsStandard.put(State.STANDARD, new AnimationControl(Assets.manager.get(Assets.enemyLeech), 8, 32, 7)); 
+			animationsStandard.put(State.PURSUIT, new AnimationControl(Assets.manager.get(Assets.enemyLeech), 8, 32, 7)); 
+			animationsStandard.put(State.ATTACKING, new AnimationControl(Assets.manager.get(Assets.enemyLeech), 8, 32, 7)); 
+			animationsStandard.put(State.DEAD, new AnimationControl(Assets.manager.get(Assets.enemyLeech), 8, 32, 7)); 
+			
+			yellowAura.radius = yellowAura.radius*20;
+			sprite = new Sprite(animationsStandard.get(state).getCurrentFrame());
+			points = 35;
+			attackSpeed = 120;
+			minHealth = 20;
+			maxHealth = 35;
+			minDamage = 1;
+			maxDamage = 2;
+			minSpeed = 3;
+			maxSpeed = 4;
+			health = random.nextInt(maxHealth - minHealth) + minHealth;
+			movementSpeed = (float)(((float)(random.nextInt(maxSpeed - minSpeed) + minSpeed))/10);
+			damage = random.nextInt(maxDamage - minDamage) + minDamage;
+			minScale = (int) (11+health/10+damage-(int)(movementSpeed*10));
+			maxScale = (int) (14+health/10+damage-(int)(movementSpeed*10));
+			//		System.out.println("minscale: " + minScale +  " maxScale: " + maxScale);
+			sprite.setScale((float)(((float)(random.nextInt(maxScale - minScale) + minScale)))/10);
+			//		rectanlge.setSize(sprite.getBoundingRectangle().getWidth()*sprite.getScaleX(), sprite.getBoundingRectangle().getHeight()*sprite.getScaleY());
+			STANDART_MOVEMENT_SPEED = movementSpeed;
+		}
+		if(difficultyLevel==2){
+			animationsStandard.put(State.STANDARD, new AnimationControl(Assets.manager.get(Assets.enemyLeech), 8, 32, 7)); 
+			animationsStandard.put(State.PURSUIT, new AnimationControl(Assets.manager.get(Assets.enemyLeech), 8, 32, 7)); 
+			animationsStandard.put(State.ATTACKING, new AnimationControl(Assets.manager.get(Assets.enemyLeech), 8, 32, 7)); 
+			animationsStandard.put(State.DEAD, new AnimationControl(Assets.manager.get(Assets.enemyLeech), 8, 32, 7)); 
+			
+			yellowAura.radius = yellowAura.radius*20;
+			sprite = new Sprite(animationsStandard.get(state).getCurrentFrame());
+			points = 35;
+			attackSpeed = 120;
+			minHealth = 20;
+			maxHealth = 35;
+			minDamage = 1;
+			maxDamage = 2;
+			minSpeed = 3;
+			maxSpeed = 4;
+			health = random.nextInt(maxHealth - minHealth) + minHealth;
+			movementSpeed = (float)(((float)(random.nextInt(maxSpeed - minSpeed) + minSpeed))/10);
+			damage = random.nextInt(maxDamage - minDamage) + minDamage;
+			minScale = (int) (11+health/10+damage-(int)(movementSpeed*10));
+			maxScale = (int) (14+health/10+damage-(int)(movementSpeed*10));
+			//		System.out.println("minscale: " + minScale +  " maxScale: " + maxScale);
+			sprite.setScale((float)(((float)(random.nextInt(maxScale - minScale) + minScale)))/10);
+			//		rectanlge.setSize(sprite.getBoundingRectangle().getWidth()*sprite.getScaleX(), sprite.getBoundingRectangle().getHeight()*sprite.getScaleY());
+			STANDART_MOVEMENT_SPEED = movementSpeed;
 		}
 	}
 

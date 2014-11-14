@@ -12,47 +12,44 @@ import com.me.swampmonster.models.Item;
 import com.me.swampmonster.models.Player;
 import com.me.swampmonster.utils.Assets;
 
-public class WeaponItem extends Item{
+public class WeaponItem extends Item {
 
 	public Weapon weapon;
 	Random random;
-	
+
 	public WeaponItem() {
 
-		animationsStandard.put(State.SPAWNING, new AnimationControl(Assets.manager.get(Assets.wepBOW), 4, 2, 4));
-		animationsStandard.put(State.STANDARD, new AnimationControl(Assets.manager.get(Assets.wepBOW), 4, 2, 4));
-		animationsStandard.put(State.DEAD, new AnimationControl(Assets.manager.get(Assets.wepBOW), 4, 2, 4));
-		animationsStandard.put(State.DESPAWNING, new AnimationControl(Assets.manager.get(Assets.wepBOW), 4, 2, 4));
-		
-		sprite = new Sprite(animationsStandard.get(state).getCurrentFrame());
-		
+
+//		sprite = new Sprite(animationsStandard.get(state).getCurrentFrame());
+
 		circle.radius = 16;
-		
+
+		name = "";
 	}
-	
+
 	@Override
 	public void pickMeUp(Player player) {
-//		player.weapon = this.weapon;
+		// player.weapon = this.weapon;
 		weapon.setStats(player.absoluteScore);
 		TheController.showWeaponInv = true;
 		GShape.weaponDialog = new WeaponUIWindow("statuk'", GShape.skin, this);
-		GShape.weaponDialog.setSize(400, 350);
+		GShape.weaponDialog.setSize(400, 400);
 		GShape.weaponDialog.setX(170);
-		GShape.weaponDialog.setY(100);
+		GShape.weaponDialog.setY(40);
 		GShape.weaponDialog.debug();
 		TheController.paused = true;
-//		System.out.println("player weapon stats: type:"
-//				+ player.weapon.getClass().getSimpleName() + " attack: "
-//				+ player.weapon.minDD + " - " + player.weapon.maxDD + " mods: "
-//				+ player.weapon.mod1 + " " + player.weapon.mod2);
-//		state = State.DEAD;
+		// System.out.println("player weapon stats: type:"
+		// + player.weapon.getClass().getSimpleName() + " attack: "
+		// + player.weapon.minDD + " - " + player.weapon.maxDD + " mods: "
+		// + player.weapon.mod1 + " " + player.weapon.mod2);
+		// state = State.DEAD;
 		L1Renderer.stage.addActor(GShape.weaponDialog);
 	}
 
 	@Override
 	public void parametersForThrowing(Player player) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

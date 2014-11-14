@@ -36,7 +36,7 @@ import com.me.swampmonster.utils.CameraHelper;
 import com.me.swampmonster.utils.Constants;
 import com.me.swampmonster.utils.EnemyGenerator.Toughness;
 
-public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
+public abstract class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 
 	public int cunter;
 	public boolean aiming;
@@ -47,6 +47,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 	public boolean isAimedByHydra;
 	public float poisonDamage;
 	public int poisonDamageInterval;
+	public int difficultyLevel;
 	public Circle radioactiveAura;
 	int timer;
 	public int time;
@@ -144,7 +145,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 		timer = 0;
 		timer2 = 0;
 		path = new Node[99];
-
+		
 		enemyProjectiles = new LinkedList<LeechProjectile>();
 
 		// ***Character stats board, probably need to delete this***
@@ -156,6 +157,14 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 		effectAnimator = new AnimationControl(Assets.manager.get(Assets.stunEffectAnimation), 4, 1, 12);
 		effectCarrier = new Sprite(effectAnimator.getCertainFrame(0));
 		
+		if(Player.absoluteScore<1000){
+			difficultyLevel = 0;
+		}else if(Player.absoluteScore >= 1000 && Player.absoluteScore<3000){
+			difficultyLevel = random.nextInt(1);
+		}else if(Player.absoluteScore >= 3000){
+			difficultyLevel = random.nextInt(2);
+		}
+		difficultyLevelParams();
 		characterStatsBoard();
 	}
 
@@ -266,7 +275,7 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 			healCounter++;
 			// play visual effect on enemy
 			if (healCounter == 60) {
-				health++;
+				health+=10;
 				healCounter = 0;
 				heal = false;
 			}
@@ -937,6 +946,9 @@ public class Enemy extends AbstractGameObject implements Cloneable, Collidable {
 		}
 	}
 
+	public abstract void difficultyLevelParams();
+		
+	
 	protected void collisionCheck(Collidable collidable,
 			TiledMapTileLayer collisionLayer, AbstractGameObject player) {
 		if (collidable != null) {

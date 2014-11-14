@@ -42,7 +42,7 @@ public abstract class AbstractGameObject {
 	}
 	
 	protected TextureRegion currentFrame;
-	protected HashMap<State, AnimationControl> animationsStandard = new HashMap<State, AnimationControl>();   
+	public HashMap<State, AnimationControl> animationsStandard = new HashMap<State, AnimationControl>();   
 	
 	public State state;
 	public NegativeEffects negativeEffectsState;

@@ -44,27 +44,27 @@ public class Bow extends Weapon{
 	public void setStats(int playerScore) {
 
 		if(playerScore>=0 && playerScore<500){
-			randBetVal = random.nextInt(4-2)+2;
-			minDD = randBetVal-1;
-			maxDD = randBetVal;
+			randBetVal = random.nextInt(17-12)+12;
+			minDD = randBetVal-random.nextInt(3);
+			maxDD = randBetVal+random.nextInt(3);
 			coolDown = random.nextInt(100-60)+60;
 		}
 		else if(playerScore>=500 && playerScore<1500){
-			randBetVal = random.nextInt(8-4)+4;
-			minDD = randBetVal-2;
-			maxDD = randBetVal;
+			randBetVal = random.nextInt(21-15)+15;
+			minDD = randBetVal-random.nextInt(3);
+			maxDD = randBetVal+random.nextInt(3);
 			coolDown = random.nextInt(90-50)+50;
 		}
 		else if(playerScore>=1500 && playerScore<3000){
-			randBetVal = random.nextInt(12-6)+6;
-			minDD = randBetVal-4;
-			maxDD = randBetVal;
+			randBetVal = random.nextInt(26-19)+19;
+			minDD = randBetVal-random.nextInt(3);
+			maxDD = randBetVal+random.nextInt(3);
 			coolDown = random.nextInt(120-50)+50;
 		}
 		else if(playerScore>=3000){
-			randBetVal = random.nextInt(20-10)+10;
-			minDD = randBetVal-6;
-			maxDD = randBetVal;
+			randBetVal = random.nextInt(32-21)+21;
+			minDD = randBetVal-random.nextInt(3);
+			maxDD = randBetVal+random.nextInt(3);
 			coolDown = random.nextInt(100-50)+50;
 		}
 	}

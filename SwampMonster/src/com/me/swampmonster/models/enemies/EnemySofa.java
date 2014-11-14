@@ -34,40 +34,6 @@ public class EnemySofa extends Enemy {
 	
 	public EnemySofa(Vector2 position) {
 		super(position);
-		animationsStandard.put(State.STANDARD, new AnimationControl(Assets.manager.get(Assets.enemySofa), 8, 32, 7)); 
-		animationsStandard.put(State.PURSUIT, new AnimationControl(Assets.manager.get(Assets.enemySofa), 8, 32, 7)); 
-		animationsStandard.put(State.DEAD, new AnimationControl(Assets.manager.get(Assets.enemySofa), 8, 32, 4)); 
-		animationsStandard.put(State.ANIMATING, new AnimationControl(Assets.manager.get(Assets.enemySofa), 8, 32, 7));
-		animationsStandard.put(State.ANIMATINGLARGE, new AnimationControl(Assets.manager.get(Assets.enemySofa), 8, 32, 7));
-		sprite = new Sprite(animationsStandard.get(state).getCurrentFrame());
-		animatingTimer = 300;
-		random = new Random();
-		roarCoolDown = 2100;
-//		roarCoolDown = random.nextInt(100-50)+50;
-		stunCoolDown = 2000;
-		points = 50;
-		attackSpeed = 15;
-		yellowAura.radius = 32;
-		yellowAura.x = position.x + sprite.getWidth() / 2;
-		yellowAura.y = position.y + sprite.getHeight() / 2;
-		oRangeAura.radius = yellowAura.radius*1.3f;
-		oRangeAura.x = position.x + sprite.getWidth() / 2;
-		oRangeAura.y = position.y + sprite.getHeight() / 2;
-		minHealth = 6;
-		maxHealth = 8;
-		minDamage = 3;
-		maxDamage = 4;
-		minSpeed = 4;
-		maxSpeed = 5;
-		health = random.nextInt(maxHealth - minHealth) + minHealth;
-		damage = random.nextInt(maxDamage - minDamage) + minDamage;
-		movementSpeed = (float)(((float)(random.nextInt(maxSpeed - minSpeed) + minSpeed))/10);
-		minScale = (int) (16+health+damage-(int)(movementSpeed*10));
-		maxScale = (int) (18+health+damage-(int)(movementSpeed*10));
-//		System.out.println("minscale: " + minScale +  " maxScale: " + maxScale);
-		sprite.setScale((float)(((float)(random.nextInt(maxScale - minScale) + minScale)))/10);
-//		rectanlge.setSize(sprite.getBoundingRectangle().getWidth()*sprite.getScaleX(), sprite.getBoundingRectangle().getHeight()*sprite.getScaleY());
-		STANDART_MOVEMENT_SPEED = movementSpeed;
 	}
 	
 	@Override
@@ -86,7 +52,7 @@ public class EnemySofa extends Enemy {
 		sofa_dy = L1.player.position.y - position.y;
 		float length3 = (float) Math.sqrt(sofa_dx * sofa_dx  + sofa_dy * sofa_dy);
 		
-		if(state != State.DEAD && state != State.ANIMATINGLARGE && state != State.ANIMATING && length3>200){
+		if(state != State.DEAD && state != State.ANIMATINGLARGE && state != State.ANIMATING && length3>200 && difficultyLevel!=0){
 			int number = random.nextInt(1000);
 			if(number < 900 && roarCoolDownCounter == 0){
 				state = State.ANIMATING;
@@ -138,6 +104,119 @@ public class EnemySofa extends Enemy {
 		}
 		if(stunCoolDownCounter>0){
 			stunCoolDownCounter --;
+		}
+		
+	}
+
+	@Override
+	public void difficultyLevelParams() {
+		if(difficultyLevel==0){
+			animationsStandard.put(State.STANDARD, new AnimationControl(Assets.manager.get(Assets.enemySofa), 8, 32, 7)); 
+			animationsStandard.put(State.PURSUIT, new AnimationControl(Assets.manager.get(Assets.enemySofa), 8, 32, 7)); 
+			animationsStandard.put(State.DEAD, new AnimationControl(Assets.manager.get(Assets.enemySofa), 8, 32, 4)); 
+			animationsStandard.put(State.ANIMATING, new AnimationControl(Assets.manager.get(Assets.enemySofa), 8, 32, 7));
+			animationsStandard.put(State.ANIMATINGLARGE, new AnimationControl(Assets.manager.get(Assets.enemySofa), 8, 32, 7));
+			sprite = new Sprite(animationsStandard.get(state).getCurrentFrame());
+			animatingTimer = 300;
+			random = new Random();
+			roarCoolDown = 2100;
+//			roarCoolDown = random.nextInt(100-50)+50;
+			stunCoolDown = 2000;
+			points = 50;
+			attackSpeed = 15;
+			yellowAura.radius = 32;
+			yellowAura.x = position.x + sprite.getWidth() / 2;
+			yellowAura.y = position.y + sprite.getHeight() / 2;
+			oRangeAura.radius = yellowAura.radius*1.3f;
+			oRangeAura.x = position.x + sprite.getWidth() / 2;
+			oRangeAura.y = position.y + sprite.getHeight() / 2;
+			minHealth = 65;
+			maxHealth = 90;
+			minDamage = 3;
+			maxDamage = 4;
+			minSpeed = 4;
+			maxSpeed = 5;
+			health = random.nextInt(maxHealth - minHealth) + minHealth;
+			damage = random.nextInt(maxDamage - minDamage) + minDamage;
+			movementSpeed = (float)(((float)(random.nextInt(maxSpeed - minSpeed) + minSpeed))/10);
+			minScale = (int) (16+health/10+damage-(int)(movementSpeed*10));
+			maxScale = (int) (18+health/10+damage-(int)(movementSpeed*10));
+//			System.out.println("minscale: " + minScale +  " maxScale: " + maxScale);
+			sprite.setScale((float)(((float)(random.nextInt(maxScale - minScale) + minScale)))/10);
+//			rectanlge.setSize(sprite.getBoundingRectangle().getWidth()*sprite.getScaleX(), sprite.getBoundingRectangle().getHeight()*sprite.getScaleY());
+			STANDART_MOVEMENT_SPEED = movementSpeed;
+		}
+		if(difficultyLevel==1){
+			animationsStandard.put(State.STANDARD, new AnimationControl(Assets.manager.get(Assets.enemySofa), 8, 32, 7)); 
+			animationsStandard.put(State.PURSUIT, new AnimationControl(Assets.manager.get(Assets.enemySofa), 8, 32, 7)); 
+			animationsStandard.put(State.DEAD, new AnimationControl(Assets.manager.get(Assets.enemySofa), 8, 32, 4)); 
+			animationsStandard.put(State.ANIMATING, new AnimationControl(Assets.manager.get(Assets.enemySofa), 8, 32, 7));
+			animationsStandard.put(State.ANIMATINGLARGE, new AnimationControl(Assets.manager.get(Assets.enemySofa), 8, 32, 7));
+			sprite = new Sprite(animationsStandard.get(state).getCurrentFrame());
+			animatingTimer = 300;
+			random = new Random();
+			roarCoolDown = 2100;
+//			roarCoolDown = random.nextInt(100-50)+50;
+			stunCoolDown = 2000;
+			points = 50;
+			attackSpeed = 15;
+			yellowAura.radius = 32;
+			yellowAura.x = position.x + sprite.getWidth() / 2;
+			yellowAura.y = position.y + sprite.getHeight() / 2;
+			oRangeAura.radius = yellowAura.radius*1.3f;
+			oRangeAura.x = position.x + sprite.getWidth() / 2;
+			oRangeAura.y = position.y + sprite.getHeight() / 2;
+			minHealth = 65;
+			maxHealth = 90;
+			minDamage = 3;
+			maxDamage = 4;
+			minSpeed = 4;
+			maxSpeed = 5;
+			health = random.nextInt(maxHealth - minHealth) + minHealth;
+			damage = random.nextInt(maxDamage - minDamage) + minDamage;
+			movementSpeed = (float)(((float)(random.nextInt(maxSpeed - minSpeed) + minSpeed))/10);
+			minScale = (int) (16+health/10+damage-(int)(movementSpeed*10));
+			maxScale = (int) (18+health/10+damage-(int)(movementSpeed*10));
+//			System.out.println("minscale: " + minScale +  " maxScale: " + maxScale);
+			sprite.setScale((float)(((float)(random.nextInt(maxScale - minScale) + minScale)))/10);
+//			rectanlge.setSize(sprite.getBoundingRectangle().getWidth()*sprite.getScaleX(), sprite.getBoundingRectangle().getHeight()*sprite.getScaleY());
+			STANDART_MOVEMENT_SPEED = movementSpeed;
+		}
+		if(difficultyLevel==2){
+			animationsStandard.put(State.STANDARD, new AnimationControl(Assets.manager.get(Assets.enemySofa), 8, 32, 7)); 
+			animationsStandard.put(State.PURSUIT, new AnimationControl(Assets.manager.get(Assets.enemySofa), 8, 32, 7)); 
+			animationsStandard.put(State.DEAD, new AnimationControl(Assets.manager.get(Assets.enemySofa), 8, 32, 4)); 
+			animationsStandard.put(State.ANIMATING, new AnimationControl(Assets.manager.get(Assets.enemySofa), 8, 32, 7));
+			animationsStandard.put(State.ANIMATINGLARGE, new AnimationControl(Assets.manager.get(Assets.enemySofa), 8, 32, 7));
+			sprite = new Sprite(animationsStandard.get(state).getCurrentFrame());
+			animatingTimer = 300;
+			random = new Random();
+			roarCoolDown = 2100;
+//			roarCoolDown = random.nextInt(100-50)+50;
+			stunCoolDown = 2000;
+			points = 50;
+			attackSpeed = 15;
+			yellowAura.radius = 32;
+			yellowAura.x = position.x + sprite.getWidth() / 2;
+			yellowAura.y = position.y + sprite.getHeight() / 2;
+			oRangeAura.radius = yellowAura.radius*1.3f;
+			oRangeAura.x = position.x + sprite.getWidth() / 2;
+			oRangeAura.y = position.y + sprite.getHeight() / 2;
+			minHealth = 65;
+			maxHealth = 90;
+			minDamage = 3;
+			maxDamage = 4;
+			minSpeed = 4;
+			maxSpeed = 5;
+			health = random.nextInt(maxHealth - minHealth) + minHealth;
+			damage = random.nextInt(maxDamage - minDamage) + minDamage;
+			movementSpeed = (float)(((float)(random.nextInt(maxSpeed - minSpeed) + minSpeed))/10);
+			minScale = (int) (16+health/10+damage-(int)(movementSpeed*10));
+			maxScale = (int) (18+health/10+damage-(int)(movementSpeed*10));
+//			System.out.println("minscale: " + minScale +  " maxScale: " + maxScale);
+			sprite.setScale((float)(((float)(random.nextInt(maxScale - minScale) + minScale)))/10);
+//			rectanlge.setSize(sprite.getBoundingRectangle().getWidth()*sprite.getScaleX(), sprite.getBoundingRectangle().getHeight()*sprite.getScaleY());
+			STANDART_MOVEMENT_SPEED = movementSpeed;
 		}
 		
 	}

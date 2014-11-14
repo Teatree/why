@@ -185,7 +185,7 @@ public class L1Renderer {
 				} else {
 					fontss.setColor(Color.RED);
 					fontss.setScale(0.52f);
-					fontss.draw(batch, (int) enemy.floatingOutputDamage * 10
+					fontss.draw(batch, (int) enemy.floatingOutputDamage
 							+ " DMG", enemy.position.x, enemy.position.y
 							+ enemy.sprite.getHeight() + 5 + enemy.time / 5);
 				}

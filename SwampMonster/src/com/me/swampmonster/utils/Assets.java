@@ -131,6 +131,10 @@ public class Assets {
 	public static final AssetDescriptor<Texture> lightBlueItem = new AssetDescriptor<Texture>("data\\Items\\lightBlue.png", Texture.class);
 	public static final AssetDescriptor<Texture> pinkItem = new AssetDescriptor<Texture>("data\\Items\\pink.png", Texture.class);
 	public static final AssetDescriptor<Texture> wepBOW = new AssetDescriptor<Texture>("data\\wepBOW.png", Texture.class);
+	public static final AssetDescriptor<Texture> wepBUZZSHOT = new AssetDescriptor<Texture>("data\\wepBUZZSHOT.png", Texture.class);
+	public static final AssetDescriptor<Texture> wepSLINGSHOT = new AssetDescriptor<Texture>("data\\wepSLINGSHOT.png", Texture.class);
+	public static final AssetDescriptor<Texture> wepCROSSBOW = new AssetDescriptor<Texture>("data\\wepCROSSBOW.png", Texture.class);
+	public static final AssetDescriptor<Texture> wepSPEAR = new AssetDescriptor<Texture>("data\\wepSPEAR.png", Texture.class);
 	
 //	public static final AssetDescriptor<Texture> tiles = new AssetDescriptor<Texture>("data\\Tiles.png", Texture.class);
 //	public static final AssetDescriptor<Texture> tileSet_SAND_WORLD = new AssetDescriptor<Texture>("data\\tileSet_SAND_WORLD.png", Texture.class);
@@ -197,6 +201,10 @@ public class Assets {
 		manager.load(greyItem);
 		manager.load(lightBlueItem);
 		manager.load(wepBOW);
+		manager.load(wepSPEAR);
+		manager.load(wepCROSSBOW);
+		manager.load(wepBUZZSHOT);
+		manager.load(wepSLINGSHOT);
 		manager.load(weaponizerButton);
 //		manager.load(tiles);
 //		manager.load(tileSet_SAND_WORLD);

@@ -1,6 +1,7 @@
 package com.me.swampmonster.models.enemies;
 
 import java.util.List;
+import java.util.logging.Level;
 
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Vector2;
@@ -12,22 +13,7 @@ public class EnemyBreather extends Enemy {
 
 	public EnemyBreather(Vector2 position) {
 		super(position);
-		points = 25;
-		minHealth = 1;
-		maxHealth = 3;
-		minDamage = 1;
-		maxDamage = 3;
-		minSpeed = 10;
-		maxSpeed = 15;
-		health = random.nextInt(maxHealth - minHealth) + minHealth;
-		damage = random.nextInt(maxDamage - minDamage) + minDamage;
-		movementSpeed = (float)(((float)(random.nextInt(maxSpeed - minSpeed) + minSpeed))/10);
-		minScale = (int) (16+health+damage-(int)(movementSpeed*10));
-		maxScale = (int) (18+health+damage-(int)(movementSpeed*10));
-//		System.out.println("minscale: " + minScale +  " maxScale: " + maxScale);
-		sprite.setScale((float)(((float)(random.nextInt(maxScale - minScale) + minScale)))/10);
-//		rectanlge.setSize(sprite.getBoundingRectangle().getWidth()*sprite.getScaleX(), sprite.getBoundingRectangle().getHeight()*sprite.getScaleY());
-		STANDART_MOVEMENT_SPEED = movementSpeed;
+		
 	}
 	
 	@Override
@@ -37,6 +23,65 @@ public class EnemyBreather extends Enemy {
 		if (!L1.hasAtmosphere){
 			health -= 0.0004;
 		}
+	}
+
+	@Override
+	public void difficultyLevelParams() {
+		if(difficultyLevel==0){
+			points = 25;
+			minHealth = 15;
+			maxHealth = 30;
+			minDamage = 1;
+			maxDamage = 3;
+			minSpeed = 10;
+			maxSpeed = 15;
+			health = random.nextInt(maxHealth - minHealth) + minHealth;
+			damage = random.nextInt(maxDamage - minDamage) + minDamage;
+			movementSpeed = (float)(((float)(random.nextInt(maxSpeed - minSpeed) + minSpeed))/10);
+			minScale = (int) (16+health/10+damage-(int)(movementSpeed*10));
+			maxScale = (int) (18+health/10+damage-(int)(movementSpeed*10));
+//			System.out.println("minscale: " + minScale +  " maxScale: " + maxScale);
+			sprite.setScale((float)(((float)(random.nextInt(maxScale - minScale) + minScale)))/10);
+//			rectanlge.setSize(sprite.getBoundingRectangle().getWidth()*sprite.getScaleX(), sprite.getBoundingRectangle().getHeight()*sprite.getScaleY());
+			STANDART_MOVEMENT_SPEED = movementSpeed;
+		}
+		if(difficultyLevel==1){
+			points = 25;
+			minHealth = 15;
+			maxHealth = 30;
+			minDamage = 1;
+			maxDamage = 3;
+			minSpeed = 10;
+			maxSpeed = 15;
+			health = random.nextInt(maxHealth - minHealth) + minHealth;
+			damage = random.nextInt(maxDamage - minDamage) + minDamage;
+			movementSpeed = (float)(((float)(random.nextInt(maxSpeed - minSpeed) + minSpeed))/10);
+			minScale = (int) (16+health/10+damage-(int)(movementSpeed*10));
+			maxScale = (int) (18+health/10+damage-(int)(movementSpeed*10));
+//			System.out.println("minscale: " + minScale +  " maxScale: " + maxScale);
+			sprite.setScale((float)(((float)(random.nextInt(maxScale - minScale) + minScale)))/10);
+//			rectanlge.setSize(sprite.getBoundingRectangle().getWidth()*sprite.getScaleX(), sprite.getBoundingRectangle().getHeight()*sprite.getScaleY());
+			STANDART_MOVEMENT_SPEED = movementSpeed;
+		}
+		if(difficultyLevel==2){
+			points = 25;
+			minHealth = 15;
+			maxHealth = 30;
+			minDamage = 1;
+			maxDamage = 3;
+			minSpeed = 10;
+			maxSpeed = 15;
+			health = random.nextInt(maxHealth - minHealth) + minHealth;
+			damage = random.nextInt(maxDamage - minDamage) + minDamage;
+			movementSpeed = (float)(((float)(random.nextInt(maxSpeed - minSpeed) + minSpeed))/10);
+			minScale = (int) (16+health/10+damage-(int)(movementSpeed*10));
+			maxScale = (int) (18+health/10+damage-(int)(movementSpeed*10));
+//			System.out.println("minscale: " + minScale +  " maxScale: " + maxScale);
+			sprite.setScale((float)(((float)(random.nextInt(maxScale - minScale) + minScale)))/10);
+//			rectanlge.setSize(sprite.getBoundingRectangle().getWidth()*sprite.getScaleX(), sprite.getBoundingRectangle().getHeight()*sprite.getScaleY());
+			STANDART_MOVEMENT_SPEED = movementSpeed;
+		}
+		
 	}
 
 }
