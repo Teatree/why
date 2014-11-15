@@ -114,25 +114,25 @@ public class BuzzShot extends Weapon{
 		if(playerScore>=0 && playerScore<500){
 			randBetVal = random.nextInt(14-9)+9;
 			minDD = randBetVal-random.nextInt(3);
-			maxDD = randBetVal+random.nextInt(3);
+			maxDD = randBetVal+random.nextInt(3)+1;
 			coolDown = random.nextInt(80-40)+40;
 		}
 		else if(playerScore>=500 && playerScore<1500){
 			randBetVal = random.nextInt(18-11)+11;
 			minDD = randBetVal-random.nextInt(3);
-			maxDD = randBetVal+random.nextInt(3);
+			maxDD = randBetVal+random.nextInt(3)+1;
 			coolDown = random.nextInt(70-30)+30;
 		}
 		else if(playerScore>=1500 && playerScore<3000){
 			randBetVal = random.nextInt(20-13)+13;
 			minDD = randBetVal-random.nextInt(3);
-			maxDD = randBetVal+random.nextInt(3);
+			maxDD = randBetVal+random.nextInt(3)+1;
 			coolDown = random.nextInt(80-30)+30;
 		}
 		else if(playerScore>=3000){
 			randBetVal = random.nextInt(23-15)+15;
 			minDD = randBetVal-random.nextInt(3);
-			maxDD = randBetVal+random.nextInt(3);
+			maxDD = randBetVal+random.nextInt(3)+1;
 			coolDown = random.nextInt(100-30)+30;
 		}
 	}
