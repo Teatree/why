@@ -1,5 +1,6 @@
 package com.me.swampmonster.models.enemies;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
 
@@ -8,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector2;
+import com.me.swampmonster.animations.AnimationControl;
 import com.me.swampmonster.game.TheController;
 import com.me.swampmonster.game.collision.Collidable;
 import com.me.swampmonster.game.collision.CollisionHelper;
@@ -23,23 +25,27 @@ public class PossessedTurret extends Turret {
 
 	public static Random random = new Random();
 	public int animDespawnTimer = 0;
-
+	
 	public PossessedTurret(Vector2 position) {
 		super();
 		this.position = position;
 		victim = L1.player;
+		projectiles = new ArrayList<Projectile>();
+		animControl = new AnimationControl(Assets.manager.get(Assets.badturretImg), 4, 4, 3.9f);
 		minDD = Constants.TURRET_min_Damage_L3;
 		maxDD = Constants.TURRET_max_Damage_L3;
 		health = Constants.TURRET_Health_L3;
 		attackSpeed = Constants.TURRET_AttackSpeed_L3;
 		lifeTime = Constants.TURRET_LifeTime_L3;
 		killingAura = new Circle(position.x, position.y, 150);
-		circle.x = position.x;
-		circle.y = position.y;
+		circle.x = position.x+sprite.getBoundingRectangle().width/2;
+		circle.y = position.y+sprite.getBoundingRectangle().height/2;
 		circle.radius = sprite.getBoundingRectangle().width / 2;
 		state = State.STANDARD;
+		
 	}
 
+	@Override
 	public void update() {
 
 		System.out.println("state " + this.state + " health: " + health);
@@ -55,7 +61,7 @@ public class PossessedTurret extends Turret {
 			}
 		}
 			if (health <= 0 && state != State.DEAD && state != State.DESPAWNING) {
-				animDespawnTimer = 1000;
+				animDespawnTimer = 120;
 				this.state = State.DESPAWNING;
 				// animControl = new
 				// AnimationControl(Assets.manager.get(Assets.turretImg), 4, 4,
@@ -71,12 +77,15 @@ public class PossessedTurret extends Turret {
 		
 
 		for (Projectile p : L1.player.weapon.projectiles) {
-			if (p.circle.overlaps(circle)) {
+			if (p.circle.overlaps(circle) ) {
 				hurt = true;
 				health -= random
 						.nextInt((int) (L1.player.weapon.maxDD - L1.player.weapon.minDD))
 						+ L1.player.weapon.minDD;
 				p.state = State.DEAD;
+				if(state == State.DESPAWNING){
+					p.state = State.DEAD;
+				}
 			}
 		}
 
@@ -103,7 +112,7 @@ public class PossessedTurret extends Turret {
 				p.setDirection(direction_x, direction_y);
 				p.effect = EffectCarriers.NONE;
 				Projectile.resistance = 0.0008f;
-				p.force = 1f;
+				p.force = 0.8f;
 				this.projectiles.add(p);
 
 				canAttack = false;
@@ -166,6 +175,7 @@ public class PossessedTurret extends Turret {
 				Projectile p = itrP.next();
 
 				p.update();
+				p.force = 0.8f;
 				p.getSurfaceLevelProjectile(TheController.collisionLayer);
 
 				if (p.isCollision(TheController.collisionLayer)) {

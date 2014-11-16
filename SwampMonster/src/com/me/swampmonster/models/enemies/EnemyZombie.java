@@ -11,7 +11,7 @@ public class EnemyZombie extends Enemy {
 
 	static {
 		levelByPlayesScore = new ArrayList<Integer>();
-		levelByPlayesScore.add(100);
+		levelByPlayesScore.add(1000);
 		levelByPlayesScore.add(3000);
 	}
 	
@@ -30,7 +30,7 @@ public class EnemyZombie extends Enemy {
 					new AnimationControl(Assets.manager.get(Assets.enemyZombie), 8,
 							32, 4));
 			sprite = new Sprite(animationsStandard.get(state).getCurrentFrame());
-			points = 15;
+			points = 50;
 			attackSpeed = 50;
 			yellowAura.radius = 16;
 			oRangeAura.radius = yellowAura.radius * 2;
@@ -61,12 +61,12 @@ public class EnemyZombie extends Enemy {
 					new AnimationControl(Assets.manager.get(Assets.enemyZombie1), 8,
 							32, 4));
 			sprite = new Sprite(animationsStandard.get(state).getCurrentFrame());
-			points = 15;
+			points = 75;
 			attackSpeed = 50;
 			yellowAura.radius = 16;
 			oRangeAura.radius = yellowAura.radius * 2;
-			minHealth = 60;
-			maxHealth = 80;
+			minHealth = 50;
+			maxHealth = 65;
 			minDamage = 5;
 			maxDamage = 8;
 			minSpeed = 3;

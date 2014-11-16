@@ -566,6 +566,12 @@ public class L1Renderer {
 					L1.player.aimingArea.radius, 90,
 					L1.player.weapon.coolDownAngle);
 		}
+		for (PossessedTurret possessedTurret : L1.pTurrets) {
+			sr.setColor(Color.GRAY);
+			sr.circle(possessedTurret.circle.x, possessedTurret.circle.y, possessedTurret.circle.radius);
+			
+		}
+		
 		for (Enemy enemy : L1.enemiesOnStage) {
 			// sr.setColor(Color.GREEN);
 			// sr.circle(enemy.getgReenAura().x, enemy.getgReenAura().y,
@@ -576,11 +582,11 @@ public class L1Renderer {
 
 			// :TODO bring me back
 			 sr.setColor(Color.YELLOW);
-			 sr.circle(enemy.yellowAura.x, enemy.yellowAura.y,
-			 enemy.yellowAura.radius);
+//			 sr.circle(enemy.yellowAura.x, enemy.yellowAura.y,
+//			 enemy.yellowAura.radius);
 			 sr.setColor(Color.ORANGE);
-			 sr.circle(enemy.oRangeAura.x, enemy.oRangeAura.y,
-			 enemy.oRangeAura.radius);
+//			 sr.circle(enemy.oRangeAura.x, enemy.oRangeAura.y,
+//			 enemy.oRangeAura.radius);
 
 			// sr.setColor(Color.BLACK);
 			// sr.circle(theController.explosion.position.x,
@@ -645,8 +651,8 @@ public class L1Renderer {
 		// sr.line(theController.V3playerPos, L1.player.aimLineHead);
 		// }
 		sr.setColor(Color.RED);
-		 sr.circle(L1.player.circle.x, L1.player.circle.y,
-		 L1.player.circle.radius);
+//		 sr.circle(L1.player.circle.x, L1.player.circle.y,
+//		 L1.player.circle.radius);
 //		  sr.circle(TheController.level1.player.aimingArea.x,
 //		  TheController.level1.player.aimingArea.y,
 //		  TheController.level1.player.aimingArea.radius);

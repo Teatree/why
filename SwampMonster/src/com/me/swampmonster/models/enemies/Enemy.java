@@ -185,7 +185,7 @@ public abstract class Enemy extends AbstractGameObject implements Cloneable, Col
 //		maxSpeed = 7;
 //		minScale = 0;
 //		maxScale = 2;
-		points = 0;
+		points = 50;
 		attackSpeed = 40;
 //		health = random.nextInt(maxHealth - minHealth) + minHealth;
 //		damage = random.nextInt(maxDamage - minDamage) + minDamage;

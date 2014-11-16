@@ -47,8 +47,8 @@ public class WeaponUIWindow extends Dialog{
 		
 		currentTabl = new Table();
 		newTabl = new Table();
-		newTabl.debug();
-		currentTabl.debug();
+//		newTabl.debug();
+//		currentTabl.debug();
 		currentWepPicture = new Image(L1.player.weapon.weaponDescSprite);
 		newWepPicture = new Image(wep.weaponDescSprite);
 		currentHeader = new Label(L1.player.weapon.getName(), skin, "title");

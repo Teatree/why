@@ -21,6 +21,7 @@ import com.me.swampmonster.models.Wave;
 import com.me.swampmonster.models.enemies.Enemy;
 import com.me.swampmonster.models.enemies.EnemyMaggot;
 import com.me.swampmonster.models.enemies.EnemyZombie;
+import com.me.swampmonster.models.enemies.PossessedTurret;
 import com.me.swampmonster.models.slots.PositiveEffects;
 
 public class LGenerator {
@@ -79,7 +80,7 @@ public class LGenerator {
 			if (isLevelElite) {
 				hasLevelAtmosphere = false;
 			} else {
-				if(player.points > 3000){
+				if(player.points > 100){
 					hasLevelAtmosphere = random.nextBoolean();
 				}else{
 					hasLevelAtmosphere = false;
@@ -134,6 +135,11 @@ public class LGenerator {
 			if (p != null)
 				propsSpawnGenerator.spawnProp(player, p);
 		}
+//		if(/*level level something somehting*/){
+			for (int i = 0; i < 3; i++) {
+				L1.pTurrets.add(propsSpawnGenerator.spawnTurret(player));
+			}
+//		}
 		if(TheController.skill != null && !TheController.paused){
 			TheController.coolDownCounter = 0;
 			TheController.coolDownAngle = 0;

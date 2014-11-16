@@ -34,6 +34,7 @@ import com.me.swampmonster.utils.CameraHelper;
 import com.me.swampmonster.utils.Constants;
 import com.me.swampmonster.utils.MisterItemSpawner;
 import com.me.swampmonster.utils.MisterSpawner;
+import com.me.swampmonster.utils.PropsSpawnGenerator;
 import com.me.swampmonster.utils.WaveGenerator;
 
 public class L1 {
@@ -73,7 +74,6 @@ public class L1 {
 	public L1(String tileSet, String tileMap, boolean isElite) {
 		create(tileSet, tileMap, isElite);
 		pTurrets = new ArrayList<PossessedTurret>();
-		pTurrets.add(new PossessedTurret(new Vector2(300, 250)));
 	}
 
 	public void create(String tileSet, String tileMap, boolean isElite) {

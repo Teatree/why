@@ -8,11 +8,13 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector2;
 import com.me.swampmonster.game.collision.CollisionHelper;
+import com.me.swampmonster.models.AbstractGameObject;
 import com.me.swampmonster.models.ExplosiveProp;
 import com.me.swampmonster.models.Player;
 import com.me.swampmonster.models.Prop;
 import com.me.swampmonster.models.ToxicPuddle;
 import com.me.swampmonster.models.TreasureBox;
+import com.me.swampmonster.models.enemies.PossessedTurret;
 
 public class PropsSpawnGenerator {
 	private Map <Integer, Class<? extends Prop>> propTypes;
@@ -40,28 +42,43 @@ public class PropsSpawnGenerator {
 		return prop;
 	}
 	
-	public void spawnProp(Player player, Prop prop) {
+	public void spawnProp(Player player, AbstractGameObject prop) {
 		mapWith = (int) collisionLayer.getTileWidth()
 				* collisionLayer.getWidth();
 		mapHeight = (int) collisionLayer.getTileHeight()
 				* collisionLayer.getHeight();
 
-		setPropPos(prop, player);
+		prop.position = setPropPos(player);
 
-		while (!isValidTargetPosition(prop, player)) {
-			setPropPos(prop, player);
+		while (!isValidPropPosition(prop, player)) {
+			prop.position = setPropPos(player);
 		}
 	}
-
 	
-	private void setPropPos(Prop prop, Player player) {
+	public PossessedTurret spawnTurret(Player player) {
+		PossessedTurret pTurret;
+		mapWith = (int) collisionLayer.getTileWidth()
+				* collisionLayer.getWidth();
+		mapHeight = (int) collisionLayer.getTileHeight()
+				* collisionLayer.getHeight();
+		
+		
+		pTurret = new PossessedTurret(setPropPos(player));
+		
+		while (!isValidPropPosition(pTurret, player)) {
+			pTurret = new PossessedTurret(setPropPos(player));
+		}
+		return pTurret;
+	}
+	
+	private Vector2 setPropPos(Player player) {
 			Vector2 vector2 = new Vector2();
 			vector2.x = random.nextInt(mapWith - 25) + 25;
 			vector2.y = random.nextInt(mapHeight - 25) + 25;
-			prop.position = vector2;
+			return vector2;
 	}
 
-	private boolean isValidTargetPosition(Prop prop, Player player) {
+	private boolean isValidPropPosition(AbstractGameObject prop, Player player) {
 		if (CollisionHelper.isCollidable(prop.position.x, prop.position.y, collisionLayer) == null
 				&& !Intersector.overlaps(prop.sprite.getBoundingRectangle(), player.rectanlge)) {
 			return true;

@@ -53,6 +53,7 @@ public class Assets {
 	public static final AssetDescriptor<Texture> POISON_TRAP = new AssetDescriptor<Texture>("data\\slotIcons\\POISON_TRAP_ICON.png", Texture.class);
 	
 	public static final AssetDescriptor<Texture> turretImg = new AssetDescriptor<Texture>("data\\turret.png", Texture.class);
+	public static final AssetDescriptor<Texture> badturretImg = new AssetDescriptor<Texture>("data\\badturret.png", Texture.class);
 	public static final AssetDescriptor<Texture> plasmaShield = new AssetDescriptor<Texture>("data\\plasmaShieldAnimation.png", Texture.class);
 	public static final AssetDescriptor<Texture> iceCube = new AssetDescriptor<Texture>("data\\iceCube.png", Texture.class);
 
@@ -151,6 +152,7 @@ public class Assets {
 		manager.load(menuBackgroundMusic);
 		manager.load(stunEffectAnimation);
 		manager.load(turretImg);
+		manager.load(badturretImg);
 		manager.load(TURRET_ICON);
 		manager.load(turretProjectile);
 		manager.load(bow);
