@@ -19,7 +19,6 @@ import com.me.swampmonster.models.Prop;
 import com.me.swampmonster.models.TutorialLevel;
 import com.me.swampmonster.models.Wave;
 import com.me.swampmonster.models.enemies.Enemy;
-import com.me.swampmonster.models.enemies.EnemyLeech;
 import com.me.swampmonster.models.enemies.EnemyMaggot;
 import com.me.swampmonster.models.enemies.EnemyZombie;
 import com.me.swampmonster.models.slots.PositiveEffects;
@@ -148,7 +147,7 @@ public class LGenerator {
 		String br = Gdx.files.internal("data\\" + "Map_TUTORIAL.tmx").readString();
 		Gdx.files.local("MapTemp.tmx").writeString(br, false);
 		L1 tutorialLevel = new TutorialLevel("tileSet_SAND_WORLD", "MapTemp.tmx");
-		System.out.println("newPlayer3");
+//		System.out.println("newPlayer3");
 		TutorialLevel.player = new Player(new Vector2(318,375));
 		TutorialLevel.player.oxygen = Player.maxOxygen;
 		TutorialLevel.player.health = Player.maxHealth;

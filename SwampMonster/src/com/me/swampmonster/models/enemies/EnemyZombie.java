@@ -1,5 +1,7 @@
 package com.me.swampmonster.models.enemies;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.me.swampmonster.animations.AnimationControl;
@@ -7,6 +9,12 @@ import com.me.swampmonster.utils.Assets;
 
 public class EnemyZombie extends Enemy {
 
+	static {
+		levelByPlayesScore = new ArrayList<Integer>();
+		levelByPlayesScore.add(100);
+		levelByPlayesScore.add(3000);
+	}
+	
 	public EnemyZombie(Vector2 position) {
 		super(position);
 	}

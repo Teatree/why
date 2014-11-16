@@ -1,7 +1,7 @@
 package com.me.swampmonster.models.enemies;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
 
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Vector2;
@@ -11,9 +11,13 @@ import com.me.swampmonster.utils.CameraHelper;
 
 public class EnemyBreather extends Enemy {
 
+	static {
+		levelByPlayesScore = new ArrayList<Integer>();
+		levelByPlayesScore.add(1000);
+		levelByPlayesScore.add(3000);
+	}
 	public EnemyBreather(Vector2 position) {
 		super(position);
-		
 	}
 	
 	@Override

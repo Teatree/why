@@ -1,18 +1,12 @@
 package com.me.swampmonster.models.items;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.Random;
 
 import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.me.swampmonster.models.Item;
 import com.me.swampmonster.models.L1;
-import com.me.swampmonster.models.Player;
-import com.me.swampmonster.models.items.wepMods.DamagePlayerMod;
 import com.me.swampmonster.utils.Assets;
 
 public class Bow extends Weapon{
@@ -35,8 +29,8 @@ public class Bow extends Weapon{
 	public void update(TiledMapTileLayer collisionLayer) {
 		super.update(collisionLayer);
 		
-		System.out.println("minDD" + minDD);
-		System.out.println("maxDD" + maxDD);
+//		System.out.println("minDD" + minDD);
+//		System.out.println("maxDD" + maxDD);
 	}
 	
 	

@@ -1,5 +1,6 @@
 package com.me.swampmonster.models.enemies;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -107,6 +108,8 @@ public abstract class Enemy extends AbstractGameObject implements Cloneable, Col
 	public Sprite effectCarrier;
 	public AnimationControl effectAnimator;
 	
+	protected static List<Integer> levelByPlayesScore = new ArrayList<Integer>();
+	
 	public Enemy(Vector2 position) {
 		this.position = position;
 		healCounter = 0;
@@ -157,11 +160,15 @@ public abstract class Enemy extends AbstractGameObject implements Cloneable, Col
 		effectAnimator = new AnimationControl(Assets.manager.get(Assets.stunEffectAnimation), 4, 1, 12);
 		effectCarrier = new Sprite(effectAnimator.getCertainFrame(0));
 		
-		if(Player.absoluteScore<1000){
+//		levelByPlayesScore = new ArrayList<Integer>();
+//		levelByPlayesScore.add(1000);
+//		levelByPlayesScore.add(3000);
+		
+		if(Player.absoluteScore<levelByPlayesScore.get(0)){
 			difficultyLevel = 0;
-		}else if(Player.absoluteScore >= 1000 && Player.absoluteScore<3000){
+		}else if(Player.absoluteScore >= levelByPlayesScore.get(0) && Player.absoluteScore<levelByPlayesScore.get(1)){
 			difficultyLevel = random.nextInt(2);
-		}else if(Player.absoluteScore >= 3000){
+		}else if(Player.absoluteScore >= levelByPlayesScore.get(1)){
 			difficultyLevel = random.nextInt(2);
 		}
 		difficultyLevelParams();
@@ -359,7 +366,7 @@ public abstract class Enemy extends AbstractGameObject implements Cloneable, Col
 							|| player.position.x < path[0].x * Constants.NodeSize - 120
 							|| player.position.y > path[0].y * Constants.NodeSize + 120
 							|| player.position.y < path[0].y * Constants.NodeSize - 120) {
-						System.out.println("You are officially outside the last seen zone!");
+//						System.out.println("You are officially outside the last seen zone!");
 						state = State.STANDARD;
 						for (int i = 0; i < path.length; i++) {
 							path[i] = null;
@@ -445,7 +452,7 @@ public abstract class Enemy extends AbstractGameObject implements Cloneable, Col
 					currentFrame = animations.get(State.ICECUBESDEAD).doComplexAnimation(136, 2f,
 							0.03f, Animation.PlayMode.NORMAL);
 					sprite.setRegion(animations.get(State.ICECUBESDEAD).getCurrentFrame());
-					System.out.println("YOU ARE STUNNEd!");
+//					System.out.println("YOU ARE STUNNEd!");
 				}else{
 					currentFrame = animations.get(state).doComplexAnimation(96, 2f,
 							0.03f, Animation.PlayMode.NORMAL);
@@ -1259,7 +1266,7 @@ public abstract class Enemy extends AbstractGameObject implements Cloneable, Col
 				movementSpeed = movementSpeed/2;
 				negativeEffectsState = NegativeEffects.FROZEN;
 				negativeEffectTimer = negativeEffect.lifetime;
-				System.out.println("negative effect timer " + negativeEffectTimer);
+//				System.out.println("negative effect timer " + negativeEffectTimer);
 			}
 			radioactiveAura = null;
 			break;
@@ -1272,7 +1279,7 @@ public abstract class Enemy extends AbstractGameObject implements Cloneable, Col
 			radioactiveAura = null;
 			break;
 		case FADE_N:
-				System.out.println("I AM SETTING FADE!~");
+//				System.out.println("I AM SETTING FADE!~");
 				movementSpeed = STANDART_MOVEMENT_SPEED;
 				this.sprite.setColor(sprite.getColor().r, sprite.getColor().g,
 						sprite.getColor().b, 0.5f);

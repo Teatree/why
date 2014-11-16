@@ -2,7 +2,6 @@ package com.me.swampmonster.models.items.wepMods;
 
 import java.util.Random;
 
-import com.me.swampmonster.models.L1;
 import com.me.swampmonster.models.Player;
 import com.me.swampmonster.models.Projectile;
 import com.me.swampmonster.models.Projectile.EffectCarriers;

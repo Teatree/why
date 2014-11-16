@@ -75,7 +75,7 @@ public abstract class Item extends AbstractGameObject{
 		
 		if (state.equals(State.SPAWNING)) {
 			if (!(Math.round(position.x) == Math.round(targetPos.x)) ) {
-				System.out.println("collisionLayer " + collisionLayer + " position " + position + " sprite " + sprite);
+//				System.out.println("collisionLayer " + collisionLayer + " position " + position + " sprite " + sprite);
 				if (CollisionHelper.isCollidable(position.x + sprite.getWidth(), position.y, collisionLayer) != null ||
 						CollisionHelper.isCollidable(position.x, position.y + sprite.getHeight(), collisionLayer) != null
 						|| CollisionHelper.isCollidable(position.x, position.y, collisionLayer) != null) {

@@ -15,7 +15,6 @@ import com.me.swampmonster.game.TheController;
 import com.me.swampmonster.models.L1;
 import com.me.swampmonster.models.PlasmaShield;
 import com.me.swampmonster.models.Player;
-import com.me.swampmonster.models.items.Bow;
 import com.me.swampmonster.models.items.Weapon;
 import com.me.swampmonster.models.items.wepMods.Modificator;
 import com.me.swampmonster.models.slots.Arrows3;
@@ -111,7 +110,7 @@ public class SaveManager {
 	    	Json json = new Json();
 	        JsomPlayer somPlayer = json.fromJson(JsomPlayer.class, save);
 	        MenuScreen.soundsEnabled = somPlayer.soundEnabled;
-	        System.out.println("newPlayer2");
+//	        System.out.println("newPlayer2");
 	        Player player = new Player(new Vector2());
 	        Player.maxOxygen = somPlayer.maxOxygen;
 	        Player.maxHealth = somPlayer.playerMaxHealth;
@@ -178,7 +177,7 @@ public class SaveManager {
 	        }
 	        return player;
         } else {
-        	System.out.println("newPlayer1");
+//        	System.out.println("newPlayer1");
         	return new Player(new Vector2());
         }
     }

@@ -10,7 +10,6 @@ import com.me.swampmonster.models.AbstractGameObject;
 import com.me.swampmonster.models.L1;
 import com.me.swampmonster.models.Player;
 import com.me.swampmonster.models.items.CrossBow;
-import com.me.swampmonster.models.items.Weapon;
 import com.me.swampmonster.utils.Assets;
 
 public class Croshair extends AbstractGameObject{

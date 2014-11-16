@@ -1,5 +1,6 @@
 package com.me.swampmonster.models.enemies;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -30,6 +31,11 @@ public class EnemyMaggot extends Enemy {
 	private float savedEnemyDx;
 	private float savedEnemyDy;
 	
+	static {
+		levelByPlayesScore = new ArrayList<Integer>();
+		levelByPlayesScore.add(1000);
+		levelByPlayesScore.add(3000);
+	}
 	public EnemyMaggot(Vector2 position) {
 		super(position);
 		
@@ -255,7 +261,6 @@ public class EnemyMaggot extends Enemy {
 	@Override
 	public void difficultyLevelParams() {
 		if(difficultyLevel == 0){
-
 			rand = new Random();
 			randomChargeCounter = 300;
 			counter = 0;

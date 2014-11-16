@@ -401,6 +401,85 @@ public class L1Renderer {
 			}
 		}
 		
+	//bad turret	
+	if (L1.possessedTurret != null && L1.possessedTurret.position != null) {
+		if (L1.possessedTurret.hurt) {
+			System.out
+					.println("I really should be flickering red right now!");
+			if (L1.possessedTurret.time == 4 || L1.possessedTurret.time == 24) {
+				L1.possessedTurret.sprite.setColor(
+
+				L1.possessedTurret.sprite.getColor().r,
+						L1.possessedTurret.sprite.getColor().g - 1,
+						L1.possessedTurret.sprite.getColor().b - 1,
+						L1.possessedTurret.sprite.getColor().a);
+			}
+			if (L1.possessedTurret.time == 14 || L1.possessedTurret.time == 34) {
+				L1.possessedTurret.sprite.setColor(
+						L1.possessedTurret.sprite.getColor().r,
+						L1.possessedTurret.sprite.getColor().g + 1,
+						L1.possessedTurret.sprite.getColor().b + 1,
+						L1.possessedTurret.sprite.getColor().a);
+			}
+		}
+		// batch.draw(L1.player.turret.sprite, L1.player.turret.position.x,
+		// L1.player.turret.position.y);
+		if (L1.possessedTurret.projectiles != null
+				&& !L1.possessedTurret.projectiles.isEmpty()) {
+			for (Projectile p : L1.possessedTurret.projectiles) {
+				batch.draw(p.sprite, p.position.x, p.position.y);
+			}
+		}
+		if (L1.possessedTurret.timeRemove < 110) {
+			batch.draw(L1.possessedTurret.sprite,
+					L1.possessedTurret.position.x,
+					L1.possessedTurret.position.y);
+		}
+		if (L1.possessedTurret.timeRemove > 110
+				&& L1.possessedTurret.timeRemove < 115) {
+			batch.draw(L1.possessedTurret.sprite,
+					L1.possessedTurret.position.x,
+					L1.possessedTurret.position.y);
+		}
+		if (L1.possessedTurret.timeRemove > 120
+				&& L1.possessedTurret.timeRemove < 125) {
+			batch.draw(L1.possessedTurret.sprite,
+					L1.possessedTurret.position.x,
+					L1.possessedTurret.position.y);
+		}
+		if (L1.possessedTurret.timeRemove > 130
+				&& L1.possessedTurret.timeRemove < 135) {
+			batch.draw(L1.possessedTurret.sprite,
+					L1.possessedTurret.position.x,
+					L1.possessedTurret.position.y);
+		}
+		if (L1.possessedTurret.timeRemove > 140
+				&& L1.possessedTurret.timeRemove < 145) {
+			batch.draw(L1.possessedTurret.sprite,
+					L1.possessedTurret.position.x,
+					L1.possessedTurret.position.y);
+		}
+		if (L1.possessedTurret.timeRemove > 150
+				&& L1.possessedTurret.timeRemove < 155) {
+			batch.draw(L1.possessedTurret.sprite,
+					L1.possessedTurret.position.x,
+					L1.possessedTurret.position.y);
+		}
+		if (L1.possessedTurret.timeRemove > 160
+				&& L1.possessedTurret.timeRemove < 165) {
+			batch.draw(L1.possessedTurret.sprite,
+					L1.possessedTurret.position.x,
+					L1.possessedTurret.position.y);
+		}
+		if (L1.possessedTurret.timeRemove > 170
+				&& L1.possessedTurret.timeRemove < 175) {
+			batch.draw(L1.possessedTurret.sprite,
+					L1.possessedTurret.position.x,
+					L1.possessedTurret.position.y);
+		}
+	}
+	
+		
 		
 		L1.player.getSprite().setPosition(L1.player.getPosition().x,
 				L1.player.getPosition().y);

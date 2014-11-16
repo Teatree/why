@@ -89,9 +89,9 @@ public class WeaponGenerator {
 			} catch (Exception e) {
 				e.printStackTrace();
 			} 
-			System.out.println("wep " + weapon);
-			System.out.println("wepmod1 " + weapon.mod1);
-			System.out.println("mod1 " + mod1);
+//			System.out.println("wep " + weapon);
+//			System.out.println("wepmod1 " + weapon.mod1);
+//			System.out.println("mod1 " + mod1);
 			if(weapon.mod1 == null){
 				weapon.mod1 = mod1;
 			}
@@ -107,7 +107,7 @@ public class WeaponGenerator {
 			} catch (Exception e) {
 				e.printStackTrace();
 			} 
-			if(mod2 != null && !mod2.equals(weapon.mod1)){
+			if(mod2 != null && !mod2.getClass().equals(weapon.mod1.getClass())){
 				weapon.mod2 = mod2;
 				if(weapon.mod1 == null){
 					weapon.mod1 = mod2;

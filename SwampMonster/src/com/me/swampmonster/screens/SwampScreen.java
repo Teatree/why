@@ -22,7 +22,7 @@ public class SwampScreen extends AbstractGameScreen  implements Screen {
 		
 		player = SaveManager.loadPlayer();
 		if (player == null) {
-			System.out.println("newPlayer4");
+//			System.out.println("newPlayer4");
 			player = new Player(new Vector2());
 		} 
 	}

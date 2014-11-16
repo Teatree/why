@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.Stack;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector2;
@@ -15,6 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener.ChangeEvent;
 import com.me.swampmonster.game.GShape;
 import com.me.swampmonster.game.L1Renderer;
 import com.me.swampmonster.game.TheController;
@@ -23,6 +25,7 @@ import com.me.swampmonster.models.AbstractGameObject.State;
 import com.me.swampmonster.models.Projectile.EffectCarriers;
 import com.me.swampmonster.models.enemies.Enemy;
 import com.me.swampmonster.models.enemies.EnemySofa;
+import com.me.swampmonster.models.enemies.PossessedTurret;
 import com.me.swampmonster.models.items.HealthKit;
 import com.me.swampmonster.models.items.Oxygen;
 import com.me.swampmonster.models.items.WeaponItem;
@@ -65,9 +68,11 @@ public class L1 {
 	
 	public boolean isElite;
 	public static boolean hasAtmosphere;
+	public static PossessedTurret possessedTurret;
 	
 	public L1(String tileSet, String tileMap, boolean isElite) {
 		create(tileSet, tileMap, isElite);
+		possessedTurret = new PossessedTurret(new Vector2(300, 250));
 	}
 
 	public void create(String tileSet, String tileMap, boolean isElite) {
@@ -99,6 +104,12 @@ public class L1 {
 			}
 		}
 				
+		if (possessedTurret != null){
+			possessedTurret.update();
+			if(Intersector.overlaps(possessedTurret.killingAura, player.sprite.getBoundingRectangle())){
+				possessedTurret.victim = player;
+			}
+		}
 		
 		Iterator<Prop> propItr = props.iterator();
 		while (propItr.hasNext()){

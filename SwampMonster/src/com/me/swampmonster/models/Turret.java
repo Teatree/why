@@ -21,16 +21,16 @@ public class Turret extends AbstractGameObject {
 
 	public Circle killingAura = new Circle();
 	public List<Projectile> projectiles = new ArrayList<Projectile>();
-	public Enemy victimEnemy;
+	public AbstractGameObject victim;
 	public Rectangle turretAimerBot;
 	public boolean canAttack;
 	public int lifeTime;
 	public int standardLifeTime;
 	public int timeRemove = 0; 
 	
-	private AnimationControl animControl;
+	protected AnimationControl animControl;
 	
-	int counter;
+	protected int counter;
 	public int time;
 	
 	public Turret() {
@@ -59,17 +59,17 @@ public class Turret extends AbstractGameObject {
 			animControl.doComplexAnimation(8, 1f, 0.02f, Animation.PlayMode.NORMAL);
 			animControl.animating = true;
 			sprite = new Sprite(animControl.getCurrentFrame());
-			System.out.println("[TURRET] STATE ?DESPAWNING? : " + state );
+//			System.out.println("[TURRET] STATE ?DESPAWNING? : " + state );
 		}else if(lifeTime <= standardLifeTime && lifeTime >= 40){
 			state = State.STANDARD;
 			animControl.animate(0);
 			sprite = new Sprite(animControl.getCurrentFrame());
-			System.out.println("[TURRET] STATE ?STANDARD? : " + state );
+//			System.out.println("[TURRET] STATE ?STANDARD? : " + state );
 		}else{
 			state = State.SPAWNING;
 			animControl.doComplexAnimation(4, 1f, 0.02f, Animation.PlayMode.NORMAL);
 			sprite = new Sprite(animControl.getCurrentFrame());
-			System.out.println("[TURRET] STATE ?SPAWNING? : " + state );
+//			System.out.println("[TURRET] STATE ?SPAWNING? : " + state );
 		}
 		
 		lifeTime--;
@@ -86,17 +86,17 @@ public class Turret extends AbstractGameObject {
 		}
 		
 		if(state == State.STANDARD){
-			if(victimEnemy==null || victimEnemy.state == State.DEAD){
+			if(victim==null || victim.state == State.DEAD){
 				for (Enemy e : L1.enemiesOnStage) {
 					if (e.oRangeAura.overlaps(killingAura)) {
 						
-						victimEnemy = e;
+						victim = e;
 						canAttack = false;
 					}
 				}
 			}else{
-				float direction_x = victimEnemy.position.x - position.x;
-				float direction_y = victimEnemy.position.y - position.y;
+				float direction_x = victim.position.x - position.x;
+				float direction_y = victim.position.y - position.y;
 				
 				float length = (float) Math.sqrt(direction_x * direction_x
 						+ direction_y * direction_y);
@@ -123,10 +123,10 @@ public class Turret extends AbstractGameObject {
 					counter = attackSpeed;
 					
 				}else{
-					if (turretAimerBot.x > victimEnemy.getPosition().x + victimEnemy.sprite.getWidth()/2 - 4
-							|| turretAimerBot.x < victimEnemy.getPosition().x + victimEnemy.sprite.getWidth()/2 - 10
-							|| turretAimerBot.y > victimEnemy.getPosition().y + victimEnemy.sprite.getHeight()/2- 4
-							|| turretAimerBot.y < victimEnemy.getPosition().y + victimEnemy.sprite.getHeight()/2- 10) {
+					if (turretAimerBot.x > victim.getPosition().x + victim.sprite.getWidth()/2 - 4
+							|| turretAimerBot.x < victim.getPosition().x + victim.sprite.getWidth()/2 - 10
+							|| turretAimerBot.y > victim.getPosition().y + victim.sprite.getHeight()/2- 4
+							|| turretAimerBot.y < victim.getPosition().y + victim.sprite.getHeight()/2- 10) {
 						Collidable collidable = CollisionHelper.isCollidable(turretAimerBot.x+5, turretAimerBot.y+5, TheController.collisionLayer);
 						if (collidable == null){
 							turretAimerBot.x += direction_x * 5;
@@ -136,16 +136,16 @@ public class Turret extends AbstractGameObject {
 						}
 						if (collidable != null){
 //							System.out.println("can't aimBot there!");
-							turretAimerBot.x = position.x + victimEnemy.sprite.getWidth()/2;
-							turretAimerBot.y = position.y + victimEnemy.sprite.getHeight()/2;
+							turretAimerBot.x = position.x + victim.sprite.getWidth()/2;
+							turretAimerBot.y = position.y + victim.sprite.getHeight()/2;
 							
 							canAttack = false;
-							victimEnemy = null;
+							victim = null;
 						}
 					}
-					if (victimEnemy!= null && turretAimerBot.overlaps(victimEnemy.sprite.getBoundingRectangle())){
-						turretAimerBot.x = position.x + victimEnemy.sprite.getWidth()/2;
-						turretAimerBot.y = position.y + victimEnemy.sprite.getHeight()/2;
+					if (victim!= null && turretAimerBot.overlaps(victim.sprite.getBoundingRectangle())){
+						turretAimerBot.x = position.x + victim.sprite.getWidth()/2;
+						turretAimerBot.y = position.y + victim.sprite.getHeight()/2;
 						
 						canAttack = true;
 					}

@@ -1,5 +1,6 @@
 package com.me.swampmonster.models.enemies;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -31,6 +32,12 @@ public class EnemySofa extends Enemy {
 	
 	public float sofa_dx;
 	public float sofa_dy;
+	
+	static {
+		levelByPlayesScore = new ArrayList<Integer>();
+		levelByPlayesScore.add(1000);
+		levelByPlayesScore.add(3000);
+	}
 	
 	public EnemySofa(Vector2 position) {
 		super(position);
