@@ -19,6 +19,7 @@ import com.me.swampmonster.game.collision.Collidable;
 import com.me.swampmonster.game.collision.CollisionHelper;
 import com.me.swampmonster.models.Projectile.EffectCarriers;
 import com.me.swampmonster.models.enemies.Enemy;
+import com.me.swampmonster.models.enemies.PossessedTurret;
 import com.me.swampmonster.models.items.Bow;
 import com.me.swampmonster.models.items.RADIOACTIVE;
 import com.me.swampmonster.models.items.Weapon;
@@ -93,6 +94,7 @@ public class Player extends AbstractGameObject {
 	// public Circle invalidSpawnArea;
 
 	public Enemy harmfulEnemy;
+	public PossessedTurret harmfulTurret;
 
 	public Circle radioactiveAura = null;
 	public int timer2;
@@ -362,6 +364,10 @@ public class Player extends AbstractGameObject {
 				time++;
 				if (damageType == "enemy") {
 					takingDamageFromEnemy(harmfulEnemy, touchPos,
+							collisionLayer);
+				}
+				if (damageType == "turret") {
+					takingDamageFromTurret(harmfulTurret, touchPos,
 							collisionLayer);
 				}
 				if (/* damageType != "lackOfOxygen" && */time > 39) {
@@ -874,92 +880,30 @@ public class Player extends AbstractGameObject {
 			touchPos.y += damage_dy * damagePushForce/25;
 		}
 		
-//		damagedFromTop(collidableUp, enemy, touchPos);
-//		collidableUp = collisionCheckerUp(collisionLayer);
-//		collisionCheck(collidableUp, collisionLayer);
-//
-//		Collidable collidableDown = null;
-//
-//		damageFromBottom(collidableDown, enemy, touchPos);
-//		collidableDown = collisionCheckerDown(collisionLayer);
-//		collisionCheck(collidableDown, collisionLayer);
-//
-//		Collidable collidableLeft = null;
-//
-//		damageFromLeft(collidableLeft, enemy, touchPos);
-//		collidableLeft = collisionCheckerLeft(collisionLayer);
-//		collisionCheck(collidableLeft, collisionLayer);
-//
-//		Collidable collidableRight = null;
-//
-//		damageFromRight(collidableRight, enemy, touchPos);
-//		collidableRight = collisionCheckerRight(collisionLayer);
-//		collisionCheck(collidableRight, collisionLayer);
 	}
-
-	private void damageFromRight(Collidable collidableUp,
-			AbstractGameObject enemy, Vector3 touchPos) {
-		if (enemy.playerMovementDirection == "right" && collidableUp == null) {
-			currentFrame = animationsStandard.get(State.STANDARD)
-					.doComplexAnimation(108, 0.2f,
-							Gdx.graphics.getDeltaTime() / 2,
-							Animation.PlayMode.NORMAL);
-
-			sprite.setRegion(animationsStandard.get(state).getCurrentFrame());
-			sprite.setBounds(sprite.getX(), sprite.getY(), 32, 32);
-			position.x += movementSpeed / 2;
-			touchPos.x += movementSpeed / 2;
-			sprite.translateY(movementSpeed / 2);
+	private void takingDamageFromTurret(PossessedTurret turret, Vector3 touchPos,
+			TiledMapTileLayer collisionLayer) {
+		
+//		Collidable collidableUp = null;
+		
+		Collidable cL = CollisionHelper.isCollidable(position.x, position.y + sprite.getHeight()/2, collisionLayer);
+		Collidable cR = CollisionHelper.isCollidable(position.x + sprite.getWidth(), position.y + sprite.getHeight()/2, collisionLayer);
+		Collidable cU = CollisionHelper.isCollidable(position.x + sprite.getWidth()/2, position.y + sprite.getHeight(), collisionLayer);
+		Collidable cD = CollisionHelper.isCollidable(position.x + sprite.getWidth()/2, position.y, collisionLayer);
+//		explosionPushForce -= 0.01f;
+		if (cL == null && getDx() <= 0 ||
+				cR == null && getDx() > 0){
+//			position.x += 0.2f;
+			position.x += damage_dx * damagePushForce/25;
+			touchPos.x += damage_dx * damagePushForce/25;
+		} 
+		if (cD == null && getDy() < 0 
+				|| cU == null && getDy()  >= 0){
+//			position.y += 0.2f;
+			position.y += damage_dy * damagePushForce/25;
+			touchPos.y += damage_dy * damagePushForce/25;
 		}
-	}
-
-	private void damageFromLeft(Collidable collidableUp,
-			AbstractGameObject enemy, Vector3 touchPos) {
-		if (enemy.playerMovementDirection == "left" && collidableUp == null) {
-			currentFrame = animationsStandard.get(State.STANDARD)
-					.doComplexAnimation(106, 0.2f,
-							Gdx.graphics.getDeltaTime() / 2,
-							Animation.PlayMode.NORMAL);
-
-			sprite.setRegion(animationsStandard.get(state).getCurrentFrame());
-			sprite.setBounds(sprite.getX(), sprite.getY(), 32, 32);
-			position.x -= movementSpeed / 2;
-			touchPos.x -= movementSpeed / 2;
-			sprite.translateY(movementSpeed / 2);
-		}
-	}
-
-	private void damageFromBottom(Collidable collidableUp,
-			AbstractGameObject enemy, Vector3 touchPos) {
-		if (enemy.playerMovementDirection == "down" && collidableUp == null) {
-			currentFrame = animationsStandard.get(State.STANDARD)
-					.doComplexAnimation(110, 0.2f,
-							Gdx.graphics.getDeltaTime() / 2,
-							Animation.PlayMode.NORMAL);
-
-			sprite.setRegion(animationsStandard.get(state).getCurrentFrame());
-			sprite.setBounds(sprite.getX(), sprite.getY(), 32, 32);
-			position.y -= movementSpeed / 2;
-			touchPos.y -= movementSpeed / 2;
-			sprite.translateY(movementSpeed / 2);
-		}
-	}
-
-	private void damagedFromTop(Collidable collidableUp,
-			AbstractGameObject enemy, Vector3 touchPos) {
-		if (enemy.playerMovementDirection == "up" && collidableUp == null) {
-			currentFrame = animationsStandard.get(State.STANDARD)
-					.doComplexAnimation(104, 0.2f,
-							Gdx.graphics.getDeltaTime() / 2,
-							Animation.PlayMode.NORMAL);
-
-			sprite.setRegion(animationsStandard.get(state).getCurrentFrame());
-			sprite.setBounds(sprite.getX(), sprite.getY(), 32, 32);
-
-			position.y += movementSpeed / 2;
-			touchPos.y += movementSpeed / 2;
-			sprite.translateY(movementSpeed / 2);
-		}
+		
 	}
 
 	private void movementCollisionAndAnimation(float speed, Vector3 touchPos,

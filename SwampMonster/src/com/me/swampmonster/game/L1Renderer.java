@@ -33,6 +33,7 @@ import com.me.swampmonster.models.ProjectileHydra.hydraTrailAnimation;
 import com.me.swampmonster.models.Prop;
 import com.me.swampmonster.models.TutorialLevel;
 import com.me.swampmonster.models.enemies.Enemy;
+import com.me.swampmonster.models.enemies.PossessedTurret;
 import com.me.swampmonster.utils.Assets;
 import com.me.swampmonster.utils.Constants;
 
@@ -402,82 +403,86 @@ public class L1Renderer {
 		}
 		
 	//bad turret	
-	if (L1.possessedTurret != null && L1.possessedTurret.position != null) {
-		if (L1.possessedTurret.hurt) {
-			System.out
-					.println("I really should be flickering red right now!");
-			if (L1.possessedTurret.time == 4 || L1.possessedTurret.time == 24) {
-				L1.possessedTurret.sprite.setColor(
+		for (PossessedTurret possessedTurret : L1.pTurrets) {
+			if (possessedTurret != null && possessedTurret.position != null) {
+				if (possessedTurret.hurt) {
+					System.out
+							.println("I really should be flickering red right now!");
+					if (possessedTurret.time == 4 || possessedTurret.time == 24) {
+						possessedTurret.sprite.setColor(
 
-				L1.possessedTurret.sprite.getColor().r,
-						L1.possessedTurret.sprite.getColor().g - 1,
-						L1.possessedTurret.sprite.getColor().b - 1,
-						L1.possessedTurret.sprite.getColor().a);
+						possessedTurret.sprite.getColor().r,
+								possessedTurret.sprite.getColor().g - 1,
+								possessedTurret.sprite.getColor().b - 1,
+								possessedTurret.sprite.getColor().a);
+					}
+					if (possessedTurret.time == 14
+							|| possessedTurret.time == 34) {
+						possessedTurret.sprite.setColor(
+								possessedTurret.sprite.getColor().r,
+								possessedTurret.sprite.getColor().g + 1,
+								possessedTurret.sprite.getColor().b + 1,
+								possessedTurret.sprite.getColor().a);
+					}
+				}
+				// batch.draw(L1.player.turret.sprite,
+				// L1.player.turret.position.x,
+				// L1.player.turret.position.y);
+				if (possessedTurret.projectiles != null
+						&& !possessedTurret.projectiles.isEmpty()) {
+					for (Projectile p : possessedTurret.projectiles) {
+						batch.draw(p.sprite, p.position.x, p.position.y);
+					}
+				}
+				if (possessedTurret.timeRemove < 110) {
+					batch.draw(possessedTurret.sprite,
+							possessedTurret.position.x,
+							possessedTurret.position.y);
+				}
+				if (possessedTurret.timeRemove > 110
+						&& possessedTurret.timeRemove < 115) {
+					batch.draw(possessedTurret.sprite,
+							possessedTurret.position.x,
+							possessedTurret.position.y);
+				}
+				if (possessedTurret.timeRemove > 120
+						&& possessedTurret.timeRemove < 125) {
+					batch.draw(possessedTurret.sprite,
+							possessedTurret.position.x,
+							possessedTurret.position.y);
+				}
+				if (possessedTurret.timeRemove > 130
+						&& possessedTurret.timeRemove < 135) {
+					batch.draw(possessedTurret.sprite,
+							possessedTurret.position.x,
+							possessedTurret.position.y);
+				}
+				if (possessedTurret.timeRemove > 140
+						&& possessedTurret.timeRemove < 145) {
+					batch.draw(possessedTurret.sprite,
+							possessedTurret.position.x,
+							possessedTurret.position.y);
+				}
+				if (possessedTurret.timeRemove > 150
+						&& possessedTurret.timeRemove < 155) {
+					batch.draw(possessedTurret.sprite,
+							possessedTurret.position.x,
+							possessedTurret.position.y);
+				}
+				if (possessedTurret.timeRemove > 160
+						&& possessedTurret.timeRemove < 165) {
+					batch.draw(possessedTurret.sprite,
+							possessedTurret.position.x,
+							possessedTurret.position.y);
+				}
+				if (possessedTurret.timeRemove > 170
+						&& possessedTurret.timeRemove < 175) {
+					batch.draw(possessedTurret.sprite,
+							possessedTurret.position.x,
+							possessedTurret.position.y);
+				}
 			}
-			if (L1.possessedTurret.time == 14 || L1.possessedTurret.time == 34) {
-				L1.possessedTurret.sprite.setColor(
-						L1.possessedTurret.sprite.getColor().r,
-						L1.possessedTurret.sprite.getColor().g + 1,
-						L1.possessedTurret.sprite.getColor().b + 1,
-						L1.possessedTurret.sprite.getColor().a);
-			}
 		}
-		// batch.draw(L1.player.turret.sprite, L1.player.turret.position.x,
-		// L1.player.turret.position.y);
-		if (L1.possessedTurret.projectiles != null
-				&& !L1.possessedTurret.projectiles.isEmpty()) {
-			for (Projectile p : L1.possessedTurret.projectiles) {
-				batch.draw(p.sprite, p.position.x, p.position.y);
-			}
-		}
-		if (L1.possessedTurret.timeRemove < 110) {
-			batch.draw(L1.possessedTurret.sprite,
-					L1.possessedTurret.position.x,
-					L1.possessedTurret.position.y);
-		}
-		if (L1.possessedTurret.timeRemove > 110
-				&& L1.possessedTurret.timeRemove < 115) {
-			batch.draw(L1.possessedTurret.sprite,
-					L1.possessedTurret.position.x,
-					L1.possessedTurret.position.y);
-		}
-		if (L1.possessedTurret.timeRemove > 120
-				&& L1.possessedTurret.timeRemove < 125) {
-			batch.draw(L1.possessedTurret.sprite,
-					L1.possessedTurret.position.x,
-					L1.possessedTurret.position.y);
-		}
-		if (L1.possessedTurret.timeRemove > 130
-				&& L1.possessedTurret.timeRemove < 135) {
-			batch.draw(L1.possessedTurret.sprite,
-					L1.possessedTurret.position.x,
-					L1.possessedTurret.position.y);
-		}
-		if (L1.possessedTurret.timeRemove > 140
-				&& L1.possessedTurret.timeRemove < 145) {
-			batch.draw(L1.possessedTurret.sprite,
-					L1.possessedTurret.position.x,
-					L1.possessedTurret.position.y);
-		}
-		if (L1.possessedTurret.timeRemove > 150
-				&& L1.possessedTurret.timeRemove < 155) {
-			batch.draw(L1.possessedTurret.sprite,
-					L1.possessedTurret.position.x,
-					L1.possessedTurret.position.y);
-		}
-		if (L1.possessedTurret.timeRemove > 160
-				&& L1.possessedTurret.timeRemove < 165) {
-			batch.draw(L1.possessedTurret.sprite,
-					L1.possessedTurret.position.x,
-					L1.possessedTurret.position.y);
-		}
-		if (L1.possessedTurret.timeRemove > 170
-				&& L1.possessedTurret.timeRemove < 175) {
-			batch.draw(L1.possessedTurret.sprite,
-					L1.possessedTurret.position.x,
-					L1.possessedTurret.position.y);
-		}
-	}
 	
 		
 		
@@ -639,9 +644,9 @@ public class L1Renderer {
 		// if (TheController.gui.getCroshair().isAiming()) {
 		// sr.line(theController.V3playerPos, L1.player.aimLineHead);
 		// }
-//		 sr.circle(L1.player.circle.x, L1.player.circle.y,
-//		 L1.player.circle.radius);
-//		 sr.setColor(Color.YELLOW);
+		sr.setColor(Color.RED);
+		 sr.circle(L1.player.circle.x, L1.player.circle.y,
+		 L1.player.circle.radius);
 //		  sr.circle(TheController.level1.player.aimingArea.x,
 //		  TheController.level1.player.aimingArea.y,
 //		  TheController.level1.player.aimingArea.radius);

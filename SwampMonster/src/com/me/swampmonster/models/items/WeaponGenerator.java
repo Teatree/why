@@ -107,10 +107,12 @@ public class WeaponGenerator {
 			} catch (Exception e) {
 				e.printStackTrace();
 			} 
-			if(mod2 != null && !mod2.getClass().equals(weapon.mod1.getClass())){
-				weapon.mod2 = mod2;
-				if(weapon.mod1 == null){
-					weapon.mod1 = mod2;
+			if(mod2 != null ){
+				if(weapon.mod1 == null || !mod2.getClass().equals(weapon.mod1.getClass())){
+					weapon.mod2 = mod2;
+//					if(weapon.mod1 == null){
+//						weapon.mod1 = mod2;
+//					}
 				}
 			}
 		}

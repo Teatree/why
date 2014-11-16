@@ -235,7 +235,7 @@ public class TheController extends InputAdapter {
 	private void projectileCollisionDetection() {
 		for (Enemy e : L1.enemiesOnStage) {
 			for (Projectile p : e.enemyProjectiles) {
-				if (p.circle.overlaps(L1.player.aimingArea)
+				if (p.circle.overlaps(L1.player.circle)
 						&& !L1.player.hurt
 						&& L1.player.state != State.DEAD
 						&& L1.player.positiveEffectsState != PositiveEffects.FADE) {

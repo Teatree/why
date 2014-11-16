@@ -68,11 +68,12 @@ public class L1 {
 	
 	public boolean isElite;
 	public static boolean hasAtmosphere;
-	public static PossessedTurret possessedTurret;
+	public static List<PossessedTurret> pTurrets =  new ArrayList<PossessedTurret>(); 
 	
 	public L1(String tileSet, String tileMap, boolean isElite) {
 		create(tileSet, tileMap, isElite);
-		possessedTurret = new PossessedTurret(new Vector2(300, 250));
+		pTurrets = new ArrayList<PossessedTurret>();
+		pTurrets.add(new PossessedTurret(new Vector2(300, 250)));
 	}
 
 	public void create(String tileSet, String tileMap, boolean isElite) {
@@ -103,11 +104,18 @@ public class L1 {
 				plasmaShield = null;
 			}
 		}
-				
-		if (possessedTurret != null){
-			possessedTurret.update();
-			if(Intersector.overlaps(possessedTurret.killingAura, player.sprite.getBoundingRectangle())){
-				possessedTurret.victim = player;
+			
+		Iterator<PossessedTurret> pTurretItr = pTurrets.iterator();
+		while (pTurretItr.hasNext()){
+			PossessedTurret possessedTurret = pTurretItr.next();
+			if (possessedTurret != null){
+				possessedTurret.update();
+				if(Intersector.overlaps(possessedTurret.killingAura, player.sprite.getBoundingRectangle())){
+					possessedTurret.victim = player;
+				}
+			}
+			if(possessedTurret.state == State.DEAD){
+				pTurretItr.remove();
 			}
 		}
 		
