@@ -32,6 +32,7 @@ import com.me.swampmonster.models.AbstractGameObject.State;
 import com.me.swampmonster.models.L1;
 import com.me.swampmonster.models.Player;
 import com.me.swampmonster.models.TutorialLevel;
+import com.me.swampmonster.models.items.Bow;
 import com.me.swampmonster.models.slots.Perks;
 import com.me.swampmonster.models.slots.PositiveEffects;
 import com.me.swampmonster.models.slots.Slot;
@@ -442,8 +443,6 @@ public class GShape extends Group {
 		private String[] WittySuffocationMessages;
 		private String[] WittyPoisonMessages;
 		
-		
-		
 		private ImageButton ok;
 		private ImageButton ad;
 		
@@ -530,13 +529,14 @@ public class GShape extends Group {
 				if(object == "Nastya"){
 					Player.maxOxygen = Player.DEFAULT_MAX_O2;
 					L1.player.maxHealth = Player.DEFAULT_MAX_HEALTH;
-					L1.player.weapon.minDD = (int) Constants.DEFAULT_PLAYER_min_DAMAGE;
-					L1.player.weapon.maxDD = (int) Constants.DEFAULT_PLAYER_max_DAMAGE;
+					Player.absoluteScore = 0;
+					L1.player.weapon = new Bow();
+//					L1.player.weapon.minDD = (int) Constants.DEFAULT_PLAYER_min_DAMAGE;
+//					L1.player.weapon.maxDD = (int) Constants.DEFAULT_PLAYER_max_DAMAGE;
 					Player.DEFAULT_MINIMUM_DAMAGE = Constants.DEFAULT_PLAYER_min_DAMAGE;
 					Player.DEFAULT_MAXIMUM_DAMAGE = Constants.DEFAULT_PLAYER_max_DAMAGE;
 					Player.arrowMovementSpeed = Player.DEFAULT_ARROW_MOVEMENT_SPEED;
 					L1.player.movementSpeed = Player.DEFAULT_MOVEMENT_SPEED;
-					Player.absoluteScore = 0;
 					Player.levelsScore = 0;
 					L1.player.trap = null;
 					L1.player.turret = null;

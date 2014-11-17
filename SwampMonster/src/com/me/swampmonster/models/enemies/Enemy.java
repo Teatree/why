@@ -448,7 +448,7 @@ public abstract class Enemy extends AbstractGameObject implements Cloneable, Col
 		if (state.equals(State.DEAD)) {
 			
 			if (timeDead < 65) {
-				if(negativeEffectsState == NegativeEffects.STUN){
+				if(negativeEffectsState == NegativeEffects.ICE){
 					currentFrame = animations.get(State.ICECUBESDEAD).doComplexAnimation(136, 2f,
 							0.03f, Animation.PlayMode.NORMAL);
 					sprite.setRegion(animations.get(State.ICECUBESDEAD).getCurrentFrame());
@@ -470,7 +470,7 @@ public abstract class Enemy extends AbstractGameObject implements Cloneable, Col
 				dead = true;
 			}
 		}
-		if (hurt && !exploding && !charging && !negativeEffectsState.equals(NegativeEffects.STUN)) {
+		if (hurt && !exploding && !charging && !negativeEffectsState.equals(NegativeEffects.ICE) && !negativeEffectsState.equals(NegativeEffects.STUN)) {
 			if (player.weapon.projectiles != null) {
 				getProjectileLocationRelativeToSprite(player.weapon.projectiles);
 			}

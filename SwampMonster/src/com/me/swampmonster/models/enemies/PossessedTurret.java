@@ -174,9 +174,9 @@ public class PossessedTurret extends Turret {
 			while (itrP.hasNext()) {
 				Projectile p = itrP.next();
 
-				p.update();
 				p.force = 0.8f;
 				p.getSurfaceLevelProjectile(TheController.collisionLayer);
+				p.update();
 
 				if (p.isCollision(TheController.collisionLayer)) {
 					p.state = State.DEAD;
