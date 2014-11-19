@@ -206,7 +206,7 @@ public class ItemGenerator {
 		Item item = null;
 		try {
 //			Class<? extends Item> itemClass = items.get(number);
-			 Class<? extends Item> itemClass = ICE_THING.class;
+			 Class<? extends Item> itemClass = SLOWED.class;
 			int randomTextureNumber;
 			if (itemClass.getDeclaredField("poisonSprite").get(null) == null) {
 				randomTextureNumber = random.nextInt(poisonTextures.size());

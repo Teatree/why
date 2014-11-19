@@ -21,7 +21,6 @@ public class SlingShot extends Weapon{
 
 	@Override
 	public void shoot(Vector3 V3point) {
-
 		
 		coolDownAngle = 360;
 		coolDownStep = 360f / coolDown;
@@ -35,6 +34,9 @@ public class SlingShot extends Weapon{
 				L1.player.getRotation(L1.player.shotDir),
 				L1.player.arrowEffectCarrier, new Sprite(
 						Assets.manager.get(Assets.rock)));
+		if(L1.player.arrowEffectCarrier!=EffectCarriers.NONE){
+			p.sprite = L1.player.arrowEffectCarrier.sprite;
+		}
 		L1.player.shotArrows++;
 		
 		p.setPosition(new Vector2(L1.player.aimingArea.x + direction_x / 100 - 8,

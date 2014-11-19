@@ -50,7 +50,7 @@ public class Projectile extends AbstractGameObject {
 		CHAIN_ARROWS(new Sprite(Assets.manager.get(Assets.itemProjectile))),
 		NONE(new Sprite(Assets.manager.get(Assets.arrow)));
 
-		Sprite sprite;
+		public Sprite sprite;
 
 		EffectCarriers(Sprite sprite) {
 			this.sprite = sprite;

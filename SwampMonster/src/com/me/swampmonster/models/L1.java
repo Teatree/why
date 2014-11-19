@@ -26,6 +26,7 @@ import com.me.swampmonster.models.Projectile.EffectCarriers;
 import com.me.swampmonster.models.enemies.Enemy;
 import com.me.swampmonster.models.enemies.EnemySofa;
 import com.me.swampmonster.models.enemies.PossessedTurret;
+import com.me.swampmonster.models.items.CrossBow;
 import com.me.swampmonster.models.items.HealthKit;
 import com.me.swampmonster.models.items.Oxygen;
 import com.me.swampmonster.models.items.WeaponItem;

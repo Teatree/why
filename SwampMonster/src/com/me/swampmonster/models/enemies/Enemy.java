@@ -470,6 +470,7 @@ public abstract class Enemy extends AbstractGameObject implements Cloneable, Col
 				dead = true;
 			}
 		}
+		
 		if (hurt && !exploding && !charging && !negativeEffectsState.equals(NegativeEffects.ICE) && !negativeEffectsState.equals(NegativeEffects.STUN)) {
 			if (player.weapon.projectiles != null) {
 				getProjectileLocationRelativeToSprite(player.weapon.projectiles);

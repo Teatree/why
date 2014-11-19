@@ -21,6 +21,7 @@ import com.me.swampmonster.models.Projectile.EffectCarriers;
 import com.me.swampmonster.models.enemies.Enemy;
 import com.me.swampmonster.models.enemies.PossessedTurret;
 import com.me.swampmonster.models.items.Bow;
+import com.me.swampmonster.models.items.CrossBow;
 import com.me.swampmonster.models.items.RADIOACTIVE;
 import com.me.swampmonster.models.items.Weapon;
 import com.me.swampmonster.models.slots.PanicTeleport;
@@ -117,7 +118,6 @@ public class Player extends AbstractGameObject {
 		arrowMovementSpeed = DEFAULT_ARROW_MOVEMENT_SPEED;
 		
 		System.out.println("plaeyr");
-		weapon = new Bow();
 		levelsScore = absoluteScore;
 		state = State.STANDARD;
 		positiveEffectsState = PositiveEffects.NONE;
@@ -184,9 +184,10 @@ public class Player extends AbstractGameObject {
 		// shotDir = new Vector3();
 		// sprite.setSize(sprite.getWidth() / 2, sprite.getHeight() / 2);
 		// allowedToShoot = true;
+		weapon = new Bow();
 		DEFAULT_MINIMUM_DAMAGE = weapon.minDD;
 		DEFAULT_MAXIMUM_DAMAGE = weapon.maxDD;
-		
+
 	}
 
 	public void characterStatsBoard() {

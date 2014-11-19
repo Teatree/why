@@ -53,11 +53,11 @@ public class HASTE extends Item{
 
 	@Override
 	public void pickMeUp(Player player) {
-		this.state=State.DEAD;
 		player.positiveEffectSprite = new Sprite(Assets.manager.get(Assets.HASTE_ICON));
 		player.setPositiveEffect(PositiveEffects.HASTE);
 		player.positiveEffectCounter = lifeTime;
 		System.out.println("I am Haste, biatch");
+		this.state=State.DEAD;
 	}
 
 	@Override

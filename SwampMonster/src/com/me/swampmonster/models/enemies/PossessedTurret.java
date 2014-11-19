@@ -48,7 +48,7 @@ public class PossessedTurret extends Turret {
 	@Override
 	public void update() {
 
-		System.out.println("state " + this.state + " health: " + health);
+//		System.out.println("state " + this.state + " health: " + health);
 		// :TODO GET THE ANIAMTIONS RIGHT!
 		if (this.state == State.DESPAWNING) {
 			System.out.println("state despawning ");

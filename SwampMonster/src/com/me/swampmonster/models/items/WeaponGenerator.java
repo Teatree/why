@@ -75,7 +75,8 @@ public class WeaponGenerator {
 	
 	public Weapon generateSpecialWep(int playerScore){
 		setWepParams(Player.absoluteScore);
-		Weapon weapon = getPlainWep(playerScore);
+//		Weapon weapon = getPlainWep(playerScore);
+		Weapon weapon = new CrossBow();
 		int rNumberFirst = random.nextInt(1000);
 //		System.out.println("rNumberFirst " + rNumberFirst);
 //		System.out.println("weaponTypes.firstModificatorChance " + weaponTypes.firstModificatorChance);

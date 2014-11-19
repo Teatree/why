@@ -28,11 +28,12 @@ public class CrossBow extends Weapon{
 		super.update(collisionLayer);
 		
 		if(coolDownCounter > 0){
-			L1.player.movementSpeed/=1.5f;
+			L1.player.movementSpeed=playerMovementSpeed/1.3f;
 		}else{
 			L1.player.movementSpeed=playerMovementSpeed;
 			System.out.println();
 		}
+		System.err.println(" player movement speed: " + playerMovementSpeed + " actuall player movement speeed: " + L1.player.movementSpeed);
 	}
 
 	@Override
@@ -49,6 +50,9 @@ public class CrossBow extends Weapon{
 				L1.player.getRotation(L1.player.shotDir),
 				L1.player.arrowEffectCarrier, new Sprite(
 						Assets.manager.get(Assets.bolt)));
+		if(L1.player.arrowEffectCarrier!=EffectCarriers.NONE){
+			p.sprite = L1.player.arrowEffectCarrier.sprite;
+		}
 		L1.player.shotArrows++;
 		
 		p.setPosition(new Vector2(L1.player.aimingArea.x + direction_x / 100 - 8,

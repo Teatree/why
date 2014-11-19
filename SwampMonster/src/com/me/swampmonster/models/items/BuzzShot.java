@@ -19,7 +19,6 @@ public class BuzzShot extends Weapon{
 
 	@Override
 	public void shoot(Vector3 V3point) {
-
 		
 		coolDownAngle = 360;
 		coolDownStep = 360f / coolDown;
@@ -28,11 +27,14 @@ public class BuzzShot extends Weapon{
 		float direction_y = L1.player.shotDir.y - L1.player.V3playerPos.y;
 		
 		// : TODO This look terrible, make it better bro...
-		p = new Projectile(new Vector2(L1.player.aimingArea.x + direction_x
-				/ 100 - 8, L1.player.aimingArea.y + direction_y / 100 - 8),
-				L1.player.getRotation(L1.player.shotDir),
-				L1.player.arrowEffectCarrier, new Sprite(
-						Assets.manager.get(Assets.buzz)));
+			p = new Projectile(new Vector2(L1.player.aimingArea.x + direction_x
+					/ 100 - 8, L1.player.aimingArea.y + direction_y / 100 - 8),
+					L1.player.getRotation(L1.player.shotDir),
+					L1.player.arrowEffectCarrier, new Sprite(
+							Assets.manager.get(Assets.buzz)));
+		if(L1.player.arrowEffectCarrier!=EffectCarriers.NONE){
+			p.sprite = L1.player.arrowEffectCarrier.sprite;
+		}
 		L1.player.shotArrows++;
 		
 		p.setPosition(new Vector2(L1.player.aimingArea.x + direction_x / 100 - 8,
