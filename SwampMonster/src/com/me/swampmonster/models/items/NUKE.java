@@ -78,13 +78,14 @@ public class NUKE extends Item{
 		explosion.explCircle.setPosition(this.position.x, this.position.y);
 		L1.explosions.add(explosion);
 		state=State.DEAD;
+		name = constatName;
 	}
 
 	@Override
 	public void parametersForThrowing(Player player) {
 		player.arrowEffectCarrier = EffectCarriers.NUKE;
 		this.state = State.DEAD;
-		
+		name = constatName;
 	}
 
 }

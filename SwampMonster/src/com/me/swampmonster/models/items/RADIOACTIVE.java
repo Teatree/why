@@ -70,6 +70,7 @@ public class RADIOACTIVE extends Item{
 		player.positiveEffectCounter = lifeTime;
 //		System.out.println("Hi! I am RADIOACTIVE aura, circle radius: ");
 		this.state=State.DEAD;
+		name = constatName;
 	}
 
 
@@ -77,7 +78,7 @@ public class RADIOACTIVE extends Item{
 	public void parametersForThrowing(Player player) {
 		this.state = State.DEAD;
 		player.arrowEffectCarrier = EffectCarriers.RADIOACTIVE;
-		
+		name = constatName;
 	}
 	
 //	@Override

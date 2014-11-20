@@ -28,13 +28,13 @@ public class ExplosiveProp extends Prop {
 	public void toDoSomething() {
 		state = State.DESPAWNING;
 		explosion = new Explosion(new Vector2(this.position.x+1, this.position.y+1), Explosion.EXPLOSION_TYPE_STANDART);
-		explosion.damage = 0;
+//		explosion.damage = 0;
 		explosion.incrementalDamageValue = 0;
 		explosion.incrementalCircleValue = 6;
 		explosion.explCircle.setPosition(this.position.x+1, this.position.y+1);
 		explosion.explCircle.radius = 1f;
 //		explosion = new Explosion(this.position, Explosion.EXPLOSION_TYPE_STANDART);
-		explosion.damage = 0.9f;
+//		explosion.damage = 0.9f;
 ////		explosion.position = this.position;
 //		explosion.explCircle.setPosition(this.position.x, this.position.y);
 ////		explosion.explosionEffect = new ParticleEffect();

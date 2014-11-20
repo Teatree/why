@@ -147,7 +147,6 @@ public class TheController extends InputAdapter {
 		if(TutorialLevel.animating){
 			TutorialLevel.animating();
 		}
-		projectileCollisionDetection();
 		
 		if(!L1.explosions.isEmpty()){
 			cameraHelper.setShakeAmt(25);
@@ -232,29 +231,29 @@ public class TheController extends InputAdapter {
 		}
 	}
 
-	private void projectileCollisionDetection() {
-		for (Enemy e : L1.enemiesOnStage) {
-			for (Projectile p : e.enemyProjectiles) {
-				if (p.circle.overlaps(L1.player.circle)
-						&& !L1.player.hurt
-						&& L1.player.state != State.DEAD
-						&& L1.player.positiveEffectsState != PositiveEffects.FADE) {
-					cameraHelper.setShakeAmt(25);
-					cameraHelper.cameraShake();
-
-//					L1.player.damage_dx = L1.player.position.x - e.position.x;
-//					L1.player.damage_dy = L1.player.position.y - e.position.y;
-//					float length1 = (float) Math.sqrt(L1.player.damage_dx * L1.player.damage_dx + L1.player.damage_dy * L1.player.damage_dy);
-//					L1.player.damage_dx /= length1;
-//					L1.player.damage_dy /= length1;
-//					L1.player.damagePushForce = e.damage;
-					L1.player.hurt = true;
-					L1.player.damageType = "enemy";
-					L1.player.health -= e.random.nextInt((int) (e.maxDamage-e.minDamage))+e.minDamage;;
-				}
-			}
-		}
-	}
+//	private void projectileCollisionDetection() {
+//		for (Enemy e : L1.enemiesOnStage) {
+//			for (Projectile p : e.enemyProjectiles) {
+//				if (p.circle.overlaps(L1.player.circle)
+//						&& !L1.player.hurt
+//						&& L1.player.state != State.DEAD
+//						&& L1.player.positiveEffectsState != PositiveEffects.FADE) {
+//					cameraHelper.setShakeAmt(25);
+//					cameraHelper.cameraShake();
+//					System.out.println("YES, GOT HIUT BY PROJECTILE!");
+////					L1.player.damage_dx = L1.player.position.x - e.position.x;
+////					L1.player.damage_dy = L1.player.position.y - e.position.y;
+////					float length1 = (float) Math.sqrt(L1.player.damage_dx * L1.player.damage_dx + L1.player.damage_dy * L1.player.damage_dy);
+////					L1.player.damage_dx /= length1;
+////					L1.player.damage_dy /= length1;
+////					L1.player.damagePushForce = e.damage;
+//					L1.player.hurt = true;
+//					L1.player.damageType = "enemy";
+//					L1.player.health -= e.damage;
+//				}
+//			}
+//		}
+//	}
 
 	private void inputNav() {
 		Vector2 pint = new Vector2();

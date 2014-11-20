@@ -128,7 +128,7 @@ public abstract class Enemy extends AbstractGameObject implements Cloneable, Col
 		aimerBot.width = 5;
 		aimerBot.height = 5;
 		state = State.STANDARD;
-		poisonDamage = 0.5f;
+		poisonDamage = 5f;
 		poisonDamageInterval = 60;
 		animationsStandard.put(State.PURSUIT, new AnimationControl(
 				Assets.manager.get(Assets.enemy), 8, 32, 8));
@@ -545,6 +545,9 @@ public abstract class Enemy extends AbstractGameObject implements Cloneable, Col
 					player.damage_dx /= length3;
 					player.damage_dy /= length3;
 					player.damagePushForce = random.nextInt((int) (((maxDamage-minDamage))+minDamage));
+					player.hurt = true;
+					player.damageType = "enemy";
+					player.health -= damage;
 					p2.state = State.DEAD;
 				} else if (L1.plasmaShield != null
 						&& p2.circle.overlaps(L1.plasmaShield.circle)) {

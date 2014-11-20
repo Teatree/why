@@ -206,7 +206,7 @@ public class ItemGenerator {
 		Item item = null;
 		try {
 //			Class<? extends Item> itemClass = items.get(number);
-			 Class<? extends Item> itemClass = SLOWED.class;
+			 Class<? extends Item> itemClass = POISONED.class;
 			int randomTextureNumber;
 			if (itemClass.getDeclaredField("poisonSprite").get(null) == null) {
 				randomTextureNumber = random.nextInt(poisonTextures.size());
@@ -225,7 +225,7 @@ public class ItemGenerator {
 				// System.out.println("poisonSprite: " + randomTextureNumber);
 			} else {
 				item = itemClass.getConstructor().newInstance();
-				item.name = item.constatName;
+//				item.name = item.constatName;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -236,13 +236,15 @@ public class ItemGenerator {
 	public Item generateItem(int playersScore) {
 		int probability = random.nextInt(100);
 		if (probability < 40) {
-			 return getPlainItem(playersScore);
+//			 return getPlainItem(playersScore);
+			 return generateSpecialItem(playersScore);
 //			return getWeaponItem(playersScore);
 		} else if (probability >= 40 && probability <= 80) {
 			 return generateSpecialItem(playersScore);
 //			return getWeaponItem(playersScore);
 		} else {
-			return getWeaponItem(playersScore);
+//			return getWeaponItem(playersScore);
+			return generateSpecialItem(playersScore);
 		}
 	}
 

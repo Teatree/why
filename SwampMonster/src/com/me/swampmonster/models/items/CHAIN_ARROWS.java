@@ -33,12 +33,14 @@ public class CHAIN_ARROWS extends Item{
 		System.out.println("Hello, I am Chain arrows! and multiplyCounter is: " + ProjectileHydra.musltiplyCounter);
 		L1.hydra  = new ProjectileHydra(new Vector2(position.x, position.y));
 		ProjectileHydra.musltiplyCounter = 3;
+		name = constatName;
 	}
 
 	@Override
 	public void parametersForThrowing(Player player) {	
 		this.state = State.DEAD;
 		player.arrowEffectCarrier = EffectCarriers.CHAIN_ARROWS;
+		name = constatName;
 	}
 
 }

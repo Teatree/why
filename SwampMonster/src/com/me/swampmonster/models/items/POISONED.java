@@ -18,8 +18,7 @@ public class POISONED extends Item{
 	
 	public POISONED() {
 		super();
-				
-				
+		
 		Random random = new Random();
 		int level = random.nextInt(5);
 		switch (level) {
@@ -54,6 +53,7 @@ public class POISONED extends Item{
 	public void pickMeUp(Player player) {
 		this.state=State.DEAD;
 		player.setNegativeEffect(NegativeEffects.POISONED);
+		name = constatName;
 		System.out.println("I am Haste, biatch");
 	}
 
@@ -61,7 +61,7 @@ public class POISONED extends Item{
 	public void parametersForThrowing(Player player) {
 		this.state = State.DEAD;
 		player.arrowEffectCarrier = EffectCarriers.POISON;
-		
+		name = constatName;
 	}
 
 }

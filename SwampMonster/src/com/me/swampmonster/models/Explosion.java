@@ -42,7 +42,7 @@ public class Explosion {
 		this.type = type;
 		explosionPushForce = EXPLOSION_PUSH_FORCE;
 		random = new Random();
-		this.damage = random.nextFloat()+0.7f;
+		this.damage = random.nextInt(36-15)+15;
 		frozenLifeTime = 0;
 		explCircle = new Circle();
 		explCircle.setPosition(new Vector2(position.x, position.y));
@@ -90,7 +90,11 @@ public class Explosion {
 		if (type == EXPLOSION_TYPE_STANDART){
 			if (causeDamageCounter % 15 == 0 && ago.health > 0){
 				if (ago.positiveEffectsState != PositiveEffects.FADE && !((ago instanceof Player) && isNuke)){
-					ago.health -= this.damage;
+					if((ago instanceof Player)){
+						ago.health -= this.damage/15;
+					}else{
+						ago.health -= this.damage;
+					}
 				}
 			}
 		} 

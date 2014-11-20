@@ -55,13 +55,14 @@ public class SCARED extends Item{
 		this.state=State.DEAD;
 		player.setNegativeEffect(NegativeEffects.FEAR);
 		System.out.println("I am Haste, biatch");
+		name = constatName;
 	}
 
 	@Override
 	public void parametersForThrowing(Player player) {
 		this.state = State.DEAD;
 		player.arrowEffectCarrier = EffectCarriers.SCARED;
-		
+		name = constatName;
 	}
 
 }

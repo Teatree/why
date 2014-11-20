@@ -17,7 +17,7 @@ public abstract class Item extends AbstractGameObject{
 	public String itemType;
 	public static int lifeTime;
 	public int deadAnimTimer;
-	public String name;
+	public static String name = "unidentified";
 	public String constatName;
 	public boolean spawned;
 	
@@ -45,13 +45,12 @@ public abstract class Item extends AbstractGameObject{
 //		this.itemType = itemType;
 		pendingTimer = 180;
 		
-		name = "unidentified";
+//		name = "unidentified";
 	}
 	
 	public void update(){
 		circle.x = position.x+8;
 		circle.y = position.y+8;
-		
 		
 		if(state.equals(State.STANDARD)){
 			pendingTimer++;

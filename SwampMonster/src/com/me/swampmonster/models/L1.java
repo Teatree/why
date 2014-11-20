@@ -422,7 +422,6 @@ public class L1 {
 							pos = new Vector2(p.position.x, p.position.y);
 						}
 						if (Intersector.overlaps(p.circle, e.sprite.getBoundingRectangle())
-								&& !e.hurt
 								|| (e.iceCube != null && Intersector.overlaps(p.circle,
 										e.iceCube.getBoundingRectangle()))) {
 							

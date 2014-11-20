@@ -158,16 +158,16 @@ public class L1Renderer {
 		
 
 		for (Enemy enemy : L1.enemiesOnStage) {
-//			fontss.setColor(Color.GREEN);
-//			fontss.setScale(0.52f);
-//			 fontss.draw(batch, "dmg: " + enemy.damage,
-//			 enemy.position.x+enemy.sprite.getWidth()+5, enemy.position.y);
-//			 fontss.draw(batch, "hp: " + enemy.health,
-//			 enemy.position.x+enemy.sprite.getWidth()+5, enemy.position.y+12);
-//			 fontss.draw(batch, "sp: " + enemy.movementSpeed,
-//			 enemy.position.x+enemy.sprite.getWidth()+5, enemy.position.y+24);
-//			 fontss.draw(batch, "size: " + enemy.sprite.getScaleX(),
-//			 enemy.position.x+enemy.sprite.getWidth()+5, enemy.position.y+36);
+			fontss.setColor(Color.GREEN);
+			fontss.setScale(0.52f);
+			 fontss.draw(batch, "dmg: " + enemy.damage,
+			 enemy.position.x+enemy.sprite.getWidth()+5, enemy.position.y);
+			 fontss.draw(batch, "hp: " + enemy.health,
+			 enemy.position.x+enemy.sprite.getWidth()+5, enemy.position.y+12);
+			 fontss.draw(batch, "sp: " + enemy.movementSpeed,
+			 enemy.position.x+enemy.sprite.getWidth()+5, enemy.position.y+24);
+			 fontss.draw(batch, "size: " + enemy.sprite.getScaleX(),
+			 enemy.position.x+enemy.sprite.getWidth()+5, enemy.position.y+36);
 			if (enemy.heal) {
 				fontss.setColor(Color.GREEN);
 				fontss.setScale(0.52f);
@@ -179,7 +179,7 @@ public class L1Renderer {
 				if (enemy.negativeEffectsState == NegativeEffects.POISONED) {
 					fontss.setColor(Color.MAGENTA);
 					fontss.setScale(0.52f);
-					fontss.draw(batch, enemy.poisonDamage * 10 + " DMG",
+					fontss.draw(batch, enemy.poisonDamage + " DMG",
 							enemy.position.x,
 							enemy.position.y + enemy.sprite.getHeight() + 5
 									+ enemy.time / 5);

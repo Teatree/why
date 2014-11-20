@@ -99,11 +99,11 @@ public class Constants {
 	public static final float ExplosiveArrow_explCircleRadius_L4 = 14;
 	public static final float ExplosiveArrow_explCircleRadius_L5 = 18;
 
-	public static final float ExplosiveArrow_damage_L1 = 2f;
-	public static final float ExplosiveArrow_damage_L2 = 2f;
-	public static final float ExplosiveArrow_damage_L3 = 3f;
-	public static final float ExplosiveArrow_damage_L4 = 3f;
-	public static final float ExplosiveArrow_damage_L5 = 4f;
+	public static final float ExplosiveArrow_damage_L1 = 20f;
+	public static final float ExplosiveArrow_damage_L2 = 20f;
+	public static final float ExplosiveArrow_damage_L3 = 30f;
+	public static final float ExplosiveArrow_damage_L4 = 30f;
+	public static final float ExplosiveArrow_damage_L5 = 40f;
 
 	public static final String ExplosiveArrow_Description_L1 = "Loads bow with an explosive arrow,"
 			+ " that deals "
@@ -179,11 +179,11 @@ public class Constants {
 	public static final float NUKE_explCircleRadius_L4 = 16;
 	public static final float NUKE_explCircleRadius_L5 = 18;
 
-	public static final float NUKE_damage_L1 = 3;
-	public static final float NUKE_damage_L2 = 3f;
-	public static final float NUKE_damage_L3 = 4f;
-	public static final float NUKE_damage_L4 = 4f;
-	public static final float NUKE_damage_L5 = 5f;
+	public static final float NUKE_damage_L1 = 30;
+	public static final float NUKE_damage_L2 = 30f;
+	public static final float NUKE_damage_L3 = 40f;
+	public static final float NUKE_damage_L4 = 40f;
+	public static final float NUKE_damage_L5 = 50f;
 
 	public static final float NUKE_incrementExplosionRadius_L1 = 3f;
 	public static final float NUKE_incrementExplosionRadius_L2 = 4f;

@@ -308,7 +308,7 @@ public class Player extends AbstractGameObject {
 				if (!PanicTeleport.explCreated) {
 					Explosion expl = new Explosion(position,
 							Explosion.EXPLOSION_TYPE_STANDART);
-					expl.damage = 0f;
+					expl.damage = 5f;
 					expl.explosionLifeTime = 15;
 					expl.explCircle.radius = 0;
 					expl.isNuke = true;

@@ -38,13 +38,14 @@ public class ICE_THING extends Item{
 			e.setNegativeEffect(NegativeEffects.ICE);
 		}
 		System.out.println("IceThing");
+		name = constatName;
 	}
 
 	@Override
 	public void parametersForThrowing(Player player) {
 		this.state = State.DEAD;
 		player.arrowEffectCarrier = EffectCarriers.ICE_CUBE;
-		
+		name = constatName;
 	}
 
 }

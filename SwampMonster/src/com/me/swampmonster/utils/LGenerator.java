@@ -2,6 +2,7 @@ package com.me.swampmonster.utils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.Stack;
@@ -10,6 +11,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.utils.Array;
 import com.me.swampmonster.game.TheController;
 import com.me.swampmonster.game.collision.CollisionHelper;
 import com.me.swampmonster.models.AbstractGameObject.NegativeEffects;
@@ -25,7 +27,14 @@ import com.me.swampmonster.models.enemies.PossessedTurret;
 import com.me.swampmonster.models.slots.PositiveEffects;
 
 public class LGenerator {
-	private static final String LAB_TILESET = "tileSet_SAND_WORLD2.png";
+	private static String[] RUINS_TILESETS = {
+		"tileSet_SAND_WORLD_RUINS1.png",
+		"tileSet_SAND_WORLD_RUINS2.png"
+	};
+	private static String[] LAB_TILESETS = {
+		"tileSet_SAND_WORLD2.png",
+		"tileSet_SAND_WORLD2.png"
+	};
 	private static String DEFAULT_TILESET = "tileSet_SAND_WORLD\\d*.png";
 	private static final int PLAYER_SPRITE_HEIGHT = 64;
 	private static final int PLAYER_SPRITE_WIDTH = 32;
@@ -38,12 +47,14 @@ public class LGenerator {
 	
 	public static  String lastTileSet;
 	public static String lastMap;
-	public static  boolean hadLastAtmosphere;
+	public static boolean hadLastAtmosphere;
+	public static boolean wasLastRuins;
 	public static boolean wasLastElite;
 
 	static  {
 		maps = new HashMap<Integer, String>();
 		tileSets = new HashMap<Integer, String>();
+		
 		random = new Random();
 		propsSpawnGenerator = new PropsSpawnGenerator();
 
@@ -61,7 +72,10 @@ public class LGenerator {
 		//
 		Gdx.files.local("Tiles.png").write(Gdx.files.internal("data\\Tiles.png").read(), false);
 		Gdx.files.local("tileSet_SAND_WORLD.png").write(Gdx.files.internal("data\\tileSet_SAND_WORLD.png").read(), false);
-		Gdx.files.local(LAB_TILESET).write(Gdx.files.internal("data\\tileSet_SAND_WORLD2.png").read(), false);
+		Gdx.files.local(LAB_TILESETS[0]).write(Gdx.files.internal("data\\tileSet_SAND_WORLD2.png").read(), false);
+		Gdx.files.local(LAB_TILESETS[1]).write(Gdx.files.internal("data\\tileSet_SAND_WORLD2.png").read(), false);
+		Gdx.files.local(RUINS_TILESETS[0]).write(Gdx.files.internal("data\\tileSet_SAND_WORLD_RUINS1.png").read(), false);
+		Gdx.files.local(RUINS_TILESETS[1]).write(Gdx.files.internal("data\\tileSet_SAND_WORLD_RUINS2.png").read(), false);
 		Gdx.files.local("tileSet_SAND_WORLD3.png").write(Gdx.files.internal("data\\tileSet_SAND_WORLD3.png").read(), false);
 		Gdx.files.local("tileSet_SAND_WORLD4.png").write(Gdx.files.internal("data\\tileSet_SAND_WORLD4.png").read(), false);
 		Gdx.files.local("tileSet_SAND_WORLD5.png").write(Gdx.files.internal("data\\tileSet_SAND_WORLD5.png").read(), false);
@@ -70,23 +84,23 @@ public class LGenerator {
 	public static L1 createLevel(Player player) {
 		String map;
 		String tileSet;
-		boolean isLevelElite;
-		boolean hasLevelAtmosphere;
+		boolean isLevelElite = false;
+		boolean hasLevelAtmosphere = false;
+		boolean isRuins = false;
 		if (lastMap == null && lastTileSet == null){
 			map = maps.get(random.nextInt(maps.size() - 1));
 			tileSet = tileSets.get(random.nextInt(tileSets.size()));
-			isLevelElite = random.nextBoolean();
-			wasLastElite = isLevelElite;
-			if (isLevelElite) {
-				hasLevelAtmosphere = false;
-			} else {
-				if(player.points > 100){
-					hasLevelAtmosphere = random.nextBoolean();
-				}else{
-					hasLevelAtmosphere = false;
-				}
+			int rand = random.nextInt(200);
+			if(rand < 30){
+				isLevelElite = true;
+				wasLastElite = isLevelElite;
+			}else if(rand > 30 && rand < 60 && player.points >= 0){
+				hasLevelAtmosphere = true;
+				hadLastAtmosphere = hasLevelAtmosphere;
+			}else if(rand > 60 && rand < 90 && player.points >= 0){
+				isRuins = true;
+				wasLastRuins = isRuins;
 			}
-			hadLastAtmosphere = hasLevelAtmosphere;
 		} else {
 			map = lastMap;
 			tileSet = lastTileSet;
@@ -96,12 +110,17 @@ public class LGenerator {
 		
 		lastMap = map;
 		String br = Gdx.files.internal("data\\" + map).readString();
-		if (!hasLevelAtmosphere) {
+		if (!hasLevelAtmosphere && !isRuins) {
 			br = br.replaceAll(DEFAULT_TILESET, tileSet + ".png");
 			lastTileSet = tileSet;
-		} else {
-			br = br.replaceAll(DEFAULT_TILESET, LAB_TILESET);
-			lastTileSet = LAB_TILESET;
+		} else if (hasLevelAtmosphere){
+			int tileSetNum = random.nextInt(LAB_TILESETS.length);
+			br = br.replaceAll(DEFAULT_TILESET, LAB_TILESETS[tileSetNum]);
+			lastTileSet = LAB_TILESETS[tileSetNum];
+		} else if (isRuins){
+			int tileSetNum = random.nextInt(RUINS_TILESETS.length);
+			br = br.replaceAll(DEFAULT_TILESET, RUINS_TILESETS[tileSetNum]);
+			lastTileSet = RUINS_TILESETS[tileSetNum];
 		}
 		Gdx.files.local("MapTemp.tmx").writeString(br, false);
 		
@@ -135,11 +154,11 @@ public class LGenerator {
 			if (p != null)
 				propsSpawnGenerator.spawnProp(player, p);
 		}
-//		if(/*level level something somehting*/){
+		if(isRuins){
 			for (int i = 0; i < 3; i++) {
 				L1.pTurrets.add(propsSpawnGenerator.spawnTurret(player));
 			}
-//		}
+		}
 		if(TheController.skill != null && !TheController.paused){
 			TheController.coolDownCounter = 0;
 			TheController.coolDownAngle = 0;

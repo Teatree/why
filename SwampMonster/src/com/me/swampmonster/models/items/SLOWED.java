@@ -55,13 +55,14 @@ public class SLOWED extends Item{
 		this.state=State.DEAD;
 		player.setNegativeEffect(NegativeEffects.FROZEN);
 		System.out.println("I am Haste, biatch");
+		name = constatName;
 	}
 
 	@Override
 	public void parametersForThrowing(Player player) {
 		this.state = State.DEAD;
 		player.arrowEffectCarrier = EffectCarriers.FROST_EXPLOSIVE;
-		
+		name = constatName;
 	}
 
 }

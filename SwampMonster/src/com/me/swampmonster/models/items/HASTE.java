@@ -58,13 +58,14 @@ public class HASTE extends Item{
 		player.positiveEffectCounter = lifeTime;
 		System.out.println("I am Haste, biatch");
 		this.state=State.DEAD;
+		name = constatName;
 	}
 
 	@Override
 	public void parametersForThrowing(Player player) {
 		this.state = State.DEAD;
 		player.arrowEffectCarrier = EffectCarriers.HASTE;
-		
+		name = constatName;
 	}
 	
 	

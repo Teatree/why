@@ -64,13 +64,14 @@ public class FADE extends Item {
 		player.positiveEffectCounter = lifeTime;
 		// System.out.println("Hi! I am RADIOACTIVE aura, circle radius: ");
 		this.state = State.DEAD;
-
+		name = constatName;
 	}
 
 	@Override
 	public void parametersForThrowing(Player player) {
 		player.arrowEffectCarrier = EffectCarriers.FADE;
 		this.state = State.DEAD;
+		name = constatName;
 	}
 
 	// @Override
