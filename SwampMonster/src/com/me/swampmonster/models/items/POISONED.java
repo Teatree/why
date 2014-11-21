@@ -15,6 +15,7 @@ import com.me.swampmonster.utils.Constants;
 public class POISONED extends Item{
 
 	public static AssetDescriptor<Texture> poisonSprite;
+	public static String name = "unidentified";
 	
 	public POISONED() {
 		super();

@@ -114,22 +114,26 @@ public class Spear extends Weapon{
 		if(playerScore>=0 && playerScore<500){
 			randBetVal = random.nextInt(16-10)+10;
 			minDD = randBetVal-random.nextInt(3);
-			maxDD = randBetVal+random.nextInt(3)+1;
+//			maxDD = randBetVal+random.nextInt(3)+1;
+			maxDD = minDD + random.nextInt(3)+1;
 		}
 		else if(playerScore>=500 && playerScore<1500){
 			randBetVal = random.nextInt(19-13)+13;
 			minDD = randBetVal-random.nextInt(3);
-			maxDD = randBetVal+random.nextInt(3)+1;
+//			maxDD = randBetVal+random.nextInt(3)+1;
+			maxDD = minDD + random.nextInt(3)+1;
 		}
 		else if(playerScore>=1500 && playerScore<3000){
 			randBetVal = random.nextInt(22-16)+16;
 			minDD = randBetVal-random.nextInt(3);
-			maxDD = randBetVal+random.nextInt(3)+1;
+//			maxDD = randBetVal+random.nextInt(3)+1;
+			maxDD = minDD + random.nextInt(3)+1;
 		}
 		else if(playerScore>=3000){
 			randBetVal = random.nextInt(25-19)+19;
 			minDD = randBetVal-random.nextInt(3);
-			maxDD = randBetVal+random.nextInt(3)+1;
+//			maxDD = randBetVal+random.nextInt(3)+1;
+			maxDD = minDD + random.nextInt(3)+1;
 		}
 	}
 	

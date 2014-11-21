@@ -15,6 +15,7 @@ public class ICE_THING extends Item{
 
 	public static int negativeEffectLifeTime;
 	public static AssetDescriptor<Texture> poisonSprite;
+	public static String name = "unidentified";
 	
 	public ICE_THING() {
 		super();

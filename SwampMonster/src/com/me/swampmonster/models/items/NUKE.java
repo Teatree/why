@@ -19,6 +19,7 @@ public class NUKE extends Item{
 	Explosion explosion;
 	private int level;
 	public static AssetDescriptor<Texture> poisonSprite;
+	public static String name = "unidentified";
 	
 	public NUKE() {
 		super();

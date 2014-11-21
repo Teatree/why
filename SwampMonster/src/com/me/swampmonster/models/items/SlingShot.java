@@ -119,25 +119,29 @@ public class SlingShot extends Weapon{
 		if(playerScore>=0 && playerScore<500){
 			randBetVal = random.nextInt(12-7)+7;
 			minDD = randBetVal-random.nextInt(4);
-			maxDD = randBetVal+random.nextInt(4)+1;
+//			maxDD = randBetVal+random.nextInt(4)+1;
+			maxDD = minDD + random.nextInt(4)+1;
 			coolDown = random.nextInt(70-30)+30;
 		}
 		else if(playerScore>=500 && playerScore<1500){
 			randBetVal = random.nextInt(16-10)+10;
 			minDD = randBetVal-random.nextInt(4);
-			maxDD = randBetVal+random.nextInt(4)+1;
+//			maxDD = randBetVal+random.nextInt(4)+1;
+			maxDD = minDD + random.nextInt(4)+1;
 			coolDown = random.nextInt(70-20)+20;
 		}
 		else if(playerScore>=1500 && playerScore<3000){
 			randBetVal = random.nextInt(20-13)+13;
 			minDD = randBetVal-random.nextInt(4);
-			maxDD = randBetVal+random.nextInt(4)+1;
+//			maxDD = randBetVal+random.nextInt(4)+1;
+			maxDD = minDD + random.nextInt(4)+1;
 			coolDown = random.nextInt(60-20)+20;
 		}
 		else if(playerScore>=3000){
 			randBetVal = random.nextInt(24-16)+16;
 			minDD = randBetVal-random.nextInt(4);
-			maxDD = randBetVal+random.nextInt(4)+1;
+//			maxDD = randBetVal+random.nextInt(4)+1;
+			maxDD = minDD + random.nextInt(4)+1;
 			coolDown = random.nextInt(50-15)+15;
 		}
 	}

@@ -287,15 +287,15 @@ public class GShape extends Group {
 		
 		try {
 			if (weaponizer != null && TheController.skill != null) {
-				Sprite s = new Sprite(
-						SlotMachineTextures.slotLevelPic
-								.get(TheController.skill.getClass()
-										.getField("level").getInt(null) - 1));
-				s.setPosition(
-						weaponizer.position.x - 35,
-						weaponizer.position.y - 35);
-				s.setSize(27, 27);
-				s.draw(batch);
+//				Sprite s = new Sprite(
+//						SlotMachineTextures.slotLevelPic
+//								.get(TheController.skill.getClass()
+//										.getField("level").getInt(null) - 1));
+//				s.setPosition(
+//						weaponizer.position.x - 35,
+//						weaponizer.position.y - 35);
+//				s.setSize(27, 27);
+//				s.draw(batch);
 			}
 
 		} catch (Exception e) {

@@ -14,6 +14,7 @@ import com.me.swampmonster.utils.Assets;
 
 public class CHAIN_ARROWS extends Item{
 	public static AssetDescriptor<Texture> poisonSprite;
+	public static String name = "unidentified";
 	
 	public CHAIN_ARROWS() {
 		super();

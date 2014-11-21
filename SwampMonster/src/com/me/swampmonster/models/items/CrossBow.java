@@ -135,25 +135,29 @@ public class CrossBow extends Weapon{
 		if(playerScore>=0 && playerScore<500){
 			randBetVal = random.nextInt(30-18)+18;
 			minDD = randBetVal-random.nextInt(4);
-			maxDD = randBetVal+random.nextInt(4)+1;
+//			maxDD = randBetVal+random.nextInt(4)+1;
+			maxDD = minDD + random.nextInt(4)+1;
 			coolDown = random.nextInt(250-220)+220;
 		}
 		else if(playerScore>=500 && playerScore<1500){
 			randBetVal = random.nextInt(34-21)+21;
 			minDD = randBetVal-random.nextInt(4);
-			maxDD = randBetVal+random.nextInt(4)+1;
+//			maxDD = randBetVal+random.nextInt(4)+1;
+			maxDD = minDD + random.nextInt(4)+1;
 			coolDown = random.nextInt(260-210)+210;
 		}
 		else if(playerScore>=1500 && playerScore<3000){
 			randBetVal = random.nextInt(38-24)+24;
 			minDD = randBetVal-random.nextInt(4);
-			maxDD = randBetVal+random.nextInt(4)+1;
+//			maxDD = randBetVal+random.nextInt(4)+1;
+			maxDD = minDD + random.nextInt(4)+1;
 			coolDown = random.nextInt(260-190)+190;
 		}
 		else if(playerScore>=3000){
 			randBetVal = random.nextInt(41-29)+29;
 			minDD = randBetVal-random.nextInt(4);
-			maxDD = randBetVal+random.nextInt(4)+1;
+//			maxDD = randBetVal+random.nextInt(4)+1;
+			maxDD = minDD + random.nextInt(4)+1;
 			coolDown = random.nextInt(260-170)+170;
 		}
 	}

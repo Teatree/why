@@ -117,7 +117,7 @@ public class Player extends AbstractGameObject {
 		maxHealth = DEFAULT_MAX_HEALTH;
 		arrowMovementSpeed = DEFAULT_ARROW_MOVEMENT_SPEED;
 		
-		System.out.println("plaeyr");
+//		System.out.println("plaeyr");
 		levelsScore = absoluteScore;
 		state = State.STANDARD;
 		positiveEffectsState = PositiveEffects.NONE;

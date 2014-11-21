@@ -19,6 +19,7 @@ public class RADIOACTIVE extends Item{
 	public static float RADIOACTIVE_Damage;
 	public static float RADIOACTIVE_Radius;
 	public static AssetDescriptor<Texture> poisonSprite;
+	public static String name = "unidentified";
 	
 	public RADIOACTIVE() {
 		super();

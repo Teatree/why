@@ -150,12 +150,27 @@ public class MisterSpawner {
 		}
 //		System.out.println("maxPosX = " + maxPosX + " minPosX = " + minPosX);
 //		System.out.println("maxPosY = " + maxPosY + " minPosY = " + minPosY);
-		vector2.x = random.nextInt(maxPosX - minPosX) + minPosX;
-		vector2.y = random.nextInt(maxPosY - minPosY) + minPosY;
-		while (vector2.x < 1f || vector2.y < 1f) {
+		if (maxPosX > minPosX){
 			vector2.x = random.nextInt(maxPosX - minPosX) + minPosX;
-			vector2.y = random.nextInt(maxPosY - minPosY) + minPosY;
+		} else if (maxPosX > minPosX){
+			System.out.println(" wrong x" + maxPosX + " " + minPosX);
+			vector2.x = random.nextInt(minPosX - maxPosX) + maxPosX;
+		} else {
+			vector2.x = MIN_SPAWN_POS;
 		}
+		
+		if (maxPosY > minPosY){
+			vector2.y = random.nextInt(maxPosY - minPosY) + minPosY;
+		} else if (minPosY > maxPosY) {
+			System.out.println(" wrong y" + maxPosY + " " + minPosY);
+			vector2.y = random.nextInt(minPosY - maxPosY) + maxPosY;
+		} else {
+			vector2.y = MIN_SPAWN_POS;
+		}
+//		while (vector2.x < 1f || vector2.y < 1f) {
+//			vector2.x = random.nextInt(maxPosX - minPosX) + minPosX;
+//			vector2.y = random.nextInt(maxPosY - minPosY) + minPosY;
+//		}
 		return vector2;
 	}
 

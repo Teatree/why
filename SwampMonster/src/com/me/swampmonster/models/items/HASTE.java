@@ -16,6 +16,7 @@ import com.me.swampmonster.utils.Constants;
 public class HASTE extends Item{
 
 	public static AssetDescriptor<Texture> poisonSprite;
+	public static String name = "unidentified";
 	
 	public HASTE() {
 		super();
