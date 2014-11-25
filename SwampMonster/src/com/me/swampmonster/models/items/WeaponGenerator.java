@@ -85,8 +85,8 @@ public class WeaponGenerator {
 			int modNumber = random.nextInt(mods.size());
 			Modificator mod1 = null;
 			try {
-				mod1 = mods.get(modNumber).getConstructor().newInstance();
-//				mod1 = new ShootThoughColli/sionMod();
+//				mod1 = mods.get(modNumber).getConstructor().newInstance();
+				mod1 = new ExtraDamageMod();
 			} catch (Exception e) {
 				e.printStackTrace();
 			} 

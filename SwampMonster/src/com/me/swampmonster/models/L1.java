@@ -501,9 +501,10 @@ public class L1 {
 								e.setNegativeEffect(NegativeEffects.WEAKENED);
 							}
 							if (p.effect == EffectCarriers.EXTRADAMAGE) {
+								System.out.println("yes I am extra_damage!");
 								e.damageType = "player";
 								e.hurt = true;
-								e.enemyHurt(2*random.nextInt((int) (player.weapon.maxDD-player.weapon.minDD))+player.weapon.minDD);
+								e.enemyHurt(2*(random.nextInt((int) (player.weapon.maxDD-player.weapon.minDD))+player.weapon.minDD));
 							}
 							if (p.effect == EffectCarriers.HEAL_ENEMY) {
 								e.heal = true;

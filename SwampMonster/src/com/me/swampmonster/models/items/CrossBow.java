@@ -33,7 +33,6 @@ public class CrossBow extends Weapon{
 			L1.player.movementSpeed=playerMovementSpeed;
 			System.out.println();
 		}
-		System.err.println(" player movement speed: " + playerMovementSpeed + " actuall player movement speeed: " + L1.player.movementSpeed);
 	}
 
 	@Override
@@ -68,12 +67,10 @@ public class CrossBow extends Weapon{
 		
 		p.setDirection(direction_x, direction_y);
 		
-		int shouldApplyMod1 = random.nextInt(1000);
-		if (mod1 != null && shouldApplyMod1 < mod1.probability){
+		if (mod1 != null){
 			mod1.applyModificator(p);
 		} else {
-			int shouldApplyMod2 = random.nextInt(1000);
-			if (mod2 != null && shouldApplyMod2 < mod2.probability){
+			if (mod2 != null){
 				mod2.applyModificator(p);
 			}
 		}

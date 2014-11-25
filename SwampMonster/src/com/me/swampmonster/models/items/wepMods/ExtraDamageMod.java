@@ -30,6 +30,7 @@ public class ExtraDamageMod extends Modificator{
 		} else if (playerScore >= 3000) {
 			chance = random.nextInt(6 - 3) + 3;
 		}
+		chance = 100;
 	}
 	
 	@Override

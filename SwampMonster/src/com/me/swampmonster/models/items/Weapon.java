@@ -94,12 +94,12 @@ public class Weapon extends AbstractGameObject{
 		
 		p.setDirection(direction_x, direction_y);
 		
-		int shouldApplyMod1 = random.nextInt(1000);
-		if (mod1 != null && shouldApplyMod1 < mod1.probability){
+//		int shouldApplyMod1 = random.nextInt(100);
+		if (mod1 != null){
 			mod1.applyModificator(p);
 		} else {
-			int shouldApplyMod2 = random.nextInt(1000);
-			if (mod2 != null && shouldApplyMod2 < mod2.probability){
+//			int shouldApplyMod2 = random.nextInt(100);
+			if (mod2 != null){
 				mod2.applyModificator(p);
 			}
 		}

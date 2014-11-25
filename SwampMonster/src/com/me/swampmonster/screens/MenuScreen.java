@@ -28,6 +28,7 @@ import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.me.swampmonster.utils.Assets;
 import com.me.swampmonster.utils.Constants;
+import com.me.swampmonster.utils.SaveManager;
 import com.me.swampmonster.utils.ScreenContainer;
 
 public class MenuScreen extends AbstractGameScreen{
@@ -143,6 +144,7 @@ public class MenuScreen extends AbstractGameScreen{
 		exitButton.addListener(new ClickListener(){
 			@Override
 			public void clicked (InputEvent event, float x, float y){
+				SaveManager.savePlayer();
 				Gdx.app.exit();
 			}
 		});
