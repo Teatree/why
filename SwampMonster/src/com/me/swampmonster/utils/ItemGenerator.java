@@ -236,12 +236,12 @@ public class ItemGenerator {
 	public Item generateItem(int playersScore) {
 		int probability = random.nextInt(100);
 		if (probability < 40) {
-			 return getPlainItem(playersScore);
-//			 return generateSpecialItem(playersScore);
+//			 return getPlainItem(playersScore);
+			 return generateSpecialItem(playersScore);
 //			return getWeaponItem(playersScore);
 		} else if (probability >= 40 && probability <= 80) {
-//			 return generateSpecialItem(playersScore);
-			return getWeaponItem(playersScore);
+			 return generateSpecialItem(playersScore);
+//			return getWeaponItem(playersScore);
 		} else {
 //			return getWeaponItem(playersScore);
 			return generateSpecialItem(playersScore);

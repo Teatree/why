@@ -13,15 +13,14 @@ public class WeaponItem extends Item {
 
 	public Weapon weapon;
 	Random random;
+	public String name = "unidentified";
 
 	public WeaponItem() {
-
 
 //		sprite = new Sprite(animationsStandard.get(state).getCurrentFrame());
 
 		circle.radius = 16;
-
-		name = "";
+		
 	}
 
 	@Override

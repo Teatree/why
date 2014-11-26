@@ -291,14 +291,23 @@ public class L1 {
 						&& item.pickUpButton == null 
 						&& item.throwButton == null && !(item instanceof Oxygen)
 								&& !(item instanceof HealthKit)) {
-					item.itemName = new Label(item.name, GShape.skin, "title");
+					item.itemName = new Label("", GShape.skin, "title");
 					item.itemName.setX(260);
-					item.itemName.setY(yPositionsForButton.get(i));
+					item.itemName.setY(yPositionsForButton.get(i)+15);
 					item.pickUpButton = new ImageButton(GShape.skin, "use");
 					item.pickUpButton.setSize(80, 80);
 					item.pickUpButton.setX(380);
 					item.pickUpButton.setY(yPositionsForButton.get(i));
+					if((item instanceof WeaponItem)){
+						item.itemName.setText(((WeaponItem) item).weapon.name);
+					}
 					if(!(item instanceof WeaponItem)){
+						try {
+							item.itemName.setText((String)(item.getClass().getField("name").get(null)));
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 						item.throwButton = new ImageButton(GShape.skin, "throw");
 						item.throwButton.setSize(80, 80);
 						item.throwButton.setX(470);
